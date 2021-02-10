@@ -4,6 +4,7 @@ import 'package:rec/brand.dart';
 import 'package:rec/routes.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   var token = await AuthProvider.getToken();
   runApp(MyApp(token));
 }
