@@ -27,7 +27,8 @@ This is an abstract class from which we will create ApiAdapters for diferent cha
 
 ### Usage Examples
 
-####ApiClient
+
+#### ApiClient
 ```dart
 ApiClient client = ApiClient(adapters: [
     HttpAdapter(),
