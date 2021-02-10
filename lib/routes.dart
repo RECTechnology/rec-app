@@ -13,4 +13,8 @@ final Map<String, Widget Function(BuildContext)> ROUTES = {
 class InitialRoutes {
   static String loggedIn = '/login';
   static String notLoggedIn = '/home';
+
+  static String getInitialRoute({bool hasToken = false}) {
+    return hasToken ? InitialRoutes.loggedIn : InitialRoutes.notLoggedIn;
+  }
 }
