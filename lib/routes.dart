@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 
 import 'Pages/Private/Home/Home.page.dart';
 import 'Pages/Public/Login.page.dart';
-import 'Widgets/PrivateRoute.dart';
+import 'Components/PrivateRoute.dart';
 
 // ignore: non_constant_identifier_names
 final Map<String, Widget Function(BuildContext)> ROUTES = {
