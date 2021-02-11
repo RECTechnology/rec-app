@@ -1,6 +1,5 @@
 import 'package:rec/Base/Entity.base.dart';
 import 'package:rec/Entities/Account.ent.dart';
-
 import 'Wallet.ent.dart';
 
 class User extends Entity {

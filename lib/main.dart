@@ -5,8 +5,11 @@ import 'package:rec/brand.dart';
 import 'package:rec/routes.dart';
 
 import 'Providers/AppState.dart';
+import 'Environments/env.dart';
 
 void main() async {
+  env.SENTRY_ACTIVE;
+
   WidgetsFlutterBinding.ensureInitialized();
 
   // Get the token from storage
