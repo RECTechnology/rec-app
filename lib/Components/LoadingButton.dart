@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:rec/Animations/SpinKit.dart';
 import 'package:rec/Components/ButtonRec.dart';
 
+//soy incapaz de meter la animacion dentro de el boton
+
+
 class LoadingButton extends StatefulWidget {
   final String text;
   final Function() onPressed;
@@ -50,6 +53,8 @@ class LoadingButtonState extends State<LoadingButton> {
 
           )  ,
          buttonRec
+
+
          // buttonRec,
 
 
@@ -61,3 +66,7 @@ class LoadingButtonState extends State<LoadingButton> {
   }
 
 }
+
+/*class LoadingButton extends ButtonRec{
+
+}*/
