@@ -22,11 +22,8 @@ class ButtonRec extends StatefulWidget {
 class ButtonRecState extends State<ButtonRec> {
 
 
-
-
   @override
   Widget build(BuildContext context) {
-
     RaisedButton button = RaisedButton(
 
       child: Padding(
@@ -37,16 +34,10 @@ class ButtonRecState extends State<ButtonRec> {
             SizedBox(
               height: 25,
             ),
-            Container(
-              height: 40,
-              width: 40,
-              child: SpinKit(size: 50,),
-              color: Colors.black,
 
-            )  ,
             new Text(
-                widget.text,
-                textDirection:  TextDirection.ltr,)
+              widget.text,
+              textDirection: TextDirection.ltr,)
 
           ],
         ),
@@ -58,7 +49,6 @@ class ButtonRecState extends State<ButtonRec> {
       textColor: Colors.white,
       color: Colors.black,
     );
-
 
 
     return button;

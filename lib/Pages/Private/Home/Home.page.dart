@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:rec/Animations/SpinKit.dart';
 import 'package:rec/Base/Page.base.dart';
 import 'package:rec/Components/CircleAvatar.dart';
+import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/ItemColumn.dart';
 import 'package:rec/Components/ItemRow.dart';
 import 'package:rec/Components/ButtonRec.dart';
@@ -26,7 +27,7 @@ class _HomePageState extends PageBaseState<HomePage> {
       appBar: AppBar(
         title:  Text(AppLocalizations.of(context).translate("BOLSA")),
       ),
-      body:LoadingButton(text: "Hellou",onPressed: logingTester,isLoading: true,)//SpinKit(size: 50,)// ButtonRec(text: "Loading",onPressed: logingTester,)//LoadingButton(text: "Hellou",onPressed: logingTester,isLoading: true,)//SpinKit(size: 50,)//CircleAvatarRec(imageUrl: "https://picsum.photos/250?image=9",)//LoginButton(text: "Login",onPressed: logingTester,isLoading: false,),CircleAvatarRec(imageUrl: "https://picsum.photos/250?image=9",)
+      body:IconButtonRec(button: ButtonRec(text: "Hellou",onPressed: logingTester,),icon: Icon(Icons.translate),)//LoadingButton(text: "Hellou",onPressed: logingTester,isLoading: true,)//SpinKit(size: 50,)// ButtonRec(text: "Loading",onPressed: logingTester,)//LoadingButton(text: "Hellou",onPressed: logingTester,isLoading: true,)//SpinKit(size: 50,)//CircleAvatarRec(imageUrl: "https://picsum.photos/250?image=9",)//LoginButton(text: "Login",onPressed: logingTester,isLoading: false,),CircleAvatarRec(imageUrl: "https://picsum.photos/250?image=9",)
 
     );
 
