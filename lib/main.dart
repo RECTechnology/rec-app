@@ -6,11 +6,8 @@ import 'package:rec/brand.dart';
 import 'package:rec/routes.dart';
 import 'Lang/AppLocalizations.dart';
 import 'Providers/AppState.dart';
-import 'Environments/env.dart';
 
 void main() async {
-  env.SENTRY_ACTIVE;
-
   WidgetsFlutterBinding.ensureInitialized();
 
   // Get the token from storage
@@ -49,18 +46,16 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: appName,
       theme: _createTheme(),
-
       supportedLocales: [
-        Locale('en','UK'),
-        Locale('ca','CA'),
-        Locale('es','ES')
+        Locale('en', 'UK'),
+        Locale('ca', 'CA'),
+        Locale('es', 'ES')
       ],
-
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
-      ] ,
+      ],
       localeResolutionCallback: (locale, supportedLocales) {
         // Check if the current device locale is supported
         for (var supportedLocale in supportedLocales) {

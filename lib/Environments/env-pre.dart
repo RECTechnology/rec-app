@@ -11,3 +11,5 @@ class Env implements EnvBase {
   bool SENTRY_ACTIVE = true;
   int CAMPAIGN_ID = 1;
 }
+
+Env env = Env();

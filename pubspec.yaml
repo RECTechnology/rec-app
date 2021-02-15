@@ -31,7 +31,6 @@ dependencies:
   provider: ^4.3.3
   flutter_spinkit: "^4.1.2"
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
