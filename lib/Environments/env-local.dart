@@ -2,6 +2,7 @@
 
 import 'env.base.dart';
 
+// sdas
 class Env implements EnvBase {
   String CLIENT_ID = '1_23zebs1ciqsk088s4wckckgwkcogo8ws8os48osc40s0s8ss0k';
   String CLIENT_SECRET = '2zspa4vc6ask0wk0kcso0sowg0w088k00k00gkcs8ggs0g400g';
@@ -11,3 +12,5 @@ class Env implements EnvBase {
   bool SENTRY_ACTIVE = true;
   int CAMPAIGN_ID = 1;
 }
+
+Env env = Env();
