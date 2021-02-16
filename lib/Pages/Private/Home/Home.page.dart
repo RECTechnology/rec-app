@@ -20,19 +20,16 @@ class _HomePageState extends PageBaseState<HomePage> {
   Widget buildPageContent(BuildContext context, AppState appState) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).translate("BOLSA")),
+        title:  Text(AppLocalizations.of(context).translate("BOLSA")),
       ),
-      body: IconButtonRec(
-        button: ButtonRec(
-          text: "Hellou",
-          onPressed: logingTester,
-        ),
-        icon: Icon(Icons.translate),
-      ), //LoadingButton(text: "Hellou",onPressed: logingTester,isLoading: true,)//SpinKit(size: 50,)// ButtonRec(text: "Loading",onPressed: logingTester,)//LoadingButton(text: "Hellou",onPressed: logingTester,isLoading: true,)//SpinKit(size: 50,)//CircleAvatarRec(imageUrl: "https://picsum.photos/250?image=9",)//LoginButton(text: "Login",onPressed: logingTester,isLoading: false,),CircleAvatarRec(imageUrl: "https://picsum.photos/250?image=9",)
+      body:IconButtonRec(button: ButtonRec(text:Text("Hellou"),onPressed: logingTester,),icon: Icon(Icons.translate),)//LoadingButton(text: "Hellou",onPressed: logingTester,isLoading: true,)//SpinKit(size: 50,)// ButtonRec(text: "Loading",onPressed: logingTester,)//LoadingButton(text: "Hellou",onPressed: logingTester,isLoading: true,)//SpinKit(size: 50,)//CircleAvatarRec(imageUrl: "https://picsum.photos/250?image=9",)//LoginButton(text: "Login",onPressed: logingTester,isLoading: false,),CircleAvatarRec(imageUrl: "https://picsum.photos/250?image=9",)
+
     );
+
   }
 
-  void logingTester() {
+  void logingTester(){
     print("Loging...");
   }
 }
+

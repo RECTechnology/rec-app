@@ -36,6 +36,9 @@ class _MyAppState extends State<MyApp> {
     return baseTheme.copyWith(
       primaryColor: primaryColor,
       accentColor: accentColor,
+      brightness: brightness,
+
+
     );
   }
 

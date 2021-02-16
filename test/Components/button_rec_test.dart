@@ -15,7 +15,7 @@ void main(){
   testWidgets("LoginButon test", (WidgetTester tester) async{
 
 
-    var button = ButtonRec(text: "Login",onPressed: functionForTesting);
+    var button = ButtonRec(text:Text("Login"),onPressed: functionForTesting);
 
     await tester.pumpWidget(MaterialApp(home: button));
 

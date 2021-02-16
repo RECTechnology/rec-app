@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:rec/Animations/SpinKit.dart';
 import 'package:rec/Components/ButtonRec.dart';
+import 'package:flutter/material.dart';
 
 //soy incapaz de meter la animacion dentro de el boton
 
@@ -30,12 +30,12 @@ class LoadingButtonState extends State<LoadingButton> {
   @override
   Widget build(BuildContext context) {
 
-    ButtonRec buttonRec = ButtonRec(onPressed: widget.onPressed,text: widget.text,);
+    ButtonRec buttonRec = ButtonRec(onPressed: widget.onPressed,text: Text("Login"),);
 
     var containerNotLoading = Container(
       child: Row(
         children: [
-          ButtonRec(onPressed: widget.onPressed,text: widget.text,)
+          ButtonRec(onPressed: widget.onPressed,text: Text("Login"),)
         ],
       ),
     );

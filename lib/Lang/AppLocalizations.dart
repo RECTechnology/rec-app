@@ -44,15 +44,11 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations>{
     AppLocalizations localizations = new AppLocalizations(locale);
     await localizations.load();
     return localizations;
-    
-  
-    
   }
 
   @override
   bool isSupported(Locale locale) {
-    // TODO: implement isSupported
-    return['en','sk'].contains(locale.languageCode);
+    return['en','es','ca'].contains(locale.languageCode);
   }
 
   @override

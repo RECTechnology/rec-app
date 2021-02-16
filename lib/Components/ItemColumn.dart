@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ItemColumn extends StatefulWidget{
@@ -18,6 +17,7 @@ class _ItemColumnState extends State<ItemColumn>{
   @override
   Widget build(BuildContext context) {
     Container itemColumn = Container(
+      
       alignment: widget.aligment,
       child: Column(
         children: <Widget>[
