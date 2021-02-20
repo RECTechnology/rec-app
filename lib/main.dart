@@ -4,10 +4,11 @@ import 'package:provider/provider.dart';
 import 'package:rec/Api/Providers/AuthProvider.dart';
 import 'package:rec/brand.dart';
 import 'package:rec/routes.dart';
+import 'Environments/env-local.dart';
 import 'Lang/AppLocalizations.dart';
 import 'Providers/AppState.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Get the token from storage
@@ -19,11 +20,19 @@ void main() async {
     child: MyApp(token),
   );
 
-  runApp(appStateProvider);
+  if (env.SENTRY_ACTIVE) {
+    await SentryFlutter.init(
+      (options) => options.dsn = env.SENTRY_DSN,
+      appRunner: () => runApp(MyApp(token)),
+    );
+  } else {
+    runApp(appStateProvider);
+  }
 }
 
 class MyApp extends StatefulWidget {
   final String token;
+
   MyApp(this.token);
 
   @override
@@ -37,8 +46,6 @@ class _MyAppState extends State<MyApp> {
       primaryColor: primaryColor,
       accentColor: accentColor,
       brightness: brightness,
-
-
     );
   }
 

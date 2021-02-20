@@ -30,6 +30,7 @@ dependencies:
   http: ^0.12.0+4
   provider: ^4.3.3
   flutter_spinkit: "^4.1.2"
+  flutter_sentry: ^0.7.0
 
 dev_dependencies:
   flutter_test:
