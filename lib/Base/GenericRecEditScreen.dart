@@ -5,6 +5,8 @@ import 'package:rec/Providers/AppState.dart';
 
 abstract class GenericRecEditScreen<T extends StatefulWidget>
     extends GenericRecBaseScreenState<T> {
+  final formKey = GlobalKey<FormState>();
+
   GenericRecEditScreen({
     String title,
     bool hasAppBar,
