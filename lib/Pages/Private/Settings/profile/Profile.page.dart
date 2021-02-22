@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:rec/Base/GenericRecEditScreen.dart';
+import 'package:rec/Base/screens/GenericRecEditScreen.dart';
 import 'package:rec/Components/Forms/profile.form.dart';
 import 'package:rec/Providers/AppState.dart';
 

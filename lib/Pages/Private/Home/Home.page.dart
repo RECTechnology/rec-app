@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:rec/Base/GenericRecViewScreen.dart';
+import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/ButtonRec.dart';
 import 'package:rec/Providers/AppState.dart';
