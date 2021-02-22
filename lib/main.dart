@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:rec/Api/Providers/AuthProvider.dart';
 import 'package:rec/brand.dart';
 import 'package:rec/routes.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'Environments/env-local.dart';
 import 'Lang/AppLocalizations.dart';
 import 'Providers/AppState.dart';

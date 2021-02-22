@@ -9,7 +9,7 @@ abstract class PageBaseState<T extends StatefulWidget> extends State<T> {
   String title;
   Widget buildPageContent(BuildContext context, AppState state);
 
-  PageBaseState({this.title});
+  PageBaseState({@required this.title});
 
   @override
   Widget build(BuildContext context) {
