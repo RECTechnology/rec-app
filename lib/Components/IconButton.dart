@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:rec/Animations/SpinKit.dart';
 import 'package:rec/Components/ButtonRec.dart';
-
 
 class IconButtonRec extends StatefulWidget {
   final Icon icon;
@@ -21,11 +17,11 @@ class IconButtonRec extends StatefulWidget {
 }
 
 class IconButtonRecState extends State<IconButtonRec> {
-
   @override
   Widget build(BuildContext context) {
-
-    return IconButton(icon: widget.icon,onPressed: widget.button.onPressed,);
+    return IconButton(
+      icon: widget.icon,
+      onPressed: widget.button.onPressed,
+    );
   }
-
 }

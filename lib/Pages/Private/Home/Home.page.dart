@@ -24,7 +24,7 @@ class _HomePageState extends GenericRecViewScreen<HomePage> {
   Widget buildPageContent(BuildContext context, AppState appState) {
     return IconButtonRec(
       button: ButtonRec(
-        text: Text("Hellou"),
+        text: Text("Hellou", style: TextStyle(color: Colors.black)),
         onPressed: logingTester,
       ),
       icon: Icon(Icons.translate),
