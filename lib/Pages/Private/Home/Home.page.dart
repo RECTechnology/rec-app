@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/ButtonRec.dart';
+import 'package:rec/Modals/PinModal.dart';
 import 'package:rec/Providers/AppState.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,16 +23,18 @@ class _HomePageState extends GenericRecViewScreen<HomePage> {
 
   @override
   Widget buildPageContent(BuildContext context, AppState appState) {
+    var errorModal = PinModal(title:Text("Error 404"),content: Text("Page not found!"),context: context);
     return IconButtonRec(
       button: ButtonRec(
         text: Text("Hellou", style: TextStyle(color: Colors.black)),
-        onPressed: logingTester,
+        onPressed: errorModal.showDialog,
       ),
       icon: Icon(Icons.translate),
     );
   }
+    void logingTester() {
+      print("Loging...");
+    }
 
-  void logingTester() {
-    print("Loging...");
-  }
+
 }
