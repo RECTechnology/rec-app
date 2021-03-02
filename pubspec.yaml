@@ -31,6 +31,10 @@ dependencies:
   provider: ^4.3.3
   flutter_spinkit: "^4.1.2"
   sentry_flutter: ^4.0.4
+  pinput: ^0.2.0
+  pin_code_fields:
+
+
 
 dev_dependencies:
   flutter_test:
