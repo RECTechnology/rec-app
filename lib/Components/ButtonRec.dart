@@ -63,7 +63,7 @@ class ButtonRecState extends State<ButtonRec> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            widget.widget,
+
             SizedBox(
               height: 25,
             ),
@@ -82,6 +82,6 @@ class ButtonRecState extends State<ButtonRec> {
     );
 
 
-    return areWidget?buttonWhitWidget:button;
+    return button;
   }
 }

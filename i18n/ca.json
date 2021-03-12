@@ -1,3 +1,12 @@
 {
-  "BOLSA": "HOLA"
+  "HELLOU": "Hola",
+  "DONT_HAVE_ACCOUNT": "Si no tienes cuenta en Rec Barcelona",
+  "REGISTER": "Registrarse",
+  "HAVE_ACCOUNT": "si ya tienes cuenta, entra!",
+  "DNI": "DNI",
+  "WRITE_DOCUMENT":"Escriba su DNI/NIF/Passaporte",
+  "PASSWORD": "CONTRASEÑA",
+  "WRITE_PASSWORD": "Escribe tu contraseña",
+  "FORGOT_PASSWORD": "¿Has olvidado tu contraseña?",
+  "LOGIN": "Iniciar sesiòn"
 }
