@@ -6,7 +6,7 @@ import 'Components/PrivateRoute.dart';
 
 // ignore: non_constant_identifier_names
 final Map<String, Widget Function(BuildContext)> ROUTES = {
-  '/login': (context) => LoginPage(false),
+  '/login': (context) => LoginPage(true),
   '/home': (context) => PrivateRoute(HomePage()),
 };
 
