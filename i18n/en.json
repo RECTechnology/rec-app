@@ -8,5 +8,6 @@
   "PASSWORD": "CONTRASEÑA",
   "WRITE_PASSWORD": "Escribe tu contraseña",
   "FORGOT_PASSWORD": "¿Has olvidado tu contraseña?",
-  "LOGIN": "Iniciar sesiòn"
+  "LOGIN": "Iniciar sesiòn",
+  "DONT_HAVE_ACCOUNT_2": "Si aún no tienes cuenta, pulsa el boton de REGISTRARSE"
 }

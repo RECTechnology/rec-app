@@ -57,11 +57,15 @@ class _LoginPageState extends State<LoginPage>
               ),
             ),
             const SizedBox(height: 20),
-            ButtonRec(
-                textColor: Colors.white,
-                backgroundColor: Colors.black,
-                onPressed: singIn,
-                text: Text(AppLocalizations.of(context).translate('REGISTER'))),
+            Container(
+              margin: EdgeInsets.fromLTRB(70, 0, 70, 0), //Left,Top,Right,Bottom
+              child: ButtonRec(
+                  textColor: Colors.white,
+                  backgroundColor: Colors.black,
+                  onPressed: singIn,
+                  text: Text(AppLocalizations.of(context).translate('REGISTER'))),
+            ),
+
             Container(
               margin: EdgeInsets.fromLTRB(0, 15, 30, 0), //Left,Top,Right,Bottom
               child: Text(
@@ -69,17 +73,17 @@ class _LoginPageState extends State<LoginPage>
                 style: TextStyle(fontSize: 15, color: Colors.black54),
               ),
             ),
+
             RecTextField(
-                helperText: "Skeleeeeeer",
                 isNumeric: false,
                 keyboardType: TextInputType.text,
-                needObscureText: true,
+                needObscureText: false,
                 placeholder:
                     AppLocalizations.of(context).translate('WRITE_DOCUMENT'),
                 title: AppLocalizations.of(context).translate('DNI'),
                 isPassword: true),
             RecTextField(
-                helperText: "Skeleeeer",
+                helperText: AppLocalizations.of(context).translate('FORGOT_PASSWORD'),
                 isNumeric: false,
                 keyboardType: TextInputType.text,
                 needObscureText: true,
@@ -90,17 +94,21 @@ class _LoginPageState extends State<LoginPage>
             Container(
               margin: EdgeInsets.fromLTRB(0, 15, 0, 0), //Left,Top,Right,Bottom
               child: Text(
-                AppLocalizations.of(context).translate('FORGOT_PASSWORD'),
-                style: TextStyle(fontSize: 10, color: Colors.black54),
+                AppLocalizations.of(context).translate('DONT_HAVE_ACCOUNT_2'),
+                style: TextStyle(fontSize: 16, color: Colors.black),
               ),
             ),
             const SizedBox(height: 20),
-            ButtonRec(
-              textColor: Colors.white,
-              backgroundColor: Colors.black,
-              onPressed: singIn,
-              text: Text("LOGIN"),
-            )
+            Container(
+              margin: EdgeInsets.fromLTRB(15, 0, 15, 0), //Left,Top,Right,Bottom
+              child: ButtonRec(
+                textColor: Colors.white,
+                backgroundColor: Colors.black,
+                onPressed: singIn,
+                text: Text("LOGIN"),
+              )
+            ),
+
             //LoadingButton(text: "log in",onPressed: singIn,isLoading: false,),
           ],
         ),
