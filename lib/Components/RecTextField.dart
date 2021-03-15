@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-
 class RecTextField extends StatefulWidget {
   final String title;
   final String placeholder;
@@ -11,18 +10,14 @@ class RecTextField extends StatefulWidget {
   final bool needObscureText;
   final bool isPassword;
 
-  RecTextField( {
-    this.title,
-    this.keyboardType = TextInputType.text,
-    this.isNumeric = false,
-    this.needObscureText = false,
-    this.helperText,
-    this.placeholder,
-    this.isPassword
-
-  });
-
-
+  RecTextField(
+      {this.title,
+      this.keyboardType = TextInputType.text,
+      this.isNumeric = false,
+      this.needObscureText = false,
+      this.helperText,
+      this.placeholder,
+      this.isPassword});
 
   @override
   _InputField createState() => _InputField();
@@ -31,7 +26,7 @@ class RecTextField extends StatefulWidget {
 class _InputField extends State<RecTextField> {
   bool obscureText = true;
   bool hasError = false;
-  String error;
+  String error = "Contraseña incorrecta";
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +39,7 @@ class _InputField extends State<RecTextField> {
             children: <Widget>[
               Container(
                 child: Text(
-                  widget.title ,
+                  widget.title,
                   style: TextStyle(fontSize: 14, color: Colors.black),
                 ),
               )
@@ -56,17 +51,22 @@ class _InputField extends State<RecTextField> {
           child: TextFormField(
             decoration: InputDecoration(
               errorBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.red),
+                borderSide: hasError
+                    ? BorderSide(color: Colors.red)
+                    : BorderSide(color: Colors.black),
               ),
-              suffixIcon: widget.needObscureText? IconButton(
-                onPressed: () {
-                  setState(() {
-                    changeObscureText();
-                  });
-                },
-                icon: Icon(
-                    obscureText ? Icons.visibility_off : Icons.visibility),
-              ):null,
+              suffixIcon: widget.needObscureText
+                  ? IconButton(
+                      onPressed: () {
+                        setState(() {
+                          changeObscureText();
+                        });
+                      },
+                      icon: Icon(obscureText
+                          ? Icons.visibility_off
+                          : Icons.visibility),
+                    )
+                  : null,
               errorText: this.hasError ? this.error : null,
               hintText: widget.placeholder,
               helperText: widget.helperText,
@@ -80,16 +80,25 @@ class _InputField extends State<RecTextField> {
     );
   }
 
+  void tastePassword(String password) {
+    if (password == "qwerty") {
+      setState(() {
+        print("Es correcta la contraseña");
+        hasError = false;
+      });
+    } else {
+      setState(() {
+        hasError = true;
+      });
+    }
 
+    print(password);
+  }
 
-
-  changeObscureText() {
+  void changeObscureText() {
     this.obscureText = !this.obscureText;
     print("obscureText = " + obscureText.toString());
   }
 
-  void onChanged(String val) {
-
-  }
-
+  void onChanged(String val) {}
 }

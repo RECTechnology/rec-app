@@ -16,10 +16,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
   bool isLogState;
-  var dni = "";
+  var dni = "53791396P";
   var contra = "";
-  var obscureText = true;
-
+  var userName = "Vicmi";
   _LoginPageState(this.isLogState);
 
   @override
@@ -126,16 +125,16 @@ class _LoginPageState extends State<LoginPage>
               margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
               //Left,Top,Right,Bottom
               child: Text(
-                AppLocalizations.of(context).translate('HELLOU'),
+                AppLocalizations.of(context).translate('HELLOU')+" " +userName,
                 style: TextStyle(fontSize: 20, color: Colors.blue),
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(0, 15, 0, 20),
+              margin: EdgeInsets.fromLTRB(0, 5, 0, 20),
               //Left,Top,Right,Bottom
               child: Text(
-                AppLocalizations.of(context).translate('HELLOU'),
-                style: TextStyle(fontSize: 15, color: Colors.black54),
+                AppLocalizations.of(context).translate('INSERT_PASSWORD'),
+                style: TextStyle(fontSize: 10, color: Colors.black54),
               ),
             ),
             Container(
@@ -151,6 +150,8 @@ class _LoginPageState extends State<LoginPage>
                   children: <Widget>[
                     Container(
                       alignment: Alignment.center,
+                      margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+
                       child: Column(
                         children: <Widget>[
                           Container(
@@ -162,7 +163,7 @@ class _LoginPageState extends State<LoginPage>
                             margin: EdgeInsets.fromLTRB(10, 20, 0, 20),
                             //Left,Top,Right,Bottom
                             child: Text(
-                              AppLocalizations.of(context).translate('HELLOU'),
+                              AppLocalizations.of(context).translate('ARE_NOT_U'),
                               style:
                                   TextStyle(fontSize: 15, color: Colors.blue),
                             ),
@@ -170,24 +171,22 @@ class _LoginPageState extends State<LoginPage>
                         ],
                       ),
                     ),
-
                     Container(
                       child: Column(
                         children: <Widget>[
                           Container(
-                            margin: EdgeInsets.fromLTRB(20, 20, 0, 0),
-                            //Left,Top,Right,Bottom
                             child: Text(
-                              "UserToTaste",
+                              userName,
+                              textAlign: TextAlign.right,
                               style: TextStyle(
+
                                   fontSize: 20, color: Colors.black54),
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.fromLTRB(20, 0, 100, 30),
-                            //Left,Top,Right,Bottom
+                            margin: EdgeInsets.fromLTRB(20, 0, 110, 30),
                             child: Text(
-                              "12345678a",
+                              dni,
                               style: TextStyle(
                                   fontSize: 20, color: Colors.black54),
                             ),
@@ -195,7 +194,6 @@ class _LoginPageState extends State<LoginPage>
                         ],
                       ),
                     ),
-
                   ],
                 )),
             Container(
@@ -213,14 +211,7 @@ class _LoginPageState extends State<LoginPage>
                         .translate('WRITE_PASSWORD'),
                     title: AppLocalizations.of(context).translate('PASSWORD'),
                     isPassword: true)),
-            Container(
-              margin: EdgeInsets.fromLTRB(30, 0, 165, 20),
-              //Left,Top,Right,Bottom
-              child: Text(
-                AppLocalizations.of(context).translate('HELLOU'),
-                style: TextStyle(fontSize: 15, color: Colors.blue),
-              ),
-            ),
+
             Container(
               margin: EdgeInsets.fromLTRB(70, 0, 70, 0), //Left,Top,Right,Bottom
               child: ButtonRec(
@@ -235,18 +226,10 @@ class _LoginPageState extends State<LoginPage>
     );
   }
 
-  changeObscureText() {
-    if (obscureText) {
-      obscureText = false;
-    } else {
-      obscureText = true;
-    }
-    print("obscureText = " + obscureText.toString());
-  }
+
 
   setDni() async {
     print(isLogState);
-    print("entro a setear el dni");
   }
 
   singIn() async {}
