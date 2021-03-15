@@ -11,5 +11,10 @@
   "LOGIN": "Iniciar sesiòn",
   "DONT_HAVE_ACCOUNT_2": "Si aún no tienes cuenta, pulsa el boton de REGISTRARSE",
   "INSERT_PASSWORD": "Introduce tu contraseña y accede",
-  "ARE_NOT_U": "No eres tu?"
+  "ARE_NOT_U": "No eres tu?",
+  "DOCUMENT_DATA": "NUMERO Y LETRA/S DE DOCUMENTO: ",
+  "TELF": "TELEFONO: ",
+  "WRITE_TELF": "Escribe el teléfono",
+  "CHANGE_PASSWORD": "Cambiar Contraseña"
+
 }

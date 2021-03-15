@@ -1,8 +1,10 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/ButtonRec.dart';
 
 import 'package:rec/Components/RecTextField.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage(this.isLog);
@@ -19,6 +21,7 @@ class _LoginPageState extends State<LoginPage>
   var dni = "53791396P";
   var contra = "";
   var userName = "Vicmi";
+
   _LoginPageState(this.isLogState);
 
   @override
@@ -82,8 +85,6 @@ class _LoginPageState extends State<LoginPage>
                 title: AppLocalizations.of(context).translate('DNI'),
                 isPassword: true),
             RecTextField(
-                helperText:
-                    AppLocalizations.of(context).translate('FORGOT_PASSWORD'),
                 isNumeric: false,
                 keyboardType: TextInputType.text,
                 needObscureText: true,
@@ -92,15 +93,33 @@ class _LoginPageState extends State<LoginPage>
                 title: AppLocalizations.of(context).translate('PASSWORD'),
                 isPassword: true),
             Container(
-              margin: EdgeInsets.fromLTRB(0, 15, 0, 0), //Left,Top,Right,Bottom
+              margin: EdgeInsets.fromLTRB(20, 0, 20, 15),
+              alignment: Alignment.topLeft,
+              child: RichText(
+                text: TextSpan(
+                    style: TextStyle(color: Colors.blue),
+                    text: AppLocalizations.of(context)
+                        .translate('FORGOT_PASSWORD'),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () async {
+                        Navigator.of(context)
+                            .pushReplacementNamed('/recoveryPassword');
+                      }),
+              ),
+            ),
+            Container(
+              alignment: Alignment.center,
+              width: 300,
+              margin: EdgeInsets.fromLTRB(0, 30, 0, 0), //Left,Top,Right,Bottom
               child: Text(
                 AppLocalizations.of(context).translate('DONT_HAVE_ACCOUNT_2'),
-                style: TextStyle(fontSize: 16, color: Colors.black),
+                style: TextStyle(fontSize: 14, color: Colors.black87),
               ),
             ),
             const SizedBox(height: 20),
             Container(
-                margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                margin: EdgeInsets.fromLTRB(70, 0, 70, 0),
+                //Left,Top,Right,Bottom
                 //Left,Top,Right,Bottom
                 child: ButtonRec(
                   textColor: Colors.white,
@@ -125,7 +144,9 @@ class _LoginPageState extends State<LoginPage>
               margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
               //Left,Top,Right,Bottom
               child: Text(
-                AppLocalizations.of(context).translate('HELLOU')+" " +userName,
+                AppLocalizations.of(context).translate('HELLOU') +
+                    " " +
+                    userName,
                 style: TextStyle(fontSize: 20, color: Colors.blue),
               ),
             ),
@@ -151,7 +172,6 @@ class _LoginPageState extends State<LoginPage>
                     Container(
                       alignment: Alignment.center,
                       margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-
                       child: Column(
                         children: <Widget>[
                           Container(
@@ -163,7 +183,8 @@ class _LoginPageState extends State<LoginPage>
                             margin: EdgeInsets.fromLTRB(10, 20, 0, 20),
                             //Left,Top,Right,Bottom
                             child: Text(
-                              AppLocalizations.of(context).translate('ARE_NOT_U'),
+                              AppLocalizations.of(context)
+                                  .translate('ARE_NOT_U'),
                               style:
                                   TextStyle(fontSize: 15, color: Colors.blue),
                             ),
@@ -179,7 +200,6 @@ class _LoginPageState extends State<LoginPage>
                               userName,
                               textAlign: TextAlign.right,
                               style: TextStyle(
-
                                   fontSize: 20, color: Colors.black54),
                             ),
                           ),
@@ -202,8 +222,6 @@ class _LoginPageState extends State<LoginPage>
                 //Left,Top,Right,Bottom
 
                 child: RecTextField(
-                    helperText: AppLocalizations.of(context)
-                        .translate('FORGOT_PASSWORD'),
                     isNumeric: false,
                     keyboardType: TextInputType.text,
                     needObscureText: true,
@@ -211,7 +229,6 @@ class _LoginPageState extends State<LoginPage>
                         .translate('WRITE_PASSWORD'),
                     title: AppLocalizations.of(context).translate('PASSWORD'),
                     isPassword: true)),
-
             Container(
               margin: EdgeInsets.fromLTRB(70, 0, 70, 0), //Left,Top,Right,Bottom
               child: ButtonRec(
@@ -225,8 +242,6 @@ class _LoginPageState extends State<LoginPage>
       ),
     );
   }
-
-
 
   setDni() async {
     print(isLogState);

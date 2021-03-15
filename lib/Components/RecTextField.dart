@@ -6,7 +6,6 @@ class RecTextField extends StatefulWidget {
   final String placeholder;
   final TextInputType keyboardType;
   final bool isNumeric;
-  final String helperText;
   final bool needObscureText;
   final bool isPassword;
 
@@ -15,7 +14,6 @@ class RecTextField extends StatefulWidget {
       this.keyboardType = TextInputType.text,
       this.isNumeric = false,
       this.needObscureText = false,
-      this.helperText,
       this.placeholder,
       this.isPassword});
 
@@ -33,7 +31,7 @@ class _InputField extends State<RecTextField> {
     return Column(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.fromLTRB(0, 0, 0, 10), //Left,Top,Right,Bottom
+          margin: EdgeInsets.fromLTRB(20, 0, 20, 10), //Left,Top,Right,Bottom
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -47,7 +45,7 @@ class _InputField extends State<RecTextField> {
           ),
         ),
         Container(
-          margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
+          margin: EdgeInsets.fromLTRB(20, 0, 20, 15),
           child: TextFormField(
             decoration: InputDecoration(
               errorBorder: UnderlineInputBorder(
@@ -69,7 +67,8 @@ class _InputField extends State<RecTextField> {
                   : null,
               errorText: this.hasError ? this.error : null,
               hintText: widget.placeholder,
-              helperText: widget.helperText,
+
+
             ),
             style: TextStyle(color: Colors.black),
             obscureText: obscureText ? true : false,
