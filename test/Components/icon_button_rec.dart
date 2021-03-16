@@ -16,8 +16,7 @@ void main(){
   testWidgets("IconButtonRec test", (WidgetTester tester) async{
 
     Icon icon = Icon(Icons.translate);
-    ButtonRec buttonRec = ButtonRec(onPressed: functionForTesting,text: Text("Icon"),);
-    var iconButton = IconButtonRec(icon: icon,button: buttonRec,);
+    var iconButton = IconButtonRec(icon: icon,function: functionForTesting,);
 
     await tester.pumpWidget(MaterialApp(home: iconButton));
 

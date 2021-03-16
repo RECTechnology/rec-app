@@ -31,7 +31,7 @@ class _InputField extends State<RecTextField> {
     return Column(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.fromLTRB(20, 0, 20, 10), //Left,Top,Right,Bottom
+          margin: EdgeInsets.fromLTRB(20, 0, 20, 0), //Left,Top,Right,Bottom
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[

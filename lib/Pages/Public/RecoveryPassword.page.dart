@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
 import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/RecTextField.dart';
 
 import 'package:rec/Lang/AppLocalizations.dart';
+import 'package:rec/Providers/AppState.dart';
 
 class RecoveryPassword extends StatefulWidget {
   RecoveryPassword();
@@ -12,10 +14,10 @@ class RecoveryPassword extends StatefulWidget {
   _RecoveryPasswordState createState() => _RecoveryPasswordState();
 }
 
-class _RecoveryPasswordState extends State<RecoveryPassword>
-    with SingleTickerProviderStateMixin {
+class _RecoveryPasswordState extends GenericRecViewScreen<RecoveryPassword> {
   @override
-  Widget build(BuildContext context) {
+  Widget buildPageContent(BuildContext context, AppState state) {
+    // TODO: implement buildPageContent
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -28,11 +30,9 @@ class _RecoveryPasswordState extends State<RecoveryPassword>
             Icons.arrow_back,
             color: Colors.black,
           ),
-          button: ButtonRec(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
+          function: () {
+            Navigator.of(context).pop();
+          },
         ),
       ),
       body: SingleChildScrollView(
@@ -52,8 +52,7 @@ class _RecoveryPasswordState extends State<RecoveryPassword>
             Container(
               margin: EdgeInsets.fromLTRB(0, 60, 0, 0),
               child: RecTextField(
-                title:
-                    AppLocalizations.of(context).translate('DOCUMENT_DATA'),
+                title: AppLocalizations.of(context).translate('DOCUMENT_DATA'),
                 isNumeric: false,
                 isPassword: false,
                 keyboardType: TextInputType.text,

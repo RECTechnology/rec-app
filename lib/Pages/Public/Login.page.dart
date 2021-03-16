@@ -1,10 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
 
 import 'package:rec/Components/RecTextField.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:rec/Providers/AppState.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage(this.isLog);
@@ -15,8 +16,8 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState(isLog);
 }
 
-class _LoginPageState extends State<LoginPage>
-    with SingleTickerProviderStateMixin {
+class _LoginPageState extends GenericRecViewScreen<LoginPage>
+   {
   bool isLogState;
   var dni = "53791396P";
   var contra = "";
@@ -24,15 +25,15 @@ class _LoginPageState extends State<LoginPage>
 
   _LoginPageState(this.isLogState);
 
+
   @override
-  Widget build(BuildContext context) {
+  Widget buildPageContent(BuildContext context, AppState state) {
     if (isLogState) {
       return loged(context);
     } else {
       return notLoged(context);
     }
   }
-
   @override
   void initState() {
     super.initState();
@@ -248,4 +249,6 @@ class _LoginPageState extends State<LoginPage>
   }
 
   singIn() async {}
+
+
 }
