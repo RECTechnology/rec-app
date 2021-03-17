@@ -24,40 +24,16 @@ class _HomePageState extends GenericRecViewScreen<HomePage> {
 
   @override
   Widget buildPageContent(BuildContext context, AppState appState) {
-    var pinModal = PinModal(
-        title: Text("Enter the pin"),
-        content: Text("Please enter your pin acount"),
-        context: context,
-        requieredNumber: 5,
-        myController: TextEditingController());
-
-    void changePin() {
-      pin = pinModal.getValue();
-      setState(() {});
-    }
-
-    return Scaffold(
-      body: Column(
-        children: [
-          IconButtonRec(
-            button: ButtonRec(
-              text: Text("Hellou", style: TextStyle(color: Colors.black)),
-              onPressed: pinModal.showDialog,
-            ),
-            icon: Icon(Icons.translate),
-          ),
-          IconButtonRec(
-            button: ButtonRec(
-              text: Text("Hellou", style: TextStyle(color: Colors.black)),
-              onPressed: changePin,
-            ),
-            icon: Icon(Icons.change_history),
-          ),
-          Text(pin == null
-              ? "the top button is to insert a pin the bot button is to get it"
-              : pin.toString())
-        ],
+    var errorModal = PinModal(title:Text("Error 404"),content: Text("Page not found!"),context: context);
+    return IconButtonRec(
+      button: ButtonRec(
+        text: Text("Hellou", style: TextStyle(color: Colors.black)),
+        onPressed: errorModal.showDialog,
       ),
     );
   }
+        
+    void logingTester() {
+      print("Loging...");
+    }
 }

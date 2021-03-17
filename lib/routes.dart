@@ -6,13 +6,13 @@ import 'Components/PrivateRoute.dart';
 
 // ignore: non_constant_identifier_names
 final Map<String, Widget Function(BuildContext)> ROUTES = {
-  '/login': (context) => LoginPage(),
+  '/login': (context) => LoginPage(true),
   '/home': (context) => PrivateRoute(HomePage()),
 };
 
 class InitialRoutes {
-  static String loggedIn = '/login';
-  static String notLoggedIn = '/home';
+  static String loggedIn = '/home';
+  static String notLoggedIn = '/login';
 
   static String getInitialRoute({bool hasToken = false}) {
     return hasToken ? InitialRoutes.loggedIn : InitialRoutes.notLoggedIn;

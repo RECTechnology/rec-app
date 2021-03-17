@@ -9,24 +9,23 @@ class YesNoModal extends GenericModal {
 
   YesNoModal({this.title, this.context, this.content})
       : super(
-            content: content,
-            title: title,
-            widget: Row(
-              children: [
-                Container(
-                    width: 150,
-                    height: 150,
-                    child: FlatButton(
-                      child: Text('Yes'),
-                    )),
-                Container(
-                    width: 150,
-                    height: 150,
-                    child: FlatButton(
-                      child: Text('No'),
-                    ))
-              ],
-            ));
+      content: content,
+      title: title,
+      widget: Row(children: [
+        Container(
+            width: 150,
+            height: 150,
+            child: FlatButton(
+              child: Text('Yes'),
+            ),
+        ),
+        Container(
+            width: 150,
+            height: 150,
+            child: FlatButton(
+              child: Text('No'),
+            ),)
+      ],),);
 
   void showDialog() {
     super.showAlertDialog(context);

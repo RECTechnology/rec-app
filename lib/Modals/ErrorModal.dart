@@ -9,17 +9,20 @@ class ErrorModal extends GenericModal {
 
   ErrorModal({this.title, this.context, this.content})
       : super(
-            content: content,
-            title: title,
-            widget: Container(
-                width: 150,
-                height: 150,
-                child: FlatButton(
-                  child: Text('Close me!'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )));
+          content: content,
+          title: title,
+          widget: Container(
+              width: 150,
+              height: 150,
+              child: FlatButton(
+                child: Text('Close me!'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+          ),
+        );
+
 
   void showDialog() {
     super.showAlertDialog(context);

@@ -4,7 +4,8 @@ class CircleAvatarRec extends StatefulWidget{
   final String imageUrl;
 
   CircleAvatarRec({
-    this.imageUrl} );
+    this.imageUrl,
+    } );
 
 
   @override
