@@ -8,14 +8,16 @@ class RecTextField extends StatefulWidget {
   final bool isNumeric;
   final bool needObscureText;
   final bool isPassword;
-
+  final  Function(String string) function;
   RecTextField(
       {this.title,
       this.keyboardType = TextInputType.text,
       this.isNumeric = false,
       this.needObscureText = false,
       this.placeholder,
-      this.isPassword});
+      this.isPassword,
+      this.function,
+     });
 
   @override
   _InputField createState() => _InputField();
@@ -69,8 +71,10 @@ class _InputField extends State<RecTextField> {
               hintText: widget.placeholder,
 
 
+
             ),
             style: TextStyle(color: Colors.black),
+            onChanged: widget.function,
             obscureText: obscureText ? true : false,
             keyboardType: widget.keyboardType,
           ),

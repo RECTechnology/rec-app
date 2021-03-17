@@ -16,15 +16,13 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState(isLog);
 }
 
-class _LoginPageState extends GenericRecViewScreen<LoginPage>
-   {
+class _LoginPageState extends GenericRecViewScreen<LoginPage> {
   bool isLogState;
   var dni = "53791396P";
   var contra = "";
   var userName = "Vicmi";
 
   _LoginPageState(this.isLogState);
-
 
   @override
   Widget buildPageContent(BuildContext context, AppState state) {
@@ -34,6 +32,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage>
       return notLoged(context);
     }
   }
+
   @override
   void initState() {
     super.initState();
@@ -78,21 +77,25 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage>
             ),
 
             RecTextField(
-                isNumeric: false,
-                keyboardType: TextInputType.text,
-                needObscureText: false,
-                placeholder:
-                    AppLocalizations.of(context).translate('WRITE_DOCUMENT'),
-                title: AppLocalizations.of(context).translate('DNI'),
-                isPassword: true),
+              isNumeric: false,
+              keyboardType: TextInputType.text,
+              needObscureText: false,
+              placeholder:
+                  AppLocalizations.of(context).translate('WRITE_DOCUMENT'),
+              title: AppLocalizations.of(context).translate('DNI'),
+              isPassword: true,
+              function: setDni,
+            ),
             RecTextField(
-                isNumeric: false,
-                keyboardType: TextInputType.text,
-                needObscureText: true,
-                placeholder:
-                    AppLocalizations.of(context).translate('WRITE_PASSWORD'),
-                title: AppLocalizations.of(context).translate('PASSWORD'),
-                isPassword: true),
+              isNumeric: false,
+              keyboardType: TextInputType.text,
+              needObscureText: true,
+              placeholder:
+                  AppLocalizations.of(context).translate('WRITE_PASSWORD'),
+              title: AppLocalizations.of(context).translate('PASSWORD'),
+              isPassword: true,
+              function: setPassword,
+            ),
             Container(
               margin: EdgeInsets.fromLTRB(20, 0, 20, 15),
               alignment: Alignment.topLeft,
@@ -223,13 +226,15 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage>
                 //Left,Top,Right,Bottom
 
                 child: RecTextField(
-                    isNumeric: false,
-                    keyboardType: TextInputType.text,
-                    needObscureText: true,
-                    placeholder: AppLocalizations.of(context)
-                        .translate('WRITE_PASSWORD'),
-                    title: AppLocalizations.of(context).translate('PASSWORD'),
-                    isPassword: true)),
+                  isNumeric: false,
+                  keyboardType: TextInputType.text,
+                  needObscureText: true,
+                  placeholder:
+                      AppLocalizations.of(context).translate('WRITE_PASSWORD'),
+                  title: AppLocalizations.of(context).translate('PASSWORD'),
+                  isPassword: true,
+                  function: setPassword,
+                )),
             Container(
               margin: EdgeInsets.fromLTRB(70, 0, 70, 0), //Left,Top,Right,Bottom
               child: ButtonRec(
@@ -244,11 +249,13 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage>
     );
   }
 
-  setDni() async {
-    print(isLogState);
+  void setDni(String dniTextField) {
+    this.dni = dniTextField;
+  }
+
+  void setPassword(String passwordTextField) {
+    this.contra = passwordTextField;
   }
 
   singIn() async {}
-
-
 }
