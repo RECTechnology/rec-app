@@ -29,17 +29,17 @@ dependencies:
   cupertino_icons: ^1.0.0
   http: ^0.12.0+4
   provider: ^4.3.3
-  flutter_spinkit: "^4.1.2"
+  flutter_spinkit: ^4.1.2
   sentry_flutter: ^4.0.4
   pinput: ^0.2.0
-  pin_code_fields:
-
-
+  pin_code_fields: 6.1.0
+  http_interceptor: ^0.3.3
+  url_launcher: ^5.7.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  pedantic: ^1.9.2
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -50,14 +50,12 @@ flutter:
   # the material Icons class.
 
   # To add assets to your application, add an assets section, like this:
-   assets:
-     - assets/userIcon.png
-     - i18n/ca.json
-     - i18n/en.json
-     - i18n/es.json
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
-   uses-material-design: true
+  assets:
+    - assets/userIcon.png
+    - i18n/ca.json
+    - i18n/en.json
+    - i18n/es.json
+  uses-material-design: true
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

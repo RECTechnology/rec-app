@@ -3,11 +3,11 @@ import 'package:rec/Components/ButtonRec.dart';
 
 class IconButtonRec extends StatefulWidget {
   final Icon icon;
-  final ButtonRec button;
+  final Function() function;
 
   IconButtonRec({
     this.icon,
-    this.button,
+    this.function,
   });
 
   @override
@@ -21,7 +21,8 @@ class IconButtonRecState extends State<IconButtonRec> {
   Widget build(BuildContext context) {
     return IconButton(
       icon: widget.icon,
-      onPressed: widget.button.onPressed,
+
+      onPressed: widget.function,
     );
   }
 }

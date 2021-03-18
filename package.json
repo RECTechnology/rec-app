@@ -1,0 +1,31 @@
+{
+  "name": "rec_app_v2",
+  "version": "1.0.0",
+  "description": "<img src=\"https://rec.barcelona/wp-content/uploads/2018/04/Group-3116@2x.png\" width=\"400\" />",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QbitArtifacts/rec_app_v2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/QbitArtifacts/rec_app_v2/issues"
+  },
+  "homepage": "https://github.com/QbitArtifacts/rec_app_v2#readme",
+  "devDependencies": {
+    "husky": "^4.3.8"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "./scripts/pre-commit.sh"
+    }
+  }
+}

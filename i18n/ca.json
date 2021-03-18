@@ -12,5 +12,21 @@
   "DONT_HAVE_ACCOUNT_2": "Si aún no tienes cuenta, pulsa el boton de REGISTRARSE",
   "INSERT_PASSWORD": "Introduce tu contraseña y accede",
   "ARE_NOT_U": "No eres tu?",
-
+  "DOCUMENT_DATA": "NUMERO Y LETRA/S DE DOCUMENTO: ",
+  "TELF": "TELEFONO: ",
+  "WRITE_TELF": "Escribe el teléfono",
+  "CHANGE_PASSWORD": "Cambiar Contraseña",
+  "BACK": "Atras",
+  "NEXT": "Siguiente",
+  "SECURE_YOUR_ACCOUNT": "Asegura tu cuenta",
+  "PIN_CODE": "CODIGO PIN *",
+  "REPEAT_PIN_CODE": "REPETIR CODIGO PIN *",
+  "NUMBER_TO_PAY": "Un numero de 4 cifras para realizar pagos",
+  "RETURN_WRITE_PIN": "Vuelve a escribir tu codigo PIN",
+  "PROMOTE_TRADE": "Promueve el comercio local",
+  "CREATE_USER": "¡Crea tu usuario!",
+  "ACORD_WHIT_TEMS": "Estoy de acuerdo con REC Terminos de Uso",
+  "DNI_NIE": "DNI/NIE",
+  "PRESS_NEXT_TO_ADD": "Pulsa Siguiente para añadir tu organizacion",
+  "TO_START_WRITE": "Para empezar escribe tus datos personales"
 }
