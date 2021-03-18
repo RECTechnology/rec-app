@@ -14,7 +14,7 @@ abstract class GenericRecViewScreen<T extends StatefulWidget>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(1.0),
         child: buildPageContent(context, AppState.of(context)),
       ),
     );

@@ -24,16 +24,20 @@ class _HomePageState extends GenericRecViewScreen<HomePage> {
 
   @override
   Widget buildPageContent(BuildContext context, AppState appState) {
-    var errorModal = PinModal(title:Text("Error 404"),content: Text("Page not found!"),context: context);
+    var errorModal = PinModal(
+      title: Text("Error 404"),
+      content: Text("Page not found!"),
+      context: context,
+    );
     return IconButtonRec(
-      button: ButtonRec(
-        text: Text("Hellou", style: TextStyle(color: Colors.black)),
-        onPressed: errorModal.showDialog,
-      ),
+      function: () {
+        Navigator.of(context).pushReplacementNamed('/login');
+      },
+      icon: Icon(Icons.translate),
     );
   }
-        
-    void logingTester() {
-      print("Loging...");
-    }
+
+  void logingTester() {
+    print("Loging...");
+  }
 }

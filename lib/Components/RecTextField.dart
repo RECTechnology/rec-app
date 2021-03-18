@@ -6,21 +6,18 @@ class RecTextField extends StatefulWidget {
   final String placeholder;
   final TextInputType keyboardType;
   final bool isNumeric;
-  final String helperText;
   final bool needObscureText;
   final bool isPassword;
-  final Function(String string) onChanged;
-
-  RecTextField(
-      {this.title,
-      this.keyboardType = TextInputType.text,
-      this.isNumeric = false,
-      this.needObscureText = false,
-      this.helperText,
-      this.placeholder,
-      this.isPassword,
-      this.onChanged,
-      });
+  final Function(String string) function;
+  RecTextField({
+    this.title,
+    this.keyboardType = TextInputType.text,
+    this.isNumeric = false,
+    this.needObscureText = false,
+    this.placeholder,
+    this.isPassword,
+    this.function,
+  });
 
   @override
   _InputField createState() => _InputField();
@@ -36,13 +33,13 @@ class _InputField extends State<RecTextField> {
     return Column(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.fromLTRB(0, 0, 0, 10), //Left,Top,Right,Bottom
+          margin: EdgeInsets.fromLTRB(20, 0, 20, 0), //Left,Top,Right,Bottom
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
                 child: Text(
-                  widget.title,
+                  widget.title != null ? widget.title : "",
                   style: TextStyle(fontSize: 14, color: Colors.black),
                 ),
               )
@@ -50,7 +47,7 @@ class _InputField extends State<RecTextField> {
           ),
         ),
         Container(
-          margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
+          margin: EdgeInsets.fromLTRB(20, 0, 20, 15),
           child: TextFormField(
             decoration: InputDecoration(
               errorBorder: UnderlineInputBorder(
@@ -72,10 +69,9 @@ class _InputField extends State<RecTextField> {
                   : null,
               errorText: this.hasError ? this.error : null,
               hintText: widget.placeholder,
-              helperText: widget.helperText,
             ),
-            onChanged: widget.onChanged,
             style: TextStyle(color: Colors.black),
+            onChanged: widget.function,
             obscureText: obscureText ? true : false,
             keyboardType: widget.keyboardType,
           ),

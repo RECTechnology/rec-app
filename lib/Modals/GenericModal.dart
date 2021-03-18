@@ -5,26 +5,19 @@ class GenericModal {
   final Text title;
   final Text content;
   final Widget widget;
-  GenericModal({
-      this.title,
-      this.content,
-      this.widget
-  });
+  GenericModal({this.title, this.content, this.widget});
 
   void showAlertDialog(BuildContext context) {
     showDialog(
         context: context,
         builder: (_) => new AlertDialog(
-          title: content,
-          content: content,
-          actions: <Widget>[
-            widget
-          ],
-        ),
-    );
+              title: content,
+              content: content,
+              actions: <Widget>[widget],
+            ));
   }
 
-  void closeDialog(BuildContext context){
+  void closeDialog(BuildContext context) {
     Navigator.of(context).pop();
   }
 }

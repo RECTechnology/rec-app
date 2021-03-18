@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Services/LoginService.dart';
 import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
 
@@ -19,11 +18,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends GenericRecViewScreen<LoginPage> {
   bool isLogState;
-  var dni = "53791396P";
-  var contra = "";
-  var userName = "Vicmi";
-
-  LoginService login = new LoginService();
+  String dni = "53791396P";
+  String contra = "";
+  String userName = "Vicmi";
 
   _LoginPageState(this.isLogState);
 
@@ -42,6 +39,8 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
   }
 
   Widget notLoged(BuildContext context) {
+    AppLocalizations localizations = AppLocalizations.of(context);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -49,14 +48,14 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
             Container(
               margin: EdgeInsets.fromLTRB(0, 45, 0, 20), //Left,Top,Right,Bottom
               child: Text(
-                AppLocalizations.of(context).translate('HELLOU'),
+                localizations.translate('HELLOU'),
                 style: TextStyle(fontSize: 20, color: Colors.blue),
               ),
             ),
             Container(
               margin: EdgeInsets.fromLTRB(0, 0, 0, 0), //Left,Top,Right,Bottom
               child: Text(
-                AppLocalizations.of(context).translate('DONT_HAVE_ACCOUNT'),
+                localizations.translate('DONT_HAVE_ACCOUNT'),
                 style: TextStyle(fontSize: 15, color: Colors.black54),
               ),
             ),
@@ -67,75 +66,66 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                   textColor: Colors.white,
                   backgroundColor: Colors.black,
                   onPressed: singIn,
-                  text:
-                      Text(AppLocalizations.of(context).translate('REGISTER'))),
+                  text: Text(localizations.translate('REGISTER'))),
             ),
-
             Container(
               margin: EdgeInsets.fromLTRB(0, 15, 30, 0), //Left,Top,Right,Bottom
               child: Text(
-                AppLocalizations.of(context).translate('HAVE_ACCOUNT'),
+                localizations.translate('HAVE_ACCOUNT'),
                 style: TextStyle(fontSize: 15, color: Colors.black54),
               ),
             ),
-
             RecTextField(
               isNumeric: false,
               keyboardType: TextInputType.text,
               needObscureText: false,
-              placeholder:
-                  AppLocalizations.of(context).translate('WRITE_DOCUMENT'),
-              title: AppLocalizations.of(context).translate('DNI'),
+              placeholder: localizations.translate('WRITE_DOCUMENT'),
+              title: localizations.translate('DNI'),
               isPassword: true,
-              onChanged: setDni,
+              function: setDni,
             ),
             RecTextField(
               isNumeric: false,
               keyboardType: TextInputType.text,
               needObscureText: true,
-              placeholder:
-                  AppLocalizations.of(context).translate('WRITE_PASSWORD'),
-              title: AppLocalizations.of(context).translate('PASSWORD'),
+              placeholder: localizations.translate('WRITE_PASSWORD'),
+              title: localizations.translate('PASSWORD'),
               isPassword: true,
-              onChanged: setPassword,
+              function: setPassword,
             ),
             Container(
               margin: EdgeInsets.fromLTRB(20, 0, 20, 15),
               alignment: Alignment.topLeft,
               child: RichText(
                 text: TextSpan(
-                    style: TextStyle(color: Colors.blue),
-                    text: AppLocalizations.of(context)
-                        .translate('FORGOT_PASSWORD'),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        Navigator.of(context)
-                            .pushReplacementNamed('/recoveryPassword');
-                      }),
+                  style: TextStyle(color: Colors.blue),
+                  text: localizations.translate('FORGOT_PASSWORD'),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () async {
+                      Navigator.of(context).pushNamed('/registerOne');
+                    },
+                ),
               ),
             ),
             Container(
               alignment: Alignment.center,
               width: 300,
-              margin: EdgeInsets.fromLTRB(0, 30, 0, 0), //Left,Top,Right,Bottom
+              margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
               child: Text(
-                AppLocalizations.of(context).translate('DONT_HAVE_ACCOUNT_2'),
+                localizations.translate('DONT_HAVE_ACCOUNT_2'),
                 style: TextStyle(fontSize: 14, color: Colors.black87),
               ),
             ),
             const SizedBox(height: 20),
             Container(
-                margin: EdgeInsets.fromLTRB(70, 0, 70, 0),
-                //Left,Top,Right,Bottom
-                //Left,Top,Right,Bottom
-                child: ButtonRec(
-                  textColor: Colors.white,
-                  backgroundColor: Colors.black,
-                  onPressed: singIn,
-                  text: Text("LOGIN"),
-                )),
-
-            //LoadingButton(text: "log in",onPressed: singIn,isLoading: false,),
+              margin: EdgeInsets.fromLTRB(70, 0, 70, 0),
+              child: ButtonRec(
+                textColor: Colors.white,
+                backgroundColor: Colors.black,
+                onPressed: singIn,
+                text: Text("LOGIN"),
+              ),
+            ),
           ],
         ),
       ),
@@ -143,108 +133,104 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
   }
 
   Widget loged(BuildContext context) {
+    AppLocalizations localizations = AppLocalizations.of(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Container(
               margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
-              //Left,Top,Right,Bottom
               child: Text(
-                AppLocalizations.of(context).translate('HELLOU') +
-                    " " +
-                    userName,
+                localizations.translate('HELLOU') + " " + userName,
                 style: TextStyle(fontSize: 20, color: Colors.blue),
               ),
             ),
             Container(
               margin: EdgeInsets.fromLTRB(0, 5, 0, 20),
-              //Left,Top,Right,Bottom
               child: Text(
-                AppLocalizations.of(context).translate('INSERT_PASSWORD'),
+                localizations.translate('INSERT_PASSWORD'),
                 style: TextStyle(fontSize: 10, color: Colors.black54),
               ),
             ),
             Container(
-                margin: EdgeInsets.fromLTRB(40, 20, 40, 20),
-                decoration: new BoxDecoration(color: Colors.white, boxShadow: [
-                  new BoxShadow(
-                      color: Colors.black54,
-                      offset: new Offset(0.0, 0.0),
-                      blurRadius: 500.0)
-                ]),
-                //Left,Top,Right,Bottom
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            width: 40,
-                            height: 40,
-                            child: Image.asset('assets/userIcon.png'),
+              margin: EdgeInsets.fromLTRB(40, 20, 40, 20),
+              decoration: new BoxDecoration(color: Colors.white, boxShadow: [
+                new BoxShadow(
+                    color: Colors.black54,
+                    offset: new Offset(0.0, 0.0),
+                    blurRadius: 500.0)
+              ]),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          width: 40,
+                          height: 40,
+                          child: Image.asset('assets/userIcon.png'),
+                        ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(10, 20, 0, 20),
+                          child: Text(
+                            localizations.translate('ARE_NOT_U'),
+                            style: TextStyle(fontSize: 15, color: Colors.blue),
                           ),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(10, 20, 0, 20),
-                            //Left,Top,Right,Bottom
-                            child: Text(
-                              AppLocalizations.of(context)
-                                  .translate('ARE_NOT_U'),
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.blue),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Container(
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            child: Text(
-                              userName,
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.black54),
+                  ),
+                  Container(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: Text(
+                            userName,
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black54,
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(20, 0, 110, 30),
-                            child: Text(
-                              dni,
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.black54),
+                        ),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(20, 0, 110, 30),
+                          child: Text(
+                            dni,
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black54,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                )),
+                  ),
+                ],
+              ),
+            ),
             Container(
-                margin: EdgeInsets.fromLTRB(60, 10, 60, 0),
-
-                //Left,Top,Right,Bottom
-
-                child: RecTextField(
-                  isNumeric: false,
-                  keyboardType: TextInputType.text,
-                  needObscureText: true,
-                  placeholder:
-                      AppLocalizations.of(context).translate('WRITE_PASSWORD'),
-                  title: AppLocalizations.of(context).translate('PASSWORD'),
-                  isPassword: true,
-                  onChanged: setPassword,
-                )),
+              margin: EdgeInsets.fromLTRB(60, 10, 60, 0),
+              child: RecTextField(
+                isNumeric: false,
+                keyboardType: TextInputType.text,
+                needObscureText: true,
+                placeholder: localizations.translate('WRITE_PASSWORD'),
+                title: localizations.translate('PASSWORD'),
+                isPassword: true,
+                function: setPassword,
+              ),
+            ),
             Container(
-              margin: EdgeInsets.fromLTRB(70, 0, 70, 0), //Left,Top,Right,Bottom
+              margin: EdgeInsets.fromLTRB(70, 0, 70, 0),
               child: ButtonRec(
-                  textColor: Colors.white,
-                  backgroundColor: Colors.black,
-                  onPressed: singIn,
-                  text: Text(AppLocalizations.of(context).translate('LOGIN'))),
+                textColor: Colors.white,
+                backgroundColor: Colors.black,
+                onPressed: singIn,
+                text: Text(localizations.translate('LOGIN')),
+              ),
             ),
           ],
         ),
@@ -253,17 +239,14 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
   }
 
   void setDni(String dniTextField) {
-    this.dni = dniTextField;
+    dni = dniTextField;
   }
 
   void setPassword(String passwordTextField) {
-    this.contra = passwordTextField;
+    contra = passwordTextField;
   }
 
   singIn() {
-    login
-        .login(username: '80008000q', password: 'qwerty')
-        .then((value) => print('yayayay'))
-        .catchError(() => print('erewrr'));
+    Navigator.of(context).pushNamed('/registerOne');
   }
 }

@@ -12,17 +12,17 @@ class PinModal extends GenericModal {
           content: content,
           title: title,
           widget: Container(
-              width: 400,
-              height: 150,
-              child: TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Introduzca su Pin',
-                ),
+            width: 400,
+            height: 150,
+            child: TextField(
+              obscureText: true,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Introduzca su Pin',
               ),
             ),
-          );
+          ),
+        );
 
   void showDialog() {
     super.showAlertDialog(context);
