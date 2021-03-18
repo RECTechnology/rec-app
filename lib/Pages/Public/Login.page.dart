@@ -19,17 +19,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends GenericRecViewScreen<LoginPage> {
   bool isLogState;
-<<<<<<< HEAD
-  String dni = "53791396P";
-  String contra = "";
-  String userName = "Vicmi";
-=======
   String dni = '53791396P';
   String password = '';
   String userName = 'Vicmi';
 
   LoginService loginService = LoginService();
->>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
 
   _LoginPageState(this.isLogState);
 
@@ -44,12 +38,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
   }
 
   Widget notLoged(BuildContext context) {
-<<<<<<< HEAD
-    AppLocalizations localizations = AppLocalizations.of(context);
-
-=======
     var localizations = AppLocalizations.of(context);
->>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -74,11 +63,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
               child: ButtonRec(
                   textColor: Colors.white,
                   backgroundColor: Colors.black,
-<<<<<<< HEAD
-                  onPressed: singIn,
-=======
                   onPressed: login,
->>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
                   text: Text(localizations.translate('REGISTER'))),
             ),
             Container(
@@ -94,11 +79,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
               needObscureText: false,
               placeholder: localizations.translate('WRITE_DOCUMENT'),
               title: localizations.translate('DNI'),
-<<<<<<< HEAD
-              isPassword: true,
-=======
               isPassword: false,
->>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
               function: setDni,
             ),
             RecTextField(
@@ -119,7 +100,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                   text: localizations.translate('FORGOT_PASSWORD'),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () async {
-                      Navigator.of(context).pushNamed('/registerOne');
+                      await Navigator.of(context).pushNamed('/registerOne');
                     },
                 ),
               ),
@@ -139,11 +120,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
               child: ButtonRec(
                 textColor: Colors.white,
                 backgroundColor: Colors.black,
-<<<<<<< HEAD
-                onPressed: singIn,
-=======
                 onPressed: login,
->>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
                 text: Text("LOGIN"),
               ),
             ),
@@ -154,11 +131,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
   }
 
   Widget loged(BuildContext context) {
-<<<<<<< HEAD
-    AppLocalizations localizations = AppLocalizations.of(context);
-=======
     var localizations = AppLocalizations.of(context);
->>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -179,14 +152,6 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
             ),
             Container(
               margin: EdgeInsets.fromLTRB(40, 20, 40, 20),
-<<<<<<< HEAD
-              decoration: new BoxDecoration(color: Colors.white, boxShadow: [
-                new BoxShadow(
-                    color: Colors.black54,
-                    offset: new Offset(0.0, 0.0),
-                    blurRadius: 500.0)
-              ]),
-=======
               decoration: BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
@@ -198,7 +163,6 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                 ],
                 borderRadius: BorderRadius.circular(5),
               ),
->>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
               child: Row(
                 children: <Widget>[
                   Container(
@@ -213,11 +177,6 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                         ),
                         Container(
                           margin: EdgeInsets.fromLTRB(10, 20, 0, 20),
-<<<<<<< HEAD
-                          child: Text(
-                            localizations.translate('ARE_NOT_U'),
-                            style: TextStyle(fontSize: 15, color: Colors.blue),
-=======
                           child: InkWell(
                             onTap: () => {},
                             child: Text(
@@ -227,7 +186,6 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                                 color: Colors.blue,
                               ),
                             ),
->>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
                           ),
                         ),
                       ],
@@ -279,11 +237,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
               child: ButtonRec(
                 textColor: Colors.white,
                 backgroundColor: Colors.black,
-<<<<<<< HEAD
-                onPressed: singIn,
-=======
                 onPressed: login,
->>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
                 text: Text(localizations.translate('LOGIN')),
               ),
             ),
@@ -298,13 +252,6 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
   }
 
   void setPassword(String passwordTextField) {
-<<<<<<< HEAD
-    contra = passwordTextField;
-  }
-
-  singIn() {
-    Navigator.of(context).pushNamed('/registerOne');
-=======
     password = passwordTextField;
   }
 
@@ -321,6 +268,5 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
 
   onError(error) {
     // Logged in with error
->>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
   }
 }

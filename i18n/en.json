@@ -11,12 +11,6 @@
   "LOGIN": "Iniciar sesiòn",
   "DONT_HAVE_ACCOUNT_2": "Si aún no tienes cuenta, pulsa el boton de REGISTRARSE",
   "INSERT_PASSWORD": "Introduce tu contraseña y accede",
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "ARE_NOT_U": "No eres tu?"
-=======
-=======
->>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
   "ARE_NOT_U": "No eres tu?",
   "DOCUMENT_DATA": "NUMERO Y LETRA/S DE DOCUMENTO: ",
   "TELF": "TELEFONO: ",
@@ -35,8 +29,4 @@
   "DNI_NIE": "DNI/NIE",
   "PRESS_NEXT_TO_ADD": "Pulsa Siguiente para añadir tu organizacion",
   "TO_START_WRITE": "Para empezar escribe tus datos personales"
-<<<<<<< HEAD
->>>>>>> feat/registPage
-=======
->>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
 }
