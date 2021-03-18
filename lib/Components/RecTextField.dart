@@ -39,7 +39,7 @@ class _InputField extends State<RecTextField> {
             children: <Widget>[
               Container(
                 child: Text(
-                  widget.title,
+                  widget.title!=null? widget.title:"",
                   style: TextStyle(fontSize: 14, color: Colors.black),
                 ),
               )

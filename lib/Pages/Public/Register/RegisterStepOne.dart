@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Base/screens/GenericRecViewScreen.dart';
+import 'package:rec/Components/ButtonRec.dart';
 import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/RecTextField.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
@@ -13,6 +14,7 @@ class RegisterOne extends StatefulWidget {
 
 class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
   var isParticular = true;
+  bool checkValue = false;
 
   @override
   Widget buildPageContent(BuildContext context, AppState state) {
@@ -52,9 +54,9 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
             Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.fromLTRB(20, 20, 0, 0), //Left,Top,Right,Bottom
-              child: Text(
-                AppLocalizations.of(context).translate('PROMOTE_TRADE'),
-                style: TextStyle(color: Colors.black, fontSize: 10),
+              child: Text(isParticular?
+                AppLocalizations.of(context).translate('PROMOTE_TRADE'):AppLocalizations.of(context).translate('TO_START_WRITE'),
+                style: TextStyle(color: Colors.black, fontSize: 13),
               ),
             ),
             Container(
@@ -69,82 +71,73 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 30), //Left,Top,Right,Bottom
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 15), //Left,Top,Right,Bottom
 
               child: RecTextField(
-                placeholder: AppLocalizations.of(context).translate('PIN_CODE'),
+                placeholder:
+                    AppLocalizations.of(context).translate('WRITE_DOCUMENT'),
                 needObscureText: false,
                 keyboardType: TextInputType.phone,
                 isPassword: false,
                 isNumeric: true,
-                title: AppLocalizations.of(context).translate('PIN_CODE'),
+                title: AppLocalizations.of(context).translate('DNI_NIE'),
               ),
             ),
             Container(
               margin: EdgeInsets.fromLTRB(0, 0, 0, 15), //Left,Top,Right,Bottom
 
               child: RecTextField(
-                placeholder:
-                    AppLocalizations.of(context).translate('RETURN_WRITE_PIN'),
+                placeholder: AppLocalizations.of(context).translate('PASSWORD'),
                 needObscureText: false,
                 keyboardType: TextInputType.phone,
                 isPassword: false,
                 isNumeric: true,
-                title:
-                    AppLocalizations.of(context).translate('REPEAT_PIN_CODE'),
+              ),
+            ),
+            isParticular
+                ? Text("")
+                : Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.fromLTRB(20, 20, 0, 0), //Left,Top,Right,Bottom
+              child: Text(
+                AppLocalizations.of(context).translate('PRESS_NEXT_TO_ADD'),
+                style: TextStyle(color: Colors.deepOrange, fontSize: 14),
               ),
             ),
             Container(
+              margin: EdgeInsets.fromLTRB(5, 10, 0, 0), //Left,Top,Right,Bottom
               child: Row(
                 children: [
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 90, 0),
-                    //Left,Top,Right,Bottom
+                  Checkbox(
+                    value: checkValue,
+                    onChanged: (bool value) {
+                      setState(() {
+                        checkValue = value;
+                        print(value);
+                      });
+                    },
+                  ),
+                  RichText(
+                    textAlign: TextAlign.left,
+                    text: TextSpan(
+                      text: AppLocalizations.of(context).translate('ACORD_WHIT_TEMS'),
+                      style: TextStyle(color: Colors.black, fontSize: 14),
+                    ),
+                  ),
 
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      children: [
-                        IconButtonRec(
-                          icon: Icon(Icons.arrow_left),
-                          function: () {
-                            Navigator.of(context)
-                                .pushReplacementNamed('/recoveryPassword');
-                          },
-                        ),
-                        Text(
-                          AppLocalizations.of(context).translate('BACK'),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(90, 0, 0, 0),
-                    //Left,Top,Right,Bottom
-                    alignment: Alignment.centerRight,
-                    child: Row(
-                      children: [
-                        Container(
-                          child: Row(
-                            children: [
-                              Text(
-                                AppLocalizations.of(context).translate('NEXT'),
-                              ),
-                              IconButtonRec(
-                                icon: Icon(Icons.arrow_right),
-                                function: () {
-                                  Navigator.of(context).pushReplacementNamed(
-                                      '/recoveryPassword');
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 ],
               ),
             ),
+            Container(
+              margin: EdgeInsets.fromLTRB(20, 10, 20, 0), //Left,Top,Right,Bottom
+              child: ButtonRec(
+                textColor: Colors.white,
+                backgroundColor: isParticular ? Colors.blueAccent : Colors.deepOrange,
+                onPressed: setToParticular,
+                text: Text(AppLocalizations.of(context).translate('NEXT')),
+              ),
+            )
+
           ],
         ),
       ),

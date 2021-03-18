@@ -25,5 +25,8 @@
   "RETURN_WRITE_PIN": "Vuelve a escribir tu codigo PIN",
   "PROMOTE_TRADE": "Promueve el comercio local",
   "CREATE_USER": "¡Crea tu usuario!",
-  "ACORD_WHIT_TEMS": "Estoy de acuerdo con REC Terminos de Uso"
+  "ACORD_WHIT_TEMS": "Estoy de acuerdo con REC Terminos de Uso",
+  "DNI_NIE": "DNI/NIE",
+  "PRESS_NEXT_TO_ADD": "Pulsa Siguiente para añadir tu organizacion",
+  "TO_START_WRITE": "Para empezar escribe tus datos personales"
 }
