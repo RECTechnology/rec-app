@@ -16,7 +16,7 @@ abstract class GenericRecBaseScreenState<T extends StatefulWidget>
 
   Widget getBackAction() {
     return IconButtonRec(
-      function: goBack,
+      onPressed: goBack,
       icon: Icon(Icons.arrow_back),
     );
   }

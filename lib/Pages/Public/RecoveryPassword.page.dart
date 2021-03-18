@@ -33,7 +33,7 @@ class _RecoveryPasswordState extends GenericRecViewScreen<RecoveryPassword> {
             Icons.arrow_back,
             color: Colors.black,
           ),
-          function: () {
+          onPressed: () {
             Navigator.of(context).pop();
           },
         ),

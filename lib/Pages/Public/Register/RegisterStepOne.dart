@@ -36,7 +36,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
             Icons.arrow_back,
             color: Colors.black,
           ),
-          function: () {
+          onPressed: () {
             Navigator.of(context).pop();
           },
         ),
@@ -46,11 +46,11 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
           child: Row(
             children: [
               IconButtonRec(
-                function: setToParticular,
+                onPressed: setToParticular,
                 icon: Icon(Icons.phone),
               ),
               IconButtonRec(
-                function: setToOrganizations,
+                onPressed: setToOrganizations,
                 icon: Icon(Icons.phone),
               ),
             ],

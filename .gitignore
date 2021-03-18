@@ -41,5 +41,5 @@ app.*.symbols
 app.*.map.json
 
 /node_modules
-
+/coverage
 /package-lock.json

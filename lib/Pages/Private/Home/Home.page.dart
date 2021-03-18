@@ -28,7 +28,7 @@ class _HomePageState extends GenericRecViewScreen<HomePage> {
     AppLocalizations localizations,
   ) {
     return IconButtonRec(
-      function: () {
+      onPressed: () {
         Navigator.of(context).pushReplacementNamed('/login');
       },
       icon: Icon(Icons.translate),

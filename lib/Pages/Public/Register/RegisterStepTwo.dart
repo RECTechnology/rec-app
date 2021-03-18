@@ -30,7 +30,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
             Icons.arrow_back,
             color: Colors.black,
           ),
-          function: () {
+          onPressed: () {
             Navigator.of(context).pop();
           },
         ),
@@ -81,7 +81,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                       children: [
                         IconButtonRec(
                           icon: Icon(Icons.arrow_left),
-                          function: () {
+                          onPressed: () {
                             Navigator.of(context)
                                 .pushReplacementNamed('/recoveryPassword');
                           },
@@ -106,7 +106,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                               ),
                               IconButtonRec(
                                 icon: Icon(Icons.arrow_right),
-                                function: () {
+                                onPressed: () {
                                   Navigator.of(context).pushReplacementNamed(
                                       '/recoveryPassword');
                                 },

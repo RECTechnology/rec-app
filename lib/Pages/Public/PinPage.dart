@@ -30,7 +30,7 @@ class PinPageState extends GenericRecViewScreen<PinPage> {
             Icons.arrow_back,
             color: Colors.black,
           ),
-          function: () {
+          onPressed: () {
             Navigator.of(context).pop();
           },
         ),
@@ -77,7 +77,7 @@ class PinPageState extends GenericRecViewScreen<PinPage> {
                       children: [
                         IconButtonRec(
                           icon: Icon(Icons.arrow_left),
-                          function: () {
+                          onPressed: () {
                             Navigator.of(context)
                                 .pushReplacementNamed('/recoveryPassword');
                           },
@@ -101,7 +101,7 @@ class PinPageState extends GenericRecViewScreen<PinPage> {
                               ),
                               IconButtonRec(
                                 icon: Icon(Icons.arrow_right),
-                                function: () {
+                                onPressed: () {
                                   Navigator.of(context).pushReplacementNamed(
                                       '/recoveryPassword');
                                 },
