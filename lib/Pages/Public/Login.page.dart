@@ -107,7 +107,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                     recognizer: TapGestureRecognizer()
                       ..onTap = () async {
                         Navigator.of(context)
-                            .pushReplacementNamed('/recoveryPassword');
+                            .pushReplacementNamed('/pinPage');
                       }),
               ),
             ),

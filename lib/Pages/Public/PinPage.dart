@@ -17,8 +17,7 @@ class PinPageState extends GenericRecViewScreen<PinPage> {
     // TODO: implement buildPageContent
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 40,
-        toolbarHeight: 30,
+
         title: Text(
           AppLocalizations.of(context).translate('FORGOT_PASSWORD'),
           style: TextStyle(color: Colors.black),
