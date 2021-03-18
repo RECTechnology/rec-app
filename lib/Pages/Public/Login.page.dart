@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:rec/Api/Services/LoginService.dart';
 import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
 
@@ -21,6 +22,8 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
   var dni = "53791396P";
   var contra = "";
   var userName = "Vicmi";
+
+  LoginService login = new LoginService();
 
   _LoginPageState(this.isLogState);
 
@@ -65,7 +68,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                   backgroundColor: Colors.black,
                   onPressed: singIn,
                   text:
-                  Text(AppLocalizations.of(context).translate('REGISTER'))),
+                      Text(AppLocalizations.of(context).translate('REGISTER'))),
             ),
 
             Container(
@@ -81,7 +84,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
               keyboardType: TextInputType.text,
               needObscureText: false,
               placeholder:
-              AppLocalizations.of(context).translate('WRITE_DOCUMENT'),
+                  AppLocalizations.of(context).translate('WRITE_DOCUMENT'),
               title: AppLocalizations.of(context).translate('DNI'),
               isPassword: true,
               onChanged: setDni,
@@ -91,7 +94,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
               keyboardType: TextInputType.text,
               needObscureText: true,
               placeholder:
-              AppLocalizations.of(context).translate('WRITE_PASSWORD'),
+                  AppLocalizations.of(context).translate('WRITE_PASSWORD'),
               title: AppLocalizations.of(context).translate('PASSWORD'),
               isPassword: true,
               onChanged: setPassword,
@@ -105,7 +108,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                     text: AppLocalizations.of(context)
                         .translate('FORGOT_PASSWORD'),
                     recognizer: TapGestureRecognizer()
-                      ..onTap = ()  {
+                      ..onTap = () {
                         Navigator.of(context)
                             .pushReplacementNamed('/recoveryPassword');
                       }),
@@ -190,7 +193,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                               AppLocalizations.of(context)
                                   .translate('ARE_NOT_U'),
                               style:
-                              TextStyle(fontSize: 15, color: Colors.blue),
+                                  TextStyle(fontSize: 15, color: Colors.blue),
                             ),
                           ),
                         ],
@@ -230,7 +233,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                   keyboardType: TextInputType.text,
                   needObscureText: true,
                   placeholder:
-                  AppLocalizations.of(context).translate('WRITE_PASSWORD'),
+                      AppLocalizations.of(context).translate('WRITE_PASSWORD'),
                   title: AppLocalizations.of(context).translate('PASSWORD'),
                   isPassword: true,
                   onChanged: setPassword,
@@ -257,5 +260,10 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
     this.contra = passwordTextField;
   }
 
-  singIn() async {}
+  singIn() {
+    login
+        .login(username: '80008000q', password: 'qwerty')
+        .then((value) => print('yayayay'))
+        .catchError(() => print('erewrr'));
+  }
 }
