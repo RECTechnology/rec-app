@@ -12,7 +12,8 @@ abstract class ServiceBase {
     client = HttpClientWithInterceptor.build(
       interceptors: [
         ApiLoggerInterceptor(),
-      ]..addAll(interceptors),
+        ...interceptors,
+      ],
     );
   }
 

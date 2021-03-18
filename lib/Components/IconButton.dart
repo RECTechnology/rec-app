@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/ButtonRec.dart';
 
 class IconButtonRec extends StatefulWidget {
   final Icon icon;
@@ -21,7 +20,6 @@ class IconButtonRecState extends State<IconButtonRec> {
   Widget build(BuildContext context) {
     return IconButton(
       icon: widget.icon,
-
       onPressed: widget.function,
     );
   }

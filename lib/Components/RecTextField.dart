@@ -39,7 +39,7 @@ class _InputField extends State<RecTextField> {
             children: <Widget>[
               Container(
                 child: Text(
-                  widget.title != null ? widget.title : "",
+                  widget.title ?? '',
                   style: TextStyle(fontSize: 14, color: Colors.black),
                 ),
               )
@@ -67,7 +67,7 @@ class _InputField extends State<RecTextField> {
                           : Icons.visibility),
                     )
                   : null,
-              errorText: this.hasError ? this.error : null,
+              errorText: hasError ? error : null,
               hintText: widget.placeholder,
             ),
             style: TextStyle(color: Colors.black),

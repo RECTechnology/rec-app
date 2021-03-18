@@ -8,7 +8,7 @@ class LoginService extends ServiceBase {
   LoginService() : super();
 
   Future login({String username, String password}) async {
-    var headers = await this.getHeaders();
+    var headers = await getHeaders();
     return client.post(
       ApiPaths.login,
       headers: headers,

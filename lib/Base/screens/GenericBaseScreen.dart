@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Base/Page.base.dart';
-import 'package:rec/Components/ButtonRec.dart';
 import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Providers/AppState.dart';
 
@@ -23,7 +22,7 @@ abstract class GenericRecBaseScreenState<T extends StatefulWidget>
 
   List<Widget> getActions() {
     var actions = [];
-    if (this.canGoBack) {
+    if (canGoBack) {
       actions.add(getBackAction());
     }
 
@@ -33,8 +32,8 @@ abstract class GenericRecBaseScreenState<T extends StatefulWidget>
 
   AppBar createAppBar() {
     return AppBar(
-      title: Text(this.title),
-      actions: this.getActions(),
+      title: Text(title),
+      actions: getActions(),
     );
   }
 
@@ -45,7 +44,7 @@ abstract class GenericRecBaseScreenState<T extends StatefulWidget>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: this.hasAppBar ? createAppBar() : null,
+      appBar: hasAppBar ? createAppBar() : null,
       body: Padding(
         padding: EdgeInsets.all(20.0),
         child: buildPageContent(context, AppState.of(context)),

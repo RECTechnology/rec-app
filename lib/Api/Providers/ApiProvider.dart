@@ -9,7 +9,7 @@ class ApiProvider with ChangeNotifier {
     loginService = LoginService();
   }
 
-  static of(context, {listen = true}) {
+  static ApiProvider of(context, {listen = true}) {
     return Provider.of<ApiProvider>(context, listen: listen);
   }
 }

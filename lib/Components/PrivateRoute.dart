@@ -25,8 +25,8 @@ class _PrivateRouteState extends State<PrivateRoute> {
         if (v == false) {
           Navigator.of(context).pushReplacementNamed('/login');
         }
-        this.setState(() {
-          this.loading = false;
+        setState(() {
+          loading = false;
         });
       },
     );
@@ -34,12 +34,12 @@ class _PrivateRouteState extends State<PrivateRoute> {
 
   @override
   Widget build(BuildContext context) {
-    return this.loading
+    return loading
         ? Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [CircularProgressIndicator()],
           )
-        : this.route;
+        : route;
   }
 }
