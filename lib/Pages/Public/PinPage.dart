@@ -13,13 +13,15 @@ class PinPage extends StatefulWidget {
 
 class PinPageState extends GenericRecViewScreen<PinPage> {
   @override
-  Widget buildPageContent(BuildContext context, AppState state) {
-    // TODO: implement buildPageContent
+  Widget buildPageContent(
+    BuildContext context,
+    AppState state,
+    AppLocalizations localizations,
+  ) {
     return Scaffold(
       appBar: AppBar(
-
         title: Text(
-          AppLocalizations.of(context).translate('FORGOT_PASSWORD'),
+          localizations.translate('FORGOT_PASSWORD'),
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
@@ -37,46 +39,39 @@ class PinPageState extends GenericRecViewScreen<PinPage> {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(0, 45, 0, 30), //Left,Top,Right,Bottom
+              margin: EdgeInsets.fromLTRB(0, 45, 0, 30),
               child: Text(
-                AppLocalizations.of(context).translate('SECURE_YOUR_ACCOUNT'),
-                style: TextStyle(color: Colors.blue,fontSize: 30),
+                localizations.translate('SECURE_YOUR_ACCOUNT'),
+                style: TextStyle(color: Colors.blue, fontSize: 30),
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 30), //Left,Top,Right,Bottom
-
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
               child: RecTextField(
-                placeholder:
-                    AppLocalizations.of(context).translate('PIN_CODE'),
+                placeholder: localizations.translate('PIN_CODE'),
                 needObscureText: false,
                 keyboardType: TextInputType.phone,
                 isPassword: false,
                 isNumeric: true,
-                title:
-                    AppLocalizations.of(context).translate('PIN_CODE'),
+                title: localizations.translate('PIN_CODE'),
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 15), //Left,Top,Right,Bottom
-
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
               child: RecTextField(
-                placeholder:
-                    AppLocalizations.of(context).translate('RETURN_WRITE_PIN'),
+                placeholder: localizations.translate('RETURN_WRITE_PIN'),
                 needObscureText: false,
                 keyboardType: TextInputType.phone,
                 isPassword: false,
                 isNumeric: true,
-                title:
-                    AppLocalizations.of(context).translate('REPEAT_PIN_CODE'),
+                title: localizations.translate('REPEAT_PIN_CODE'),
               ),
             ),
             Container(
               child: Row(
                 children: [
                   Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 90, 0), //Left,Top,Right,Bottom
-
+                    margin: EdgeInsets.fromLTRB(0, 0, 90, 0),
                     alignment: Alignment.centerLeft,
                     child: Row(
                       children: [
@@ -88,13 +83,13 @@ class PinPageState extends GenericRecViewScreen<PinPage> {
                           },
                         ),
                         Text(
-                          AppLocalizations.of(context).translate('BACK'),
+                          localizations.translate('BACK'),
                         ),
                       ],
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(90, 0, 0, 0), //Left,Top,Right,Bottom
+                    margin: EdgeInsets.fromLTRB(90, 0, 0, 0),
                     alignment: Alignment.centerRight,
                     child: Row(
                       children: [
@@ -102,7 +97,7 @@ class PinPageState extends GenericRecViewScreen<PinPage> {
                           child: Row(
                             children: [
                               Text(
-                                AppLocalizations.of(context).translate('NEXT'),
+                                localizations.translate('NEXT'),
                               ),
                               IconButtonRec(
                                 icon: Icon(Icons.arrow_right),

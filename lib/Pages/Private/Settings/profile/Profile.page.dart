@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Base/screens/GenericRecEditScreen.dart';
 import 'package:rec/Components/Forms/profile.form.dart';
+import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -20,7 +21,11 @@ class _ProfilePageState extends GenericRecEditScreen<ProfilePage> {
   }
 
   @override
-  Widget buildPageContent(BuildContext context, AppState appState) {
+  Widget buildPageContent(
+    BuildContext context,
+    AppState appState,
+    AppLocalizations localizations,
+  ) {
     return ProfileForm();
   }
 }

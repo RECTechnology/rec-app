@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:rec/Api/Providers/AuthProvider.dart';
-import 'package:rec/brand.dart';
-import 'package:rec/routes.dart';
+import 'package:rec/app.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'Environments/env-local.dart';
-import 'Lang/AppLocalizations.dart';
 import 'Providers/AppState.dart';
 
 Future<void> main() async {
@@ -15,10 +12,10 @@ Future<void> main() async {
   // Get the token from storage
   var token = await AuthProvider.getToken();
 
-  // Create AppState provider
+  // Create AppState change notifier provider
   var appStateProvider = ChangeNotifierProvider(
     create: (context) => AppState(),
-    child: MyApp(token),
+    child: RecApp(token),
   );
 
   if (env.SENTRY_ACTIVE) {
@@ -28,59 +25,5 @@ Future<void> main() async {
     );
   } else {
     runApp(appStateProvider);
-  }
-}
-
-class MyApp extends StatefulWidget {
-  final String token;
-
-  MyApp(this.token);
-
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  ThemeData _createTheme() {
-    final baseTheme = ThemeData();
-    return baseTheme.copyWith(
-      primaryColor: primaryColor,
-      accentColor: accentColor,
-      brightness: brightness,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var hasToken = widget.token != null;
-
-    return MaterialApp(
-      title: appName,
-      theme: _createTheme(),
-      supportedLocales: [
-        Locale('en', 'UK'),
-        Locale('ca', 'CA'),
-        Locale('es', 'ES')
-      ],
-      localizationsDelegates: [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
-      ],
-      localeResolutionCallback: (locale, supportedLocales) {
-        // Check if the current device locale is supported
-        for (var supportedLocale in supportedLocales) {
-          if (supportedLocale.languageCode == locale?.languageCode ||
-              supportedLocale.countryCode == locale?.countryCode) {
-            return supportedLocale;
-          }
-        }
-        // If the locale of the device is not supported, use the first one
-        // from the list (English, in this case).
-        return supportedLocales.first;
-      },
-      initialRoute: InitialRoutes.getInitialRoute(hasToken: hasToken),
-      routes: ROUTES,
-    );
   }
 }
