@@ -22,5 +22,8 @@
   "PIN_CODE": "CODIGO PIN *",
   "REPEAT_PIN_CODE": "REPETIR CODIGO PIN *",
   "NUMBER_TO_PAY": "Un numero de 4 cifras para realizar pagos",
-  "RETURN_WRITE_PIN": "Vuelve a escribir tu codigo PIN"
+  "RETURN_WRITE_PIN": "Vuelve a escribir tu codigo PIN",
+  "PROMOTE_TRADE": "Promueve el comercio local",
+  "CREATE_USER": "¡Crea tu usuario!",
+  "ACORD_WHIT_TEMS": "Estoy de acuerdo con REC Terminos de Uso"
 }
