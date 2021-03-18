@@ -52,7 +52,11 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     bool hasToken = true; //widget.token != null;
+=======
+    bool hasToken = false; //widget.token != null;
+>>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
 
     return MaterialApp(
       title: appName,

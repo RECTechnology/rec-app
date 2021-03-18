@@ -4,54 +4,53 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class AppLocalizations{
+class AppLocalizations {
   final Locale locale;
 
   AppLocalizations(this.locale);
 
-  static AppLocalizations of(BuildContext context){
+  static AppLocalizations of(BuildContext context) {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   Map<String, String> _localizedStrings;
 
-  Future<bool> load() async{
-
-    String jsonString = await rootBundle.loadString('i18n/${locale.languageCode}.json');
-    Map<String,dynamic> jsonMap = json.decode(jsonString);
+  Future<bool> load() async {
+    String jsonString =
+        await rootBundle.loadString('i18n/${locale.languageCode}.json');
+    Map<String, dynamic> jsonMap = json.decode(jsonString);
 
     _localizedStrings = jsonMap.map((key, value) {
-        return MapEntry(key, value.toString());
+      return MapEntry(key, value.toString());
     });
     return true;
-
   }
 
-  String translate(String key){
+  String translate(String key) {
     return _localizedStrings[key];
   }
-
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations>{
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
-  Future<AppLocalizations>load(Locale locale) async{
-
-    AppLocalizations localizations = new AppLocalizations(locale);
+  Future<AppLocalizations> load(Locale locale) async {
+    var localizations = AppLocalizations(locale);
     await localizations.load();
     return localizations;
   }
 
   @override
   bool isSupported(Locale locale) {
-    return['en','es','ca'].contains(locale.languageCode);
+    return ['en', 'es', 'ca'].contains(locale.languageCode);
   }
 
   @override
-  bool shouldReload(covariant LocalizationsDelegate<AppLocalizations> old) =>false;
-
+  bool shouldReload(covariant LocalizationsDelegate<AppLocalizations> old) =>
+      false;
 }

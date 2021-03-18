@@ -7,7 +7,7 @@ class SpinKit extends StatefulWidget {
   SpinKit({this.size});
 
   @override
-  State<StatefulWidget> createState() => new _SpinKitState();
+  State<StatefulWidget> createState() => _SpinKitState();
 }
 
 class _SpinKitState extends State<SpinKit> {

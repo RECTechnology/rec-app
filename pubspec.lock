@@ -175,7 +175,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.2"
-<<<<<<< HEAD
   pin_code_fields:
     dependency: "direct main"
     description:
@@ -190,7 +189,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.6"
-=======
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -198,7 +196,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
->>>>>>> feat/registPage
   provider:
     dependency: "direct main"
     description:
@@ -212,14 +209,14 @@ packages:
       name: sentry
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.5"
+    version: "4.0.6"
   sentry_flutter:
     dependency: "direct main"
     description:
       name: sentry_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.5"
+    version: "4.0.6"
   sky_engine:
     dependency: transitive
     description: flutter

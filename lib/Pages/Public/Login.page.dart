@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:rec/Api/Services/LoginService.dart';
 import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
 
@@ -18,19 +19,23 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends GenericRecViewScreen<LoginPage> {
   bool isLogState;
+<<<<<<< HEAD
   String dni = "53791396P";
   String contra = "";
   String userName = "Vicmi";
+=======
+  String dni = '53791396P';
+  String password = '';
+  String userName = 'Vicmi';
+
+  LoginService loginService = LoginService();
+>>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
 
   _LoginPageState(this.isLogState);
 
   @override
   Widget buildPageContent(BuildContext context, AppState state) {
-    if (isLogState) {
-      return loged(context);
-    } else {
-      return notLoged(context);
-    }
+    return notLoged(context); //isLogState ? loged(context) : notLoged(context);
   }
 
   @override
@@ -39,8 +44,12 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
   }
 
   Widget notLoged(BuildContext context) {
+<<<<<<< HEAD
     AppLocalizations localizations = AppLocalizations.of(context);
 
+=======
+    var localizations = AppLocalizations.of(context);
+>>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -65,7 +74,11 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
               child: ButtonRec(
                   textColor: Colors.white,
                   backgroundColor: Colors.black,
+<<<<<<< HEAD
                   onPressed: singIn,
+=======
+                  onPressed: login,
+>>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
                   text: Text(localizations.translate('REGISTER'))),
             ),
             Container(
@@ -81,7 +94,11 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
               needObscureText: false,
               placeholder: localizations.translate('WRITE_DOCUMENT'),
               title: localizations.translate('DNI'),
+<<<<<<< HEAD
               isPassword: true,
+=======
+              isPassword: false,
+>>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
               function: setDni,
             ),
             RecTextField(
@@ -122,7 +139,11 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
               child: ButtonRec(
                 textColor: Colors.white,
                 backgroundColor: Colors.black,
+<<<<<<< HEAD
                 onPressed: singIn,
+=======
+                onPressed: login,
+>>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
                 text: Text("LOGIN"),
               ),
             ),
@@ -133,7 +154,11 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
   }
 
   Widget loged(BuildContext context) {
+<<<<<<< HEAD
     AppLocalizations localizations = AppLocalizations.of(context);
+=======
+    var localizations = AppLocalizations.of(context);
+>>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -154,12 +179,26 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
             ),
             Container(
               margin: EdgeInsets.fromLTRB(40, 20, 40, 20),
+<<<<<<< HEAD
               decoration: new BoxDecoration(color: Colors.white, boxShadow: [
                 new BoxShadow(
                     color: Colors.black54,
                     offset: new Offset(0.0, 0.0),
                     blurRadius: 500.0)
               ]),
+=======
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    offset: Offset(0.0, 0.0),
+                    blurRadius: 20.0,
+                  )
+                ],
+                borderRadius: BorderRadius.circular(5),
+              ),
+>>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
               child: Row(
                 children: <Widget>[
                   Container(
@@ -174,9 +213,21 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                         ),
                         Container(
                           margin: EdgeInsets.fromLTRB(10, 20, 0, 20),
+<<<<<<< HEAD
                           child: Text(
                             localizations.translate('ARE_NOT_U'),
                             style: TextStyle(fontSize: 15, color: Colors.blue),
+=======
+                          child: InkWell(
+                            onTap: () => {},
+                            child: Text(
+                              localizations.translate('ARE_NOT_U'),
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.blue,
+                              ),
+                            ),
+>>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
                           ),
                         ),
                       ],
@@ -228,7 +279,11 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
               child: ButtonRec(
                 textColor: Colors.white,
                 backgroundColor: Colors.black,
+<<<<<<< HEAD
                 onPressed: singIn,
+=======
+                onPressed: login,
+>>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
                 text: Text(localizations.translate('LOGIN')),
               ),
             ),
@@ -243,10 +298,29 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
   }
 
   void setPassword(String passwordTextField) {
+<<<<<<< HEAD
     contra = passwordTextField;
   }
 
   singIn() {
     Navigator.of(context).pushNamed('/registerOne');
+=======
+    password = passwordTextField;
+  }
+
+  login() {
+    loginService
+        .login(username: dni, password: password)
+        .then(onLogin)
+        .catchError(onError);
+  }
+
+  onLogin(response) {
+    // Logged in OK
+  }
+
+  onError(error) {
+    // Logged in with error
+>>>>>>> 0493584ea137e446088b473d2aad0a2083ecee0b
   }
 }
