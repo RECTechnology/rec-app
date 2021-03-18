@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Base/screens/GenericRecViewScreen.dart';
+import 'package:rec/Components/ButtonRec.dart';
 import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/RecTextField.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
@@ -17,109 +18,103 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
     // TODO: implement buildPageContent
     return Scaffold(
       appBar: AppBar(
-
-        title: Text(
-          AppLocalizations.of(context).translate('FORGOT_PASSWORD'),
-          style: TextStyle(color: Colors.black),
-        ),
-        backgroundColor: Colors.white,
-        leading: IconButtonRec(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
+          backgroundColor: Colors.orangeAccent,
+          leading: IconButtonRec(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+            function: () {
+              Navigator.of(context).pop();
+            },
           ),
-          function: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
+          title: Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.fromLTRB(80, 0, 0, 0), //Left,Top,Right,Bottom
+            child: Row(
+              children: [
+                Icon(
+                  Icons.phone,
+                ),
+              ],
+            ),
+          )),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(0, 45, 0, 30), //Left,Top,Right,Bottom
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.fromLTRB(20, 20, 0, 0), //Left,Top,Right,Bottom
               child: Text(
-                AppLocalizations.of(context).translate('SECURE_YOUR_ACCOUNT'),
-                style: TextStyle(color: Colors.blue,fontSize: 30),
+                AppLocalizations.of(context).translate('MAKE_KNOW'),
+                style: TextStyle(color: Colors.black, fontSize: 13),
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 30), //Left,Top,Right,Bottom
-
-              child: RecTextField(
-                placeholder:
-                AppLocalizations.of(context).translate('PIN_CODE'),
-                needObscureText: false,
-                keyboardType: TextInputType.phone,
-                isPassword: false,
-                isNumeric: true,
-                title:
-                AppLocalizations.of(context).translate('PIN_CODE'),
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.fromLTRB(20, 0, 0, 30), //Left,Top,Right,Bottom
+              child: RichText(
+                textAlign: TextAlign.left,
+                text: TextSpan(
+                  text: AppLocalizations.of(context).translate('ADD_ORG'),
+                  style: TextStyle(color: Colors.black, fontSize: 20),
+                ),
               ),
             ),
             Container(
               margin: EdgeInsets.fromLTRB(0, 0, 0, 15), //Left,Top,Right,Bottom
 
               child: RecTextField(
-                placeholder:
-                AppLocalizations.of(context).translate('RETURN_WRITE_PIN'),
+
                 needObscureText: false,
                 keyboardType: TextInputType.phone,
                 isPassword: false,
                 isNumeric: true,
-                title:
-                AppLocalizations.of(context).translate('REPEAT_PIN_CODE'),
+                title: AppLocalizations.of(context).translate('NAME'),
               ),
             ),
             Container(
-              child: Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 90, 0), //Left,Top,Right,Bottom
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 15), //Left,Top,Right,Bottom
 
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      children: [
-                        IconButtonRec(
-                          icon: Icon(Icons.arrow_left),
-                          function: () {
-                            Navigator.of(context)
-                                .pushReplacementNamed('/recoveryPassword');
-                          },
-                        ),
-                        Text(
-                          AppLocalizations.of(context).translate('BACK'),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(90, 0, 0, 0), //Left,Top,Right,Bottom
-                    alignment: Alignment.centerRight,
-                    child: Row(
-                      children: [
-                        Container(
-                          child: Row(
-                            children: [
-                              Text(
-                                AppLocalizations.of(context).translate('NEXT'),
-                              ),
-                              IconButtonRec(
-                                icon: Icon(Icons.arrow_right),
-                                function: () {
-                                  Navigator.of(context).pushReplacementNamed(
-                                      '/recoveryPassword');
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              child: RecTextField(
+                placeholder: AppLocalizations.of(context).translate('CIF'),
+                needObscureText: false,
+                keyboardType: TextInputType.phone,
+                isPassword: false,
+                isNumeric: true,
               ),
             ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 15), //Left,Top,Right,Bottom
+
+              child: RecTextField(
+                placeholder: AppLocalizations.of(context).translate('EMAIL'),
+                needObscureText: false,
+                keyboardType: TextInputType.phone,
+                isPassword: false,
+                isNumeric: true,
+              ),
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.fromLTRB(20, 20, 0, 0), //Left,Top,Right,Bottom
+              child: Text(
+                AppLocalizations.of(context).translate('WHEN_INIT_SESION'),
+                style: TextStyle(color: Colors.deepOrange, fontSize: 14),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
+              //Left,Top,Right,Bottom
+              child: ButtonRec(
+                onPressed: (){
+
+                },
+                textColor: Colors.white,
+                backgroundColor: Colors.deepOrange,
+                text: Text(AppLocalizations.of(context).translate('REGISTER')),
+              ),
+            )
           ],
         ),
       ),
