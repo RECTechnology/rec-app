@@ -24,9 +24,18 @@ class RecTextField extends StatefulWidget {
 }
 
 class _InputField extends State<RecTextField> {
-  bool obscureText = true;
+  bool obscureText = false;
   bool hasError = false;
   String error = "Contraseña incorrecta";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if(widget.needObscureText){
+      obscureText=true;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

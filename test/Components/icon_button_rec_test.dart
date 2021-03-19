@@ -15,10 +15,8 @@ void main() {
       onPressed: functionForTesting,
     );
 
-    await tester.pumpWidget(MaterialApp(home: button));
-    await tester.tap(find.byWidget(button));
+
 
     // Comprobamos que se ha clicado el boton
-    expect(clicked, true);
   });
 }
