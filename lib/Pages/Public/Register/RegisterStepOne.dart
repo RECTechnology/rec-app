@@ -21,7 +21,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
     // TODO: implement buildPageContent
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100.0),
+        preferredSize: Size.fromHeight(75.0),
         child: AppBar(
             backgroundColor:
             isParticular ? Colors.lightBlueAccent : Colors.orangeAccent,
