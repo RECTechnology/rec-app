@@ -86,7 +86,6 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
               isPassword: true,
               function: setDni,
               colorLine: Colors.blue,
-
             ),
             RecTextField(
               isNumeric: false,
@@ -97,7 +96,6 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
               isPassword: true,
               function: setPassword,
               colorLine: Colors.blue,
-
             ),
             Container(
               margin: EdgeInsets.fromLTRB(20, 0, 20, 15),

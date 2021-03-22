@@ -52,7 +52,6 @@ class _InputField extends State<RecTextField> {
         Container(
           margin: EdgeInsets.fromLTRB(20, 0, 20, 15),
           child: TextFormField(
-
             decoration: InputDecoration(
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: widget.colorLine),

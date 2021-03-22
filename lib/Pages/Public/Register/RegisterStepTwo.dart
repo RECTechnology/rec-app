@@ -78,8 +78,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                 isPassword: false,
                 isNumeric: true,
                 title: AppLocalizations.of(context).translate('NAME'),
-                colorLine:  Colors.orange,
-
+                colorLine: Colors.orange,
               ),
             ),
             Container(
@@ -91,8 +90,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                 keyboardType: TextInputType.phone,
                 isPassword: false,
                 isNumeric: true,
-                colorLine:  Colors.orange,
-
+                colorLine: Colors.orange,
               ),
             ),
             Container(
@@ -104,8 +102,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                 keyboardType: TextInputType.phone,
                 isPassword: false,
                 isNumeric: true,
-                colorLine:  Colors.orange,
-
+                colorLine: Colors.orange,
               ),
             ),
             Container(

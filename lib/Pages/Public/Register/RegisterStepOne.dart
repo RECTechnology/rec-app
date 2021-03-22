@@ -88,14 +88,14 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                 ),
               ),
             ),
-
             Container(
               margin: EdgeInsets.fromLTRB(20, 0, 0, 0), //Left,Top,Right,Bottom
-              child:Column(
+              child: Column(
                 children: [
                   Container(
                     alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.fromLTRB(0, 40, 0, 0), //Left,Top,Right,Bottom
+                    margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
+                    //Left,Top,Right,Bottom
                     child: RichText(
                       textAlign: TextAlign.left,
                       text: TextSpan(
@@ -119,12 +119,9 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                               },
                             );
                           }).toList(),
-                          onChanged: (_) {
-
-                          },
+                          onChanged: (_) {},
                         ),
                       ),
-
                       Container(
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                         //Left,Top,Right,Bottom
@@ -136,14 +133,13 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                           isPassword: false,
                           isNumeric: true,
                           colorLine:
-                          isParticular ? Colors.blueAccent : Colors.orange,
+                              isParticular ? Colors.blueAccent : Colors.orange,
                         ),
                       ),
                     ],
                   ),
                 ],
               ),
-
             ),
             Container(
               margin: EdgeInsets.fromLTRB(0, 0, 0, 15), //Left,Top,Right,Bottom
