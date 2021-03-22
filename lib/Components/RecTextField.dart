@@ -10,6 +10,7 @@ class RecTextField extends StatefulWidget {
   final bool isPassword;
   final Color colorLine;
   final Function(String string) function;
+  final Icon icon;
 
   RecTextField({
     this.title,
@@ -20,6 +21,7 @@ class RecTextField extends StatefulWidget {
     this.isPassword,
     this.colorLine,
     this.function,
+    this.icon,
   });
 
   @override
@@ -27,7 +29,7 @@ class RecTextField extends StatefulWidget {
 }
 
 class _InputField extends State<RecTextField> {
-  bool obscureText = true;
+  bool obscureText = false;
   bool hasError = false;
   String error = "Contraseña incorrecta";
 
@@ -62,8 +64,8 @@ class _InputField extends State<RecTextField> {
                     ? BorderSide(color: Colors.red)
                     : BorderSide(color: Colors.black),
               ),
-              suffixIcon: widget.needObscureText
-                  ? IconButton(
+              suffixIcon: obscureText?
+                   IconButton(
                       onPressed: () {
                         setState(() {
                           changeObscureText();
@@ -73,12 +75,12 @@ class _InputField extends State<RecTextField> {
                           ? Icons.visibility_off
                           : Icons.visibility),
                     )
-                  : null,
+                  : widget.icon,
               errorText: this.hasError ? this.error : null,
               hintText: widget.placeholder,
             ),
             style: TextStyle(color: Colors.black),
-            onChanged: widget.function,
+            onChanged: onChanged,
             obscureText: obscureText ? true : false,
             keyboardType: widget.keyboardType,
           ),
@@ -87,10 +89,19 @@ class _InputField extends State<RecTextField> {
     );
   }
 
+  void onChanged(String string){
+
+    if(widget.needObscureText == true){
+      setState(() {
+        obscureText = true;
+      });
+    }
+    widget.function;
+  }
+
   void changeObscureText() {
     this.obscureText = !this.obscureText;
     print("obscureText = " + obscureText.toString());
   }
 
-  void onChanged(String val) {}
 }

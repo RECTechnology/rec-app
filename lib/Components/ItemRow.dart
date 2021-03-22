@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-class ItemRow extends StatefulWidget{
+class ItemRowRec extends StatefulWidget{
   final List<Widget>children;
   final Alignment aligment;
 
-  ItemRow({
+  ItemRowRec({
    this.children,
    this.aligment
   });
 
   @override
-  State<StatefulWidget> createState() => new _ItemRowState();
+  State<StatefulWidget> createState() => new _ItemRowRecState();
 }
 
-class _ItemRowState extends State<ItemRow>{
+class _ItemRowRecState extends State<ItemRowRec>{
   @override
   Widget build(BuildContext context) {
     Container itemRow = Container(

@@ -32,6 +32,7 @@ dependencies:
   flutter_spinkit: "^4.1.2"
   sentry_flutter: ^4.0.4
   url_launcher: ^5.7.5
+  image_test_utils: ^1.0.0
 
 dev_dependencies:
   flutter_test:

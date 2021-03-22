@@ -132,6 +132,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                           keyboardType: TextInputType.phone,
                           isPassword: false,
                           isNumeric: true,
+                          icon: Icon(Icons.phone),
                           colorLine:
                               isParticular ? Colors.blueAccent : Colors.orange,
                         ),
@@ -148,9 +149,11 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                 placeholder:
                     AppLocalizations.of(context).translate('WRITE_DOCUMENT'),
                 needObscureText: false,
-                keyboardType: TextInputType.phone,
+                keyboardType: TextInputType.text,
                 isPassword: false,
-                isNumeric: true,
+                isNumeric: false,
+                icon: Icon(Icons.account_circle),
+
                 colorLine: isParticular ? Colors.blueAccent : Colors.orange,
               ),
             ),
@@ -159,10 +162,12 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
 
               child: RecTextField(
                 placeholder: AppLocalizations.of(context).translate('PASSWORD'),
-                needObscureText: false,
-                keyboardType: TextInputType.phone,
+                needObscureText: true,
+                keyboardType: TextInputType.text,
                 isPassword: false,
-                isNumeric: true,
+                isNumeric: false,
+                icon: Icon(Icons.lock),
+
                 colorLine: isParticular ? Colors.blueAccent : Colors.orange,
               ),
             ),

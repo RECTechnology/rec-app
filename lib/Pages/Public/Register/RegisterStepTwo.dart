@@ -74,9 +74,9 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
 
               child: RecTextField(
                 needObscureText: false,
-                keyboardType: TextInputType.phone,
+                keyboardType: TextInputType.text,
                 isPassword: false,
-                isNumeric: true,
+                isNumeric: false,
                 title: AppLocalizations.of(context).translate('NAME'),
                 colorLine: Colors.orange,
               ),
@@ -87,9 +87,9 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
               child: RecTextField(
                 placeholder: AppLocalizations.of(context).translate('CIF'),
                 needObscureText: false,
-                keyboardType: TextInputType.phone,
+                keyboardType: TextInputType.text,
                 isPassword: false,
-                isNumeric: true,
+                isNumeric: false,
                 colorLine: Colors.orange,
               ),
             ),
@@ -99,9 +99,9 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
               child: RecTextField(
                 placeholder: AppLocalizations.of(context).translate('EMAIL'),
                 needObscureText: false,
-                keyboardType: TextInputType.phone,
+                keyboardType: TextInputType.text,
                 isPassword: false,
-                isNumeric: true,
+                isNumeric: false,
                 colorLine: Colors.orange,
               ),
             ),

@@ -17,7 +17,7 @@ class _CircleAvatarRecState extends State<CircleAvatarRec>{
   Widget build(BuildContext context) {
     // TODO: implement build
     CircleAvatar circleAvatarRec = CircleAvatar(
-      backgroundImage: NetworkImage("https://picsum.photos/250?image=9"),
+      backgroundImage: NetworkImage(widget.imageUrl),
     );
     return circleAvatarRec;
   }
