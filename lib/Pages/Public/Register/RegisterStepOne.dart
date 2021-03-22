@@ -15,6 +15,8 @@ class RegisterOne extends StatefulWidget {
 class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
   var isParticular = true;
   bool checkValue = false;
+  String prefix = "";
+  String telephone = "";
 
   @override
   Widget buildPageContent(BuildContext context, AppState state) {
@@ -24,7 +26,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
         preferredSize: Size.fromHeight(75.0),
         child: AppBar(
             backgroundColor:
-            isParticular ? Colors.lightBlueAccent : Colors.orangeAccent,
+                isParticular ? Colors.lightBlueAccent : Colors.orangeAccent,
             leading: IconButtonRec(
               icon: Icon(
                 Icons.arrow_back,
@@ -77,7 +79,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              margin: EdgeInsets.fromLTRB(20, 0, 0, 30), //Left,Top,Right,Bottom
+              margin: EdgeInsets.fromLTRB(20, 0, 0, 10), //Left,Top,Right,Bottom
               child: RichText(
                 textAlign: TextAlign.left,
                 text: TextSpan(
@@ -86,17 +88,73 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                 ),
               ),
             ),
+
+            Container(
+              margin: EdgeInsets.fromLTRB(20, 0, 0, 0), //Left,Top,Right,Bottom
+              child:Column(
+                children: [
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.fromLTRB(0, 40, 0, 0), //Left,Top,Right,Bottom
+                    child: RichText(
+                      textAlign: TextAlign.left,
+                      text: TextSpan(
+                        text: AppLocalizations.of(context).translate('TELF'),
+                        style: TextStyle(color: Colors.black, fontSize: 12),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        child: new DropdownButton<String>(
+                          items: <String>['+34', '+62', '+84', '+20']
+                              .map((String value) {
+                            return new DropdownMenuItem<String>(
+                              value: value,
+                              child: new Text(value),
+                              onTap: () {
+                                prefix = value;
+                                print(prefix);
+                              },
+                            );
+                          }).toList(),
+                          onChanged: (_) {
+
+                          },
+                        ),
+                      ),
+
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        //Left,Top,Right,Bottom
+                        height: 100,
+                        width: 335,
+                        child: RecTextField(
+                          needObscureText: false,
+                          keyboardType: TextInputType.phone,
+                          isPassword: false,
+                          isNumeric: true,
+                          colorLine:
+                          isParticular ? Colors.blueAccent : Colors.orange,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+
+            ),
             Container(
               margin: EdgeInsets.fromLTRB(0, 0, 0, 15), //Left,Top,Right,Bottom
 
               child: RecTextField(
                 placeholder:
-                AppLocalizations.of(context).translate('WRITE_DOCUMENT'),
+                    AppLocalizations.of(context).translate('WRITE_DOCUMENT'),
                 needObscureText: false,
                 keyboardType: TextInputType.phone,
                 isPassword: false,
                 isNumeric: true,
-                title: AppLocalizations.of(context).translate('DNI_NIE'),
                 colorLine: isParticular ? Colors.blueAccent : Colors.orange,
               ),
             ),
@@ -115,19 +173,18 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
             isParticular
                 ? Text("")
                 : Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.fromLTRB(
-                  20, 20, 0, 0), //Left,Top,Right,Bottom
-              child: Text(
-                AppLocalizations.of(context)
-                    .translate('PRESS_NEXT_TO_ADD'),
-                style: TextStyle(color: Colors.deepOrange, fontSize: 14),
-              ),
-            ),
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.fromLTRB(
+                        20, 20, 0, 0), //Left,Top,Right,Bottom
+                    child: Text(
+                      AppLocalizations.of(context)
+                          .translate('PRESS_NEXT_TO_ADD'),
+                      style: TextStyle(color: Colors.deepOrange, fontSize: 14),
+                    ),
+                  ),
             Container(
-              child: isParticular ? const SizedBox(height: 20):null,
+              child: isParticular ? const SizedBox(height: 20) : null,
             ),
-
             Container(
               margin: EdgeInsets.fromLTRB(5, 10, 0, 0), //Left,Top,Right,Bottom
               child: Row(
@@ -158,7 +215,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
               child: ButtonRec(
                 textColor: Colors.white,
                 backgroundColor:
-                isParticular ? Colors.blueAccent : Colors.deepOrange,
+                    isParticular ? Colors.blueAccent : Colors.deepOrange,
                 onPressed: next,
                 text: Text(AppLocalizations.of(context).translate('NEXT')),
               ),
