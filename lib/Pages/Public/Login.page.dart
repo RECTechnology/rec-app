@@ -65,7 +65,9 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
               child: ButtonRec(
                   textColor: Colors.white,
                   backgroundColor: Colors.black,
-                  onPressed: singIn,
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/registerOne');
+                  },
                   text: Text(localizations.translate('REGISTER'))),
             ),
             Container(
@@ -83,6 +85,8 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
               title: localizations.translate('DNI'),
               isPassword: true,
               function: setDni,
+              colorLine: Colors.blue,
+
             ),
             RecTextField(
               isNumeric: false,
@@ -92,13 +96,14 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
               title: localizations.translate('PASSWORD'),
               isPassword: true,
               function: setPassword,
+              colorLine: Colors.blue,
+
             ),
             Container(
               margin: EdgeInsets.fromLTRB(20, 0, 20, 15),
               alignment: Alignment.topLeft,
               child: RichText(
                 text: TextSpan(
-
                   style: TextStyle(color: Colors.blue),
                   text: localizations.translate('FORGOT_PASSWORD'),
                   recognizer: TapGestureRecognizer()
@@ -106,7 +111,6 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                       Navigator.of(context).pushNamed('/registerTwo');
                     },
                 ),
-
               ),
             ),
             Container(
@@ -223,6 +227,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                 title: localizations.translate('PASSWORD'),
                 isPassword: true,
                 function: setPassword,
+                colorLine: Colors.blue,
               ),
             ),
             Container(

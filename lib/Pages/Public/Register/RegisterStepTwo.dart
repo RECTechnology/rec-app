@@ -17,28 +17,36 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
   Widget buildPageContent(BuildContext context, AppState state) {
     // TODO: implement buildPageContent
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: Colors.orangeAccent,
-          leading: IconButtonRec(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(100.0),
+        child: AppBar(
+            backgroundColor: Colors.orangeAccent,
+            leading: IconButtonRec(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
+              function: () {
+                Navigator.of(context).pop();
+              },
             ),
-            function: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          title: Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.fromLTRB(80, 0, 0, 0), //Left,Top,Right,Bottom
-            child: Row(
-              children: [
-                Icon(
-                  Icons.phone,
-                ),
-              ],
-            ),
-          )),
+            title: Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.fromLTRB(90, 0, 0, 0), //Left,Top,Right,Bottom
+              child: Row(
+                children: [
+                  Container(
+                    width: 75,
+                    height: 75,
+                    child: IconButton(
+                      icon: Image.asset('assets/organization.png'),
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
+              ),
+            )),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -65,7 +73,6 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
               margin: EdgeInsets.fromLTRB(0, 0, 0, 15), //Left,Top,Right,Bottom
 
               child: RecTextField(
-
                 needObscureText: false,
                 keyboardType: TextInputType.phone,
                 isPassword: false,
@@ -107,9 +114,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
               margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
               //Left,Top,Right,Bottom
               child: ButtonRec(
-                onPressed: (){
-
-                },
+                onPressed: () {},
                 textColor: Colors.white,
                 backgroundColor: Colors.deepOrange,
                 text: Text(AppLocalizations.of(context).translate('REGISTER')),

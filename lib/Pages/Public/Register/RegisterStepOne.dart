@@ -20,42 +20,58 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
   Widget buildPageContent(BuildContext context, AppState state) {
     // TODO: implement buildPageContent
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor:
-              isParticular ? Colors.lightBlueAccent : Colors.orangeAccent,
-          leading: IconButtonRec(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(100.0),
+        child: AppBar(
+            backgroundColor:
+                isParticular ? Colors.lightBlueAccent : Colors.orangeAccent,
+            leading: IconButtonRec(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
+              function: () {
+                Navigator.of(context).pop();
+              },
             ),
-            function: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          title: Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.fromLTRB(80, 0, 0, 0), //Left,Top,Right,Bottom
-            child: Row(
-              children: [
-                IconButtonRec(
-                  function: setToParticular,
-                  icon: Icon(Icons.phone),
-                ),
-                IconButtonRec(
-                  function: setToOrganizations,
-                  icon: Icon(Icons.phone),
-                ),
-              ],
-            ),
-          )),
+            title: Container(
+              margin: EdgeInsets.fromLTRB(30, 20, 0, 0), //Left,Top,Right,Bottom
+              child: Row(
+                children: [
+                  Container(
+                    width: 75,
+                    height: 75,
+                    child: IconButton(
+                      icon: isParticular
+                          ? Image.asset('assets/avatar.png')
+                          : Image.asset('assets/avatar-bw.png'),
+                      onPressed: setToParticular,
+                    ),
+                  ),
+                  Container(
+                    width: 75,
+                    height: 75,
+                    child: IconButton(
+                      icon: isParticular
+                          ? Image.asset('assets/organization-bw.png')
+                          : Image.asset('assets/organization.png'),
+                      onPressed: setToOrganizations,
+                    ),
+                  ),
+                ],
+              ),
+            )),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.fromLTRB(20, 20, 0, 0), //Left,Top,Right,Bottom
-              child: Text(isParticular?
-                AppLocalizations.of(context).translate('PROMOTE_TRADE'):AppLocalizations.of(context).translate('TO_START_WRITE'),
+              child: Text(
+                isParticular
+                    ? AppLocalizations.of(context).translate('PROMOTE_TRADE')
+                    : AppLocalizations.of(context).translate('TO_START_WRITE'),
                 style: TextStyle(color: Colors.black, fontSize: 13),
               ),
             ),
@@ -81,6 +97,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                 isPassword: false,
                 isNumeric: true,
                 title: AppLocalizations.of(context).translate('DNI_NIE'),
+                colorLine: isParticular ? Colors.blueAccent : Colors.orange,
               ),
             ),
             Container(
@@ -92,18 +109,21 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                 keyboardType: TextInputType.phone,
                 isPassword: false,
                 isNumeric: true,
+                colorLine: isParticular ? Colors.blueAccent : Colors.orange,
               ),
             ),
             isParticular
                 ? Text("")
                 : Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.fromLTRB(20, 20, 0, 0), //Left,Top,Right,Bottom
-              child: Text(
-                AppLocalizations.of(context).translate('PRESS_NEXT_TO_ADD'),
-                style: TextStyle(color: Colors.deepOrange, fontSize: 14),
-              ),
-            ),
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.fromLTRB(
+                        20, 20, 0, 0), //Left,Top,Right,Bottom
+                    child: Text(
+                      AppLocalizations.of(context)
+                          .translate('PRESS_NEXT_TO_ADD'),
+                      style: TextStyle(color: Colors.deepOrange, fontSize: 14),
+                    ),
+                  ),
             Container(
               margin: EdgeInsets.fromLTRB(5, 10, 0, 0), //Left,Top,Right,Bottom
               child: Row(
@@ -120,24 +140,25 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                   RichText(
                     textAlign: TextAlign.left,
                     text: TextSpan(
-                      text: AppLocalizations.of(context).translate('ACORD_WHIT_TEMS'),
+                      text: AppLocalizations.of(context)
+                          .translate('ACORD_WHIT_TEMS'),
                       style: TextStyle(color: Colors.black, fontSize: 14),
                     ),
                   ),
-
                 ],
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(20, 10, 20, 0), //Left,Top,Right,Bottom
+              margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
+              //Left,Top,Right,Bottom
               child: ButtonRec(
                 textColor: Colors.white,
-                backgroundColor: isParticular ? Colors.blueAccent : Colors.deepOrange,
-                onPressed: setToParticular,
+                backgroundColor:
+                    isParticular ? Colors.blueAccent : Colors.deepOrange,
+                onPressed: next,
                 text: Text(AppLocalizations.of(context).translate('NEXT')),
               ),
             )
-
           ],
         ),
       ),
@@ -150,6 +171,13 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
 
   void setToOrganizations() {
     setTipeScreen(false);
+  }
+
+  void next() {
+    if (isParticular) {}
+    if (isParticular == false) {
+      Navigator.of(context).pushNamed('/registerTwo');
+    }
   }
 
   void setTipeScreen(bool tipe) {
