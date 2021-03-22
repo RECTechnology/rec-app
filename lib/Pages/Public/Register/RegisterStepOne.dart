@@ -24,7 +24,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
         preferredSize: Size.fromHeight(100.0),
         child: AppBar(
             backgroundColor:
-                isParticular ? Colors.lightBlueAccent : Colors.orangeAccent,
+            isParticular ? Colors.lightBlueAccent : Colors.orangeAccent,
             leading: IconButtonRec(
               icon: Icon(
                 Icons.arrow_back,
@@ -91,7 +91,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
 
               child: RecTextField(
                 placeholder:
-                    AppLocalizations.of(context).translate('WRITE_DOCUMENT'),
+                AppLocalizations.of(context).translate('WRITE_DOCUMENT'),
                 needObscureText: false,
                 keyboardType: TextInputType.phone,
                 isPassword: false,
@@ -115,15 +115,19 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
             isParticular
                 ? Text("")
                 : Container(
-                    alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.fromLTRB(
-                        20, 20, 0, 0), //Left,Top,Right,Bottom
-                    child: Text(
-                      AppLocalizations.of(context)
-                          .translate('PRESS_NEXT_TO_ADD'),
-                      style: TextStyle(color: Colors.deepOrange, fontSize: 14),
-                    ),
-                  ),
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.fromLTRB(
+                  20, 20, 0, 0), //Left,Top,Right,Bottom
+              child: Text(
+                AppLocalizations.of(context)
+                    .translate('PRESS_NEXT_TO_ADD'),
+                style: TextStyle(color: Colors.deepOrange, fontSize: 14),
+              ),
+            ),
+            Container(
+              child: isParticular ? const SizedBox(height: 20):null,
+            ),
+
             Container(
               margin: EdgeInsets.fromLTRB(5, 10, 0, 0), //Left,Top,Right,Bottom
               child: Row(
@@ -154,7 +158,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
               child: ButtonRec(
                 textColor: Colors.white,
                 backgroundColor:
-                    isParticular ? Colors.blueAccent : Colors.deepOrange,
+                isParticular ? Colors.blueAccent : Colors.deepOrange,
                 onPressed: next,
                 text: Text(AppLocalizations.of(context).translate('NEXT')),
               ),
