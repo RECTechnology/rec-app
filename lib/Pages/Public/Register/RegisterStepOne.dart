@@ -6,6 +6,8 @@ import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/RecTextField.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
+import 'package:country_code_picker/country_code_picker.dart';
+import 'package:country_code_picker/country_localizations.dart';
 
 class RegisterOne extends StatefulWidget {
   @override
@@ -26,7 +28,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
         preferredSize: Size.fromHeight(75.0),
         child: AppBar(
             backgroundColor:
-                isParticular ? Colors.lightBlueAccent : Colors.orangeAccent,
+            isParticular ? Colors.lightBlueAccent : Colors.orangeAccent,
             leading: IconButtonRec(
               icon: Icon(
                 Icons.arrow_back,
@@ -107,26 +109,22 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                   Row(
                     children: [
                       Container(
-                        child: new DropdownButton<String>(
-                          items: <String>['+34', '+62', '+84', '+20']
-                              .map((String value) {
-                            return new DropdownMenuItem<String>(
-                              value: value,
-                              child: new Text(value),
-                              onTap: () {
-                                prefix = value;
-                                print(prefix);
-                              },
-                            );
-                          }).toList(),
-                          onChanged: (_) {},
+                        child: CountryCodePicker(
+                          onChanged: print,
+                          // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+                          initialSelection: 'ES',
+                          favorite: ['+34', 'ES'],
+                          // optional. Shows only country name and flag
+                          showCountryOnly: false,
+                          showOnlyCountryWhenClosed: false,
+                          alignLeft: false,
                         ),
                       ),
                       Container(
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                         //Left,Top,Right,Bottom
                         height: 100,
-                        width: 335,
+                        width: 280,
                         child: RecTextField(
                           needObscureText: false,
                           keyboardType: TextInputType.phone,
@@ -134,7 +132,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                           isNumeric: true,
                           icon: Icon(Icons.phone),
                           colorLine:
-                              isParticular ? Colors.blueAccent : Colors.orange,
+                          isParticular ? Colors.blueAccent : Colors.orange,
                         ),
                       ),
                     ],
@@ -147,7 +145,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
 
               child: RecTextField(
                 placeholder:
-                    AppLocalizations.of(context).translate('WRITE_DOCUMENT'),
+                AppLocalizations.of(context).translate('WRITE_DOCUMENT'),
                 needObscureText: false,
                 keyboardType: TextInputType.text,
                 isPassword: false,
@@ -174,15 +172,15 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
             isParticular
                 ? Text("")
                 : Container(
-                    alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.fromLTRB(
-                        20, 20, 0, 0), //Left,Top,Right,Bottom
-                    child: Text(
-                      AppLocalizations.of(context)
-                          .translate('PRESS_NEXT_TO_ADD'),
-                      style: TextStyle(color: Colors.deepOrange, fontSize: 14),
-                    ),
-                  ),
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.fromLTRB(
+                  20, 20, 0, 0), //Left,Top,Right,Bottom
+              child: Text(
+                AppLocalizations.of(context)
+                    .translate('PRESS_NEXT_TO_ADD'),
+                style: TextStyle(color: Colors.deepOrange, fontSize: 14),
+              ),
+            ),
             Container(
               child: isParticular ? const SizedBox(height: 20) : null,
             ),
@@ -216,7 +214,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
               child: ButtonRec(
                 textColor: Colors.white,
                 backgroundColor:
-                    isParticular ? Colors.blueAccent : Colors.deepOrange,
+                isParticular ? Colors.blueAccent : Colors.deepOrange,
                 onPressed: next,
                 text: Text(AppLocalizations.of(context).translate('NEXT')),
               ),
