@@ -96,7 +96,7 @@ class _InputField extends State<RecTextField> {
         obscureText = true;
       });
     }
-    widget.function;
+    widget.function(string);
   }
 
   void changeObscureText() {

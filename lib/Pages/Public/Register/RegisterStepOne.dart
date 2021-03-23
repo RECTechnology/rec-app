@@ -7,7 +7,6 @@ import 'package:rec/Components/RecTextField.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:country_code_picker/country_localizations.dart';
 
 class RegisterOne extends StatefulWidget {
   @override
@@ -17,8 +16,10 @@ class RegisterOne extends StatefulWidget {
 class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
   var isParticular = true;
   bool checkValue = false;
-  String prefix = "";
+  String prefix = "+34";
   String telephone = "";
+  String idDocument = "";
+  String password = "";
 
   @override
   Widget buildPageContent(BuildContext context, AppState state) {
@@ -28,7 +29,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
         preferredSize: Size.fromHeight(75.0),
         child: AppBar(
             backgroundColor:
-            isParticular ? Colors.lightBlueAccent : Colors.orangeAccent,
+                isParticular ? Colors.lightBlueAccent : Colors.orangeAccent,
             leading: IconButtonRec(
               icon: Icon(
                 Icons.arrow_back,
@@ -110,7 +111,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                     children: [
                       Container(
                         child: CountryCodePicker(
-                          onChanged: print,
+                          onChanged: setPrefix,
                           // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
                           initialSelection: 'ES',
                           favorite: ['+34', 'ES'],
@@ -132,7 +133,8 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                           isNumeric: true,
                           icon: Icon(Icons.phone),
                           colorLine:
-                          isParticular ? Colors.blueAccent : Colors.orange,
+                              isParticular ? Colors.blueAccent : Colors.orange,
+                          function: setPhone,
                         ),
                       ),
                     ],
@@ -144,15 +146,14 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
               margin: EdgeInsets.fromLTRB(0, 0, 0, 15), //Left,Top,Right,Bottom
 
               child: RecTextField(
-                placeholder:
-                AppLocalizations.of(context).translate('WRITE_DOCUMENT'),
+                placeholder: AppLocalizations.of(context).translate('DNI/NIE'),
                 needObscureText: false,
                 keyboardType: TextInputType.text,
                 isPassword: false,
                 isNumeric: false,
                 icon: Icon(Icons.account_circle),
-
                 colorLine: isParticular ? Colors.blueAccent : Colors.orange,
+                function: setIdDocument,
               ),
             ),
             Container(
@@ -165,22 +166,22 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                 isPassword: false,
                 isNumeric: false,
                 icon: Icon(Icons.lock),
-
                 colorLine: isParticular ? Colors.blueAccent : Colors.orange,
+                function: setPassword,
               ),
             ),
             isParticular
                 ? Text("")
                 : Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.fromLTRB(
-                  20, 20, 0, 0), //Left,Top,Right,Bottom
-              child: Text(
-                AppLocalizations.of(context)
-                    .translate('PRESS_NEXT_TO_ADD'),
-                style: TextStyle(color: Colors.deepOrange, fontSize: 14),
-              ),
-            ),
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.fromLTRB(
+                        20, 20, 0, 0), //Left,Top,Right,Bottom
+                    child: Text(
+                      AppLocalizations.of(context)
+                          .translate('PRESS_NEXT_TO_ADD'),
+                      style: TextStyle(color: Colors.deepOrange, fontSize: 14),
+                    ),
+                  ),
             Container(
               child: isParticular ? const SizedBox(height: 20) : null,
             ),
@@ -193,7 +194,6 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                     onChanged: (bool value) {
                       setState(() {
                         checkValue = value;
-                        print(value);
                       });
                     },
                   ),
@@ -214,7 +214,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
               child: ButtonRec(
                 textColor: Colors.white,
                 backgroundColor:
-                isParticular ? Colors.blueAccent : Colors.deepOrange,
+                    isParticular ? Colors.blueAccent : Colors.deepOrange,
                 onPressed: next,
                 text: Text(AppLocalizations.of(context).translate('NEXT')),
               ),
@@ -233,10 +233,36 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
     setTipeScreen(false);
   }
 
+  void setPhone(String phone) {
+    telephone = phone;
+  }
+
+  void setPrefix(CountryCode prefix) {
+    this.prefix = prefix.toString();
+  }
+
+  void setIdDocument(String document) {
+    idDocument = document;
+  }
+
+
+
+  void setPassword(String password) {
+    this.password = password;
+  }
+
   void next() {
-    if (isParticular) {}
-    if (isParticular == false) {
-      Navigator.of(context).pushNamed('/registerTwo');
+    if (phoneVerification(prefix.toString(), telephone)) {
+      if (verifyIdentityDocument(idDocument)) {
+        if (passwordVerifycation(this.password)) {
+          if (checkValue) {
+            if (isParticular) {}
+            if (isParticular == false) {
+              Navigator.of(context).pushNamed('/registerTwo');
+            }
+          }
+        }
+      }
     }
   }
 
@@ -245,4 +271,41 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
       isParticular = tipe;
     });
   }
+
+  bool passwordVerifycation(String password) {
+    if (password.length >= 6) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool phoneVerification(String prefix, String phone) {
+
+    if (prefix == "+34") {
+      if (phone.length == 9) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  bool verifyIdentityDocument(String document) {
+    var DNI_REGEX = new RegExp(r"^(\d{8})([A-Z])$", caseSensitive: false);
+    var NIE_REGEX = new RegExp(r"^[XYZ]\d{7,8}[A-Z]$");
+    if (DNI_REGEX.hasMatch(document)) {
+      return true;
+    } else {
+      if (NIE_REGEX.hasMatch(document)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
 }
+
+
