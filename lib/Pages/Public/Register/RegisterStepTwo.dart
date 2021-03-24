@@ -22,7 +22,9 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
 
   @override
   Widget buildPageContent(BuildContext context, AppState state) {
+
     Map parameters = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(75.0),
