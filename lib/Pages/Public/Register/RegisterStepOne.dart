@@ -29,7 +29,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
     // TODO: implement buildPageContent
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(75.0),
+        preferredSize: Size.fromHeight(130.0),
         child: AppBar(
             backgroundColor:
                 isParticular ? Colors.lightBlueAccent : Colors.orangeAccent,
@@ -88,7 +88,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                 children: [
                   Container(
                     alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
+                    margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
                     //Left,Top,Right,Bottom
                     child: RichText(
                       textAlign: TextAlign.left,
@@ -101,7 +101,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                   ),
                   Container(
                       alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.fromLTRB(5, 0, 0, 10),
+                      margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
                       //Left,Top,Right,Bottom
                       child: isParticular
                           ? null
@@ -167,7 +167,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 15), //Left,Top,Right,Bottom
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 0), //Left,Top,Right,Bottom
 
               child: RecTextField(
                 placeholder: AppLocalizations.of(context).translate('DNI/NIE'),
@@ -181,7 +181,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 15), //Left,Top,Right,Bottom
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 0), //Left,Top,Right,Bottom
 
               child: RecTextField(
                 placeholder: AppLocalizations.of(context).translate('PASSWORD'),
@@ -210,7 +210,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
               child: isParticular ? const SizedBox(height: 20) : null,
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(5, 10, 0, 0), //Left,Top,Right,Bottom
+              margin: EdgeInsets.fromLTRB(5, 0, 0, 0), //Left,Top,Right,Bottom
               child: Row(
                 children: [
                   Checkbox(
@@ -233,7 +233,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
+              margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
               //Left,Top,Right,Bottom
               child: ButtonRec(
                 textColor: Colors.white,
