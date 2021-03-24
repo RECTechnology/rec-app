@@ -35,5 +35,11 @@
   "CIF": "CIF",
   "EMAIL": "Email(Opcional)",
   "WHEN_INIT_SESION": "Cuando inicies sesion, completa la informacion publica a tu organizacion y apareceras en el para del REC.¡Hazte visible y aumenta tu facturacion!",
-  "DNI/NIE": "DNI / NIE"
+  "DNI/NIE": "DNI / NIE",
+  "BAD_PHONE": "El telefono introducido no es valido",
+  "BAD_ID_DOCUMENT": "El documento de identidad introducido no es valido",
+  "BAD_PASSWORD": "La contraseña introducida no es valida, recuerda que debe tener minimo 6 caracteres",
+  "BAD_CIF": "El CIF introducido no es valido",
+  "BAD_MAIL": "El correo introducido no es valido",
+  "INTRODUCE_INFO": "Introduce aquí tu información personal. El cif de tu organización se introduce en el siguiente paso"
 }

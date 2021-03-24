@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
 import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/RecTextField.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
+import 'package:rec/Verify/VerifyDataRec.dart';
+
 
 class RegisterTwo extends StatefulWidget {
   @override
@@ -13,9 +16,13 @@ class RegisterTwo extends StatefulWidget {
 }
 
 class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
+  String userName="";
+  String CIF = "";
+  String email= "";
+
   @override
   Widget buildPageContent(BuildContext context, AppState state) {
-    // TODO: implement buildPageContent
+    Map parameters = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(75.0),
@@ -79,6 +86,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                 isNumeric: false,
                 title: AppLocalizations.of(context).translate('NAME'),
                 colorLine: Colors.orange,
+                function: setUserName,
               ),
             ),
             Container(
@@ -91,6 +99,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                 isPassword: false,
                 isNumeric: false,
                 colorLine: Colors.orange,
+                function: setCIF,
               ),
             ),
             Container(
@@ -103,6 +112,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                 isPassword: false,
                 isNumeric: false,
                 colorLine: Colors.orange,
+                function: setEmail,
               ),
             ),
             Container(
@@ -117,7 +127,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
               margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
               //Left,Top,Right,Bottom
               child: ButtonRec(
-                onPressed: () {},
+                onPressed: Register,
                 textColor: Colors.white,
                 backgroundColor: Colors.deepOrange,
                 text: Text(AppLocalizations.of(context).translate('REGISTER')),
@@ -127,5 +137,39 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
         ),
       ),
     );
+  }
+
+  void setUserName(String userName) {
+    this.userName = userName;
+  }
+
+  void setEmail(String email) {
+    this.email = email;
+  }
+
+  void setCIF(String CIF) {
+    this.CIF = CIF;
+  }
+  void Register(){
+    if (VerifyDataRec.validateCif(CIF)) {
+      if(VerifyDataRec.validateEmail(email)){
+
+
+      }else{
+        printToastRec(AppLocalizations.of(context).translate('BAD_MAIL'));
+      }
+    }else{
+      printToastRec(AppLocalizations.of(context).translate('BAD_CIF'));
+    }
+  }
+  void printToastRec(String msg) {
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.deepOrange,
+        textColor: Colors.white,
+        fontSize: 14.0);
   }
 }

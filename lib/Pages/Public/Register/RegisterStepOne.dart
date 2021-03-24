@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
 import 'package:rec/Components/IconButton.dart';
@@ -7,6 +8,7 @@ import 'package:rec/Components/RecTextField.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:rec/Verify/VerifyDataRec.dart';
 
 class RegisterOne extends StatefulWidget {
   @override
@@ -20,6 +22,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
   String telephone = "";
   String idDocument = "";
   String password = "";
+  Map<String, String> data;
 
   @override
   Widget buildPageContent(BuildContext context, AppState state) {
@@ -81,14 +84,35 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
               ),
             ),
             Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.fromLTRB(20, 0, 0, 10), //Left,Top,Right,Bottom
-              child: RichText(
-                textAlign: TextAlign.left,
-                text: TextSpan(
-                  text: AppLocalizations.of(context).translate('CREATE_USER'),
-                  style: TextStyle(color: Colors.black, fontSize: 20),
-                ),
+              child: Row(
+                children: [
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
+                    //Left,Top,Right,Bottom
+                    child: RichText(
+                      textAlign: TextAlign.left,
+                      text: TextSpan(
+                        text: AppLocalizations.of(context)
+                            .translate('CREATE_USER'),
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                      ),
+                    ),
+                  ),
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.fromLTRB(5, 0, 0, 10),
+                      //Left,Top,Right,Bottom
+                      child: isParticular
+                          ? null
+                          : IconButtonRec(
+                              icon: Icon(Icons.announcement_outlined,color: Colors.deepOrange,),
+                              function: () {
+                                printToastRec(AppLocalizations.of(context)
+                                    .translate('INTRODUCE_INFO'),12);
+                              },
+                            ))
+                ],
               ),
             ),
             Container(
@@ -245,25 +269,51 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
     idDocument = document;
   }
 
-
+  void createMapRec() {
+    data = {
+      'prefix': prefix,
+      'phone': telephone,
+      'idDocument': idDocument,
+      'password': password,
+    };
+  }
 
   void setPassword(String password) {
     this.password = password;
   }
 
   void next() {
-    if (phoneVerification(prefix.toString(), telephone)) {
-      if (verifyIdentityDocument(idDocument)) {
-        if (passwordVerifycation(this.password)) {
+    if (VerifyDataRec.phoneVerification(prefix.toString(), telephone)) {
+      if (VerifyDataRec.verifyIdentityDocument(idDocument)) {
+        if (VerifyDataRec.passwordVerifycation(this.password)) {
           if (checkValue) {
             if (isParticular) {}
             if (isParticular == false) {
-              Navigator.of(context).pushNamed('/registerTwo');
+              createMapRec();
+              Navigator.of(context).pushNamed('/registerTwo', arguments: data);
             }
           }
+        } else {
+          printToastRec(AppLocalizations.of(context).translate('BAD_PASSWORD'),14.0);
         }
+      } else {
+        printToastRec(
+            AppLocalizations.of(context).translate('BAD_ID_DOCUMENT'),14.0);
       }
+    } else {
+      printToastRec(AppLocalizations.of(context).translate('BAD_PHONE'),14.0);
     }
+  }
+
+  void printToastRec(String msg,double fontSize) {
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.deepOrange,
+        textColor: Colors.white,
+        fontSize: fontSize);
   }
 
   void setTipeScreen(bool tipe) {
@@ -271,41 +321,4 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
       isParticular = tipe;
     });
   }
-
-  bool passwordVerifycation(String password) {
-    if (password.length >= 6) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  bool phoneVerification(String prefix, String phone) {
-
-    if (prefix == "+34") {
-      if (phone.length == 9) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
-  }
-
-  bool verifyIdentityDocument(String document) {
-    var DNI_REGEX = new RegExp(r"^(\d{8})([A-Z])$", caseSensitive: false);
-    var NIE_REGEX = new RegExp(r"^[XYZ]\d{7,8}[A-Z]$");
-    if (DNI_REGEX.hasMatch(document)) {
-      return true;
-    } else {
-      if (NIE_REGEX.hasMatch(document)) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }
 }
-
-
