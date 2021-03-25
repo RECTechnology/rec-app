@@ -43,3 +43,4 @@ app.*.map.json
 /node_modules
 /coverage
 /package-lock.json
+/pubspec.lock

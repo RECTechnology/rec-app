@@ -6,6 +6,7 @@ class ButtonRec extends StatefulWidget {
   final Function() onPressed;
   final Color textColor;
   final Color backgroundColor;
+  final double widthBox;
 
   ButtonRec({
     this.text,
@@ -13,6 +14,7 @@ class ButtonRec extends StatefulWidget {
     this.onPressed,
     this.textColor = Colors.white,
     this.backgroundColor = Colors.black,
+    this.widthBox,
   });
 
   @override
@@ -24,7 +26,42 @@ class ButtonRec extends StatefulWidget {
 class ButtonRecState extends State<ButtonRec> {
   @override
   Widget build(BuildContext context) {
-    var button = RaisedButton(
+    var areWidget = true;
+
+    if (widget.widget == null) {
+      areWidget = false;
+    }
+
+    RaisedButton button = RaisedButton(
+      child: Padding(
+        padding: const EdgeInsets.all(6.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              height: 25,
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+              alignment: Alignment.centerRight,
+              child: widget.text,
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+              alignment: Alignment.centerRight,
+              child: areWidget ? widget.widget : null,
+            ),
+          ],
+        ),
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      onPressed: widget.onPressed,
+      textColor: widget.textColor,
+      color: widget.backgroundColor,
+    );
+    RaisedButton buttonWhitWidget = RaisedButton(
       child: Padding(
         padding: const EdgeInsets.all(6.0),
         child: Row(
@@ -44,6 +81,11 @@ class ButtonRecState extends State<ButtonRec> {
       textColor: widget.textColor,
       color: widget.backgroundColor,
     );
-    return button;
+
+    return SizedBox(
+      width: widget.widthBox,
+      height: 50.0,
+      child: button,
+    );
   }
 }
