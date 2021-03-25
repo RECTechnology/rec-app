@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Modals/GenericModal.dart';
 
 class ErrorModal extends GenericModal {
+  @override
   final Text title;
+  @override
   final Text content;
   final BuildContext context;
 
@@ -14,11 +16,11 @@ class ErrorModal extends GenericModal {
           widget: Container(
             width: 150,
             height: 150,
-            child: FlatButton(
-              child: Text('Close me!'),
+            child: TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
+              child: Text('Close me!'),
             ),
           ),
         );

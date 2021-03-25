@@ -28,8 +28,8 @@ class _SpinKitState extends State<SpinKit> {
       color: Colors.black,
       width: widget.size,
       height: widget.size,
-      child: spinkit,
       alignment: Alignment.center,
+      child: spinkit,
     ));
   }
 }

@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
  * Not for sharing info across pages/views/etc...
  */
 class AppState with ChangeNotifier {
-  static of(context) {
+  static AppState of(context) {
     return Provider.of<AppState>(context);
   }
 }

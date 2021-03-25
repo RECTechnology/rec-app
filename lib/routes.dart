@@ -8,21 +8,23 @@ import 'Pages/Public/Login.page.dart';
 import 'Components/PrivateRoute.dart';
 import 'Pages/Public/PinPage.dart';
 
-// ignore: non_constant_identifier_names
 final Map<String, Widget Function(BuildContext)> ROUTES = {
+  // Public routes
   '/login': (context) => LoginPage(false),
   '/recoveryPassword': (context) => RecoveryPassword(),
   '/pinPage': (context) => PinPage(),
-  '/home': (context) => PrivateRoute(HomePage()),
   '/registerOne': (context) => RegisterOne(),
   '/registerTwo': (context) => RegisterTwo(),
+
+  // Private routes
+  '/home': (context) => PrivateRoute(HomePage()),
 };
 
 class InitialRoutes {
-  static String loggedIn = '/home';
-  static String notLoggedIn = '/login';
+  static String home = '/home';
+  static String login = '/login';
 
   static String getInitialRoute({bool hasToken = true}) {
-    return hasToken ? InitialRoutes.loggedIn : InitialRoutes.notLoggedIn;
+    return hasToken ? InitialRoutes.home : InitialRoutes.login;
   }
 }

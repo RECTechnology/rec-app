@@ -84,7 +84,7 @@ packages:
       name: country_code_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "1.7.0"
   coverage:
     dependency: transitive
     description:
@@ -160,7 +160,7 @@ packages:
       name: fluttertoast
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.0.3"
+    version: "7.1.8"
   glob:
     dependency: transitive
     description:
@@ -265,7 +265,7 @@ packages:
       name: modal_bottom_sheet
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "1.0.0+1"
   nested:
     dependency: transitive
     description:
@@ -447,7 +447,7 @@ packages:
     source: hosted
     version: "1.2.0"
   test:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: test
       url: "https://pub.dartlang.org"
@@ -474,13 +474,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
-  universal_platform:
-    dependency: transitive
-    description:
-      name: universal_platform
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0-nullsafety"
   url_launcher:
     dependency: "direct main"
     description:

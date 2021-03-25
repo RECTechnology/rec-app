@@ -1,28 +1,31 @@
-import 'package:flutter/widgets.dart';
+import 'dart:convert';
+
 import 'package:http/http.dart';
 import 'package:http_interceptor/http_client_with_interceptor.dart';
 import 'package:http_interceptor/interceptor_contract.dart';
 import 'package:rec/Api/Interceptors/ApiInterceptor.dart';
-import 'package:rec/Api/Providers/AuthProvider.dart';
+import 'package:rec/Api/Auth.dart';
 
 abstract class ServiceBase {
   Client client;
 
-  ServiceBase({List<InterceptorContract> interceptors = const []}) {
-    client = HttpClientWithInterceptor.build(
-      interceptors: [
-        ApiLoggerInterceptor(),
-        ...interceptors,
-      ],
-    );
+  ServiceBase({
+    List<InterceptorContract> interceptors = const [],
+    Client client,
+  }) {
+    this.client = client ??
+        HttpClientWithInterceptor.build(
+          interceptors: [
+            ApiLoggerInterceptor(),
+            ...interceptors,
+          ],
+        );
   }
 
-  @protected
   Future<String> getToken() {
-    return AuthProvider.getToken();
+    return Auth.getToken();
   }
 
-  @protected
   Future<Map<String, String>> getHeaders({
     String contentType = 'application/json',
     String accept = 'application/json',
@@ -33,23 +36,21 @@ abstract class ServiceBase {
     });
   }
 
-  @protected
   Future put(String id, Map data) {
     throw UnimplementedError();
   }
 
-  @protected
   Future post(Map data) {
     throw UnimplementedError();
   }
 
-  @protected
   Future delete(String id) {
     throw UnimplementedError();
   }
 
-  @protected
-  Future get(String id) {
-    throw UnimplementedError();
+  Future<Map<String, dynamic>> get(Uri url) async {
+    return client
+        .get(url, headers: await getHeaders())
+        .then((value) => json.decode(value.body)['data']);
   }
 }

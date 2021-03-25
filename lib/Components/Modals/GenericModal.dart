@@ -9,12 +9,13 @@ class GenericModal {
 
   void showAlertDialog(BuildContext context) {
     showDialog(
-        context: context,
-        builder: (_) => new AlertDialog(
-              title: content,
-              content: content,
-              actions: <Widget>[widget],
-            ));
+      context: context,
+      builder: (_) => AlertDialog(
+        title: content,
+        content: content,
+        actions: <Widget>[widget],
+      ),
+    );
   }
 
   void closeDialog(BuildContext context) {

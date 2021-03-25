@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rec/Api/Providers/AuthProvider.dart';
+import 'package:rec/Api/Auth.dart';
 import 'package:rec/app.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'Environments/env-local.dart';
@@ -10,7 +10,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Get the token from storage
-  var token = await AuthProvider.getToken();
+  var token = await Auth.getToken();
 
   // Create AppState change notifier provider
   var appStateProvider = ChangeNotifierProvider(

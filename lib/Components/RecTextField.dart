@@ -22,7 +22,7 @@ class RecTextField extends StatefulWidget {
       this.needObscureText = false,
       this.placeholder,
       this.isPassword,
-      this.colorLine,
+      this.colorLine = Colors.black87,
       this.function,
       this.icon,
       this.validator,
@@ -35,7 +35,7 @@ class RecTextField extends StatefulWidget {
 class _InputField extends State<RecTextField> {
   bool obscureText = false;
   bool hasError = false;
-  String error = "Contraseña incorrecta";
+  String error = 'Contraseña incorrecta';
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class _InputField extends State<RecTextField> {
             children: <Widget>[
               Container(
                 child: Text(
-                  widget.title != null ? widget.title : "",
+                  widget.title ?? '',
                   style: TextStyle(fontSize: 14, color: Colors.black),
                 ),
               )
@@ -80,7 +80,7 @@ class _InputField extends State<RecTextField> {
                           : Icons.visibility),
                     )
                   : widget.icon,
-              errorText: this.hasError ? this.error : null,
+              errorText: hasError ? error : null,
               hintText: widget.placeholder,
             ),
             style: TextStyle(color: Colors.black),
@@ -104,6 +104,6 @@ class _InputField extends State<RecTextField> {
   }
 
   void changeObscureText() {
-    this.obscureText = !this.obscureText;
+    obscureText = !obscureText;
   }
 }

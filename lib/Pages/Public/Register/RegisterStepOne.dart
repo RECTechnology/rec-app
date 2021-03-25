@@ -219,7 +219,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                   ],
                 )),
             isAccountPrivate
-                ? Text("")
+                ? Text('')
                 : Container(
                     alignment: Alignment.centerLeft,
                     margin: EdgeInsets.fromLTRB(20, 20, 0, 0),

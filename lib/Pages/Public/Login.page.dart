@@ -28,6 +28,11 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
   _LoginPageState(this.isLogState);
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget buildPageContent(
     BuildContext context,
     AppState state,

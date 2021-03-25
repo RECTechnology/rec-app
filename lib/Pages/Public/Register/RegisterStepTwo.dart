@@ -162,9 +162,9 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
 
   void Register() {
     if (_formKey.currentState.validate()) {
-      print("Registring...");
+      print('Registring...');
     } else {
-      print("Bad Cif");
+      print('Bad Cif');
     }
   }
 

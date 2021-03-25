@@ -32,7 +32,13 @@ class ButtonRecState extends State<ButtonRec> {
       areWidget = false;
     }
 
-    RaisedButton button = RaisedButton(
+    var button = RaisedButton(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      onPressed: widget.onPressed,
+      textColor: widget.textColor,
+      color: widget.backgroundColor,
       child: Padding(
         padding: const EdgeInsets.all(6.0),
         child: Row(
@@ -54,32 +60,6 @@ class ButtonRecState extends State<ButtonRec> {
           ],
         ),
       ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      onPressed: widget.onPressed,
-      textColor: widget.textColor,
-      color: widget.backgroundColor,
-    );
-    RaisedButton buttonWhitWidget = RaisedButton(
-      child: Padding(
-        padding: const EdgeInsets.all(6.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              height: 25,
-            ),
-            widget.text
-          ],
-        ),
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18.0),
-      ),
-      onPressed: widget.onPressed,
-      textColor: widget.textColor,
-      color: widget.backgroundColor,
     );
 
     return SizedBox(

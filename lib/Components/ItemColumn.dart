@@ -7,7 +7,7 @@ class ItemColumnRec extends StatefulWidget {
   ItemColumnRec({this.children, this.aligment});
 
   @override
-  State<StatefulWidget> createState() => new _ItemColumnRecState();
+  State<StatefulWidget> createState() => _ItemColumnRecState();
 }
 
 class _ItemColumnRecState extends State<ItemColumnRec> {
