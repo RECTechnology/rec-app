@@ -293,14 +293,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
     idDocument = document;
   }
 
-  void createMapRec() {
-    data = {
-      'prefix': prefix,
-      'phone': telephone,
-      'idDocument': idDocument,
-      'password': password,
-    };
-  }
+
 
   void setPassword(String password) {
     this.password = password;
