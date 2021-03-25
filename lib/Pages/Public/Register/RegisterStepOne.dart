@@ -23,6 +23,9 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
   String idDocument = "";
   String password = "";
   Map<String, String> data;
+  final _formKeyPhone = GlobalKey<FormState>();
+  final _formKeyDocument = GlobalKey<FormState>();
+  final _formKeyPassword = GlobalKey<FormState>();
 
   @override
   Widget buildPageContent(BuildContext context, AppState state) {
@@ -106,10 +109,15 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                       child: isParticular
                           ? null
                           : IconButtonRec(
-                              icon: Icon(Icons.announcement_outlined,color: Colors.deepOrange,),
+                              icon: Icon(
+                                Icons.announcement_outlined,
+                                color: Colors.deepOrange,
+                              ),
                               function: () {
-                                printToastRec(AppLocalizations.of(context)
-                                    .translate('INTRODUCE_INFO'),12);
+                                printToastRec(
+                                    AppLocalizations.of(context)
+                                        .translate('INTRODUCE_INFO'),
+                                    12);
                               },
                             ))
                 ],
@@ -136,29 +144,33 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                       Container(
                         child: CountryCodePicker(
                           onChanged: setPrefix,
-                          // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
                           initialSelection: 'ES',
                           favorite: ['+34', 'ES'],
-                          // optional. Shows only country name and flag
                           showCountryOnly: false,
                           showOnlyCountryWhenClosed: false,
                           alignLeft: false,
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                        //Left,Top,Right,Bottom
-                        height: 100,
-                        width: 280,
-                        child: RecTextField(
-                          needObscureText: false,
-                          keyboardType: TextInputType.phone,
-                          isPassword: false,
-                          isNumeric: true,
-                          icon: Icon(Icons.phone),
-                          colorLine:
-                              isParticular ? Colors.blueAccent : Colors.orange,
-                          function: setPhone,
+                      Form(
+                        key: _formKeyPhone,
+                        child: Container(
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          //Left,Top,Right,Bottom
+                          height: 115,
+                          width: 280,
+                          child: RecTextField(
+                            needObscureText: false,
+                            keyboardType: TextInputType.phone,
+                            isPassword: false,
+                            isNumeric: true,
+                            icon: Icon(Icons.phone),
+                            colorLine: isParticular
+                                ? Colors.blueAccent
+                                : Colors.orange,
+                            function: setPhone,
+                            isPhone: false,
+                            validator: VerifyDataRec.phoneVerification,
+                          ),
                         ),
                       ),
                     ],
@@ -166,32 +178,44 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                 ],
               ),
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 0), //Left,Top,Right,Bottom
+            Form(
+              key: _formKeyDocument,
+              child: Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0), //Left,Top,Right,Bottom
 
-              child: RecTextField(
-                placeholder: AppLocalizations.of(context).translate('DNI/NIE'),
-                needObscureText: false,
-                keyboardType: TextInputType.text,
-                isPassword: false,
-                isNumeric: false,
-                icon: Icon(Icons.account_circle),
-                colorLine: isParticular ? Colors.blueAccent : Colors.orange,
-                function: setIdDocument,
+                child: RecTextField(
+                  placeholder:
+                      AppLocalizations.of(context).translate('DNI/NIE'),
+                  needObscureText: false,
+                  keyboardType: TextInputType.text,
+                  isPassword: false,
+                  isNumeric: false,
+                  icon: Icon(Icons.account_circle),
+                  colorLine: isParticular ? Colors.blueAccent : Colors.orange,
+                  function: setIdDocument,
+                  validator: VerifyDataRec.verifyIdentityDocument,
+                  isPhone: false,
+                ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 0), //Left,Top,Right,Bottom
+            Form(
+              key: _formKeyPassword,
+              child: Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 0), //Left,Top,Right,Bottom
 
-              child: RecTextField(
-                placeholder: AppLocalizations.of(context).translate('PASSWORD'),
-                needObscureText: true,
-                keyboardType: TextInputType.text,
-                isPassword: false,
-                isNumeric: false,
-                icon: Icon(Icons.lock),
-                colorLine: isParticular ? Colors.blueAccent : Colors.orange,
-                function: setPassword,
+                child: RecTextField(
+                  placeholder:
+                      AppLocalizations.of(context).translate('PASSWORD'),
+                  needObscureText: true,
+                  keyboardType: TextInputType.text,
+                  isPassword: false,
+                  isNumeric: false,
+                  icon: Icon(Icons.lock),
+                  colorLine: isParticular ? Colors.blueAccent : Colors.orange,
+                  function: setPassword,
+                  isPhone: false,
+                  validator: VerifyDataRec.verifyPassword,
+                ),
               ),
             ),
             isParticular
@@ -283,29 +307,18 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
   }
 
   void next() {
-    if (VerifyDataRec.phoneVerification(prefix.toString(), telephone)) {
-      if (VerifyDataRec.verifyIdentityDocument(idDocument)) {
-        if (VerifyDataRec.passwordVerifycation(this.password)) {
-          if (checkValue) {
-            if (isParticular) {}
-            if (isParticular == false) {
-              createMapRec();
-              Navigator.of(context).pushNamed('/registerTwo', arguments: data);
-            }
+    if (_formKeyPhone.currentState.validate()) {
+      if (_formKeyDocument.currentState.validate()) {
+        if (_formKeyPassword.currentState.validate()) {
+          if (checkValue && isParticular != true) {
+            Navigator.of(context).pushNamed('/registerTwo', arguments: data);
           }
-        } else {
-          printToastRec(AppLocalizations.of(context).translate('BAD_PASSWORD'),14.0);
         }
-      } else {
-        printToastRec(
-            AppLocalizations.of(context).translate('BAD_ID_DOCUMENT'),14.0);
       }
-    } else {
-      printToastRec(AppLocalizations.of(context).translate('BAD_PHONE'),14.0);
     }
   }
 
-  void printToastRec(String msg,double fontSize) {
+  void printToastRec(String msg, double fontSize) {
     Fluttertoast.showToast(
         msg: msg,
         toastLength: Toast.LENGTH_SHORT,

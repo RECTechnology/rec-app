@@ -9,20 +9,19 @@ import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 import 'package:rec/Verify/VerifyDataRec.dart';
 
-
 class RegisterTwo extends StatefulWidget {
   @override
   RegisterTwoState createState() => RegisterTwoState();
 }
 
 class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
-  String userName="";
+  String userName = "";
   String CIF = "";
-  String email= "";
-
+  String email = "";
+  final _formKeyCif = GlobalKey<FormState>();
+  final _formKeyEmail = GlobalKey<FormState>();
   @override
   Widget buildPageContent(BuildContext context, AppState state) {
-
     Map parameters = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
@@ -91,32 +90,41 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                 function: setUserName,
               ),
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 15), //Left,Top,Right,Bottom
+            Form(
+              key: _formKeyCif,
+              child: Container(
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                //Left,Top,Right,Bottom
 
-              child: RecTextField(
-                placeholder: AppLocalizations.of(context).translate('CIF'),
-                needObscureText: false,
-                keyboardType: TextInputType.text,
-                isPassword: false,
-                isNumeric: false,
-                colorLine: Colors.orange,
-                function: setCIF,
+                child: RecTextField(
+                  placeholder: AppLocalizations.of(context).translate('CIF'),
+                  needObscureText: false,
+                  keyboardType: TextInputType.text,
+                  isPassword: false,
+                  isNumeric: false,
+                  colorLine: Colors.orange,
+                  function: setCIF,
+                  validator: VerifyDataRec.validateCif,
+                ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 15), //Left,Top,Right,Bottom
+        Form(
+          key: _formKeyEmail,
+          child:Container(
+            margin: EdgeInsets.fromLTRB(0, 0, 0, 15), //Left,Top,Right,Bottom
 
-              child: RecTextField(
-                placeholder: AppLocalizations.of(context).translate('EMAIL'),
-                needObscureText: false,
-                keyboardType: TextInputType.text,
-                isPassword: false,
-                isNumeric: false,
-                colorLine: Colors.orange,
-                function: setEmail,
-              ),
+            child: RecTextField(
+              placeholder: AppLocalizations.of(context).translate('EMAIL'),
+              needObscureText: false,
+              keyboardType: TextInputType.text,
+              isPassword: false,
+              isNumeric: false,
+              colorLine: Colors.orange,
+              function: setEmail,
+              validator: VerifyDataRec.validateEmail,
             ),
+          ),),
+
             Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.fromLTRB(20, 20, 0, 0), //Left,Top,Right,Bottom
@@ -152,18 +160,17 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
   void setCIF(String CIF) {
     this.CIF = CIF;
   }
-  void Register(){
-    if (VerifyDataRec.validateCif(CIF)) {
-      if(VerifyDataRec.validateEmail(email)){
 
-
-      }else{
-        printToastRec(AppLocalizations.of(context).translate('BAD_MAIL'));
+  void Register() {
+    if (_formKeyCif.currentState.validate()) {
+      if (_formKeyEmail.currentState.validate()) {
+        print("Registring...");
       }
     }else{
-      printToastRec(AppLocalizations.of(context).translate('BAD_CIF'));
+      print("Bad Cif");
     }
   }
+
   void printToastRec(String msg) {
     Fluttertoast.showToast(
         msg: msg,

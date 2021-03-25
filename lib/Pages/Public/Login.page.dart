@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
+import 'package:rec/Components/CircleAvatar.dart';
 
 import 'package:rec/Components/RecTextField.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
@@ -46,35 +47,9 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
         child: Column(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.fromLTRB(0, 45, 0, 20), //Left,Top,Right,Bottom
-              child: Text(
-                localizations.translate('HELLOU'),
-                style: TextStyle(fontSize: 20, color: Colors.blue),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 0), //Left,Top,Right,Bottom
-              child: Text(
-                localizations.translate('DONT_HAVE_ACCOUNT'),
-                style: TextStyle(fontSize: 15, color: Colors.black54),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              margin: EdgeInsets.fromLTRB(70, 0, 70, 0), //Left,Top,Right,Bottom
-              child: ButtonRec(
-                  textColor: Colors.white,
-                  backgroundColor: Colors.black,
-                  onPressed: () {
-                    Navigator.of(context).pushNamed('/registerOne');
-                  },
-                  text: Text(localizations.translate('REGISTER'))),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 15, 30, 0), //Left,Top,Right,Bottom
-              child: Text(
-                localizations.translate('HAVE_ACCOUNT'),
-                style: TextStyle(fontSize: 15, color: Colors.black54),
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 40), //Left,Top,Right,Bottom
+              child: Image(
+                image: AssetImage('assets/BolasRec.PNG'),
               ),
             ),
             RecTextField(
@@ -83,51 +58,68 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
               needObscureText: false,
               placeholder: localizations.translate('WRITE_DOCUMENT'),
               title: localizations.translate('DNI'),
-              isPassword: true,
+              isPassword: false,
               function: setDni,
               colorLine: Colors.blue,
+              validator: (String string) {},
+              isPhone: false,
+              icon: Icon(Icons.account_circle),
             ),
             RecTextField(
               isNumeric: false,
               keyboardType: TextInputType.text,
               needObscureText: true,
               placeholder: localizations.translate('WRITE_PASSWORD'),
-              title: localizations.translate('PASSWORD'),
-              isPassword: true,
+              isPassword: false,
               function: setPassword,
               colorLine: Colors.blue,
+              validator: (String string) {},
+              isPhone: false,
+              icon: Icon(Icons.lock),
             ),
             Container(
               margin: EdgeInsets.fromLTRB(20, 0, 20, 15),
-              alignment: Alignment.topLeft,
+              alignment: Alignment.topRight,
               child: RichText(
                 text: TextSpan(
                   style: TextStyle(color: Colors.blue),
                   text: localizations.translate('FORGOT_PASSWORD'),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () async {
-                      Navigator.of(context).pushNamed('/registerTwo');
+                      Navigator.of(context).pushNamed('/recoveryPassword');
                     },
                 ),
               ),
             ),
             Container(
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              child: ButtonRec(
+                textColor: Colors.white,
+                backgroundColor: Colors.blue,
+                onPressed: singIn,
+                widthBox: 370,
+                widget: Icon(Icons.arrow_forward_ios),
+                text: Text(localizations.translate('LOGIN')),
+              ),
+            ),
+            Container(
               alignment: Alignment.center,
               width: 300,
-              margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
+              margin: EdgeInsets.fromLTRB(0, 60, 0, 0),
               child: Text(
-                localizations.translate('DONT_HAVE_ACCOUNT_2'),
+                localizations.translate('NOT_REGISTRED'),
                 style: TextStyle(fontSize: 14, color: Colors.black87),
               ),
             ),
-            const SizedBox(height: 20),
             Container(
-              margin: EdgeInsets.fromLTRB(70, 0, 70, 0),
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: ButtonRec(
                 textColor: Colors.white,
-                backgroundColor: Colors.black,
+                backgroundColor: Colors.blue,
                 onPressed: singIn,
-                text: Text("LOGIN"),
+                widthBox: 250,
+                widget: Icon(Icons.arrow_forward_ios),
+                text: Text(localizations.translate('REGISTER')),
               ),
             ),
           ],
@@ -143,17 +135,9 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
         child: Column(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.fromLTRB(0, 30, 0, 20),
-              child: Text(
-                localizations.translate('HELLOU') + " " + userName,
-                style: TextStyle(fontSize: 20, color: Colors.blue),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 5, 0, 20),
-              child: Text(
-                localizations.translate('INSERT_PASSWORD'),
-                style: TextStyle(fontSize: 10, color: Colors.black54),
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 40), //Left,Top,Right,Bottom
+              child: Image(
+                image: AssetImage('assets/BolasRec.PNG'),
               ),
             ),
             Container(
@@ -168,28 +152,41 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                 children: <Widget>[
                   Container(
                     alignment: Alignment.center,
-                    margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    margin: EdgeInsets.fromLTRB(0, 20, 0, 10),
                     child: Column(
                       children: <Widget>[
                         Container(
-                          width: 40,
-                          height: 40,
-                          child: Image.asset('assets/userIcon.png'),
+                          width: 60,
+                          height: 60,
+                          child: CircleAvatarRec(imageUrl: 'https://picsum.photos/250?image=9',),
                         ),
+
                         Container(
-                          margin: EdgeInsets.fromLTRB(10, 20, 0, 20),
-                          child: Text(
-                            localizations.translate('ARE_NOT_U'),
-                            style: TextStyle(fontSize: 15, color: Colors.blue),
+                          margin: EdgeInsets.fromLTRB(10, 0, 0, 20),
+                          alignment: Alignment.topRight,
+                          child: RichText(
+                            text: TextSpan(
+                              style: TextStyle(color: Colors.blue),
+                              text: localizations.translate('ARE_NOT_U'),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () async {
+                                  Navigator.of(context).pushNamed('/registerTwo');
+                                },
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
                   Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
+
                     child: Column(
+
                       children: <Widget>[
                         Container(
+                          margin: EdgeInsets.fromLTRB(0, 0, 140, 0),
+                          alignment: Alignment.centerLeft,
                           child: Text(
                             userName,
                             textAlign: TextAlign.right,
@@ -215,25 +212,40 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                 ],
               ),
             ),
+
+            RecTextField(
+              isNumeric: false,
+              keyboardType: TextInputType.text,
+              needObscureText: true,
+              placeholder: localizations.translate('WRITE_PASSWORD'),
+              isPassword: false,
+              function: setPassword,
+              colorLine: Colors.blue,
+              validator: (String string){},
+              isPhone: false,
+              icon: Icon(Icons.lock),
+            ),
             Container(
-              margin: EdgeInsets.fromLTRB(60, 10, 60, 0),
-              child: RecTextField(
-                isNumeric: false,
-                keyboardType: TextInputType.text,
-                needObscureText: true,
-                placeholder: localizations.translate('WRITE_PASSWORD'),
-                title: localizations.translate('PASSWORD'),
-                isPassword: true,
-                function: setPassword,
-                colorLine: Colors.blue,
+              margin: EdgeInsets.fromLTRB(20, 0, 20, 40),
+              alignment: Alignment.topRight,
+              child: RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.blue),
+                  text: localizations.translate('FORGOT_PASSWORD'),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () async {
+                      Navigator.of(context).pushNamed('/recoveryPassword');
+                    },
+                ),
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(70, 0, 70, 0),
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: ButtonRec(
                 textColor: Colors.white,
-                backgroundColor: Colors.black,
+                backgroundColor: Colors.blue,
                 onPressed: singIn,
+                widthBox: 380,
                 text: Text(localizations.translate('LOGIN')),
               ),
             ),

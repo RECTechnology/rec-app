@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 class RecTextField extends StatefulWidget {
@@ -11,18 +12,21 @@ class RecTextField extends StatefulWidget {
   final Color colorLine;
   final Function(String string) function;
   final Icon icon;
+  final Function validator;
+  final bool isPhone;
 
-  RecTextField({
-    this.title,
-    this.keyboardType = TextInputType.text,
-    this.isNumeric = false,
-    this.needObscureText = false,
-    this.placeholder,
-    this.isPassword,
-    this.colorLine,
-    this.function,
-    this.icon,
-  });
+  RecTextField(
+      {this.title,
+      this.keyboardType = TextInputType.text,
+      this.isNumeric = false,
+      this.needObscureText = false,
+      this.placeholder,
+      this.isPassword,
+      this.colorLine,
+      this.function,
+      this.icon,
+      this.validator,
+      this.isPhone});
 
   @override
   _InputField createState() => _InputField();
@@ -64,8 +68,8 @@ class _InputField extends State<RecTextField> {
                     ? BorderSide(color: Colors.red)
                     : BorderSide(color: Colors.black),
               ),
-              suffixIcon: obscureText?
-                   IconButton(
+              suffixIcon: obscureText
+                  ? IconButton(
                       onPressed: () {
                         setState(() {
                           changeObscureText();
@@ -83,15 +87,16 @@ class _InputField extends State<RecTextField> {
             onChanged: onChanged,
             obscureText: obscureText ? true : false,
             keyboardType: widget.keyboardType,
+            validator: widget.validator,
+
           ),
         ),
       ],
     );
   }
 
-  void onChanged(String string){
-
-    if(widget.needObscureText == true){
+  void onChanged(String string) {
+    if (widget.needObscureText == true) {
       setState(() {
         obscureText = true;
       });
@@ -101,7 +106,5 @@ class _InputField extends State<RecTextField> {
 
   void changeObscureText() {
     this.obscureText = !this.obscureText;
-    print("obscureText = " + obscureText.toString());
   }
-
 }

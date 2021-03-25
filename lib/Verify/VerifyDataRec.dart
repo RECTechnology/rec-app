@@ -1,54 +1,57 @@
 class VerifyDataRec {
-  static bool passwordVerifycation(String password) {
-    if (password.length >= 6) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
-  static bool phoneVerification(String prefix, String phone) {
-    if (prefix == "+34") {
-      if (phone.length == 9) {
-        return true;
+
+
+
+  static String phoneVerification( String phone) {
+      print("Enter in verify Data");
+      print(phone.length);
+      if (phone.length > 9 || phone.length < 9) {
+        return "Incorrect phone";
       } else {
-        return false;
+        return null;
       }
-    } else {
-      return false;
+
+  }
+
+  static String verifyPassword(String password){
+    if(password.length >= 6){
+      return null;
+    }else{
+      return "incorrect password, min 6 caracter";
     }
   }
 
-  static bool verifyIdentityDocument(String document) {
+  static String verifyIdentityDocument(String document) {
     var DNI_REGEX = new RegExp(r"^(\d{8})([A-Z])$", caseSensitive: false);
     var NIE_REGEX = new RegExp(r"^[XYZ]\d{7,8}[A-Z]$");
     if (DNI_REGEX.hasMatch(document)) {
-      return true;
+      return null;
     } else {
       if (NIE_REGEX.hasMatch(document)) {
-        return true;
+        return null;
       } else {
-        return false;
+        return "Invalid Document";
       }
     }
   }
 
-  static bool validateCif(String document){
-    var CIF_REGEX = new RegExp(r"^([ABCDEFGHJKLMNPQRSUVW])(\d{7})([0-9A-J])$");
+  static String validateCif(String document){
+    var CIF_REGEX = new RegExp(r"^([a-z]|[A-Z]|[0-9])[0-9]{7}([a-z]|[A-Z]|[0-9])");
     if(CIF_REGEX.hasMatch(document)){
-      return true;
+      return null;
     }else{
-      return false;
+      return "Incorrect document";
     }
   }
 
-  static bool validateEmail(String email) {
+  static String validateEmail(String email) {
     var EMAIL_REGEX = new RegExp(
         r"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
     if(EMAIL_REGEX.hasMatch(email)){
-      return true;
+      return null;
     }else{
-      return false;
+      return "Incorrect email";
     }
   }
 }

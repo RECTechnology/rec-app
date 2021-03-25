@@ -41,5 +41,6 @@
   "BAD_PASSWORD": "La contraseña introducida no es valida, recuerda que debe tener minimo 6 caracteres",
   "BAD_CIF": "El CIF introducido no es valido",
   "BAD_MAIL": "El correo introducido no es valido",
-  "INTRODUCE_INFO": "Introduce aquí tu información personal. El cif de tu organización se introduce en el siguiente paso"
+  "INTRODUCE_INFO": "Introduce aquí tu información personal. El cif de tu organización se introduce en el siguiente paso",
+  "NOT_REGISTRED": "¿Aún no te has registrado en el REC?"
 }

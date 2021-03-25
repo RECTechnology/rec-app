@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class ButtonRec extends StatefulWidget {
@@ -6,13 +8,16 @@ class ButtonRec extends StatefulWidget {
   final Function() onPressed;
   final Color textColor;
   final Color backgroundColor;
+  final double widthBox;
 
-  ButtonRec(
-      {this.text,
-      this.widget,
-      this.onPressed,
-      this.textColor = Colors.white,
-      this.backgroundColor = Colors.black});
+  ButtonRec({
+    this.text,
+    this.widget,
+    this.onPressed,
+    this.textColor = Colors.white,
+    this.backgroundColor = Colors.black,
+    this.widthBox,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -30,6 +35,7 @@ class ButtonRecState extends State<ButtonRec> {
     }
 
     RaisedButton button = RaisedButton(
+
       child: Padding(
         padding: const EdgeInsets.all(6.0),
         child: Row(
@@ -38,12 +44,22 @@ class ButtonRecState extends State<ButtonRec> {
             SizedBox(
               height: 25,
             ),
-            widget.text
+            Container(
+              margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+              alignment: Alignment.centerRight,
+              child: widget.text,
+            ),
+
+            Container(
+              margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+              alignment: Alignment.centerRight,
+              child:areWidget ? widget.widget : null ,
+            ),
           ],
         ),
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18.0),
+        borderRadius: BorderRadius.circular(5.0),
       ),
       onPressed: widget.onPressed,
       textColor: widget.textColor,
@@ -70,6 +86,9 @@ class ButtonRecState extends State<ButtonRec> {
       color: widget.backgroundColor,
     );
 
-    return button;
+    return SizedBox(
+        width: widget.widthBox,
+        height: 50.0,
+        child: button, );
   }
 }
