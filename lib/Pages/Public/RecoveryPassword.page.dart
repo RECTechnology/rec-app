@@ -16,12 +16,15 @@ class RecoveryPassword extends StatefulWidget {
 
 class _RecoveryPasswordState extends GenericRecViewScreen<RecoveryPassword> {
   @override
-  Widget buildPageContent(BuildContext context, AppState state) {
-    // TODO: implement buildPageContent
+  Widget buildPageContent(
+    BuildContext context,
+    AppState state,
+    AppLocalizations localizations,
+  ) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context).translate('FORGOT_PASSWORD'),
+          localizations.translate('FORGOT_PASSWORD'),
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
@@ -30,7 +33,7 @@ class _RecoveryPasswordState extends GenericRecViewScreen<RecoveryPassword> {
             Icons.arrow_back,
             color: Colors.black,
           ),
-          function: () {
+          onPressed: () {
             Navigator.of(context).pop();
           },
         ),
@@ -41,7 +44,7 @@ class _RecoveryPasswordState extends GenericRecViewScreen<RecoveryPassword> {
             Container(
               margin: EdgeInsets.fromLTRB(0, 20, 140, 0),
               child: Text(
-                AppLocalizations.of(context).translate('FORGOT_PASSWORD'),
+                localizations.translate('FORGOT_PASSWORD'),
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.blueAccent,
@@ -52,25 +55,23 @@ class _RecoveryPasswordState extends GenericRecViewScreen<RecoveryPassword> {
             Container(
               margin: EdgeInsets.fromLTRB(0, 60, 0, 0),
               child: RecTextField(
-                title: AppLocalizations.of(context).translate('DOCUMENT_DATA'),
+                title: localizations.translate('DOCUMENT_DATA'),
                 isNumeric: false,
                 isPassword: false,
                 keyboardType: TextInputType.text,
                 needObscureText: false,
-                placeholder:
-                    AppLocalizations.of(context).translate('WRITE_DOCUMENT'),
+                placeholder: localizations.translate('WRITE_DOCUMENT'),
               ),
             ),
             Container(
               margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
               child: RecTextField(
-                title: AppLocalizations.of(context).translate('TELF'),
+                title: localizations.translate('TELF'),
                 isNumeric: false,
                 isPassword: false,
                 keyboardType: TextInputType.text,
                 needObscureText: false,
-                placeholder:
-                    AppLocalizations.of(context).translate('WRITE_TELF'),
+                placeholder: localizations.translate('WRITE_TELF'),
               ),
             ),
             Container(

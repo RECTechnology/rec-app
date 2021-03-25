@@ -15,53 +15,56 @@ class RegisterTwo extends StatefulWidget {
 }
 
 class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
-  String userName = "";
-  String CIF = "";
-  String email = "";
+  String userName = '';
+  String CIF = '';
+  String email = '';
+
   final _formKey = GlobalKey<FormState>();
 
   @override
-  Widget buildPageContent(BuildContext context, AppState state) {
-    Map parameters = ModalRoute.of(context).settings.arguments;
-    AppLocalizations localizations = AppLocalizations.of(context);
-
+  Widget buildPageContent(
+    BuildContext context,
+    AppState state,
+    AppLocalizations localizations,
+  ) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(75.0),
         child: AppBar(
-            backgroundColor: Colors.orangeAccent,
-            leading: IconButtonRec(
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
-              function: () {
-                Navigator.of(context).pop();
-              },
+          backgroundColor: Colors.orangeAccent,
+          leading: IconButtonRec(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
             ),
-            title: Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.fromLTRB(90, 0, 0, 0), //Left,Top,Right,Bottom
-              child: Row(
-                children: [
-                  Container(
-                    width: 75,
-                    height: 75,
-                    child: IconButton(
-                      icon: Image.asset('assets/organization.png'),
-                      onPressed: () {},
-                    ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          title: Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.fromLTRB(90, 0, 0, 0),
+            child: Row(
+              children: [
+                Container(
+                  width: 75,
+                  height: 75,
+                  child: IconButton(
+                    icon: Image.asset('assets/organization.png'),
+                    onPressed: () {},
                   ),
-                ],
-              ),
-            )),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
               alignment: Alignment.centerLeft,
-              margin: EdgeInsets.fromLTRB(20, 20, 0, 0), //Left,Top,Right,Bottom
+              margin: EdgeInsets.fromLTRB(20, 20, 0, 0),
               child: Text(
                 localizations.translate('MAKE_KNOW'),
                 style: TextStyle(color: Colors.black, fontSize: 13),
@@ -69,7 +72,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              margin: EdgeInsets.fromLTRB(20, 0, 0, 30), //Left,Top,Right,Bottom
+              margin: EdgeInsets.fromLTRB(20, 0, 0, 30),
               child: RichText(
                 textAlign: TextAlign.left,
                 text: TextSpan(
@@ -79,8 +82,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 15), //Left,Top,Right,Bottom
-
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
               child: RecTextField(
                 needObscureText: false,
                 keyboardType: TextInputType.text,
@@ -97,8 +99,6 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                   children: [
                     Container(
                       margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                      //Left,Top,Right,Bottom
-
                       child: RecTextField(
                         placeholder: localizations.translate('CIF'),
                         needObscureText: false,
@@ -112,8 +112,6 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                      //Left,Top,Right,Bottom
-
                       child: RecTextField(
                         placeholder: localizations.translate('EMAIL'),
                         needObscureText: false,
@@ -129,7 +127,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                 )),
             Container(
               alignment: Alignment.centerLeft,
-              margin: EdgeInsets.fromLTRB(20, 20, 0, 0), //Left,Top,Right,Bottom
+              margin: EdgeInsets.fromLTRB(20, 20, 0, 0),
               child: Text(
                 localizations.translate('WHEN_INIT_SESION'),
                 style: TextStyle(color: Colors.deepOrange, fontSize: 14),
@@ -137,7 +135,6 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
             ),
             Container(
               margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
-              //Left,Top,Right,Bottom
               child: ButtonRec(
                 onPressed: Register,
                 textColor: Colors.white,
@@ -173,12 +170,13 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
 
   void printToastRec(String msg) {
     Fluttertoast.showToast(
-        msg: msg,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.deepOrange,
-        textColor: Colors.white,
-        fontSize: 14.0);
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.deepOrange,
+      textColor: Colors.white,
+      fontSize: 14.0,
+    );
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 class ButtonRec extends StatefulWidget {
@@ -35,7 +33,6 @@ class ButtonRecState extends State<ButtonRec> {
     }
 
     RaisedButton button = RaisedButton(
-
       child: Padding(
         padding: const EdgeInsets.all(6.0),
         child: Row(
@@ -49,11 +46,10 @@ class ButtonRecState extends State<ButtonRec> {
               alignment: Alignment.centerRight,
               child: widget.text,
             ),
-
             Container(
               margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
               alignment: Alignment.centerRight,
-              child:areWidget ? widget.widget : null ,
+              child: areWidget ? widget.widget : null,
             ),
           ],
         ),
@@ -87,8 +83,9 @@ class ButtonRecState extends State<ButtonRec> {
     );
 
     return SizedBox(
-        width: widget.widthBox,
-        height: 50.0,
-        child: button, );
+      width: widget.widthBox,
+      height: 50.0,
+      child: button,
+    );
   }
 }

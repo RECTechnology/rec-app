@@ -88,7 +88,6 @@ class _InputField extends State<RecTextField> {
             obscureText: obscureText ? true : false,
             keyboardType: widget.keyboardType,
             validator: widget.validator,
-
           ),
         ),
       ],

@@ -1,53 +1,55 @@
-import 'package:rec/Api/ApiAdapter.dart';
-import 'package:rec/Api/ApiClient.dart';
+import 'package:flutter/widgets.dart';
+import 'package:http/http.dart';
+import 'package:http_interceptor/http_client_with_interceptor.dart';
+import 'package:http_interceptor/interceptor_contract.dart';
+import 'package:rec/Api/Interceptors/ApiInterceptor.dart';
+import 'package:rec/Api/Providers/AuthProvider.dart';
 
 abstract class ServiceBase {
-  ApiClient client;
-  List<ApiAdapter> adapters;
-  ApiAdapter defaultAdapter;
+  Client client;
 
-  ServiceBase(
-      ApiClient client, List<ApiAdapter> adapters, ApiAdapter defaultAdapter) {
-    if (client == null) {
-      throw Exception("ServiceBase: client is required");
-    }
-    if (adapters == null || adapters.isEmpty) {
-      throw Exception("ServiceBase: at least one adapter is required");
-    }
-
-    if (defaultAdapter == null) {
-      this.defaultAdapter = adapters.firstWhere((element) => element.isEnabled);
-    } else {
-      this.defaultAdapter = defaultAdapter;
-    }
-
-    this.client = client;
-    this.adapters = adapters;
+  ServiceBase({List<InterceptorContract> interceptors = const []}) {
+    client = HttpClientWithInterceptor.build(
+      interceptors: [
+        ApiLoggerInterceptor(),
+        ...interceptors,
+      ],
+    );
   }
 
-  String getPath({String method, Map params});
-  ApiAdapter getAdapter({String method, Map params});
-
-  Future edit(String id, Map data) {
-    var path = this.getPath(method: 'edit', params: {id: id});
-    var adapter = this.getAdapter(method: 'edit', params: {id: id});
-
-    return adapter.edit(path, data);
+  @protected
+  Future<String> getToken() {
+    return AuthProvider.getToken();
   }
 
-  Future create(Map data) {
+  @protected
+  Future<Map<String, String>> getHeaders({
+    String contentType = 'application/json',
+    String accept = 'application/json',
+  }) {
+    return Future.value({
+      'content-type': contentType,
+      'accept': accept,
+    });
+  }
+
+  @protected
+  Future put(String id, Map data) {
     throw UnimplementedError();
   }
 
+  @protected
+  Future post(Map data) {
+    throw UnimplementedError();
+  }
+
+  @protected
   Future delete(String id) {
     throw UnimplementedError();
   }
 
+  @protected
   Future get(String id) {
-    throw UnimplementedError();
-  }
-
-  Future list() {
     throw UnimplementedError();
   }
 }

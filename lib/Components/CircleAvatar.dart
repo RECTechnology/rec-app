@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
-class CircleAvatarRec extends StatefulWidget{
+class CircleAvatarRec extends StatefulWidget {
   final String imageUrl;
 
   CircleAvatarRec({
-    this.imageUrl} );
-
+    this.imageUrl,
+  });
 
   @override
-  State<StatefulWidget> createState() => new _CircleAvatarRecState();
-
+  State<StatefulWidget> createState() => _CircleAvatarRecState();
 }
 
-class _CircleAvatarRecState extends State<CircleAvatarRec>{
+class _CircleAvatarRecState extends State<CircleAvatarRec> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -21,5 +20,4 @@ class _CircleAvatarRecState extends State<CircleAvatarRec>{
     );
     return circleAvatarRec;
   }
-
 }

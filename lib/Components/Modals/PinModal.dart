@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rec/Modals/GenericModal.dart';
+import 'package:rec/Components/Modals/GenericModal.dart';
 
 class PinModal extends GenericModal {
   final Text title;
@@ -9,9 +9,9 @@ class PinModal extends GenericModal {
 
   PinModal({this.title, this.context, this.content})
       : super(
-      content: content,
-      title: title,
-      widget: Container(
+          content: content,
+          title: title,
+          widget: Container(
             width: 400,
             height: 150,
             child: TextField(
@@ -20,8 +20,9 @@ class PinModal extends GenericModal {
                 border: OutlineInputBorder(),
                 labelText: 'Introduzca su Pin',
               ),
-            ))
-      );
+            ),
+          ),
+        );
 
   void showDialog() {
     super.showAlertDialog(context);
