@@ -14,7 +14,6 @@ void main(){
 
 
       await tester.pumpWidget(MaterialApp(home: Scaffold(body: itemColumn,)));
-      await tester.tap(find.byWidget(itemColumn));
 
   });
 }

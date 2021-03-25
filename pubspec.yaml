@@ -57,6 +57,7 @@ flutter:
      - assets/organization-bw.png
      - assets/organization.png
      - assets/BolasRec.PNG
+     - imagenUsuarioPredeterminada.jpg
      - i18n/ca.json
      - i18n/en.json
      - i18n/es.json

@@ -18,11 +18,12 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
   String userName = "";
   String CIF = "";
   String email = "";
-  final _formKeyCif = GlobalKey<FormState>();
-  final _formKeyEmail = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget buildPageContent(BuildContext context, AppState state) {
     Map parameters = ModalRoute.of(context).settings.arguments;
+    AppLocalizations localizations = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: PreferredSize(
@@ -62,7 +63,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.fromLTRB(20, 20, 0, 0), //Left,Top,Right,Bottom
               child: Text(
-                AppLocalizations.of(context).translate('MAKE_KNOW'),
+                localizations.translate('MAKE_KNOW'),
                 style: TextStyle(color: Colors.black, fontSize: 13),
               ),
             ),
@@ -72,7 +73,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
               child: RichText(
                 textAlign: TextAlign.left,
                 text: TextSpan(
-                  text: AppLocalizations.of(context).translate('ADD_ORG'),
+                  text: localizations.translate('ADD_ORG'),
                   style: TextStyle(color: Colors.black, fontSize: 20),
                 ),
               ),
@@ -85,51 +86,52 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                 keyboardType: TextInputType.text,
                 isPassword: false,
                 isNumeric: false,
-                title: AppLocalizations.of(context).translate('NAME'),
+                title: localizations.translate('NAME'),
                 colorLine: Colors.orange,
                 function: setUserName,
               ),
             ),
             Form(
-              key: _formKeyCif,
-              child: Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                //Left,Top,Right,Bottom
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                      //Left,Top,Right,Bottom
 
-                child: RecTextField(
-                  placeholder: AppLocalizations.of(context).translate('CIF'),
-                  needObscureText: false,
-                  keyboardType: TextInputType.text,
-                  isPassword: false,
-                  isNumeric: false,
-                  colorLine: Colors.orange,
-                  function: setCIF,
-                  validator: VerifyDataRec.validateCif,
-                ),
-              ),
-            ),
-        Form(
-          key: _formKeyEmail,
-          child:Container(
-            margin: EdgeInsets.fromLTRB(0, 0, 0, 15), //Left,Top,Right,Bottom
+                      child: RecTextField(
+                        placeholder: localizations.translate('CIF'),
+                        needObscureText: false,
+                        keyboardType: TextInputType.text,
+                        isPassword: false,
+                        isNumeric: false,
+                        colorLine: Colors.orange,
+                        function: setCIF,
+                        validator: VerifyDataRec.validateCif,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                      //Left,Top,Right,Bottom
 
-            child: RecTextField(
-              placeholder: AppLocalizations.of(context).translate('EMAIL'),
-              needObscureText: false,
-              keyboardType: TextInputType.text,
-              isPassword: false,
-              isNumeric: false,
-              colorLine: Colors.orange,
-              function: setEmail,
-              validator: VerifyDataRec.validateEmail,
-            ),
-          ),),
-
+                      child: RecTextField(
+                        placeholder: localizations.translate('EMAIL'),
+                        needObscureText: false,
+                        keyboardType: TextInputType.text,
+                        isPassword: false,
+                        isNumeric: false,
+                        colorLine: Colors.orange,
+                        function: setEmail,
+                        validator: VerifyDataRec.validateEmail,
+                      ),
+                    ),
+                  ],
+                )),
             Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.fromLTRB(20, 20, 0, 0), //Left,Top,Right,Bottom
               child: Text(
-                AppLocalizations.of(context).translate('WHEN_INIT_SESION'),
+                localizations.translate('WHEN_INIT_SESION'),
                 style: TextStyle(color: Colors.deepOrange, fontSize: 14),
               ),
             ),
@@ -140,7 +142,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                 onPressed: Register,
                 textColor: Colors.white,
                 backgroundColor: Colors.deepOrange,
-                text: Text(AppLocalizations.of(context).translate('REGISTER')),
+                text: Text(localizations.translate('REGISTER')),
               ),
             )
           ],
@@ -162,11 +164,9 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
   }
 
   void Register() {
-    if (_formKeyCif.currentState.validate()) {
-      if (_formKeyEmail.currentState.validate()) {
-        print("Registring...");
-      }
-    }else{
+    if (_formKey.currentState.validate()) {
+      print("Registring...");
+    } else {
       print("Bad Cif");
     }
   }

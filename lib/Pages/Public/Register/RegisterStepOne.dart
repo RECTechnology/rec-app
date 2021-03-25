@@ -23,12 +23,13 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
   String idDocument = "";
   String password = "";
   Map<String, String> data;
-  final _formKeyPhone = GlobalKey<FormState>();
-  final _formKeyDocument = GlobalKey<FormState>();
-  final _formKeyPassword = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
+
 
   @override
   Widget buildPageContent(BuildContext context, AppState state) {
+    AppLocalizations localizations = AppLocalizations.of(context);
+
     // TODO: implement buildPageContent
     return Scaffold(
       appBar: PreferredSize(
@@ -81,8 +82,8 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
               margin: EdgeInsets.fromLTRB(20, 20, 0, 0), //Left,Top,Right,Bottom
               child: Text(
                 isParticular
-                    ? AppLocalizations.of(context).translate('PROMOTE_TRADE')
-                    : AppLocalizations.of(context).translate('TO_START_WRITE'),
+                    ? localizations.translate('PROMOTE_TRADE')
+                    : localizations.translate('TO_START_WRITE'),
                 style: TextStyle(color: Colors.black, fontSize: 13),
               ),
             ),
@@ -96,8 +97,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                     child: RichText(
                       textAlign: TextAlign.left,
                       text: TextSpan(
-                        text: AppLocalizations.of(context)
-                            .translate('CREATE_USER'),
+                        text: localizations.translate('CREATE_USER'),
                         style: TextStyle(color: Colors.black, fontSize: 20),
                       ),
                     ),
@@ -115,109 +115,106 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                               ),
                               function: () {
                                 printToastRec(
-                                    AppLocalizations.of(context)
-                                        .translate('INTRODUCE_INFO'),
+                                    localizations.translate('INTRODUCE_INFO'),
                                     12);
                               },
                             ))
                 ],
               ),
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(20, 0, 0, 0), //Left,Top,Right,Bottom
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
-                    //Left,Top,Right,Bottom
-                    child: RichText(
-                      textAlign: TextAlign.left,
-                      text: TextSpan(
-                        text: AppLocalizations.of(context).translate('TELF'),
-                        style: TextStyle(color: Colors.black, fontSize: 12),
+            Form(key: _formKey,
+                child:Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(20, 0, 0, 0), //Left,Top,Right,Bottom
+                      child: Column(
+                        children: [
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
+                            //Left,Top,Right,Bottom
+                            child: RichText(
+                              textAlign: TextAlign.left,
+                              text: TextSpan(
+                                text: localizations.translate('TELF'),
+                                style: TextStyle(color: Colors.black, fontSize: 12),
+                              ),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                child: CountryCodePicker(
+                                  onChanged: setPrefix,
+                                  initialSelection: 'ES',
+                                  favorite: ['+34', 'ES'],
+                                  showCountryOnly: false,
+                                  showOnlyCountryWhenClosed: false,
+                                  alignLeft: false,
+                                ),
+                              ),
+
+                              Container(
+                                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                //Left,Top,Right,Bottom
+                                height: 115,
+                                width: 280,
+                                child: RecTextField(
+                                  needObscureText: false,
+                                  keyboardType: TextInputType.phone,
+                                  isPassword: false,
+                                  isNumeric: true,
+                                  icon: Icon(Icons.phone),
+                                  colorLine: isParticular
+                                      ? Colors.blueAccent
+                                      : Colors.orange,
+                                  function: setPhone,
+                                  isPhone: false,
+                                  validator: VerifyDataRec.phoneVerification,
+                                ),
+                              ),
+
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        child: CountryCodePicker(
-                          onChanged: setPrefix,
-                          initialSelection: 'ES',
-                          favorite: ['+34', 'ES'],
-                          showCountryOnly: false,
-                          showOnlyCountryWhenClosed: false,
-                          alignLeft: false,
-                        ),
-                      ),
-                      Form(
-                        key: _formKeyPhone,
-                        child: Container(
-                          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          //Left,Top,Right,Bottom
-                          height: 115,
-                          width: 280,
-                          child: RecTextField(
-                            needObscureText: false,
-                            keyboardType: TextInputType.phone,
-                            isPassword: false,
-                            isNumeric: true,
-                            icon: Icon(Icons.phone),
-                            colorLine: isParticular
-                                ? Colors.blueAccent
-                                : Colors.orange,
-                            function: setPhone,
-                            isPhone: false,
-                            validator: VerifyDataRec.phoneVerification,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Form(
-              key: _formKeyDocument,
-              child: Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 0), //Left,Top,Right,Bottom
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 0), //Left,Top,Right,Bottom
 
-                child: RecTextField(
-                  placeholder:
-                      AppLocalizations.of(context).translate('DNI/NIE'),
-                  needObscureText: false,
-                  keyboardType: TextInputType.text,
-                  isPassword: false,
-                  isNumeric: false,
-                  icon: Icon(Icons.account_circle),
-                  colorLine: isParticular ? Colors.blueAccent : Colors.orange,
-                  function: setIdDocument,
-                  validator: VerifyDataRec.verifyIdentityDocument,
-                  isPhone: false,
-                ),
-              ),
-            ),
-            Form(
-              key: _formKeyPassword,
-              child: Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 0), //Left,Top,Right,Bottom
+                      child: RecTextField(
+                        placeholder: localizations.translate('DNI/NIE'),
+                        needObscureText: false,
+                        keyboardType: TextInputType.text,
+                        isPassword: false,
+                        isNumeric: false,
+                        icon: Icon(Icons.account_circle),
+                        colorLine: isParticular ? Colors.blueAccent : Colors.orange,
+                        function: setIdDocument,
+                        validator: VerifyDataRec.verifyIdentityDocument,
+                        isPhone: false,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 0), //Left,Top,Right,Bottom
 
-                child: RecTextField(
-                  placeholder:
-                      AppLocalizations.of(context).translate('PASSWORD'),
-                  needObscureText: true,
-                  keyboardType: TextInputType.text,
-                  isPassword: false,
-                  isNumeric: false,
-                  icon: Icon(Icons.lock),
-                  colorLine: isParticular ? Colors.blueAccent : Colors.orange,
-                  function: setPassword,
-                  isPhone: false,
-                  validator: VerifyDataRec.verifyPassword,
-                ),
-              ),
-            ),
+                      child: RecTextField(
+                        placeholder: localizations.translate('PASSWORD'),
+                        needObscureText: true,
+                        keyboardType: TextInputType.text,
+                        isPassword: false,
+                        isNumeric: false,
+                        icon: Icon(Icons.lock),
+                        colorLine: isParticular ? Colors.blueAccent : Colors.orange,
+                        function: setPassword,
+                        isPhone: false,
+                        validator: VerifyDataRec.verifyPassword,
+                      ),
+                    ),
+                  ],
+                )),
+
+
             isParticular
                 ? Text("")
                 : Container(
@@ -225,8 +222,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                     margin: EdgeInsets.fromLTRB(
                         20, 20, 0, 0), //Left,Top,Right,Bottom
                     child: Text(
-                      AppLocalizations.of(context)
-                          .translate('PRESS_NEXT_TO_ADD'),
+                      localizations.translate('PRESS_NEXT_TO_ADD'),
                       style: TextStyle(color: Colors.deepOrange, fontSize: 14),
                     ),
                   ),
@@ -248,8 +244,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                   RichText(
                     textAlign: TextAlign.left,
                     text: TextSpan(
-                      text: AppLocalizations.of(context)
-                          .translate('ACORD_WHIT_TEMS'),
+                      text: localizations.translate('ACORD_WHIT_TEMS'),
                       style: TextStyle(color: Colors.black, fontSize: 14),
                     ),
                   ),
@@ -264,7 +259,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                 backgroundColor:
                     isParticular ? Colors.blueAccent : Colors.deepOrange,
                 onPressed: next,
-                text: Text(AppLocalizations.of(context).translate('NEXT')),
+                text: Text(localizations.translate('NEXT')),
               ),
             )
           ],
@@ -293,21 +288,18 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
     idDocument = document;
   }
 
-
-
   void setPassword(String password) {
     this.password = password;
   }
 
   void next() {
-    if (_formKeyPhone.currentState.validate()) {
-      if (_formKeyDocument.currentState.validate()) {
-        if (_formKeyPassword.currentState.validate()) {
+    if (_formKey.currentState.validate()) {
+
           if (checkValue && isParticular != true) {
             Navigator.of(context).pushNamed('/registerTwo', arguments: data);
           }
-        }
-      }
+
+
     }
   }
 
