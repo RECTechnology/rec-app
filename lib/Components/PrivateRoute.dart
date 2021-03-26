@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Providers/AuthProvider.dart';
+import 'package:rec/Api/Auth.dart';
 
 class PrivateRoute extends StatefulWidget {
   final Widget route;
@@ -7,7 +7,7 @@ class PrivateRoute extends StatefulWidget {
 
   @override
   _PrivateRouteState createState() {
-    return _PrivateRouteState(this.route);
+    return _PrivateRouteState(route);
   }
 }
 
@@ -20,7 +20,7 @@ class _PrivateRouteState extends State<PrivateRoute> {
   void initState() {
     super.initState();
 
-    AuthProvider.isLoggedIn().then(
+    Auth.isLoggedIn().then(
       (v) {
         if (v == false) {
           Navigator.of(context).pushReplacementNamed('/login');

@@ -6,7 +6,6 @@ abstract class ViewBaseState<T extends StatefulWidget> extends State<T> {
 
   @override
   Widget build(BuildContext context) {
-    AppState appState = AppState.of(context);
-    return buildView(context, appState);
+    return buildView(context, AppState.of(context));
   }
 }

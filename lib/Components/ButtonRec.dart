@@ -6,6 +6,8 @@ class ButtonRec extends StatefulWidget {
   final Function() onPressed;
   final Color textColor;
   final Color backgroundColor;
+  final double widthBox;
+  final bool isButtonDisabled;
 
   ButtonRec({
     this.text,
@@ -13,6 +15,8 @@ class ButtonRec extends StatefulWidget {
     this.onPressed,
     this.textColor = Colors.white,
     this.backgroundColor = Colors.black,
+    this.widthBox,
+    this.isButtonDisabled
   });
 
   @override
@@ -22,28 +26,49 @@ class ButtonRec extends StatefulWidget {
 }
 
 class ButtonRecState extends State<ButtonRec> {
+
   @override
   Widget build(BuildContext context) {
+    var areWidget = true;
+    if (widget.widget == null) {
+      areWidget = false;
+    }
+
     var button = RaisedButton(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      onPressed: widget.isButtonDisabled?null:widget.onPressed,
+      textColor: widget.textColor,
+      color: widget.backgroundColor,
+
       child: Padding(
         padding: const EdgeInsets.all(6.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(
-              height: 25,
+              height: 10,
             ),
-            widget.text
+            Container(
+              margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+              alignment: Alignment.centerRight,
+              child: widget.text,
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+              alignment: Alignment.centerRight,
+              child: areWidget ? widget.widget : null,
+            ),
           ],
         ),
       ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18.0),
-      ),
-      onPressed: widget.onPressed,
-      textColor: widget.textColor,
-      color: widget.backgroundColor,
     );
-    return button;
+
+    return SizedBox(
+      width: widget.widthBox,
+      height: 50.0,
+      child: button,
+    );
   }
 }

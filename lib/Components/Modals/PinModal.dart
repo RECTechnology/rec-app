@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Modals/GenericModal.dart';
 
 class PinModal extends GenericModal {
+  @override
   final Text title;
+  @override
   final Text content;
   final BuildContext context;
 

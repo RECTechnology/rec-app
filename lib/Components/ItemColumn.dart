@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class ItemColumn extends StatefulWidget {
+class ItemColumnRec extends StatefulWidget {
   final List<Widget> children;
   final Alignment aligment;
 
-  ItemColumn({this.children, this.aligment});
+  ItemColumnRec({this.children, this.aligment});
 
   @override
-  State<StatefulWidget> createState() => _ItemColumnState();
+  State<StatefulWidget> createState() => _ItemColumnRecState();
 }
 
-class _ItemColumnState extends State<ItemColumn> {
+class _ItemColumnRecState extends State<ItemColumnRec> {
   @override
   Widget build(BuildContext context) {
     var itemColumn = Container(
