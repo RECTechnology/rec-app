@@ -51,7 +51,9 @@ class _HomePageState extends GenericRecViewScreen<HomePage>
 
     void _onItemTapped(int index) {
       setState(() {
+
         currentTab = index;
+
       });
     }
 
