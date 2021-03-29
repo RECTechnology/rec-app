@@ -5,15 +5,15 @@ import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 
-class SettingsPage extends StatefulWidget {
-  SettingsPage({Key key}) : super(key: key);
+class MapPage extends StatefulWidget {
+  MapPage({Key key}) : super(key: key);
 
   @override
-  _SettingsPageState createState() => _SettingsPageState();
+  _MapPageState createState() => _MapPageState();
 }
 
-class _SettingsPageState extends GenericRecViewScreen<SettingsPage> {
-  _SettingsPageState() : super(title: 'Settings', hasAppBar: true);
+class _MapPageState extends GenericRecViewScreen<MapPage> {
+  _MapPageState() : super(title: 'Settings', hasAppBar: true);
 
   @override
   void initState() {
@@ -28,7 +28,7 @@ class _SettingsPageState extends GenericRecViewScreen<SettingsPage> {
       ) {
     return Scaffold(
       body: Center(
-        child: Text("Estoy en la pestaña de configuracion"),
+        child: Text("Estoy en la pestaña Mapa"),
       ),
     );
 

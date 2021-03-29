@@ -38,6 +38,12 @@ class _InputField extends State<RecTextField> {
   String error = 'Contraseña incorrecta';
 
   @override
+  void initState() {
+    super.initState();
+
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[

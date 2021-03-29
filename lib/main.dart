@@ -19,6 +19,7 @@ Future<void> main() async {
   );
 
   if (env.SENTRY_ACTIVE) {
+    
     await SentryFlutter.init(
       (options) => options.dsn = env.SENTRY_DSN,
       appRunner: () => runApp(appStateProvider),

@@ -45,7 +45,9 @@ flutter:
      - assets/organization.png
      - assets/BolasRec.PNG
      - assets/logo.png
-     - imagenUsuarioPredeterminada.jpg
+     - assets/imagenUsuarioPredeterminada.jpg
+     - assets/aj-bcn.jpg
+     - assets/login-header.jpg
      - i18n/ca.json
      - i18n/en.json
      - i18n/es.json

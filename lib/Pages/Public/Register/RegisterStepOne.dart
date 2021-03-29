@@ -120,7 +120,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                             onPressed: () {
                               printToastRec(
                                   localizations.translate('INTRODUCE_INFO'),
-                                  12);
+                                  );
                             },
                           ),
                   )
@@ -260,6 +260,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                 backgroundColor:
                     isAccountPrivate ? Colors.blueAccent : Colors.deepOrange,
                 onPressed: next,
+                isButtonDisabled: false,
                 text: Text(localizations.translate('NEXT')),
               ),
             )
@@ -301,15 +302,20 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
     }
   }
 
-  void printToastRec(String msg, double fontSize) {
-    Fluttertoast.showToast(
-      msg: msg,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.deepOrange,
-      textColor: Colors.white,
-      fontSize: fontSize,
+  void printToastRec(String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(msg.toString()),
+        duration: const Duration(milliseconds: 1500),
+        width: 300.0,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 8.0, // Inner padding for SnackBar content.
+        ),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
     );
   }
 

@@ -7,7 +7,7 @@ void main() {
   testWidgets('Login Page test build correctly', (WidgetTester tester) async {
     var app = TestUtils.wrapPageWithLocalization(LoginPage(false));
 
-    // Esto basicamente, expone el widget al tester, lo inicia
+ 
     await tester.pumpWidget(app);
 
     // Esto es necesario hacerlo, para que se cargue el Localizations y tengamos acceso a los widgets

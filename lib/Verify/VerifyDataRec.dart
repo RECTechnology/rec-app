@@ -1,7 +1,5 @@
 class VerifyDataRec {
   static String phoneVerification(String phone) {
-    print('Enter in verify Data');
-    print(phone.length);
     if (phone.length > 9 || phone.length < 9) {
       return 'Incorrect phone';
     } else {

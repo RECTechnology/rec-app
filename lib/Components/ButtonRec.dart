@@ -7,7 +7,7 @@ class ButtonRec extends StatefulWidget {
   final Color textColor;
   final Color backgroundColor;
   final double widthBox;
-
+  final bool isButtonDisabled;
   ButtonRec({
     this.text,
     this.widget,
@@ -15,6 +15,7 @@ class ButtonRec extends StatefulWidget {
     this.textColor = Colors.white,
     this.backgroundColor = Colors.black,
     this.widthBox,
+    this.isButtonDisabled
   });
 
   @override
@@ -24,10 +25,10 @@ class ButtonRec extends StatefulWidget {
 }
 
 class ButtonRecState extends State<ButtonRec> {
+
   @override
   Widget build(BuildContext context) {
     var areWidget = true;
-
     if (widget.widget == null) {
       areWidget = false;
     }
@@ -36,7 +37,7 @@ class ButtonRecState extends State<ButtonRec> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0),
       ),
-      onPressed: widget.onPressed,
+      onPressed: widget.isButtonDisabled?null:widget.onPressed,
       textColor: widget.textColor,
       color: widget.backgroundColor,
       child: Padding(
@@ -45,7 +46,7 @@ class ButtonRecState extends State<ButtonRec> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(
-              height: 25,
+              height: 10,
             ),
             Container(
               margin: EdgeInsets.fromLTRB(20, 0, 0, 0),

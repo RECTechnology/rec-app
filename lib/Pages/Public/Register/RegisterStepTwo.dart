@@ -139,6 +139,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                 onPressed: Register,
                 textColor: Colors.white,
                 backgroundColor: Colors.deepOrange,
+                isButtonDisabled: false,
                 text: Text(localizations.translate('REGISTER')),
               ),
             )
@@ -167,16 +168,22 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
       print('Bad Cif');
     }
   }
-
   void printToastRec(String msg) {
-    Fluttertoast.showToast(
-      msg: msg,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.deepOrange,
-      textColor: Colors.white,
-      fontSize: 14.0,
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+
+        content: Text(msg.toString()),
+        duration: const Duration(milliseconds: 1500),
+        width: 300.0,
+        // Width of the SnackBar.
+        padding: const EdgeInsets.symmetric(
+          horizontal: 8.0, // Inner padding for SnackBar content.
+        ),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
     );
   }
 }
