@@ -4,6 +4,7 @@ import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
 import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/RecTextField.dart';
+import 'package:rec/Components/ToastRec.dart';
 
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
@@ -113,31 +114,14 @@ class _SendSMSPageState extends GenericRecViewScreen<SendSMSPage> {
 
   void sendSMS(){
     var localization = AppLocalizations.of(context);
-
+    ToastRec toastRec = ToastRec();
     if(_formKey.currentState.validate()){
       return;
     }else{
-      printToastRec(localization.translate('ERROR_CODE'));
+      toastRec.printToastRec(localization.translate('ERROR_CODE'),this.context);
     }
   }
-  void printToastRec(String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
 
-        content: Text(msg.toString()),
-        duration: const Duration(milliseconds: 2000),
-        width: 300.0,
-        // Width of the SnackBar.
-        padding: const EdgeInsets.symmetric(
-          horizontal: 8.0, // Inner padding for SnackBar content.
-        ),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-    );
-  }
   void setSMS(String sms) {
     this.sms = sms;
   }

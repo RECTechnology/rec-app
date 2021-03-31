@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
 import 'package:rec/Components/IconButton.dart';
@@ -11,6 +10,7 @@ import 'package:rec/Providers/AppState.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:rec/Verify/VerifyDataRec.dart';
 import 'package:rec/brand.dart';
+import 'package:rec/Components/ToastRec.dart';
 
 class RegisterOne extends StatefulWidget {
   @override
@@ -318,6 +318,8 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
 
   void next() {
     var localization = AppLocalizations.of(context);
+    ToastRec toastRec = ToastRec();
+
     if (!_formKey.currentState.validate()) return;
 
     if (checkValue && isAccountPrivate != true) {

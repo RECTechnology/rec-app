@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rec/Pages/Public/R%C3%A7ecoveryPassword/RecoveryPassword.page.dart';
-import 'file:///C:/Users/VictorCurro/AndroidStudioProjects/rec_app_v2/lib/Pages/Public/R%C3%A7ecoveryPassword/RecoveryPassword.page.dart';
+
 import 'package:rec/Pages/Public/Register/RegisterStepOne.dart';
 import 'package:rec/Pages/Public/Register/RegisterStepTwo.dart';
 
