@@ -9,14 +9,14 @@ import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 import 'package:rec/Verify/VerifyDataRec.dart';
 
-class SetPassword extends StatefulWidget {
-  SetPassword();
+class SetPasswordPage extends StatefulWidget {
+  SetPasswordPage();
 
   @override
-  _SetPasswordState createState() => _SetPasswordState();
+  _SetPasswordPageState createState() => _SetPasswordPageState();
 }
 
-class _SetPasswordState extends GenericRecViewScreen<SetPassword> {
+class _SetPasswordPageState extends GenericRecViewScreen<SetPasswordPage> {
   String newPassword = '+34';
   String confirmNewPassword = '';
 
@@ -97,7 +97,7 @@ class _SetPasswordState extends GenericRecViewScreen<SetPassword> {
             ),
 
             Container(
-              margin: EdgeInsets.fromLTRB(0, 277, 0, 0),
+              margin: EdgeInsets.fromLTRB(0, 203, 0, 0),
               width: 296,
               height: 48,
               child: ButtonRec(

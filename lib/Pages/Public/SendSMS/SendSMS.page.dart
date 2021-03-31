@@ -1,0 +1,146 @@
+import 'package:country_code_picker/country_code_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:rec/Base/screens/GenericRecViewScreen.dart';
+import 'package:rec/Components/ButtonRec.dart';
+import 'package:rec/Components/IconButton.dart';
+import 'package:rec/Components/RecTextField.dart';
+
+import 'package:rec/Lang/AppLocalizations.dart';
+import 'package:rec/Providers/AppState.dart';
+import 'package:rec/Verify/VerifyDataRec.dart';
+
+class SendSMSPage extends StatefulWidget {
+  SendSMSPage();
+
+  @override
+  _SendSMSPageState createState() => _SendSMSPageState();
+}
+
+class _SendSMSPageState extends GenericRecViewScreen<SendSMSPage> {
+  final _formKey = GlobalKey<FormState>();
+
+  String phone = '610992764';
+  String sms = '';
+
+  @override
+  Widget buildPageContent(
+      BuildContext context,
+      AppState state,
+      AppLocalizations localizations,
+      ) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: IconButtonRec(
+          icon: Icon(
+            Icons.arrow_back ,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.fromLTRB(32, 20, 32, 0),
+              child: Text(
+                localizations.translate('SEND_SMS_U'),
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                ),
+                textAlign: TextAlign.right,
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(32, 57, 32, 39),
+              child: Text(
+                localizations.translate('HELP_US_VALIDATE_PHONE')+" " +phone,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black54,
+
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+      Form(
+        key: _formKey,
+        child:Container(
+          margin: EdgeInsets.fromLTRB(48, 0, 19, 0),
+          child: RecTextField(
+            placeholder: "613335",
+            needObscureText: false,
+            keyboardType: TextInputType.phone,
+            isPassword: false,
+            isNumeric: true,
+            textSize: 20,
+            letterSpicing: 25,
+            textAlign: TextAlign.center,
+            colorLine:  Colors.blueAccent,
+            function: setSMS,
+            isPhone: false,
+            validator: VerifyDataRec.verifySMS,
+          ),
+        ),),
+
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 203, 0, 0),
+              width: 296,
+              height: 48,
+              child: ButtonRec(
+                textColor: Colors.white,
+                backgroundColor: Colors.blue,
+                onPressed: sendSMS,
+                widthBox: 370,
+                isButtonDisabled: false,
+                widget: Icon(Icons.arrow_forward_ios),
+                text: localizations.translate('NEXT'),
+              ),
+            ),
+
+
+
+          ],
+        ),
+      ),
+    );
+  }
+
+
+  void sendSMS(){
+    var localization = AppLocalizations.of(context);
+
+    if(_formKey.currentState.validate()){
+      return;
+    }else{
+      printToastRec(localization.translate('ERROR_CODE'));
+    }
+  }
+  void printToastRec(String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+
+        content: Text(msg.toString()),
+        duration: const Duration(milliseconds: 2000),
+        width: 300.0,
+        // Width of the SnackBar.
+        padding: const EdgeInsets.symmetric(
+          horizontal: 8.0, // Inner padding for SnackBar content.
+        ),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
+    );
+  }
+  void setSMS(String sms) {
+    this.sms = sms;
+  }
+
+
+}

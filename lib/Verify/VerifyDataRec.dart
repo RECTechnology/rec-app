@@ -15,6 +15,13 @@ class VerifyDataRec {
       return 'incorrect password, min 6 caracter';
     }
   }
+  static String verifySMS(String sms) {
+    if (sms.length >= 6) {
+      return null;
+    } else {
+      return 'incorrect sms';
+    }
+  }
 
   static String verifyIdentityDocument(String document) {
     var DNI_REGEX = RegExp(r'^(\d{8})([A-Z])$', caseSensitive: false);

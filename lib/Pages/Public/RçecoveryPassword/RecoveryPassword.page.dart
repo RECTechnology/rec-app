@@ -8,14 +8,14 @@ import 'package:rec/Components/RecTextField.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 
-class RecoveryPassword extends StatefulWidget {
-  RecoveryPassword();
+class RecoveryPasswordPage extends StatefulWidget {
+  RecoveryPasswordPage();
 
   @override
-  _RecoveryPasswordState createState() => _RecoveryPasswordState();
+  _RecoveryPasswordPageState createState() => _RecoveryPasswordPageState();
 }
 
-class _RecoveryPasswordState extends GenericRecViewScreen<RecoveryPassword> {
+class _RecoveryPasswordPageState extends GenericRecViewScreen<RecoveryPasswordPage> {
   String prefix = '+34';
   String telephone = '';
   String idDocument = '';
@@ -128,7 +128,7 @@ class _RecoveryPasswordState extends GenericRecViewScreen<RecoveryPassword> {
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(0, 263, 0, 0),
+              margin: EdgeInsets.fromLTRB(0, 203, 0, 0),
               width: 296,
               height: 48,
               child: ButtonRec(
