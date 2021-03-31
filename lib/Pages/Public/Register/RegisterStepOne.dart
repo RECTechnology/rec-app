@@ -40,7 +40,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
   ) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(130.0),
+        preferredSize: Size.fromHeight(174.0),
         child: AppBar(
             backgroundColor:
                 isAccountPrivate ? Brand.backgroundPrivateColor : Brand.backgroundCompanyColor,
@@ -53,33 +53,51 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                 Navigator.of(context).pop();
               },
             ),
-            title: Container(
-              margin: EdgeInsets.fromLTRB(30, 20, 0, 0),
+          bottom: PreferredSize(
+            preferredSize: Size(100,70),
+            child: Container(
               child: Row(
                 children: [
                   Container(
                     width: 75,
                     height: 75,
-                    child: IconButton(
-                      icon: isAccountPrivate
-                          ? Image.asset('assets/avatar.png')
-                          : Image.asset('assets/avatar-bw.png'),
-                      onPressed: setToParticular,
+                    margin: EdgeInsets.fromLTRB(82, 0, 86, 25),
+                    child: Column(
+                      children: [
+                        IconButton(
+                          icon: isAccountPrivate
+                              ? Image.asset('assets/avatar.png')
+                              : Image.asset('assets/avatar-bw.png'),
+                          onPressed: setToParticular,
+                        ),
+                        Text("Private",style: TextStyle(color: isAccountPrivate?Colors.black:Colors.grey,fontSize: 12),)
+
+                      ],
                     ),
                   ),
                   Container(
                     width: 75,
                     height: 75,
-                    child: IconButton(
-                      icon: isAccountPrivate
-                          ? Image.asset('assets/organization-bw.png')
-                          : Image.asset('assets/organization.png'),
-                      onPressed: setToOrganizations,
-                    ),
+                    margin: EdgeInsets.fromLTRB(0, 0,70, 25),
+
+                    child:Column(
+                      children: [
+                        IconButton(
+                          icon: isAccountPrivate
+                              ? Image.asset('assets/organization-bw.png')
+                              : Image.asset('assets/organization.png'),
+                          onPressed: setToOrganizations,
+                        ),
+                        Text("Organization",style: TextStyle(color: isAccountPrivate?Colors.grey:Colors.black,fontSize: 12),)
+                      ],
+                    )
+
                   ),
                 ],
               ),
-            )),
+            ),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -91,7 +109,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                 isAccountPrivate
                     ? localizations.translate('PROMOTE_TRADE')
                     : localizations.translate('TO_START_WRITE'),
-                style: TextStyle(color: Colors.black, fontSize: 13),
+                style: TextStyle(color: Colors.black, fontSize: 10),
               ),
             ),
             Container(
@@ -104,7 +122,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                       textAlign: TextAlign.left,
                       text: TextSpan(
                         text: localizations.translate('CREATE_USER'),
-                        style: TextStyle(color: Colors.black, fontSize: 20),
+                        style: TextStyle(color: Colors.black, fontSize: 20, ),
                       ),
                     ),
                   ),
@@ -152,6 +170,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                           Row(
                             children: [
                               Container(
+                                margin: EdgeInsets.fromLTRB(0, 0, 0, 38),
                                 child: CountryCodePicker(
                                   onChanged: setPrefix,
                                   initialSelection: 'ES',
@@ -263,7 +282,8 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                     isAccountPrivate ? Colors.blueAccent : Colors.deepOrange,
                 onPressed: next,
                 isButtonDisabled: false,
-                text: Text(localizations.translate('NEXT')),
+                widget: Icon(Icons.arrow_forward_ios),
+                text: isAccountPrivate?localizations.translate('REGISTER'):localizations.translate('NEXT'),
               ),
             )
           ],
@@ -297,10 +317,13 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
   }
 
   void next() {
+    var localization = AppLocalizations.of(context);
     if (!_formKey.currentState.validate()) return;
 
     if (checkValue && isAccountPrivate != true) {
       Navigator.of(context).pushNamed('/registerTwo', arguments: data);
+    }else{
+      printToastRec(localization.translate("NO_ACORD_TERMS"));
     }
   }
 
@@ -309,7 +332,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
       SnackBar(
 
         content: Text(msg.toString()),
-        duration: const Duration(milliseconds: 1500),
+        duration: const Duration(milliseconds: 2000),
         width: 300.0,
         // Width of the SnackBar.
         padding: const EdgeInsets.symmetric(

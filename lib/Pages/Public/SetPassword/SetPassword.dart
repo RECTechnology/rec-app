@@ -107,7 +107,7 @@ class _SetPasswordState extends GenericRecViewScreen<SetPassword> {
                 widthBox: 370,
                 isButtonDisabled: false,
                 widget: Icon(Icons.arrow_forward_ios),
-                text: Text(localizations.translate('NEXT')),
+                text: localizations.translate('NEXT'),
               ),
             ),
           ],

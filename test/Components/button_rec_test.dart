@@ -16,7 +16,7 @@ void main() {
       Colors.blueAccent,
       onPressed: functionForTesting,
       isButtonDisabled: false,
-      text: Text('Login'),
+      text: 'Login',
     );
 
 
@@ -35,7 +35,7 @@ void main() {
       backgroundColor:
       Colors.blueAccent,
       isButtonDisabled: false,
-      text: Text('Login'),
+      text: 'Login',
     );
 
     await tester.pumpWidget(MaterialApp(home: button));

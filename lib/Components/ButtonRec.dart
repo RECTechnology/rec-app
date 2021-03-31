@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ButtonRec extends StatefulWidget {
-  final Text text;
+  final String text;
   final Widget widget;
   final Function() onPressed;
   final Color textColor;
@@ -60,7 +60,7 @@ class ButtonRecState extends State<ButtonRec> {
             Container(
               margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
               alignment: Alignment.centerRight,
-              child: widget.text,
+              child: Text(widget.text,style: TextStyle(fontSize: 20),),
             ),
             Container(
               margin: EdgeInsets.fromLTRB(20, 0, 0, 0),

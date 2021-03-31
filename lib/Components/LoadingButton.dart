@@ -24,7 +24,7 @@ class LoadingButtonState extends State<LoadingButton> {
   Widget build(BuildContext context) {
     var buttonRec = ButtonRec(
       onPressed: widget.onPressed,
-      text: Text('Login'),
+      text:'Login',
     );
 
     var containerNotLoading = Container(
@@ -32,7 +32,7 @@ class LoadingButtonState extends State<LoadingButton> {
         children: [
           ButtonRec(
             onPressed: widget.onPressed,
-            text: Text('Login'),
+            text: 'Login',
           )
         ],
       ),

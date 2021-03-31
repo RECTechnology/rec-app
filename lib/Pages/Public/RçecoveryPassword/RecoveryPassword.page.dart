@@ -138,7 +138,7 @@ class _RecoveryPasswordState extends GenericRecViewScreen<RecoveryPassword> {
                 widthBox: 370,
                 isButtonDisabled: false,
                 widget: Icon(Icons.arrow_forward_ios),
-                text: Text(localizations.translate('NEXT')),
+                text: localizations.translate('NEXT'),
               ),
             ),
           ],
