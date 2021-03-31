@@ -62,7 +62,10 @@ abstract class ServiceBase {
 
   FutureOr<Map<String, dynamic>> onRequest(Response response) {
     if (response.statusCode >= 400) {
-      throw json.decode(response.body)['error'];
+      return Future.error({
+        'code': response.statusCode,
+        'body': json.decode(response.body),
+      });
     }
     return json.decode(response.body);
   }
