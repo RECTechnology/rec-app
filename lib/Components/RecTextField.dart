@@ -40,7 +40,6 @@ class _InputField extends State<RecTextField> {
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -48,7 +47,6 @@ class _InputField extends State<RecTextField> {
     return Column(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.fromLTRB(20, 0, 20, 0), //Left,Top,Right,Bottom
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -62,7 +60,6 @@ class _InputField extends State<RecTextField> {
           ),
         ),
         Container(
-          margin: EdgeInsets.fromLTRB(20, 0, 20, 15),
           child: TextFormField(
             decoration: InputDecoration(
               focusedBorder: UnderlineInputBorder(

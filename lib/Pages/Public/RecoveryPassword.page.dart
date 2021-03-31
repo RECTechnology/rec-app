@@ -6,6 +6,7 @@ import 'package:rec/Components/RecTextField.dart';
 
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
+import 'package:rec/Providers/UserState.dart';
 
 class RecoveryPassword extends StatefulWidget {
   RecoveryPassword();
@@ -19,6 +20,7 @@ class _RecoveryPasswordState extends GenericRecViewScreen<RecoveryPassword> {
   Widget buildPageContent(
     BuildContext context,
     AppState state,
+    UserState userState,
     AppLocalizations localizations,
   ) {
     return Scaffold(

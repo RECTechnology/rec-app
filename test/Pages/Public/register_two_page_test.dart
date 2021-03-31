@@ -7,7 +7,7 @@ void main() {
   testWidgets('RegisterTwo test build correctly', (
     WidgetTester tester,
   ) async {
-    var app = TestUtils.wrapPageWithLocalization(RegisterTwo());
+    var app = TestUtils.wrapPublicRoute(RegisterTwo());
 
     await tester.pumpWidget(app);
     await tester.pumpAndSettle();

@@ -18,7 +18,6 @@ class _RecAppState extends State<RecApp> {
   Widget build(BuildContext context) {
     var hasToken = widget.token != null;
 
-
     return MaterialApp(
       title: Brand.appName,
       theme: Brand.createTheme(),
@@ -41,7 +40,7 @@ class _RecAppState extends State<RecApp> {
         }
         return supportedLocales.first;
       },
-      initialRoute: InitialRoutes.getInitialRoute(hasToken: hasToken),
+      initialRoute: Routes.getInitialRoute(hasToken: hasToken),
       routes: ROUTES,
     );
   }

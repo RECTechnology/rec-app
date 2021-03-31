@@ -4,6 +4,7 @@ import 'package:rec/Base/screens/GenericRecEditScreen.dart';
 import 'package:rec/Components/Forms/profile.form.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
+import 'package:rec/Providers/UserState.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key key}) : super(key: key);
@@ -24,6 +25,7 @@ class _ProfilePageState extends GenericRecEditScreen<ProfilePage> {
   Widget buildPageContent(
     BuildContext context,
     AppState appState,
+    UserState userState,
     AppLocalizations localizations,
   ) {
     return ProfileForm();

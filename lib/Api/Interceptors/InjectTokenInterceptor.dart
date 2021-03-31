@@ -8,7 +8,7 @@ class InjectTokenInterceptor implements InterceptorContract {
 
   @override
   Future<RequestData> interceptRequest({RequestData data}) async {
-    var token = await Auth.getToken();
+    var token = await Auth.getAccessToken();
     data.headers['Authorization'] = 'Bearer $token';
     return data;
   }

@@ -8,23 +8,24 @@ import 'Pages/Public/Login.page.dart';
 import 'Components/PrivateRoute.dart';
 import 'Pages/Public/PinPage.dart';
 
-final Map<String, Widget Function(BuildContext)> ROUTES = {
-  // Public routes
-  '/login': (context) => LoginPage(false),
-  '/recoveryPassword': (context) => RecoveryPassword(),
-  '/pinPage': (context) => PinPage(),
-  '/registerOne': (context) => RegisterOne(),
-  '/registerTwo': (context) => RegisterTwo(),
-
-  // Private routes
-  '/home': (context) => PrivateRoute(HomePage()),
-};
-
-class InitialRoutes {
+class Routes {
   static String home = '/home';
   static String login = '/login';
+  static String pinPage = '/pinPage';
+  static String registerOne = '/registerOne';
+  static String registerTwo = '/registerTwo';
+  static String recoveryPassword = '/recoveryPassword';
 
   static String getInitialRoute({bool hasToken = true}) {
-    return hasToken ? InitialRoutes.home : InitialRoutes.login;
+    return hasToken ? Routes.home : Routes.login;
   }
 }
+
+final Map<String, Widget Function(BuildContext)> ROUTES = {
+  Routes.login: (context) => LoginPage(),
+  Routes.recoveryPassword: (context) => RecoveryPassword(),
+  Routes.pinPage: (context) => PinPage(),
+  Routes.registerOne: (context) => RegisterOne(),
+  Routes.registerTwo: (context) => RegisterTwo(),
+  Routes.home: (context) => PrivateRoute(HomePage()),
+};

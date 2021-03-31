@@ -8,15 +8,14 @@ class ButtonRec extends StatefulWidget {
   final Color backgroundColor;
   final double widthBox;
   final bool isButtonDisabled;
-  ButtonRec({
-    this.text,
-    this.widget,
-    this.onPressed,
-    this.textColor = Colors.white,
-    this.backgroundColor = Colors.black,
-    this.widthBox,
-    this.isButtonDisabled
-  });
+  ButtonRec(
+      {this.text,
+      this.widget,
+      this.onPressed,
+      this.textColor = Colors.white,
+      this.backgroundColor = Colors.black,
+      this.widthBox,
+      this.isButtonDisabled});
 
   @override
   State<StatefulWidget> createState() {
@@ -25,7 +24,6 @@ class ButtonRec extends StatefulWidget {
 }
 
 class ButtonRecState extends State<ButtonRec> {
-
   @override
   Widget build(BuildContext context) {
     var areWidget = true;
@@ -33,11 +31,12 @@ class ButtonRecState extends State<ButtonRec> {
       areWidget = false;
     }
 
+    // ignore: deprecated_member_use
     var button = RaisedButton(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0),
       ),
-      onPressed: widget.isButtonDisabled?null:widget.onPressed,
+      onPressed: widget.isButtonDisabled ? null : widget.onPressed,
       textColor: widget.textColor,
       color: widget.backgroundColor,
       child: Padding(

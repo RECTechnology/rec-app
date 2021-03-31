@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
 import 'package:rec/Components/IconButton.dart';
@@ -9,7 +8,9 @@ import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Verify/VerifyDataRec.dart';
+import 'package:rec/routes.dart';
 
 class RegisterOne extends StatefulWidget {
   @override
@@ -35,6 +36,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
   Widget buildPageContent(
     BuildContext context,
     AppState state,
+    UserState userState,
     AppLocalizations localizations,
   ) {
     return Scaffold(
@@ -119,8 +121,8 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                             ),
                             onPressed: () {
                               printToastRec(
-                                  localizations.translate('INTRODUCE_INFO'),
-                                  );
+                                localizations.translate('INTRODUCE_INFO'),
+                              );
                             },
                           ),
                   )
@@ -298,7 +300,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
     if (!_formKey.currentState.validate()) return;
 
     if (checkValue && isAccountPrivate != true) {
-      Navigator.of(context).pushNamed('/registerTwo', arguments: data);
+      Navigator.of(context).pushNamed(Routes.registerTwo, arguments: data);
     }
   }
 

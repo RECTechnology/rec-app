@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
 import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/RecTextField.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
+import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Verify/VerifyDataRec.dart';
 
 class RegisterTwo extends StatefulWidget {
@@ -25,6 +25,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
   Widget buildPageContent(
     BuildContext context,
     AppState state,
+    UserState userState,
     AppLocalizations localizations,
   ) {
     return Scaffold(
@@ -168,10 +169,10 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
       print('Bad Cif');
     }
   }
+
   void printToastRec(String msg) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-
         content: Text(msg.toString()),
         duration: const Duration(milliseconds: 1500),
         width: 300.0,

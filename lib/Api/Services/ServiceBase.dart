@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart';
@@ -22,10 +23,6 @@ abstract class ServiceBase {
         );
   }
 
-  Future<String> getToken() {
-    return Auth.getToken();
-  }
-
   Future<Map<String, String>> getHeaders({
     String contentType = 'application/json',
     String accept = 'application/json',
@@ -40,8 +37,14 @@ abstract class ServiceBase {
     throw UnimplementedError();
   }
 
-  Future post(Map data) {
-    throw UnimplementedError();
+  Future<Map<String, dynamic>> post(Uri uri, Map<String, dynamic> body) async {
+    return client
+        .post(
+          uri,
+          headers: await getHeaders(),
+          body: json.encode(body),
+        )
+        .then(onRequest);
   }
 
   Future delete(String id) {
@@ -50,7 +53,17 @@ abstract class ServiceBase {
 
   Future<Map<String, dynamic>> get(Uri url) async {
     return client
-        .get(url, headers: await getHeaders())
-        .then((value) => json.decode(value.body)['data']);
+        .get(
+          url,
+          headers: await getHeaders(),
+        )
+        .then(onRequest);
+  }
+
+  FutureOr<Map<String, dynamic>> onRequest(Response response) {
+    if (response.statusCode >= 400) {
+      throw json.decode(response.body)['error'];
+    }
+    return json.decode(response.body);
   }
 }
