@@ -66,15 +66,13 @@ class _InputField extends State<RecTextField> {
           margin: EdgeInsets.fromLTRB(20, 0, 20, 15),
           child: TextFormField(
             decoration: InputDecoration(
+
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: widget.colorLine),
               ),
+              
               fillColor: Colors.lightBlueAccent,
-              errorBorder: OutlineInputBorder(
-                borderSide: hasError
-                    ? BorderSide(color: Colors.red)
-                    : BorderSide(color: Colors.black),
-              ),
+
               suffixIcon: obscureText
                   ? IconButton(
                       onPressed: () {

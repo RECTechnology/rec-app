@@ -24,7 +24,8 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
   String password = "";
   String userName = "";
   LoginService loginService = LoginService();
-  bool isDisabled= false;
+  bool isDisabled = false;
+
   _LoginPageState(this.isLogState);
 
   @override
@@ -55,33 +56,39 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                 image: AssetImage('assets/login-header.jpg'),
               ),
             ),
-            RecTextField(
-              isNumeric: false,
-              keyboardType: TextInputType.text,
-              needObscureText: false,
-              placeholder: localizations.translate('WRITE_DOCUMENT'),
-              title: localizations.translate('DNI'),
-              isPassword: false,
-              function: setDni,
-              colorLine: Colors.blue,
-              validator: (String string) {},
-              isPhone: false,
-              icon: Icon(Icons.account_circle),
-            ),
-            RecTextField(
-              isNumeric: false,
-              keyboardType: TextInputType.text,
-              needObscureText: true,
-              placeholder: localizations.translate('WRITE_PASSWORD'),
-              isPassword: false,
-              function: setPassword,
-              colorLine: Colors.blue,
-              validator: (String string) {},
-              isPhone: false,
-              icon: Icon(Icons.lock),
+            Container(
+              margin: EdgeInsets.fromLTRB(32, 0, 32, 0), //Left,Top,Right,Bottom
+              child: RecTextField(
+                isNumeric: false,
+                keyboardType: TextInputType.text,
+                needObscureText: false,
+                placeholder: localizations.translate('WRITE_DOCUMENT'),
+                title: localizations.translate('DNI'),
+                isPassword: false,
+                function: setDni,
+                colorLine: Colors.blue,
+                validator: (String string) {},
+                isPhone: false,
+                icon: Icon(Icons.person),
+              ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(20, 0, 20, 15),
+              margin: EdgeInsets.fromLTRB(32, 0, 32, 0), //Left,Top,Right,Bottom
+              child: RecTextField(
+                isNumeric: false,
+                keyboardType: TextInputType.text,
+                needObscureText: true,
+                placeholder: localizations.translate('WRITE_PASSWORD'),
+                isPassword: false,
+                function: setPassword,
+                colorLine: Colors.blue,
+                validator: (String string) {},
+                isPhone: false,
+                icon: Icon(Icons.lock),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(32, 0, 32, 15),
               alignment: Alignment.topRight,
               child: RichText(
                 text: TextSpan(
@@ -95,7 +102,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              margin: EdgeInsets.fromLTRB(30, 10, 36, 0),
               child: ButtonRec(
                 textColor: Colors.white,
                 backgroundColor: Colors.blue,
@@ -104,20 +111,19 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                 isButtonDisabled: isDisabled,
                 widget: Icon(Icons.arrow_forward_ios),
                 text: Text(localizations.translate('LOGIN')),
-
               ),
             ),
             Container(
               alignment: Alignment.center,
               width: 300,
-              margin: EdgeInsets.fromLTRB(0, 60, 0, 0),
+              margin: EdgeInsets.fromLTRB(81, 60, 86, 0),
               child: Text(
                 localizations.translate('NOT_REGISTRED'),
                 style: TextStyle(fontSize: 14, color: Colors.black87),
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+              margin: EdgeInsets.fromLTRB(64, 10, 69, 0),
               child: ButtonRec(
                 textColor: Colors.white,
                 backgroundColor: Colors.blue,
@@ -218,18 +224,23 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                 ],
               ),
             ),
-            RecTextField(
-              isNumeric: false,
-              keyboardType: TextInputType.text,
-              needObscureText: true,
-              placeholder: localizations.translate('WRITE_PASSWORD'),
-              isPassword: false,
-              function: setPassword,
-              colorLine: Colors.blue,
-              validator: (String string) {},
-              isPhone: false,
-              icon: Icon(Icons.lock),
+            Container(
+                margin: EdgeInsets.fromLTRB(34, 0, 30, 0),
+
+                child: RecTextField(
+                isNumeric: false,
+                keyboardType: TextInputType.text,
+                needObscureText: true,
+                placeholder: localizations.translate('WRITE_PASSWORD'),
+                isPassword: false,
+                function: setPassword,
+                colorLine: Colors.blue,
+                validator: (String string) {},
+                isPhone: false,
+                icon: Icon(Icons.lock),
+              ),
             ),
+
             Container(
               margin: EdgeInsets.fromLTRB(20, 0, 20, 40),
               alignment: Alignment.topRight,
@@ -245,7 +256,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              margin: EdgeInsets.fromLTRB(32, 0, 34, 0),
               child: ButtonRec(
                 textColor: Colors.white,
                 backgroundColor: Colors.blue,
@@ -287,21 +298,20 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
     if (response['error_description'] == null) {
       Navigator.of(context).pushNamed('/home');
     } else {
-
       disableChanger();
       onError(response['error_description']);
     }
     ;
   }
-  void disableChanger(){
+
+  void disableChanger() {
     setState(() {
-      if(isDisabled){
+      if (isDisabled) {
         isDisabled = false;
-      }else{
+      } else {
         isDisabled = true;
       }
     });
-
   }
 
   void onError(error) {
@@ -309,7 +319,6 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-
         content: Text(error.toString()),
         duration: const Duration(milliseconds: 1500),
         width: 300.0,
@@ -323,6 +332,5 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
         ),
       ),
     );
-
   }
 }

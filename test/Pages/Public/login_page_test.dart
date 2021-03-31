@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rec/Pages/Public/Login.page.dart';
+import 'file:///C:/Users/VictorCurro/AndroidStudioProjects/rec_app_v2/lib/Pages/Public/Login/Login.page.dart';
 
 import '../../test_utils.dart';
 

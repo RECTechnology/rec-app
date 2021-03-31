@@ -10,6 +10,7 @@ import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:rec/Verify/VerifyDataRec.dart';
+import 'package:rec/brand.dart';
 
 class RegisterOne extends StatefulWidget {
   @override
@@ -42,7 +43,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
         preferredSize: Size.fromHeight(130.0),
         child: AppBar(
             backgroundColor:
-                isAccountPrivate ? Colors.lightBlueAccent : Colors.orangeAccent,
+                isAccountPrivate ? Brand.backgroundPrivateColor : Brand.backgroundCompanyColor,
             leading: IconButtonRec(
               icon: Icon(
                 Icons.arrow_back,
@@ -127,6 +128,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                 ],
               ),
             ),
+
             Form(
                 key: _formKey,
                 child: Column(
@@ -190,7 +192,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                         keyboardType: TextInputType.text,
                         isPassword: false,
                         isNumeric: false,
-                        icon: Icon(Icons.account_circle),
+                        icon: Icon(Icons.person),
                         colorLine: isAccountPrivate
                             ? Colors.blueAccent
                             : Colors.orange,

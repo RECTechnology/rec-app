@@ -28,11 +28,18 @@ class ButtonRec extends StatefulWidget {
 class ButtonRecState extends State<ButtonRec> {
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    }
+
+  @override
   Widget build(BuildContext context) {
     var areWidget = true;
     if (widget.widget == null) {
       areWidget = false;
     }
+
 
     var button = RaisedButton(
       shape: RoundedRectangleBorder(
