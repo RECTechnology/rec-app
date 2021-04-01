@@ -10,6 +10,8 @@ import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 import 'package:rec/Providers/UserState.dart';
 
+import '../../../brand.dart';
+
 class LoginPage extends StatefulWidget {
   LoginPage(this.isLog);
 
@@ -74,7 +76,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                 colorLine: Colors.blue,
                 validator: (String string) {},
                 isPhone: false,
-                icon: Icon(Icons.person),
+                icon: Icon(Icons.person,color: Brand.defectText,),
               ),
             ),
             Container(
@@ -89,7 +91,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                 colorLine: Colors.blue,
                 validator: (String string) {},
                 isPhone: false,
-                icon: Icon(Icons.lock),
+                icon: Icon(Icons.lock,color: Brand.defectText,),
               ),
             ),
             Container(
@@ -241,7 +243,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                 colorLine: Colors.blue,
                 validator: (String string) {},
                 isPhone: false,
-                icon: Icon(Icons.lock),
+                icon: Icon(Icons.lock,color: Brand.defectText,),
               ),
             ),
             Container(

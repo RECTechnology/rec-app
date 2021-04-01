@@ -9,6 +9,8 @@ class Brand {
   static Color accentColor = Color(0xffE05205);
   static Color backgroundPrivateColor = Color(0xffe5f5fc);
   static Color backgroundCompanyColor = Color(0xfffcede6);
+  static Color defectText = Color(0xff343434);
+
   static FontStyle font = FontStyle.normal;
   static Brightness brightness = Brightness.light;
 
@@ -24,7 +26,7 @@ class Brand {
       brightness: brightness,
       textTheme: baseTheme.textTheme.copyWith(
         bodyText2: baseTheme.textTheme.bodyText2.copyWith(
-          color: Color(0xff3B3B3B),
+          color: defectText,
         ),
         headline6: baseTheme.textTheme.headline6.copyWith(
           color: Color(0xff3B3B3B),

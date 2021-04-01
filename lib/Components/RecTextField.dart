@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
+import '../brand.dart';
+
 class RecTextField extends StatefulWidget {
   final String title;
   final String placeholder;
@@ -41,7 +43,7 @@ class _InputField extends State<RecTextField> {
   bool obscureText = false;
   bool hasError = false;
   String error = 'Contraseña incorrecta';
-
+  bool isNotIcon = false;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -67,7 +69,7 @@ class _InputField extends State<RecTextField> {
                 borderSide: BorderSide(color: widget.colorLine),
               ),
               fillColor: Colors.lightBlueAccent,
-              suffixIcon: obscureText
+              suffixIcon: isNotIcon
                   ? IconButton(
                       onPressed: () {
                         setState(() {
@@ -76,7 +78,7 @@ class _InputField extends State<RecTextField> {
                       },
                       icon: Icon(obscureText
                           ? Icons.visibility_off
-                          : Icons.visibility),
+                          : Icons.visibility,color: Brand.defectText,),
                     )
                   : widget.icon,
               errorText: hasError ? error : null,
@@ -97,9 +99,11 @@ class _InputField extends State<RecTextField> {
   }
 
   void onChanged(String string) {
-    if (widget.needObscureText == true) {
+    print(string);
+    if (widget.needObscureText == true ) {
       setState(() {
         obscureText = true;
+        isNotIcon = true;
       });
     }
     widget.function(string);

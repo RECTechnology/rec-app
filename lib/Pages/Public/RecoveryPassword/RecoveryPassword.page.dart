@@ -9,6 +9,8 @@ import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 import 'package:rec/Providers/UserState.dart';
 
+import '../../../brand.dart';
+
 class RecoveryPasswordPage extends StatefulWidget {
   RecoveryPasswordPage();
 
@@ -75,9 +77,7 @@ class _RecoveryPasswordPageState extends GenericRecViewScreen<RecoveryPasswordPa
                 keyboardType: TextInputType.text,
                 isPassword: false,
                 isNumeric: false,
-                icon: Icon(
-                  Icons.person,
-                ),
+                icon: Icon(Icons.person,color: Brand.defectText,),
                 colorLine: Colors.blueAccent,
                 function: setIdDocument,
                 isPhone: false,
@@ -119,7 +119,7 @@ class _RecoveryPasswordPageState extends GenericRecViewScreen<RecoveryPasswordPa
                           keyboardType: TextInputType.phone,
                           isPassword: false,
                           isNumeric: true,
-                          icon: Icon(Icons.phone),
+                          icon: Icon(Icons.phone,color: Brand.defectText,),
                           colorLine: Colors.blueAccent,
                           function: setPhone,
                           isPhone: false,

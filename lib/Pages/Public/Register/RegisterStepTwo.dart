@@ -31,7 +31,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
   ) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(174.0),
+        preferredSize: Size.fromHeight(197.0),
         child: AppBar(
           backgroundColor: Brand.backgroundCompanyColor,
           leading: IconButtonRec(
@@ -44,21 +44,22 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
             },
           ),
           bottom: PreferredSize(
-            preferredSize: Size(100, 70),
+            preferredSize: Size(300, 197),
             child: Container(
               child: Row(
                 children: [
                   Container(
-                      width: 75,
-                      height: 75,
-                      margin: EdgeInsets.fromLTRB(147, 25, 156, 47),
+                      width: 95,
+                      height: 80,
+                      margin: EdgeInsets.fromLTRB(147, 60, 156, 27),
                       child: Column(
                         children: [
                           IconButton(
                             icon: Image.asset('assets/organization.png'),
+                            iconSize: 40,
                           ),
                           Text(
-                            "Organization",
+                            localizations.translate('ORGANIZATION'),
                             style: TextStyle(color: Colors.black, fontSize: 12),
                           )
                         ],
@@ -95,11 +96,16 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
               margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
               child: RecTextField(
                 needObscureText: false,
+                placeholder: localizations.translate('NAME'),
                 keyboardType: TextInputType.text,
                 isPassword: false,
                 isNumeric: false,
                 title: localizations.translate('NAME'),
                 colorLine: Colors.orange,
+                icon: Icon(
+                  Icons.business_center,
+                  color: Brand.defectText,
+                ),
                 function: setUserName,
               ),
             ),
@@ -117,20 +123,11 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                         isNumeric: false,
                         colorLine: Colors.orange,
                         function: setCIF,
+                        icon: Icon(
+                          Icons.work_outlined,
+                          color: Brand.defectText,
+                        ),
                         validator: VerifyDataRec.validateCif,
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                      child: RecTextField(
-                        placeholder: localizations.translate('EMAIL'),
-                        needObscureText: false,
-                        keyboardType: TextInputType.text,
-                        isPassword: false,
-                        isNumeric: false,
-                        colorLine: Colors.orange,
-                        function: setEmail,
-                        validator: VerifyDataRec.validateEmail,
                       ),
                     ),
                   ],
