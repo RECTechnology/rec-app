@@ -5,22 +5,39 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
+import 'package:rec/Providers/UserState.dart';
 
 class TestUtils {
-  static Widget wrapPageWithLocalization(Widget page) {
+  static Widget wrapPrivateRoute(Widget page) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => AppState(),
+        ),
+        ChangeNotifierProvider(create: (context) => UserState())
+      ],
+      child: wrapInMaterialApp(page),
+    );
+  }
+
+  static Widget wrapPublicRoute(Widget page) {
     return ChangeNotifierProvider(
       create: (context) => AppState(),
-      child: MaterialApp(
-        home: Scaffold(
-          body: Localizations(
-            delegates: [
-              GlobalWidgetsLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              AppLocalizations.delegate
-            ],
-            locale: Locale('es'),
-            child: page,
-          ),
+      child: wrapInMaterialApp(page),
+    );
+  }
+
+  static MaterialApp wrapInMaterialApp(Widget widget) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Localizations(
+          delegates: [
+            GlobalWidgetsLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            AppLocalizations.delegate
+          ],
+          locale: Locale('es'),
+          child: widget,
         ),
       ),
     );

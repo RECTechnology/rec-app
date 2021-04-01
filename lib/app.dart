@@ -41,7 +41,7 @@ class _RecAppState extends State<RecApp> {
         }
         return supportedLocales.first;
       },
-      initialRoute: InitialRoutes.getInitialRoute(hasToken: hasToken),
+      initialRoute: Routes.getInitialRoute(hasToken: hasToken),
       routes: ROUTES,
     );
   }

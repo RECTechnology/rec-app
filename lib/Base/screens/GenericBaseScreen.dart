@@ -4,6 +4,7 @@ import 'package:rec/Base/Page.base.dart';
 import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
+import 'package:rec/Providers/UserState.dart';
 
 abstract class GenericRecBaseScreenState<T extends StatefulWidget>
     extends PageBaseState<T> {
@@ -45,13 +46,14 @@ abstract class GenericRecBaseScreenState<T extends StatefulWidget>
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
-    var state = AppState.of(context);
+    var appState = AppState.of(context);
+    var userState = UserState.of(context);
 
     return Scaffold(
       appBar: hasAppBar ? createAppBar() : null,
       body: Padding(
         padding: EdgeInsets.all(20.0),
-        child: buildPageContent(context, state, localizations),
+        child: buildPageContent(context, appState, userState, localizations),
       ),
     );
   }

@@ -1,16 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
 import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/RecTextField.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
+import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Verify/VerifyDataRec.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
-import '../../../brand.dart';
+import 'package:rec/brand.dart';
 
 class RegisterTwo extends StatefulWidget {
   @override
@@ -28,14 +26,14 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
   Widget buildPageContent(
     BuildContext context,
     AppState state,
+    UserState userState,
     AppLocalizations localizations,
   ) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(174.0),
         child: AppBar(
-          backgroundColor:
-            Brand.backgroundCompanyColor,
+          backgroundColor: Brand.backgroundCompanyColor,
           leading: IconButtonRec(
             icon: Icon(
               Icons.arrow_back,
@@ -46,34 +44,31 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
             },
           ),
           bottom: PreferredSize(
-            preferredSize: Size(100,70),
+            preferredSize: Size(100, 70),
             child: Container(
               child: Row(
                 children: [
-
                   Container(
                       width: 75,
                       height: 75,
-                      margin: EdgeInsets.fromLTRB(147, 25,156,47),
-
-                      child:Column(
+                      margin: EdgeInsets.fromLTRB(147, 25, 156, 47),
+                      child: Column(
                         children: [
                           IconButton(
-                            icon:
-                                Image.asset('assets/organization.png'),
+                            icon: Image.asset('assets/organization.png'),
                           ),
-                          Text("Organization",style: TextStyle(color: Colors.black,fontSize: 12),)
+                          Text(
+                            "Organization",
+                            style: TextStyle(color: Colors.black, fontSize: 12),
+                          )
                         ],
-                      )
-
-                  ),
+                      )),
                 ],
               ),
             ),
           ),
         ),
-        ),
-
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -184,6 +179,4 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
       print('Bad Cif');
     }
   }
-
-
 }

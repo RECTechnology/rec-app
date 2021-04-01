@@ -12,6 +12,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_secure_storage: 3.3.3
+  package_info: ^0.4.3+4
   cupertino_icons: ^1.0.0
   http: ^0.12.0+4
   provider: ^4.3.3

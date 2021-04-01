@@ -8,6 +8,7 @@ import 'package:rec/Components/CircleAvatar.dart';
 import 'package:rec/Components/RecTextField.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
+import 'package:rec/Providers/UserState.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage(this.isLog);
@@ -35,7 +36,11 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
 
   @override
   Widget buildPageContent(
-      BuildContext context, AppState state, AppLocalizations localizations) {
+    BuildContext context,
+    AppState state,
+    UserState userState,
+    AppLocalizations localizations,
+  ) {
     if (isLogState) {
       return loged(context);
     } else {
@@ -225,9 +230,8 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
               ),
             ),
             Container(
-                margin: EdgeInsets.fromLTRB(34, 0, 30, 0),
-
-                child: RecTextField(
+              margin: EdgeInsets.fromLTRB(34, 0, 30, 0),
+              child: RecTextField(
                 isNumeric: false,
                 keyboardType: TextInputType.text,
                 needObscureText: true,
@@ -240,7 +244,6 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                 icon: Icon(Icons.lock),
               ),
             ),
-
             Container(
               margin: EdgeInsets.fromLTRB(20, 0, 20, 40),
               alignment: Alignment.topRight,

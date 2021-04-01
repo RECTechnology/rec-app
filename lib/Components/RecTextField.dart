@@ -30,7 +30,7 @@ class RecTextField extends StatefulWidget {
       this.validator,
       this.isPhone,
       this.textSize = 16,
-      this.textAlign=TextAlign.left,
+      this.textAlign = TextAlign.left,
       this.letterSpicing = 0.0});
 
   @override
@@ -43,18 +43,10 @@ class _InputField extends State<RecTextField> {
   String error = 'Contraseña incorrecta';
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.fromLTRB(20, 0, 20, 0), //Left,Top,Right,Bottom
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -68,19 +60,13 @@ class _InputField extends State<RecTextField> {
           ),
         ),
         Container(
-          margin: EdgeInsets.fromLTRB(20, 0, 20, 15),
           child: TextFormField(
             textAlign: widget.textAlign,
             decoration: InputDecoration(
-
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: widget.colorLine),
-
               ),
-
-              
               fillColor: Colors.lightBlueAccent,
-
               suffixIcon: obscureText
                   ? IconButton(
                       onPressed: () {
@@ -96,7 +82,10 @@ class _InputField extends State<RecTextField> {
               errorText: hasError ? error : null,
               hintText: widget.placeholder,
             ),
-            style: TextStyle(color: Colors.black,fontSize: widget.textSize,letterSpacing: widget.letterSpicing),
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: widget.textSize,
+                letterSpacing: widget.letterSpicing),
             onChanged: onChanged,
             obscureText: obscureText ? true : false,
             keyboardType: widget.keyboardType,

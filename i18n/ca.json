@@ -11,7 +11,7 @@
   "LOGIN": "Iniciar sesiòn",
   "DONT_HAVE_ACCOUNT_2": "Si aún no tienes cuenta, pulsa el boton de REGISTRARSE",
   "INSERT_PASSWORD": "Introduce tu contraseña y accede",
-  "ARE_NOT_U": "No eres tu?",
+  "NOT_U": "No eres tu?",
   "DOCUMENT_DATA": "NUMERO Y LETRA/S DE DOCUMENTO: ",
   "TELF": "TELEFONO: ",
   "WRITE_TELF": "Escribe el teléfono",
@@ -54,5 +54,6 @@
   "NO_ACORD_TERMS": "Para continuar debes aceptar los Términos de Uso del REC",
   "SEND_SMS_U": "Te hemos enviado un SMS",
   "HELP_US_VALIDATE_PHONE": "Ayúdanos a validar esta acción introduciendo el codigo enviado a ",
-  "ERROR_CODE": "Error, el código introducido no es válido"
+  "ERROR_CODE": "Error, el código introducido no es válido",
+  "LOG_OUT": "Tancar Sessio"
 }

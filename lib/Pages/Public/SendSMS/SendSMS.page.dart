@@ -8,6 +8,7 @@ import 'package:rec/Components/ToastRec.dart';
 
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
+import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Verify/VerifyDataRec.dart';
 
 class SendSMSPage extends StatefulWidget {
@@ -25,16 +26,17 @@ class _SendSMSPageState extends GenericRecViewScreen<SendSMSPage> {
 
   @override
   Widget buildPageContent(
-      BuildContext context,
-      AppState state,
-      AppLocalizations localizations,
-      ) {
+    BuildContext context,
+    AppState state,
+    UserState userState,
+    AppLocalizations localizations,
+  ) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButtonRec(
           icon: Icon(
-            Icons.arrow_back ,
+            Icons.arrow_back,
             color: Colors.black,
           ),
           onPressed: () {
@@ -59,35 +61,34 @@ class _SendSMSPageState extends GenericRecViewScreen<SendSMSPage> {
             Container(
               margin: EdgeInsets.fromLTRB(32, 57, 32, 39),
               child: Text(
-                localizations.translate('HELP_US_VALIDATE_PHONE')+" " +phone,
+                localizations.translate('HELP_US_VALIDATE_PHONE') + " " + phone,
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.black54,
-
                 ),
                 textAlign: TextAlign.center,
               ),
             ),
-      Form(
-        key: _formKey,
-        child:Container(
-          margin: EdgeInsets.fromLTRB(48, 0, 19, 0),
-          child: RecTextField(
-            placeholder: "613335",
-            needObscureText: false,
-            keyboardType: TextInputType.phone,
-            isPassword: false,
-            isNumeric: true,
-            textSize: 20,
-            letterSpicing: 25,
-            textAlign: TextAlign.center,
-            colorLine:  Colors.blueAccent,
-            function: setSMS,
-            isPhone: false,
-            validator: VerifyDataRec.verifySMS,
-          ),
-        ),),
-
+            Form(
+              key: _formKey,
+              child: Container(
+                margin: EdgeInsets.fromLTRB(48, 0, 19, 0),
+                child: RecTextField(
+                  placeholder: "613335",
+                  needObscureText: false,
+                  keyboardType: TextInputType.phone,
+                  isPassword: false,
+                  isNumeric: true,
+                  textSize: 20,
+                  letterSpicing: 25,
+                  textAlign: TextAlign.center,
+                  colorLine: Colors.blueAccent,
+                  function: setSMS,
+                  isPhone: false,
+                  validator: VerifyDataRec.verifySMS,
+                ),
+              ),
+            ),
             Container(
               margin: EdgeInsets.fromLTRB(0, 203, 0, 0),
               width: 296,
@@ -102,29 +103,24 @@ class _SendSMSPageState extends GenericRecViewScreen<SendSMSPage> {
                 text: localizations.translate('NEXT'),
               ),
             ),
-
-
-
           ],
         ),
       ),
     );
   }
 
-
-  void sendSMS(){
+  void sendSMS() {
     var localization = AppLocalizations.of(context);
     ToastRec toastRec = ToastRec();
-    if(_formKey.currentState.validate()){
+    if (_formKey.currentState.validate()) {
       return;
-    }else{
-      toastRec.printToastRec(localization.translate('ERROR_CODE'),this.context);
+    } else {
+      toastRec.printToastRec(
+          localization.translate('ERROR_CODE'), this.context);
     }
   }
 
   void setSMS(String sms) {
     this.sms = sms;
   }
-
-
 }

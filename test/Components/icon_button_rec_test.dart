@@ -15,8 +15,6 @@ void main() {
       onPressed: functionForTesting,
     );
 
-
-
     // Comprobamos que se ha clicado el boton
   });
 }

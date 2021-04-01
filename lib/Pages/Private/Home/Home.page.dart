@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Base/screens/GenericRecViewScreen.dart';
+import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Pages/Private/Settings/Settings.page.dart';
 import 'package:rec/Pages/Private/Wallet/Wallet.page.dart';
 import 'package:rec/Pages/Private/Map/Map.page.dart';
 import 'package:rec/Providers/AppState.dart';
+import 'package:rec/Providers/UserState.dart';
+import 'package:rec/brand.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -18,10 +21,14 @@ class _HomePageState extends GenericRecViewScreen<HomePage>
     with SingleTickerProviderStateMixin {
   _HomePageState() : super(title: 'Home', hasAppBar: true);
 
-  int currentTab = 0;
+  int _currentTabIndex = 1;
   TabController _tabController;
 
-  Widget currentScreen = WalletPageRec();
+  final List<Widget> _tabs = <Widget>[
+    MapPage(),
+    WalletPageRec(),
+    SettingsPage(),
+  ];
 
   @override
   void initState() {
@@ -35,51 +42,45 @@ class _HomePageState extends GenericRecViewScreen<HomePage>
     _tabController.dispose();
   }
 
+  void _onItemTapped(int index) {
+    setState(() => _currentTabIndex = index);
+  }
+
+  Widget _bottomNavigationBar() {
+    return BottomNavigationBar(
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.map),
+          label: 'Mapa',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.account_balance_wallet_outlined),
+          label: 'Billetera',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.settings),
+          label: 'Configuracion',
+        ),
+      ],
+      currentIndex: _currentTabIndex,
+      selectedItemColor: Brand.primaryColor,
+      onTap: _onItemTapped,
+    );
+  }
+
   @override
   Widget buildPageContent(
     BuildContext context,
     AppState appState,
+    UserState userState,
     AppLocalizations localizations,
   ) {
-
-
-    List<Widget> _widgetOptions = <Widget>[
-      MapPage(),
-      WalletPageRec(),
-      SettingsPage(),
-    ];
-
-    void _onItemTapped(int index) {
-      setState(() {
-
-        currentTab = index;
-
-      });
-    }
-
     return Scaffold(
       body: Center(
-        child: _widgetOptions.elementAt(currentTab),
+        child: _tabs.elementAt(_currentTabIndex),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.map),
-            label: "Mapa",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance_wallet_outlined),
-            label: 'Billetera',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Configuracion',
-          ),
-        ],
-        currentIndex: currentTab,
-        selectedItemColor: Colors.blueAccent,
-        onTap: _onItemTapped,
-      ),
+      appBar: PrivateAppBar.getAppBar(context),
+      bottomNavigationBar: _bottomNavigationBar(),
     );
   }
 }

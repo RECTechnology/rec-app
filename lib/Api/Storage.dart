@@ -1,6 +1,9 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class RecStorage {
+  static String PREV_USER_DNI = 'previous_user_dni';
+  static String PREV_USER_IMAGE = 'previous_user_image';
+
   FlutterSecureStorage storage;
 
   RecStorage() {

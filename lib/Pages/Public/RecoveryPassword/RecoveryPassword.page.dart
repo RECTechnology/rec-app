@@ -7,6 +7,7 @@ import 'package:rec/Components/RecTextField.dart';
 
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
+import 'package:rec/Providers/UserState.dart';
 
 class RecoveryPasswordPage extends StatefulWidget {
   RecoveryPasswordPage();
@@ -24,6 +25,7 @@ class _RecoveryPasswordPageState extends GenericRecViewScreen<RecoveryPasswordPa
   Widget buildPageContent(
     BuildContext context,
     AppState state,
+    UserState userState,
     AppLocalizations localizations,
   ) {
     return Scaffold(
@@ -73,7 +75,9 @@ class _RecoveryPasswordPageState extends GenericRecViewScreen<RecoveryPasswordPa
                 keyboardType: TextInputType.text,
                 isPassword: false,
                 isNumeric: false,
-                icon: Icon(Icons.person,),
+                icon: Icon(
+                  Icons.person,
+                ),
                 colorLine: Colors.blueAccent,
                 function: setIdDocument,
                 isPhone: false,
@@ -104,7 +108,6 @@ class _RecoveryPasswordPageState extends GenericRecViewScreen<RecoveryPasswordPa
                           showCountryOnly: false,
                           showOnlyCountryWhenClosed: false,
                           alignLeft: false,
-
                         ),
                       ),
                       Container(
