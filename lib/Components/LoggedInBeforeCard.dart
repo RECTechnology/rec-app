@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Components/CircleAvatar.dart';
@@ -28,48 +27,46 @@ class _LoggedInBeforeCard extends State<LoggedInBeforeCard> {
 
     return Container(
       decoration: BoxDecorations.whiteShadowBox(),
-      child: Column(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: CircleAvatarRec(
-                  imageUrl: 'https://picsum.photos/250?image=9',
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 10.0),
+        child: Row(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: CircleAvatarRec(
+                  imageUrl: 'https://picsum.photos/250?image=9', size: 50),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: Paddings.label,
+                  child: Text(
+                    localizations.translate('DNI_NIE'),
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
                 ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: Paddings.label,
-                    child: Text(
-                      localizations.translate('DNI_NIE'),
-                      style: Theme.of(context).textTheme.bodyText2,
+                Padding(
+                  padding: Paddings.headline,
+                  child: Text(
+                    widget.savedUser.username,
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ),
+                InkWell(
+                  onTap: widget.onNotYou,
+                  child: RichText(
+                    text: TextSpan(
+                      style: TextStyle(color: Brand.primaryColor),
+                      text: localizations.translate('NOT_U'),
                     ),
                   ),
-                  Padding(
-                    padding: Paddings.headline,
-                    child: Text(
-                      widget.savedUser.username,
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: widget.onNotYou,
-                    child: RichText(
-                      text: TextSpan(
-                        style: TextStyle(color: Brand.primaryColor),
-                        text: localizations.translate('NOT_U'),
-                      ),
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        ],
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

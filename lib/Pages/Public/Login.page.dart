@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:rec/Api/Services/LoginService.dart';
 import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
-import 'package:rec/Components/CircleAvatar.dart';
 import 'package:rec/Components/LoggedInBeforeCard.dart';
 
 import 'package:rec/Components/RecTextField.dart';
@@ -11,7 +10,6 @@ import 'package:rec/Entities/User.ent.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 import 'package:rec/Providers/UserState.dart';
-import 'package:rec/Styles/BoxDecorations.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/brand.dart';
 import 'package:rec/routes.dart';
@@ -25,6 +23,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
   String dni = '';
   String password = '';
   String userName = '';
+  User savedUser;
 
   LoginService loginService = LoginService();
   bool isDisabled = false;
@@ -43,127 +42,67 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
     UserState userState,
     AppLocalizations localizations,
   ) {
-    return FutureBuilder(
-      future: userState.getSavedUser(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          var savedUser = snapshot.data;
+    var savedUser = userState.savedUser;
+    var hasSavedUser = userState.hasSavedUser() || savedUser != null;
 
-          if (savedUser.username != null) {
-            return loggedInBefore(
-                context, state, userState, localizations, savedUser);
-          }
-          return notLoggedBefore(context, state, userState, localizations);
-        }
-
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [CircularProgressIndicator()],
-        );
-      },
-    );
-  }
-
-  Widget notLoggedBefore(
-    BuildContext context,
-    AppState state,
-    UserState userState,
-    AppLocalizations localizations,
-  ) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
-              child: Image(
-                image: AssetImage('assets/login-header.jpg'),
-              ),
-            ),
-            Padding(
-              padding: Paddings.page,
-              child: Column(children: [
-                RecTextField(
-                  isNumeric: false,
-                  keyboardType: TextInputType.text,
-                  needObscureText: false,
-                  placeholder: localizations.translate('WRITE_DOCUMENT'),
-                  title: localizations.translate('DNI'),
-                  isPassword: false,
-                  function: setDni,
-                  colorLine: Brand.primaryColor,
-                  validator: (String string) {},
-                  isPhone: false,
-                  icon: Icon(Icons.account_circle),
-                ),
-                _passwordField(localizations),
-                _forgotPassLink(localizations),
-                _loginButton(localizations),
-                Container(
-                  alignment: Alignment.center,
-                  width: 300,
-                  margin: EdgeInsets.fromLTRB(0, 60, 0, 0),
-                  child: Text(
-                    localizations.translate('NOT_REGISTRED'),
-                    style: TextStyle(fontSize: 14, color: Colors.black87),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  child: ButtonRec(
-                    textColor: Colors.white,
-                    backgroundColor: Brand.primaryColor,
-                    onPressed: singIn,
-                    widthBox: 250,
-                    isButtonDisabled: isDisabled,
-                    widget: Icon(Icons.arrow_forward_ios),
-                    text: localizations.translate('REGISTER'),
-                  ),
-                ),
-              ]),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget loggedInBefore(
-    BuildContext context,
-    AppState state,
-    UserState userState,
-    AppLocalizations localizations,
-    User savedUser,
-  ) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: Image(
-                image: AssetImage('assets/login-header.jpg'),
-              ),
-            ),
+            _header(),
             Padding(
               padding: Paddings.page,
               child: Column(
                 children: [
-                  LoggedInBeforeCard(
-                      savedUser: savedUser,
-                      onNotYou: () => onNotYou(userState)),
+                  hasSavedUser
+                      ? LoggedInBeforeCard(
+                          savedUser: savedUser,
+                          onNotYou: () => onNotYou(userState),
+                        )
+                      : RecTextField(
+                          initialValue: dni,
+                          isNumeric: false,
+                          keyboardType: TextInputType.text,
+                          needObscureText: false,
+                          placeholder:
+                              localizations.translate('WRITE_DOCUMENT'),
+                          title: localizations.translate('DNI'),
+                          isPassword: false,
+                          function: setDni,
+                          colorLine: Brand.primaryColor,
+                          validator: (String string) {},
+                          isPhone: false,
+                          icon: Icon(Icons.account_circle),
+                        ),
                   _passwordField(localizations),
                   _forgotPassLink(localizations),
-                  Padding(
-                    padding: Paddings.button,
-                    child: ButtonRec(
-                      textColor: Colors.white,
-                      backgroundColor: Brand.primaryColor,
-                      onPressed: singIn,
-                      widthBox: 380,
-                      isButtonDisabled: isDisabled,
-                      text: localizations.translate('LOGIN'),
-                    ),
-                  ),
+                  _loginButton(localizations, userState),
+                  (!hasSavedUser)
+                      ? Container(
+                          alignment: Alignment.center,
+                          width: 300,
+                          margin: EdgeInsets.fromLTRB(0, 60, 0, 0),
+                          child: Text(
+                            localizations.translate('NOT_REGISTRED'),
+                            style:
+                                TextStyle(fontSize: 14, color: Colors.black87),
+                          ),
+                        )
+                      : SizedBox(),
+                  (!hasSavedUser)
+                      ? Container(
+                          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          child: ButtonRec(
+                            textColor: Colors.white,
+                            backgroundColor: Brand.primaryColor,
+                            onPressed: singIn,
+                            widthBox: 250,
+                            isButtonDisabled: isDisabled,
+                            widget: Icon(Icons.arrow_forward_ios),
+                            text: localizations.translate('REGISTER'),
+                          ),
+                        )
+                      : SizedBox(),
                 ],
               ),
             )
@@ -177,6 +116,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
     return Padding(
       padding: Paddings.textField,
       child: RecTextField(
+        initialValue: password,
         isNumeric: false,
         keyboardType: TextInputType.text,
         needObscureText: true,
@@ -207,17 +147,28 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
     );
   }
 
-  Widget _loginButton(AppLocalizations localizations) {
+  Widget _loginButton(AppLocalizations localizations, UserState userState) {
     return Padding(
       padding: Paddings.button,
       child: ButtonRec(
         textColor: Colors.white,
         backgroundColor: Brand.primaryColor,
-        onPressed: login,
+        onPressed: () => login(
+          (userState.savedUser != null ? userState.savedUser.username : dni),
+          password,
+        ),
         widthBox: 370,
         isButtonDisabled: isDisabled,
         widget: Icon(Icons.arrow_forward_ios),
         text: localizations.translate('LOGIN'),
+      ),
+    );
+  }
+
+  Widget _header() {
+    return Container(
+      child: Image(
+        image: AssetImage('assets/login-header.jpg'),
       ),
     );
   }
@@ -234,7 +185,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
     Navigator.of(context).pushNamed(Routes.registerOne);
   }
 
-  void login() {
+  void login(dni, password) {
     setEnabled(false);
     loginService
         .login(username: dni, password: password)
@@ -273,7 +224,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
     );
   }
 
-  void onNotYou(UserState userState) {
-    userState.removeSavedUser();
+  void onNotYou(UserState userState) async {
+    await userState.unstoreUser();
   }
 }

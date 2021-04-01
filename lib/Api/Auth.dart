@@ -5,7 +5,6 @@ class Auth {
   static const String _tokenKey = 'token';
   static const String _refreshTokenKey = 'refresh_token';
   static const String expireDate = 'expires_in';
-
   static const String _appTokenKey = 'app_token';
 
   static Future<void> logout() async {

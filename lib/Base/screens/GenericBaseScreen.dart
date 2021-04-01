@@ -49,12 +49,6 @@ abstract class GenericRecBaseScreenState<T extends StatefulWidget>
     var appState = AppState.of(context);
     var userState = UserState.of(context);
 
-    return Scaffold(
-      appBar: hasAppBar ? createAppBar() : null,
-      body: Padding(
-        padding: EdgeInsets.all(20.0),
-        child: buildPageContent(context, appState, userState, localizations),
-      ),
-    );
+    return buildPageContent(context, appState, userState, localizations);
   }
 }

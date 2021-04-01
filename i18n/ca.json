@@ -46,6 +46,10 @@
   "WALLET": "Billetera",
   "MAP": "Mapa",
   "SETTINGS": "Configuración",
+  "LOG_OUT": "Tancar Sessio",
+  "ACTUAL_BALANCE" :"Saldo Actual",
+  "NO_ITEMS": "No hi ha elements",
+  "NO_TX": "No hi ha transaccions",
   "ITRODUCE_DNI_TELF": "Introduce tu documento de identidad y el teléfono vinculado a tu usuario para poder cambiar tu contraseña",
   "VALIDATE": "Validar",
   "NEW_PASSWORD": "Contraseña nueva",
@@ -56,6 +60,5 @@
   "HELP_US_VALIDATE_PHONE": "Ayúdanos a validar esta acción introduciendo el codigo enviado a ",
   "ERROR_CODE": "Error, el código introducido no es válido",
   "PARTICULAR": "PARTICULAR",
-  "ORGANIZATION": "ORGANIZAZCIÓN",
-  "LOG_OUT": "Tancar Sessio"
+  "ORGANIZATION": "ORGANIZAZCIÓN"
 }

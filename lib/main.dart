@@ -3,6 +3,8 @@ import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Services/AppService.dart';
+import 'package:rec/Api/Storage.dart';
+import 'package:rec/Providers/TransactionsProvider.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/app.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -14,12 +16,15 @@ Future<void> main() async {
 
   await AppService().getAppToken();
 
+  var _storage = RecStorage();
+  var savedUser = await UserState.getSavedUser(_storage);
   var token = await Auth.getAccessToken();
   var packageInfo = await PackageInfo.fromPlatform();
+
   var appProvided = MultiProvider(
     providers: [
       AppState.getProvider(packageInfo),
-      UserState.getProvider(),
+      UserState.getProvider(_storage, savedUser),
     ],
     child: RecApp(token),
   );

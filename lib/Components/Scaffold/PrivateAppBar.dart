@@ -24,10 +24,15 @@ class PrivateAppBar extends StatelessWidget {
     );
   }
 
-  static AppBar getAppBar(BuildContext context) {
+  static AppBar getAppBar(BuildContext context, {PreferredSizeWidget bottom}) {
     return AppBar(
-      backgroundColor: Brand.primaryColor,
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+          gradient: Brand.appBarGradient,
+        ),
+      ),
       title: PrivateAppBar(),
+      bottom: bottom,
       actions: [
         AppBarMenu(),
       ],
