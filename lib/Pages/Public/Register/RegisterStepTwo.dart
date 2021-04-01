@@ -9,6 +9,8 @@ import 'package:rec/Providers/AppState.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Verify/VerifyDataRec.dart';
 
+import '../../../brand.dart';
+
 class RegisterTwo extends StatefulWidget {
   @override
   RegisterTwoState createState() => RegisterTwoState();
@@ -30,9 +32,9 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
   ) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(75.0),
+        preferredSize: Size.fromHeight(174.0),
         child: AppBar(
-          backgroundColor: Colors.orangeAccent,
+          backgroundColor: Brand.backgroundCompanyColor,
           leading: IconButtonRec(
             icon: Icon(
               Icons.arrow_back,
@@ -42,20 +44,28 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
               Navigator.of(context).pop();
             },
           ),
-          title: Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.fromLTRB(90, 0, 0, 0),
-            child: Row(
-              children: [
-                Container(
-                  width: 75,
-                  height: 75,
-                  child: IconButton(
-                    icon: Image.asset('assets/organization.png'),
-                    onPressed: () {},
-                  ),
-                ),
-              ],
+          bottom: PreferredSize(
+            preferredSize: Size(100, 70),
+            child: Container(
+              child: Row(
+                children: [
+                  Container(
+                      width: 75,
+                      height: 75,
+                      margin: EdgeInsets.fromLTRB(147, 25, 156, 47),
+                      child: Column(
+                        children: [
+                          IconButton(
+                            icon: Image.asset('assets/organization.png'),
+                          ),
+                          Text(
+                            "Organization",
+                            style: TextStyle(color: Colors.black, fontSize: 12),
+                          )
+                        ],
+                      )),
+                ],
+              ),
             ),
           ),
         ),
@@ -141,7 +151,8 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                 textColor: Colors.white,
                 backgroundColor: Colors.deepOrange,
                 isButtonDisabled: false,
-                text: Text(localizations.translate('REGISTER')),
+                widget: Icon(Icons.arrow_forward_ios),
+                text: localizations.translate('REGISTER'),
               ),
             )
           ],

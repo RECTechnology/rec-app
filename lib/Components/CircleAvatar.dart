@@ -16,14 +16,8 @@ class CircleAvatarRec extends StatefulWidget {
 class _CircleAvatarRecState extends State<CircleAvatarRec> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: widget.size,
-      height: widget.size,
-      child: CircleAvatar(
-        backgroundImage: widget.imageUrl != null && widget.imageUrl.isNotEmpty
-            ? NetworkImage(widget.imageUrl)
-            : AssetImage('assets/logo.png'),
-      ),
+    return CircleAvatar(
+      backgroundImage: NetworkImage(widget.imageUrl),
     );
   }
 }

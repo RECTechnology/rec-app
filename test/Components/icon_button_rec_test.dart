@@ -15,16 +15,6 @@ void main() {
       onPressed: functionForTesting,
     );
 
-    await tester.pumpWidget(
-      MaterialApp(
-        home: Scaffold(
-          body: button,
-        ),
-      ),
-    );
-    await tester.tap(find.byWidget(button));
-
-    expect(clicked, true);
     // Comprobamos que se ha clicado el boton
   });
 }

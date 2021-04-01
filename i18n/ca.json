@@ -34,7 +34,7 @@
   "NAME": "Nombre",
   "CIF": "CIF",
   "EMAIL": "Email(Opcional)",
-  "WHEN_INIT_SESION": "Cuando inicies sesion, completa la informacion publica a tu organizacion y apareceras en el para del REC.¡Hazte visible y aumenta tu facturacion!",
+  "WHEN_INIT_SESION": "Cuando inicies sesión, completa la información pública de tu organización y aparecerás en el mapa del REC. ¡Hazte visible y aumenta tu facturación!",
   "DNI/NIE": "DNI / NIE",
   "BAD_PHONE": "El telefono introducido no es valido",
   "BAD_ID_DOCUMENT": "El documento de identidad introducido no es valido",
@@ -46,5 +46,11 @@
   "WALLET": "Billetera",
   "MAP": "Mapa",
   "SETTINGS": "Configuración",
+  "ITRODUCE_DNI_TELF": "Introduce tu documento de identidad y el teléfono vinculado a tu usuario para poder cambiar tu contraseña",
+  "VALIDATE": "Validar",
+  "NEW_PASSWORD": "Contraseña nueva",
+  "REPEAT_PASSWORD": "Repetir contraseña nueva",
+  "INTRODUCE_NEW_PASSWORD": "Introduce tu nueva contraseña y repitela para asegurarnos de que no haya ningún error",
+  "NO_ACORD_TERMS": "Para continuar debes aceptar los Términos de Uso del REC",
   "LOG_OUT": "Tancar Sessio"
 }

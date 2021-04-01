@@ -117,7 +117,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                     widthBox: 250,
                     isButtonDisabled: isDisabled,
                     widget: Icon(Icons.arrow_forward_ios),
-                    text: Text(localizations.translate('REGISTER')),
+                    text: localizations.translate('REGISTER'),
                   ),
                 ),
               ]),
@@ -161,7 +161,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                       onPressed: singIn,
                       widthBox: 380,
                       isButtonDisabled: isDisabled,
-                      text: Text(localizations.translate('LOGIN')),
+                      text: localizations.translate('LOGIN'),
                     ),
                   ),
                 ],
@@ -217,7 +217,7 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
         widthBox: 370,
         isButtonDisabled: isDisabled,
         widget: Icon(Icons.arrow_forward_ios),
-        text: Text(localizations.translate('LOGIN')),
+        text: localizations.translate('LOGIN'),
       ),
     );
   }

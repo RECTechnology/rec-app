@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ButtonRec extends StatefulWidget {
-  final Text text;
+  final String text;
   final Widget widget;
   final Function() onPressed;
   final Color textColor;
   final Color backgroundColor;
   final double widthBox;
   final bool isButtonDisabled;
+
   ButtonRec(
       {this.text,
       this.widget,
@@ -25,13 +26,18 @@ class ButtonRec extends StatefulWidget {
 
 class ButtonRecState extends State<ButtonRec> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var areWidget = true;
     if (widget.widget == null) {
       areWidget = false;
     }
 
-    // ignore: deprecated_member_use
     var button = RaisedButton(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0),
@@ -50,7 +56,10 @@ class ButtonRecState extends State<ButtonRec> {
             Container(
               margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
               alignment: Alignment.centerRight,
-              child: widget.text,
+              child: Text(
+                widget.text,
+                style: TextStyle(fontSize: 20),
+              ),
             ),
             Container(
               margin: EdgeInsets.fromLTRB(20, 0, 0, 0),

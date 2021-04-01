@@ -84,7 +84,7 @@ class _RecoveryPasswordState extends GenericRecViewScreen<RecoveryPassword> {
                   textColor: Colors.black,
                   backgroundColor: Colors.white,
                   onPressed: changePassword,
-                  text: Text('LOGIN'),
+                  text: 'LOGIN',
                 )),
           ],
         ),
