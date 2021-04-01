@@ -52,5 +52,8 @@
   "REPEAT_PASSWORD": "Repetir contraseña nueva",
   "INTRODUCE_NEW_PASSWORD": "Introduce tu nueva contraseña y repitela para asegurarnos de que no haya ningún error",
   "NO_ACORD_TERMS": "Para continuar debes aceptar los Términos de Uso del REC",
+  "SEND_SMS_U": "Te hemos enviado un SMS",
+  "HELP_US_VALIDATE_PHONE": "Ayúdanos a validar esta acción introduciendo el codigo enviado a ",
+  "ERROR_CODE": "Error, el código introducido no es válido",
   "LOG_OUT": "Cerrar Sessión"
 }

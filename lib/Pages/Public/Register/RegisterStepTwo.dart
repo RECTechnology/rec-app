@@ -8,8 +8,7 @@ import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Verify/VerifyDataRec.dart';
-
-import '../../../brand.dart';
+import 'package:rec/brand.dart';
 
 class RegisterTwo extends StatefulWidget {
   @override
@@ -179,23 +178,5 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
     } else {
       print('Bad Cif');
     }
-  }
-
-  void printToastRec(String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(msg.toString()),
-        duration: const Duration(milliseconds: 1500),
-        width: 300.0,
-        // Width of the SnackBar.
-        padding: const EdgeInsets.symmetric(
-          horizontal: 8.0, // Inner padding for SnackBar content.
-        ),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-    );
   }
 }

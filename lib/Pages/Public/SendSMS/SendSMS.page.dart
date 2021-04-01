@@ -4,22 +4,25 @@ import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
 import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/RecTextField.dart';
+import 'package:rec/Components/ToastRec.dart';
 
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Verify/VerifyDataRec.dart';
 
-class SetPasswordPage extends StatefulWidget {
-  SetPasswordPage();
+class SendSMSPage extends StatefulWidget {
+  SendSMSPage();
 
   @override
-  _SetPasswordPageState createState() => _SetPasswordPageState();
+  _SendSMSPageState createState() => _SendSMSPageState();
 }
 
-class _SetPasswordPageState extends GenericRecViewScreen<SetPasswordPage> {
-  String newPassword = '+34';
-  String confirmNewPassword = '';
+class _SendSMSPageState extends GenericRecViewScreen<SendSMSPage> {
+  final _formKey = GlobalKey<FormState>();
+
+  String phone = '610992764';
+  String sms = '';
 
   @override
   Widget buildPageContent(
@@ -45,9 +48,9 @@ class _SetPasswordPageState extends GenericRecViewScreen<SetPasswordPage> {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(32, 20, 32, 20),
+              margin: EdgeInsets.fromLTRB(32, 20, 32, 0),
               child: Text(
-                localizations.translate('FORGOT_PASSWORD'),
+                localizations.translate('SEND_SMS_U'),
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.black,
@@ -56,45 +59,34 @@ class _SetPasswordPageState extends GenericRecViewScreen<SetPasswordPage> {
               ),
             ),
             Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.fromLTRB(32, 0, 50, 39),
+              margin: EdgeInsets.fromLTRB(32, 57, 32, 39),
               child: Text(
-                localizations.translate('INTRODUCE_NEW_PASSWORD'),
+                localizations.translate('HELP_US_VALIDATE_PHONE') + " " + phone,
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 20,
                   color: Colors.black54,
                 ),
-                textAlign: TextAlign.right,
+                textAlign: TextAlign.center,
               ),
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              child: RecTextField(
-                placeholder: localizations.translate('NEW_PASSWORD'),
-                needObscureText: true,
-                keyboardType: TextInputType.text,
-                isPassword: false,
-                isNumeric: false,
-                icon: Icon(Icons.lock),
-                colorLine: Colors.blueAccent,
-                function: setNewPassword,
-                isPhone: false,
-                validator: VerifyDataRec.verifyPassword,
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              child: RecTextField(
-                placeholder: localizations.translate('REPEAT_PASSWORD'),
-                needObscureText: true,
-                keyboardType: TextInputType.text,
-                isPassword: false,
-                isNumeric: false,
-                icon: Icon(Icons.lock),
-                colorLine: Colors.blueAccent,
-                function: setNewPassword,
-                isPhone: false,
-                validator: VerifyDataRec.verifyPassword,
+            Form(
+              key: _formKey,
+              child: Container(
+                margin: EdgeInsets.fromLTRB(48, 0, 19, 0),
+                child: RecTextField(
+                  placeholder: "613335",
+                  needObscureText: false,
+                  keyboardType: TextInputType.phone,
+                  isPassword: false,
+                  isNumeric: true,
+                  textSize: 20,
+                  letterSpicing: 25,
+                  textAlign: TextAlign.center,
+                  colorLine: Colors.blueAccent,
+                  function: setSMS,
+                  isPhone: false,
+                  validator: VerifyDataRec.verifySMS,
+                ),
               ),
             ),
             Container(
@@ -104,7 +96,7 @@ class _SetPasswordPageState extends GenericRecViewScreen<SetPasswordPage> {
               child: ButtonRec(
                 textColor: Colors.white,
                 backgroundColor: Colors.blue,
-                onPressed: changePassword,
+                onPressed: sendSMS,
                 widthBox: 370,
                 isButtonDisabled: false,
                 widget: Icon(Icons.arrow_forward_ios),
@@ -117,13 +109,18 @@ class _SetPasswordPageState extends GenericRecViewScreen<SetPasswordPage> {
     );
   }
 
-  void setNewPassword(String newPassword) {
-    this.newPassword = newPassword;
+  void sendSMS() {
+    var localization = AppLocalizations.of(context);
+    ToastRec toastRec = ToastRec();
+    if (_formKey.currentState.validate()) {
+      return;
+    } else {
+      toastRec.printToastRec(
+          localization.translate('ERROR_CODE'), this.context);
+    }
   }
 
-  void setNewConfirmPassword(String confirmPassword) {
-    confirmNewPassword = confirmPassword;
+  void setSMS(String sms) {
+    this.sms = sms;
   }
-
-  void changePassword() {}
 }
