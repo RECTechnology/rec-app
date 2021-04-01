@@ -5,9 +5,9 @@ import '../../test_utils.dart';
 
 void main() {
   testWidgets('Settings Page test build correctly', (
-      WidgetTester tester,
-      ) async {
-    var app = TestUtils.wrapPageWithLocalization(SettingsPage());
+    WidgetTester tester,
+  ) async {
+    var app = TestUtils.wrapPrivateRoute(SettingsPage());
 
     await tester.pumpWidget(app);
     await tester.pumpAndSettle();

@@ -11,7 +11,7 @@
   "LOGIN": "Iniciar sesiòn",
   "DONT_HAVE_ACCOUNT_2": "Si aún no tienes cuenta, pulsa el boton de REGISTRARSE",
   "INSERT_PASSWORD": "Introduce tu contraseña y accede",
-  "ARE_NOT_U": "No eres tu?",
+  "NOT_U": "No eres tu?",
   "DOCUMENT_DATA": "NUMERO Y LETRA/S DE DOCUMENTO: ",
   "TELF": "TELEFONO: ",
   "WRITE_TELF": "Escribe el teléfono",
@@ -51,5 +51,6 @@
   "NEW_PASSWORD": "Contraseña nueva",
   "REPEAT_PASSWORD": "Repetir contraseña nueva",
   "INTRODUCE_NEW_PASSWORD": "Introduce tu nueva contraseña y repitela para asegurarnos de que no haya ningún error",
-  "NO_ACORD_TERMS": "Para continuar debes aceptar los Términos de Uso del REC"
+  "NO_ACORD_TERMS": "Para continuar debes aceptar los Términos de Uso del REC",
+  "LOG_OUT": "Log Out"
 }

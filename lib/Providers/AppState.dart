@@ -1,14 +1,26 @@
 import 'package:flutter/widgets.dart';
+import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 
-/*
- * This class is a ChangeNotifier and is provided across the app. 
- * Any changes made to this class will propagate from the ChangeNotifierProvider.
- * This class should only contain information required across the whole app, like user information, account, etc... 
- * Not for sharing info across pages/views/etc...
- */
 class AppState with ChangeNotifier {
+  final PackageInfo packageInfo;
+  AppState({this.packageInfo});
+
   static AppState of(context) {
     return Provider.of<AppState>(context);
+  }
+
+  static ChangeNotifierProvider<AppState> getProvider(PackageInfo packageInfo) {
+    return ChangeNotifierProvider(
+      create: (context) => AppState(packageInfo: packageInfo),
+    );
+  }
+
+  String get version {
+    return packageInfo.version;
+  }
+
+  String get buildNumber {
+    return packageInfo.buildNumber;
   }
 }

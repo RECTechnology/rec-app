@@ -1,30 +1,10 @@
-import 'package:rec/Environments/env.dart';
-
-class ApiPath {
-  final String path;
-  Map<String, dynamic> queryParams = {};
-
-  ApiPath(this.path);
-
-  ApiPath withQueryParams(Map<String, dynamic> params) {
-    queryParams = params;
-    return this;
-  }
-
-  Uri toUri() {
-    return Uri.https(env.API_URL, path, queryParams);
-  }
-}
+import 'package:rec/Api/ApiPath.dart';
 
 class ApiPaths {
-  static ApiPath createApiPath(String path) {
-    return ApiPath(path);
-  }
+  static ApiPath token = ApiPath('/oauth/v3/token');
+  static ApiPath transactions = ApiPath('/user/v2/wallet/transactions');
 
-  static ApiPath login = ApiPaths.createApiPath(
-    '/oauth/v3/token',
-  );
-  static ApiPath transactions = ApiPaths.createApiPath(
-    '/user/v2/wallet/transactions',
-  );
+  // current user
+  static ApiPath currentUserAccount = ApiPath('/user/v1/account');
+  static ApiPath userAccounts = ApiPath('/user/v1/companies');
 }

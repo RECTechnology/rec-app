@@ -9,15 +9,14 @@ class ButtonRec extends StatefulWidget {
   final double widthBox;
   final bool isButtonDisabled;
 
-  ButtonRec({
-    this.text,
-    this.widget,
-    this.onPressed,
-    this.textColor = Colors.white,
-    this.backgroundColor = Colors.black,
-    this.widthBox,
-    this.isButtonDisabled
-  });
+  ButtonRec(
+      {this.text,
+      this.widget,
+      this.onPressed,
+      this.textColor = Colors.white,
+      this.backgroundColor = Colors.black,
+      this.widthBox,
+      this.isButtonDisabled});
 
   @override
   State<StatefulWidget> createState() {
@@ -26,12 +25,11 @@ class ButtonRec extends StatefulWidget {
 }
 
 class ButtonRecState extends State<ButtonRec> {
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,15 +38,13 @@ class ButtonRecState extends State<ButtonRec> {
       areWidget = false;
     }
 
-
     var button = RaisedButton(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0),
       ),
-      onPressed: widget.isButtonDisabled?null:widget.onPressed,
+      onPressed: widget.isButtonDisabled ? null : widget.onPressed,
       textColor: widget.textColor,
       color: widget.backgroundColor,
-
       child: Padding(
         padding: const EdgeInsets.all(6.0),
         child: Row(
@@ -60,7 +56,10 @@ class ButtonRecState extends State<ButtonRec> {
             Container(
               margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
               alignment: Alignment.centerRight,
-              child: Text(widget.text,style: TextStyle(fontSize: 20),),
+              child: Text(
+                widget.text,
+                style: TextStyle(fontSize: 20),
+              ),
             ),
             Container(
               margin: EdgeInsets.fromLTRB(20, 0, 0, 0),

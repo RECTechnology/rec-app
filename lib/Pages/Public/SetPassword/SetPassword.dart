@@ -7,6 +7,7 @@ import 'package:rec/Components/RecTextField.dart';
 
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
+import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Verify/VerifyDataRec.dart';
 
 class SetPassword extends StatefulWidget {
@@ -22,16 +23,17 @@ class _SetPasswordState extends GenericRecViewScreen<SetPassword> {
 
   @override
   Widget buildPageContent(
-      BuildContext context,
-      AppState state,
-      AppLocalizations localizations,
-      ) {
+    BuildContext context,
+    AppState state,
+    UserState userState,
+    AppLocalizations localizations,
+  ) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButtonRec(
           icon: Icon(
-            Icons.arrow_back ,
+            Icons.arrow_back,
             color: Colors.black,
           ),
           onPressed: () {
@@ -74,7 +76,7 @@ class _SetPasswordState extends GenericRecViewScreen<SetPassword> {
                 isPassword: false,
                 isNumeric: false,
                 icon: Icon(Icons.lock),
-                colorLine:  Colors.blueAccent,
+                colorLine: Colors.blueAccent,
                 function: setNewPassword,
                 isPhone: false,
                 validator: VerifyDataRec.verifyPassword,
@@ -89,13 +91,12 @@ class _SetPasswordState extends GenericRecViewScreen<SetPassword> {
                 isPassword: false,
                 isNumeric: false,
                 icon: Icon(Icons.lock),
-                colorLine:  Colors.blueAccent,
+                colorLine: Colors.blueAccent,
                 function: setNewPassword,
                 isPhone: false,
                 validator: VerifyDataRec.verifyPassword,
               ),
             ),
-
             Container(
               margin: EdgeInsets.fromLTRB(0, 277, 0, 0),
               width: 296,
@@ -116,14 +117,12 @@ class _SetPasswordState extends GenericRecViewScreen<SetPassword> {
     );
   }
 
-
-
   void setNewPassword(String newPassword) {
     this.newPassword = newPassword;
   }
 
   void setNewConfirmPassword(String confirmPassword) {
-    this.confirmNewPassword = confirmPassword;
+    confirmNewPassword = confirmPassword;
   }
 
   void changePassword() {}

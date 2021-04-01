@@ -38,18 +38,10 @@ class _InputField extends State<RecTextField> {
   String error = 'Contraseña incorrecta';
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.fromLTRB(20, 0, 20, 0), //Left,Top,Right,Bottom
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -63,16 +55,12 @@ class _InputField extends State<RecTextField> {
           ),
         ),
         Container(
-          margin: EdgeInsets.fromLTRB(20, 0, 20, 15),
           child: TextFormField(
             decoration: InputDecoration(
-
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: widget.colorLine),
               ),
-              
               fillColor: Colors.lightBlueAccent,
-
               suffixIcon: obscureText
                   ? IconButton(
                       onPressed: () {

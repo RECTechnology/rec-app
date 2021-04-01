@@ -24,7 +24,7 @@ class LoadingButtonState extends State<LoadingButton> {
   Widget build(BuildContext context) {
     var buttonRec = ButtonRec(
       onPressed: widget.onPressed,
-      text:'Login',
+      text: 'Login',
     );
 
     var containerNotLoading = Container(

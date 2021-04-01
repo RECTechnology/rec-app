@@ -5,6 +5,7 @@ import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/RecTextField.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
+import 'package:rec/Providers/UserState.dart';
 
 class PinPage extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class PinPageState extends GenericRecViewScreen<PinPage> {
   Widget buildPageContent(
     BuildContext context,
     AppState state,
+    UserState userState,
     AppLocalizations localizations,
   ) {
     return Scaffold(

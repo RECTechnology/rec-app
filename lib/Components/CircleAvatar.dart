@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class CircleAvatarRec extends StatefulWidget {
   final String imageUrl;
+  final double size;
 
   CircleAvatarRec({
     this.imageUrl,
+    this.size = 45.0,
   });
 
   @override
