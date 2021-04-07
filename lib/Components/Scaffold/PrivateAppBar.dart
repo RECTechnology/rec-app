@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/CircleAvatar.dart';
 import 'package:rec/Components/Scaffold/AppBarMenu.dart';
 import 'package:rec/Providers/UserState.dart';
+import 'dart:math';
+
 import 'package:rec/brand.dart';
 
 class PrivateAppBar extends StatelessWidget {
@@ -19,7 +21,10 @@ class PrivateAppBar extends StatelessWidget {
               name: account.name,
             ),
           ),
-          Text(userState.user.selectedAccount.name)
+          Text(
+            userState.user.selectedAccount.name,
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.w200),
+          )
         ],
       ),
     );
