@@ -3,33 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:rec/Api/Services/LoginService.dart';
 import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
-import 'package:rec/Components/CircleAvatar.dart';
+import 'package:rec/Components/LoggedInBeforeCard.dart';
 
 import 'package:rec/Components/RecTextField.dart';
+import 'package:rec/Entities/User.ent.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 import 'package:rec/Providers/UserState.dart';
-
-import '../../../brand.dart';
+import 'package:rec/Styles/Paddings.dart';
+import 'package:rec/brand.dart';
+import 'package:rec/routes.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage(this.isLog);
-
-  final bool isLog;
-
   @override
-  _LoginPageState createState() => _LoginPageState(isLog);
+  _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends GenericRecViewScreen<LoginPage> {
-  bool isLogState;
-  String dni = "";
-  String password = "";
-  String userName = "";
+  String dni = '';
+  String password = '';
+  String userName = '';
+  User savedUser;
+
   LoginService loginService = LoginService();
   bool isDisabled = false;
 
-  _LoginPageState(this.isLogState);
+  _LoginPageState();
 
   @override
   void initState() {
@@ -43,254 +42,151 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
     UserState userState,
     AppLocalizations localizations,
   ) {
-    if (isLogState) {
-      return loged(context);
-    } else {
-      return notLoged(context);
-    }
-  }
-
-  Widget notLoged(BuildContext context) {
-    AppLocalizations localizations = AppLocalizations.of(context);
+    var savedUser = userState.savedUser;
+    var hasSavedUser = userState.hasSavedUser();
 
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 40), //Left,Top,Right,Bottom
-              child: Image(
-                image: AssetImage('assets/login-header.jpg'),
+            _header(),
+            Padding(
+              padding: Paddings.page,
+              child: Column(
+                children: [
+                  hasSavedUser
+                      ? LoggedInBeforeCard(
+                          savedUser: savedUser,
+                          onNotYou: () => onNotYou(userState),
+                        )
+                      : RecTextField(
+                          initialValue: dni,
+                          isNumeric: false,
+                          keyboardType: TextInputType.text,
+                          needObscureText: false,
+                          placeholder:
+                              localizations.translate('WRITE_DOCUMENT'),
+                          title: localizations.translate('DNI'),
+                          isPassword: false,
+                          function: setDni,
+                          colorLine: Brand.primaryColor,
+                          validator: (String string) {},
+                          isPhone: false,
+                          icon: Icon(Icons.account_circle),
+                        ),
+                  _passwordField(localizations),
+                  _forgotPassLink(localizations),
+                  _loginButton(localizations, userState),
+                  (!hasSavedUser)
+                      ? Container(
+                          alignment: Alignment.center,
+                          width: 300,
+                          margin: EdgeInsets.fromLTRB(0, 60, 0, 0),
+                          child: Text(
+                            localizations.translate('NOT_REGISTRED'),
+                            style:
+                                TextStyle(fontSize: 14, color: Colors.black87),
+                          ),
+                        )
+                      : SizedBox(),
+                  (!hasSavedUser)
+                      ? Container(
+                          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          child: ButtonRec(
+                            textColor: Colors.white,
+                            backgroundColor: Brand.primaryColor,
+                            onPressed: singIn,
+                            widthBox: 250,
+                            isButtonDisabled: isDisabled,
+                            widget: Icon(Icons.arrow_forward_ios),
+                            text: localizations.translate('REGISTER'),
+                          ),
+                        )
+                      : SizedBox(),
+                ],
               ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(32, 0, 32, 0), //Left,Top,Right,Bottom
-              child: RecTextField(
-                isNumeric: false,
-                keyboardType: TextInputType.text,
-                needObscureText: false,
-                placeholder: localizations.translate('WRITE_DOCUMENT'),
-                title: localizations.translate('DNI'),
-                isPassword: false,
-                function: setDni,
-                colorLine: Colors.blue,
-                validator: (String string) {},
-                isPhone: false,
-                icon: Icon(Icons.person,color: Brand.defectText,),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(32, 0, 32, 0), //Left,Top,Right,Bottom
-              child: RecTextField(
-                isNumeric: false,
-                keyboardType: TextInputType.text,
-                needObscureText: true,
-                placeholder: localizations.translate('WRITE_PASSWORD'),
-                isPassword: false,
-                function: setPassword,
-                colorLine: Colors.blue,
-                validator: (String string) {},
-                isPhone: false,
-                icon: Icon(Icons.lock,color: Brand.defectText,),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(32, 0, 32, 15),
-              alignment: Alignment.topRight,
-              child: RichText(
-                text: TextSpan(
-                  style: TextStyle(color: Colors.blue),
-                  text: localizations.translate('FORGOT_PASSWORD'),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () async {
-                      Navigator.of(context).pushNamed('/recoveryPassword');
-                    },
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(30, 10, 36, 0),
-              child: ButtonRec(
-                textColor: Colors.white,
-                backgroundColor: Colors.blue,
-                onPressed: login,
-                widthBox: 370,
-                isButtonDisabled: isDisabled,
-                widget: Icon(Icons.arrow_forward_ios),
-                text: localizations.translate('LOGIN'),
-              ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              width: 300,
-              margin: EdgeInsets.fromLTRB(81, 60, 86, 0),
-              child: Text(
-                localizations.translate('NOT_REGISTRED'),
-                style: TextStyle(fontSize: 14, color: Colors.black87),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(64, 10, 69, 0),
-              child: ButtonRec(
-                textColor: Colors.white,
-                backgroundColor: Colors.blue,
-                onPressed: singIn,
-                widthBox: 250,
-                isButtonDisabled: isDisabled,
-                widget: Icon(Icons.arrow_forward_ios),
-                text: localizations.translate('REGISTER'),
-              ),
-            ),
+            )
           ],
         ),
       ),
     );
   }
 
-  Widget loged(BuildContext context) {
-    AppLocalizations localizations = AppLocalizations.of(context);
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 40), //Left,Top,Right,Bottom
-              child: Image(
-                image: AssetImage('assets/login-header.jpg'),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(40, 20, 40, 20),
-              decoration: new BoxDecoration(color: Colors.white, boxShadow: [
-                new BoxShadow(
-                    color: Colors.black54,
-                    offset: new Offset(0.0, 0.0),
-                    blurRadius: 500.0)
-              ]),
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.fromLTRB(0, 20, 0, 10),
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          width: 60,
-                          height: 60,
-                          child: CircleAvatarRec(
-                            imageUrl: 'https://picsum.photos/250?image=9',
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.fromLTRB(10, 0, 0, 20),
-                          alignment: Alignment.topRight,
-                          child: RichText(
-                            text: TextSpan(
-                              style: TextStyle(color: Colors.blue),
-                              text: localizations.translate('ARE_NOT_U'),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () async {
-                                  Navigator.of(context)
-                                      .pushNamed('/registerTwo');
-                                },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.fromLTRB(0, 0, 140, 0),
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            userName,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.black54,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.fromLTRB(20, 0, 110, 30),
-                          child: Text(
-                            dni,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.black54,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(34, 0, 30, 0),
-              child: RecTextField(
-                isNumeric: false,
-                keyboardType: TextInputType.text,
-                needObscureText: true,
-                placeholder: localizations.translate('WRITE_PASSWORD'),
-                isPassword: false,
-                function: setPassword,
-                colorLine: Colors.blue,
-                validator: (String string) {},
-                isPhone: false,
-                icon: Icon(Icons.lock,color: Brand.defectText,),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(20, 0, 20, 40),
-              alignment: Alignment.topRight,
-              child: RichText(
-                text: TextSpan(
-                  style: TextStyle(color: Colors.blue),
-                  text: localizations.translate('FORGOT_PASSWORD'),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () async {
-                      Navigator.of(context).pushNamed('/recoveryPassword');
-                    },
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(32, 0, 34, 0),
-              child: ButtonRec(
-                textColor: Colors.white,
-                backgroundColor: Colors.blue,
-                onPressed: singIn,
-                widthBox: 380,
-                isButtonDisabled: isDisabled,
-                text: localizations.translate('LOGIN'),
-              ),
-            ),
-          ],
+  Widget _passwordField(AppLocalizations localizations) {
+    return Padding(
+      padding: Paddings.textField,
+      child: RecTextField(
+        initialValue: password,
+        isNumeric: false,
+        keyboardType: TextInputType.text,
+        needObscureText: true,
+        placeholder: localizations.translate('WRITE_PASSWORD'),
+        isPassword: false,
+        function: setPassword,
+        colorLine: Brand.primaryColor,
+        validator: (String string) {},
+        isPhone: false,
+        icon: Icon(Icons.lock),
+      ),
+    );
+  }
+
+  Widget _forgotPassLink(AppLocalizations localizations) {
+    return Container(
+      alignment: Alignment.topRight,
+      child: RichText(
+        text: TextSpan(
+          style: TextStyle(color: Brand.primaryColor),
+          text: localizations.translate('FORGOT_PASSWORD'),
+          recognizer: TapGestureRecognizer()
+            ..onTap = () async {
+              await Navigator.of(context).pushNamed('/recoveryPassword');
+            },
         ),
+      ),
+    );
+  }
+
+  Widget _loginButton(AppLocalizations localizations, UserState userState) {
+    return Padding(
+      padding: Paddings.button,
+      child: ButtonRec(
+        textColor: Colors.white,
+        backgroundColor: Brand.primaryColor,
+        onPressed: () => login(
+          (userState.hasSavedUser() ? userState.savedUser.username : dni),
+          password,
+        ),
+        widthBox: 370,
+        isButtonDisabled: isDisabled,
+        widget: Icon(Icons.arrow_forward_ios),
+        text: localizations.translate('LOGIN'),
+      ),
+    );
+  }
+
+  Widget _header() {
+    return Container(
+      child: Image(
+        image: AssetImage('assets/login-header.jpg'),
       ),
     );
   }
 
   void setDni(String dniTextField) {
-    this.dni = dniTextField;
+    dni = dniTextField;
   }
 
   void setPassword(String passwordTextField) {
-    this.password = passwordTextField;
+    password = passwordTextField;
   }
 
-  singIn() {
-    Navigator.of(context).pushNamed('/registerOne');
+  void singIn() {
+    Navigator.of(context).pushNamed(Routes.registerOne);
   }
 
-  void login() {
-    disableChanger();
+  void login(dni, password) {
+    setEnabled(false);
     loginService
         .login(username: dni, password: password)
         .then(onLogin)
@@ -298,38 +194,27 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
   }
 
   void onLogin(response) {
-    // Logged in OK
-
     if (response['error_description'] == null) {
-      Navigator.of(context).pushNamed('/home');
+      Navigator.of(context).pushReplacementNamed(Routes.home);
     } else {
-      disableChanger();
+      setEnabled(true);
       onError(response['error_description']);
     }
-    ;
   }
 
-  void disableChanger() {
-    setState(() {
-      if (isDisabled) {
-        isDisabled = false;
-      } else {
-        isDisabled = true;
-      }
-    });
+  void setEnabled(bool enabled) {
+    setState(() => isDisabled = !enabled);
   }
 
   void onError(error) {
-    // Logged in with error
-
+    setEnabled(true);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(error.toString()),
         duration: const Duration(milliseconds: 1500),
         width: 300.0,
-        // Width of the SnackBar.
         padding: const EdgeInsets.symmetric(
-          horizontal: 8.0, // Inner padding for SnackBar content.
+          horizontal: 8.0,
         ),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
@@ -337,5 +222,9 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
         ),
       ),
     );
+  }
+
+  void onNotYou(UserState userState) async {
+    await userState.unstoreUser();
   }
 }

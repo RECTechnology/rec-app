@@ -31,7 +31,12 @@ class _AppBarMenu extends State<AppBarMenu> {
             onTap: () async {
               await Auth.logout();
               userState.clear();
-              await Navigator.of(context).pushReplacementNamed(Routes.login);
+
+              // Esto es importante, si solo hacia pushReplacementNamed, no eliminaba la pagina de memoria, se quedaba por detras
+              await Navigator.of(context).pushNamedAndRemoveUntil(
+                Routes.login,
+                ModalRoute.withName(Routes.login),
+              );
             },
             child: Text(localizations.translate('LOG_OUT')),
           ),

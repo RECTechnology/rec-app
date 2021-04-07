@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:rec/Api/Storage.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 import 'package:rec/Providers/UserState.dart';
@@ -14,7 +15,9 @@ class TestUtils {
         ChangeNotifierProvider(
           create: (context) => AppState(),
         ),
-        ChangeNotifierProvider(create: (context) => UserState())
+        ChangeNotifierProvider(
+          create: (context) => UserState(RecStorage(), null),
+        )
       ],
       child: wrapInMaterialApp(page),
     );

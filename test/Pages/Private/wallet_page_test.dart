@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rec/Pages/Private/Wallet/Wallet.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Wallet/Wallet.page.dart';
 
 import '../../test_utils.dart';
 

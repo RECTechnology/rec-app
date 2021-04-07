@@ -16,6 +16,7 @@ class PrivateAppBar extends StatelessWidget {
             padding: const EdgeInsets.only(right: 10.0),
             child: CircleAvatarRec(
               imageUrl: account.publicImage,
+              name: account.name,
             ),
           ),
           Text(userState.user.selectedAccount.name)
@@ -24,10 +25,15 @@ class PrivateAppBar extends StatelessWidget {
     );
   }
 
-  static AppBar getAppBar(BuildContext context) {
+  static AppBar getAppBar(BuildContext context, {PreferredSizeWidget bottom}) {
     return AppBar(
-      backgroundColor: Brand.primaryColor,
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+          gradient: Brand.appBarGradient,
+        ),
+      ),
       title: PrivateAppBar(),
+      bottom: bottom,
       actions: [
         AppBarMenu(),
       ],

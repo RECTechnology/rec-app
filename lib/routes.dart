@@ -6,7 +6,7 @@ import 'Pages/Private/Home/Home.page.dart';
 import 'Pages/Public/Login/Login.page.dart';
 import 'Components/PrivateRoute.dart';
 import 'Pages/Public/PinPage/PinPage.dart';
-import 'Pages/Public/RecoveryPassword.page.dart';
+import 'Pages/Public/RecoveryPassword/RecoveryPassword.page.dart';
 
 class Routes {
   static String home = '/home';
@@ -22,8 +22,8 @@ class Routes {
 }
 
 final Map<String, Widget Function(BuildContext)> ROUTES = {
-  Routes.login: (context) => LoginPage(false),
-  Routes.recoveryPassword: (context) => RecoveryPassword(),
+  Routes.login: (context) => LoginPage(),
+  Routes.recoveryPassword: (context) => RecoveryPasswordPage(),
   Routes.pinPage: (context) => PinPage(),
   Routes.registerOne: (context) => RegisterOne(),
   Routes.registerTwo: (context) => RegisterTwo(),

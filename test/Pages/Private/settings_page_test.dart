@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rec/Pages/Private/Settings/Settings.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Settings/Settings.page.dart';
 
 import '../../test_utils.dart';
 

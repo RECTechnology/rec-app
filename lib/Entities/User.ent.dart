@@ -8,6 +8,7 @@ class User extends Entity {
 
   Account selectedAccount;
   String username;
+  String image;
 
   User({
     String id,

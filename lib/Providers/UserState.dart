@@ -8,23 +8,30 @@ import 'package:rec/Entities/User.ent.dart';
 // This is done there because only private routes need access to UserState
 // And we can also check if user is logged in
 class UserState with ChangeNotifier {
-  final RecStorage _storage = RecStorage();
+  final RecStorage _storage;
 
   User _user;
+  User _savedUser;
   Account _account;
+
+  UserState(this._storage, this._savedUser);
 
   static UserState of(context) {
     return Provider.of<UserState>(context);
   }
 
-  static ChangeNotifierProvider<UserState> getProvider() {
-    return ChangeNotifierProvider(create: (context) => UserState());
+  static ChangeNotifierProvider<UserState> getProvider(
+    RecStorage _storage,
+    User savedUser,
+  ) {
+    return ChangeNotifierProvider(
+      create: (context) => UserState(_storage, savedUser),
+    );
   }
 
   void clear() {
     _user = null;
     _account = null;
-    _storage.delete(key: RecStorage.PREV_USER_DNI);
   }
 
   User get user {
@@ -34,6 +41,7 @@ class UserState with ChangeNotifier {
   void setUser(User user) {
     _user = user;
     _storage.write(key: RecStorage.PREV_USER_DNI, value: user.username);
+    _savedUser = user;
     notifyListeners();
   }
 
@@ -50,24 +58,30 @@ class UserState with ChangeNotifier {
     return _user != null ? user.username : '...';
   }
 
-  Future<bool> hasSavedUser() async {
-    var savedUsername = await _storage.read(
-      key: RecStorage.PREV_USER_DNI,
-    );
-    return savedUsername != null;
+  bool hasSavedUser() {
+    return _savedUser != null && _savedUser.username != null;
   }
 
-  Future<User> getSavedUser() async {
+  Future<void> unstoreUser() async {
+    _savedUser = null;
+    await removeSavedUser(_storage);
+    notifyListeners();
+  }
+
+  User get savedUser {
+    return _savedUser;
+  }
+
+  static Future<User> getSavedUser(RecStorage _storage) async {
     var savedUsername = await _storage.read(
       key: RecStorage.PREV_USER_DNI,
     );
     return User(username: savedUsername);
   }
 
-  Future<void> removeSavedUser() async {
+  static Future<void> removeSavedUser(RecStorage _storage) async {
     await _storage.delete(
       key: RecStorage.PREV_USER_DNI,
     );
-    notifyListeners();
   }
 }
