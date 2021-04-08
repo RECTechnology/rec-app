@@ -16,9 +16,11 @@ class RecTextField extends StatefulWidget {
   final Icon icon;
   final Function validator;
   final bool isPhone;
+  final String initialValue;
   final double textSize;
   final TextAlign textAlign;
   final double letterSpicing;
+  
   RecTextField(
       {this.title,
       this.keyboardType = TextInputType.text,
@@ -31,6 +33,7 @@ class RecTextField extends StatefulWidget {
       this.icon,
       this.validator,
       this.isPhone,
+       this.initialValue,
       this.textSize = 16,
       this.textAlign = TextAlign.left,
       this.letterSpicing = 0.0});
@@ -63,6 +66,7 @@ class _InputField extends State<RecTextField> {
         ),
         Container(
           child: TextFormField(
+            initialValue: widget.initialValue,
             textAlign: widget.textAlign,
             decoration: InputDecoration(
               focusedBorder: UnderlineInputBorder(

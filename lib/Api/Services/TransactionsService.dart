@@ -26,7 +26,7 @@ class TransactionsService extends ServiceBase {
   // Maps api list reponse to an instance of ApiListResponse<Transaction>
   ApiListResponse<Transaction> _mapToApiListReponse(Map<String, dynamic> data) {
     return ApiListResponse<Transaction>.fromJson(
-      data,
+      data['data'],
       mapper: (el) => Transaction.fromJson(el),
     );
   }

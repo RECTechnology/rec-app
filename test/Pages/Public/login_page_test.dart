@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rec/Pages/Public/Login.page.dart';
+import 'package:rec/Pages/Public/Login/Login.page.dart';
 
 import '../../test_utils.dart';
 
 void main() {
   testWidgets('Login Page test build correctly', (WidgetTester tester) async {
-    var app = TestUtils.wrapPublicRoute(LoginPage());
+    var app = TestUtils.wrapPrivateRoute(LoginPage(false));
 
     await tester.pumpWidget(app);
 
