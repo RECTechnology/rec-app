@@ -7,6 +7,7 @@ class Brand {
   static String logoUrl = 'assets/logo.jpg';
   static Color primaryColor = Color(0xff0098DA);
 
+  static Color primaryColorLight = Color(0xff0C6FF0);
   static Color accentColor = Color(0xffE05205);
   static Color backgroundPrivateColor = Color(0xffe5f5fc);
   static Color backgroundCompanyColor = Color(0xfffcede6);

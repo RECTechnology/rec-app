@@ -5,8 +5,6 @@ import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/User/UserBalance.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/Pay.tab.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Wallet/receive/Receive.tab.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/transactions/TransactionsList.tab.dart';
 import 'package:rec/Providers/AppState.dart';
 import 'package:rec/Providers/TransactionsProvider.dart';
