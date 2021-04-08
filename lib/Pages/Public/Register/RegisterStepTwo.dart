@@ -104,7 +104,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                 colorLine: Colors.orange,
                 icon: Icon(
                   Icons.business_center,
-                  color: Brand.defectText,
+                  color: Brand.grayDark,
                 ),
                 function: setUserName,
               ),
@@ -125,7 +125,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                         function: setCIF,
                         icon: Icon(
                           Icons.work_outlined,
-                          color: Brand.defectText,
+                          color: Brand.grayDark,
                         ),
                         validator: VerifyDataRec.validateCif,
                       ),

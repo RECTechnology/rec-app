@@ -40,6 +40,7 @@ class UserState with ChangeNotifier {
 
   void setUser(User user) {
     _user = user;
+    _account = user.selectedAccount;
     _storage.write(key: RecStorage.PREV_USER_DNI, value: user.username);
     _savedUser = user;
     notifyListeners();

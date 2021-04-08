@@ -9,14 +9,15 @@ class ButtonRec extends StatefulWidget {
   final double widthBox;
   final bool isButtonDisabled;
 
-  ButtonRec(
-      {this.text,
-      this.widget,
-      this.onPressed,
-      this.textColor = Colors.white,
-      this.backgroundColor = Colors.black,
-      this.widthBox,
-      this.isButtonDisabled});
+  ButtonRec({
+    this.text,
+    this.widget,
+    this.onPressed,
+    this.textColor = Colors.white,
+    this.backgroundColor = Colors.black,
+    this.widthBox,
+    this.isButtonDisabled,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -25,12 +26,6 @@ class ButtonRec extends StatefulWidget {
 }
 
 class ButtonRecState extends State<ButtonRec> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     var areWidget = true;
@@ -72,7 +67,7 @@ class ButtonRecState extends State<ButtonRec> {
     );
 
     return SizedBox(
-      width: widget.widthBox,
+      width: widget.widthBox + 18,
       height: 50.0,
       child: button,
     );

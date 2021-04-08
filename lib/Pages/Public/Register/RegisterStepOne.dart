@@ -57,7 +57,7 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
             },
           ),
           bottom: PreferredSize(
-            preferredSize: Size(362,167),
+            preferredSize: Size(362, 167),
             child: Container(
               child: Row(
                 children: [
@@ -74,29 +74,39 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                           onPressed: setToParticular,
                           iconSize: 50,
                         ),
-                        Text(localizations.translate('PARTICULAR'),style: TextStyle(color: isAccountPrivate?Colors.black:Colors.grey,fontSize: 12),)
+                        Text(
+                          localizations.translate('PARTICULAR'),
+                          style: TextStyle(
+                              color:
+                                  isAccountPrivate ? Colors.black : Colors.grey,
+                              fontSize: 12),
+                        )
                       ],
                     ),
                   ),
                   Container(
-                    width: 100,
-                    height: 84,
-                    margin: EdgeInsets.fromLTRB(0, 70,0, 25),
-
-                    child:Column(
-                      children: [
-                        IconButton(
-                          icon: isAccountPrivate
-                              ? Image.asset('assets/organization-bw.png')
-                              : Image.asset('assets/organization.png'),
-                          onPressed: setToOrganizations,
-                          iconSize: 40,
-                        ),
-                        Text(localizations.translate('ORGANIZATION'),style: TextStyle(color: isAccountPrivate?Colors.grey:Colors.black,fontSize: 12),)
-                      ],
-                    )
-
-                  ),
+                      width: 100,
+                      height: 84,
+                      margin: EdgeInsets.fromLTRB(0, 70, 0, 25),
+                      child: Column(
+                        children: [
+                          IconButton(
+                            icon: isAccountPrivate
+                                ? Image.asset('assets/organization-bw.png')
+                                : Image.asset('assets/organization.png'),
+                            onPressed: setToOrganizations,
+                            iconSize: 40,
+                          ),
+                          Text(
+                            localizations.translate('ORGANIZATION'),
+                            style: TextStyle(
+                                color: isAccountPrivate
+                                    ? Colors.grey
+                                    : Colors.black,
+                                fontSize: 12),
+                          )
+                        ],
+                      )),
                 ],
               ),
             ),
@@ -195,7 +205,10 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                                   keyboardType: TextInputType.phone,
                                   isPassword: false,
                                   isNumeric: true,
-                                  icon: Icon(Icons.phone,color: Brand.defectText,),
+                                  icon: Icon(
+                                    Icons.phone,
+                                    color: Brand.grayDark,
+                                  ),
                                   colorLine: isAccountPrivate
                                       ? Colors.blueAccent
                                       : Colors.orange,
@@ -217,7 +230,10 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                         keyboardType: TextInputType.text,
                         isPassword: false,
                         isNumeric: false,
-                        icon: Icon(Icons.person,color: Brand.defectText,),
+                        icon: Icon(
+                          Icons.person,
+                          color: Brand.grayDark,
+                        ),
                         colorLine: isAccountPrivate
                             ? Colors.blueAccent
                             : Colors.orange,
@@ -234,7 +250,10 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
                         keyboardType: TextInputType.text,
                         isPassword: false,
                         isNumeric: false,
-                        icon: Icon(Icons.lock,color: Brand.defectText,),
+                        icon: Icon(
+                          Icons.lock,
+                          color: Brand.grayDark,
+                        ),
                         colorLine: isAccountPrivate
                             ? Colors.blueAccent
                             : Colors.orange,

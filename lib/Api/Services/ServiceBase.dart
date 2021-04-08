@@ -5,7 +5,6 @@ import 'package:http/http.dart';
 import 'package:http_interceptor/http_client_with_interceptor.dart';
 import 'package:http_interceptor/interceptor_contract.dart';
 import 'package:rec/Api/Interceptors/ApiInterceptor.dart';
-import 'package:rec/Api/Auth.dart';
 
 abstract class ServiceBase {
   Client client;

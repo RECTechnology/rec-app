@@ -5,7 +5,7 @@ import '../../test_utils.dart';
 
 void main() {
   testWidgets('Login Page test build correctly', (WidgetTester tester) async {
-    var app = TestUtils.wrapPrivateRoute(LoginPage(false));
+    var app = TestUtils.wrapPrivateRoute(LoginPage());
 
     await tester.pumpWidget(app);
 

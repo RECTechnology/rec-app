@@ -1,46 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/CircleAvatar.dart';
-import 'package:rec/Components/Scaffold/AppBarMenu.dart';
+import 'package:rec/Components/Modals/AccountSelectorModal.dart';
 import 'package:rec/Providers/UserState.dart';
-import 'dart:math';
 
 import 'package:rec/brand.dart';
 
-class PrivateAppBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+class PrivateAppBar {
+  static AppBar getAppBar(BuildContext context, {PreferredSizeWidget bottom}) {
     var userState = UserState.of(context);
     var account = userState.user.selectedAccount;
-    return Container(
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10.0),
-            child: CircleAvatarRec(
-              imageUrl: account.publicImage,
-              name: account.name,
-            ),
-          ),
-          Text(
-            userState.user.selectedAccount.name,
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.w200),
-          )
-        ],
-      ),
-    );
-  }
+    var accountSelector = AccountSelectorModal(context);
 
-  static AppBar getAppBar(BuildContext context, {PreferredSizeWidget bottom}) {
     return AppBar(
       flexibleSpace: Container(
         decoration: BoxDecoration(
-          gradient: Brand.appBarGradient,
+          gradient: Brand.getGradientForAccount(account),
         ),
       ),
-      title: PrivateAppBar(),
+      elevation: 0,
+      leading: Container(
+        alignment: Alignment.center,
+        child: CircleAvatarRec(
+          imageUrl: account.publicImage,
+          name: account.name,
+          size: 35,
+        ),
+      ),
+      title: InkWell(
+        onTap: accountSelector.open,
+        child: Center(
+          child: Text(
+            userState.user.selectedAccount.name,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w200),
+          ),
+        ),
+      ),
       bottom: bottom,
       actions: [
-        AppBarMenu(),
+        InkWell(
+          onTap: accountSelector.open,
+          child: Container(
+            alignment: Alignment.center,
+            height: 45,
+            width: 65,
+            child: Icon(Icons.arrow_drop_down_sharp),
+          ),
+        ),
       ],
     );
   }

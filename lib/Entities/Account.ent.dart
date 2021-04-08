@@ -14,12 +14,14 @@ class Account extends Entity {
   String name;
   String companyImage;
   String publicImage;
+  String type;
 
   Account({
     String id,
     String createdAt,
     String updatedAt,
     this.name,
+    this.type,
     this.activities,
     this.consumingProducts,
     this.producingProducts,
@@ -38,6 +40,7 @@ class Account extends Entity {
       createdAt: json['created'],
       updatedAt: json['updated'],
       name: json['name'],
+      type: json['type'],
       publicImage: json['public_image'],
       companyImage: json['company_image'],
     );

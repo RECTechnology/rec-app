@@ -1,13 +1,18 @@
 abstract class Entity {
-  String createdAt;
-  String updatedAt;
+  DateTime createdAt;
+  DateTime updatedAt;
   String id;
 
   Entity(
     this.id,
-    this.createdAt,
-    this.updatedAt,
-  );
+    String createdAt,
+    String updatedAt,
+  ) {
+    this.createdAt =
+        createdAt != null ? DateTime.parse(createdAt) : DateTime.now();
+    this.updatedAt =
+        updatedAt != null ? DateTime.parse(updatedAt) : DateTime.now();
+  }
 
   Map<String, dynamic> toJson() {
     return Map.from({});

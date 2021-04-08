@@ -18,7 +18,8 @@ class RecoveryPasswordPage extends StatefulWidget {
   _RecoveryPasswordPageState createState() => _RecoveryPasswordPageState();
 }
 
-class _RecoveryPasswordPageState extends GenericRecViewScreen<RecoveryPasswordPage> {
+class _RecoveryPasswordPageState
+    extends GenericRecViewScreen<RecoveryPasswordPage> {
   String prefix = '+34';
   String telephone = '';
   String idDocument = '';
@@ -77,7 +78,10 @@ class _RecoveryPasswordPageState extends GenericRecViewScreen<RecoveryPasswordPa
                 keyboardType: TextInputType.text,
                 isPassword: false,
                 isNumeric: false,
-                icon: Icon(Icons.person,color: Brand.defectText,),
+                icon: Icon(
+                  Icons.person,
+                  color: Brand.grayDark,
+                ),
                 colorLine: Colors.blueAccent,
                 function: setIdDocument,
                 isPhone: false,
@@ -119,7 +123,10 @@ class _RecoveryPasswordPageState extends GenericRecViewScreen<RecoveryPasswordPa
                           keyboardType: TextInputType.phone,
                           isPassword: false,
                           isNumeric: true,
-                          icon: Icon(Icons.phone,color: Brand.defectText,),
+                          icon: Icon(
+                            Icons.phone,
+                            color: Brand.grayDark,
+                          ),
                           colorLine: Colors.blueAccent,
                           function: setPhone,
                           isPhone: false,

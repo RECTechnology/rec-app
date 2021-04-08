@@ -31,7 +31,6 @@ class _UserBalance extends State<UserBalance> {
                 fontSize: 40,
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
-                fontStyle: FontStyle.italic,
               ),
               textAlign: TextAlign.center,
             ),
@@ -39,7 +38,7 @@ class _UserBalance extends State<UserBalance> {
           Padding(
             padding: EdgeInsets.only(bottom: 10),
             child: Text(
-              localizations.translate('ACTUAL_BALANCE').toUpperCase(),
+              localizations.translate('TOTAL_BALANCE').toUpperCase(),
               style: TextStyle(fontSize: 15, color: Colors.white54),
             ),
           ),

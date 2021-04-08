@@ -60,5 +60,11 @@
   "HELP_US_VALIDATE_PHONE": "Ayúdanos a validar esta acción introduciendo el codigo enviado a ",
   "ERROR_CODE": "Error, el código introducido no es válido",
   "PARTICULAR": "PARTICULAR",
-  "ORGANIZATION": "ORGANIZAZCIÓN"
+  "ORGANIZATION": "ORGANIZAZCIÓN",
+  "TOTAL_BALANCE": "Saldo Total",
+  "CREDIT_CARD_TX": "Tarjeta bancaria",
+  "RECHARGE_EUR_REC": "Recarga realiza de euros a RECs",
+  "FROM": "De",
+  "FROM_CREDIT_CARD": "Desde",
+  "TO": "A"
 }

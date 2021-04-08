@@ -18,6 +18,15 @@ class GenericModal {
     );
   }
 
+  void showSimpleDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => Dialog(
+        child: widget,
+      ),
+    );
+  }
+
   void closeDialog(BuildContext context) {
     Navigator.of(context).pop();
   }

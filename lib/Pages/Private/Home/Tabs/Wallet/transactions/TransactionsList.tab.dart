@@ -41,7 +41,11 @@ class _TransactionsListState extends GenericRecViewScreen<TransactionsList> {
       color: Brand.primaryColor,
       onRefresh: transactionsProvider.refresh,
       child: hasTransactions
-          ? ListView.builder(
+          ? ListView.separated(
+              separatorBuilder: (context, index) => Divider(
+                color: Brand.separatorColor,
+                height: 1,
+              ),
               itemBuilder: (ctx, idx) => TransactionsListTile(
                 tx: transactionsProvider.get(idx),
               ),

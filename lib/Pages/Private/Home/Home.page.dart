@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Base/screens/GenericRecViewScreen.dart';
-import 'package:rec/Components/Scaffold/BottomNavigationBar.dart';
-import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Map/Map.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/Settings.page.dart';
@@ -63,8 +61,6 @@ class _HomePageState extends GenericRecViewScreen<HomePage>
       selectedItemColor: Brand.primaryColor,
       onTap: (int index) {
         setState(() => _currentTabIndex = index);
-        // _pageController.animateToPage(_currentTabIndex,
-        //     duration: Duration(milliseconds: 200), curve: Curves.bounceIn);
       },
     );
   }

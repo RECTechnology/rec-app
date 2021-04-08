@@ -20,7 +20,7 @@ class RecTextField extends StatefulWidget {
   final double textSize;
   final TextAlign textAlign;
   final double letterSpicing;
-  
+
   RecTextField(
       {this.title,
       this.keyboardType = TextInputType.text,
@@ -33,7 +33,7 @@ class RecTextField extends StatefulWidget {
       this.icon,
       this.validator,
       this.isPhone,
-       this.initialValue,
+      this.initialValue,
       this.textSize = 16,
       this.textAlign = TextAlign.left,
       this.letterSpicing = 0.0});
@@ -80,9 +80,10 @@ class _InputField extends State<RecTextField> {
                           changeObscureText();
                         });
                       },
-                      icon: Icon(obscureText
-                          ? Icons.visibility_off
-                          : Icons.visibility,color: Brand.defectText,),
+                      icon: Icon(
+                        obscureText ? Icons.visibility_off : Icons.visibility,
+                        color: Brand.grayDark,
+                      ),
                     )
                   : widget.icon,
               errorText: hasError ? error : null,
@@ -104,7 +105,7 @@ class _InputField extends State<RecTextField> {
 
   void onChanged(String string) {
     print(string);
-    if (widget.needObscureText == true ) {
+    if (widget.needObscureText == true) {
       setState(() {
         obscureText = true;
         isNotIcon = true;
