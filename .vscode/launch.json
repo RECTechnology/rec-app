@@ -5,12 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "rec_app_v2",
+            "name": "RecBarcelona - Dev",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "rec_app_v2 profile",
+            "name": "RecBarcelona - Dev profile",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"

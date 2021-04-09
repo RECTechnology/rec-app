@@ -1,4 +1,4 @@
-package com.example.rec_app_v2
+package com.rec.barcelona
 
 import io.flutter.embedding.android.FlutterActivity
 

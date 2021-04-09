@@ -16,6 +16,7 @@ jobs:
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter test
+  build-apk:
       - run: flutter build apk
       - uses: actions/upload-artifact@v2
         with:
