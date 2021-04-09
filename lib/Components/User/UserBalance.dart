@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:rec/Entities/Currency.ent.dart';
 import 'package:rec/Helpers/Formatting.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
-import 'package:rec/Providers/UserState.dart';
 
 class UserBalance extends StatefulWidget {
+  final double balance;
+  final Currency currency;
+
+  UserBalance({
+    this.balance,
+    Currency currency,
+  }) : currency = currency ?? Currency.rec;
+
   @override
   State<StatefulWidget> createState() {
     return _UserBalance();
@@ -15,7 +23,10 @@ class _UserBalance extends State<UserBalance> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
-    var userState = UserState.of(context);
+    var amount = Formatting.formatCurrency(
+      widget.balance,
+      symbol: widget.currency.symbol,
+    );
 
     return Container(
       margin: EdgeInsets.only(bottom: 40),
@@ -26,7 +37,7 @@ class _UserBalance extends State<UserBalance> {
           Padding(
             padding: EdgeInsets.only(bottom: 5.0),
             child: Text(
-              Formatting.formatCurrency(1000),
+              amount,
               style: TextStyle(
                 fontSize: 40,
                 color: Colors.white,

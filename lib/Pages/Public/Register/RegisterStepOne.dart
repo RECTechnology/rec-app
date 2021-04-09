@@ -1,24 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
 import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/RecTextField.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
-import 'package:rec/Providers/AppState.dart';
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Verify/VerifyDataRec.dart';
 import 'package:rec/brand.dart';
-import 'package:rec/Components/ToastRec.dart';
 
 class RegisterOne extends StatefulWidget {
   @override
   RegisterOneState createState() => RegisterOneState();
 }
 
-class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
+class RegisterOneState extends State<RegisterOne> {
   bool checkValue = false;
 
   String prefix = '+34';
@@ -34,12 +30,8 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
   bool get isAccountPrivate => accountType == Account.TYPE_PRIVATE;
 
   @override
-  Widget buildPageContent(
-    BuildContext context,
-    AppState state,
-    UserState userState,
-    AppLocalizations localizations,
-  ) {
+  Widget build(BuildContext context) {
+    var localizations = AppLocalizations.of(context);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(179.0),
@@ -345,14 +337,12 @@ class RegisterOneState extends GenericRecViewScreen<RegisterOne> {
 
   void next() {
     var localization = AppLocalizations.of(context);
-    ToastRec toastRec = ToastRec();
-
     if (!_formKey.currentState.validate()) return;
 
     if (checkValue && isAccountPrivate != true) {
       Navigator.of(context).pushNamed('/registerTwo', arguments: data);
     } else {
-      printToastRec(localization.translate("NO_ACORD_TERMS"));
+      printToastRec(localization.translate('NO_ACORD_TERMS'));
     }
   }
 

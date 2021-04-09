@@ -13,6 +13,5 @@ void main() {
     await tester.pumpAndSettle();
 
     TestUtils.widgetExistsByType(SettingsPage);
-    TestUtils.isTextPresent('Estoy en la pestaña de configuracion');
   });
 }

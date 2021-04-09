@@ -1,4 +1,3 @@
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
@@ -61,7 +60,7 @@ class _SendSMSPageState extends GenericRecViewScreen<SendSMSPage> {
             Container(
               margin: EdgeInsets.fromLTRB(32, 57, 32, 39),
               child: Text(
-                localizations.translate('HELP_US_VALIDATE_PHONE') + " " + phone,
+                localizations.translate('HELP_US_VALIDATE_PHONE') + ' ' + phone,
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.black54,
@@ -74,7 +73,7 @@ class _SendSMSPageState extends GenericRecViewScreen<SendSMSPage> {
               child: Container(
                 margin: EdgeInsets.fromLTRB(48, 0, 19, 0),
                 child: RecTextField(
-                  placeholder: "613335",
+                  placeholder: '613335',
                   needObscureText: false,
                   keyboardType: TextInputType.phone,
                   isPassword: false,
@@ -111,12 +110,11 @@ class _SendSMSPageState extends GenericRecViewScreen<SendSMSPage> {
 
   void sendSMS() {
     var localization = AppLocalizations.of(context);
-    ToastRec toastRec = ToastRec();
+    var toastRec = ToastRec();
     if (_formKey.currentState.validate()) {
       return;
     } else {
-      toastRec.printToastRec(
-          localization.translate('ERROR_CODE'), this.context);
+      toastRec.printToastRec(localization.translate('ERROR_CODE'), context);
     }
   }
 

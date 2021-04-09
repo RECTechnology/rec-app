@@ -8,6 +8,12 @@
             "name": "rec_app_v2",
             "request": "launch",
             "type": "dart"
+        },
+        {
+            "name": "rec_app_v2 profile",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
         }
     ]
 }

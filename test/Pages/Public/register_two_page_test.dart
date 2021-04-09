@@ -13,6 +13,5 @@ void main() {
     await tester.pumpAndSettle();
 
     TestUtils.widgetExistsByType(RegisterTwo);
-    TestUtils.isTextPresent('Registrarse');
   });
 }

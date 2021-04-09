@@ -222,7 +222,7 @@ class PayInInfo {
 }
 
 class ClientData {
-  ClientData() {}
+  ClientData();
 
   factory ClientData.fromJson(Map<String, dynamic> json) {
     return ClientData();

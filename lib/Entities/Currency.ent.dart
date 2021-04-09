@@ -13,4 +13,10 @@ class Currency {
 
   static Currency rec = Currency('rec', 'R', 8, 2);
   static Currency eur = Currency('eur', '€', 2, 2);
+  static List<Currency> all = [Currency.eur, Currency.rec];
+  static Currency find(String name) {
+    return Currency.all.firstWhere(
+      (element) => element.name.toUpperCase() == name.toUpperCase(),
+    );
+  }
 }

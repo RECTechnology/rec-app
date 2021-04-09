@@ -1,27 +1,37 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:rec/Base/screens/GenericRecViewScreen.dart';
-import 'package:rec/Lang/AppLocalizations.dart';
+import 'package:rec/Api/Services/UsersService.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Map/Map.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/Settings.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/Wallet.page.dart';
-import 'package:rec/Providers/AppState.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
+import 'package:rec/preferences.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+  final bool pollUser;
+  final int defaultTab;
+
+  HomePage({
+    Key key,
+    this.pollUser = true,
+    this.defaultTab = 1,
+  }) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends GenericRecViewScreen<HomePage>
+class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  _HomePageState() : super(title: 'Home', hasAppBar: true);
+  UserState _userState;
 
-  int _currentTabIndex = 1;
+  int _currentTabIndex;
   TabController _tabController;
+  UsersService users = UsersService();
+  Timer _userPollTimer;
 
   final List<Widget> _tabs = <Widget>[
     MapPage(),
@@ -32,13 +42,23 @@ class _HomePageState extends GenericRecViewScreen<HomePage>
   @override
   void initState() {
     super.initState();
+    _currentTabIndex = widget.defaultTab;
     _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    _userState ??= UserState.of(context);
+    if (widget.pollUser) _userPollTimer ??= getUserTimer();
+  }
+
+  @override
   void dispose() {
-    super.dispose();
     _tabController.dispose();
+    _userPollTimer?.cancel();
+    super.dispose();
   }
 
   Widget _bottomNavigationBar() {
@@ -65,16 +85,24 @@ class _HomePageState extends GenericRecViewScreen<HomePage>
     );
   }
 
-  @override
-  Widget buildPageContent(
-    BuildContext context,
-    AppState appState,
-    UserState userState,
-    AppLocalizations localizations,
-  ) {
+  Timer getUserTimer() {
+    return Timer.periodic(
+      Preferences.userRefreshInterval,
+      (_) {
+        users.getUser().then((value) => _userState?.setUser(value));
+      },
+    );
+  }
+
+  Widget buildPageContent() {
     return Scaffold(
       body: _tabs.elementAt(_currentTabIndex),
       bottomNavigationBar: _bottomNavigationBar(),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return buildPageContent();
   }
 }

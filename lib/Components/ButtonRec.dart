@@ -33,6 +33,7 @@ class ButtonRecState extends State<ButtonRec> {
       areWidget = false;
     }
 
+    // ignore: deprecated_member_use
     var button = RaisedButton(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0),
@@ -66,10 +67,6 @@ class ButtonRecState extends State<ButtonRec> {
       ),
     );
 
-    return SizedBox(
-      width: widget.widthBox + 18,
-      height: 50.0,
-      child: button,
-    );
+    return button;
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rec/Components/Transactions/TransactionListTile.dart';
+import 'package:rec/Components/Wallet/TransactionListTile.dart';
 
 import '../../mocks/transactions_mock.dart';
 import '../../test_utils.dart';
@@ -21,7 +21,7 @@ void main() {
     // Esto espera a que este todo cargado
     await tester.pumpAndSettle();
 
-    TestUtils.widgetExistsByWidget(txListTile);
+    TestUtils.widgetExists(txListTile);
     TestUtils.isTextPresent(
       TransactionMock.transactionOut.payOutInfo.nameReceiver,
     );

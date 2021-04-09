@@ -4,6 +4,7 @@ import 'package:rec/Components/CircleAvatar.dart';
 import 'package:rec/Helpers/Borders.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/UserState.dart';
+import 'package:rec/brand.dart';
 
 class AccountSelectorModal {
   final BuildContext context;
@@ -91,7 +92,14 @@ class AccountSelectorModal {
                 padding: const EdgeInsets.only(top: 10.0),
                 child: OutlinedButton(
                   onPressed: () {},
-                  child: Text(localization.translate('MANAGE_ACCOUNT')),
+                  style: OutlinedButton.styleFrom(
+                    primary: Brand.grayDark,
+                    side: BorderSide(width: 1, color: Brand.grayDark2),
+                  ),
+                  child: Text(
+                    localization.translate('MANAGE_ACCOUNT'),
+                    style: TextStyle(color: Brand.grayDark2),
+                  ),
                 ),
               ),
             ],

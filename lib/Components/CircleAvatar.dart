@@ -31,7 +31,6 @@ class _CircleAvatarRecState extends State<CircleAvatarRec> {
   Widget build(BuildContext context) {
     if (widget.imageUrl != null && widget.imageUrl.isNotEmpty) {
       return CircleAvatar(
-        // radius: widget.size / 2,
         backgroundImage: NetworkImage(widget.imageUrl),
       );
     }
@@ -39,17 +38,15 @@ class _CircleAvatarRecState extends State<CircleAvatarRec> {
     var randomColor = ColorHelper.getRandomColorForSeed(getSeed());
     if (widget.name != null) {
       return CircleAvatar(
-        // radius: widget.size / 2,
         backgroundColor: randomColor,
         child: Text(
-          widget.name[0],
+          widget.name[0].toUpperCase(),
           style: TextStyle(color: ColorHelper.getContrastColor(randomColor)),
         ),
       );
     }
 
     return CircleAvatar(
-      // radius: widget.size / 2,
       backgroundColor: randomColor,
       child: Text(
         'P',

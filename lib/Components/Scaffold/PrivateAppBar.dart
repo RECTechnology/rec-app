@@ -5,25 +5,47 @@ import 'package:rec/Providers/UserState.dart';
 
 import 'package:rec/brand.dart';
 
-class PrivateAppBar {
-  static AppBar getAppBar(BuildContext context, {PreferredSizeWidget bottom}) {
+class PrivateAppBar extends StatefulWidget with PreferredSizeWidget {
+  final Widget bottom;
+  final int size;
+
+  const PrivateAppBar({Key key, this.bottom, this.size = 80}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _PrivateAppBar();
+  }
+
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight + size);
+}
+
+class _PrivateAppBar extends State<PrivateAppBar> {
+  @override
+  Widget build(BuildContext context) {
     var userState = UserState.of(context);
     var account = userState.user.selectedAccount;
     var accountSelector = AccountSelectorModal(context);
 
     return AppBar(
+      toolbarHeight: kToolbarHeight,
       flexibleSpace: Container(
         decoration: BoxDecoration(
           gradient: Brand.getGradientForAccount(account),
         ),
       ),
       elevation: 0,
-      leading: Container(
-        alignment: Alignment.center,
-        child: CircleAvatarRec(
-          imageUrl: account.publicImage,
-          name: account.name,
-          size: 35,
+      // TODO: This (using InkWell) is a bit weird
+      // I could not find a better way of implementing opening the menu from the app bar, unless adding InkWell to each part
+      leading: InkWell(
+        onTap: accountSelector.open,
+        child: Container(
+          alignment: Alignment.center,
+          child: CircleAvatarRec(
+            imageUrl: account.publicImage,
+            name: account.name,
+            size: 35,
+          ),
         ),
       ),
       title: InkWell(
@@ -36,7 +58,7 @@ class PrivateAppBar {
           ),
         ),
       ),
-      bottom: bottom,
+      bottom: widget.bottom,
       actions: [
         InkWell(
           onTap: accountSelector.open,

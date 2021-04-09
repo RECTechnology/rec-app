@@ -24,7 +24,7 @@ class Brand {
 
   // Text Colors
   static const Color grayDark = Color(0xff3B3B3B);
-  static const Color grayDark2 = Color(0xff5f5f5f);
+  static const Color grayDark2 = Color(0xff4f4f4f);
   static const Color grayLight = Color(0xff666666);
 
   static const Color amountNegative = Color(0xffD91636);

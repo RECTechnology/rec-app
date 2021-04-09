@@ -12,9 +12,12 @@ class UserState with ChangeNotifier {
 
   User _user;
   User _savedUser;
-  Account _account;
 
-  UserState(this._storage, this._savedUser);
+  UserState(
+    this._storage,
+    this._savedUser, {
+    User user,
+  }) : _user = user;
 
   static UserState of(context) {
     return Provider.of<UserState>(context);
@@ -31,7 +34,6 @@ class UserState with ChangeNotifier {
 
   void clear() {
     _user = null;
-    _account = null;
   }
 
   User get user {
@@ -40,19 +42,13 @@ class UserState with ChangeNotifier {
 
   void setUser(User user) {
     _user = user;
-    _account = user.selectedAccount;
     _storage.write(key: RecStorage.PREV_USER_DNI, value: user.username);
     _savedUser = user;
     notifyListeners();
   }
 
   Account get account {
-    return _account;
-  }
-
-  void setAccount(Account account) {
-    _account = account;
-    notifyListeners();
+    return user?.selectedAccount;
   }
 
   String get username {

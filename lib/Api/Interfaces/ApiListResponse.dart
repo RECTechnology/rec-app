@@ -20,7 +20,9 @@ class ApiListResponse<T> {
     }
 
     return ApiListResponse(
-      items: List.from(json['elements']).map((el) => mapper(el)).toList(),
+      items: json['elements'] != null && !json['elements'].isEmpty
+          ? List.from(json['elements']).map((el) => mapper(el)).toList()
+          : [],
       total: json['total'],
     );
   }

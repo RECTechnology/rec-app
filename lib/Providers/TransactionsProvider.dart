@@ -7,15 +7,24 @@ class TransactionProvider with ChangeNotifier {
   List<Transaction> _transactions = [];
   int _total = 0;
   bool hasRequested = false;
+  bool loading = false;
 
-  TransactionsService txs = TransactionsService();
+  final TransactionsService txService;
+
+  int _limit = 10;
+  int _offset = 0;
+
+  TransactionProvider(this.txService);
 
   static TransactionProvider of(context) {
     return Provider.of<TransactionProvider>(context);
   }
 
-  static ChangeNotifierProvider<TransactionProvider> getProvider() {
-    return ChangeNotifierProvider(create: (context) => TransactionProvider());
+  static ChangeNotifierProvider<TransactionProvider> getProvider(
+      TransactionsService txService) {
+    return ChangeNotifierProvider(
+      create: (context) => TransactionProvider(txService),
+    );
   }
 
   bool hasTransactions() {
@@ -30,18 +39,20 @@ class TransactionProvider with ChangeNotifier {
     return _transactions.length;
   }
 
-  Future<void> refresh() {
-    hasRequested = true;
-    return txs.list().then((value) {
-      setTransactions(value.items);
-      setTotal(value.total);
+  Future<void> loadData() {
+    return txService.list(offset: _offset, limit: _limit).then((value) {
+      _transactions = value.items;
+      _total = value.total;
+      loading = false;
     }).catchError((e) {
-      print(e);
+      loading = false;
     });
   }
 
-  int get total {
-    return _total;
+  Future<void> refresh() {
+    hasRequested = true;
+    loading = true;
+    return loadData().then((value) => notifyListeners());
   }
 
   List<Transaction> get transactions {
@@ -53,7 +64,35 @@ class TransactionProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  int get total {
+    return _total;
+  }
+
   void setTotal(int total) {
     _total = total;
+  }
+
+  int get offset {
+    return _offset;
+  }
+
+  void setOffset(int offset) {
+    _offset = offset;
+    refresh().then((value) => notifyListeners());
+  }
+
+  int get limit {
+    return _limit;
+  }
+
+  void setLimit(int limit) {
+    _limit = limit;
+    refresh().then((value) => notifyListeners());
+  }
+
+  void loadMore() {
+    if (length < total) {
+      setLimit(limit + 10);
+    }
   }
 }

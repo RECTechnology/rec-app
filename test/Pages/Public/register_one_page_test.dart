@@ -13,6 +13,5 @@ void main() {
     await tester.pumpAndSettle();
 
     TestUtils.widgetExistsByType(RegisterOne);
-    TestUtils.isTextPresent('Siguiente');
   });
 }

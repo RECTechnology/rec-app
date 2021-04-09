@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Services/UsersService.dart';
+import 'package:rec/Components/Indicators/LoadingIndicator.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/routes.dart';
 
@@ -41,13 +42,7 @@ class _PrivateRouteState extends State<PrivateRoute> {
 
   @override
   Widget build(BuildContext context) {
-    return loading
-        ? Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [CircularProgressIndicator()],
-          )
-        : route;
+    return loading ? LoadingIndicator() : route;
   }
 
   void loadUser() {

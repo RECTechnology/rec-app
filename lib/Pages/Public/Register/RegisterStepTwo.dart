@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
 import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/RecTextField.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
-import 'package:rec/Providers/AppState.dart';
-import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Verify/VerifyDataRec.dart';
 import 'package:rec/brand.dart';
 
@@ -15,7 +12,7 @@ class RegisterTwo extends StatefulWidget {
   RegisterTwoState createState() => RegisterTwoState();
 }
 
-class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
+class RegisterTwoState extends State<RegisterTwo> {
   String userName = '';
   String CIF = '';
   String email = '';
@@ -23,12 +20,8 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
   final _formKey = GlobalKey<FormState>();
 
   @override
-  Widget buildPageContent(
-    BuildContext context,
-    AppState state,
-    UserState userState,
-    AppLocalizations localizations,
-  ) {
+  Widget build(BuildContext context) {
+    var localizations = AppLocalizations.of(context);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(197.0),
@@ -57,6 +50,7 @@ class RegisterTwoState extends GenericRecViewScreen<RegisterTwo> {
                           IconButton(
                             icon: Image.asset('assets/organization.png'),
                             iconSize: 40,
+                            onPressed: () {},
                           ),
                           Text(
                             localizations.translate('ORGANIZATION'),

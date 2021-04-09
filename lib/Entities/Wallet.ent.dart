@@ -1,13 +1,30 @@
 import 'Currency.ent.dart';
+// ignore: library_prefixes
+import 'dart:math' as Math;
 
 class Wallet {
   final Currency currency;
-  final double balance;
-  final double available;
+  final int balance;
+  final int available;
+  final String status;
 
-  Wallet(
+  Wallet({
     this.currency,
     this.balance,
     this.available,
-  );
+    this.status,
+  });
+
+  double getScaledBalance() {
+    return balance / Math.pow(10, currency.scale);
+  }
+
+  factory Wallet.fromJson(Map<String, dynamic> json) {
+    //
+    return Wallet(
+      currency: Currency.find(json['currency']),
+      balance: json['balance'],
+      available: json['available'],
+    );
+  }
 }

@@ -1,4 +1,6 @@
 import 'package:rec/Base/Entity.base.dart';
+import 'package:rec/Entities/Currency.ent.dart';
+import 'package:rec/Entities/Wallet.ent.dart';
 
 import 'Activity.ent.dart';
 import 'Product.ent.dart';
@@ -10,6 +12,7 @@ class Account extends Entity {
   List<Activity> activities = [];
   List<Product> producingProducts = [];
   List<Product> consumingProducts = [];
+  List<Wallet> wallets = [];
 
   String name;
   String companyImage;
@@ -27,7 +30,37 @@ class Account extends Entity {
     this.producingProducts,
     this.companyImage,
     this.publicImage,
+    this.wallets = const [],
   }) : super(id, createdAt, updatedAt);
+
+  bool isPrivate() {
+    return type == Account.TYPE_PRIVATE;
+  }
+
+  bool isCompany() {
+    return type == Account.TYPE_COMPANY;
+  }
+
+  Wallet getWallet(String currencyName) {
+    return wallets
+        .firstWhere((element) => element.currency.name == currencyName);
+  }
+
+  Wallet getWalletByCurrency(Currency currency) {
+    return wallets.firstWhere((element) => element.currency == currency);
+  }
+
+  int getWalletBalance(String currencyName) {
+    return wallets
+        .firstWhere((element) => element.currency.name == currencyName)
+        .balance;
+  }
+
+  int getWalletBalanceByCurrency(Currency currency) {
+    return wallets
+        .firstWhere((element) => element.currency == currency)
+        .balance;
+  }
 
   @override
   Map<String, dynamic> toJson() {
@@ -35,6 +68,9 @@ class Account extends Entity {
   }
 
   factory Account.fromJson(Map<String, dynamic> json) {
+    var wallets = List.from(json['wallets']);
+    wallets = wallets.map((el) => Wallet.fromJson(el)).toList();
+
     return Account(
       id: '${json['id']}',
       createdAt: json['created'],
@@ -43,6 +79,7 @@ class Account extends Entity {
       type: json['type'],
       publicImage: json['public_image'],
       companyImage: json['company_image'],
+      wallets: wallets,
     );
   }
 }

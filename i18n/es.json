@@ -74,5 +74,7 @@
   "PAY_QR": "Pagar con QR",
   "ADD_ANOTHER_ACCOUNT": "Añadir otra cuenta",
   "MANAGE_ACCOUNT": "Gestiona tu cuenta del REC",
-  "MY_ACCOUNTS": "Mis cuentas"
+  "MY_ACCOUNTS": "Mis cuentas",
+  "CHARGE": "Cobrar",
+  "LOAD_MORE": "Cargar mas"
 }

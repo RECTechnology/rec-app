@@ -18,7 +18,6 @@ class _RecAppState extends State<RecApp> {
   Widget build(BuildContext context) {
     var hasToken = widget.token != null;
 
-
     return MaterialApp(
       title: Brand.appName,
       theme: Brand.createTheme(),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class BoxDecorations {
   static BoxDecoration create({
-    color: Colors.white,
-    double radius: 5,
+    color = Colors.white,
+    double radius = 5,
     double boxShadow = 0.2,
   }) {
     return BoxDecoration(
