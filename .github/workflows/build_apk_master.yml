@@ -1,9 +1,6 @@
-name: Test & Build APK
+name: Test & Lint PR
 
-on:
-  push:
-    branches:
-      - main
+on: pull_request
 
 jobs:
   test:
@@ -22,5 +19,5 @@ jobs:
       - run: flutter build apk
       - uses: actions/upload-artifact@v2
         with:
-          name: Latest Pre-Release APK
+          name: Apk
           path: build/app/outputs/flutter-apk/app-release.apk
