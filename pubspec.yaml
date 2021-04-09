@@ -1,7 +1,7 @@
 name: rec
 description: Rec Barcelona app.
 publish_to: 'none' 
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: '>=2.7.0 <3.0.0'
@@ -36,11 +36,12 @@ dev_dependencies:
   test: ^1.15.7
   pedantic: ^1.9.2
   image_test_utils: ^1.0.0
+  flutter_launcher_icons: "^0.8.0"
 
 flutter_icons:    
   android: "launcher_icon"    
   ios: true    
-  image_path: "assets/logo.png"   
+  image_path: "assets/logo.png"
 
 flutter:
    assets:

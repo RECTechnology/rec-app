@@ -1,4 +1,4 @@
-name: Test & Lint PR
+name: Test & Build APK (pr)
 
 on: pull_request
 
