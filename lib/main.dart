@@ -3,18 +3,20 @@ import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Services/AppService.dart';
-import 'package:rec/Api/Services/TransactionsService.dart';
 import 'package:rec/Api/Storage.dart';
 import 'package:rec/Providers/TransactionsProvider.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/app.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'Api/Services/TransactionsService.dart';
 import 'Environments/env-local.dart';
 import 'Providers/AppState.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await AppService().getAppToken();
 
   timeago.setLocaleMessages('es', timeago.EsMessages());
 

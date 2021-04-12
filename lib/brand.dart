@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:rec/Entities/Account.ent.dart';
 
 class Brand {
-  static String appName = 'REC';
-  static String logoUrl = 'assets/logo.jpg';
+  static const String appName = 'REC';
+  static const String logoUrl = 'assets/logo.jpg';
   static const Color primaryColor = Color(0xff0098DA);
-
   static const Color primaryColorLight = Color(0xff0C6FF0);
   static const Color accentColor = Color(0xffE05205);
-
   static const Color backgroundPrivateColor = Color(0xffe5f5fc);
   static const Color backgroundCompanyColor = Color(0xfffcede6);
+  static const Color defectText = Color(0xff343434);
 
   static const Color defaultAvatarBackground = Color(0xffF2F2F2);
   static const Color separatorColor = Color(0xffE0E0E0);
@@ -42,6 +41,13 @@ class Brand {
     begin: Alignment(.5, 1.3),
     end: Alignment(-.3, -0.8),
     colors: <Color>[Brand.gradientSecondaryLight, Brand.gradientSecondaryDark],
+  );
+
+  static LinearGradient appBarGradient = LinearGradient(
+    begin: Alignment.bottomRight,
+    end: Alignment.topLeft,
+    colors: <Color>[primaryColor, accentColor],
+    stops: [7.91, 62],
   );
 
   static Color getColorForAccountType(String type) {

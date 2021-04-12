@@ -54,13 +54,6 @@ class _HomePageState extends State<HomePage>
     if (widget.pollUser) _userPollTimer ??= getUserTimer();
   }
 
-  @override
-  void dispose() {
-    _tabController.dispose();
-    _userPollTimer?.cancel();
-    super.dispose();
-  }
-
   Widget _bottomNavigationBar() {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
@@ -83,6 +76,13 @@ class _HomePageState extends State<HomePage>
         setState(() => _currentTabIndex = index);
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    _userPollTimer?.cancel();
+    super.dispose();
   }
 
   Timer getUserTimer() {

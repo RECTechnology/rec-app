@@ -8,6 +8,7 @@ import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:rec/Verify/VerifyDataRec.dart';
 import 'package:rec/brand.dart';
+import 'package:rec/Components/ToastRec.dart';
 
 class RegisterOne extends StatefulWidget {
   @override
@@ -337,6 +338,8 @@ class RegisterOneState extends State<RegisterOne> {
 
   void next() {
     var localization = AppLocalizations.of(context);
+    ToastRec toastRec = ToastRec();
+
     if (!_formKey.currentState.validate()) return;
 
     if (checkValue && isAccountPrivate != true) {
@@ -352,9 +355,8 @@ class RegisterOneState extends State<RegisterOne> {
         content: Text(msg.toString()),
         duration: const Duration(milliseconds: 2000),
         width: 300.0,
-        // Width of the SnackBar.
         padding: const EdgeInsets.symmetric(
-          horizontal: 8.0, // Inner padding for SnackBar content.
+          horizontal: 8.0,
         ),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(

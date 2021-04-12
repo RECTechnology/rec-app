@@ -42,22 +42,23 @@ class RegisterTwoState extends State<RegisterTwo> {
               child: Row(
                 children: [
                   Container(
-                      width: 95,
-                      height: 80,
-                      margin: EdgeInsets.fromLTRB(147, 60, 156, 27),
-                      child: Column(
-                        children: [
-                          IconButton(
-                            icon: Image.asset('assets/organization.png'),
-                            iconSize: 40,
-                            onPressed: () {},
-                          ),
-                          Text(
-                            localizations.translate('ORGANIZATION'),
-                            style: TextStyle(color: Colors.black, fontSize: 12),
-                          )
-                        ],
-                      )),
+                    width: 95,
+                    height: 80,
+                    margin: EdgeInsets.fromLTRB(147, 60, 156, 27),
+                    child: Column(
+                      children: [
+                        IconButton(
+                          icon: Image.asset('assets/organization.png'),
+                          iconSize: 40,
+                          onPressed: () {},
+                        ),
+                        Text(
+                          localizations.translate('ORGANIZATION'),
+                          style: TextStyle(color: Colors.black, fontSize: 12),
+                        )
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -1,0 +1,170 @@
+import 'package:country_code_picker/country_code_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:rec/Api/Services/ChangePasswordService.dart';
+import 'package:rec/Api/Storage.dart';
+import 'package:rec/Base/screens/GenericRecViewScreen.dart';
+import 'package:rec/Components/ButtonRec.dart';
+import 'package:rec/Components/IconButton.dart';
+import 'package:rec/Components/RecTextField.dart';
+
+import 'package:rec/Lang/AppLocalizations.dart';
+import 'package:rec/Providers/AppState.dart';
+import 'package:rec/Providers/UserState.dart';
+import 'package:rec/Verify/VerifyDataRec.dart';
+
+import '../../../brand.dart';
+
+class ChangePasswordPage extends StatefulWidget {
+  ChangePasswordPage();
+
+  @override
+  _ChangePasswordPageState createState() => _ChangePasswordPageState();
+}
+
+class _ChangePasswordPageState
+    extends GenericRecViewScreen<ChangePasswordPage> {
+  String password = '';
+  String repassword = '';
+  final _formKey = GlobalKey<FormState>();
+  ChangePasswordService changePasswordService = ChangePasswordService();
+
+  @override
+  Widget buildPageContent(
+    BuildContext context,
+    AppState state,
+    UserState userState,
+    AppLocalizations localizations,
+  ) {
+    String sms = ModalRoute.of(context).settings.arguments;
+    var storage = RecStorage();
+
+    void changePassword() {
+      if (_formKey.currentState.validate()) {
+        storage.read(key: 'token').then((value) {
+          changePasswordService.changePassword(
+              accesToken: value,
+              password: password,
+              repassword: repassword,
+              code: sms);
+        });
+      }
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: IconButtonRec(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+                margin: EdgeInsets.fromLTRB(33, 20, 32, 0),
+                child: Center(
+                  child: Text(
+                    localizations.translate('CHANGE_YOUR_PASSWORD'),
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                    ),
+                    textAlign: TextAlign.right,
+                  ),
+                )),
+            Container(
+                margin: EdgeInsets.fromLTRB(33, 20, 32, 38),
+                child: Center(
+                  child: Text(
+                    localizations.translate('IPUT_NEW_PASSWORD'),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.black54,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                )),
+            Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(32, 0, 32, 0),
+                      child: RecTextField(
+                        initialValue: password,
+                        isNumeric: false,
+                        keyboardType: TextInputType.text,
+                        needObscureText: true,
+                        placeholder: localizations.translate('NEW_PASSWORD'),
+                        isPassword: false,
+                        function: setPassword,
+                        colorLine: Brand.primaryColor,
+                        validator: (String password) {
+                          if (password == repassword) {
+                            return null;
+                          } else {
+                            return localizations.translate('NOT_SAME_PASSWORD');
+                          }
+                        },
+                        isPhone: false,
+                        icon: Icon(Icons.lock),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(32, 0, 32, 0),
+                      child: RecTextField(
+                        initialValue: password,
+                        isNumeric: false,
+                        keyboardType: TextInputType.text,
+                        needObscureText: true,
+                        placeholder:
+                            localizations.translate('REPEAT_NEW_PASSWORD'),
+                        isPassword: false,
+                        function: setRePassword,
+                        colorLine: Brand.primaryColor,
+                        validator: (String rePassword) {
+                          if (rePassword == password) {
+                            return null;
+                          } else {
+                            return localizations.translate('NOT_SAME_PASSWORD');
+                          }
+                        },
+                        isPhone: false,
+                        icon: Icon(Icons.lock),
+                      ),
+                    ),
+                  ],
+                )),
+            Container(
+                margin: EdgeInsets.fromLTRB(20, 245, 20, 0),
+                //Left,Top,Right,Bottom
+                //Left,Top,Right,Bottom
+                child: ButtonRec(
+                  textColor: Colors.white,
+                  backgroundColor: Colors.blue,
+                  onPressed: changePassword,
+                  widthBox: 370,
+                  isButtonDisabled: false,
+                  widget: Icon(Icons.arrow_forward_ios),
+                  text: localizations.translate('CHANGE'),
+                )),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void setPassword(String password) {
+    this.password = password;
+  }
+
+  void setRePassword(String rePassword) {
+    this.repassword = password;
+  }
+}

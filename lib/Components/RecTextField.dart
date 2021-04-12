@@ -82,7 +82,7 @@ class _InputField extends State<RecTextField> {
                       },
                       icon: Icon(
                         obscureText ? Icons.visibility_off : Icons.visibility,
-                        color: Brand.grayDark,
+                        color: Brand.defectText,
                       ),
                     )
                   : widget.icon,

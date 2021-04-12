@@ -8,7 +8,6 @@ class CircleAvatarRec extends StatefulWidget {
   final double size;
 
   CircleAvatarRec({
-    // his.imageUrl,
     String imageUrl,
     String name,
     String seed,

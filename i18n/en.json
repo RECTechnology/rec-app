@@ -52,7 +52,6 @@
   "NO_TX": "There are no transactions",
   "ITRODUCE_DNI_TELF": "Introduce tu documento de identidad y el teléfono vinculado a tu usuario para poder cambiar tu contraseña",
   "VALIDATE": "Validar",
-  "NEW_PASSWORD": "Contraseña nueva",
   "REPEAT_PASSWORD": "Repetir contraseña nueva",
   "INTRODUCE_NEW_PASSWORD": "Introduce tu nueva contraseña y repitela para asegurarnos de que no haya ningún error",
   "NO_ACORD_TERMS": "Para continuar debes aceptar los Términos de Uso del REC",

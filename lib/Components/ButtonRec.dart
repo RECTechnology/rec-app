@@ -47,7 +47,7 @@ class ButtonRecState extends State<ButtonRec> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(
-              height: 10,
+              height: 11,
             ),
             Container(
               margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
