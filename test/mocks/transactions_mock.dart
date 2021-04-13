@@ -1,4 +1,4 @@
-import 'package:rec/Entities/Transaction.ent.dart';
+import 'package:rec/Entities/Transactions/Transaction.ent.dart';
 
 class TransactionMock {
   static Transaction transactionIn = Transaction.fromJson({

@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:rec/Api/Services/TransactionsService.dart';
-import 'package:rec/Entities/Transaction.ent.dart';
+import 'package:rec/Entities/Transactions/Transaction.ent.dart';
 
 class TransactionProvider with ChangeNotifier {
   List<Transaction> _transactions = [];

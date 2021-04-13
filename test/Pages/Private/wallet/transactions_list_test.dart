@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:rec/Api/Services/TransactionsService.dart';
 import 'package:rec/Api/Storage.dart';
 import 'package:rec/Components/Wallet/TransactionListTile.dart';
-import 'package:rec/Entities/Transaction.ent.dart';
+import 'package:rec/Entities/Transactions/Transaction.ent.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/transactions/TransactionsList.tab.dart';
 import 'package:rec/Providers/TransactionsProvider.dart';
 import 'package:rec/Providers/UserState.dart';

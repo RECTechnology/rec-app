@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:rec/Components/CircleAvatar.dart';
-import 'package:rec/Entities/Transaction.ent.dart';
+import 'package:rec/Components/Modals/TransactionDetailsModal.dart';
+import 'package:rec/Components/Wallet/Transactions/TransactionIcon.dart';
+import 'package:rec/Components/Wallet/Transactions/TransactionTitle.dart';
+import 'package:rec/Entities/Transactions/Transaction.ent.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -36,136 +38,67 @@ class _TransactionsListTile extends State<TransactionsListTile> {
 
   @override
   Widget build(BuildContext context) {
-    var title = getTitle();
+    var title = TransactionTitle(widget.tx);
     var concept = getConcept();
-    var icon = getIcon();
+    var icon = TransactionIcon(widget.tx);
     var amount = getAmount();
     var date = getDate();
+    var detailsModal = TransactionDetailsModal(context);
 
-    return Padding(
-      padding: widget.padding,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: Container(
-              alignment: Alignment.centerLeft,
-              height: height,
-              width: height,
-              child: icon,
-            ),
-          ),
-          Expanded(
-            flex: 4,
-            child: Container(
-              height: height,
-              margin: EdgeInsets.only(left: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [title, concept],
+    return InkWell(
+      onTap: () => detailsModal.open(widget.tx),
+      child: Padding(
+        padding: widget.padding,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: Container(
+                alignment: Alignment.centerLeft,
+                height: height,
+                width: height,
+                child: icon,
               ),
             ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Container(
-              height: height,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 5.0),
-                    child: date,
-                  ),
-                  amount,
-                ],
+            Expanded(
+              flex: 4,
+              child: Container(
+                height: height,
+                margin: EdgeInsets.only(left: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [title, concept],
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget getTitle() {
-    var localizations = AppLocalizations.of(context);
-
-    var prefix = 'FROM';
-    var owner = '';
-
-    if (tx.isRecharge()) {
-      prefix = localizations.translate('FROM_CREDIT_CARD');
-      owner = localizations.translate('CREDIT_CARD_TX');
-    } else if (tx.isOut()) {
-      prefix = localizations.translate('TO');
-      owner = tx.payOutInfo.nameReceiver;
-    } else if (tx.isIn()) {
-      prefix = localizations.translate('FROM');
-      owner = tx.payInInfo.nameSender;
-    }
-
-    return RichText(
-      text: TextSpan(
-        text: prefix,
-        style: DefaultTextStyle.of(context)
-            .style
-            .copyWith(fontSize: 14, color: Brand.grayDark),
-        children: <TextSpan>[
-          TextSpan(
-            text: ' $owner',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-              color: Brand.grayDark,
+            Expanded(
+              flex: 2,
+              child: Container(
+                height: height,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 5.0),
+                      child: date,
+                    ),
+                    amount,
+                  ],
+                ),
+              ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget getIcon() {
-    if (tx.isRecharge()) {
-      return Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: Brand.defaultAvatarBackground,
-          shape: BoxShape.circle,
+          ],
         ),
-        child: Center(child: Icon(Icons.credit_card, color: Brand.grayDark)),
-      );
-    }
-
-    if (tx.isOut()) {
-      return CircleAvatarRec(
-        imageUrl: tx.payOutInfo.imageReceiver,
-        name: tx.payOutInfo.nameReceiver,
-        size: 40,
-      );
-    }
-
-    return CircleAvatarRec(
-      size: 40,
-      imageUrl: tx.payInInfo.imageSender,
-      name: tx.payInInfo.nameSender,
+      ),
     );
   }
 
   Text getConcept() {
     var localizations = AppLocalizations.of(context);
-    var concept = '';
-
-    if (tx.isRecharge()) {
-      concept = 'RECHARGE_EUR_REC';
-    } else if (tx.isOut()) {
-      concept = tx.payOutInfo.concept;
-    } else if (tx.isIn()) {
-      concept = tx.payInInfo.concept;
-    }
+    var concept = tx.getConcept();
 
     return Text(
       localizations.translate(concept.isEmpty ? 'NO_CONCEPT' : concept),

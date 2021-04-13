@@ -6,7 +6,7 @@ import 'package:http/testing.dart';
 import 'package:provider/provider.dart';
 import 'package:rec/Api/Services/TransactionsService.dart';
 import 'package:rec/Api/Storage.dart';
-import 'package:rec/Entities/Transaction.ent.dart';
+import 'package:rec/Entities/Transactions/Transaction.ent.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/Wallet.page.dart';
 import 'package:rec/Providers/TransactionsProvider.dart';
 import 'package:rec/Providers/UserState.dart';

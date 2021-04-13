@@ -36,7 +36,6 @@ class _LoggedInBeforeCard extends State<LoggedInBeforeCard> {
               child: CircleAvatarRec(
                 imageUrl: widget.savedUser.image,
                 name: widget.savedUser.username,
-                size: 50,
               ),
             ),
             Column(

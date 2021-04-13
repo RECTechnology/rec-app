@@ -147,7 +147,8 @@ class RegisterOneState extends State<RegisterOne> {
                               color: Colors.deepOrange,
                             ),
                             onPressed: () {
-                              printToastRec(
+                              ToastRec.printToastRec(
+                                context,
                                 localizations.translate('INTRODUCE_INFO'),
                               );
                             },
@@ -338,32 +339,13 @@ class RegisterOneState extends State<RegisterOne> {
 
   void next() {
     var localization = AppLocalizations.of(context);
-    ToastRec toastRec = ToastRec();
-
     if (!_formKey.currentState.validate()) return;
 
     if (checkValue && isAccountPrivate != true) {
       Navigator.of(context).pushNamed('/registerTwo', arguments: data);
     } else {
-      printToastRec(localization.translate('NO_ACORD_TERMS'));
+      ToastRec.printToastRec(context, localization.translate('NO_ACORD_TERMS'));
     }
-  }
-
-  void printToastRec(String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(msg.toString()),
-        duration: const Duration(milliseconds: 2000),
-        width: 300.0,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 8.0,
-        ),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-    );
   }
 
   void setAccountType(String type) {

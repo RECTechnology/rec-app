@@ -1,5 +1,8 @@
-import 'package:rec/Base/Entity.base.dart';
 import 'dart:math';
+
+import 'package:rec/Base/Entity.base.dart';
+import 'package:rec/Entities/Transactions/PayInInfo.dart';
+import 'package:rec/Entities/Transactions/PayOutInfo.dart';
 
 class TransactionType {
   static String OUT = 'out';
@@ -20,6 +23,7 @@ class Transaction extends Entity {
   String hasDataIn;
   String currency;
   String type;
+
   TransactionType internalType;
 
   int amount;
@@ -29,7 +33,6 @@ class Transaction extends Entity {
   int notificationTries;
 
   double scaledAmount;
-
   double variableFee;
   double fixedFee;
 
@@ -39,7 +42,6 @@ class Transaction extends Entity {
 
   PayOutInfo payOutInfo;
   PayInInfo payInInfo;
-  ClientData clientData;
 
   Transaction({
     String id,
@@ -64,7 +66,6 @@ class Transaction extends Entity {
     this.notified,
     this.payOutInfo,
     this.payInInfo,
-    this.clientData,
   }) : super(id, createdAt, updatedAt) {
     scaledAmount = (amount / pow(10, scale));
   }
@@ -97,6 +98,22 @@ class Transaction extends Entity {
     return payOutInfo != null;
   }
 
+  String getConcept() {
+    if (isRecharge()) {
+      return 'RECHARGE_EUR_REC';
+    }
+
+    if (isOut()) {
+      return payOutInfo.concept;
+    }
+
+    if (isIn()) {
+      return payInInfo.concept;
+    }
+
+    return 'NO_CONCEPT';
+  }
+
   factory Transaction.fromJson(Map<String, dynamic> json) {
     return Transaction(
       id: json['id'],
@@ -126,105 +143,5 @@ class Transaction extends Entity {
           ? PayInInfo.fromJson(json['pay_in_info'])
           : null,
     );
-  }
-}
-
-class PayOutInfo {
-  String address;
-  String txId;
-  String status;
-  String imageReceiver;
-  String nameReceiver;
-  String concept;
-
-  int amount;
-
-  bool isFinal;
-
-  PayOutInfo({
-    this.address,
-    this.amount,
-    this.txId,
-    this.status,
-    this.isFinal,
-    this.imageReceiver,
-    this.nameReceiver,
-    this.concept,
-  });
-
-  factory PayOutInfo.fromJson(Map<String, dynamic> json) {
-    return PayOutInfo(
-      address: json['address'],
-      amount: json['amount'],
-      concept: json['concept'] ?? '',
-      txId: json['txid'],
-      status: json['status'],
-      isFinal: json['final'],
-      imageReceiver: json['image_receiver'],
-      nameReceiver: json['name_receiver'],
-    );
-  }
-}
-
-class PayInInfo {
-  int amount;
-  int received;
-  int scale;
-  int expiresIn;
-  int minComfirmations;
-  int confimations;
-
-  String currency;
-  String address;
-  String txId;
-  String status;
-  String concept;
-  String imageSender;
-  String nameSender;
-
-  bool isFinal;
-
-  PayInInfo({
-    this.amount,
-    this.received,
-    this.scale,
-    this.expiresIn,
-    this.minComfirmations,
-    this.confimations,
-    this.currency,
-    this.address,
-    this.txId,
-    this.status,
-    this.concept,
-    this.isFinal,
-    this.imageSender,
-    this.nameSender,
-  });
-
-  factory PayInInfo.fromJson(Map<String, dynamic> json) {
-    return PayInInfo(
-      amount: json['amount'],
-      received: json['received'],
-      scale: json['scale'],
-      expiresIn: json['expires_in'],
-      minComfirmations: json['min_comfirmations'],
-      confimations: json['confimations'],
-      currency: json['currency'],
-      concept: json['concept'],
-      address: json['address'],
-      txId: json['txid'],
-      status: json['status'],
-      isFinal: json['final'],
-      imageSender: json['image_sender'],
-      nameSender: json['name_sender'],
-    );
-  }
-}
-
-class ClientData {
-  ClientData();
-
-  factory ClientData.fromJson(Map<String, dynamic> json) {
-    return ClientData();
   }
 }

@@ -1,4 +1,3 @@
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Services/ChangePasswordService.dart';
 import 'package:rec/Api/Storage.dart';
@@ -10,9 +9,7 @@ import 'package:rec/Components/RecTextField.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 import 'package:rec/Providers/UserState.dart';
-import 'package:rec/Verify/VerifyDataRec.dart';
-
-import '../../../brand.dart';
+import 'package:rec/brand.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   ChangePasswordPage();
@@ -42,10 +39,11 @@ class _ChangePasswordPageState
       if (_formKey.currentState.validate()) {
         storage.read(key: 'token').then((value) {
           changePasswordService.changePassword(
-              accesToken: value,
-              password: password,
-              repassword: repassword,
-              code: sms);
+            accesToken: value,
+            password: password,
+            repassword: repassword,
+            code: sms,
+          );
         });
       }
     }
@@ -142,18 +140,19 @@ class _ChangePasswordPageState
                   ],
                 )),
             Container(
-                margin: EdgeInsets.fromLTRB(20, 245, 20, 0),
-                //Left,Top,Right,Bottom
-                //Left,Top,Right,Bottom
-                child: ButtonRec(
-                  textColor: Colors.white,
-                  backgroundColor: Colors.blue,
-                  onPressed: changePassword,
-                  widthBox: 370,
-                  isButtonDisabled: false,
-                  widget: Icon(Icons.arrow_forward_ios),
-                  text: localizations.translate('CHANGE'),
-                )),
+              margin: EdgeInsets.fromLTRB(20, 245, 20, 0),
+              //Left,Top,Right,Bottom
+              //Left,Top,Right,Bottom
+              child: ButtonRec(
+                textColor: Colors.white,
+                backgroundColor: Colors.blue,
+                onPressed: changePassword,
+                widthBox: 370,
+                isButtonDisabled: false,
+                widget: Icon(Icons.arrow_forward_ios),
+                text: localizations.translate('CHANGE'),
+              ),
+            ),
           ],
         ),
       ),
@@ -165,6 +164,6 @@ class _ChangePasswordPageState
   }
 
   void setRePassword(String rePassword) {
-    this.repassword = password;
+    repassword = rePassword;
   }
 }

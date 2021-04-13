@@ -77,7 +77,6 @@ class AccountSelectorModal {
                   CircleAvatarRec(
                     imageUrl: account.publicImage,
                     name: account.name,
-                    size: 35,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 15.0),

@@ -3,7 +3,7 @@ import 'package:rec/Api/ApiPaths.dart';
 import 'package:rec/Api/Interceptors/InjectTokenInterceptor.dart';
 import 'package:rec/Api/Interfaces/ApiListResponse.dart';
 import 'package:rec/Api/Services/ServiceBase.dart';
-import 'package:rec/Entities/Transaction.ent.dart';
+import 'package:rec/Entities/Transactions/Transaction.ent.dart';
 
 class TransactionsService extends ServiceBase {
   TransactionsService({Client client})

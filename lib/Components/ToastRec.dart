@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ToastRec {
-  void printToastRec(String msg, BuildContext context) {
+  static void printToastRec(
+    BuildContext context,
+    String msg,
+  ) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(msg.toString()),

@@ -32,6 +32,12 @@ class _SendSMSPageState extends GenericRecViewScreen<SendSMSPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _timer.cancel();
+  }
+
+  @override
   Widget buildPageContent(
     BuildContext context,
     AppState state,
@@ -44,15 +50,15 @@ class _SendSMSPageState extends GenericRecViewScreen<SendSMSPage> {
 
     void sendedSMS() {
       var localization = AppLocalizations.of(context);
-      var toastRec = ToastRec();
-
       if (_formKey.currentState.validate()) {
         isChangePassword == 'yes'
             ? Navigator.of(context).pushNamed('/changePassword', arguments: sms)
             : Navigator.of(context).pushNamed('/login', arguments: sms);
       } else {
-        toastRec.printToastRec(
-            localization.translate('ERROR_CODE'), this.context);
+        ToastRec.printToastRec(
+          context,
+          localization.translate('ERROR_CODE'),
+        );
       }
     }
 
@@ -86,7 +92,7 @@ class _SendSMSPageState extends GenericRecViewScreen<SendSMSPage> {
             Container(
               margin: EdgeInsets.fromLTRB(32, 57, 32, 0),
               child: Text(
-                localizations.translate('HELP_US_VALIDATE_PHONE') + " ",
+                localizations.translate('HELP_US_VALIDATE_PHONE') + ' ',
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.black54,

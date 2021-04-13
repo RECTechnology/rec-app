@@ -71,5 +71,9 @@
   "MANAGE_ACCOUNT": "Gestiona tu cuenta del REC",
   "MY_ACCOUNTS": "Mis cuentas",
   "CHARGE": "Cobrar",
-  "LOAD_MORE": "Cargar mas"
+  "LOAD_MORE": "Cargar mas",
+  "TX_STATUS": "Estado de transacción",
+  "TX_ID": "ID de transacción",
+
+  "STATUS_SUCCESS": "Completado"
 }

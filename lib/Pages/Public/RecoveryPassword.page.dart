@@ -11,18 +11,15 @@ import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Verify/VerifyDataRec.dart';
-
-import '../../Api/Storage.dart';
-import '../../Styles/Paddings.dart';
-import '../../brand.dart';
+import 'package:rec/brand.dart';
 
 class RecoveryPasswordPage extends StatefulWidget {
-
   @override
   _RecoveryPasswordPageState createState() => _RecoveryPasswordPageState();
 }
 
-class _RecoveryPasswordPageState extends GenericRecViewScreen<RecoveryPasswordPage> {
+class _RecoveryPasswordPageState
+    extends GenericRecViewScreen<RecoveryPasswordPage> {
   SMSService smsService = SMSService();
   String idDocument = '';
   String phone = '649516729';
@@ -30,24 +27,30 @@ class _RecoveryPasswordPageState extends GenericRecViewScreen<RecoveryPasswordPa
   final _formKey = GlobalKey<FormState>();
   @override
   Widget buildPageContent(
-      BuildContext context,
-      AppState state,
-      UserState userState,
-      AppLocalizations localizations,
-      ) {
-
-
-    void goNext(){
+    BuildContext context,
+    AppState state,
+    UserState userState,
+    AppLocalizations localizations,
+  ) {
+    void goNext() {
       Auth.getAppToken().then((value) {
         if (!_formKey.currentState.validate()) return;
-        Map<String,String> data = {'phone':phone,'isChangePassword':'no'};
-        Navigator.of(context).pushNamed('/sendSMS',arguments: data,);
-        smsService. sendSMS(dni: idDocument, phone: (prefix +" "+ phone),accesToken: value);
 
+        smsService.sendSMS(
+          dni: idDocument,
+          phone: '$prefix $phone',
+          accesToken: value,
+        );
+
+        Navigator.of(context).pushNamed(
+          '/sendSMS',
+          arguments: {
+            'phone': phone,
+            'isChangePassword': 'no',
+          },
+        );
       });
     }
-
-
 
     return Scaffold(
       appBar: AppBar(
@@ -184,7 +187,6 @@ class _RecoveryPasswordPageState extends GenericRecViewScreen<RecoveryPasswordPa
         ),
       ),
     );
-
   }
 
   void setDni(String idDocument) {
@@ -198,6 +200,4 @@ class _RecoveryPasswordPageState extends GenericRecViewScreen<RecoveryPasswordPa
   void setPrefix(CountryCode prefix) {
     this.prefix = prefix.toString();
   }
-
-
 }

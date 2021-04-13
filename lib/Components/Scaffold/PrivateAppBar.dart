@@ -35,7 +35,7 @@ class _PrivateAppBar extends State<PrivateAppBar> {
         ),
       ),
       elevation: 0,
-      // TODO: This (using InkWell) is a bit weird
+      // This (using InkWell) is a bit weird
       // I could not find a better way of implementing opening the menu from the app bar, unless adding InkWell to each part
       leading: InkWell(
         onTap: accountSelector.open,
@@ -44,7 +44,6 @@ class _PrivateAppBar extends State<PrivateAppBar> {
           child: CircleAvatarRec(
             imageUrl: account.publicImage,
             name: account.name,
-            size: 35,
           ),
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:rec/Entities/Account.ent.dart';
 class Brand {
   static const String appName = 'REC';
   static const String logoUrl = 'assets/logo.jpg';
+
   static const Color primaryColor = Color(0xff0098DA);
   static const Color primaryColorLight = Color(0xff0C6FF0);
   static const Color accentColor = Color(0xffE05205);
@@ -24,7 +25,9 @@ class Brand {
   // Text Colors
   static const Color grayDark = Color(0xff3B3B3B);
   static const Color grayDark2 = Color(0xff4f4f4f);
+
   static const Color grayLight = Color(0xff666666);
+  static const Color grayLight2 = Color(0xffBDBDBD);
 
   static const Color amountNegative = Color(0xffD91636);
 
