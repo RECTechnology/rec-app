@@ -15,14 +15,7 @@ import 'Providers/AppState.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  await AppService().getAppToken();
-
-  timeago.setLocaleMessages('es', timeago.EsMessages());
-
-  await AppService().getAppToken();
-  Brand.configLoading();
+  await setup();
 
   var _storage = RecStorage();
   var savedUser = await UserState.getSavedUser(_storage);
@@ -49,4 +42,15 @@ Future<void> main() async {
   } else {
     runApp(appProvided);
   }
+}
+
+Future<void> setup() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await AppService().getAppToken();
+
+  timeago.setLocaleMessages('es', timeago.EsMessages());
+
+  await AppService().getAppToken();
+  Brand.configLoading();
 }
