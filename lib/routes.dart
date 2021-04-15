@@ -27,7 +27,7 @@ class Routes {
 }
 
 final Map<String, Widget Function(BuildContext)> ROUTES = {
-  Routes.login: (context) => HomePage(),
+  Routes.login: (context) => LoginPage(),
   Routes.recoveryPassword: (context) => RecoveryPasswordPage(),
   Routes.pinPage: (context) => PinPage(),
   Routes.registerOne: (context) => RegisterOne(),

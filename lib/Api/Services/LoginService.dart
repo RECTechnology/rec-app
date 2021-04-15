@@ -10,8 +10,8 @@ class LoginService extends ServiceBase {
 
   Future login({String username, String password}) async {
     var body = {
-      'username': username,
-      'password': password,
+      'username': '$username',
+      'password': '$password',
       'grant_type': GrantTypes.password,
       'client_id': env.CLIENT_ID,
       'client_secret': env.CLIENT_SECRET,

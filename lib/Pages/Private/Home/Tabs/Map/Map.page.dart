@@ -8,6 +8,7 @@ import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Api/Services/MapService.dart';
+import 'package:rec/Entities/Marck.ent.dart';
 
 import '../../../../../Api/Auth.dart';
 
@@ -25,27 +26,33 @@ class _MapPageState extends GenericRecViewScreen<MapPage> {
   @override
   void initState() {
     super.initState();
-    Auth.getAppToken().then((value) {
-      mapService.getMarks(accesToken: value).then((value) {
-        print("Getting Valueeeeeeee");
-        print(value);
-      }).onError((error, stackTrace) {
-        print("Im in on error");
-        print(error);
-      });
-    });
-
-
   }
 
+  Set<Marker> _markers = {};
 
-  CameraPosition _initialPosition = CameraPosition(target: LatLng(41.4414534,   2.2086006));
+  final CameraPosition _initialPosition =
+      CameraPosition(target: LatLng(41.4414534, 2.2086006));
   final Completer<GoogleMapController> _controller = Completer();
-
 
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
+    setState(() {
+      List marcks;
+      Auth.getAccessToken().then((value) {
+        mapService.getMarks(accesToken: value).then((value) {
+          marcks = value.items;
+          for (Marck element in marcks) {
+            _markers.add(Marker(
+                markerId: MarkerId(element.id),
+                position: LatLng(element.lat, element.long)));
+          }
+        }).onError((error, stackTrace) {
+          print(error);
+        });
+      });
+    });
   }
+
   @override
   Widget buildPageContent(
     BuildContext context,
@@ -57,8 +64,8 @@ class _MapPageState extends GenericRecViewScreen<MapPage> {
       body: Center(
         child: GoogleMap(
           onMapCreated: _onMapCreated,
+          markers: _markers,
           initialCameraPosition: _initialPosition,
-
         ),
       ),
     );
