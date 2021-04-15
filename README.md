@@ -7,6 +7,10 @@ Desde la aplicación del rec se puede realizar cualquier operación y poner en c
 
 ----
 
+[![Test & Build APK (main)](https://github.com/QbitArtifacts/rec_app_v2/actions/workflows/test_main.yml/badge.svg)](https://github.com/QbitArtifacts/rec_app_v2/actions/workflows/test_main.yml)
+
+----
+
 ## Flutter help
 
 A few resources to get you started if this is your first Flutter project:
