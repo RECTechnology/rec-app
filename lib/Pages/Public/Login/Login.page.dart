@@ -152,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _registerButton() {
     return Container(
-      width: 250,
+      width: MediaQuery.of(context).size.width * 0.7,
       child: RecActionButton(
           label: 'REGISTER',
           onPressed: registerButtonPressed,
