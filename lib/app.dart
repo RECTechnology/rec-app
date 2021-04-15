@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:rec/Lang/AppLocalizations.dart';
 import 'package:rec/brand.dart';
@@ -42,6 +43,7 @@ class _RecAppState extends State<RecApp> {
       },
       initialRoute: Routes.getInitialRoute(hasToken: hasToken),
       routes: ROUTES,
+      builder: EasyLoading.init(),
     );
   }
 }

@@ -11,6 +11,13 @@ class UsersService extends ServiceBase {
     return get(uri).then(_mapToUser);
   }
 
+  Future<Map<String, dynamic>> changeAccount(String accountId) {
+    final uri = ApiPaths.changeAccount.withQueryParams({
+      'group_id': accountId,
+    }).toUri();
+    return put(uri, {'group_id': accountId});
+  }
+
   User _mapToUser(Map<String, dynamic> resp) {
     return User.fromJson(resp['data']);
   }

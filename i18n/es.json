@@ -75,5 +75,6 @@
   "TX_STATUS": "Estado de transacción",
   "TX_ID": "ID de transacción",
 
-  "STATUS_SUCCESS": "Completado"
+  "STATUS_SUCCESS": "Completado",
+  "NO_TRANSACTIONS": "No hay transacciones"
 }

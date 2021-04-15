@@ -16,12 +16,13 @@ class TransactionProvider with ChangeNotifier {
 
   TransactionProvider(this.txService);
 
-  static TransactionProvider of(context) {
-    return Provider.of<TransactionProvider>(context);
+  static TransactionProvider of(context, {bool listen = true}) {
+    return Provider.of<TransactionProvider>(context, listen: listen);
   }
 
   static ChangeNotifierProvider<TransactionProvider> getProvider(
-      TransactionsService txService) {
+    TransactionsService txService,
+  ) {
     return ChangeNotifierProvider(
       create: (context) => TransactionProvider(txService),
     );
