@@ -29,6 +29,7 @@ class Brand {
 
   static const Color grayLight = Color(0xff666666);
   static const Color grayLight2 = Color(0xffBDBDBD);
+  static const Color grayIcon = Color(0xffBFBFBF);
 
   static const Color amountNegative = Color(0xffD91636);
 
@@ -98,10 +99,12 @@ class Brand {
     EasyLoading.instance
       ..displayDuration = const Duration(milliseconds: 2000)
       ..indicatorType = EasyLoadingIndicatorType.ring
-      ..loadingStyle = EasyLoadingStyle.light
+      ..loadingStyle = EasyLoadingStyle.custom
       ..indicatorSize = 45.0
       ..radius = 10.0
+      ..backgroundColor = Colors.white
       ..indicatorColor = Brand.primaryColor
+      ..textColor = Brand.primaryColor
       ..maskType = EasyLoadingMaskType.black
       ..maskColor = Colors.blue.withOpacity(0.5)
       ..userInteractions = true

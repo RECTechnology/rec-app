@@ -1,4 +1,4 @@
-import 'package:rec/Base/Entity.base.dart';
+import 'package:rec/Entities/Entity.base.dart';
 import 'package:rec/Entities/Account.ent.dart';
 
 class User extends Entity {

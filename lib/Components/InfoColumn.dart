@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Lang/AppLocalizations.dart';
+import 'package:rec/Providers/AppLocalizations.dart';
 
 class InfoColumn extends StatefulWidget {
   final String label;

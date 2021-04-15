@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Services/ChangePasswordService.dart';
 import 'package:rec/Api/Storage.dart';
-import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
-import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/RecTextField.dart';
 
-import 'package:rec/Lang/AppLocalizations.dart';
-import 'package:rec/Providers/AppState.dart';
-import 'package:rec/Providers/UserState.dart';
+import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 
 class ChangePasswordPage extends StatefulWidget {
@@ -18,20 +14,15 @@ class ChangePasswordPage extends StatefulWidget {
   _ChangePasswordPageState createState() => _ChangePasswordPageState();
 }
 
-class _ChangePasswordPageState
-    extends GenericRecViewScreen<ChangePasswordPage> {
+class _ChangePasswordPageState extends State<ChangePasswordPage> {
   String password = '';
   String repassword = '';
   final _formKey = GlobalKey<FormState>();
   ChangePasswordService changePasswordService = ChangePasswordService();
 
   @override
-  Widget buildPageContent(
-    BuildContext context,
-    AppState state,
-    UserState userState,
-    AppLocalizations localizations,
-  ) {
+  Widget build(BuildContext context) {
+    var localizations = AppLocalizations.of(context);
     String sms = ModalRoute.of(context).settings.arguments;
     var storage = RecStorage();
 
@@ -51,7 +42,7 @@ class _ChangePasswordPageState
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: IconButtonRec(
+        leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
             color: Colors.black,
@@ -101,7 +92,7 @@ class _ChangePasswordPageState
                         needObscureText: true,
                         placeholder: localizations.translate('NEW_PASSWORD'),
                         isPassword: false,
-                        function: setPassword,
+                        onChange: setPassword,
                         colorLine: Brand.primaryColor,
                         validator: (String password) {
                           if (password == repassword) {
@@ -124,7 +115,7 @@ class _ChangePasswordPageState
                         placeholder:
                             localizations.translate('REPEAT_NEW_PASSWORD'),
                         isPassword: false,
-                        function: setRePassword,
+                        onChange: setRePassword,
                         colorLine: Brand.primaryColor,
                         validator: (String rePassword) {
                           if (rePassword == password) {

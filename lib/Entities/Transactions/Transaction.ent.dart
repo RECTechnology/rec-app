@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:rec/Base/Entity.base.dart';
+import 'package:rec/Entities/Entity.base.dart';
 import 'package:rec/Entities/Transactions/PayInInfo.dart';
 import 'package:rec/Entities/Transactions/PayOutInfo.dart';
 

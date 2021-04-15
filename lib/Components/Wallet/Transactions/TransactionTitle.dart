@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Entities/Transactions/Transaction.ent.dart';
-import 'package:rec/Lang/AppLocalizations.dart';
+import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 
 class TransactionTitle extends StatefulWidget {

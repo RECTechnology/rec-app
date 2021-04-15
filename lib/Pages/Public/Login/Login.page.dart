@@ -1,14 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:rec/Api/Services/LoginService.dart';
-import 'package:rec/Base/screens/GenericRecViewScreen.dart';
-import 'package:rec/Components/ButtonRec.dart';
 import 'package:rec/Components/LoggedInBeforeCard.dart';
+import 'package:rec/Components/RecActionButton.dart';
 
 import 'package:rec/Components/RecTextField.dart';
+import 'package:rec/Components/RecToast.dart';
 import 'package:rec/Entities/User.ent.dart';
-import 'package:rec/Lang/AppLocalizations.dart';
-import 'package:rec/Providers/AppState.dart';
+import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/brand.dart';
@@ -19,9 +19,9 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends GenericRecViewScreen<LoginPage> {
-  String dni = '';
-  String password = '';
+class _LoginPageState extends State<LoginPage> {
+  String dni;
+  String password;
   String userName = '';
   User savedUser;
 
@@ -36,14 +36,15 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
   }
 
   @override
-  Widget buildPageContent(
-    BuildContext context,
-    AppState state,
-    UserState userState,
-    AppLocalizations localizations,
-  ) {
+  Widget build(BuildContext context) {
+    var userState = UserState.of(context);
+    var localizations = AppLocalizations.of(context);
     var savedUser = userState.savedUser;
     var hasSavedUser = userState.hasSavedUser();
+
+    if (hasSavedUser) {
+      setDni(savedUser.username);
+    }
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -59,50 +60,25 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
                           savedUser: savedUser,
                           onNotYou: () => onNotYou(userState),
                         )
-                      : RecTextField(
-                          initialValue: dni,
-                          isNumeric: false,
-                          keyboardType: TextInputType.text,
-                          needObscureText: false,
-                          placeholder:
-                              localizations.translate('WRITE_DOCUMENT'),
-                          title: localizations.translate('DNI'),
-                          isPassword: false,
-                          function: setDni,
-                          colorLine: Brand.primaryColor,
-                          validator: (String string) {},
-                          isPhone: false,
-                          icon: Icon(Icons.account_circle),
-                        ),
-                  _passwordField(localizations),
-                  _forgotPassLink(localizations),
-                  _loginButton(localizations, userState),
+                      : _dniField(),
+                  _passwordField(),
+                  _forgotPassLink(),
+                  _loginButton(),
                   (!hasSavedUser)
                       ? Container(
                           alignment: Alignment.center,
                           width: 300,
-                          margin: EdgeInsets.fromLTRB(0, 60, 0, 0),
+                          margin: EdgeInsets.fromLTRB(0, 70, 0, 16),
                           child: Text(
                             localizations.translate('NOT_REGISTRED'),
-                            style:
-                                TextStyle(fontSize: 14, color: Colors.black87),
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black87,
+                            ),
                           ),
                         )
                       : SizedBox(),
-                  (!hasSavedUser)
-                      ? Container(
-                          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                          child: ButtonRec(
-                            textColor: Colors.white,
-                            backgroundColor: Brand.primaryColor,
-                            onPressed: singIn,
-                            widthBox: 250,
-                            isButtonDisabled: isDisabled,
-                            widget: Icon(Icons.arrow_forward_ios),
-                            text: localizations.translate('REGISTER'),
-                          ),
-                        )
-                      : SizedBox(),
+                  (!hasSavedUser) ? _registerButton() : SizedBox(),
                 ],
               ),
             )
@@ -112,26 +88,53 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
     );
   }
 
-  Widget _passwordField(AppLocalizations localizations) {
+  Widget _dniField() {
+    var localizations = AppLocalizations.of(context);
+    return RecTextField(
+      label: 'DNI',
+      initialValue: dni,
+      isNumeric: false,
+      keyboardType: TextInputType.text,
+      needObscureText: false,
+      placeholder: localizations.translate('WRITE_DOCUMENT'),
+      isPassword: false,
+      onChange: setDni,
+      colorLine: Brand.primaryColor,
+      validator: (String string) {},
+      isPhone: false,
+      icon: Icon(
+        Icons.account_circle,
+        color: Brand.grayIcon,
+      ),
+    );
+  }
+
+  Widget _passwordField() {
+    var localizations = AppLocalizations.of(context);
     return Padding(
       padding: Paddings.textField,
       child: RecTextField(
+        label: localizations.translate('PASSWORD'),
         initialValue: password,
         isNumeric: false,
         keyboardType: TextInputType.text,
         needObscureText: true,
         placeholder: localizations.translate('WRITE_PASSWORD'),
         isPassword: false,
-        function: setPassword,
+        onChange: setPassword,
         colorLine: Brand.primaryColor,
         validator: (String string) {},
         isPhone: false,
-        icon: Icon(Icons.lock),
+        icon: Icon(
+          Icons.lock,
+          color: Brand.grayIcon,
+        ),
       ),
     );
   }
 
-  Widget _forgotPassLink(AppLocalizations localizations) {
+  Widget _forgotPassLink() {
+    var localizations = AppLocalizations.of(context);
     return Container(
       alignment: Alignment.topRight,
       child: RichText(
@@ -147,81 +150,69 @@ class _LoginPageState extends GenericRecViewScreen<LoginPage> {
     );
   }
 
-  Widget _loginButton(AppLocalizations localizations, UserState userState) {
-    return Padding(
-      padding: Paddings.button,
-      child: ButtonRec(
-        textColor: Colors.white,
-        backgroundColor: Brand.primaryColor,
-        onPressed: () => login(
-          (userState.hasSavedUser() ? userState.savedUser.username : dni),
-          password,
-        ),
-        widthBox: 370,
-        isButtonDisabled: isDisabled,
-        widget: Icon(Icons.arrow_forward_ios),
-        text: localizations.translate('LOGIN'),
-      ),
+  Widget _registerButton() {
+    return Container(
+      width: 250,
+      child: RecActionButton(
+          label: 'REGISTER',
+          onPressed: registerButtonPressed,
+          icon: Icons.arrow_forward_ios,
+          padding: EdgeInsets.all(0)),
+    );
+  }
+
+  Widget _loginButton() {
+    return RecActionButton(
+      label: 'LOGIN',
+      disabled: (dni == null || dni.isEmpty) ||
+          (password == null || password.isEmpty),
+      onPressed: loginButtonPressed,
+      icon: Icons.arrow_forward_ios,
     );
   }
 
   Widget _header() {
     return Container(
-      child: Image(
-        image: AssetImage('assets/login-header.jpg'),
-      ),
+      child: Image(image: AssetImage('assets/login-header.jpg')),
     );
   }
 
-  void setDni(String dniTextField) {
-    dni = dniTextField;
+  void setDni(String newValue) {
+    setState(() => dni = newValue);
   }
 
-  void setPassword(String passwordTextField) {
-    password = passwordTextField;
+  void setPassword(String newValue) {
+    setState(() => password = newValue);
   }
 
-  void singIn() {
+  void registerButtonPressed() {
     Navigator.of(context).pushNamed(Routes.registerOne);
   }
 
-  void login(dni, password) {
+  void loginButtonPressed() async {
     setEnabled(false);
-    loginService
+
+    await EasyLoading.show(status: 'Loading');
+
+    await loginService
         .login(username: dni, password: password)
-        .then(onLogin)
-        .catchError(onError);
+        .then(onLoginSuccess)
+        .catchError(onLoginError);
+
+    setEnabled(true);
+    await EasyLoading.dismiss();
   }
 
-  void onLogin(response) {
-    if (response['error_description'] == null) {
-      Navigator.of(context).pushReplacementNamed(Routes.home);
-    } else {
-      setEnabled(true);
-      onError(response['error_description']);
-    }
+  void onLoginSuccess(response) {
+    Navigator.of(context).pushReplacementNamed(Routes.home);
+  }
+
+  void onLoginError(error) {
+    RecToast.show(context, error['body']['error_description']);
   }
 
   void setEnabled(bool enabled) {
     setState(() => isDisabled = !enabled);
-  }
-
-  void onError(error) {
-    setEnabled(true);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(error.toString()),
-        duration: const Duration(milliseconds: 1500),
-        width: 300.0,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 8.0,
-        ),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-    );
   }
 
   void onNotYou(UserState userState) async {

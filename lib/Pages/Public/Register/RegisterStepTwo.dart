@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rec/Components/ButtonRec.dart';
-import 'package:rec/Components/IconButton.dart';
+import 'package:rec/Components/RecActionButton.dart';
 import 'package:rec/Components/RecTextField.dart';
-import 'package:rec/Lang/AppLocalizations.dart';
-import 'package:rec/Verify/VerifyDataRec.dart';
+import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/Styles/Paddings.dart';
+import 'package:rec/Helpers/VerifyDataRec.dart';
 import 'package:rec/brand.dart';
 
 class RegisterTwo extends StatefulWidget {
@@ -21,56 +21,61 @@ class RegisterTwoState extends State<RegisterTwo> {
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(197.0),
-        child: AppBar(
-          backgroundColor: Brand.backgroundCompanyColor,
-          leading: IconButtonRec(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+      appBar: _header(),
+      body: _body(),
+    );
+  }
+
+  Widget _header() {
+    var localizations = AppLocalizations.of(context);
+    return PreferredSize(
+      preferredSize: Size.fromHeight(170),
+      child: AppBar(
+        backgroundColor: Brand.backgroundCompanyColor,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
           ),
-          bottom: PreferredSize(
-            preferredSize: Size(300, 197),
-            child: Container(
-              child: Row(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(140),
+          child: Container(
+            height: 100,
+            child: Center(
+              child: Column(
                 children: [
-                  Container(
-                    width: 95,
-                    height: 80,
-                    margin: EdgeInsets.fromLTRB(147, 60, 156, 27),
-                    child: Column(
-                      children: [
-                        IconButton(
-                          icon: Image.asset('assets/organization.png'),
-                          iconSize: 40,
-                          onPressed: () {},
-                        ),
-                        Text(
-                          localizations.translate('ORGANIZATION'),
-                          style: TextStyle(color: Colors.black, fontSize: 12),
-                        )
-                      ],
-                    ),
+                  IconButton(
+                    icon: Image.asset('assets/organization.png'),
+                    iconSize: 40,
+                    onPressed: () {},
                   ),
+                  Text(
+                    localizations.translate('ORGANIZATION'),
+                    style: TextStyle(color: Colors.black, fontSize: 12),
+                  )
                 ],
               ),
             ),
           ),
         ),
       ),
-      body: SingleChildScrollView(
+    );
+  }
+
+  Widget _body() {
+    var localizations = AppLocalizations.of(context);
+    return SingleChildScrollView(
+      child: Padding(
+        padding: Paddings.page,
         child: Column(
           children: [
             Container(
               alignment: Alignment.centerLeft,
-              margin: EdgeInsets.fromLTRB(20, 20, 0, 0),
               child: Text(
                 localizations.translate('MAKE_KNOW'),
                 style: TextStyle(color: Colors.black, fontSize: 13),
@@ -78,7 +83,6 @@ class RegisterTwoState extends State<RegisterTwo> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              margin: EdgeInsets.fromLTRB(20, 0, 0, 30),
               child: RichText(
                 textAlign: TextAlign.left,
                 text: TextSpan(
@@ -87,65 +91,59 @@ class RegisterTwoState extends State<RegisterTwo> {
                 ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
-              child: RecTextField(
-                needObscureText: false,
-                placeholder: localizations.translate('NAME'),
-                keyboardType: TextInputType.text,
-                isPassword: false,
-                isNumeric: false,
-                title: localizations.translate('NAME'),
-                colorLine: Colors.orange,
-                icon: Icon(
-                  Icons.business_center,
-                  color: Brand.grayDark,
-                ),
-                function: setUserName,
-              ),
-            ),
             Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                      child: RecTextField(
-                        placeholder: localizations.translate('CIF'),
-                        needObscureText: false,
-                        keyboardType: TextInputType.text,
-                        isPassword: false,
-                        isNumeric: false,
-                        colorLine: Colors.orange,
-                        function: setCIF,
-                        icon: Icon(
-                          Icons.work_outlined,
-                          color: Brand.grayDark,
-                        ),
-                        validator: VerifyDataRec.validateCif,
+              key: _formKey,
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 40, bottom: 16),
+                    child: RecTextField(
+                      needObscureText: false,
+                      placeholder: localizations.translate('NAME'),
+                      keyboardType: TextInputType.text,
+                      isPassword: false,
+                      isNumeric: false,
+                      label: localizations.translate('NAME'),
+                      colorLine: Colors.orange,
+                      icon: Icon(
+                        Icons.business_center,
+                        color: Brand.grayIcon,
                       ),
+                      onChange: setUserName,
                     ),
-                  ],
-                )),
-            Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.fromLTRB(20, 20, 0, 0),
-              child: Text(
-                localizations.translate('WHEN_INIT_SESION'),
-                style: TextStyle(color: Colors.deepOrange, fontSize: 14),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 40, bottom: 16),
+                    child: RecTextField(
+                      label: localizations.translate('CIF'),
+                      placeholder: localizations.translate('CIF'),
+                      needObscureText: false,
+                      keyboardType: TextInputType.text,
+                      isPassword: false,
+                      isNumeric: false,
+                      colorLine: Colors.orange,
+                      onChange: setCIF,
+                      icon: Icon(
+                        Icons.work_outlined,
+                        color: Brand.grayIcon,
+                      ),
+                      validator: VerifyDataRec.validateCif,
+                    ),
+                  ),
+                ],
               ),
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
-              child: ButtonRec(
-                onPressed: Register,
-                textColor: Colors.white,
-                backgroundColor: Colors.deepOrange,
-                isButtonDisabled: false,
-                widget: Icon(Icons.arrow_forward_ios),
-                text: localizations.translate('REGISTER'),
-              ),
-            )
+            SizedBox(height: 84),
+            Text(
+              localizations.translate('WHEN_INIT_SESION'),
+              style: TextStyle(color: Colors.deepOrange, fontSize: 12),
+            ),
+            RecActionButton(
+              onPressed: register,
+              backgroundColor: Colors.deepOrange,
+              icon: Icons.arrow_forward_ios,
+              label: localizations.translate('REGISTER'),
+            ),
           ],
         ),
       ),
@@ -153,18 +151,18 @@ class RegisterTwoState extends State<RegisterTwo> {
   }
 
   void setUserName(String userName) {
-    this.userName = userName;
+    setState(() => this.userName = userName);
   }
 
   void setEmail(String email) {
-    this.email = email;
+    setState(() => this.email = email);
   }
 
   void setCIF(String CIF) {
-    this.CIF = CIF;
+    setState(() => this.CIF = CIF);
   }
 
-  void Register() {
+  void register() {
     if (_formKey.currentState.validate()) {
       print('Registring...');
     } else {

@@ -1,5 +1,5 @@
-import 'package:rec/Base/Entity.base.dart';
 import 'package:rec/Entities/Currency.ent.dart';
+import 'package:rec/Entities/Entity.base.dart';
 import 'package:rec/Entities/Transactions/Wallet.ent.dart';
 
 import 'Activity.ent.dart';

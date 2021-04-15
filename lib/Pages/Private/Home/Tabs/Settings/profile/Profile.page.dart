@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:rec/Base/screens/GenericRecEditScreen.dart';
 import 'package:rec/Components/Forms/profile.form.dart';
-import 'package:rec/Lang/AppLocalizations.dart';
-import 'package:rec/Providers/AppState.dart';
-import 'package:rec/Providers/UserState.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key key}) : super(key: key);
@@ -13,21 +9,9 @@ class ProfilePage extends StatefulWidget {
   _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends GenericRecEditScreen<ProfilePage> {
-  _ProfilePageState() : super(title: 'Profile', hasAppBar: true);
-
+class _ProfilePageState extends State<ProfilePage> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget buildPageContent(
-    BuildContext context,
-    AppState appState,
-    UserState userState,
-    AppLocalizations localizations,
-  ) {
+  Widget build(BuildContext context) {
     return ProfileForm();
   }
 }

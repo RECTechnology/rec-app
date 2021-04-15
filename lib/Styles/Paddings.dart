@@ -1,13 +1,13 @@
 import 'package:flutter/widgets.dart';
 
 class Paddings {
-  static EdgeInsets page = const EdgeInsets.fromLTRB(34, 34, 34, 0);
+  static const EdgeInsets page = EdgeInsets.fromLTRB(32, 32, 32, 0);
   // text
-  static EdgeInsets headline = const EdgeInsets.only(bottom: 8.0);
-  static EdgeInsets label = const EdgeInsets.only(bottom: 5.0);
-  static EdgeInsets hint = const EdgeInsets.only(top: 10.0);
-  static EdgeInsets link = const EdgeInsets.only(bottom: 10.0);
+  static const EdgeInsets headline = EdgeInsets.only(bottom: 8.0);
+  static const EdgeInsets label = EdgeInsets.only(bottom: 5.0);
+  static const EdgeInsets hint = EdgeInsets.only(top: 10.0);
+  static const EdgeInsets link = EdgeInsets.only(bottom: 10.0);
   // inputs
-  static EdgeInsets textField = const EdgeInsets.only(bottom: 10.0, top: 15);
-  static EdgeInsets button = const EdgeInsets.only(top: 42);
+  static const EdgeInsets textField = EdgeInsets.only(bottom: 15.0, top: 15);
+  static const EdgeInsets button = EdgeInsets.only(top: 32);
 }

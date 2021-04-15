@@ -6,7 +6,7 @@ import 'package:rec/Components/Indicators/LoadingIndicator.dart';
 import 'package:rec/Components/Wallet/TransactionListTile.dart';
 import 'package:rec/Providers/TransactionsProvider.dart';
 import 'package:rec/Providers/UserState.dart';
-import 'package:rec/Lang/AppLocalizations.dart';
+import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 import 'package:rec/preferences.dart';
 
