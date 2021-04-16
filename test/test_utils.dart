@@ -31,10 +31,10 @@ class TestUtils {
     );
   }
 
-  static Widget wrapPublicRoute(Widget page) {
+  static Widget wrapPublicRoute(Widget page, {Key key}) {
     return ChangeNotifierProvider(
       create: (context) => AppState(),
-      child: wrapInMaterialApp(page),
+      child: wrapInMaterialApp(page, key: key),
     );
   }
 
@@ -42,8 +42,9 @@ class TestUtils {
     return wrapPublicRoute(page);
   }
 
-  static MaterialApp wrapInMaterialApp(Widget widget) {
+  static MaterialApp wrapInMaterialApp(Widget widget, {Key key}) {
     return MaterialApp(
+      navigatorKey: key,
       home: Scaffold(
         body: Localizations(
           delegates: [

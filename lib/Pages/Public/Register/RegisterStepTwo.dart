@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rec/Components/Forms/RegisterStepTwo.form.dart';
 import 'package:rec/Components/RecActionButton.dart';
-import 'package:rec/Components/RecTextField.dart';
+import 'package:rec/Entities/Forms/RegisterData.dart';
+import 'package:rec/Helpers/RecToast.dart';
+import 'package:rec/Pages/Public/Register/RegisterRequest.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
-import 'package:rec/Helpers/VerifyDataRec.dart';
 import 'package:rec/brand.dart';
+import 'package:rec/routes.dart';
 
 class RegisterTwo extends StatefulWidget {
   @override
@@ -19,12 +22,17 @@ class RegisterTwoState extends State<RegisterTwo> {
 
   final _formKey = GlobalKey<FormState>();
 
+  RegisterData registerData;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _header(),
-      body: _body(),
-    );
+    registerData = ModalRoute.of(context).settings.arguments as RegisterData;
+    return Scaffold(appBar: _header(), body: _body());
   }
 
   Widget _header() {
@@ -33,14 +41,10 @@ class RegisterTwoState extends State<RegisterTwo> {
       preferredSize: Size.fromHeight(170),
       child: AppBar(
         backgroundColor: Brand.backgroundCompanyColor,
+        elevation: 0,
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(registerData),
         ),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(140),
@@ -67,6 +71,42 @@ class RegisterTwoState extends State<RegisterTwo> {
     );
   }
 
+  Widget _preTitle() {
+    var localizations = AppLocalizations.of(context);
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        localizations.translate('MAKE_KNOW'),
+        style: TextStyle(color: Brand.grayDark2, fontSize: 12),
+      ),
+    );
+  }
+
+  Widget _title() {
+    var localizations = AppLocalizations.of(context);
+    return Container(
+      child: Row(
+        children: [
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              localizations.translate('ADD_ORG'),
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+              ),
+            ),
+          ),
+          Container(
+            height: 40,
+            alignment: Alignment.centerLeft,
+            child: null,
+          )
+        ],
+      ),
+    );
+  }
+
   Widget _body() {
     var localizations = AppLocalizations.of(context);
     return SingleChildScrollView(
@@ -74,73 +114,21 @@ class RegisterTwoState extends State<RegisterTwo> {
         padding: Paddings.page,
         child: Column(
           children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                localizations.translate('MAKE_KNOW'),
-                style: TextStyle(color: Colors.black, fontSize: 13),
-              ),
-            ),
-            Container(
-              alignment: Alignment.centerLeft,
-              child: RichText(
-                textAlign: TextAlign.left,
-                text: TextSpan(
-                  text: localizations.translate('ADD_ORG'),
-                  style: TextStyle(color: Colors.black, fontSize: 20),
-                ),
-              ),
-            ),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 40, bottom: 16),
-                    child: RecTextField(
-                      needObscureText: false,
-                      placeholder: localizations.translate('NAME'),
-                      keyboardType: TextInputType.text,
-                      isPassword: false,
-                      isNumeric: false,
-                      label: localizations.translate('NAME'),
-                      colorLine: Colors.orange,
-                      icon: Icon(
-                        Icons.business_center,
-                        color: Brand.grayIcon,
-                      ),
-                      onChange: setUserName,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 40, bottom: 16),
-                    child: RecTextField(
-                      label: localizations.translate('CIF'),
-                      placeholder: localizations.translate('CIF'),
-                      needObscureText: false,
-                      keyboardType: TextInputType.text,
-                      isPassword: false,
-                      isNumeric: false,
-                      colorLine: Colors.orange,
-                      onChange: setCIF,
-                      icon: Icon(
-                        Icons.work_outlined,
-                        color: Brand.grayIcon,
-                      ),
-                      validator: VerifyDataRec.validateCif,
-                    ),
-                  ),
-                ],
-              ),
+            _preTitle(),
+            _title(),
+            RegisterStepTwoForm(
+              formKey: _formKey,
+              registerData: registerData,
+              onChange: (data) => setState(() => registerData = data),
             ),
             SizedBox(height: 84),
             Text(
               localizations.translate('WHEN_INIT_SESION'),
-              style: TextStyle(color: Colors.deepOrange, fontSize: 12),
+              style: TextStyle(color: Brand.accentColor, fontSize: 12),
             ),
             RecActionButton(
               onPressed: register,
-              backgroundColor: Colors.deepOrange,
+              backgroundColor: Brand.accentColor,
               icon: Icons.arrow_forward_ios,
               label: localizations.translate('REGISTER'),
             ),
@@ -150,23 +138,42 @@ class RegisterTwoState extends State<RegisterTwo> {
     );
   }
 
-  void setUserName(String userName) {
-    setState(() => this.userName = userName);
-  }
-
-  void setEmail(String email) {
-    setState(() => this.email = email);
-  }
-
-  void setCIF(String CIF) {
-    setState(() => this.CIF = CIF);
-  }
-
   void register() {
-    if (_formKey.currentState.validate()) {
-      print('Registring...');
-    } else {
-      print('Bad Cif');
-    }
+    if (!_formKey.currentState.validate()) return;
+
+    _attemptRegister();
+  }
+
+  void _attemptRegister() {
+    var localizations = AppLocalizations.of(context);
+
+    RegisterRequest.tryRegister(context, registerData).then((result) {
+      if (!result.error) {
+        return Navigator.of(context).pushNamed(Routes.validateSms);
+      }
+
+      if (result.message.contains('Server Error')) {
+        return RecToast.showError(
+          context,
+          localizations.translate('UNEXPECTED_SERVER_ERROR'),
+        );
+      }
+
+      // Hacky, this is to show API errors as a TextFormField hint
+      // If error is set, validator will showp that error, see how it's setup in the form
+      String fieldName = result.message.split(' ').first;
+
+      // Only add errors if from this page
+      if (fieldName != null) {
+        registerData.addError(
+            fieldName, localizations.translate(result.message));
+      }
+
+      if (fieldName != 'cif') {
+        Navigator.of(context).pop(registerData);
+      }
+
+      _formKey.currentState.validate();
+    });
   }
 }

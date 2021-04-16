@@ -53,40 +53,44 @@ class _InputField extends State<RecTextField> {
   bool hasError = false;
   String error = 'Contraseña incorrecta';
   bool isNotIcon = false;
+
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      initialValue: widget.initialValue,
-      textAlign: widget.textAlign,
-      textAlignVertical: TextAlignVertical.center,
-      decoration: InputDecoration(
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: widget.colorLine),
+    return ConstrainedBox(
+      constraints: BoxConstraints.tight(Size.fromHeight(80)),
+      child: TextFormField(
+        initialValue: widget.initialValue,
+        textAlign: widget.textAlign,
+        textAlignVertical: TextAlignVertical.center,
+        decoration: InputDecoration(
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: widget.colorLine),
+          ),
+          fillColor: Colors.lightBlueAccent,
+          suffixIcon: isNotIcon
+              ? IconButton(
+                  onPressed: () => setState(() => changeObscureText()),
+                  icon: Icon(
+                    obscureText ? Icons.visibility_off : Icons.visibility,
+                    color: Brand.grayIcon,
+                  ),
+                )
+              : widget.icon,
+          errorText: hasError ? error : null,
+          hintText: widget.placeholder,
+          labelText: widget.label,
+          labelStyle: TextStyle(color: widget.colorLabel),
         ),
-        fillColor: Colors.lightBlueAccent,
-        suffixIcon: isNotIcon
-            ? IconButton(
-                onPressed: () => setState(() => changeObscureText()),
-                icon: Icon(
-                  obscureText ? Icons.visibility_off : Icons.visibility,
-                  color: Brand.grayIcon,
-                ),
-              )
-            : widget.icon,
-        errorText: hasError ? error : null,
-        hintText: widget.placeholder,
-        labelText: widget.label,
-        labelStyle: TextStyle(color: widget.colorLabel),
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: widget.textSize,
+          letterSpacing: widget.letterSpicing,
+        ),
+        onChanged: onChanged,
+        obscureText: obscureText ? true : false,
+        keyboardType: widget.keyboardType,
+        validator: widget.validator,
       ),
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: widget.textSize,
-        letterSpacing: widget.letterSpicing,
-      ),
-      onChanged: onChanged,
-      obscureText: obscureText ? true : false,
-      keyboardType: widget.keyboardType,
-      validator: widget.validator,
     );
   }
 

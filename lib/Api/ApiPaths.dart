@@ -6,6 +6,7 @@ class ApiPaths {
   static ApiPath sendRecoverSms = ApiPath('/password_recovery/v1/request');
   static ApiPath changePassword = ApiPath('/password_recovery/v1');
   static ApiPath verifyPhone = ApiPath('/kyc/validate_phone_code');
+  static ApiPath register = ApiPath('/register/v4/mobile');
 
   // current user
   static ApiPath currentUserAccount = ApiPath('/user/v1/account');

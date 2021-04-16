@@ -38,7 +38,10 @@ class _AppBarMenu extends State<AppBarMenu> {
                 ModalRoute.withName(Routes.login),
               );
             },
-            child: Text(localizations.translate('LOG_OUT')),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(localizations.translate('LOG_OUT')),
+            ),
           ),
         ),
       ],

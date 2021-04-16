@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:rec/Api/Services/UsersService.dart';
 import 'package:rec/Components/CircleAvatar.dart';
-import 'package:rec/Components/RecToast.dart';
+import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Helpers/Borders.dart';
 import 'package:rec/Providers/AppLocalizations.dart';

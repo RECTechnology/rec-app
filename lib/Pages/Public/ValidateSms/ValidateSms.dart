@@ -3,27 +3,28 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/ButtonRec.dart';
 import 'package:rec/Components/RecTextField.dart';
-import 'package:rec/Components/RecToast.dart';
+import 'package:rec/Helpers/RecToast.dart';
 
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Helpers/VerifyDataRec.dart';
 import 'package:rec/brand.dart';
 
-class SendSMSPage extends StatefulWidget {
+class ValidateSms extends StatefulWidget {
   @override
-  _SendSMSPageState createState() => _SendSMSPageState();
+  _ValidateSmsState createState() => _ValidateSmsState();
 }
 
-class _SendSMSPageState extends State<SendSMSPage> {
+class _ValidateSmsState extends State<ValidateSms> {
   final _formKey = GlobalKey<FormState>();
 
   Timer _timer;
   int _start = 60;
   String sms = '';
+
   @override
   void initState() {
     super.initState();
-    startTimer();
+    // startTimer();
   }
 
   @override

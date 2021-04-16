@@ -102,11 +102,11 @@ class Brand {
       ..loadingStyle = EasyLoadingStyle.custom
       ..indicatorSize = 45.0
       ..radius = 10.0
-      ..backgroundColor = Colors.white
+      ..backgroundColor = Colors.white.withAlpha(0)
       ..indicatorColor = Brand.primaryColor
       ..textColor = Brand.primaryColor
       ..maskType = EasyLoadingMaskType.black
-      ..maskColor = Colors.blue.withOpacity(0.5)
+      ..maskColor = Colors.blue.withOpacity(0.8)
       ..userInteractions = true
       ..dismissOnTap = false;
   }

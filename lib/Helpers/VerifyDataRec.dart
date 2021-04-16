@@ -1,7 +1,7 @@
 class VerifyDataRec {
   static String phoneVerification(String phone) {
     if (phone.length > 9 || phone.length < 9) {
-      return 'Incorrect phone';
+      return 'ERROR_PHONE';
     } else {
       return null;
     }
@@ -11,7 +11,7 @@ class VerifyDataRec {
     if (password.length >= 6) {
       return null;
     } else {
-      return 'incorrect password, min 6 caracter';
+      return 'ERROR_PASS_MIN_6';
     }
   }
 
@@ -19,7 +19,7 @@ class VerifyDataRec {
     if (sms.length >= 6) {
       return null;
     } else {
-      return 'incorrect sms';
+      return 'ERROR_SMS';
     }
   }
 
@@ -32,7 +32,7 @@ class VerifyDataRec {
       if (NIE_REGEX.hasMatch(document)) {
         return null;
       } else {
-        return 'Invalid Document';
+        return 'ERROR_DNI';
       }
     }
   }
@@ -42,17 +42,7 @@ class VerifyDataRec {
     if (CIF_REGEX.hasMatch(document)) {
       return null;
     } else {
-      return 'Incorrect document';
-    }
-  }
-
-  static String validateEmail(String email) {
-    var EMAIL_REGEX = RegExp(
-        r"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
-    if (EMAIL_REGEX.hasMatch(email)) {
-      return null;
-    } else {
-      return 'Incorrect email';
+      return 'ERROR_CIF';
     }
   }
 }

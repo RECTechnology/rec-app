@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rec/Pages/Public/RecoveryPassword.page.dart';
+import 'package:rec/Pages/Public/ForgotPassword/ForgotPassword.dart';
 
 import '../../test_utils.dart';
 
@@ -7,11 +7,11 @@ void main() {
   testWidgets('RecoveryPasswordPage test build correctly', (
     WidgetTester tester,
   ) async {
-    var app = TestUtils.wrapPrivateRoute(RecoveryPasswordPage());
+    var app = TestUtils.wrapPrivateRoute(ForgotPassword());
 
     await tester.pumpWidget(app);
     await tester.pumpAndSettle();
 
-    TestUtils.widgetExistsByType(RecoveryPasswordPage);
+    TestUtils.widgetExistsByType(ForgotPassword);
   });
 }

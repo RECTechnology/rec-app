@@ -76,5 +76,13 @@
   "TX_ID": "ID de transacción",
 
   "STATUS_SUCCESS": "Completado",
-  "NO_TRANSACTIONS": "No hay transacciones"
+  "NO_TRANSACTIONS": "No hay transacciones",
+
+  "phone already registered": "Numero de telefóno ya registrado",
+  "dni already registered": "DNI/NIE ya registrado",
+  "UNEXPECTED_SERVER_ERROR": "Error inesperado, prueba de nuevo en 5 minutos, si el error persiste contacte con nosotros.",
+  "ERROR_PASS_MIN_6": "Contraseña incorrecta, minimo 6 caracteres",
+  "ERROR_DNI": "DNI/NIE incorrecto",
+  "ERROR_CIF": "CIF incorrecto",
+  "ERROR_PHONE": "Telefóno incorrecto"
 }
