@@ -17,9 +17,11 @@ class MapsService extends ServiceBase {
       String type,
       String subtype,
       String only_with_offers,
-      String accesToken}) async {
-    print("Im in on map Service");
-    print(accesToken);
+      String accesToken,
+      String limit,
+      String order,
+      String offSet}) async {
+
 
     var pathWithParams = ApiPaths.mapService.withQueryParams({
       'access_token': '$accesToken',
@@ -34,7 +36,9 @@ class MapsService extends ServiceBase {
       'order': 'DESC',
     }).toUri();
 
-    return this.get(pathWithParams).then(_mapToApiListReponse);
+    return this.get(pathWithParams).then(_mapToApiListReponse).onError((error, stackTrace) {
+      print(error);
+    });
   }
 
   ApiListResponse<Marck> _mapToApiListReponse(Map<String, dynamic> data) {

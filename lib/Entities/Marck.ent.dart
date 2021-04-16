@@ -14,7 +14,11 @@ class Marck  {
 
 
   factory Marck.fromJson(Map<String, dynamic> json) {
-    return Marck(json['id'],json['name'],double.parse(json['lat']),double.parse(json['long']),
+    print("Im in from json");
+    print(json);
+    print(json['latitude']);
+    print(json['longitude']);
+    return Marck(json['id'],json['name'],double.parse(json['latitude']),double.parse(json['longitude']),
     );
   }
 

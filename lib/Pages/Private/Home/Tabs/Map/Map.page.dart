@@ -23,35 +23,26 @@ class _MapPageState extends GenericRecViewScreen<MapPage> {
   _MapPageState() : super(title: 'Map', hasAppBar: true);
   MapsService mapService = MapsService();
 
+  String search;
+  String on_map;
+  String only_with_offers;
+  String type;
+  String subType;
+  String limit;
+  String sort;
+  String order;
+  String offset;
+
   @override
   void initState() {
     super.initState();
   }
 
-  Set<Marker> _markers = {};
+  final Set<Marker> _markers = {};
 
   final CameraPosition _initialPosition =
-      CameraPosition(target: LatLng(41.4414534, 2.2086006));
+      CameraPosition(target: LatLng(41.4414534, 2.2086006),zoom: 12);
   final Completer<GoogleMapController> _controller = Completer();
-
-  void _onMapCreated(GoogleMapController controller) {
-    _controller.complete(controller);
-    setState(() {
-      List marcks;
-      Auth.getAccessToken().then((value) {
-        mapService.getMarks(accesToken: value).then((value) {
-          marcks = value.items;
-          for (Marck element in marcks) {
-            _markers.add(Marker(
-                markerId: MarkerId(element.id),
-                position: LatLng(element.lat, element.long)));
-          }
-        }).onError((error, stackTrace) {
-          print(error);
-        });
-      });
-    });
-  }
 
   @override
   Widget buildPageContent(
@@ -61,6 +52,59 @@ class _MapPageState extends GenericRecViewScreen<MapPage> {
     AppLocalizations localizations,
   ) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          PopupMenuButton(
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                  child: TextField(
+                decoration: InputDecoration(hintText: 'offset'),
+                onChanged: setSearch,
+              )),
+              PopupMenuItem(
+                  child: TextField(
+                decoration: InputDecoration(hintText: 'only_with_offers'),
+                onChanged: setOnly_with_offers,
+              )),
+              PopupMenuItem(
+                  child: TextField(
+                decoration: InputDecoration(hintText: 'type'),
+                onChanged: setType,
+              )),
+              PopupMenuItem(
+                  child: TextField(
+                decoration: InputDecoration(hintText: 'limit'),
+                onChanged: setLimit,
+              )),
+              PopupMenuItem(
+                  child: TextField(
+                decoration: InputDecoration(hintText: 'search'),
+                onChanged: setSearch,
+              )),
+              PopupMenuItem(
+                  child: TextField(
+                decoration: InputDecoration(hintText: 'sort'),
+                onChanged: setSort,
+              )),
+              PopupMenuItem(
+                  child: TextField(
+                decoration: InputDecoration(hintText: 'order'),
+                onChanged: setOrder,
+              )),
+              PopupMenuItem(
+                  child: TextField(
+                decoration: InputDecoration(hintText: 'subtype'),
+                onChanged: setSubType,
+              )),
+              PopupMenuItem(
+                  child: TextField(
+                decoration: InputDecoration(hintText: 'offset'),
+                onChanged: setOffset,
+              )),
+            ],
+          ),
+        ],
+      ),
       body: Center(
         child: GoogleMap(
           onMapCreated: _onMapCreated,
@@ -69,5 +113,70 @@ class _MapPageState extends GenericRecViewScreen<MapPage> {
         ),
       ),
     );
+  }
+
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+    setState(() {
+      List marcks;
+      Auth.getAccessToken().then((value) {
+        mapService
+            .getMarks(
+                accesToken: value,
+                on_map: on_map,
+                only_with_offers: only_with_offers,
+                search: search,
+                subtype: subType,
+                type: type,
+                limit: limit,
+                offSet: offset,
+                order: order)
+            .then((value) {
+          marcks = value.items;
+          for (Marck element in marcks) {
+            _markers.add(Marker(
+                markerId: MarkerId(element.id),
+                position: LatLng(element.lat, element.long)));
+          }
+        }).onError((error, stackTrace) {
+        });
+      });
+    });
+  }
+
+  void setSearch(String search) {
+    this.search = search;
+  }
+
+  void setOffset(String offset) {
+    this.offset = offset;
+  }
+
+  void seton_map(String on_map) {
+    this.on_map = on_map;
+  }
+
+  void setOnly_with_offers(String only_with_offers) {
+    this.only_with_offers = only_with_offers;
+  }
+
+  void setType(String type) {
+    this.type = type;
+  }
+
+  void setSubType(String subType) {
+    this.subType = subType;
+  }
+
+  void setLimit(String limit) {
+    this.limit = limit;
+  }
+
+  void setSort(String sort) {
+    this.sort = sort;
+  }
+
+  void setOrder(String order) {
+    this.order = order;
   }
 }
