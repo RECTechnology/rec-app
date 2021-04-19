@@ -32,7 +32,7 @@ class _MapPageState extends GenericRecViewScreen<MapPage> {
   String sort;
   String order;
   String offset;
-  BitmapDescriptor pinLocationIcon;
+  BitmapDescriptor marckerIcon;
 
   @override
   void initState() {
@@ -135,22 +135,30 @@ class _MapPageState extends GenericRecViewScreen<MapPage> {
                 offSet: offset,
                 order: order)
             .then((value) {
-          marcks = value.items ;
-          for (var element in marcks) {
 
-            _markers.add(Marker(
-                markerId: MarkerId(element.id.toString()),
-                position: LatLng(element.lat,element.long),
-                ));
+          setState(() {
+            marcks = value.items ;
+            for (var element in marcks) {
 
-          }
+              _markers.add(Marker(
+                  markerId: MarkerId(element.id.toString()),
+                  position: LatLng(element.lat,element.long),
+                  infoWindow: InfoWindow(title: element.name, ),
+                  onTap: goToDetailsPage
+              ));
+
+            }
+          });
         }).onError((error, stackTrace) {
         });
       });
     });
   }
+  void goToDetailsPage(){
+      print('Going to details page...');
+  }
   void setCustomMapPin() async {
-    pinLocationIcon = await BitmapDescriptor.fromAssetImage(
+    marckerIcon = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration(devicePixelRatio: 2.5),
         'assets/marcador.png');
   }
