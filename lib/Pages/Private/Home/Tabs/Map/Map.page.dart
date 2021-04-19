@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rec/Api/Services/MapService.dart';
+import 'package:rec/Entities/Map/MapSearchData.dart';
 import 'package:rec/Entities/Marck.ent.dart';
 
 class MapPage extends StatefulWidget {
@@ -15,23 +16,8 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   MapsService mapService = MapsService();
-
-  String search;
-  String on_map;
-  String only_with_offers;
-  String type;
-  String subType;
-  String limit;
-  String sort;
-  String order;
-  String offset;
-  BitmapDescriptor marckerIcon;
-
-  @override
-  void initState() {
-    super.initState();
-    setCustomMapPin();
-  }
+  MapSearchData searchData = MapSearchData();
+  BitmapDescriptor markerIcon;
 
   final Set<Marker> _markers = {};
   final CameraPosition _initialPosition = CameraPosition(
@@ -39,6 +25,12 @@ class _MapPageState extends State<MapPage> {
     zoom: 12,
   );
   final Completer<GoogleMapController> _controller = Completer();
+
+  @override
+  void initState() {
+    super.initState();
+    setCustomMapPin();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +47,7 @@ class _MapPageState extends State<MapPage> {
               PopupMenuItem(
                   child: TextField(
                 decoration: InputDecoration(hintText: 'only_with_offers'),
-                onChanged: setOnly_with_offers,
+                // onChanged: setOnlyWithOffers,
               )),
               PopupMenuItem(
                   child: TextField(
@@ -65,7 +57,7 @@ class _MapPageState extends State<MapPage> {
               PopupMenuItem(
                   child: TextField(
                 decoration: InputDecoration(hintText: 'limit'),
-                onChanged: setLimit,
+                // onChanged: setLimit,
               )),
               PopupMenuItem(
                   child: TextField(
@@ -90,7 +82,7 @@ class _MapPageState extends State<MapPage> {
               PopupMenuItem(
                   child: TextField(
                 decoration: InputDecoration(hintText: 'offset'),
-                onChanged: setOffset,
+                // onChanged: setOffset,
               )),
             ],
           ),
@@ -110,16 +102,7 @@ class _MapPageState extends State<MapPage> {
     _controller.complete(controller);
     setState(() {
       mapService
-          .getMarks(
-            on_map: on_map,
-            only_with_offers: only_with_offers,
-            search: search,
-            subtype: subType,
-            type: type,
-            limit: limit,
-            offSet: offset,
-            order: order,
-          )
+          .getMarks(searchData)
           .then((value) => setMarks(value.items))
           .onError((error, stackTrace) {});
     });
@@ -130,7 +113,7 @@ class _MapPageState extends State<MapPage> {
   }
 
   void setCustomMapPin() async {
-    marckerIcon = await BitmapDescriptor.fromAssetImage(
+    markerIcon = await BitmapDescriptor.fromAssetImage(
       ImageConfiguration(devicePixelRatio: 2.5),
       'assets/marcador.png',
     );
@@ -154,38 +137,38 @@ class _MapPageState extends State<MapPage> {
   }
 
   void setSearch(String search) {
-    this.search = search;
+    searchData.search = search;
   }
 
-  void setOffset(String offset) {
-    this.offset = offset;
+  void setOffset(int offset) {
+    searchData.offset = offset;
   }
 
-  void seton_map(String on_map) {
-    this.on_map = on_map;
+  void setOnMap(bool onMap) {
+    searchData.onMap = onMap;
   }
 
-  void setOnly_with_offers(String only_with_offers) {
-    this.only_with_offers = only_with_offers;
+  void setOnlyWithOffers(bool onlyWithOffers) {
+    searchData.onlyWithOffers = onlyWithOffers;
   }
 
   void setType(String type) {
-    this.type = type;
+    searchData.type = type;
   }
 
   void setSubType(String subType) {
-    this.subType = subType;
+    searchData.subType = subType;
   }
 
-  void setLimit(String limit) {
-    this.limit = limit;
+  void setLimit(int limit) {
+    searchData.limit = limit;
   }
 
   void setSort(String sort) {
-    this.sort = sort;
+    searchData.sort = sort;
   }
 
   void setOrder(String order) {
-    this.order = order;
+    searchData.order = order;
   }
 }
