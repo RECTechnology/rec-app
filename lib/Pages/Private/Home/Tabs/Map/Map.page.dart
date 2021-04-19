@@ -3,14 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:rec/Base/screens/GenericRecViewScreen.dart';
-import 'package:rec/Lang/AppLocalizations.dart';
-import 'package:rec/Providers/AppState.dart';
-import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Api/Services/MapService.dart';
 import 'package:rec/Entities/Marck.ent.dart';
-
-import '../../../../../Api/Auth.dart';
 
 class MapPage extends StatefulWidget {
   MapPage({Key key}) : super(key: key);
@@ -19,8 +13,7 @@ class MapPage extends StatefulWidget {
   _MapPageState createState() => _MapPageState();
 }
 
-class _MapPageState extends GenericRecViewScreen<MapPage> {
-  _MapPageState() : super(title: 'Map', hasAppBar: true);
+class _MapPageState extends State<MapPage> {
   MapsService mapService = MapsService();
 
   String search;
@@ -38,22 +31,17 @@ class _MapPageState extends GenericRecViewScreen<MapPage> {
   void initState() {
     super.initState();
     setCustomMapPin();
-
   }
 
   final Set<Marker> _markers = {};
-
-  final CameraPosition _initialPosition =
-      CameraPosition(target: LatLng(41.4414534, 2.2086006),zoom: 12);
+  final CameraPosition _initialPosition = CameraPosition(
+    target: LatLng(41.4414534, 2.2086006),
+    zoom: 12,
+  );
   final Completer<GoogleMapController> _controller = Completer();
 
   @override
-  Widget buildPageContent(
-    BuildContext context,
-    AppState appState,
-    UserState userState,
-    AppLocalizations localizations,
-  ) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -121,46 +109,48 @@ class _MapPageState extends GenericRecViewScreen<MapPage> {
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
     setState(() {
-      List<Marck> marcks;
-      Auth.getAccessToken().then((value) {
-        mapService
-            .getMarks(
-                accesToken: value,
-                on_map: on_map,
-                only_with_offers: only_with_offers,
-                search: search,
-                subtype: subType,
-                type: type,
-                limit: limit,
-                offSet: offset,
-                order: order)
-            .then((value) {
-
-          setState(() {
-            marcks = value.items ;
-            for (var element in marcks) {
-
-              _markers.add(Marker(
-                  markerId: MarkerId(element.id.toString()),
-                  position: LatLng(element.lat,element.long),
-                  infoWindow: InfoWindow(title: element.name, ),
-                  onTap: goToDetailsPage
-              ));
-
-            }
-          });
-        }).onError((error, stackTrace) {
-        });
-      });
+      mapService
+          .getMarks(
+            on_map: on_map,
+            only_with_offers: only_with_offers,
+            search: search,
+            subtype: subType,
+            type: type,
+            limit: limit,
+            offSet: offset,
+            order: order,
+          )
+          .then((value) => setMarks(value.items))
+          .onError((error, stackTrace) {});
     });
   }
-  void goToDetailsPage(){
-      print('Going to details page...');
+
+  void goToDetailsPage() {
+    print('Going to details page...');
   }
+
   void setCustomMapPin() async {
     marckerIcon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.5),
-        'assets/marcador.png');
+      ImageConfiguration(devicePixelRatio: 2.5),
+      'assets/marcador.png',
+    );
+  }
+
+  void setMarks(List<Marck> marks) {
+    setState(() {
+      for (var element in marks) {
+        _markers.add(
+          Marker(
+            markerId: MarkerId(element.id.toString()),
+            position: LatLng(element.lat, element.long),
+            infoWindow: InfoWindow(
+              title: element.name,
+            ),
+            onTap: goToDetailsPage,
+          ),
+        );
+      }
+    });
   }
 
   void setSearch(String search) {
