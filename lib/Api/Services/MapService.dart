@@ -22,22 +22,26 @@ class MapsService extends ServiceBase {
       String order,
       String offSet}) async {
 
-
-    var pathWithParams = ApiPaths.mapService.withQueryParams({
-      'access_token': '$accesToken',
+    var query = <String,dynamic>{
       'search': '',
       'on_map': 'true',
-      'only_with_offers': '$only_with_offers',
-      'type': '$type',
-      'subtype': '$subtype',
+      'only_with_offers': 'false',
+      'type': 'COMPANY',
+      'subtype': '',
+    };
+
+    var pathWithParams = ApiPaths.mapService.withQueryParams({
       'offset': '0',
       'limit': '300',
       'sort': 'name',
       'order': 'DESC',
-    }).toUri();
+      'query': '$query',
 
-    return this.get(pathWithParams).then(_mapToApiListReponse).onError((error, stackTrace) {
-      print(error);
+    }).toUri();
+    print(pathWithParams);
+    // ignore: missing_return
+    return this.get(pathWithParams).then((value) {
+      return _mapToApiListReponse(value);
     });
   }
 

@@ -32,10 +32,13 @@ class _MapPageState extends GenericRecViewScreen<MapPage> {
   String sort;
   String order;
   String offset;
+  BitmapDescriptor pinLocationIcon;
 
   @override
   void initState() {
     super.initState();
+    setCustomMapPin();
+
   }
 
   final Set<Marker> _markers = {};
@@ -118,7 +121,7 @@ class _MapPageState extends GenericRecViewScreen<MapPage> {
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
     setState(() {
-      List marcks;
+      List<Marck> marcks;
       Auth.getAccessToken().then((value) {
         mapService
             .getMarks(
@@ -132,16 +135,24 @@ class _MapPageState extends GenericRecViewScreen<MapPage> {
                 offSet: offset,
                 order: order)
             .then((value) {
-          marcks = value.items;
-          for (Marck element in marcks) {
+          marcks = value.items ;
+          for (var element in marcks) {
+
             _markers.add(Marker(
-                markerId: MarkerId(element.id),
-                position: LatLng(element.lat, element.long)));
+                markerId: MarkerId(element.id.toString()),
+                position: LatLng(element.lat,element.long),
+                ));
+
           }
         }).onError((error, stackTrace) {
         });
       });
     });
+  }
+  void setCustomMapPin() async {
+    pinLocationIcon = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(devicePixelRatio: 2.5),
+        'assets/marcador.png');
   }
 
   void setSearch(String search) {

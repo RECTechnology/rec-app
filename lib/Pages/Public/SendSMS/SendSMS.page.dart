@@ -165,6 +165,7 @@ class _SendSMSPageState extends GenericRecViewScreen<SendSMSPage> {
         if (_start == 0) {
           setState(() {
             timer.cancel();
+
           });
         } else {
           setState(() {

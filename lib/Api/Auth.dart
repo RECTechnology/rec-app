@@ -54,7 +54,6 @@ class Auth {
   }
 
   static Future<String> getAccessToken() {
-    print("Im in acces tokeeeeeeeeeeen");
     return storage.read(key: Auth._tokenKey);
   }
 

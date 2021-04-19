@@ -3,7 +3,6 @@ import 'package:rec/Pages/Public/Register/RegisterStepOne.dart';
 import 'package:rec/Pages/Public/Register/RegisterStepTwo.dart';
 
 import 'Pages/Private/Home/Home.page.dart';
-import 'Pages/Private/Home/Home.page.dart';
 import 'Pages/Public/Login/Login.page.dart';
 import 'Components/PrivateRoute.dart';
 import 'Pages/Public/PinPage/PinPage.dart';
