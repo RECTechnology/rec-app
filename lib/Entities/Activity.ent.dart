@@ -1,4 +1,4 @@
-import 'package:rec/Base/Entity.base.dart';
+import 'package:rec/Entities/Entity.base.dart';
 
 class Activity extends Entity {
   Activity({

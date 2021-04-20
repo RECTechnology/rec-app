@@ -19,8 +19,8 @@ class UserState with ChangeNotifier {
     User user,
   }) : _user = user;
 
-  static UserState of(context) {
-    return Provider.of<UserState>(context);
+  static UserState of(context, {bool listen = true}) {
+    return Provider.of<UserState>(context, listen: listen);
   }
 
   static ChangeNotifierProvider<UserState> getProvider(
@@ -44,6 +44,11 @@ class UserState with ChangeNotifier {
     _user = user;
     _storage.write(key: RecStorage.PREV_USER_DNI, value: user.username);
     _savedUser = user;
+    notifyListeners();
+  }
+
+  void setSelectedAccount(Account account) {
+    _user?.selectedAccount = account;
     notifyListeners();
   }
 

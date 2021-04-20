@@ -27,48 +27,40 @@ class _PrivateAppBar extends State<PrivateAppBar> {
     var account = userState.user.selectedAccount;
     var accountSelector = AccountSelectorModal(context);
 
-    return AppBar(
-      toolbarHeight: kToolbarHeight,
-      flexibleSpace: Container(
-        decoration: BoxDecoration(
-          gradient: Brand.getGradientForAccount(account),
-        ),
-      ),
-      elevation: 0,
-      // This (using InkWell) is a bit weird
-      // I could not find a better way of implementing opening the menu from the app bar, unless adding InkWell to each part
-      leading: InkWell(
+    return PreferredSize(
+      preferredSize: Size.fromHeight(kToolbarHeight),
+      child: InkWell(
         onTap: accountSelector.open,
-        child: Container(
-          alignment: Alignment.center,
-          child: CircleAvatarRec(
-            imageUrl: account.publicImage,
-            name: account.name,
+        child: AppBar(
+          toolbarHeight: kToolbarHeight,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: Brand.getGradientForAccount(account),
+            ),
           ),
-        ),
-      ),
-      title: InkWell(
-        onTap: accountSelector.open,
-        child: Center(
-          child: Text(
-            userState.user.selectedAccount.name,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w200),
-          ),
-        ),
-      ),
-      bottom: widget.bottom,
-      actions: [
-        InkWell(
-          onTap: accountSelector.open,
-          child: Container(
+          elevation: 0,
+          leading: Container(
             alignment: Alignment.center,
-            height: 45,
-            width: 65,
-            child: Icon(Icons.arrow_drop_down_sharp),
+            child: CircleAvatarRec.fromAccount(account),
           ),
+          title: Center(
+            child: Text(
+              userState.user.selectedAccount.name,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w200),
+            ),
+          ),
+          bottom: widget.bottom,
+          actions: [
+            Container(
+              alignment: Alignment.center,
+              height: 45,
+              width: 65,
+              child: Icon(Icons.arrow_drop_down_sharp),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

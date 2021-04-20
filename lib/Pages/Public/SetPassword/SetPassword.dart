@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
-import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/RecTextField.dart';
 
-import 'package:rec/Lang/AppLocalizations.dart';
-import 'package:rec/Providers/AppState.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/Verify/VerifyDataRec.dart';
+import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/Helpers/VerifyDataRec.dart';
 
 class SetPasswordPage extends StatefulWidget {
   SetPasswordPage();
@@ -16,21 +12,17 @@ class SetPasswordPage extends StatefulWidget {
   _SetPasswordPageState createState() => _SetPasswordPageState();
 }
 
-class _SetPasswordPageState extends GenericRecViewScreen<SetPasswordPage> {
+class _SetPasswordPageState extends State<SetPasswordPage> {
   String newPassword = '+34';
   String confirmNewPassword = '';
 
   @override
-  Widget buildPageContent(
-    BuildContext context,
-    AppState state,
-    UserState userState,
-    AppLocalizations localizations,
-  ) {
+  Widget build(BuildContext context) {
+    var localizations = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: IconButtonRec(
+        leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
             color: Colors.black,
@@ -76,7 +68,7 @@ class _SetPasswordPageState extends GenericRecViewScreen<SetPasswordPage> {
                 isNumeric: false,
                 icon: Icon(Icons.lock),
                 colorLine: Colors.blueAccent,
-                function: setNewPassword,
+                onChange: setNewPassword,
                 isPhone: false,
                 validator: VerifyDataRec.verifyPassword,
               ),
@@ -91,7 +83,7 @@ class _SetPasswordPageState extends GenericRecViewScreen<SetPasswordPage> {
                 isNumeric: false,
                 icon: Icon(Icons.lock),
                 colorLine: Colors.blueAccent,
-                function: setNewPassword,
+                onChange: setNewPassword,
                 isPhone: false,
                 validator: VerifyDataRec.verifyPassword,
               ),

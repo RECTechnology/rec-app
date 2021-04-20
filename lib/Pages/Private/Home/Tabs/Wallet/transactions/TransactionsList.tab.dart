@@ -6,7 +6,7 @@ import 'package:rec/Components/Indicators/LoadingIndicator.dart';
 import 'package:rec/Components/Wallet/TransactionListTile.dart';
 import 'package:rec/Providers/TransactionsProvider.dart';
 import 'package:rec/Providers/UserState.dart';
-import 'package:rec/Lang/AppLocalizations.dart';
+import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 import 'package:rec/preferences.dart';
 
@@ -20,26 +20,25 @@ class TransactionsList extends StatefulWidget {
 }
 
 class _TransactionsListState extends State<TransactionsList> {
-  TransactionProvider transactionsProvider;
-
-  var _userPollTimer;
+  TransactionProvider _transactionsProvider;
+  Timer _refreshTransactionsTimer;
   bool showFilters = true;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    var transactionsProvider = TransactionProvider.of(context);
-    if (widget.autoReloadEnabled) _userPollTimer ??= getRefreshTimer();
 
-    if (!transactionsProvider.hasRequested) {
-      transactionsProvider.refresh();
+    _transactionsProvider ??= TransactionProvider.of(context);
+
+    if (widget.autoReloadEnabled) {
+      _refreshTransactionsTimer ??= getRefreshTimer();
     }
   }
 
   @override
   void dispose() {
     super.dispose();
-    _userPollTimer?.cancel();
+    _refreshTransactionsTimer?.cancel();
   }
 
   @override
@@ -51,9 +50,10 @@ class _TransactionsListState extends State<TransactionsList> {
     var isLoading = transactionsProvider.loading;
 
     return RefreshIndicator(
-        color: Brand.primaryColor,
-        onRefresh: transactionsProvider.refresh,
-        child: Column(children: [
+      color: Brand.primaryColor,
+      onRefresh: transactionsProvider.refresh,
+      child: Column(
+        children: [
           // Filter bar
           // Padding(
           //   padding: const EdgeInsets.all(16.0),
@@ -84,7 +84,9 @@ class _TransactionsListState extends State<TransactionsList> {
                     ? LoadingIndicator()
                     : noItems(localizations),
           )
-        ]));
+        ],
+      ),
+    );
   }
 
   Widget loadMore() {
@@ -94,9 +96,7 @@ class _TransactionsListState extends State<TransactionsList> {
 
     return ListTile(
       tileColor: Brand.defaultAvatarBackground,
-      onTap: () {
-        transactionsProvider.loadMore();
-      },
+      onTap: transactionsProvider.loadMore,
       title: transactionsProvider.loading
           ? LoadingIndicator()
           : Text(
@@ -110,26 +110,24 @@ class _TransactionsListState extends State<TransactionsList> {
   }
 
   Widget noItems(localizations) {
-    return ListView(
-      physics: AlwaysScrollableScrollPhysics(),
-      children: [
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Text(
-              localizations.translate('NO_ITEMS'),
-            ),
-          ),
-        )
-      ],
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Text(
+          localizations.translate('NO_TRANSACTIONS'),
+        ),
+      ),
     );
   }
 
   Timer getRefreshTimer() {
+    // Run refresh directly, no need to wait for timer
+    _transactionsProvider?.refresh();
+
     return Timer.periodic(
       Preferences.transactionListRefreshInterval,
-      (_) => {
-        if (transactionsProvider != null) {transactionsProvider?.refresh()}
+      (_) {
+        _transactionsProvider?.refresh();
       },
     );
   }

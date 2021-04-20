@@ -1,5 +1,5 @@
-import 'package:rec/Base/Entity.base.dart';
 import 'package:rec/Entities/Currency.ent.dart';
+import 'package:rec/Entities/Entity.base.dart';
 import 'package:rec/Entities/Transactions/Wallet.ent.dart';
 
 import 'Activity.ent.dart';
@@ -19,11 +19,14 @@ class Account extends Entity {
   String publicImage;
   String type;
 
+  bool active;
+
   Account({
     String id,
     String createdAt,
     String updatedAt,
     this.name,
+    this.active,
     this.type,
     this.activities,
     this.consumingProducts,
@@ -77,6 +80,7 @@ class Account extends Entity {
       updatedAt: json['updated'],
       name: json['name'],
       type: json['type'],
+      active: json['active'],
       publicImage: json['public_image'],
       companyImage: json['company_image'],
       wallets: wallets,

@@ -1,15 +1,10 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
-import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/RecTextField.dart';
 
-import 'package:rec/Lang/AppLocalizations.dart';
-import 'package:rec/Providers/AppState.dart';
-import 'package:rec/Providers/UserState.dart';
-
-import '../../../brand.dart';
+import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/brand.dart';
 
 class RecoveryPasswordPage extends StatefulWidget {
   RecoveryPasswordPage();
@@ -18,23 +13,18 @@ class RecoveryPasswordPage extends StatefulWidget {
   _RecoveryPasswordPageState createState() => _RecoveryPasswordPageState();
 }
 
-class _RecoveryPasswordPageState
-    extends GenericRecViewScreen<RecoveryPasswordPage> {
+class _RecoveryPasswordPageState extends State<RecoveryPasswordPage> {
   String prefix = '+34';
   String telephone = '';
   String idDocument = '';
 
   @override
-  Widget buildPageContent(
-    BuildContext context,
-    AppState state,
-    UserState userState,
-    AppLocalizations localizations,
-  ) {
+  Widget build(BuildContext context) {
+    var localizations = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: IconButtonRec(
+        leading: IconButton(
           icon: Icon(
             Icons.clear,
             color: Colors.black,
@@ -83,7 +73,7 @@ class _RecoveryPasswordPageState
                   color: Brand.grayDark,
                 ),
                 colorLine: Colors.blueAccent,
-                function: setIdDocument,
+                onChange: setIdDocument,
                 isPhone: false,
               ),
             ),
@@ -128,7 +118,7 @@ class _RecoveryPasswordPageState
                             color: Brand.grayDark,
                           ),
                           colorLine: Colors.blueAccent,
-                          function: setPhone,
+                          onChange: setPhone,
                           isPhone: false,
                         ),
                       ),

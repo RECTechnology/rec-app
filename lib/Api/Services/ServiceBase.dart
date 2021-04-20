@@ -32,8 +32,14 @@ abstract class ServiceBase {
     });
   }
 
-  Future put(String id, Map data) {
-    throw UnimplementedError();
+  Future<Map<String, dynamic>> put(Uri uri, Map data) async {
+    return client
+        .put(
+          uri,
+          headers: await getHeaders(),
+          body: json.encode(data),
+        )
+        .then(onRequest);
   }
 
   Future<Map<String, dynamic>> post(Uri uri, Map<String, dynamic> body) async {

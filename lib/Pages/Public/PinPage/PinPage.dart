@@ -1,25 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rec/Base/screens/GenericRecViewScreen.dart';
-import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/RecTextField.dart';
-import 'package:rec/Lang/AppLocalizations.dart';
-import 'package:rec/Providers/AppState.dart';
-import 'package:rec/Providers/UserState.dart';
+import 'package:rec/Providers/AppLocalizations.dart';
 
 class PinPage extends StatefulWidget {
   @override
   PinPageState createState() => PinPageState();
 }
 
-class PinPageState extends GenericRecViewScreen<PinPage> {
+class PinPageState extends State<PinPage> {
   @override
-  Widget buildPageContent(
-    BuildContext context,
-    AppState state,
-    UserState userState,
-    AppLocalizations localizations,
-  ) {
+  Widget build(BuildContext context) {
+    var localizations = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -27,7 +19,7 @@ class PinPageState extends GenericRecViewScreen<PinPage> {
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
-        leading: IconButtonRec(
+        leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
             color: Colors.black,
@@ -55,7 +47,7 @@ class PinPageState extends GenericRecViewScreen<PinPage> {
                 keyboardType: TextInputType.phone,
                 isPassword: false,
                 isNumeric: true,
-                title: localizations.translate('PIN_CODE'),
+                label: localizations.translate('PIN_CODE'),
               ),
             ),
             Container(
@@ -66,7 +58,7 @@ class PinPageState extends GenericRecViewScreen<PinPage> {
                 keyboardType: TextInputType.phone,
                 isPassword: false,
                 isNumeric: true,
-                title: localizations.translate('REPEAT_PIN_CODE'),
+                label: localizations.translate('REPEAT_PIN_CODE'),
               ),
             ),
             Container(
@@ -77,7 +69,7 @@ class PinPageState extends GenericRecViewScreen<PinPage> {
                     alignment: Alignment.centerLeft,
                     child: Row(
                       children: [
-                        IconButtonRec(
+                        IconButton(
                           icon: Icon(Icons.arrow_left),
                           onPressed: () {
                             Navigator.of(context)
@@ -101,7 +93,7 @@ class PinPageState extends GenericRecViewScreen<PinPage> {
                               Text(
                                 localizations.translate('NEXT'),
                               ),
-                              IconButtonRec(
+                              IconButton(
                                 icon: Icon(Icons.arrow_right),
                                 onPressed: () {
                                   Navigator.of(context).pushReplacementNamed(

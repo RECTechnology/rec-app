@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Api/Auth.dart';
-import 'package:rec/Lang/AppLocalizations.dart';
+import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/routes.dart';

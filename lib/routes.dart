@@ -11,7 +11,7 @@ import 'Pages/Public/SendSMS/SendSMS.page.dart';
 import 'Pages/Public/ChangePassword/ChangePasswordPage.dart';
 
 class Routes {
-  static String home = '/home';
+  // Public routes
   static String login = '/login';
   static String pinPage = '/pinPage';
   static String registerOne = '/registerOne';
@@ -20,6 +20,9 @@ class Routes {
   static String sendSMS = '/sendSMS';
   static String changePassword = '/changePassword';
 
+  // Private routes
+  static String home = '/home';
+  
   static String getInitialRoute({bool hasToken = true}) {
     return hasToken ? Routes.home : Routes.login;
   }

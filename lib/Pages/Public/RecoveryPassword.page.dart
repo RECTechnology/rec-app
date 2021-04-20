@@ -2,15 +2,11 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Services/SMSService.dart';
-import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
-import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/RecTextField.dart';
 
-import 'package:rec/Lang/AppLocalizations.dart';
-import 'package:rec/Providers/AppState.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/Verify/VerifyDataRec.dart';
+import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/Helpers/VerifyDataRec.dart';
 import 'package:rec/brand.dart';
 
 class RecoveryPasswordPage extends StatefulWidget {
@@ -18,44 +14,40 @@ class RecoveryPasswordPage extends StatefulWidget {
   _RecoveryPasswordPageState createState() => _RecoveryPasswordPageState();
 }
 
-class _RecoveryPasswordPageState
-    extends GenericRecViewScreen<RecoveryPasswordPage> {
+class _RecoveryPasswordPageState extends State<RecoveryPasswordPage> {
   SMSService smsService = SMSService();
   String idDocument = '';
   String phone = '649516729';
   String prefix = '+34';
   final _formKey = GlobalKey<FormState>();
+
+  void goNext() {
+    Auth.getAppToken().then((value) {
+      if (!_formKey.currentState.validate()) return;
+
+      smsService.sendSMS(
+        dni: idDocument,
+        phone: '$prefix $phone',
+        accesToken: value,
+      );
+
+      Navigator.of(context).pushNamed(
+        '/sendSMS',
+        arguments: {
+          'phone': phone,
+          'isChangePassword': 'no',
+        },
+      );
+    });
+  }
+
   @override
-  Widget buildPageContent(
-    BuildContext context,
-    AppState state,
-    UserState userState,
-    AppLocalizations localizations,
-  ) {
-    void goNext() {
-      Auth.getAppToken().then((value) {
-        if (!_formKey.currentState.validate()) return;
-
-        smsService.sendSMS(
-          dni: idDocument,
-          phone: '$prefix $phone',
-          accesToken: value,
-        );
-
-        Navigator.of(context).pushNamed(
-          '/sendSMS',
-          arguments: {
-            'phone': phone,
-            'isChangePassword': 'no',
-          },
-        );
-      });
-    }
-
+  Widget build(BuildContext context) {
+    var localizations = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: IconButtonRec(
+        leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
             color: Colors.black,
@@ -103,9 +95,9 @@ class _RecoveryPasswordPageState
                         keyboardType: TextInputType.text,
                         needObscureText: false,
                         placeholder: localizations.translate('WRITE_DOCUMENT'),
-                        title: localizations.translate('DNI'),
+                        label: localizations.translate('DNI'),
                         isPassword: false,
-                        function: setDni,
+                        onChange: setDni,
                         colorLine: Brand.primaryColor,
                         validator: VerifyDataRec.verifyIdentityDocument,
                         isPhone: false,
@@ -161,7 +153,7 @@ class _RecoveryPasswordPageState
                                 color: Brand.defectText,
                               ),
                               colorLine: Colors.blueAccent,
-                              function: setPhone,
+                              onChange: setPhone,
                               isPhone: false,
                             ),
                           ),

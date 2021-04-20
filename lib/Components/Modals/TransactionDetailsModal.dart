@@ -6,7 +6,7 @@ import 'package:rec/Components/Wallet/Transactions/TransactionAmount.dart';
 import 'package:rec/Components/Wallet/Transactions/TransactionIcon.dart';
 import 'package:rec/Components/Wallet/Transactions/TransactionTitle.dart';
 import 'package:rec/Entities/Transactions/Transaction.ent.dart';
-import 'package:rec/Lang/AppLocalizations.dart';
+import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
 

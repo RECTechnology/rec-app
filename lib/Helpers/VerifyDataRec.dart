@@ -14,6 +14,7 @@ class VerifyDataRec {
       return 'incorrect password, min 6 caracter';
     }
   }
+
   static String verifySMS(String sms) {
     if (sms.length >= 6) {
       return null;

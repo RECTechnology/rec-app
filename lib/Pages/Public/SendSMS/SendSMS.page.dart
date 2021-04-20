@@ -1,25 +1,20 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:rec/Base/screens/GenericRecViewScreen.dart';
 import 'package:rec/Components/ButtonRec.dart';
-import 'package:rec/Components/IconButton.dart';
 import 'package:rec/Components/RecTextField.dart';
-import 'package:rec/Components/ToastRec.dart';
+import 'package:rec/Components/RecToast.dart';
 
-import 'package:rec/Lang/AppLocalizations.dart';
-import 'package:rec/Providers/AppState.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/Verify/VerifyDataRec.dart';
-
-import '../../../brand.dart';
+import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/Helpers/VerifyDataRec.dart';
+import 'package:rec/brand.dart';
 
 class SendSMSPage extends StatefulWidget {
   @override
   _SendSMSPageState createState() => _SendSMSPageState();
 }
 
-class _SendSMSPageState extends GenericRecViewScreen<SendSMSPage> {
+class _SendSMSPageState extends State<SendSMSPage> {
   final _formKey = GlobalKey<FormState>();
 
   Timer _timer;
@@ -38,26 +33,22 @@ class _SendSMSPageState extends GenericRecViewScreen<SendSMSPage> {
   }
 
   @override
-  Widget buildPageContent(
-    BuildContext context,
-    AppState state,
-    UserState userState,
-    AppLocalizations localizations,
-  ) {
+  Widget build(BuildContext context) {
     Map<String, String> data = ModalRoute.of(context).settings.arguments;
+    var localizations = AppLocalizations.of(context);
+
     var phone = data['phone'];
     var isChangePassword = data['isChangePassword'];
 
     void sendedSMS() {
-      var localization = AppLocalizations.of(context);
       if (_formKey.currentState.validate()) {
         isChangePassword == 'yes'
             ? Navigator.of(context).pushNamed('/changePassword', arguments: sms)
             : Navigator.of(context).pushNamed('/login', arguments: sms);
       } else {
-        ToastRec.printToastRec(
+        RecToast.show(
           context,
-          localization.translate('ERROR_CODE'),
+          localizations.translate('ERROR_CODE'),
         );
       }
     }
@@ -65,7 +56,7 @@ class _SendSMSPageState extends GenericRecViewScreen<SendSMSPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: IconButtonRec(
+        leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
             color: Colors.black,
@@ -125,7 +116,7 @@ class _SendSMSPageState extends GenericRecViewScreen<SendSMSPage> {
                   letterSpicing: 25,
                   textAlign: TextAlign.center,
                   colorLine: Brand.primaryColor,
-                  function: setSMS,
+                  onChange: setSMS,
                   isPhone: false,
                   validator: VerifyDataRec.verifySMS,
                 ),
@@ -140,8 +131,6 @@ class _SendSMSPageState extends GenericRecViewScreen<SendSMSPage> {
             ),
             Container(
                 margin: EdgeInsets.fromLTRB(20, 159, 20, 0),
-                //Left,Top,Right,Bottom
-                //Left,Top,Right,Bottom
                 child: ButtonRec(
                   textColor: Colors.white,
                   backgroundColor: Brand.primaryColor,

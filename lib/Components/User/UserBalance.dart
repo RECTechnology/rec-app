@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Entities/Currency.ent.dart';
 import 'package:rec/Helpers/Formatting.dart';
-import 'package:rec/Lang/AppLocalizations.dart';
+import 'package:rec/Providers/AppLocalizations.dart';
 
 class UserBalance extends StatefulWidget {
   final double balance;
