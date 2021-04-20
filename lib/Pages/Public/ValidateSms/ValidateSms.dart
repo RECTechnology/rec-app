@@ -155,6 +155,7 @@ class _ValidateSmsState extends State<ValidateSms> {
         if (_start == 0) {
           setState(() {
             timer.cancel();
+
           });
         } else {
           setState(() {
