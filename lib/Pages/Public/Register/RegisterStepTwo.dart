@@ -5,6 +5,7 @@ import 'package:rec/Components/RecActionButton.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Public/Register/RegisterRequest.dart';
+import 'package:rec/Pages/Public/ValidateSms/ValidateSms.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/brand.dart';
@@ -147,9 +148,13 @@ class RegisterTwoState extends State<RegisterTwo> {
   void _attemptRegister() {
     var localizations = AppLocalizations.of(context);
 
-    RegisterRequest.tryRegister(context, registerData).then((result) {
+    RegisterRequest.tryRegister(context, registerData).then((result) async {
       if (!result.error) {
-        return Navigator.of(context).pushNamed(Routes.validateSms);
+        var validateSMSResult = await  Navigator.of(context).push(MaterialPageRoute(builder: (c) => ValidateSms(registerData.phone,registerData.dni),));
+        if(validateSMSResult != null && validateSMSResult['valid']){
+          Navigator.of(context).popUntil(ModalRoute.withName(Routes.login));
+        }
+        return Future.value();
       }
 
       if (result.message.contains('Server Error')) {
@@ -159,21 +164,20 @@ class RegisterTwoState extends State<RegisterTwo> {
         );
       }
 
-      // Hacky, this is to show API errors as a TextFormField hint
-      // If error is set, validator will showp that error, see how it's setup in the form
-      String fieldName = result.message.split(' ').first;
-
-      // Only add errors if from this page
-      if (fieldName != null) {
+      var translatedMessage = localizations.translate(result.message);
+      if (translatedMessage != result.message) {
+        // Hacky, this is to show API errors as a TextFormField hint
+        // If error is set, validator will showp that error, see how it's setup in the form
+        String fieldName = result.message.split(' ').first;
         registerData.addError(
             fieldName, localizations.translate(result.message));
+        _formKey.currentState.validate();
+      } else {
+        RecToast.showError(
+          context,
+          localizations.translate(translatedMessage),
+        );
       }
-
-      if (fieldName != 'cif') {
-        Navigator.of(context).pop(registerData);
-      }
-
-      _formKey.currentState.validate();
     });
   }
 }

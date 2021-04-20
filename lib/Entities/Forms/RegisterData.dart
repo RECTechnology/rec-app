@@ -43,8 +43,8 @@ class RegisterData extends FormData {
       'password': password,
       'prefix': prefix,
       'phone': phone,
-      'name': companyName,
-      'cif': companyCif,
+      'company_name': companyName,
+      'company_cif': companyCif,
     };
   }
 }

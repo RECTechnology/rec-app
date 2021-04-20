@@ -138,7 +138,7 @@ class AccountSelectorModal {
   }
 
   void onSelected(Account account) async {
-    await EasyLoading.show(status: 'Loading...');
+    await EasyLoading.show();
     await userService
         .changeAccount(account.id)
         .then((_) => onAccountChangeOk(account))

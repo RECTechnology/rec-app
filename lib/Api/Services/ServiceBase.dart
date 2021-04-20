@@ -72,6 +72,6 @@ abstract class ServiceBase {
         'body': json.decode(response.body),
       });
     }
-    return json.decode(response.body);
+    return Future.value();
   }
 }

@@ -5,9 +5,9 @@ import 'package:rec/Api/Services/ServiceBase.dart';
 class PhoneVerificationService extends ServiceBase {
   PhoneVerificationService({Client client}) : super(client: client);
 
-  Future changePassword({String NIF, String accesToken, String code}) async {
+  Future validateSMSCode({String NIF, String code}) async {
     var pathWithParams = ApiPaths.verifyPhone
-        .withQueryParams({'access_token': accesToken}).toUri();
+        .withQueryParams({}).toUri();
 
     var body = {
       'code': code,

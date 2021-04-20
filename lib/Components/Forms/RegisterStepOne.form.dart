@@ -65,6 +65,7 @@ class RegisterStepOneFormState extends State<RegisterStepOneForm> {
                   ),
           ),
           PasswordField(
+            onChange: setPassword,
             validator: (password) => registerData.hasError('password')
                 ? registerData.getError('password')
                 : localizations.translate(

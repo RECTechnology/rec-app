@@ -1,60 +1,58 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:rec/Components/ButtonRec.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:rec/Api/Services/PhoneVerificationService.dart';
+import 'package:rec/Api/Services/SMSService.dart';
+import 'package:rec/Components/RecActionButton.dart';
 import 'package:rec/Components/RecTextField.dart';
 import 'package:rec/Helpers/RecToast.dart';
 
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Helpers/VerifyDataRec.dart';
+import 'package:rec/Styles/Paddings.dart';
+import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/brand.dart';
 
 class ValidateSms extends StatefulWidget {
+  final String phone;
+  final String dni;
+
+  ValidateSms(
+    this.phone,
+    this.dni,
+  );
+
   @override
   _ValidateSmsState createState() => _ValidateSmsState();
 }
 
 class _ValidateSmsState extends State<ValidateSms> {
   final _formKey = GlobalKey<FormState>();
+  final smsService = SMSService();
+  final validateSMS = PhoneVerificationService();
 
-  Timer _timer;
-  int _start = 60;
   String sms = '';
+  bool smsSent = false;
 
   @override
   void initState() {
     super.initState();
-    // startTimer();
+    smsService.sendSMS(phone: widget.phone, dni: widget.dni).then((value) {
+      smsSent = true;
+      RecToast.showInfo(context, 'SMS sent');
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
-    _timer.cancel();
   }
 
   @override
   Widget build(BuildContext context) {
-    Map<String, String> data = ModalRoute.of(context).settings.arguments;
     var localizations = AppLocalizations.of(context);
 
-    var phone = data['phone'];
-    var isChangePassword = data['isChangePassword'];
-
-    void sendedSMS() {
-      if (_formKey.currentState.validate()) {
-        isChangePassword == 'yes'
-            ? Navigator.of(context).pushNamed('/changePassword', arguments: sms)
-            : Navigator.of(context).pushNamed('/login', arguments: sms);
-      } else {
-        RecToast.show(
-          context,
-          localizations.translate('ERROR_CODE'),
-        );
-      }
-    }
-
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
@@ -66,103 +64,116 @@ class _ValidateSmsState extends State<ValidateSms> {
             Navigator.of(context).pop();
           },
         ),
+        elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.fromLTRB(32, 20, 32, 0),
-              child: Text(
-                localizations.translate('SEND_SMS_U'),
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: Paddings.page,
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(bottom: 32),
+                  child: Text(
+                    localizations.translate('SEND_SMS_U'),
+                    style: TextStyles.pageTitle,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-                textAlign: TextAlign.right,
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(32, 57, 32, 0),
-              child: Text(
-                localizations.translate('HELP_US_VALIDATE_PHONE') + ' ',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black54,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 39),
-              child: Text(
-                phone,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Brand.primaryColor,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Form(
-              key: _formKey,
-              child: Container(
-                margin: EdgeInsets.fromLTRB(48, 0, 19, 0),
-                child: RecTextField(
-                  placeholder: '613335',
-                  needObscureText: false,
-                  keyboardType: TextInputType.phone,
-                  isPassword: false,
-                  isNumeric: true,
-                  textSize: 20,
-                  letterSpicing: 25,
+                Text(
+                  localizations.translate('HELP_US_VALIDATE_PHONE') + ' ',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black54,
+                  ),
                   textAlign: TextAlign.center,
-                  colorLine: Brand.primaryColor,
-                  onChange: setSMS,
-                  isPhone: false,
-                  validator: VerifyDataRec.verifySMS,
                 ),
+                Text(
+                  widget.phone,
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Brand.primaryColor,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 40),
+                  child: Form(
+                    key: _formKey,
+                    child: Container(
+                      child: RecTextField(
+                        placeholder: '......',
+                        needObscureText: false,
+                        keyboardType: TextInputType.phone,
+                        isPassword: false,
+                        isNumeric: true,
+                        textSize: 20,
+                        letterSpicing: 25,
+                        textAlign: TextAlign.center,
+                        colorLine: Brand.primaryColor,
+                        onChange: setSMS,
+                        isPhone: false,
+                        validator: VerifyDataRec.verifySMS,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 48),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              bottom: 24,
+              left: 32,
+              right: 32,
+            ),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: RecActionButton(
+                label: localizations.translate('VALIDATE'),
+                backgroundColor: Brand.primaryColor,
               ),
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 44, 0, 0),
-              child: Text(
-                _start.toString(),
-                style: TextStyle(color: Colors.black, fontSize: 20),
-              ),
-            ),
-            Container(
-                margin: EdgeInsets.fromLTRB(20, 159, 20, 0),
-                child: ButtonRec(
-                  textColor: Colors.white,
-                  backgroundColor: Brand.primaryColor,
-                  onPressed: sendedSMS,
-                  widthBox: 370,
-                  isButtonDisabled: false,
-                  widget: Icon(Icons.arrow_forward_ios),
-                  text: localizations.translate('NEXT'),
-                )),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
-  void startTimer() {
-    const oneSec = Duration(seconds: 1);
-    _timer = Timer.periodic(
-      oneSec,
-      (Timer timer) {
-        if (_start == 0) {
-          setState(() {
-            timer.cancel();
+  void tryValidateSMS() async {
+    var localizations = AppLocalizations.of(context);
+    await EasyLoading.show();
 
-          });
-        } else {
-          setState(() {
-            _start--;
-          });
-        }
-      },
+    if (_formKey.currentState.validate()) {
+      await validateSMS
+          .validateSMSCode(code: sms, NIF: widget.dni)
+          .then(validatedOk)
+          .catchError(validatedWithError);
+    } else {
+      RecToast.show(
+        context,
+        localizations.translate('ERROR_CODE'),
+      );
+    }
+
+    await EasyLoading.dismiss();
+  }
+
+  void validatedOk(value) {
+    var localizations = AppLocalizations.of(context);
+    RecToast.show(context, localizations.translate('PHONE_VERIFY_OK'));
+    Navigator.of(context).pop({
+      'valid': true,
+    });
+  }
+
+  void validatedWithError(error) {
+    var localizations = AppLocalizations.of(context);
+    RecToast.showError(
+      context,
+      localizations.translate(error['body']['message']),
     );
   }
 

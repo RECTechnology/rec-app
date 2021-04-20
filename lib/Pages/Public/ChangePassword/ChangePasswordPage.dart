@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:rec/Api/Services/ChangePasswordService.dart';
 import 'package:rec/Api/Storage.dart';
 import 'package:rec/Components/ButtonRec.dart';
+import 'package:rec/Components/RecActionButton.dart';
 import 'package:rec/Components/RecTextField.dart';
 
 import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/brand.dart';
 
 class ChangePasswordPage extends StatefulWidget {
@@ -52,39 +54,33 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           },
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-                margin: EdgeInsets.fromLTRB(33, 20, 32, 0),
-                child: Center(
-                  child: Text(
-                    localizations.translate('CHANGE_YOUR_PASSWORD'),
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                    ),
-                    textAlign: TextAlign.right,
+      body: Column(
+        children: [
+          Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(bottom: 32),
+                child: Text(
+                  localizations.translate('SEND_SMS_U'),
+                  style: TextStyles.pageTitle,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Center(
+                child: Text(
+                  localizations.translate('IPUT_NEW_PASSWORD'),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.black54,
                   ),
-                )),
-            Container(
-                margin: EdgeInsets.fromLTRB(33, 20, 32, 38),
-                child: Center(
-                  child: Text(
-                    localizations.translate('IPUT_NEW_PASSWORD'),
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.black54,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                )),
-            Form(
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              Form(
                 key: _formKey,
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.fromLTRB(32, 0, 32, 0),
                       child: RecTextField(
                         initialValue: password,
                         isNumeric: false,
@@ -129,23 +125,26 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       ),
                     ),
                   ],
-                )),
-            Container(
-              margin: EdgeInsets.fromLTRB(20, 245, 20, 0),
-              //Left,Top,Right,Bottom
-              //Left,Top,Right,Bottom
-              child: ButtonRec(
-                textColor: Colors.white,
-                backgroundColor: Colors.blue,
-                onPressed: changePassword,
-                widthBox: 370,
-                isButtonDisabled: false,
-                widget: Icon(Icons.arrow_forward_ios),
-                text: localizations.translate('CHANGE'),
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              bottom: 24,
+              left: 32,
+              right: 32,
+            ),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: RecActionButton(
+                label: localizations.translate('NEXT'),
+                backgroundColor: Brand.primaryColor,
+                icon: Icons.arrow_forward_ios,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

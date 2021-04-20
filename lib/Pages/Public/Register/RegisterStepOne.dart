@@ -6,6 +6,7 @@ import 'package:rec/Components/RecActionButton.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
 import 'package:rec/Pages/Public/Register/RegisterRequest.dart';
+import 'package:rec/Pages/Public/ValidateSms/ValidateSms.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/brand.dart';
@@ -257,7 +258,7 @@ class RegisterOneState extends State<RegisterOne> {
     }
 
     // If TYPE_COMPANY redirect to second step
-    if (registerData.termsAccepted && registerData.isAccountCompany) {
+    if (registerData.isAccountCompany) {
       var newData = await Navigator.of(context).pushNamed(
         Routes.registerTwo,
         arguments: registerData,
@@ -277,9 +278,20 @@ class RegisterOneState extends State<RegisterOne> {
   void _attemptPrivateRegister() {
     var localizations = AppLocalizations.of(context);
 
-    RegisterRequest.tryRegister(context, registerData).then((result) {
-      if (!result.error) {
-        return Navigator.of(context).pushNamed(Routes.validateSms);
+    RegisterRequest.tryRegister(context, registerData).then((result) async {
+      if (result != null && !result.error) {
+        var validateSMSResult = await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (c) => ValidateSms(
+              registerData.phone,
+              registerData.dni,
+            ),
+          ),
+        );
+        if (validateSMSResult != null && validateSMSResult['valid']) {
+          Navigator.of(context).popUntil(ModalRoute.withName(Routes.login));
+        }
+        return Future.value();
       }
 
       if (result.message.contains('Server Error')) {
@@ -303,6 +315,8 @@ class RegisterOneState extends State<RegisterOne> {
           localizations.translate(translatedMessage),
         );
       }
+    }).catchError((e) {
+      print(e);
     });
   }
 }

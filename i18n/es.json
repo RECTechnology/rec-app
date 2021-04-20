@@ -84,5 +84,6 @@
   "ERROR_PASS_MIN_6": "Contraseña incorrecta, minimo 6 caracteres",
   "ERROR_DNI": "DNI/NIE incorrecto",
   "ERROR_CIF": "CIF incorrecto",
-  "ERROR_PHONE": "Telefóno incorrecto"
+  "ERROR_PHONE": "Telefóno incorrecto",
+  "PHONE_VERIFY_OK": "Telefono verificado correctamente, puedes proceder a realizar el login"
 }
