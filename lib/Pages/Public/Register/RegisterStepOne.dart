@@ -6,6 +6,7 @@ import 'package:rec/Components/RecActionButton.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
 import 'package:rec/Pages/Public/Register/RegisterRequest.dart';
+import 'package:rec/Pages/Public/Register/RegisterStepTwo.dart';
 import 'package:rec/Pages/Public/ValidateSms/ValidateSms.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
@@ -45,13 +46,14 @@ class RegisterOneState extends State<RegisterOne> {
             ? Brand.backgroundPrivateColor
             : Brand.backgroundCompanyColor,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.close, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(140),
+          preferredSize: Size.fromHeight(180),
           child: Container(
-            height: 100,
+            height: 120,
+            padding: EdgeInsets.only(left: 24, right: 24),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -66,8 +68,9 @@ class RegisterOneState extends State<RegisterOne> {
                             : Image.asset('assets/avatar-bw.png'),
                         onPressed: () =>
                             _registerFormKey.currentState.setToPrivate(),
-                        iconSize: 50,
+                        iconSize: 60,
                       ),
+                      SizedBox(height: 8),
                       Text(
                         localizations.translate('PARTICULAR'),
                         style: TextStyle(
@@ -75,6 +78,9 @@ class RegisterOneState extends State<RegisterOne> {
                               ? Colors.black
                               : Colors.grey,
                           fontSize: 12,
+                          fontWeight: registerData.isAccountPrivate
+                              ? FontWeight.w500
+                              : FontWeight.w300,
                         ),
                       )
                     ],
@@ -90,8 +96,9 @@ class RegisterOneState extends State<RegisterOne> {
                             : Image.asset('assets/organization.png'),
                         onPressed: () =>
                             _registerFormKey.currentState.setToCompany(),
-                        iconSize: 50,
+                        iconSize: 60,
                       ),
+                      SizedBox(height: 8),
                       Text(
                         localizations.translate('ORGANIZATION'),
                         style: TextStyle(
@@ -99,6 +106,9 @@ class RegisterOneState extends State<RegisterOne> {
                               ? Colors.grey
                               : Colors.black,
                           fontSize: 12,
+                          fontWeight: registerData.isAccountCompany
+                              ? FontWeight.w500
+                              : FontWeight.w300,
                         ),
                       )
                     ],
@@ -129,10 +139,7 @@ class RegisterOneState extends State<RegisterOne> {
             ),
             _pressNextToAdd(),
             _termsAndServices(),
-            Container(
-              margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-              child: _registerButton(),
-            )
+            _registerButton(),
           ],
         ),
       ),
@@ -259,9 +266,10 @@ class RegisterOneState extends State<RegisterOne> {
 
     // If TYPE_COMPANY redirect to second step
     if (registerData.isAccountCompany) {
-      var newData = await Navigator.of(context).pushNamed(
-        Routes.registerTwo,
-        arguments: registerData,
+      var newData = await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => RegisterTwo(registerData: registerData),
+        ),
       );
 
       if (newData != null) {

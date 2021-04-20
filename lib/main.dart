@@ -9,7 +9,7 @@ import 'package:rec/Providers/UserState.dart';
 import 'package:rec/app.dart';
 import 'package:rec/brand.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'Api/Services/TransactionsService.dart';
+import 'Api/Services/wallet/TransactionsService.dart';
 import 'Environments/env-local.dart';
 import 'Providers/AppState.dart';
 import 'package:timeago/timeago.dart' as timeago;

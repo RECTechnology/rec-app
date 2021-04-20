@@ -29,18 +29,18 @@ class DniTextFieldState extends State<DniTextField> {
     var localizations = AppLocalizations.of(context);
 
     return RecTextField(
-      label: 'DNI',
+      label: localizations.translate('DNI_NIE'),
       initialValue: widget.initialValue,
       isNumeric: false,
       keyboardType: TextInputType.text,
       needObscureText: false,
-      placeholder: localizations.translate('WRITE_DOCUMENT'),
+      placeholder: localizations.translate('DNI_NIE'),
       onChange: widget.onChange,
       colorLine: widget.color,
       validator: widget.validator,
       isPhone: false,
       icon: Icon(
-        Icons.account_circle,
+        Icons.person,
         color: Brand.grayIcon,
       ),
     );

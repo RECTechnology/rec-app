@@ -54,15 +54,6 @@ class _TransactionsListState extends State<TransactionsList> {
       onRefresh: transactionsProvider.refresh,
       child: Column(
         children: [
-          // Filter bar
-          // Padding(
-          //   padding: const EdgeInsets.all(16.0),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [Text('Transactions'), Icon(Icons.filter_list)],
-          //   ),
-          // ),
-          // Divider(height: 1),
           Expanded(
             child: hasTransactions
                 ? ListView.separated(

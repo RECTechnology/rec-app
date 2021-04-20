@@ -55,8 +55,10 @@ flutter:
      - assets/logo.png
      - assets/imagenUsuarioPredeterminada.jpg
      - assets/aj-bcn.jpg
-     - assets/login-header.jpg
+     - assets/login-header.png
      - assets/marcador.png
+     - assets/recharge-ok.png
+     - assets/recharge-ko.png
      - i18n/ca.json
      - i18n/en.json
      - i18n/es.json

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:rec/Api/Storage.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/User.ent.dart';
+import 'package:rec/brand.dart';
 
 // UserState is setup in PrivateRoute, each time a private route is rendered
 // This is done there because only private routes need access to UserState
@@ -72,6 +73,11 @@ class UserState with ChangeNotifier {
 
   User get savedUser {
     return _savedUser;
+  }
+
+  /// Returns the color for the current account
+  Color getColor({Color defaultColor = Brand.grayDark}) {
+    return account == null ? defaultColor : Brand.getColorForAccount(account);
   }
 
   static Future<User> getSavedUser(RecStorage _storage) async {

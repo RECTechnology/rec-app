@@ -12,15 +12,15 @@ import 'package:rec/brand.dart';
 import 'package:rec/routes.dart';
 
 class RegisterTwo extends StatefulWidget {
+  final RegisterData registerData;
+
+  const RegisterTwo({Key key, @required this.registerData}) : super(key: key);
+
   @override
   RegisterTwoState createState() => RegisterTwoState();
 }
 
 class RegisterTwoState extends State<RegisterTwo> {
-  String userName = '';
-  String CIF = '';
-  String email = '';
-
   final _formKey = GlobalKey<FormState>();
 
   RegisterData registerData;
@@ -28,11 +28,11 @@ class RegisterTwoState extends State<RegisterTwo> {
   @override
   void initState() {
     super.initState();
+    registerData = widget.registerData;
   }
 
   @override
   Widget build(BuildContext context) {
-    registerData = ModalRoute.of(context).settings.arguments as RegisterData;
     return Scaffold(appBar: _header(), body: _body());
   }
 
@@ -48,20 +48,31 @@ class RegisterTwoState extends State<RegisterTwo> {
           onPressed: () => Navigator.of(context).pop(registerData),
         ),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(140),
+          preferredSize: Size.fromHeight(180),
           child: Container(
-            height: 100,
+            height: 120,
+            padding: EdgeInsets.only(left: 24, right: 24),
             child: Center(
               child: Column(
                 children: [
                   IconButton(
-                    icon: Image.asset('assets/organization.png'),
-                    iconSize: 40,
-                    onPressed: () {},
+                    icon: registerData.isAccountPrivate
+                        ? Image.asset('assets/organization-bw.png')
+                        : Image.asset('assets/organization.png'),
+                    iconSize: 60,
                   ),
+                  SizedBox(height: 8),
                   Text(
                     localizations.translate('ORGANIZATION'),
-                    style: TextStyle(color: Colors.black, fontSize: 12),
+                    style: TextStyle(
+                      color: registerData.isAccountPrivate
+                          ? Colors.grey
+                          : Colors.black,
+                      fontSize: 12,
+                      fontWeight: registerData.isAccountCompany
+                          ? FontWeight.w500
+                          : FontWeight.w300,
+                    ),
                   )
                 ],
               ),
@@ -150,8 +161,12 @@ class RegisterTwoState extends State<RegisterTwo> {
 
     RegisterRequest.tryRegister(context, registerData).then((result) async {
       if (!result.error) {
-        var validateSMSResult = await  Navigator.of(context).push(MaterialPageRoute(builder: (c) => ValidateSms(registerData.phone,registerData.dni),));
-        if(validateSMSResult != null && validateSMSResult['valid']){
+        var validateSMSResult = await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (c) => ValidateSms(registerData.phone, registerData.dni),
+          ),
+        );
+        if (validateSMSResult != null && validateSMSResult['valid']) {
           Navigator.of(context).popUntil(ModalRoute.withName(Routes.login));
         }
         return Future.value();
@@ -166,18 +181,23 @@ class RegisterTwoState extends State<RegisterTwo> {
 
       var translatedMessage = localizations.translate(result.message);
       if (translatedMessage != result.message) {
-        // Hacky, this is to show API errors as a TextFormField hint
-        // If error is set, validator will showp that error, see how it's setup in the form
         String fieldName = result.message.split(' ').first;
         registerData.addError(
-            fieldName, localizations.translate(result.message));
-        _formKey.currentState.validate();
-      } else {
-        RecToast.showError(
-          context,
-          localizations.translate(translatedMessage),
+          fieldName,
+          localizations.translate(result.message),
         );
+        _formKey.currentState.validate();
+
+        // If error is not a field from this page, go back
+        if (!['cif', 'name'].contains(fieldName)) {
+          Navigator.of(context).pop(registerData);
+        }
       }
+
+      RecToast.showError(
+        context,
+        localizations.translate(translatedMessage),
+      );
     });
   }
 }

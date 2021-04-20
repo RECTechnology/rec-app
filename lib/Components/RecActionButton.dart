@@ -30,14 +30,15 @@ class _RecActionButton extends State<RecActionButton> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
+    var color = widget.backgroundColor;
 
     return Padding(
       padding: widget.padding,
       child: ElevatedButton(
         onPressed: widget.disabled ? null : widget.onPressed,
         style: ElevatedButton.styleFrom(
-          primary: widget.backgroundColor, // background
-          onPrimary: Colors.white, // foreground
+          primary: widget.backgroundColor ?? color,
+          onPrimary: Colors.white,
         ),
         child: Container(
           height: 48,

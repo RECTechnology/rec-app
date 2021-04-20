@@ -10,7 +10,7 @@ import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Styles/Paddings.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/routes.dart';
 
 class LoginPage extends StatefulWidget {
@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
       alignment: Alignment.topRight,
       child: RichText(
         text: TextSpan(
-          style: TextStyle(color: Brand.primaryColor),
+          style: TextStyles.link,
           text: localizations.translate('FORGOT_PASSWORD'),
           recognizer: TapGestureRecognizer()
             ..onTap = () async {
@@ -105,7 +105,6 @@ class _LoginPageState extends State<LoginPage> {
       child: RecActionButton(
         label: 'REGISTER',
         onPressed: registerButtonPressed,
-        icon: Icons.arrow_forward_ios,
         padding: EdgeInsets.all(0),
       ),
     );
@@ -113,12 +112,16 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _header() {
     return Container(
-      child: Image(image: AssetImage('assets/login-header.jpg')),
+      width: MediaQuery.of(context).size.width,
+      child: Image(
+        image: AssetImage('assets/login-header.jpg'),
+        fit: BoxFit.fill,
+      ),
     );
   }
 
   void registerButtonPressed() {
-    Navigator.of(context).pushNamed(Routes.registerOne);
+    Navigator.of(context).pushNamed(Routes.register);
   }
 
   void loginButtonPressed() async {

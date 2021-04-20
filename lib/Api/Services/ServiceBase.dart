@@ -39,7 +39,7 @@ abstract class ServiceBase {
           headers: await getHeaders(),
           body: json.encode(data),
         )
-        .then(onRequest);
+        .then(onResponse);
   }
 
   Future<Map<String, dynamic>> post(Uri uri, Map<String, dynamic> body) async {
@@ -49,7 +49,7 @@ abstract class ServiceBase {
           headers: await getHeaders(),
           body: json.encode(body),
         )
-        .then(onRequest);
+        .then(onResponse);
   }
 
   Future delete(String id) {
@@ -62,16 +62,20 @@ abstract class ServiceBase {
           url,
           headers: await getHeaders(),
         )
-        .then(onRequest);
+        .then(onResponse);
   }
 
-  FutureOr<Map<String, dynamic>> onRequest(Response response) {
+  FutureOr<Map<String, dynamic>> onResponse(Response response) {
     if (response.statusCode >= 400) {
       return Future.error({
         'code': response.statusCode,
         'body': json.decode(response.body),
       });
     }
-    return Future.value();
+    return Future.value(
+      response.body != null && response.body.isNotEmpty
+          ? json.decode(response.body)
+          : {},
+    );
   }
 }

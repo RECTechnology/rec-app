@@ -7,9 +7,11 @@ import 'package:rec/Providers/AppLocalizations.dart';
 class UserBalance extends StatefulWidget {
   final double balance;
   final Currency currency;
+  final String label;
 
   UserBalance({
     this.balance,
+    this.label = 'TOTAL_BALANCE',
     Currency currency,
   }) : currency = currency ?? Currency.rec;
 
@@ -49,7 +51,7 @@ class _UserBalance extends State<UserBalance> {
           Padding(
             padding: EdgeInsets.only(bottom: 10),
             child: Text(
-              localizations.translate('TOTAL_BALANCE').toUpperCase(),
+              localizations.translate(widget.label).toUpperCase(),
               style: TextStyle(fontSize: 15, color: Colors.white54),
             ),
           ),

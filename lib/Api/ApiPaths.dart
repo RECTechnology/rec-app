@@ -13,4 +13,5 @@ class ApiPaths {
   static ApiPath currentUserAccount = ApiPath('/user/v1/account');
   static ApiPath userAccounts = ApiPath('/user/v1/companies');
   static ApiPath changeAccount = ApiPath('/user/v1/activegroup');
+  static ApiPath listCards = ApiPath('/company/v1/credit_card');
 }

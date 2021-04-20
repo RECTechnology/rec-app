@@ -12,6 +12,7 @@ class RecTextField extends StatefulWidget {
   final bool needObscureText;
   final bool isPassword;
   final bool isPhone;
+  final bool autofocus;
 
   final String initialValue;
   final String label;
@@ -24,6 +25,8 @@ class RecTextField extends StatefulWidget {
   final TextAlign textAlign;
   final double textSize;
   final double letterSpicing;
+
+  final int maxLength;
 
   RecTextField({
     this.keyboardType = TextInputType.text,
@@ -41,7 +44,9 @@ class RecTextField extends StatefulWidget {
     this.textSize = 16,
     this.textAlign = TextAlign.left,
     this.letterSpicing = 0.0,
+    this.maxLength,
     this.label,
+    this.autofocus = false,
   });
 
   @override
@@ -61,6 +66,8 @@ class _InputField extends State<RecTextField> {
       child: TextFormField(
         initialValue: widget.initialValue,
         textAlign: widget.textAlign,
+        autofocus: widget.autofocus,
+        maxLength: widget.maxLength,
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
           focusedBorder: UnderlineInputBorder(

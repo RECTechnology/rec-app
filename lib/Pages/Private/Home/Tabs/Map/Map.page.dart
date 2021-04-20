@@ -16,7 +16,7 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   MapsService mapService = MapsService();
-  MapSearchData searchData = MapSearchData(search: 'Ferrete', limit: 1);
+  MapSearchData searchData = MapSearchData();
   BitmapDescriptor markerIcon;
 
   final Set<Marker> _markers = {};
@@ -103,9 +103,11 @@ class _MapPageState extends State<MapPage> {
     mapService
         .getMarks(searchData)
         .then((value) => setMarks(value.items))
-        .onError((error, stackTrace) {
-      print(error);
-    });
+        .onError(
+      (error, stackTrace) {
+        print(error);
+      },
+    );
   }
 
   void goToDetailsPage() {

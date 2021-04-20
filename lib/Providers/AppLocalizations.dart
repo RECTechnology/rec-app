@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rec/Helpers/Strings.dart';
 
 class AppLocalizations {
   final Locale locale;
@@ -29,8 +30,16 @@ class AppLocalizations {
     return true;
   }
 
-  String translate(String key) {
-    return _localizedStrings[key] ?? key;
+  String translate(
+    String key, {
+    Map<String, dynamic> params,
+  }) {
+    var translation = _localizedStrings[key] ?? key;
+    if (params != null) {
+      return Strings.interpolate(translation, params: params);
+    }
+
+    return translation;
   }
 }
 

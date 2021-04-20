@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/DniTextField.dart';
 import 'package:rec/Components/Inputs/PasswordField.dart';
 import 'package:rec/Components/LoggedInBeforeCard.dart';
-import 'package:rec/Components/RecTextField.dart';
 import 'package:rec/Entities/Forms/LoginData.dart';
 import 'package:rec/Helpers/VerifyDataRec.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Styles/Paddings.dart';
-import 'package:rec/brand.dart';
 
 class LoginForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;

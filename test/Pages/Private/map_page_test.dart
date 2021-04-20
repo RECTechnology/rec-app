@@ -13,6 +13,5 @@ void main() {
     await tester.pumpAndSettle();
 
     TestUtils.widgetExistsByType(MapPage);
-    TestUtils.isTextPresent('Estoy en la pestaña Mapa');
   });
 }

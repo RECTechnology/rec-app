@@ -65,17 +65,20 @@ class PrefixPhoneFieldState extends State<PrefixPhoneField> {
             ),
             Expanded(
               flex: 5,
-              child: RecTextField(
-                placeholder: localizations.translate('TELEFONO'),
-                keyboardType: TextInputType.phone,
-                icon: Icon(
-                  Icons.phone,
-                  color: Brand.grayIcon,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: RecTextField(
+                  placeholder: localizations.translate('TELEFONO'),
+                  keyboardType: TextInputType.phone,
+                  icon: Icon(
+                    Icons.phone,
+                    color: Brand.grayIcon,
+                  ),
+                  colorLine: widget.color,
+                  colorLabel: widget.color,
+                  onChange: setPhone,
+                  validator: widget.phoneValidator,
                 ),
-                colorLine: widget.color,
-                colorLabel: widget.color,
-                onChange: setPhone,
-                validator: widget.phoneValidator,
               ),
             ),
           ],

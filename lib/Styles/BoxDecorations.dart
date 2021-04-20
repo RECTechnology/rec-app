@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Styles/BoxShadows.dart';
+import 'package:rec/brand.dart';
 
 class BoxDecorations {
   static BoxDecoration create({
@@ -30,6 +31,17 @@ class BoxDecorations {
       radius: 50,
       blurRadius: 6,
       offset: Offset(1, 3),
+    );
+  }
+
+  static BoxDecoration outline({
+    Color color = Brand.grayDark,
+    double width = 1,
+    double radius = 6,
+  }) {
+    return BoxDecoration(
+      border: Border.all(color: color, width: width),
+      borderRadius: BorderRadius.circular(radius),
     );
   }
 

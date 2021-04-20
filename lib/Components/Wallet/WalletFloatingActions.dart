@@ -3,6 +3,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
+import 'package:rec/routes.dart';
 
 class WalletFloatingActions extends StatelessWidget {
   final TextStyle labelStyle = TextStyle(
@@ -47,6 +48,7 @@ class WalletFloatingActions extends StatelessWidget {
         context,
         iconColor: Brand.grayDark,
         bgColor: Brand.defaultAvatarBackground,
+        route: Routes.recharge,
       ),
     ];
     var companyChildren = [
@@ -74,6 +76,7 @@ class WalletFloatingActions extends StatelessWidget {
         context,
         iconColor: Brand.grayDark,
         bgColor: Brand.defaultAvatarBackground,
+        route: Routes.recharge,
       ),
     ];
 
@@ -101,6 +104,7 @@ class WalletFloatingActions extends StatelessWidget {
     BuildContext context, {
     Color bgColor = Brand.primaryColor,
     Color iconColor = Colors.white,
+    String route,
   }) {
     var localization = AppLocalizations.of(context);
 
@@ -118,7 +122,7 @@ class WalletFloatingActions extends StatelessWidget {
         ),
       ),
       elevation: 0,
-      onTap: () => print('PaY_QR'),
+      onTap: () => {if (route != null) Navigator.of(context).pushNamed(route)},
       onLongPress: () => print('FIRST CHILD LONG PRESS'),
     );
   }

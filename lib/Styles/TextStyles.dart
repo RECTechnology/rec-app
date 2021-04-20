@@ -7,4 +7,19 @@ class TextStyles {
     color: Brand.grayDark,
     fontWeight: FontWeight.w500,
   );
+
+  static const TextStyle outlineTileText = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
+
+  static const TextStyle pageSubtitle1 = TextStyle(
+    fontSize: 18,
+    color: Brand.grayDark3,
+  );
+
+  static const TextStyle link = TextStyle(
+    color: Brand.primaryColor,
+    fontSize: 13,
+  );
 }

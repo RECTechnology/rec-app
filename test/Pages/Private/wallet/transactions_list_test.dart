@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
 import 'package:provider/provider.dart';
-import 'package:rec/Api/Services/TransactionsService.dart';
+import 'package:rec/Api/Services/wallet/TransactionsService.dart';
 import 'package:rec/Api/Storage.dart';
 import 'package:rec/Components/Wallet/TransactionListTile.dart';
 import 'package:rec/Entities/Transactions/Transaction.ent.dart';

@@ -26,6 +26,7 @@ class Brand {
   // Text Colors
   static const Color grayDark = Color(0xff3B3B3B);
   static const Color grayDark2 = Color(0xff4f4f4f);
+  static const Color grayDark3 = Color(0xff808080);
 
   static const Color grayLight = Color(0xff666666);
   static const Color grayLight2 = Color(0xffBDBDBD);
@@ -76,6 +77,8 @@ class Brand {
       accentColor: primaryColor,
       brightness: brightness,
       dividerColor: separatorColor,
+      scaffoldBackgroundColor: Colors.white,
+      appBarTheme: baseTheme.appBarTheme.copyWith(elevation: 0),
       dividerTheme: baseTheme.dividerTheme.copyWith(
         color: Brand.separatorColor,
       ),

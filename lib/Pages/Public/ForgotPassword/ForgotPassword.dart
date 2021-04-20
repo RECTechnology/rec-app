@@ -8,11 +8,8 @@ import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/brand.dart';
-import 'package:rec/routes.dart';
 
 class ForgotPassword extends StatefulWidget {
-  ForgotPassword();
-
   @override
   _ForgotPasswordState createState() => _ForgotPasswordState();
 }

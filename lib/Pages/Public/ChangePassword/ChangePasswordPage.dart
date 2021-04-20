@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Services/ChangePasswordService.dart';
 import 'package:rec/Api/Storage.dart';
-import 'package:rec/Components/ButtonRec.dart';
 import 'package:rec/Components/RecActionButton.dart';
 import 'package:rec/Components/RecTextField.dart';
 
@@ -28,6 +27,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     String sms = ModalRoute.of(context).settings.arguments;
     var storage = RecStorage();
 
+    // ignore: unused_element
     void changePassword() {
       if (_formKey.currentState.validate()) {
         storage.read(key: 'token').then((value) {
