@@ -16,7 +16,7 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   MapsService mapService = MapsService();
-  MapSearchData searchData = MapSearchData();
+  MapSearchData searchData = MapSearchData(search: 'Ferrete', limit: 1);
   BitmapDescriptor markerIcon;
 
   final Set<Marker> _markers = {};
@@ -100,11 +100,11 @@ class _MapPageState extends State<MapPage> {
 
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
-    setState(() {
-      mapService
-          .getMarks(searchData)
-          .then((value) => setMarks(value.items))
-          .onError((error, stackTrace) {});
+    mapService
+        .getMarks(searchData)
+        .then((value) => setMarks(value.items))
+        .onError((error, stackTrace) {
+      print(error);
     });
   }
 

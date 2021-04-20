@@ -4,7 +4,7 @@ class ApiPaths {
   static ApiPath token = ApiPath('/oauth/v3/token');
   static ApiPath transactions = ApiPath('/user/v2/wallet/transactions');
   static ApiPath sendRecoverSms = ApiPath('/password_recovery/v1/request');
-  static ApiPath mapService = ApiPath('/admin/v3/accounts/search');
+  static ApiPath mapService = ApiPath('/user/v3/accounts/search');
   static ApiPath changePassword = ApiPath('/password_recovery/v1');
   static ApiPath verifyPhone = ApiPath('/kyc/validate_phone_code');
 

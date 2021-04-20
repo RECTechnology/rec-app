@@ -1,4 +1,4 @@
 class SortDir {
-  static final String asc = 'ASC';
-  static final String desc = 'DESC';
+  static const String asc = 'ASC';
+  static const String desc = 'DESC';
 }
