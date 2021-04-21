@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/brand.dart';
@@ -21,20 +22,7 @@ class _AddNewCardState extends State<AddNewCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
+      appBar: EmptyAppBar(context),
       body: _body(),
     );
   }

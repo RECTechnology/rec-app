@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:rec/Components/CircleAvatar.dart';
+import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Entities/User.ent.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/BoxDecorations.dart';

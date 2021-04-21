@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-
-import '../brand.dart';
+import 'package:rec/brand.dart';
 
 class RecTextField extends StatefulWidget {
   final String placeholder;
@@ -63,40 +62,44 @@ class _InputField extends State<RecTextField> {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints.tight(Size.fromHeight(80)),
-      child: TextFormField(
-        initialValue: widget.initialValue,
-        textAlign: widget.textAlign,
-        autofocus: widget.autofocus,
-        maxLength: widget.maxLength,
-        textAlignVertical: TextAlignVertical.center,
-        decoration: InputDecoration(
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: widget.colorLine),
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: TextFormField(
+          initialValue: widget.initialValue,
+          textAlign: widget.textAlign,
+          autofocus: widget.autofocus,
+          maxLength: widget.maxLength,
+          textAlignVertical: TextAlignVertical.bottom,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(bottom: 10),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: widget.colorLine),
+            ),
+            fillColor: Colors.lightBlueAccent,
+            suffixIcon: isNotIcon
+                ? IconButton(
+                    onPressed: () => setState(() => changeObscureText()),
+                    icon: Icon(
+                      obscureText ? Icons.visibility_off : Icons.visibility,
+                      color: Brand.grayIcon,
+                    ),
+                  )
+                : widget.icon,
+            errorText: hasError ? error : null,
+            hintText: widget.placeholder,
+            labelText: widget.label,
+            labelStyle: TextStyle(height: 1.5, color: widget.colorLabel),
           ),
-          fillColor: Colors.lightBlueAccent,
-          suffixIcon: isNotIcon
-              ? IconButton(
-                  onPressed: () => setState(() => changeObscureText()),
-                  icon: Icon(
-                    obscureText ? Icons.visibility_off : Icons.visibility,
-                    color: Brand.grayIcon,
-                  ),
-                )
-              : widget.icon,
-          errorText: hasError ? error : null,
-          hintText: widget.placeholder,
-          labelText: widget.label,
-          labelStyle: TextStyle(color: widget.colorLabel),
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: widget.textSize,
+            letterSpacing: widget.letterSpicing,
+          ),
+          onChanged: onChanged,
+          obscureText: obscureText ? true : false,
+          keyboardType: widget.keyboardType,
+          validator: widget.validator,
         ),
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: widget.textSize,
-          letterSpacing: widget.letterSpicing,
-        ),
-        onChanged: onChanged,
-        obscureText: obscureText ? true : false,
-        keyboardType: widget.keyboardType,
-        validator: widget.validator,
       ),
     );
   }

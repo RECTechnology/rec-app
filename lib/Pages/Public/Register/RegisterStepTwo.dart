@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Forms/RegisterStepTwo.form.dart';
-import 'package:rec/Components/RecActionButton.dart';
+import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Public/Register/RegisterRequest.dart';
@@ -41,8 +41,6 @@ class RegisterTwoState extends State<RegisterTwo> {
     return PreferredSize(
       preferredSize: Size.fromHeight(170),
       child: AppBar(
-        backgroundColor: Brand.backgroundCompanyColor,
-        elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(registerData),
@@ -60,6 +58,7 @@ class RegisterTwoState extends State<RegisterTwo> {
                         ? Image.asset('assets/organization-bw.png')
                         : Image.asset('assets/organization.png'),
                     iconSize: 60,
+                    onPressed: null,
                   ),
                   SizedBox(height: 8),
                   Text(

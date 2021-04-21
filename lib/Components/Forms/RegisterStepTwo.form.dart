@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/RecTextField.dart';
+import 'package:rec/Components/Inputs/RecTextField.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
-import 'package:rec/Helpers/VerifyDataRec.dart';
+import 'package:rec/Helpers/Validators.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 
@@ -69,7 +69,7 @@ class RegisterStepOneFoTwotate extends State<RegisterStepTwoForm> {
                 if (widget.registerData.hasError('cif')) {
                   return widget.registerData.getError('cif');
                 }
-                return VerifyDataRec.validateCif(cif);
+                return Validators.validateCif(cif);
               },
             ),
           ),

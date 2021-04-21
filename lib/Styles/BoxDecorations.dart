@@ -45,6 +45,25 @@ class BoxDecorations {
     );
   }
 
+  static BoxDecoration transparentBorder({double radius = 6}) {
+    return BoxDecoration(
+      border: Border.all(
+        color: Colors.transparent,
+      ),
+      borderRadius: BorderRadius.all(
+        Radius.circular(radius),
+      ),
+    );
+  }
+
+  static BoxDecoration solid(Color color) {
+    return BoxDecoration(color: color);
+  }
+
+  static BoxDecoration gradient(Gradient gradient) {
+    return BoxDecoration(gradient: gradient);
+  }
+
   static BoxDecoration whiteShadowBox() {
     return create(color: Colors.white, blurRadius: 3);
   }

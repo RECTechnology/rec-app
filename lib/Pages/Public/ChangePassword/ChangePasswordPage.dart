@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Services/ChangePasswordService.dart';
 import 'package:rec/Api/Storage.dart';
-import 'package:rec/Components/RecActionButton.dart';
-import 'package:rec/Components/RecTextField.dart';
+import 'package:rec/Components/Inputs/RecActionButton.dart';
+import 'package:rec/Components/Inputs/RecTextField.dart';
+import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/TextStyles.dart';
@@ -42,18 +43,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
+      appBar: EmptyAppBar(context),
       body: Column(
         children: [
           Column(

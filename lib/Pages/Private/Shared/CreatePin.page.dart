@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/RecActionButton.dart';
-import 'package:rec/Components/RecTextField.dart';
+import 'package:rec/Components/Inputs/RecActionButton.dart';
+import 'package:rec/Components/Inputs/RecTextField.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
-import 'package:rec/Helpers/VerifyDataRec.dart';
+import 'package:rec/Helpers/Validators.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/Styles/TextStyles.dart';
@@ -25,7 +25,6 @@ class _CreatePinState extends State<CreatePin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: EmptyAppBar(context),
       body: _body(),
     );
@@ -71,7 +70,7 @@ class _CreatePinState extends State<CreatePin> {
                   textAlign: TextAlign.center,
                   colorLine: Brand.primaryColor,
                   onChange: setPin,
-                  validator: VerifyDataRec.pin,
+                  validator: Validators.pin,
                 ),
                 RecActionButton(
                   label: localizations.translate('NEXT'),

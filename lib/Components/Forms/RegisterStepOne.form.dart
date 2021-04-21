@@ -4,7 +4,7 @@ import 'package:rec/Components/Inputs/PasswordField.dart';
 import 'package:rec/Components/Inputs/PrefixPhoneField.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
-import 'package:rec/Helpers/VerifyDataRec.dart';
+import 'package:rec/Helpers/Validators.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 
@@ -50,7 +50,7 @@ class RegisterStepOneFormState extends State<RegisterStepOneForm> {
             phoneValidator: (phone) => registerData.hasError('phone')
                 ? registerData.getError('phone')
                 : localizations.translate(
-                    VerifyDataRec.phoneVerification(phone),
+                    Validators.phoneVerification(phone),
                   ),
           ),
           DniTextField(
@@ -61,7 +61,7 @@ class RegisterStepOneFormState extends State<RegisterStepOneForm> {
             validator: (dni) => registerData.hasError('dni')
                 ? registerData.getError('dni')
                 : localizations.translate(
-                    VerifyDataRec.verifyIdentityDocument(dni),
+                    Validators.verifyIdentityDocument(dni),
                   ),
           ),
           PasswordField(
@@ -69,7 +69,7 @@ class RegisterStepOneFormState extends State<RegisterStepOneForm> {
             validator: (password) => registerData.hasError('password')
                 ? registerData.getError('password')
                 : localizations.translate(
-                    VerifyDataRec.verifyPassword(password),
+                    Validators.verifyPassword(password),
                   ),
             color: registerData.isAccountPrivate
                 ? Brand.primaryColor

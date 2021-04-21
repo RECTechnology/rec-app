@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/DniTextField.dart';
 import 'package:rec/Components/Inputs/PrefixPhoneField.dart';
-import 'package:rec/Components/RecActionButton.dart';
-import 'package:rec/Helpers/VerifyDataRec.dart';
+import 'package:rec/Components/Inputs/RecActionButton.dart';
+import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
+import 'package:rec/Helpers/Validators.dart';
 
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
@@ -23,20 +24,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: Icon(
-            Icons.clear,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
+      appBar: EmptyAppBar(context),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,14 +52,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 DniTextField(
                   color: Colors.blueAccent,
                   onChange: setDocument,
-                  validator: VerifyDataRec.verifyIdentityDocument,
+                  validator: Validators.verifyIdentityDocument,
                 ),
                 PrefixPhoneField(
                   prefix: prefix,
                   phone: phone,
                   prefixChange: setPrefix,
                   phoneChange: setPhone,
-                  phoneValidator: VerifyDataRec.phoneVerification,
+                  phoneValidator: Validators.phoneVerification,
                 ),
               ],
             ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/RecActionButton.dart';
+import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/TextStyles.dart';
 

@@ -94,15 +94,11 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  Widget buildPageContent() {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: _tabs.elementAt(_currentTabIndex),
       bottomNavigationBar: _bottomNavigationBar(),
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return buildPageContent();
   }
 }

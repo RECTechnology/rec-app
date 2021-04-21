@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Forms/RegisterStepOne.form.dart';
 import 'package:rec/Components/Info/InfoTooltip.dart';
-import 'package:rec/Components/RecActionButton.dart';
+import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
 import 'package:rec/Pages/Public/Register/RegisterRequest.dart';
@@ -41,7 +41,6 @@ class RegisterOneState extends State<RegisterOne> {
     return PreferredSize(
       preferredSize: Size.fromHeight(170.0),
       child: AppBar(
-        elevation: 0,
         backgroundColor: registerData.isAccountPrivate
             ? Brand.backgroundPrivateColor
             : Brand.backgroundCompanyColor,

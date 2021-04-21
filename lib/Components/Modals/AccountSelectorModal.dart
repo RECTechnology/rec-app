@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:rec/Api/Services/UsersService.dart';
-import 'package:rec/Components/CircleAvatar.dart';
+import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Entities/Account.ent.dart';
-import 'package:rec/Helpers/Borders.dart';
+import 'package:rec/Styles/Borders.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/TransactionsProvider.dart';
 import 'package:rec/Providers/UserState.dart';
+import 'package:rec/Styles/BoxDecorations.dart';
 import 'package:rec/brand.dart';
 
 // TODO: improve dialogs, this is kinda messy
@@ -173,12 +174,7 @@ class AccountSelectorModal {
       context: context,
       builder: (_) => Dialog(
         child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.transparent,
-            ),
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          ),
+          decoration: BoxDecorations.transparentBorder(),
           height: MediaQuery.of(context).size.height * 0.6,
           child: dialogContent(),
         ),

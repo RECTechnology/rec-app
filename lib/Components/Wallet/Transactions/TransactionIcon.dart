@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/CircleAvatar.dart';
+import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Entities/Transactions/Transaction.ent.dart';
 import 'package:rec/brand.dart';
 

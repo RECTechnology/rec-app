@@ -9,13 +9,11 @@ import 'package:rec/Pages/Public/Register/RegisterStepOne.dart';
 import 'Pages/Private/Home/Home.page.dart';
 import 'Pages/Public/Login/Login.page.dart';
 import 'Components/PrivateRoute.dart';
-import 'Pages/Public/PinPage/PinPage.dart';
 import 'Pages/Public/ChangePassword/ChangePasswordPage.dart';
 
 class Routes {
   // Public routes
   static String login = '/login';
-  static String pinPage = '/pinPage';
   static String register = '/register';
   static String forgotPassword = '/forgotPassword';
   static String changePassword = '/changePassword';
@@ -35,7 +33,6 @@ class Routes {
 final Map<String, Widget Function(BuildContext)> ROUTES = {
   Routes.login: (context) => LoginPage(),
   Routes.forgotPassword: (context) => ForgotPassword(),
-  Routes.pinPage: (context) => PinPage(),
   Routes.register: (context) => RegisterOne(),
   Routes.changePassword: (context) => ChangePasswordPage(),
   Routes.home: (context) => PrivateRoute(HomePage()),

@@ -1,4 +1,4 @@
-class VerifyDataRec {
+class Validators {
   static String phoneVerification(String phone) {
     if (phone.length > 9 || phone.length < 9) {
       return 'ERROR_PHONE';

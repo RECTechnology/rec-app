@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rec/Components/CircleAvatar.dart';
-import 'package:rec/Components/InfoColumn.dart';
+import 'package:rec/Components/Info/CircleAvatar.dart';
+import 'package:rec/Components/Info/InfoColumn.dart';
 import 'package:rec/Components/Wallet/Transactions/TransactionAmount.dart';
 import 'package:rec/Components/Wallet/Transactions/TransactionIcon.dart';
 import 'package:rec/Components/Wallet/Transactions/TransactionTitle.dart';
 import 'package:rec/Entities/Transactions/Transaction.ent.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/UserState.dart';
+import 'package:rec/Styles/BoxDecorations.dart';
 import 'package:rec/brand.dart';
 
 class TransactionDetailsModal {
@@ -19,14 +20,7 @@ class TransactionDetailsModal {
       context: context,
       builder: (_) => Dialog(
         child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.transparent,
-            ),
-            borderRadius: BorderRadius.all(
-              Radius.circular(10.0),
-            ),
-          ),
+          decoration: BoxDecorations.transparentBorder(),
           height: MediaQuery.of(context).size.height * 0.55,
           child: _dialogContent(transaction),
         ),
@@ -130,9 +124,7 @@ class TransactionDetailsModal {
 
   Widget _txCard(Transaction transaction) {
     return Container(
-      decoration: BoxDecoration(
-        color: Brand.defaultAvatarBackground,
-      ),
+      decoration: BoxDecorations.solid(Brand.defaultAvatarBackground),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24),
         child: Column(

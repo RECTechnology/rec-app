@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/AmountTextField.dart';
-import 'package:rec/Components/RecActionButton.dart';
+import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/User/UserBalance.dart';
 import 'package:rec/Entities/Forms/RechargeData.dart';

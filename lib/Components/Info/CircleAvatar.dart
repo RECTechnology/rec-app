@@ -69,10 +69,6 @@ class _CircleAvatarRecState extends State<CircleAvatarRec> {
 
     if (widget.icon != null) {
       child = widget.icon;
-      // return CircleAvatar(
-      //   backgroundColor: randomColor,
-      //   child: widget.icon,
-      // );
     }
 
     if (widget.name != null) {
@@ -80,14 +76,6 @@ class _CircleAvatarRecState extends State<CircleAvatarRec> {
         widget.name[0].toUpperCase(),
         style: TextStyle(color: ColorHelper.getContrastColor(randomColor)),
       );
-
-      // return CircleAvatar(
-      //   backgroundColor: randomColor,
-      //   child: Text(
-      //     widget.name[0].toUpperCase(),
-      //     style: TextStyle(color: ColorHelper.getContrastColor(randomColor)),
-      //   ),
-      // );
     }
 
     return CircleAvatar(

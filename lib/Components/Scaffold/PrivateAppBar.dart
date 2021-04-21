@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/CircleAvatar.dart';
+import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Components/Modals/AccountSelectorModal.dart';
 import 'package:rec/Providers/UserState.dart';
+import 'package:rec/Styles/BoxDecorations.dart';
 
 import 'package:rec/brand.dart';
 
@@ -42,8 +43,8 @@ class _PrivateAppBar extends State<PrivateAppBar> {
         child: AppBar(
           toolbarHeight: kToolbarHeight,
           flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: Brand.getGradientForAccount(account),
+            decoration: BoxDecorations.gradient(
+              Brand.getGradientForAccount(account),
             ),
           ),
           elevation: 0,

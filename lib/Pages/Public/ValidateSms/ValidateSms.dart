@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:rec/Api/Services/PhoneVerificationService.dart';
 import 'package:rec/Api/Services/SMSService.dart';
-import 'package:rec/Components/RecActionButton.dart';
-import 'package:rec/Components/RecTextField.dart';
+import 'package:rec/Components/Inputs/RecActionButton.dart';
+import 'package:rec/Components/Inputs/RecTextField.dart';
+import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Helpers/RecToast.dart';
 
 import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Helpers/VerifyDataRec.dart';
+import 'package:rec/Helpers/Validators.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/brand.dart';
@@ -52,20 +53,7 @@ class _ValidateSmsState extends State<ValidateSms> {
     var localizations = AppLocalizations.of(context);
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        elevation: 0,
-      ),
+      appBar: EmptyAppBar(context),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -115,7 +103,7 @@ class _ValidateSmsState extends State<ValidateSms> {
                         colorLine: Brand.primaryColor,
                         onChange: setSMS,
                         isPhone: false,
-                        validator: VerifyDataRec.smsCode,
+                        validator: Validators.smsCode,
                       ),
                     ),
                   ),

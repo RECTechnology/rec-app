@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/ButtonRec.dart';
-import 'package:rec/Components/RecTextField.dart';
+import 'package:rec/Components/Inputs/RecActionButton.dart';
+import 'package:rec/Components/Inputs/RecTextField.dart';
+import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 
 import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Helpers/VerifyDataRec.dart';
+import 'package:rec/Helpers/Validators.dart';
 
 class SetPasswordPage extends StatefulWidget {
   SetPasswordPage();
@@ -20,18 +21,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
+      appBar: EmptyAppBar(context),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -70,7 +60,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                 colorLine: Colors.blueAccent,
                 onChange: setNewPassword,
                 isPhone: false,
-                validator: VerifyDataRec.verifyPassword,
+                validator: Validators.verifyPassword,
               ),
             ),
             Container(
@@ -85,21 +75,17 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                 colorLine: Colors.blueAccent,
                 onChange: setNewPassword,
                 isPhone: false,
-                validator: VerifyDataRec.verifyPassword,
+                validator: Validators.verifyPassword,
               ),
             ),
             Container(
               margin: EdgeInsets.fromLTRB(0, 203, 0, 0),
               width: 296,
               height: 48,
-              child: ButtonRec(
-                textColor: Colors.white,
-                backgroundColor: Colors.blue,
+              child: RecActionButton(
                 onPressed: changePassword,
-                widthBox: 370,
-                isButtonDisabled: false,
-                widget: Icon(Icons.arrow_forward_ios),
-                text: localizations.translate('NEXT'),
+                label: localizations.translate('NEXT'),
+                icon: Icons.arrow_forward_ios_outlined,
               ),
             ),
           ],

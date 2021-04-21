@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:rec/Api/Services/LoginService.dart';
 import 'package:rec/Components/Forms/Login.form.dart';
-import 'package:rec/Components/RecActionButton.dart';
+import 'package:rec/Components/Inputs/RecActionButton.dart';
 
 import 'package:rec/Entities/Forms/LoginData.dart';
 import 'package:rec/Helpers/RecToast.dart';
@@ -115,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
       width: MediaQuery.of(context).size.width,
       child: Image(
         image: AssetImage('assets/login-header.jpg'),
-        fit: BoxFit.fill,
+        fit: BoxFit.cover,
       ),
     );
   }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/DniTextField.dart';
 import 'package:rec/Components/Inputs/PasswordField.dart';
-import 'package:rec/Components/LoggedInBeforeCard.dart';
+import 'package:rec/Components/Info/LoggedInBeforeCard.dart';
 import 'package:rec/Entities/Forms/LoginData.dart';
-import 'package:rec/Helpers/VerifyDataRec.dart';
+import 'package:rec/Helpers/Validators.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Styles/Paddings.dart';
@@ -61,7 +61,7 @@ class LoginFormState extends State<LoginForm> {
       initialValue: loginData.username,
       onChange: setUsername,
       validator: (s) => localizations.translate(
-        VerifyDataRec.verifyIdentityDocument(s),
+        Validators.verifyIdentityDocument(s),
       ),
     );
   }
@@ -74,7 +74,7 @@ class LoginFormState extends State<LoginForm> {
         initialValue: loginData.password,
         onChange: setPassword,
         validator: (s) => localizations.translate(
-          VerifyDataRec.verifyPassword(s),
+          Validators.verifyPassword(s),
         ),
       ),
     );
