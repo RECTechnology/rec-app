@@ -45,12 +45,16 @@ class _TransactionsListState extends State<TransactionsList> {
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
     var transactionsProvider = TransactionProvider.of(context);
+    var userState = UserState.of(context);
+
     var hasTransactions = transactionsProvider.hasTransactions();
     var hasMoreTx = transactionsProvider.total > transactionsProvider.length;
     var isLoading = transactionsProvider.loading;
 
+    var color = userState.getColor(defaultColor: Brand.primaryColor);
+
     return RefreshIndicator(
-      color: Brand.primaryColor,
+      color: color,
       onRefresh: transactionsProvider.refresh,
       child: Column(
         children: [
