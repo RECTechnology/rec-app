@@ -1,3 +1,4 @@
+import 'package:rec/Entities/Campaign.ent.dart';
 import 'package:rec/Entities/Currency.ent.dart';
 import 'package:rec/Entities/Entity.base.dart';
 import 'package:rec/Entities/Transactions/Wallet.ent.dart';
@@ -9,10 +10,17 @@ class Account extends Entity {
   static const String TYPE_PRIVATE = 'PRIVATE';
   static const String TYPE_COMPANY = 'COMPANY';
 
+  static const String SUBTYPE_COMPANY_RETAILER = 'RETAILER';
+  static const String SUBTYPE_COMPANY_WHOLESALE = 'WHOLESALE';
+
+  static const String SUBTYPE_COMPANY_NORMAL = 'NORMAL';
+  static const String SUBTYPE_COMPANY_BMINCOME = 'BMINCOME';
+
   List<Activity> activities = [];
   List<Product> producingProducts = [];
   List<Product> consumingProducts = [];
   List<Wallet> wallets = [];
+  List<Campaign> campaigns = [];
 
   String name;
   String companyImage;
@@ -34,6 +42,7 @@ class Account extends Entity {
     this.companyImage,
     this.publicImage,
     this.wallets = const [],
+    this.campaigns = const [],
   }) : super(id, createdAt, updatedAt);
 
   bool isPrivate() {
@@ -53,6 +62,14 @@ class Account extends Entity {
     return wallets.firstWhere((element) => element.currency == currency);
   }
 
+  bool isCampaignActive(Campaign campaign) {
+    return campaigns.contains(campaign);
+  }
+
+  bool isCampaignActiveById(String campaignId) {
+    return campaigns.firstWhere((el) => el.id == campaignId) != null;
+  }
+
   int getWalletBalance(String currencyName) {
     return wallets
         .firstWhere((element) => element.currency.name == currencyName)
@@ -60,9 +77,7 @@ class Account extends Entity {
   }
 
   int getWalletBalanceByCurrency(Currency currency) {
-    return wallets
-        .firstWhere((element) => element.currency == currency)
-        .balance;
+    return getWalletBalance(currency.name);
   }
 
   @override
@@ -71,8 +86,22 @@ class Account extends Entity {
   }
 
   factory Account.fromJson(Map<String, dynamic> json) {
-    var wallets = List.from(json['wallets']);
-    wallets = wallets.map((el) => Wallet.fromJson(el)).toList();
+    var wallets = <Wallet>[];
+    var campaigns = <Campaign>[];
+
+    if (json['wallets'] != null) {
+      var jsonWallets = List.from(json['wallets']);
+      wallets = jsonWallets.isNotEmpty
+          ? jsonWallets.map<Wallet>((el) => Wallet.fromJson(el)).toList()
+          : <Wallet>[];
+    }
+
+    if (json['campaigns'] != null) {
+      var jsonCampaigns = List.from(json['campaigns']);
+      campaigns = jsonCampaigns.isNotEmpty
+          ? jsonCampaigns.map<Campaign>((el) => Campaign.fromJson(el)).toList()
+          : <Campaign>[];
+    }
 
     return Account(
       id: '${json['id']}',
@@ -84,6 +113,7 @@ class Account extends Entity {
       publicImage: json['public_image'],
       companyImage: json['company_image'],
       wallets: wallets,
+      campaigns: campaigns,
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Helpers/Formatting.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/TextStyles.dart';
+import 'package:rec/routes.dart';
 
 class RechargeOK extends StatefulWidget {
   final double amount;
@@ -16,11 +17,19 @@ class RechargeOK extends StatefulWidget {
 }
 
 class _RechargeOKState extends State<RechargeOK> {
+  Future<bool> _popBackHome() {
+    Navigator.of(context).popUntil(ModalRoute.withName(Routes.home));
+    return Future.value(false);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: _body(),
+    return WillPopScope(
+      onWillPop: _popBackHome,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: _body(),
+      ),
     );
   }
 
@@ -59,9 +68,7 @@ class _RechargeOKState extends State<RechargeOK> {
           ),
           RecActionButton(
             label: localizations.translate('ALRIGHT'),
-            onPressed: () => Navigator.of(context).popUntil(
-              ModalRoute.withName('/home'),
-            ),
+            onPressed: _popBackHome,
           )
         ],
       ),

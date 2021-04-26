@@ -116,7 +116,7 @@ class _TransactionsListState extends State<TransactionsList> {
   }
 
   Timer getRefreshTimer() {
-    // Run refresh directly, no need to wait for timer
+    // Run refresh directly, no need to wait for first timer call
     _transactionsProvider?.refresh();
 
     return Timer.periodic(

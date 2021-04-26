@@ -55,6 +55,7 @@ class _PrivateRouteState extends State<PrivateRoute> {
   }
 
   void gotUserError(e) async {
+    print(e);
     if (e['code'] == 401 || e['code'] == 403) {
       await Auth.logout();
       await Navigator.of(context).pushReplacementNamed(Routes.login);

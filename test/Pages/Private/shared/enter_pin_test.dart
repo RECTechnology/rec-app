@@ -10,7 +10,9 @@ void main() {
     WidgetTester tester,
   ) async {
     var app = TestUtils.wrapPrivateRoute(
-      EnterPin(),
+      EnterPin(
+        ifPin: (pin) => print('got pin $pin'),
+      ),
       state: UserState(
         RecStorage(),
         null,

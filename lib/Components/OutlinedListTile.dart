@@ -46,9 +46,10 @@ class _OutlinedListTile extends State<OutlinedListTile> {
                 padding: EdgeInsets.only(left: 16, right: 16),
                 decoration: BoxDecorations.outline(color: widget.color),
                 child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: widget.children),
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: widget.children,
+                ),
               ),
             ),
           ],

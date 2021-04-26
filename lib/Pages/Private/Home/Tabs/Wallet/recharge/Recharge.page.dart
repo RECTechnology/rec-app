@@ -58,7 +58,10 @@ class _RechargePageState extends State<RechargePage> {
                 SizedBox(height: 16),
                 AmountTextField(
                   onChange: (v) {
-                    setState(() => rechargeData.amount = double.parse(v));
+                    setState(
+                      () => rechargeData.amount =
+                          double.parse(v.isEmpty ? '0' : v),
+                    );
                   },
                 ),
                 SizedBox(height: 32),

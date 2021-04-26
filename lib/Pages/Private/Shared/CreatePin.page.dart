@@ -9,8 +9,11 @@ import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/brand.dart';
 
 class CreatePin extends StatefulWidget {
+  final Function(String pin) ifPin;
+
   const CreatePin({
     Key key,
+    @required this.ifPin,
   }) : super(key: key);
 
   @override
@@ -62,7 +65,6 @@ class _CreatePinState extends State<CreatePin> {
                   placeholder: '....',
                   needObscureText: true,
                   isNumeric: true,
-                  autofocus: true,
                   textSize: 20,
                   letterSpicing: 25,
                   maxLength: 4,

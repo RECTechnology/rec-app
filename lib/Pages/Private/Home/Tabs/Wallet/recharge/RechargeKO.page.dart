@@ -52,9 +52,7 @@ class _RechargeKOState extends State<RechargeKO> {
           ),
           RecActionButton(
             label: localizations.translate('ALRIGHT'),
-            onPressed: () => Navigator.of(context).popUntil(
-              ModalRoute.withName('/home'),
-            ),
+            onPressed: () => Navigator.of(context).pop(),
           )
         ],
       ),

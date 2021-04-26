@@ -108,8 +108,8 @@ class Brand {
       ..backgroundColor = Colors.white.withAlpha(0)
       ..indicatorColor = Brand.primaryColor
       ..textColor = Brand.primaryColor
-      ..maskType = EasyLoadingMaskType.black
-      ..maskColor = Colors.blue.withOpacity(0.8)
+      ..maskType = EasyLoadingMaskType.custom
+      ..maskColor = Colors.white.withOpacity(0.6)
       ..userInteractions = true
       ..dismissOnTap = false;
   }

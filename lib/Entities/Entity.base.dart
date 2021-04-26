@@ -14,6 +14,10 @@ abstract class Entity {
         updatedAt != null ? DateTime.parse(updatedAt) : DateTime.now();
   }
 
+  bool equals(Entity other) {
+    return id == other.id;
+  }
+
   Map<String, dynamic> toJson() {
     return Map.from({});
   }

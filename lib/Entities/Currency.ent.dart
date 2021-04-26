@@ -11,6 +11,15 @@ class Currency {
     this.decimals,
   );
 
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'symbol': symbol,
+      'scale': scale,
+      'decimals': decimals,
+    };
+  }
+
   static Currency rec = Currency('rec', 'R', 8, 2);
   static Currency eur = Currency('eur', '€', 2, 2);
   static List<Currency> all = [Currency.eur, Currency.rec];

@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Inputs/DniTextField.dart';
 import 'package:rec/Components/Inputs/PasswordField.dart';
-import 'package:rec/Components/Inputs/PrefixPhoneField.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
 import 'package:rec/Helpers/Validators.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
 
 class SetPasswordForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -17,7 +13,7 @@ class SetPasswordForm extends StatefulWidget {
     Key key,
     this.formKey,
     this.onChangeRePassword,
-    this.onChangePassword
+    this.onChangePassword,
   }) : super(key: key);
 
   @override
@@ -34,35 +30,32 @@ class SetPasswordFormState extends State<SetPasswordForm> {
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
     return Padding(
       padding: EdgeInsets.only(top: 40),
       child: Form(
         key: widget.formKey,
         child: Container(
             child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  child: PasswordField(
-                    validator: Validators.verifyPassword,
-                    color: Colors.blueAccent,
-                    onChange: widget.onChangeRePassword,
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  child: PasswordField(
-                    validator: Validators.verifyPassword,
-                    color: Colors.blueAccent,
-                    onChange: widget.onChangeRePassword,
-                  ),
-                ),
-              ],
-            )),
+          children: [
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: PasswordField(
+                validator: Validators.verifyPassword,
+                color: Colors.blueAccent,
+                onChange: widget.onChangeRePassword,
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: PasswordField(
+                validator: Validators.verifyPassword,
+                color: Colors.blueAccent,
+                onChange: widget.onChangeRePassword,
+              ),
+            ),
+          ],
+        )),
       ),
     );
   }
-
-
 }

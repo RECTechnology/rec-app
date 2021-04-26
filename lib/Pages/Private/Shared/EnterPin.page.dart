@@ -9,8 +9,11 @@ import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/brand.dart';
 
 class EnterPin extends StatefulWidget {
+  final Function(String pin) ifPin;
+
   const EnterPin({
     Key key,
+    @required this.ifPin,
   }) : super(key: key);
 
   @override
@@ -63,7 +66,6 @@ class _EnterPinState extends State<EnterPin> {
                   needObscureText: true,
                   keyboardType: TextInputType.phone,
                   isNumeric: true,
-                  autofocus: true,
                   textSize: 20,
                   letterSpicing: 25,
                   maxLength: 4,
@@ -96,6 +98,6 @@ class _EnterPinState extends State<EnterPin> {
 
   void _next() {
     if (!_formKey.currentState.validate()) return;
-    Navigator.of(context).pop(pin);
+    widget.ifPin(pin);
   }
 }

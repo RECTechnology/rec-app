@@ -6,7 +6,6 @@ import 'package:http/testing.dart';
 import 'package:provider/provider.dart';
 import 'package:rec/Api/Services/wallet/TransactionsService.dart';
 import 'package:rec/Api/Storage.dart';
-import 'package:rec/Components/Wallet/TransactionListTile.dart';
 import 'package:rec/Entities/Transactions/Transaction.ent.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/transactions/TransactionsList.tab.dart';
 import 'package:rec/Providers/TransactionsProvider.dart';
@@ -63,6 +62,5 @@ void main() {
     await tester.pumpAndSettle();
 
     TestUtils.widgetExistsByType(TransactionsList);
-    TestUtils.widgetExistsByType(TransactionsListTile);
   });
 }

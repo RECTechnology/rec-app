@@ -16,7 +16,7 @@ class Env implements EnvBase {
   @override
   bool SENTRY_ACTIVE = true;
   @override
-  int CAMPAIGN_ID = 1;
+  String CAMPAIGN_ID = '1';
 }
 
 Env env = Env();

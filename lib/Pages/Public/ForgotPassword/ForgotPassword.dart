@@ -10,28 +10,29 @@ import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/brand.dart';
-
-import '../../../routes.dart';
+import 'package:rec/routes.dart';
 
 class ForgotPassword extends StatefulWidget {
   final String dni;
   final bool isChangePassword;
 
-  ForgotPassword({this.dni = '', this.isChangePassword});
+  ForgotPassword({
+    this.dni = '',
+    this.isChangePassword = false,
+  });
 
   @override
   _ForgotPasswordState createState() => _ForgotPasswordState();
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
+  final _formKey = GlobalKey<FormState>();
   String prefix = '+34';
   String phone = '';
-  final _formKey = GlobalKey<FormState>();
   String dni;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     dni = widget.dni;
   }

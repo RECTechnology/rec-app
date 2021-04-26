@@ -2,13 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Api/Services/RegisterService.dart';
 import 'package:rec/Components/Indicators/LoadingIndicator.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
-
-class RegisterRequestResult {
-  final bool error;
-  final String message;
-
-  RegisterRequestResult({this.error, this.message});
-}
+import 'package:rec/Pages/Public/Register/RegisterRequestResult.dart';
 
 class RegisterRequest extends StatefulWidget {
   final RegisterData data;

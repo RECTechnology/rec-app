@@ -59,7 +59,9 @@ class _AddNewCardState extends State<AddNewCard> {
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(width: 1.0, color: Brand.grayDark2),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pop(false);
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Text(
@@ -78,7 +80,9 @@ class _AddNewCardState extends State<AddNewCard> {
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(width: 1.0, color: Brand.grayDark2),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pop(true);
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Text(

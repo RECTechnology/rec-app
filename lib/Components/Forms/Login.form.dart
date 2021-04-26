@@ -44,9 +44,12 @@ class LoginFormState extends State<LoginForm> {
       child: Column(
         children: [
           hasSavedUser
-              ? LoggedInBeforeCard(
-                  savedUser: savedUser,
-                  onNotYou: () => onNotYou(userState),
+              ? Padding(
+                  padding: const EdgeInsets.only(bottom: 24),
+                  child: LoggedInBeforeCard(
+                    savedUser: savedUser,
+                    onNotYou: () => onNotYou(userState),
+                  ),
                 )
               : _dniField(),
           _passwordField(),

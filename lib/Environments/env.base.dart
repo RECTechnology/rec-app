@@ -4,5 +4,5 @@ class EnvBase {
   String API_URL;
   String SENTRY_DSN;
   bool SENTRY_ACTIVE;
-  int CAMPAIGN_ID;
+  String CAMPAIGN_ID;
 }
