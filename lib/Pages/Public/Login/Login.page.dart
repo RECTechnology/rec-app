@@ -93,9 +93,11 @@ class _LoginPageState extends State<LoginPage> {
           text: localizations.translate('FORGOT_PASSWORD'),
           recognizer: TapGestureRecognizer()
             ..onTap = () async {
-              await  Navigator.of(context).push(
+              await Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (c) => ForgotPassword(isChangePassword: true,),
+                  builder: (c) => ForgotPassword(
+                    isChangePassword: true,
+                  ),
                 ),
               );
             },
@@ -148,17 +150,21 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> onLoginError(error) async {
     RecToast.showError(context, error['body']['error_description']);
-    if (error['body']['error_description'] == "User without phone validated") {
+    if (error['body']['error_description'] == 'User without phone validated') {
       await EasyLoading.dismiss();
+
       var validateSMSResult = await Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (c) => ForgotPassword(dni: this.loginData.username,isChangePassword: false,),
+          builder: (c) => ForgotPassword(
+            dni: loginData.username,
+            isChangePassword: false,
+          ),
         ),
       );
+
       if (validateSMSResult != null && validateSMSResult['valid']) {
         Navigator.of(context).popUntil(ModalRoute.withName(Routes.login));
       }
-      return Future.value();
     }
   }
 

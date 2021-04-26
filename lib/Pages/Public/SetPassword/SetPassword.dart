@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Services/ChangePasswordService.dart';
-import 'package:rec/Api/Storage.dart';
 import 'package:rec/Components/Inputs/PasswordField.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Helpers/RecToast.dart';
@@ -9,9 +8,8 @@ import 'package:rec/Helpers/Validators.dart';
 import 'package:rec/Styles/Paddings.dart';
 
 import 'package:rec/Providers/AppLocalizations.dart';
-
-import '../../../brand.dart';
-import '../../../routes.dart';
+import 'package:rec/brand.dart';
+import 'package:rec/routes.dart';
 
 class SetPasswordPage extends StatefulWidget {
   final String sms;
@@ -23,17 +21,11 @@ class SetPasswordPage extends StatefulWidget {
 }
 
 class _SetPasswordPageState extends State<SetPasswordPage> {
-  String newPassword = '+34';
+  String newPassword = '';
   String confirmNewPassword = '';
+
   final _formKey = GlobalKey<FormState>();
   final setPassword = ChangePasswordService();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    print("Im in iniiiiiiiiit state");
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,33 +136,40 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
 
   void changePassword() {
     var localizations = AppLocalizations.of(context);
-
-    if (_formKey.currentState.validate()) {
-      //Hacer llamada a la API para validar sms
-      var storage = RecStorage();
-      storage.read(key: 'token').then((value) {
-        Auth.getAppToken().then((value) {
-          setPassword
-              .changePassword(
-                  code: widget.sms,
-                  password: newPassword,
-                  repassword: confirmNewPassword,
-                  accesToken: value)
-              .then((value) {
-            RecToast.showInfo(
-                context, localizations.translate('PASSWORD_CHANGED_CORRECLY'));
-            Navigator.of(context).popUntil(ModalRoute.withName(Routes.login));
-          }).catchError((error) {
-            RecToast.showError(
-                context, localizations.translate(error['body']['message']));
-          });
-        });
-      });
-    } else {
+    if (!_formKey.currentState.validate()) {
       RecToast.show(
         context,
         localizations.translate('ERROR_CODE'),
       );
     }
+
+    Auth.getAppToken().then((value) {
+      setPassword
+          .changePassword(
+            code: widget.sms,
+            password: newPassword,
+            repassword: confirmNewPassword,
+            accesToken: value,
+          )
+          .then(_changePasswordOK)
+          .catchError(_changePasswordKO);
+    });
+  }
+
+  void _changePasswordOK(value) {
+    var localizations = AppLocalizations.of(context);
+    RecToast.showInfo(
+      context,
+      localizations.translate('PASSWORD_CHANGED_CORRECLY'),
+    );
+    Navigator.of(context).popUntil(ModalRoute.withName(Routes.login));
+  }
+
+  void _changePasswordKO(error) {
+    var localizations = AppLocalizations.of(context);
+    RecToast.showError(
+      context,
+      localizations.translate(error['body']['message']),
+    );
   }
 }

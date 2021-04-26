@@ -7,11 +7,9 @@ class SMSService extends ServiceBase {
   SMSService({Client client}) : super(client: client);
 
   Future sendSMS({String dni, String phone, String accesToken}) async {
-    print("Aceeeeeeeeeeeeees token");
-    print(accesToken);
-    var pathWithParams = ApiPaths.sendRecoverSms
-        .withQueryParams({'access_token': accesToken}).toUri();
-
+    var pathWithParams = ApiPaths.sendRecoverSms.withQueryParams({
+      'access_token': accesToken,
+    }).toUri();
     var body = {
       'dni': dni,
       'phone': phone,
