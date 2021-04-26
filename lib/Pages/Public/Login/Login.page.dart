@@ -7,6 +7,7 @@ import 'package:rec/Components/Inputs/RecActionButton.dart';
 
 import 'package:rec/Entities/Forms/LoginData.dart';
 import 'package:rec/Helpers/RecToast.dart';
+import 'package:rec/Pages/Public/ForgotPassword/ForgotPassword.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Styles/Paddings.dart';
@@ -92,7 +93,11 @@ class _LoginPageState extends State<LoginPage> {
           text: localizations.translate('FORGOT_PASSWORD'),
           recognizer: TapGestureRecognizer()
             ..onTap = () async {
-              await Navigator.of(context).pushNamed(Routes.forgotPassword);
+              await  Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (c) => ForgotPassword(isChangePassword: true,),
+                ),
+              );
             },
         ),
       ),
@@ -141,8 +146,20 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.of(context).pushReplacementNamed(Routes.home);
   }
 
-  void onLoginError(error) {
+  Future<void> onLoginError(error) async {
     RecToast.showError(context, error['body']['error_description']);
+    if (error['body']['error_description'] == "User without phone validated") {
+      await EasyLoading.dismiss();
+      var validateSMSResult = await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (c) => ForgotPassword(dni: this.loginData.username,isChangePassword: false,),
+        ),
+      );
+      if (validateSMSResult != null && validateSMSResult['valid']) {
+        Navigator.of(context).popUntil(ModalRoute.withName(Routes.login));
+      }
+      return Future.value();
+    }
   }
 
   void onNotYou(UserState userState) async {

@@ -16,6 +16,7 @@ class RegisterTwo extends StatefulWidget {
 
   const RegisterTwo({Key key, @required this.registerData}) : super(key: key);
 
+
   @override
   RegisterTwoState createState() => RegisterTwoState();
 }
@@ -166,6 +167,7 @@ class RegisterTwoState extends State<RegisterTwo> {
           ),
         );
         if (validateSMSResult != null && validateSMSResult['valid']) {
+
           Navigator.of(context).popUntil(ModalRoute.withName(Routes.login));
         }
         return Future.value();
@@ -197,6 +199,7 @@ class RegisterTwoState extends State<RegisterTwo> {
         context,
         localizations.translate(translatedMessage),
       );
+
     });
   }
 }

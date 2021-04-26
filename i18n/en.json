@@ -85,5 +85,7 @@
   "ERROR_DNI": "DNI/NIE incorrecto",
   "ERROR_CIF": "CIF incorrecto",
   "ERROR_PHONE": "Telefóno incorrecto",
-  "PHONE_VERIFY_OK": "Telefono verificado correctamente, puedes proceder a realizar el login"
+  "PHONE_VERIFY_OK": "Telefono verificado correctamente, puedes proceder a realizar el login",
+  "VALIDATE_PHOME": "Validar numero de teléfono",
+  "INTRODUCE_DOCUMENT_AND_PHONE": "Introduce tu docukento de identidad y el teléfono vinculado a tu usuario para proceder a validar tu numero de teléfono"
 }

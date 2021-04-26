@@ -11,8 +11,9 @@ class ChangePasswordService extends ServiceBase {
     String accesToken,
     String code,
   }) async {
+    print("Im in change password");
     var pathWithParams = ApiPaths.changePassword
-        .withQueryParams({'access_token': accesToken}).toUri();
+        .withQueryParams({ }).toUri();
 
     var body = {
       'code': code,

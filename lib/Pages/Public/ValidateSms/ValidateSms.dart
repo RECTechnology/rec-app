@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Services/PhoneVerificationService.dart';
 import 'package:rec/Api/Services/SMSService.dart';
+
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Inputs/RecTextField.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
@@ -37,9 +38,11 @@ class _ValidateSmsState extends State<ValidateSms> {
   @override
   void initState() {
     super.initState();
-    smsService.sendSMS(phone: widget.phone, dni: widget.dni).then((value) {
-      smsSent = true;
-      RecToast.showInfo(context, 'SMS sent');
+    Auth.getAppToken().then((value) {
+      smsService.sendSMS(phone: widget.phone, dni: widget.dni).then((value) {
+        smsSent = true;
+        RecToast.showInfo(context, 'SMS sent');
+      });
     });
   }
 
@@ -132,30 +135,12 @@ class _ValidateSmsState extends State<ValidateSms> {
     );
   }
 
-  void tryValidateSMS() async {
-    var localizations = AppLocalizations.of(context);
-    await EasyLoading.show();
-
-    if (_formKey.currentState.validate()) {
-      await validateSMS
-          .validateSMSCode(code: sms, NIF: widget.dni)
-          .then(validatedOk)
-          .catchError(validatedWithError);
-    } else {
-      RecToast.show(
-        context,
-        localizations.translate('ERROR_CODE'),
-      );
-    }
-
-    await EasyLoading.dismiss();
-  }
-
   void validatedOk(value) {
     var localizations = AppLocalizations.of(context);
     RecToast.show(context, localizations.translate('PHONE_VERIFY_OK'));
     Navigator.of(context).pop({
       'valid': true,
+      'sms': sms,
     });
   }
 
@@ -165,6 +150,28 @@ class _ValidateSmsState extends State<ValidateSms> {
       context,
       localizations.translate(error['body']['message']),
     );
+  }
+
+  void tryValidateSMS() {
+    var localizations = AppLocalizations.of(context);
+
+    if (_formKey.currentState.validate()) {
+      //Hacer llamada a la API para validar sms
+      validateSMS.validateSMSCode(code: sms, NIF: widget.dni).then((value) {
+        RecToast.showInfo(context, localizations.translate('PHONE_VERIFY_OK'));
+        Navigator.of(context).pop({
+          'valid': true,
+        });
+      }).catchError((error) {
+        RecToast.showError(
+            context, localizations.translate(error['body']['message']));
+      });
+    } else {
+      RecToast.show(
+        context,
+        localizations.translate('ERROR_CODE'),
+      );
+    }
   }
 
   void setSMS(String sms) {

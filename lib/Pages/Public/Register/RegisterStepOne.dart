@@ -6,7 +6,9 @@ import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
 import 'package:rec/Pages/Public/Register/RegisterRequest.dart';
+
 import 'package:rec/Pages/Public/Register/RegisterStepTwo.dart';
+
 import 'package:rec/Pages/Public/ValidateSms/ValidateSms.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
@@ -253,6 +255,7 @@ class RegisterOneState extends State<RegisterOne> {
 
   void next() async {
     var localization = AppLocalizations.of(context);
+
     if (!_formKey.currentState.validate()) return;
 
     if (!registerData.termsAccepted) {
@@ -269,6 +272,7 @@ class RegisterOneState extends State<RegisterOne> {
         MaterialPageRoute(
           builder: (ctx) => RegisterTwo(registerData: registerData),
         ),
+
       );
 
       if (newData != null) {
@@ -296,6 +300,7 @@ class RegisterOneState extends State<RegisterOne> {
           ),
         );
         if (validateSMSResult != null && validateSMSResult['valid']) {
+
           Navigator.of(context).popUntil(ModalRoute.withName(Routes.login));
         }
         return Future.value();
