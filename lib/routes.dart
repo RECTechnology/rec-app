@@ -31,7 +31,6 @@ class Routes {
 final Map<String, Widget Function(BuildContext)> ROUTES = {
   Routes.login: (context) => LoginPage(),
   Routes.register: (context) => RegisterOne(),
-
   Routes.home: (context) => PrivateRoute(HomePage()),
   Routes.recharge: (context) => RechargePage(),
   Routes.newCard: (context) => AddNewCard(),
