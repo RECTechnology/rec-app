@@ -7,7 +7,7 @@ class RecToast {
   static void showInfo(
     BuildContext context,
     String msg, {
-    Color backgroundColor = Colors.white,
+    Color backgroundColor = Brand.primaryColor,
     double borderRadius = 10,
   }) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -16,6 +16,32 @@ class RecToast {
           msg.toString(),
           style: TextStyle(
             color: Brand.grayDark2,
+            fontSize: 14,
+          ),
+        ),
+        elevation: 4,
+        backgroundColor: backgroundColor,
+        duration: Preferences.toastDuration,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+      ),
+    );
+  }
+
+  static void showSuccess(
+    BuildContext context,
+    String msg, {
+    Color backgroundColor = Colors.green,
+    double borderRadius = 10,
+  }) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          msg.toString(),
+          style: TextStyle(
+            color: Colors.white,
             fontSize: 14,
           ),
         ),

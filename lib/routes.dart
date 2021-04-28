@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayWithQR.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/AddNewCard.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/Recharge.page.dart';
 import 'package:rec/Pages/Public/Register/RegisterStepOne.dart';
@@ -15,11 +16,12 @@ class Routes {
   static String changePassword = '/change-password';
 
   // Recharge routes
+  static String payQr = '/pay-qr';
   static String recharge = '/recharge';
+
   // Route for deeplink recharge result
   static String rechargeResult = '/recharge-result';
 
-  // Private routes
   static String home = '/home';
   static String newCard = '/new-card';
 
@@ -34,4 +36,5 @@ final Map<String, Widget Function(BuildContext)> ROUTES = {
   Routes.home: (context) => PrivateRoute(HomePage()),
   Routes.recharge: (context) => RechargePage(),
   Routes.newCard: (context) => AddNewCard(),
+  Routes.payQr: (context) => PayWithQR(),
 };

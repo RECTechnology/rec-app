@@ -74,12 +74,12 @@ class _AttemptRecharge extends State<AttemptRecharge> {
         });
       },
     ).catchError(
-      (e) {
+      (error) {
         // Hacky check, if error with pin, go back a page
-        var errorMessage = localizations.translate(e['body']['message']);
+        var errorMessage = localizations.translate(error.message);
         RecToast.showError(context, errorMessage);
 
-        if (e['body']['message'] == 'Incorrect Pin') {
+        if (error.message == 'Incorrect Pin') {
           return Navigator.of(context).pop(errorMessage);
         }
 

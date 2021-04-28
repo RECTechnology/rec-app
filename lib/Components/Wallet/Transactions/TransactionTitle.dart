@@ -31,10 +31,10 @@ class _TransactionTitle extends State<TransactionTitle> {
       owner = localizations.translate('CREDIT_CARD_TX');
     } else if (widget.tx.isOut()) {
       prefix = localizations.translate('TO');
-      owner = widget.tx.payOutInfo.nameReceiver;
+      owner = widget.tx.payOutInfo.name;
     } else if (widget.tx.isIn()) {
       prefix = localizations.translate('FROM');
-      owner = widget.tx.payInInfo.nameSender;
+      owner = widget.tx.payInInfo.name;
     }
 
     return RichText(

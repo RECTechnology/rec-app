@@ -1,11 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:rec/Api/Services/LoginService.dart';
 import 'package:rec/Components/Forms/Login.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 
 import 'package:rec/Entities/Forms/LoginData.dart';
+import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Public/ForgotPassword/ForgotPassword.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
@@ -134,14 +134,14 @@ class _LoginPageState extends State<LoginPage> {
   void loginButtonPressed() async {
     if (!_formKey.currentState.validate()) return;
 
-    await EasyLoading.show();
+    await Loading.show();
 
     await loginService
         .login(loginData)
         .then(onLoginSuccess)
         .catchError(onLoginError);
 
-    await EasyLoading.dismiss();
+    await Loading.dismiss();
   }
 
   void onLoginSuccess(response) {
@@ -149,9 +149,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> onLoginError(error) async {
-    RecToast.showError(context, error['body']['error_description']);
-    if (error['body']['error_description'] == 'User without phone validated') {
-      await EasyLoading.dismiss();
+    RecToast.showError(context, error.message);
+    if (error.message == 'User without phone validated') {
+      await Loading.dismiss();
 
       var validateSMSResult = await Navigator.of(context).push(
         MaterialPageRoute(

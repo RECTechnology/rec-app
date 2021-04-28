@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:http_interceptor/http_client_with_interceptor.dart';
 import 'package:http_interceptor/interceptor_contract.dart';
+import 'package:rec/Api/ApiError.dart';
 import 'package:rec/Api/Interceptors/ApiInterceptor.dart';
 
 abstract class ServiceBase {
@@ -67,10 +68,7 @@ abstract class ServiceBase {
 
   FutureOr<Map<String, dynamic>> onResponse(Response response) {
     if (response.statusCode >= 400) {
-      return Future.error({
-        'code': response.statusCode,
-        'body': json.decode(response.body),
-      });
+      return Future.error(ApiError.fromResponse(response));
     }
     return Future.value(
       response.body != null && response.body.isNotEmpty

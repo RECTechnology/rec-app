@@ -3,6 +3,9 @@ import 'package:rec/Api/ApiPath.dart';
 class ApiPaths {
   static ApiPath token = ApiPath('/oauth/v3/token');
   static ApiPath transactions = ApiPath('/user/v2/wallet/transactions');
+  static ApiPath vendorData = ApiPath('/transaction/v1/vendor');
+  static ApiPath payment = ApiPath('/methods/v1/out/rec');
+
   static ApiPath sendRecoverSms = ApiPath('/password_recovery/v1/request');
   static ApiPath mapService = ApiPath('/user/v3/accounts/search');
   static ApiPath changePassword = ApiPath('/password_recovery/v1');

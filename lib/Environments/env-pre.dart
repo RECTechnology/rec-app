@@ -16,6 +16,11 @@ class Env implements EnvBase {
   bool SENTRY_ACTIVE = true;
   @override
   String CAMPAIGN_ID = '1';
+
+  @override
+  String DEEPLINK_SCHEME = 'app';
+  @override
+  String DEEPLINK_URL = 'rec.barcelona';
 }
 
 Env env = Env();

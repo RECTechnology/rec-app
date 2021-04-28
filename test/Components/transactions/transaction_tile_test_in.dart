@@ -22,6 +22,6 @@ void main() {
     await tester.pumpAndSettle();
 
     TestUtils.widgetExists(txListTile);
-    TestUtils.isTextPresent(TransactionMock.transactionIn.payInInfo.nameSender);
+    TestUtils.isTextPresent(TransactionMock.transactionIn.payInInfo.name);
   });
 }

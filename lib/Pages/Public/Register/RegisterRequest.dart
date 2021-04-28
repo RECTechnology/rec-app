@@ -47,11 +47,11 @@ class _RegisterRequest extends State<RegisterRequest> {
         );
       },
     ).catchError(
-      (e) {
+      (error) {
         Navigator.of(context).pop(
           RegisterRequestResult(
             error: true,
-            message: e['body']['message'],
+            message: error.message,
           ),
         );
       },

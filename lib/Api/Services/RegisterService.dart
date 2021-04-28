@@ -1,6 +1,6 @@
 import 'package:http/http.dart';
 import 'package:rec/Api/ApiPaths.dart';
-import 'package:rec/Api/Services/ServiceBase.dart';
+import 'package:rec/Api/Services/BaseService.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
 
 class RegisterService extends ServiceBase {

@@ -29,6 +29,7 @@ class WalletFloatingActions extends StatelessWidget {
         Icons.qr_code_scanner,
         context,
         bgColor: accountTypeColor,
+        route: Routes.payQr,
       ),
       buildSpeedDialChild(
         'PAY_ACCOUNT_CONTACT',
@@ -63,6 +64,7 @@ class WalletFloatingActions extends StatelessWidget {
         Icons.qr_code_scanner,
         context,
         bgColor: accountTypeColor,
+        route: Routes.payQr,
       ),
       buildSpeedDialChild(
         'PAY_ACCOUNT_CONTACT',

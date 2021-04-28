@@ -2,7 +2,7 @@ import 'package:http/http.dart';
 import 'package:rec/Api/ApiPaths.dart';
 import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/GrantTypes.dart';
-import 'package:rec/Api/Services/ServiceBase.dart';
+import 'package:rec/Api/Services/BaseService.dart';
 import 'package:rec/Entities/Forms/LoginData.dart';
 import 'package:rec/Environments/env.dart';
 

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:rec/Api/Services/UsersService.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
+import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Styles/Borders.dart';
@@ -12,7 +12,6 @@ import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Styles/BoxDecorations.dart';
 import 'package:rec/brand.dart';
 
-// TODO: improve dialogs, this is kinda messy
 class AccountSelectorModal {
   final BuildContext context;
   final UsersService userService;
@@ -139,22 +138,22 @@ class AccountSelectorModal {
   }
 
   void onSelected(Account account) async {
-    await EasyLoading.show();
+    await Loading.show();
     await userService
         .changeAccount(account.id)
         .then((_) => onAccountChangeOk(account))
         .catchError((e) => onAccountChangeError(e));
   }
 
-  void onAccountChangeError(e) {
-    EasyLoading.dismiss();
+  void onAccountChangeError(error) {
+    Loading.dismiss();
     closeModal();
-    RecToast.show(context, e['body']['status_text']);
+    RecToast.show(context, error.message);
   }
 
   void onAccountChangeOk(Account account) {
     onAccountChange(account);
-    EasyLoading.dismiss();
+    Loading.dismiss();
     closeModal();
   }
 

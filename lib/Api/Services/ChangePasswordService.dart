@@ -1,6 +1,6 @@
 import 'package:http/http.dart';
 import 'package:rec/Api/ApiPaths.dart';
-import 'package:rec/Api/Services/ServiceBase.dart';
+import 'package:rec/Api/Services/BaseService.dart';
 
 class ChangePasswordService extends ServiceBase {
   ChangePasswordService({Client client}) : super(client: client);

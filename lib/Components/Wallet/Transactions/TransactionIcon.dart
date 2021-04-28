@@ -20,14 +20,14 @@ class TransactionIcon extends StatefulWidget {
 class _TransactionIcon extends State<TransactionIcon> {
   String _getImage(Transaction transaction) {
     return transaction.isOut()
-        ? transaction.payOutInfo.imageReceiver
-        : transaction.payInInfo.imageSender;
+        ? transaction.payOutInfo.image
+        : transaction.payInInfo.image;
   }
 
   String _getName(Transaction transaction) {
     return transaction.isOut()
-        ? transaction.payOutInfo.nameReceiver
-        : transaction.payInInfo.nameSender;
+        ? transaction.payOutInfo.name
+        : transaction.payInInfo.name;
   }
 
   @override

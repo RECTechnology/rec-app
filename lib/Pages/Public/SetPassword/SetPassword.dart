@@ -169,7 +169,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
     var localizations = AppLocalizations.of(context);
     RecToast.showError(
       context,
-      localizations.translate(error['body']['message']),
+      localizations.translate(error.message),
     );
   }
 }

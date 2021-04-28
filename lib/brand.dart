@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:rec/Entities/Account.ent.dart';
+import 'package:rec/Styles/TextStyles.dart';
 
 class Brand {
   static const String appName = 'REC';
@@ -13,6 +14,7 @@ class Brand {
   static const Color backgroundPrivateColor = Color(0xffe5f5fc);
   static const Color backgroundCompanyColor = Color(0xfffcede6);
   static const Color defectText = Color(0xff343434);
+  static const Color green = Color(0xff21EB00);
 
   static const Color defaultAvatarBackground = Color(0xffF2F2F2);
   static const Color separatorColor = Color(0xffE0E0E0);
@@ -109,7 +111,8 @@ class Brand {
       ..indicatorColor = Brand.primaryColor
       ..textColor = Brand.primaryColor
       ..maskType = EasyLoadingMaskType.custom
-      ..maskColor = Colors.white.withOpacity(0.6)
+      ..maskColor = Colors.white.withOpacity(0.8)
+      ..textStyle = TextStyles.pageTitle
       ..userInteractions = true
       ..dismissOnTap = false;
   }

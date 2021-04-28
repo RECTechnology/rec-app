@@ -11,6 +11,9 @@ class PrivateAppBar extends StatefulWidget with PreferredSizeWidget {
   final int size;
   final bool hasBackArrow;
   final bool selectAccountEnabled;
+  final Color backgroundColor;
+  final Color color;
+  final String title;
 
   const PrivateAppBar({
     Key key,
@@ -18,6 +21,9 @@ class PrivateAppBar extends StatefulWidget with PreferredSizeWidget {
     this.size = 80,
     this.hasBackArrow = false,
     this.selectAccountEnabled = true,
+    this.backgroundColor,
+    this.title,
+    this.color,
   }) : super(key: key);
 
   @override
@@ -43,14 +49,19 @@ class _PrivateAppBar extends State<PrivateAppBar> {
         child: AppBar(
           toolbarHeight: kToolbarHeight,
           flexibleSpace: Container(
-            decoration: BoxDecorations.gradient(
-              Brand.getGradientForAccount(account),
-            ),
+            decoration: widget.backgroundColor != null
+                ? BoxDecorations.solid(widget.backgroundColor)
+                : BoxDecorations.gradient(
+                    Brand.getGradientForAccount(account),
+                  ),
           ),
           elevation: 0,
           leading: widget.hasBackArrow
               ? IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: widget.color ?? Colors.white,
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -61,9 +72,13 @@ class _PrivateAppBar extends State<PrivateAppBar> {
                 ),
           title: Center(
             child: Text(
-              userState.user.selectedAccount.name,
+              widget.title ?? userState.user.selectedAccount.name,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w300),
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w300,
+                color: widget.color ?? Colors.white,
+              ),
             ),
           ),
           bottom: widget.bottom,
@@ -73,7 +88,10 @@ class _PrivateAppBar extends State<PrivateAppBar> {
                     alignment: Alignment.center,
                     height: 45,
                     width: 65,
-                    child: Icon(Icons.arrow_drop_down_sharp),
+                    child: Icon(
+                      Icons.arrow_drop_down_sharp,
+                      color: widget.color ?? Colors.white,
+                    ),
                   )
                 : SizedBox(height: 45, width: 65),
           ],

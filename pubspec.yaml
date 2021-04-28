@@ -12,6 +12,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   webview_flutter: ^1.0.7
+  qr_code_scanner: 
   flutter_secure_storage: 3.3.3
   package_info: ^0.4.3+4
   cupertino_icons: ^1.0.0

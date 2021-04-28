@@ -1,6 +1,6 @@
 import 'package:rec/Api/ApiPaths.dart';
 import 'package:rec/Api/Interceptors/InjectTokenInterceptor.dart';
-import 'package:rec/Api/Services/ServiceBase.dart';
+import 'package:rec/Api/Services/BaseService.dart';
 import 'package:rec/Entities/User.ent.dart';
 
 class UsersService extends ServiceBase {

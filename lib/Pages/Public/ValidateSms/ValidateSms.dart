@@ -148,7 +148,7 @@ class _ValidateSmsState extends State<ValidateSms> {
     var localizations = AppLocalizations.of(context);
     RecToast.showError(
       context,
-      localizations.translate(error['body']['message']),
+      localizations.translate(error.message),
     );
   }
 
@@ -156,7 +156,6 @@ class _ValidateSmsState extends State<ValidateSms> {
     var localizations = AppLocalizations.of(context);
 
     if (_formKey.currentState.validate()) {
-      //Hacer llamada a la API para validar sms
       validateSMS.validateSMSCode(code: sms, NIF: widget.dni).then((value) {
         RecToast.showInfo(context, localizations.translate('PHONE_VERIFY_OK'));
         Navigator.of(context).pop({
@@ -164,7 +163,9 @@ class _ValidateSmsState extends State<ValidateSms> {
         });
       }).catchError((error) {
         RecToast.showError(
-            context, localizations.translate(error['body']['message']));
+          context,
+          localizations.translate(error.message),
+        );
       });
     } else {
       RecToast.show(

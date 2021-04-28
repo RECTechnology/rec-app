@@ -2,8 +2,8 @@ class PayOutInfo {
   String address;
   String txId;
   String status;
-  String imageReceiver; //TODO: rename to image
-  String nameReceiver;
+  String image;
+  String name;
   String concept;
 
   int amount;
@@ -16,8 +16,8 @@ class PayOutInfo {
     this.txId,
     this.status,
     this.isFinal,
-    this.imageReceiver,
-    this.nameReceiver,
+    this.image,
+    this.name,
     this.concept,
   });
 
@@ -29,8 +29,8 @@ class PayOutInfo {
       txId: json['txid'],
       status: json['status'],
       isFinal: json['final'],
-      imageReceiver: json['image_receiver'],
-      nameReceiver: json['name_receiver'],
+      image: json['image_receiver'],
+      name: json['name_receiver'],
     );
   }
 }

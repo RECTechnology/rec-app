@@ -5,4 +5,7 @@ class EnvBase {
   String SENTRY_DSN;
   bool SENTRY_ACTIVE;
   String CAMPAIGN_ID;
+
+  String DEEPLINK_SCHEME;
+  String DEEPLINK_URL;
 }

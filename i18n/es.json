@@ -81,6 +81,8 @@
   "phone already registered": "Numero de telefóno ya registrado",
   "dni already registered": "DNI/NIE ya registrado",
   "Incorrect Pin": "Pin Incorrecto",
+  "KYC max_out limit has been reached": "Limite de envios alcanzado",
+  "Amount under minimum": "Cantidad por debajo del minimo",
 
   "UNEXPECTED_SERVER_ERROR": "Error inesperado, prueba de nuevo en 5 minutos, si el error persiste contacte con nosotros.",
   "ERROR_PASS_MIN_6": "Contraseña incorrecta, minimo 6 caracteres",
@@ -111,5 +113,11 @@
   "RECHARGE_IN_PROGRESS": "Recarga en proceso...",
   "ALRIGHT": "Entendido",
   "VALIDATE_PHOME": "Validar numero de teléfono",
-  "INTRODUCE_DOCUMENT_AND_PHONE": "Introduce tu docukento de identidad y el teléfono vinculado a tu usuario para proceder a validar tu numero de teléfono"
+  "INTRODUCE_DOCUMENT_AND_PHONE": "Introduce tu docukento de identidad y el teléfono vinculado a tu usuario para proceder a validar tu numero de teléfono",
+  "PAY_WITH_QR": "Pagar con QR",
+  "SCANNING": "Escaneando...",
+  "FOUND_PAYMENT": "Pago encontrado",
+  "QR_HINT": "Alinea el código QR para llenar el interior del marco",
+  "SEND_PAYMENT": "Enviar pago {{amount}}",
+  "MAKING_PAYMENT": "Realizando pago"
 }

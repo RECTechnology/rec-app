@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Inputs/RecTextField.dart';
-import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Helpers/Validators.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
@@ -10,10 +9,14 @@ import 'package:rec/brand.dart';
 
 class CreatePin extends StatefulWidget {
   final Function(String pin) ifPin;
+  final String buttonContent;
+  final bool buttonWithArrow;
 
   const CreatePin({
     Key key,
     @required this.ifPin,
+    this.buttonContent,
+    this.buttonWithArrow = true,
   }) : super(key: key);
 
   @override
@@ -27,14 +30,12 @@ class _CreatePinState extends State<CreatePin> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: EmptyAppBar(context),
-      body: _body(),
-    );
+    return _body();
   }
 
   Widget _body() {
     var localizations = AppLocalizations.of(context);
+    var btnLabel = widget.buttonContent ?? localizations.translate('NEXT');
 
     return Padding(
       padding: Paddings.page,
@@ -75,8 +76,10 @@ class _CreatePinState extends State<CreatePin> {
                   validator: Validators.pin,
                 ),
                 RecActionButton(
-                  label: localizations.translate('NEXT'),
-                  icon: Icons.arrow_forward_ios_outlined,
+                  label: btnLabel,
+                  icon: widget.buttonWithArrow
+                      ? Icons.arrow_forward_ios_outlined
+                      : null,
                   backgroundColor: Brand.primaryColor,
                   onPressed: _next,
                 ),
