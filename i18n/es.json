@@ -124,5 +124,9 @@
   "FOUND_PAYMENT": "Pago encontrado",
   "QR_HINT": "Alinea el código QR para llenar el interior del marco",
   "SEND_PAYMENT": "Enviar pago {{amount}}",
-  "MAKING_PAYMENT": "Realizando pago"
+  "MAKING_PAYMENT": "Realizando pago",
+  "QR_PERMISSION_TITLE": "Para escanear un código QR necesitamos tu permiso para  utilizar la cámara del dispositivo",
+  "QR_PERMISSION_SUBTITLE": "Solamente utilizaremos la cámara para capturar imágenes en el momento en el que tu decidas",
+  "DECLINE_PERMISSION": "No quiero",
+  "ACCEPT_PERMISSION": "Conceder permiso"
 }

@@ -3,6 +3,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:rec/Api/ApiError.dart';
 import 'package:rec/Api/Services/wallet/TransactionsService.dart';
 import 'package:rec/Components/FromToRow.dart';
+import 'package:rec/Components/IfPermissionGranted.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
@@ -12,6 +13,7 @@ import 'package:rec/Helpers/Deeplinking.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayPin.page.dart';
+import 'package:rec/Permissions/PermissionProviders.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/TransactionsProvider.dart';
 import 'package:rec/Providers/UserState.dart';
@@ -34,6 +36,13 @@ class _PayWithQRState extends State<PayWithQR> {
 
   @override
   Widget build(BuildContext context) {
+    return IfPermissionGranted(
+      permission: PermissionProviders.qr,
+      child: _content(),
+    );
+  }
+
+  Widget _content() {
     return Scaffold(
       appBar: EmptyAppBar(context, title: 'PAY_WITH_QR'),
       body: Column(

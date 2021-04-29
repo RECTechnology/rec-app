@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Helpers/SortDir.dart';
 
@@ -29,20 +27,15 @@ class MapSearchData {
   });
 
   Map<String, dynamic> toJson() {
-    var queryParams = {
-      'search': '$search',
-      'on_map': '$onMap',
-      'only_with_offers': '$onlyWithOffers',
-      'type': type,
-      'subtype': subType,
-    };
-
     return {
       'offset': '$offset',
       'limit': '$limit',
       'sort': '$sort',
       'order': '$order',
-      'query': json.encode(queryParams),
+      'search': '$search',
+      'only_with_offers': '$onlyWithOffers',
+      'type': type,
+      'subtype': subType,
     };
   }
 }

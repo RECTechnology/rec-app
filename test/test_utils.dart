@@ -46,6 +46,7 @@ class TestUtils {
     return MaterialApp(
       navigatorKey: key,
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Localizations(
           delegates: [
             GlobalWidgetsLocalizations.delegate,

@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:rec/Api/Storage.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayWithQR.page.dart';
 import 'package:rec/Providers/UserState.dart';
@@ -23,6 +22,5 @@ void main() {
     await tester.pumpAndSettle();
 
     TestUtils.widgetExistsByType(PayWithQR);
-    TestUtils.widgetExistsByType(QRView);
   });
 }

@@ -126,38 +126,40 @@ class RegisterOneState extends State<RegisterOne> {
 
   Widget _body() {
     return Container(
-      constraints: BoxConstraints.expand(
-        height: MediaQuery.of(context).size.height,
-      ),
       child: Padding(
         padding: Paddings.page,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              children: [
-                Column(
-                  children: [
-                    CaptionText(
-                      registerData.isAccountPrivate
-                          ? 'PROMOTE_TRADE'
-                          : 'TO_START_WRITE',
-                    ),
-                    TitleText('CREATE_USER'),
-                    RegisterStepOneForm(
-                      key: _registerFormKey,
-                      formKey: _formKey,
-                      onChange: (data) {
-                        setState(() => registerData = data);
-                      },
-                    ),
-                    _pressNextToAdd(),
-                    _termsAndServices(),
-                  ],
-                ),
-              ],
+            Expanded(
+              flex: 4,
+              child: ListView(
+                physics: NeverScrollableScrollPhysics(),
+                children: [
+                  CaptionText(
+                    registerData.isAccountPrivate
+                        ? 'PROMOTE_TRADE'
+                        : 'TO_START_WRITE',
+                  ),
+                  TitleText('CREATE_USER'),
+                  RegisterStepOneForm(
+                    key: _registerFormKey,
+                    formKey: _formKey,
+                    onChange: (data) {
+                      setState(() => registerData = data);
+                    },
+                  ),
+                  _pressNextToAdd(),
+                  _termsAndServices(),
+                ],
+              ),
             ),
-            _registerButton(),
+            Expanded(
+              flex: 1,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: _registerButton(),
+              ),
+            )
           ],
         ),
       ),

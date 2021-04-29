@@ -90,42 +90,48 @@ class RegisterTwoState extends State<RegisterTwo> {
     var localizations = AppLocalizations.of(context);
 
     return Container(
-      constraints: BoxConstraints.expand(
-        height: MediaQuery.of(context).size.height,
-      ),
       child: Padding(
         padding: Paddings.page,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              children: [
-                CaptionText('MAKE_KNOW'),
-                TitleText(
-                  'ADD_ORG',
-                  showTooltip: false,
-                  tooltipText: 'INTRODUCE_INFO',
-                  tooltipColor: Brand.accentColor,
-                ),
-                RegisterStepTwoForm(
-                  formKey: _formKey,
-                  registerData: registerData,
-                  onChange: (data) => setState(() => registerData = data),
-                ),
-                Text(
-                  localizations.translate('WHEN_INIT_SESION'),
-                  style: Theme.of(context)
-                      .textTheme
-                      .caption
-                      .copyWith(color: Brand.accentColor),
-                ),
-              ],
+            Expanded(
+              flex: 4,
+              child: ListView(
+                physics: NeverScrollableScrollPhysics(),
+                children: [
+                  CaptionText('MAKE_KNOW'),
+                  TitleText(
+                    'ADD_ORG',
+                    showTooltip: false,
+                    tooltipText: 'INTRODUCE_INFO',
+                    tooltipColor: Brand.accentColor,
+                  ),
+                  RegisterStepTwoForm(
+                    formKey: _formKey,
+                    registerData: registerData,
+                    onChange: (data) => setState(() => registerData = data),
+                  ),
+                  Text(
+                    localizations.translate('WHEN_INIT_SESION'),
+                    style: Theme.of(context)
+                        .textTheme
+                        .caption
+                        .copyWith(color: Brand.accentColor),
+                  ),
+                ],
+              ),
             ),
-            RecActionButton(
-              onPressed: register,
-              backgroundColor: Brand.accentColor,
-              icon: Icons.arrow_forward_ios,
-              label: localizations.translate('REGISTER'),
+            Expanded(
+              flex: 1,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: RecActionButton(
+                  onPressed: register,
+                  backgroundColor: Brand.accentColor,
+                  icon: Icons.arrow_forward_ios,
+                  label: localizations.translate('REGISTER'),
+                ),
+              ),
             )
           ],
         ),

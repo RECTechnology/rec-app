@@ -9,14 +9,16 @@ class OutlinedListTile extends StatefulWidget {
   final EdgeInsets padding;
   final Function() onPressed;
   final Color color;
+  final CrossAxisAlignment alignment;
 
   const OutlinedListTile({
     Key key,
     @required this.children,
     this.height = 48,
+    this.onPressed,
     this.padding = const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
     this.color = Brand.grayDark,
-    this.onPressed,
+    this.alignment = CrossAxisAlignment.start,
   }) : super(key: key);
 
   @override
@@ -37,7 +39,8 @@ class _OutlinedListTile extends State<OutlinedListTile> {
       child: Padding(
         padding: widget.padding,
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: widget.alignment,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(
               flex: 4,

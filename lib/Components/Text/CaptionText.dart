@@ -4,11 +4,13 @@ import 'package:rec/Providers/AppLocalizations.dart';
 class CaptionText extends StatefulWidget {
   final String text;
   final TextStyle style;
+  final Alignment alignment;
 
   const CaptionText(
     this.text, {
     Key key,
     this.style = const TextStyle(),
+    this.alignment = Alignment.centerLeft,
   }) : super(key: key);
 
   @override
@@ -20,7 +22,7 @@ class _CaptionText extends State<CaptionText> {
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
     return Container(
-      alignment: Alignment.centerLeft,
+      alignment: widget.alignment,
       child: Text(
         localizations.translate(widget.text),
         style: Theme.of(context).textTheme.caption.merge(widget.style),

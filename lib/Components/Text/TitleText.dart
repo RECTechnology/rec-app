@@ -7,6 +7,7 @@ class TitleText extends StatefulWidget {
   final String title;
   final TextStyle style;
   final MainAxisAlignment alignment;
+  final TextAlign textAlign;
 
   final String tooltipText;
   final bool showTooltip;
@@ -22,6 +23,7 @@ class TitleText extends StatefulWidget {
     this.tooltipColor = Brand.grayDark2,
     this.tooltipIcon = Icons.help_outline,
     this.alignment = MainAxisAlignment.start,
+    this.textAlign = TextAlign.left,
   }) : super(key: key);
 
   @override
@@ -39,6 +41,7 @@ class _TitleText extends State<TitleText> {
         Text(
           localizations.translate(widget.title),
           style: Theme.of(context).textTheme.headline6.merge(widget.style),
+          textAlign: widget.textAlign,
         ),
         InfoTooltip.accent(
           message: localizations.translate(widget.tooltipText),

@@ -14,7 +14,7 @@ class MapsService extends ServiceBase {
         );
 
   Future<ApiListResponse<Marck>> getMarks(MapSearchData searchData) async {
-    var pathWithParams = ApiPaths.mapService
+    var pathWithParams = ApiPaths.mapV4
         .withQueryParams(
           searchData.toJson(),
         )

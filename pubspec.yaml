@@ -11,24 +11,25 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  webview_flutter: ^1.0.7
-  qr_code_scanner: 
   flutter_secure_storage: 3.3.3
-  package_info: ^0.4.3+4
-  cupertino_icons: ^1.0.0
-  http: ^0.12.0+4
-  provider: ^4.3.3
   flutter_spinkit: ^4.1.2
-  sentry_flutter: ^4.0.4
-  http_interceptor: ^0.3.3
-  country_code_picker: ^1.7.0
-  intl: ^0.17.0
-  flutter_speed_dial: ^2.1.1
-  timeago: ^2.0.26
-  google_maps_flutter: ^2.0.3
   flutter_easyloading: ^2.2.2
-  url_launcher: ^5.7.10
+  flutter_speed_dial: ^2.1.1
+  cupertino_icons: ^1.0.0
+  country_code_picker: ^1.7.0
+  google_maps_flutter: ^2.0.3
+  qr_code_scanner: 
   qr_flutter: ^3.1.0
+  http: ^0.12.0+4
+  http_interceptor: ^0.3.3
+  intl: ^0.17.0
+  package_info: ^0.4.3+4
+  permission_handler:
+  provider: ^4.3.3
+  sentry_flutter: ^4.0.4
+  timeago: ^2.0.26
+  url_launcher: ^5.7.10
+  webview_flutter: ^1.0.7
 
 dev_dependencies:
   flutter_test:

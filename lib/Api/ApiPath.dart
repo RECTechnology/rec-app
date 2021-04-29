@@ -1,7 +1,8 @@
 import 'package:rec/Environments/env.dart';
 
 class ApiPath {
-  final String path;
+  String path;
+  String id;
   Map<String, dynamic> queryParams = {};
 
   ApiPath(this.path);
@@ -11,7 +12,16 @@ class ApiPath {
     return this;
   }
 
+  ApiPath withId(String id) {
+    this.id = id;
+    return this;
+  }
+
   Uri toUri() {
-    return Uri.https(env.API_URL, path, queryParams);
+    return Uri.https(
+      env.API_URL,
+      path + (id != null ? '/id' : ''),
+      queryParams,
+    );
   }
 }

@@ -8,6 +8,7 @@ class ApiPaths {
 
   static ApiPath sendRecoverSms = ApiPath('/password_recovery/v1/request');
   static ApiPath mapService = ApiPath('/user/v3/accounts/search');
+  static ApiPath mapV4 = ApiPath('/user/v4/accounts/search');
   static ApiPath changePassword = ApiPath('/password_recovery/v1');
   static ApiPath verifyPhone = ApiPath('/kyc/validate_phone_code');
   static ApiPath register = ApiPath('/register/v4/mobile');
