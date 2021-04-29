@@ -43,20 +43,17 @@ class _RecActionButton extends State<RecActionButton> {
         child: Container(
           height: 48,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                localizations.translate(widget.label),
-                style: TextStyle(fontSize: 20),
-              ),
-              // Only show icon if icon is passed
+              SizedBox(),
+              Text(localizations.translate(widget.label)),
               widget.icon != null
                   ? Padding(
-                      padding: const EdgeInsets.only(left: 16.0, top: 2),
+                      padding: const EdgeInsets.only(right: 16.0, top: 2),
                       child: Icon(
                         widget.icon,
-                        size: 20,
+                        size: 16,
                       ),
                     )
                   : SizedBox(),

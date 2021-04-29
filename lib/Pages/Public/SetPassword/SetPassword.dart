@@ -3,6 +3,9 @@ import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Services/ChangePasswordService.dart';
 import 'package:rec/Components/Inputs/PasswordField.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
+import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
+import 'package:rec/Components/Text/CaptionText.dart';
+import 'package:rec/Components/Text/TitleText.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Helpers/Validators.dart';
 import 'package:rec/Styles/Paddings.dart';
@@ -31,97 +34,73 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
-      body: SingleChildScrollView(
-          child: Padding(
-        padding: Paddings.page,
-        child: Column(
-          children: [
-            topTexts(),
-            Form(
-              key: _formKey,
-              child: Container(
-                  child: Column(
-                children: [
-                  Padding(
-                    padding: Paddings.textField,
-                    child: PasswordField(
-                      validator: Validators.verifyPassword,
-                      color: Colors.blueAccent,
-                      onChange: setNewPassword,
+      appBar: EmptyAppBar(context),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: Paddings.pageNoTop,
+            child: Column(
+              children: [
+                topTexts(),
+                SizedBox(height: 32),
+                Form(
+                  key: _formKey,
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: Paddings.textField,
+                          child: PasswordField(
+                            autofocus: true,
+                            validator: Validators.verifyPassword,
+                            color: Colors.blueAccent,
+                            onChange: setNewPassword,
+                          ),
+                        ),
+                        Padding(
+                          padding: Paddings.textField,
+                          child: PasswordField(
+                            title: 'REPASSWORD',
+                            validator: Validators.verifyPassword,
+                            color: Colors.blueAccent,
+                            onChange: setNewConfirmPassword,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Padding(
-                    padding: Paddings.textField,
-                    child: PasswordField(
-                      validator: Validators.verifyPassword,
-                      color: Colors.blueAccent,
-                      onChange: setNewConfirmPassword,
-                    ),
-                  ),
-                ],
-              )),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                bottom: 24,
-                left: 32,
-                right: 32,
-              ),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: RecActionButton(
-                  label: localizations.translate('NEXT'),
-                  backgroundColor: Brand.primaryColor,
-                  icon: Icons.arrow_forward_ios_sharp,
-                  onPressed: changePassword,
                 ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              bottom: 24,
+              left: 32,
+              right: 32,
+            ),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: RecActionButton(
+                label: localizations.translate('CHANGE'),
+                backgroundColor: Brand.primaryColor,
+                icon: Icons.arrow_forward_ios_sharp,
+                onPressed: changePassword,
               ),
             ),
-          ],
-        ),
-      )),
+          ),
+        ],
+      ),
     );
   }
 
   Widget topTexts() {
-    var localizations = AppLocalizations.of(context);
     return Column(
       children: [
-        Container(
-          margin: EdgeInsets.fromLTRB(32, 20, 32, 20),
-          child: Text(
-            localizations.translate('FORGOT_PASSWORD'),
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.black,
-            ),
-            textAlign: TextAlign.right,
-          ),
-        ),
-        Container(
-          alignment: Alignment.center,
-          margin: EdgeInsets.fromLTRB(32, 0, 50, 39),
-          child: Text(
-            localizations.translate('INTRODUCE_NEW_PASSWORD'),
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.black54,
-            ),
-            textAlign: TextAlign.right,
-          ),
-        ),
+        TitleText('FORGOT_PASSWORD'),
+        SizedBox(height: 16),
+        CaptionText('INTRODUCE_NEW_PASSWORD'),
       ],
     );
   }
@@ -135,21 +114,16 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
   }
 
   void changePassword() {
-    var localizations = AppLocalizations.of(context);
-    if (!_formKey.currentState.validate()) {
-      RecToast.show(
-        context,
-        localizations.translate('ERROR_CODE'),
-      );
-    }
+    if (!_formKey.currentState.validate()) return;
 
-    Auth.getAppToken().then((value) {
+    FocusScope.of(context).requestFocus(FocusNode());
+    Auth.getAppToken().then((appToken) {
       setPassword
           .changePassword(
             code: widget.sms,
             password: newPassword,
             repassword: confirmNewPassword,
-            accesToken: value,
+            accesToken: appToken,
           )
           .then(_changePasswordOK)
           .catchError(_changePasswordKO);

@@ -8,6 +8,7 @@ class RecToast {
     BuildContext context,
     String msg, {
     Color backgroundColor = Brand.primaryColor,
+    Color color = Colors.white,
     double borderRadius = 10,
   }) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -15,7 +16,7 @@ class RecToast {
         content: Text(
           msg.toString(),
           style: TextStyle(
-            color: Brand.grayDark2,
+            color: color,
             fontSize: 14,
           ),
         ),

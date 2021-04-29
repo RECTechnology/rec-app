@@ -85,16 +85,42 @@ class Brand {
         color: Brand.separatorColor,
       ),
       textTheme: baseTheme.textTheme.copyWith(
+        bodyText1: baseTheme.textTheme.bodyText1.copyWith(
+          color: grayDark,
+          fontSize: 12,
+        ),
         bodyText2: baseTheme.textTheme.bodyText2.copyWith(
           color: grayDark,
+        ),
+        headline4: baseTheme.textTheme.headline4.copyWith(
+          color: grayDark3,
+          fontSize: 20,
+          height: 1.3,
+        ),
+        headline5: baseTheme.textTheme.headline5.copyWith(
+          color: grayDark,
+          fontSize: 24,
         ),
         headline6: baseTheme.textTheme.headline6.copyWith(
           color: grayDark,
           fontSize: 20,
+          fontWeight: FontWeight.w500,
         ),
         subtitle1: baseTheme.textTheme.subtitle1.copyWith(
           color: grayDark2,
           fontSize: 16,
+        ),
+        subtitle2: baseTheme.textTheme.subtitle2.copyWith(
+          color: Brand.primaryColor,
+          fontSize: 12,
+        ),
+        caption: baseTheme.textTheme.caption.copyWith(
+          color: grayDark,
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+        ),
+        button: baseTheme.textTheme.button.copyWith(
+          fontSize: 20,
         ),
       ),
     );

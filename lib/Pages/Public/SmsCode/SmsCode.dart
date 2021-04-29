@@ -1,55 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Services/PhoneVerificationService.dart';
 import 'package:rec/Api/Services/SMSService.dart';
 
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Inputs/RecTextField.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
-import 'package:rec/Helpers/RecToast.dart';
+import 'package:rec/Components/Text/TitleText.dart';
 
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Helpers/Validators.dart';
 import 'package:rec/Styles/Paddings.dart';
-import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/brand.dart';
 
-class ValidateSms extends StatefulWidget {
+class SmsCode extends StatefulWidget {
   final String phone;
   final String dni;
+  final Function(String code) onCode;
 
-  ValidateSms(
-    this.phone,
-    this.dni,
-  );
+  SmsCode({
+    @required this.phone,
+    @required this.dni,
+    @required this.onCode,
+  });
 
   @override
-  _ValidateSmsState createState() => _ValidateSmsState();
+  _SmsCodeState createState() => _SmsCodeState();
 }
 
-class _ValidateSmsState extends State<ValidateSms> {
+class _SmsCodeState extends State<SmsCode> {
   final _formKey = GlobalKey<FormState>();
   final smsService = SMSService();
   final validateSMS = PhoneVerificationService();
 
   String sms = '';
-  bool smsSent = false;
-
-  @override
-  void initState() {
-    super.initState();
-    Auth.getAppToken().then((value) {
-      smsService.sendSMS(phone: widget.phone, dni: widget.dni).then((value) {
-        smsSent = true;
-        RecToast.showInfo(context, 'SMS sent');
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,31 +44,27 @@ class _ValidateSmsState extends State<ValidateSms> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: Paddings.page,
+            padding: Paddings.pageNoTop,
             child: Column(
               children: [
+                TitleText(
+                  'SEND_SMS_U',
+                  alignment: MainAxisAlignment.center,
+                ),
                 Padding(
-                  padding: EdgeInsets.only(bottom: 32),
+                  padding: const EdgeInsets.only(top: 32),
                   child: Text(
-                    localizations.translate('SEND_SMS_U'),
-                    style: TextStyles.pageTitle,
+                    localizations.translate('HELP_US_VALIDATE_PHONE') + ' ',
+                    style: Theme.of(context).textTheme.headline4,
                     textAlign: TextAlign.center,
                   ),
                 ),
                 Text(
-                  localizations.translate('HELP_US_VALIDATE_PHONE') + ' ',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black54,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                Text(
                   widget.phone,
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Brand.primaryColor,
-                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline4
+                      .copyWith(color: Brand.primaryColor),
                   textAlign: TextAlign.center,
                 ),
                 Padding(
@@ -94,11 +73,12 @@ class _ValidateSmsState extends State<ValidateSms> {
                     key: _formKey,
                     child: Container(
                       child: RecTextField(
+                        autofocus: true,
                         placeholder: '......',
                         needObscureText: false,
-                        keyboardType: TextInputType.phone,
+                        keyboardType: TextInputType.number,
                         isPassword: false,
-                        isNumeric: true,
+                        isNumeric: false,
                         textSize: 20,
                         letterSpicing: 25,
                         maxLength: 6,
@@ -111,16 +91,11 @@ class _ValidateSmsState extends State<ValidateSms> {
                     ),
                   ),
                 ),
-                SizedBox(height: 48),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(
-              bottom: 24,
-              left: 32,
-              right: 32,
-            ),
+            padding: Paddings.pageNoTop,
             child: Align(
               alignment: Alignment.bottomCenter,
               child: RecActionButton(
@@ -135,44 +110,11 @@ class _ValidateSmsState extends State<ValidateSms> {
     );
   }
 
-  void validatedOk(value) {
-    var localizations = AppLocalizations.of(context);
-    RecToast.show(context, localizations.translate('PHONE_VERIFY_OK'));
-    Navigator.of(context).pop({
-      'valid': true,
-      'sms': sms,
-    });
-  }
-
-  void validatedWithError(error) {
-    var localizations = AppLocalizations.of(context);
-    RecToast.showError(
-      context,
-      localizations.translate(error.message),
-    );
-  }
-
   void tryValidateSMS() {
-    var localizations = AppLocalizations.of(context);
+    if (!_formKey.currentState.validate()) return;
 
-    if (_formKey.currentState.validate()) {
-      validateSMS.validateSMSCode(code: sms, NIF: widget.dni).then((value) {
-        RecToast.showInfo(context, localizations.translate('PHONE_VERIFY_OK'));
-        Navigator.of(context).pop({
-          'valid': true,
-        });
-      }).catchError((error) {
-        RecToast.showError(
-          context,
-          localizations.translate(error.message),
-        );
-      });
-    } else {
-      RecToast.show(
-        context,
-        localizations.translate('ERROR_CODE'),
-      );
-    }
+    FocusScope.of(context).requestFocus(FocusNode());
+    if (widget.onCode != null) widget.onCode(sms);
   }
 
   void setSMS(String sms) {

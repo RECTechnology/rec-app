@@ -1,4 +1,10 @@
 class Validators {
+  static String isRequired(String str) {
+    if (str == null || str.isEmpty) return 'IS_REQUIRED';
+
+    return null;
+  }
+
   static String phoneVerification(String phone) {
     if (phone.length > 9 || phone.length < 9) {
       return 'ERROR_PHONE';

@@ -2,20 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Forms/RegisterStepTwo.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
+import 'package:rec/Components/Text/CaptionText.dart';
+import 'package:rec/Components/Text/TitleText.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Public/Register/RegisterRequest.dart';
-import 'package:rec/Pages/Public/ValidateSms/ValidateSms.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/brand.dart';
-import 'package:rec/routes.dart';
 
 class RegisterTwo extends StatefulWidget {
   final RegisterData registerData;
 
   const RegisterTwo({Key key, @required this.registerData}) : super(key: key);
-
 
   @override
   RegisterTwoState createState() => RegisterTwoState();
@@ -34,14 +33,23 @@ class RegisterTwoState extends State<RegisterTwo> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: _header(), body: _body());
+    return Scaffold(
+      appBar: _header(),
+      body: _body(),
+      resizeToAvoidBottomInset: false,
+    );
   }
 
   Widget _header() {
     var localizations = AppLocalizations.of(context);
+    var background = registerData.isAccountPrivate
+        ? Brand.backgroundPrivateColor
+        : Brand.backgroundCompanyColor;
+
     return PreferredSize(
       preferredSize: Size.fromHeight(170),
       child: AppBar(
+        backgroundColor: background,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(registerData),
@@ -64,15 +72,10 @@ class RegisterTwoState extends State<RegisterTwo> {
                   SizedBox(height: 8),
                   Text(
                     localizations.translate('ORGANIZATION'),
-                    style: TextStyle(
-                      color: registerData.isAccountPrivate
-                          ? Colors.grey
-                          : Colors.black,
-                      fontSize: 12,
-                      fontWeight: registerData.isAccountCompany
-                          ? FontWeight.w500
-                          : FontWeight.w300,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                          color: Brand.grayDark,
+                          fontWeight: FontWeight.w500,
+                        ),
                   )
                 ],
               ),
@@ -83,67 +86,47 @@ class RegisterTwoState extends State<RegisterTwo> {
     );
   }
 
-  Widget _preTitle() {
-    var localizations = AppLocalizations.of(context);
-    return Container(
-      alignment: Alignment.centerLeft,
-      child: Text(
-        localizations.translate('MAKE_KNOW'),
-        style: TextStyle(color: Brand.grayDark2, fontSize: 12),
-      ),
-    );
-  }
-
-  Widget _title() {
-    var localizations = AppLocalizations.of(context);
-    return Container(
-      child: Row(
-        children: [
-          Container(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              localizations.translate('ADD_ORG'),
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-              ),
-            ),
-          ),
-          Container(
-            height: 40,
-            alignment: Alignment.centerLeft,
-            child: null,
-          )
-        ],
-      ),
-    );
-  }
-
   Widget _body() {
     var localizations = AppLocalizations.of(context);
-    return SingleChildScrollView(
+
+    return Container(
+      constraints: BoxConstraints.expand(
+        height: MediaQuery.of(context).size.height,
+      ),
       child: Padding(
         padding: Paddings.page,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _preTitle(),
-            _title(),
-            RegisterStepTwoForm(
-              formKey: _formKey,
-              registerData: registerData,
-              onChange: (data) => setState(() => registerData = data),
-            ),
-            SizedBox(height: 84),
-            Text(
-              localizations.translate('WHEN_INIT_SESION'),
-              style: TextStyle(color: Brand.accentColor, fontSize: 12),
+            Column(
+              children: [
+                CaptionText('MAKE_KNOW'),
+                TitleText(
+                  'ADD_ORG',
+                  showTooltip: false,
+                  tooltipText: 'INTRODUCE_INFO',
+                  tooltipColor: Brand.accentColor,
+                ),
+                RegisterStepTwoForm(
+                  formKey: _formKey,
+                  registerData: registerData,
+                  onChange: (data) => setState(() => registerData = data),
+                ),
+                Text(
+                  localizations.translate('WHEN_INIT_SESION'),
+                  style: Theme.of(context)
+                      .textTheme
+                      .caption
+                      .copyWith(color: Brand.accentColor),
+                ),
+              ],
             ),
             RecActionButton(
               onPressed: register,
               backgroundColor: Brand.accentColor,
               icon: Icons.arrow_forward_ios,
               label: localizations.translate('REGISTER'),
-            ),
+            )
           ],
         ),
       ),
@@ -152,32 +135,16 @@ class RegisterTwoState extends State<RegisterTwo> {
 
   void register() {
     if (!_formKey.currentState.validate()) return;
-
     _attemptRegister();
   }
 
   void _attemptRegister() {
     var localizations = AppLocalizations.of(context);
 
-    RegisterRequest.tryRegister(context, registerData).then((result) async {
-      if (!result.error) {
-        var validateSMSResult = await Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (c) => ValidateSms(registerData.phone, registerData.dni),
-          ),
-        );
-        if (validateSMSResult != null && validateSMSResult['valid']) {
-
-          Navigator.of(context).popUntil(ModalRoute.withName(Routes.login));
-        }
-        return Future.value();
-      }
-
+    RegisterRequest.tryRegister(context, registerData).then((result) {
+      if (result == null || !result.error) return;
       if (result.message.contains('Server Error')) {
-        return RecToast.showError(
-          context,
-          localizations.translate('UNEXPECTED_SERVER_ERROR'),
-        );
+        return _showError('UNEXPECTED_SERVER_ERROR');
       }
 
       var translatedMessage = localizations.translate(result.message);
@@ -195,11 +162,15 @@ class RegisterTwoState extends State<RegisterTwo> {
         }
       }
 
-      RecToast.showError(
-        context,
-        localizations.translate(translatedMessage),
-      );
-
+      _showError(translatedMessage);
     });
+  }
+
+  void _showError(String message) {
+    var localizations = AppLocalizations.of(context);
+    RecToast.showError(
+      context,
+      localizations.translate('UNEXPECTED_SERVER_ERROR'),
+    );
   }
 }

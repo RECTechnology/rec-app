@@ -8,6 +8,8 @@ class PasswordField extends StatefulWidget {
   final Function(String newValue) onChange;
   final Function(String value) validator;
   final Color color;
+  final String title;
+  final bool autofocus;
 
   const PasswordField({
     Key key,
@@ -15,6 +17,8 @@ class PasswordField extends StatefulWidget {
     this.onChange,
     this.validator,
     this.color = Colors.black87,
+    this.title = 'PASSWORD',
+    this.autofocus = false,
   }) : super(key: key);
 
   @override
@@ -29,11 +33,12 @@ class PasswordFieldState extends State<PasswordField> {
     var localizations = AppLocalizations.of(context);
 
     return RecTextField(
-      label: localizations.translate('PASSWORD'),
-      placeholder: localizations.translate('PASSWORD'),
+      label: localizations.translate(widget.title),
+      placeholder: localizations.translate(widget.title),
       initialValue: widget.initialValue,
       needObscureText: true,
-      keyboardType: TextInputType.text,
+      autofocus: widget.autofocus,
+      keyboardType: TextInputType.visiblePassword,
       icon: Icon(Icons.lock, color: Brand.grayIcon),
       colorLine: widget.color,
       onChange: widget.onChange,

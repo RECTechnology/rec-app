@@ -34,6 +34,7 @@ class RegisterStepOneFoTwotate extends State<RegisterStepTwoForm> {
           Container(
             margin: EdgeInsets.only(top: 40, bottom: 8),
             child: RecTextField(
+              capitalizeMode: TextCapitalization.sentences,
               initialValue: widget.registerData.companyName,
               needObscureText: false,
               placeholder: localizations.translate('NAME'),
@@ -43,10 +44,11 @@ class RegisterStepOneFoTwotate extends State<RegisterStepTwoForm> {
               label: localizations.translate('NAME'),
               colorLine: Brand.accentColor,
               icon: Icon(
-                Icons.business_center,
+                Icons.storefront_outlined,
                 color: Brand.grayIcon,
               ),
               onChange: setCompanyName,
+              validator: Validators.isRequired,
             ),
           ),
           Container(

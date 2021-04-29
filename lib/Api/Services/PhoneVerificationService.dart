@@ -9,7 +9,7 @@ class PhoneVerificationService extends ServiceBase {
     var pathWithParams = ApiPaths.verifyPhone.withQueryParams({}).toUri();
 
     var body = {
-      'code': code,
+      'code': int.parse(code),
       'NIF': NIF,
     };
 

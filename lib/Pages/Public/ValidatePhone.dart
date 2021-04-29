@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:rec/Api/Auth.dart';
+import 'package:rec/Api/Services/PhoneVerificationService.dart';
 import 'package:rec/Api/Services/SMSService.dart';
 import 'package:rec/Components/Forms/DniPhone.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
@@ -8,25 +9,25 @@ import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
 import 'package:rec/Helpers/RecToast.dart';
-import 'package:rec/Pages/Public/SetPassword/SetPassword.dart';
 import 'package:rec/Pages/Public/SmsCode/SmsCode.dart';
 
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/brand.dart';
+import 'package:rec/routes.dart';
 
-class ForgotPassword extends StatefulWidget {
+class ValidatePhone extends StatefulWidget {
   final String dni;
-
-  ForgotPassword({this.dni = ''});
+  ValidatePhone({this.dni = ''});
 
   @override
-  _ForgotPasswordState createState() => _ForgotPasswordState();
+  _ValidatePhoneState createState() => _ValidatePhoneState();
 }
 
-class _ForgotPasswordState extends State<ForgotPassword> {
-  final smsService = SMSService();
+class _ValidatePhoneState extends State<ValidatePhone> {
   final _formKey = GlobalKey<FormState>();
+  final validateSMS = PhoneVerificationService();
+  final smsService = SMSService();
 
   DniPhoneData data = DniPhoneData();
 
@@ -84,9 +85,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget _topTexts() {
     return Column(
       children: [
-        TitleText('FORGOT_PASSWORD'),
+        TitleText('PHONE_NOT_VALIDATED'),
         SizedBox(height: 16),
-        CaptionText('ITRODUCE_DNI_TELF'),
+        CaptionText('VALIDATE_PHONE'),
         SizedBox(height: 32),
       ],
     );
@@ -105,42 +106,53 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   void _next(String phone, String dni) async {
     if (!_formKey.currentState.validate()) return;
 
-    await EasyLoading.show();
-    await Auth.getAppToken().then((appToken) {
+    FocusScope.of(context).requestFocus(FocusNode());
+
+    await _sendSmsCode(data.phone, data.dni);
+    await _goToEnterSmsCode();
+  }
+
+  Future<void> _sendSmsCode(String phone, String dni) {
+    return Auth.getAppToken().then((appToken) {
       return smsService
           .sendSMS(
             phone: phone,
             dni: dni,
             appToken: appToken,
           )
-          .then((c) => _goToSmsCode(phone, dni))
-          .catchError(_smsError);
+          .catchError(_onError);
     });
   }
 
-  void _smsError(err) {
-    print(err);
-    EasyLoading.dismiss();
-    RecToast.showError(context, err['body']['message']);
-  }
-
-  void _goToSmsCode(String phone, String dni) async {
-    await EasyLoading.dismiss();
+  Future<void> _goToEnterSmsCode() async {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (c) => SmsCode(
-          phone: phone,
-          dni: dni,
-          onCode: (c) => _gotCode(c),
+          phone: data.phone,
+          dni: data.dni,
+          onCode: _validateSmsCode,
         ),
       ),
     );
   }
 
-  void _gotCode(String code) {
-    print('got code $code');
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (c) => SetPasswordPage(code)),
+  void _validateSmsCode(String smsCode) {
+    EasyLoading.show();
+    validateSMS.validateSMSCode(code: smsCode, NIF: data.dni).then(
+      (value) {
+        Navigator.of(context).popUntil(ModalRoute.withName(Routes.login));
+        RecToast.showInfo(context, 'REGISTERED_OK');
+        EasyLoading.dismiss();
+      },
+    ).catchError(_onError);
+  }
+
+  void _onError(error) {
+    var localizations = AppLocalizations.of(context);
+    EasyLoading.dismiss();
+    RecToast.showError(
+      context,
+      localizations.translate(error['body']['message']),
     );
   }
 }

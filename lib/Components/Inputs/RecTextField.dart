@@ -6,6 +6,7 @@ import 'package:rec/brand.dart';
 class RecTextField extends StatefulWidget {
   final String placeholder;
   final TextInputType keyboardType;
+  final TextCapitalization capitalizeMode;
 
   final bool isNumeric;
   final bool needObscureText;
@@ -46,6 +47,7 @@ class RecTextField extends StatefulWidget {
     this.maxLength,
     this.label,
     this.autofocus = false,
+    this.capitalizeMode = TextCapitalization.none,
   });
 
   @override
@@ -65,6 +67,7 @@ class _InputField extends State<RecTextField> {
       child: Directionality(
         textDirection: TextDirection.ltr,
         child: TextFormField(
+          textCapitalization: widget.capitalizeMode,
           initialValue: widget.initialValue,
           textAlign: widget.textAlign,
           autofocus: widget.autofocus,
