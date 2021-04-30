@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Services/UsersService.dart';
+import 'package:rec/Components/AccountListTile.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
@@ -105,7 +106,10 @@ class AccountSelectorModal {
                   ),
                   child: Text(
                     localization.translate('MANAGE_ACCOUNT'),
-                    style: TextStyle(color: Brand.grayDark2),
+                    style: Theme.of(context)
+                        .textTheme
+                        .caption
+                        .copyWith(fontWeight: FontWeight.w500),
                   ),
                 ),
               ),
@@ -124,16 +128,20 @@ class AccountSelectorModal {
         )
         .toList();
 
-    return ListView.builder(
-      itemCount: accounts.length,
-      itemBuilder: (ctx, index) {
-        var account = accounts[index];
-        return ListTile(
-          onTap: () => onSelected(account),
-          leading: CircleAvatarRec.fromAccount(account),
-          title: Text(account.name),
-        );
-      },
+    return Container(
+      color: Brand.defaultAvatarBackground,
+      child: ListView.builder(
+        padding: EdgeInsets.symmetric(vertical: 8),
+        itemCount: accounts.length,
+        itemBuilder: (ctx, index) {
+          var account = accounts[index];
+          return AccountListTile(
+            onTap: () => onSelected(account),
+            avatar: CircleAvatarRec.fromAccount(account),
+            name: account.name,
+          );
+        },
+      ),
     );
   }
 

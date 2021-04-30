@@ -154,8 +154,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onLoginError(error) {
-    RecToast.showError(context, error['body']['error_description']);
-    if (error['body']['error_description'] == 'User without phone validated') {
+    RecToast.showError(context, error.message);
+    if (error.message == 'User without phone validated') {
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (c) => ValidatePhone(dni: loginData.username),

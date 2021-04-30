@@ -14,6 +14,8 @@ class PrivateAppBar extends StatefulWidget with PreferredSizeWidget {
   final Color backgroundColor;
   final Color color;
   final String title;
+  final TextAlign textAlign;
+  final Alignment alignment;
 
   const PrivateAppBar({
     Key key,
@@ -24,6 +26,8 @@ class PrivateAppBar extends StatefulWidget with PreferredSizeWidget {
     this.backgroundColor,
     this.title,
     this.color,
+    this.textAlign = TextAlign.center,
+    this.alignment = Alignment.center,
   }) : super(key: key);
 
   @override
@@ -70,10 +74,11 @@ class _PrivateAppBar extends State<PrivateAppBar> {
                   alignment: Alignment.center,
                   child: CircleAvatarRec.fromAccount(account),
                 ),
-          title: Center(
+          title: Align(
+            alignment: widget.alignment,
             child: Text(
               widget.title ?? userState.user.selectedAccount.name,
-              textAlign: TextAlign.center,
+              textAlign: widget.textAlign,
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w300,

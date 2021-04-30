@@ -19,6 +19,8 @@ class ApiPaths {
   static ApiPath changeAccount = ApiPath('/user/v1/activegroup');
   static ApiPath listCards = ApiPath('/company/v1/credit_card');
 
+  static ApiPath getContacts = ApiPath('/user/v1/public_phone_list');
+
   // recharge
   static ApiPath rechargeRecs = ApiPath('/methods/v1/in/lemonway');
   static ApiPath getExchangers = ApiPath('/user/v1/wallet/exchangers');

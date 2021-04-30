@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/RequestPermission.dart';
+import 'package:rec/Permissions/RequestPermission.dart';
 import 'package:rec/Permissions/PermissionProvider.dart';
 
 class AskForPermission extends StatefulWidget {

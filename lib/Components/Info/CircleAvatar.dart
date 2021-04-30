@@ -1,9 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Helpers/ColorHelper.dart';
 
 class CircleAvatarRec extends StatefulWidget {
   final String imageUrl;
+  final Uint8List imageBytes;
   final String name;
   final String seed;
   final Icon icon;
@@ -15,10 +18,12 @@ class CircleAvatarRec extends StatefulWidget {
     String seed,
     Icon icon,
     Color color,
+    Uint8List imageBytes,
   })  : imageUrl = imageUrl,
         name = name,
         icon = icon,
         color = color,
+        imageBytes = imageBytes,
         seed = seed ?? name;
 
   /// Returns a CircleAvatar from an account
@@ -29,6 +34,7 @@ class CircleAvatarRec extends StatefulWidget {
   })  : imageUrl = account.publicImage,
         name = account.name,
         icon = null,
+        imageBytes = null,
         color = color,
         seed = seed ?? account.name;
 
@@ -39,6 +45,7 @@ class CircleAvatarRec extends StatefulWidget {
     Color color,
   })  : icon = icon,
         imageUrl = null,
+        imageBytes = null,
         name = null,
         color = color,
         seed = seed ?? icon.semanticLabel;
@@ -57,6 +64,12 @@ class _CircleAvatarRecState extends State<CircleAvatarRec> {
     if (widget.imageUrl != null && widget.imageUrl.isNotEmpty) {
       return CircleAvatar(
         backgroundImage: NetworkImage(widget.imageUrl),
+      );
+    }
+
+    if (widget.imageBytes != null && widget.imageBytes.isNotEmpty) {
+      return CircleAvatar(
+        backgroundImage: MemoryImage(widget.imageBytes),
       );
     }
 

@@ -26,6 +26,7 @@ class Account extends Entity {
   String companyImage;
   String publicImage;
   String type;
+  String recAddress;
 
   bool active;
 
@@ -43,6 +44,7 @@ class Account extends Entity {
     this.publicImage,
     this.wallets = const [],
     this.campaigns = const [],
+    this.recAddress,
   }) : super(id, createdAt, updatedAt);
 
   bool isPrivate() {
@@ -112,6 +114,7 @@ class Account extends Entity {
       active: json['active'],
       publicImage: json['public_image'],
       companyImage: json['company_image'],
+      recAddress: json['rec_address'],
       wallets: wallets,
       campaigns: campaigns,
     );

@@ -2,24 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:rec/Api/ApiError.dart';
 import 'package:rec/Api/Services/wallet/TransactionsService.dart';
-import 'package:rec/Components/FromToRow.dart';
-import 'package:rec/Components/IfPermissionGranted.dart';
-import 'package:rec/Components/Info/CircleAvatar.dart';
+import 'package:rec/Permissions/IfPermissionGranted.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
 import 'package:rec/Entities/VendorData.ent.dart';
 import 'package:rec/Environments/env.dart';
 import 'package:rec/Helpers/Deeplinking.dart';
-import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayPin.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/AttemptPayment.page.dart';
 import 'package:rec/Permissions/PermissionProviders.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Providers/TransactionsProvider.dart';
-import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/brand.dart';
-import 'package:rec/routes.dart';
 
 class PayWithQR extends StatefulWidget {
   @override
@@ -153,60 +147,19 @@ class _PayWithQRState extends State<PayWithQR> {
         .catchError(_showErrorToast);
   }
 
-  void _showErrorToast(error) => RecToast.showError(context, error.message);
-
   void _openPinPage() {
     Navigator.of(context)
         .push(
           MaterialPageRoute(
-            builder: (ctx) => PayPin(
+            builder: (ctx) => AttemptPayment(
               data: paymentData,
-              onPin: _gotPin,
             ),
           ),
         )
         .then((value) => setState(() => result = null));
   }
 
-  void _gotPin(String pin) async {
-    paymentData.pin = pin;
-
-    _showCustomLoading();
-
-    await transactionsService
-        .makePayment(paymentData)
-        .then(_onPaymentOk)
-        .catchError(_onPaymentError);
-  }
-
-  void _showCustomLoading() {
-    var userState = UserState.of(context, listen: false);
-    var localizations = AppLocalizations.of(context);
-
-    Loading.showCustom(
-      status: localizations.translate('MAKING_PAYMENT'),
-      content: FromToRow(
-        from: CircleAvatarRec.fromAccount(userState.account),
-        to: CircleAvatarRec(imageUrl: paymentData.vendor.image),
-      ),
-    );
-  }
-
-  void _onPaymentOk(resp) {
-    var localizations = AppLocalizations.of(context);
-    var transactionProvider = TransactionProvider.of(context, listen: false);
-
-    transactionProvider.refresh();
-
-    Loading.dismiss();
-    Navigator.popUntil(context, ModalRoute.withName(Routes.home));
-    RecToast.showSuccess(context, localizations.translate('PAYMENT_OK'));
-  }
-
-  void _onPaymentError(error) {
-    Loading.dismiss();
-    _showErrorToast(error);
-  }
+  void _showErrorToast(error) => RecToast.showError(context, error.message);
 
   @override
   void dispose() {

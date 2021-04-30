@@ -1,4 +1,13 @@
 class Validators {
+  static String payMinimum(String str) {
+    var amount = double.parse(str);
+    if (amount >= 1) {
+      return null;
+    } else {
+      return 'ERROR_PASS_MIN_6';
+    }
+  }
+
   static String isRequired(String str) {
     if (str == null || str.isEmpty) return 'IS_REQUIRED';
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rec/Components/Info/InfoSplash.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/OutlinedListTile.dart';
 import 'package:rec/Permissions/PermissionProvider.dart';
@@ -17,6 +18,8 @@ class RequestPermission extends StatefulWidget {
     @required this.onAccept,
     @required this.onDecline,
   })  : assert(permission != null),
+        assert(onAccept != null),
+        assert(onDecline != null),
         super(key: key);
 
   @override
@@ -24,16 +27,12 @@ class RequestPermission extends StatefulWidget {
 }
 
 class _RequestPermission extends State<RequestPermission> {
-  bool notAccepted = false;
-
   @override
   void initState() {
     widget.permission.isGranted().then((isGranted) {
       if (isGranted) {
         return widget.onAccept();
       }
-
-      notAccepted = true;
     });
     super.initState();
   }
@@ -53,27 +52,11 @@ class _RequestPermission extends State<RequestPermission> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(),
-            Column(children: [
-              Icon(
-                widget.permission.icon,
-                size: 65,
-                color: Brand.primaryColor,
-              ),
-              const SizedBox(height: 32),
-              Text(
-                localizations.translate(widget.permission.title),
-                style: Theme.of(context).textTheme.headline6,
-                textAlign: TextAlign.center,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  localizations.translate(widget.permission.subtitle),
-                  style: Theme.of(context).textTheme.caption,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ]),
+            InfoSplash(
+              icon: widget.permission.icon,
+              title: widget.permission.title,
+              subtitle: widget.permission.subtitle,
+            ),
             Column(
               children: [
                 OutlinedListTile(

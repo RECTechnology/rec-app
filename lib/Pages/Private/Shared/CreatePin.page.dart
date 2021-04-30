@@ -63,6 +63,7 @@ class _CreatePinState extends State<CreatePin> {
             child: Column(
               children: [
                 RecTextField(
+                  autofocus: true,
                   placeholder: '....',
                   needObscureText: true,
                   isNumeric: true,

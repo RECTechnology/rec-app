@@ -80,7 +80,9 @@ class Brand {
       brightness: brightness,
       dividerColor: separatorColor,
       scaffoldBackgroundColor: Colors.white,
-      appBarTheme: baseTheme.appBarTheme.copyWith(elevation: 0),
+      appBarTheme: baseTheme.appBarTheme.copyWith(
+        elevation: 0,
+      ),
       dividerTheme: baseTheme.dividerTheme.copyWith(
         color: Brand.separatorColor,
       ),

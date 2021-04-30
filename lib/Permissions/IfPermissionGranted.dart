@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/RequestPermission.dart';
+import 'package:rec/Permissions/RequestPermission.dart';
 import 'package:rec/Permissions/PermissionProvider.dart';
 
 /// Shows [widget] if permission is granted, otherwise it shows [RequestPermission] screen
@@ -19,7 +19,7 @@ class IfPermissionGranted extends StatefulWidget {
 }
 
 class _IfPermissionGranted extends State<IfPermissionGranted> {
-  bool granted;
+  bool granted = false;
 
   void _checkPermission() {
     widget.permission.isGranted().then((isGranted) {
@@ -35,9 +35,8 @@ class _IfPermissionGranted extends State<IfPermissionGranted> {
 
   @override
   Widget build(BuildContext context) {
-    if (granted == null) return SizedBox(width: 0, height: 0);
-
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: granted
           ? widget.child
           : RequestPermission(

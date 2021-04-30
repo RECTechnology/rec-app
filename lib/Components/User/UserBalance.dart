@@ -53,7 +53,7 @@ class _UserBalance extends State<UserBalance> {
           Padding(
             padding: EdgeInsets.only(bottom: 10),
             child: Text(
-              localizations.translate(widget.label).toUpperCase(),
+              localizations.translate(widget.label),
               style: TextStyle(
                 fontSize: 15,
                 color: widget.color ?? Colors.white,

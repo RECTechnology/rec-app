@@ -6,14 +6,16 @@ Widget EmptyAppBar(
   BuildContext context, {
   bool backArrow = true,
   String title,
+  Text titleText,
 }) {
   var localizations = AppLocalizations.of(context);
-  var titleWidget = title != null
-      ? Text(
-          localizations.translate(title),
-          style: TextStyle(color: Brand.grayDark),
-        )
-      : null;
+  var titleWidget = titleText ??
+      (title != null
+          ? Text(
+              localizations.translate(title),
+              style: TextStyle(color: Brand.grayDark),
+            )
+          : null);
   var leadingIcon = backArrow
       ? IconButton(
           icon: Icon(

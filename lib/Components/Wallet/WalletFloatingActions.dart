@@ -36,6 +36,7 @@ class WalletFloatingActions extends StatelessWidget {
         Icons.call_made,
         context,
         bgColor: accountTypeColor,
+        route: Routes.payContactAccount,
       ),
       buildSpeedDialChild(
         'RECEIVE_PAYMENT',
@@ -71,6 +72,7 @@ class WalletFloatingActions extends StatelessWidget {
         Icons.call_made,
         context,
         bgColor: accountTypeColor,
+        route: Routes.payContactAccount,
       ),
       buildSpeedDialChild(
         'RECHARGE_RECS',

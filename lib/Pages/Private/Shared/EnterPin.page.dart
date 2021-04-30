@@ -63,6 +63,7 @@ class _EnterPinState extends State<EnterPin> {
             child: Column(
               children: [
                 RecTextField(
+                  autofocus: true,
                   placeholder: '....',
                   needObscureText: true,
                   keyboardType: TextInputType.phone,

@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayContactOrAccount.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayWithQR.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/AddNewCard.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/Recharge.page.dart';
@@ -15,8 +16,9 @@ class Routes {
   static String forgotPassword = '/forgot-password';
   static String changePassword = '/change-password';
 
-  // Recharge routes
+  // Walet routes
   static String payQr = '/pay-qr';
+  static String payContactAccount = '/pay-contact-account';
   static String recharge = '/recharge';
 
   // Route for deeplink recharge result
@@ -37,4 +39,5 @@ final Map<String, Widget Function(BuildContext)> ROUTES = {
   Routes.recharge: (context) => RechargePage(),
   Routes.newCard: (context) => AddNewCard(),
   Routes.payQr: (context) => PayWithQR(),
+  Routes.payContactAccount: (context) => PayContactOrAccount(),
 };

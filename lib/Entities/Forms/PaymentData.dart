@@ -15,9 +15,10 @@ class PaymentData extends FormData {
     this.concept = 'pago',
     this.address = '',
     this.pin,
-    this.vendor,
+    VendorData vendor,
     Currency currency,
-  }) : currency = currency ?? Currency.rec;
+  })  : currency = currency ?? Currency.rec,
+        vendor = vendor ?? VendorData();
 
   PaymentData.fromUriString(String uri) {
     var parsedUri = Uri.parse(uri);
@@ -33,6 +34,17 @@ class PaymentData extends FormData {
 
   double descaleAmount(double amount) {
     return (amount / 100000000).toDouble();
+  }
+
+  PaymentData update(PaymentData newData) {
+    currency = newData.currency;
+    vendor = newData.vendor;
+    amount = newData.amount;
+    address = newData.address;
+    concept = newData.concept;
+    pin = newData.pin;
+
+    return this;
   }
 
   @override

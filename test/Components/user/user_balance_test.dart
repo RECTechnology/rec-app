@@ -12,7 +12,7 @@ void main() {
     await tester.pumpAndSettle();
 
     TestUtils.widgetExists(userBalance);
-    TestUtils.isTextPresent('SALDO TOTAL');
+    TestUtils.isTextPresent('Saldo Total');
     TestUtils.isTextPresent(
       Formatting.formatCurrency(10),
     );
