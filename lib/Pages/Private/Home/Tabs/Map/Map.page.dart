@@ -7,6 +7,8 @@ import 'package:rec/Api/Services/MapService.dart';
 import 'package:rec/Api/Services/BussinesDataService.dart';
 import 'package:rec/Entities/Map/MapSearchData.dart';
 import 'package:rec/Entities/Marck.ent.dart';
+import 'package:rec/Permissions/IfPermissionGranted.dart';
+import 'package:rec/Permissions/PermissionProviders.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/Components/RecFiltterButton.dart';
@@ -51,8 +53,14 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
+    return IfPermissionGranted(
+      permission: PermissionProviders.location,
+      child: _content(),
+    );
+  }
 
+  Widget _content() {
+    var localizations = AppLocalizations.of(context);
     return Scaffold(
         body: Stack(
           children: [
