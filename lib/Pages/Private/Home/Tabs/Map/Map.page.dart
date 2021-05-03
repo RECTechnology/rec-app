@@ -64,6 +64,7 @@ class _MapPageState extends State<MapPage> {
 
   Widget _content() {
     var localizations = AppLocalizations.of(context);
+
     return Scaffold(
       body: Stack(
         children: [
@@ -224,14 +225,16 @@ class _MapPageState extends State<MapPage> {
   }
 
   void setOnlyWithOffers() {
-    if (searchData.onlyWithOffers == true) {
-      searchData.onlyWithOffers = false;
-      activeFilttersCount++;
-    } else {
-      searchData.onlyWithOffers = true;
-      activeFilttersCount--;
-    }
-    setState(() {});
+    setState(() {
+      if (searchData.onlyWithOffers == true) {
+        searchData.onlyWithOffers = false;
+        activeFilttersCount++;
+      } else {
+        searchData.onlyWithOffers = true;
+        activeFilttersCount--;
+      }
+      _search();
+    });
   }
 
   void setType(String type) {
