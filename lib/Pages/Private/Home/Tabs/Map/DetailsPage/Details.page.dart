@@ -35,7 +35,6 @@ class _DetailsPageState extends State<DetailsPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     createDayList();
     if (widget.bussinesData.description.length > 50) {
@@ -47,12 +46,11 @@ class _DetailsPageState extends State<DetailsPage> {
       secondHalf = '';
     }
 
-    schedules = widget.bussinesData.schedule.split("/");
+    schedules = widget.bussinesData.schedule.split('/');
   }
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(120),
@@ -212,7 +210,7 @@ class _DetailsPageState extends State<DetailsPage> {
               child: secondHalf.isEmpty
                   ? Text(firstHalf)
                   : Text(
-                      flag ? (firstHalf + "...") : (firstHalf + secondHalf),
+                      flag ? (firstHalf + '...') : (firstHalf + secondHalf),
                       style: TextStyle(fontSize: 14),
                       softWrap: true,
                     ),

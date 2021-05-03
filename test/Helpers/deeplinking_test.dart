@@ -11,7 +11,7 @@ void main() {
 
     expect(
       payUrl,
-      '${env.DEEPLINK_SCHEME}://${env.DEEPLINK_URL}${Deeplinking.PATH_PAY}?amount=0.0&concept=pago&address',
+      '${env.DEEPLINK_SCHEME}://${env.DEEPLINK_URL}${Deeplinking.PATH_PAY}?amount=0.0&concept&address',
     );
   });
 
@@ -22,7 +22,7 @@ void main() {
 
     expect(
       payUrl,
-      '${env.DEEPLINK_SCHEME}://${env.DEEPLINK_URL}${Deeplinking.PATH_PAY}?amount=0.0&concept=pago&address=test',
+      '${env.DEEPLINK_SCHEME}://${env.DEEPLINK_URL}${Deeplinking.PATH_PAY}?amount=0.0&concept&address=test',
     );
   });
 

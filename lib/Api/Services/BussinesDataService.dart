@@ -3,7 +3,6 @@ import 'package:rec/Api/ApiPaths.dart';
 import 'package:rec/Api/Interceptors/InjectTokenInterceptor.dart';
 import 'package:rec/Api/Services/BaseService.dart';
 import 'package:rec/Entities/Account.ent.dart';
-import 'package:rec/Entities/BussinesData.ent.dart';
 
 class BussinesDataService extends ServiceBase {
   BussinesDataService({Client client})
