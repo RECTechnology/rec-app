@@ -1,10 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
+import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Offers.ent.dart';
 
 import 'package:rec/Components/RecFiltterButton.dart';
-import 'package:rec/Entities/BussinesData.ent.dart';
 import 'package:rec/Components/Info/OffersCard.dart';
 
 import 'package:rec/Providers/AppLocalizations.dart';
@@ -14,7 +14,7 @@ import 'package:rec/Styles/TextStyles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailsPage extends StatefulWidget {
-  final BussinesData bussinesData;
+  final Account bussinesData;
 
   DetailsPage(this.bussinesData);
 
@@ -24,8 +24,8 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
   bool isResume = true;
-  double lat ;
-  double lon ;
+  double lat;
+  double lon;
   DateTime date = DateTime.now();
   List<String> days = [];
   String firstHalf;
@@ -60,11 +60,14 @@ class _DetailsPageState extends State<DetailsPage> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(widget.bussinesData.imageURL != ''
-                            ? widget.bussinesData.imageURL
-                            : 'https://picsum.photos/250?image=9'))),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(
+                      widget.bussinesData.companyImage ??
+                          'https://picsum.photos/250?image=9',
+                    ),
+                  ),
+                ),
               ),
               Container(
                 decoration: BoxDecoration(
@@ -81,7 +84,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: CircleAvatarRec(
-                        imageUrl: widget.bussinesData.avatarImage ??
+                        imageUrl: widget.bussinesData.publicImage ??
                             'https://picsum.photos/250?image=9',
                       ),
                     ),
@@ -243,9 +246,7 @@ class _DetailsPageState extends State<DetailsPage> {
               child: RichText(
                 text: TextSpan(
                   style: TextStyles.link,
-                  text: widget.bussinesData.webURL == null
-                      ? widget.bussinesData.webURL
-                      : 'https://picsum.photos/250?image=9',
+                  text: widget.bussinesData.webUrl ?? '',
                   recognizer: TapGestureRecognizer()..onTap = () async {},
                 ),
               ),
@@ -255,12 +256,15 @@ class _DetailsPageState extends State<DetailsPage> {
             width: 380,
             height: 130,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6),
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(widget.bussinesData.imageURL != ''
-                        ? widget.bussinesData.imageURL
-                        : 'https://picsum.photos/250?image=9'))),
+              borderRadius: BorderRadius.circular(6),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(
+                  widget.bussinesData.companyImage ??
+                      'https://picsum.photos/250?image=9',
+                ),
+              ),
+            ),
           ),
           widget.bussinesData.offers.isNotEmpty ? offersList() : SizedBox()
         ],
@@ -343,7 +347,6 @@ class _DetailsPageState extends State<DetailsPage> {
                                               ? FontWeight.bold
                                               : FontWeight.normal,
                                         )),
-                                    
                                   ],
                                 ),
                               )
@@ -449,10 +452,8 @@ class _DetailsPageState extends State<DetailsPage> {
         element++) {
       counter++;
       days.add(getDay(element));
-      print(element);
-      print('Lnegt:' + days.length.toString());
+
       if (element == 7 && days.length < 7) {
-        print('Im in second for');
         for (var i = 1; (days.length - counter) < 7; i++) {
           days.add(getDay(i));
         }

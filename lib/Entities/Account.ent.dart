@@ -21,12 +21,19 @@ class Account extends Entity {
   List<Product> consumingProducts = [];
   List<Wallet> wallets = [];
   List<Campaign> campaigns = [];
+  List<dynamic> offers = [];
 
   String name;
   String companyImage;
   String publicImage;
   String type;
   String recAddress;
+  String description;
+  String schedule;
+  String street;
+  String webUrl;
+  String phone;
+  String prefix;
 
   bool active;
 
@@ -45,6 +52,12 @@ class Account extends Entity {
     this.wallets = const [],
     this.campaigns = const [],
     this.recAddress,
+    this.description,
+    this.schedule,
+    this.street,
+    this.prefix,
+    this.phone,
+    this.webUrl,
   }) : super(id, createdAt, updatedAt);
 
   bool isPrivate() {
@@ -115,6 +128,10 @@ class Account extends Entity {
       publicImage: json['public_image'],
       companyImage: json['company_image'],
       recAddress: json['rec_address'],
+      description: json['description'],
+      schedule: json['schedule'],
+      prefix: json['prefix'],
+      phone: json['phone'],
       wallets: wallets,
       campaigns: campaigns,
     );

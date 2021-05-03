@@ -161,22 +161,16 @@ class _MapPageState extends State<MapPage> {
   }
 
   void getDetailsPage(String id) {
-    print("Im going to bussines data serviceeeeeeeeeeeeeeeee");
-    print(id);
     bussinesDataService.getData(id).then((value) {
-      print("Printing value in Map pageeeeeeeeeeeeeeeeeeeeee");
-      print(value);
       showCupertinoModalBottomSheet<dynamic>(
         expand: true,
         context: context,
         backgroundColor: Colors.transparent,
         builder: (context) => DetailsPage(value),
       );
+    }).catchError((err) {
+      print(err);
     });
-  }
-
-  void goToDetailsPage() {
-    print('Going to details page...');
   }
 
   void setCustomMapPin() async {
@@ -187,36 +181,26 @@ class _MapPageState extends State<MapPage> {
   }
 
   void setMarks(List<Marck> marks) {
-    ImageConfiguration configuration = createLocalImageConfiguration(context);
-
-    BitmapDescriptor.fromAssetImage(configuration, 'assets/marker.svg')
-        .then((icon) {
-      setState(() {
-        customIcon1 = icon;
-        setState(() {
-          for (var element in marks) {
-            _markers.add(
-              Marker(
-                markerId: MarkerId(element.id.toString()),
-                position: LatLng(element.lat, element.long),
-                icon: customIcon1,
-                infoWindow: InfoWindow(
-                  title: element.name,
-                ),
-                onTap: () {
-                  getDetailsPage(element.id.toString());
-                },
-              ),
-            );
-          }
-        });
-      });
+    setState(() {
+      for (var element in marks) {
+        _markers.add(
+          Marker(
+            markerId: MarkerId(element.id.toString()),
+            position: LatLng(element.lat, element.long),
+            icon: markerIcon,
+            infoWindow: InfoWindow(
+              title: element.name,
+              onTap: () {
+                getDetailsPage(element.id.toString());
+              },
+            ),
+          ),
+        );
+      }
     });
-
   }
 
   void setSearch(String search) {
-    print(searchData.search.length);
     if (searchData.search.length == 0) {
       searchData.search = search;
       activeFilttersCount++;
@@ -236,8 +220,6 @@ class _MapPageState extends State<MapPage> {
   }
 
   void setOnlyWithOffers() {
-    print("Im in setOnlyWithOffers");
-    print(searchData.onlyWithOffers);
     if (searchData.onlyWithOffers == true) {
       searchData.onlyWithOffers = false;
       activeFilttersCount++;

@@ -7,13 +7,30 @@ class BussinesData {
   final String avatarImage;
   final String prefix;
   final String phone;
-  final List offers;
   final String street;
   final String webURL;
   final String schedule;
-  final String latitude;
-  final String longitude;
-  BussinesData(this.id, this.name, this.description, this.imageURL,this.avatarImage,this.phone,this.prefix,this.offers,this.street,this.webURL,this.schedule,this.latitude,this.longitude);
+
+  final List offers;
+
+  final double latitude;
+  final double longitude;
+
+  BussinesData(
+    this.id,
+    this.name,
+    this.description,
+    this.imageURL,
+    this.avatarImage,
+    this.phone,
+    this.prefix,
+    this.offers,
+    this.street,
+    this.webURL,
+    this.schedule,
+    this.latitude,
+    this.longitude,
+  );
 
   factory BussinesData.fromJson(Map<String, dynamic> json) {
     var data = BussinesData(
@@ -25,7 +42,12 @@ class BussinesData {
       json['prefix'],
       json['phone'],
       json['offers'],
-      'Calle '+ json['street']+', '+json['address_number']+', '+json['zip'],
+      'Calle ' +
+          json['street'] +
+          ', ' +
+          json['address_number'] +
+          ', ' +
+          json['zip'],
       json['web'],
       json['schedule'],
       json['latitude'],

@@ -11,6 +11,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  qr_code_scanner: 
   flutter_secure_storage: 3.3.3
   flutter_spinkit: ^4.1.2
   flutter_easyloading: ^2.2.2
@@ -19,7 +20,6 @@ dependencies:
   country_code_picker: ^1.7.0
   cupertino_icons: ^1.0.0
   google_maps_flutter: ^2.0.3
-  qr_code_scanner: 
   qr_flutter: ^3.1.0
   http: ^0.12.0+4
   http_interceptor: ^0.3.3
@@ -31,7 +31,6 @@ dependencies:
   share: ^0.6.5+4
   timeago: ^2.0.26
   url_launcher: ^5.7.10
-  qr_flutter: ^3.1.0
   modal_bottom_sheet: ^1.0.0+1
   webview_flutter: ^1.0.7
 
