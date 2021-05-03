@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Wallet/charge/Charge.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayContactOrAccount.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayWithQR.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/AddNewCard.page.dart';
@@ -20,9 +21,11 @@ class Routes {
   static String payQr = '/pay-qr';
   static String payContactAccount = '/pay-contact-account';
   static String recharge = '/recharge';
+  static String charge = '/charge';
 
   // Route for deeplink recharge result
   static String rechargeResult = '/recharge-result';
+  static String payLink = '/pay';
 
   static String home = '/home';
   static String newCard = '/new-card';
@@ -40,4 +43,6 @@ final Map<String, Widget Function(BuildContext)> ROUTES = {
   Routes.newCard: (context) => AddNewCard(),
   Routes.payQr: (context) => PayWithQR(),
   Routes.payContactAccount: (context) => PayContactOrAccount(),
+  Routes.charge: (context) => ChargePage(),
+  Routes.payLink: (context) => PayContactOrAccount(),
 };

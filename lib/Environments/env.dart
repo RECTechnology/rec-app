@@ -18,7 +18,7 @@ class Env implements EnvBase {
   String CAMPAIGN_ID = '1';
 
   @override
-  String DEEPLINK_SCHEME = 'app';
+  String DEEPLINK_SCHEME = 'https';
   @override
   String DEEPLINK_URL = 'rec.barcelona';
 }

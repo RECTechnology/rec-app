@@ -12,7 +12,7 @@ class PaymentData extends FormData {
 
   PaymentData({
     this.amount = 0,
-    this.concept = 'pago',
+    this.concept = '',
     this.address = '',
     this.pin,
     VendorData vendor,

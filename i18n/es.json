@@ -153,5 +153,15 @@
   "NO_ACCOUNTS_FOUND": "No se han encontrado cuentas para esa busqueda",
   "FILL_PAY_FORM": "Rellena el formulario y pulsa el botón Confirmar pago. Recuerda, 1€ = 1R.",
   "FROM_NAME": "desde {{name}}",
-  "CONFIRM_PAYMENT": "Confirmar pago"
+  "CONFIRM_PAYMENT": "Confirmar pago",
+  "CONCEPT": "Concepto",
+  "FILL_CHARGE_FORM": "Rellena el formulario y pulsa el botón para generar un código QR. Este será escaneado por otro usuario para realizar el pago. Recuerda, 1€ = 1R.",
+  "SHARE_PAY_LINK": "Compartir enlace de pago",
+  "CHARGE_QR": "Cobrar con QR",
+  "CHARGE_TO": "Cobro de {{name}}",
+  "QR_CHARGE_MESSAGE": "Solicita al usuario que escanee el código QR para realizar el pago",
+  "FINALIZE": "Finalizar",
+
+
+  "PAYMENT_SHARE_MESSAGE": "¡Hola! 👋 Soy {{account}} tenemos pendiente el pago “{{concept}}” con importe de *{{amount}}R*. Para pagar haz click en el enlace que te envío 👇  abrélo con la app. del REC. 📲 y pulsa al botón Enviar pago 💸 ¡Gracias! {{link}}"
 }
