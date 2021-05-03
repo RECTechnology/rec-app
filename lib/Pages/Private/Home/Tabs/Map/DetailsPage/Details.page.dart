@@ -4,7 +4,7 @@ import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Offers.ent.dart';
 
-import 'package:rec/Components/RecFiltterButton.dart';
+import 'package:rec/Components/RecFilterButton.dart';
 import 'package:rec/Components/Info/OffersCard.dart';
 
 import 'package:rec/Providers/AppLocalizations.dart';
@@ -167,7 +167,7 @@ class _DetailsPageState extends State<DetailsPage> {
             padding: EdgeInsets.fromLTRB(6, 8, 0, 16),
             child: Row(
               children: [
-                RecFiltterButton(
+                RecFilterButton(
                   icon: Icons.call_made,
                   label: localizations.translate('PAY'),
                   padding: Paddings.filterButton,
@@ -176,7 +176,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   backgroundColor: Colors.blueAccent,
                   textColor: Colors.white,
                 ),
-                RecFiltterButton(
+                RecFilterButton(
                   icon: Icons.assistant_direction,
                   label: localizations.translate('HOW_TO_GO'),
                   padding: Paddings.filterButton,
@@ -184,7 +184,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   disabled: false,
                   backgroundColor: Colors.white,
                 ),
-                RecFiltterButton(
+                RecFilterButton(
                   icon: Icons.phone,
                   label: localizations.translate('CALL'),
                   padding: Paddings.filterButton,

@@ -42,13 +42,13 @@ class _SearchInput extends State<SearchInput> {
             controller: controller,
             onChanged: (s) {
               setState(() => _searchInputText = s);
-              widget.fieldChanged(s);
+              if (widget.fieldChanged != null) widget.fieldChanged(s);
             },
             keyboardType: TextInputType.name,
             textInputAction: TextInputAction.search,
             onFieldSubmitted: (s) {
               setState(() => _searchInputText = s);
-              widget.fieldSubmited(s);
+              if (widget.fieldSubmited != null) widget.fieldSubmited(s);
             },
             decoration: _getDecoration(),
           ),
@@ -60,8 +60,8 @@ class _SearchInput extends State<SearchInput> {
   void _clearSearch() {
     setState(() => _searchInputText = '');
     controller.text = '';
-    widget.fieldChanged('');
-    widget.fieldSubmited('');
+    if (widget.fieldChanged != null) widget.fieldChanged('');
+    if (widget.fieldSubmited != null) widget.fieldSubmited('');
   }
 
   InputDecoration _getDecoration() {

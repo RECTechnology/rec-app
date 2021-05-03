@@ -1,18 +1,20 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rec/Api/Services/MapService.dart';
 import 'package:rec/Api/Services/BussinesDataService.dart';
+import 'package:rec/Components/Inputs/SearchInput.dart';
+import 'package:rec/Components/RecFilterButton.dart';
 import 'package:rec/Entities/Map/MapSearchData.dart';
 import 'package:rec/Entities/Marck.ent.dart';
 import 'package:rec/Permissions/IfPermissionGranted.dart';
 import 'package:rec/Permissions/PermissionProviders.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Styles/Paddings.dart';
-import 'package:rec/Components/RecFiltterButton.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:rec/Styles/Paddings.dart';
+import 'package:rec/brand.dart';
 
 import 'DetailsPage/Details.page.dart';
 
@@ -29,7 +31,8 @@ class _MapPageState extends State<MapPage> {
   MapSearchData searchData = MapSearchData();
   BitmapDescriptor markerIcon;
   int activeFilttersCount = 0;
-  final Set<Marker> _markers = {};
+  List<Widget> buttonFilters = [];
+  Set<Marker> _markers = {};
   final CameraPosition _initialPosition = CameraPosition(
     target: LatLng(41.4414534, 2.2086006),
     zoom: 12,
@@ -62,61 +65,48 @@ class _MapPageState extends State<MapPage> {
   Widget _content() {
     var localizations = AppLocalizations.of(context);
     return Scaffold(
-        body: Stack(
+      body: Stack(
+        children: [
+          GoogleMap(
+            onMapCreated: _onMapCreated,
+            markers: _markers,
+            initialCameraPosition: _initialPosition,
+          ),
+          Positioned(
+            top: 30.0,
+            right: 15.0,
+            left: 15.0,
+            child: SearchInput(
+                hintText: 'SEARCH_HERE',
+                fieldSubmited: (val) {
+                  setSearch(val);
+                  _search();
+                }),
+          )
+        ],
+      ),
+      bottomSheet: Container(
+        height: 70,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
           children: [
-            GoogleMap(
-              onMapCreated: _onMapCreated,
-              markers: _markers,
-              initialCameraPosition: _initialPosition,
-            ),
-            Positioned(
-              top: 30.0,
-              right: 15.0,
-              left: 15.0,
-              child: Container(
-                height: 50.0,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.white),
-                child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Buscar aquí',
-                      border: InputBorder.none,
-                      contentPadding: EdgeInsets.only(left: 15.0, top: 15.0),
-                      suffixIcon: IconButton(
-                          icon: IconButton(
-                        icon: Icon(Icons.search),
-                        iconSize: 30.0,
-                      )),
-                    ),
-                    onChanged: (val) {
-                      setState(() {
-                        setSearch(val);
-                      });
-                    }),
-              ),
-            )
-          ],
-        ),
-        bottomSheet: Container(
-          height: 72,
-          child: Column(
-            children: [
-              Padding(
-                padding: Paddings.hint,
-                child: Center(
-                    child: Container(
+            Expanded(
+              flex: 1,
+              child: Center(
+                child: Container(
                   width: 60,
                   height: 5,
-                  child: RaisedButton(
-                    color: Colors.grey,
-                  ),
-                )),
+                  color: Brand.grayLight2,
+                ),
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
+            ),
+            Expanded(
+              flex: 2,
+              child: Container(
+                margin: EdgeInsets.only(left: 16),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       localizations.translate('FILTERS'),
@@ -126,7 +116,7 @@ class _MapPageState extends State<MapPage> {
                               : Colors.black,
                           fontWeight: FontWeight.bold),
                     ),
-                    RecFiltterButton(
+                    RecFilterButton(
                       icon: Icons.add,
                       label: localizations.translate('OFFERS'),
                       padding: Paddings.filterButton,
@@ -136,7 +126,7 @@ class _MapPageState extends State<MapPage> {
                           ? Colors.orange[100]
                           : Colors.white,
                     ),
-                    RecFiltterButton(
+                    RecFilterButton(
                       icon: Icons.add,
                       label: localizations.translate('TOUCH_HOOD'),
                       padding: Paddings.filterButton,
@@ -151,13 +141,19 @@ class _MapPageState extends State<MapPage> {
                   ],
                 ),
               ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
+    _search();
+  }
+
+  void _search() {
     mapService
         .getMarks(searchData)
         .then((value) => setMarks(value.items))
@@ -190,6 +186,7 @@ class _MapPageState extends State<MapPage> {
 
   void setMarks(List<Marck> marks) {
     setState(() {
+      _markers = {};
       for (var element in marks) {
         _markers.add(
           Marker(
@@ -209,14 +206,13 @@ class _MapPageState extends State<MapPage> {
   }
 
   void setSearch(String search) {
-    if (searchData.search.length == 0) {
+    if (searchData.search.isEmpty) {
       searchData.search = search;
       activeFilttersCount++;
     } else {
       searchData.search = '';
       activeFilttersCount--;
     }
-    setState(() {});
   }
 
   void setOffset(int offset) {
