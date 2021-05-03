@@ -30,6 +30,8 @@ dependencies:
   sentry_flutter: ^4.0.4
   timeago: ^2.0.26
   url_launcher: ^5.7.10
+  qr_flutter: ^3.1.0
+  modal_bottom_sheet: ^1.0.0+1
   webview_flutter: ^1.0.7
 
 dev_dependencies:
@@ -41,6 +43,8 @@ dev_dependencies:
   pedantic: ^1.9.2
   image_test_utils: ^1.0.0
   flutter_launcher_icons: "^0.8.1"
+  draggable_bottom_sheet: ^0.1.2
+
 
 flutter_icons:    
   android: "launcher_icon"
@@ -62,6 +66,7 @@ flutter:
      - assets/marcador.png
      - assets/recharge-ok.png
      - assets/recharge-ko.png
+     - assets/marker.svg
      - assets/credit-cards/visa.png
      - assets/credit-cards/mastercard.png
      - i18n/ca.json

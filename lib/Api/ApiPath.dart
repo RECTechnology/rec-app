@@ -20,7 +20,7 @@ class ApiPath {
   Uri toUri() {
     return Uri.https(
       env.API_URL,
-      path + (id != null ? '/id' : ''),
+      path + (id != null ? '/$id' : ''),
       queryParams,
     );
   }

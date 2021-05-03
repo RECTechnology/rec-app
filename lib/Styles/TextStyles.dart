@@ -20,6 +20,6 @@ class TextStyles {
 
   static const TextStyle link = TextStyle(
     color: Brand.primaryColor,
-    fontSize: 13,
+    fontSize: 14,
   );
 }
