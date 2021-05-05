@@ -9,9 +9,9 @@ class VendorData {
     this.type,
   });
 
-  VendorData.fromJson(List<dynamic> data) {
-    name = data[0];
-    image = data[1];
-    type = data[2];
+  VendorData.fromJson(dynamic data) {
+    name = data['name'];
+    image = data['company_image'];
+    type = data['type'];
   }
 }

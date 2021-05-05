@@ -145,15 +145,15 @@ class _LoginPageState extends State<LoginPage> {
         .login(loginData)
         .then(_onLoginSuccess)
         .catchError(_onLoginError);
-
-    await Loading.dismiss();
   }
 
   void _onLoginSuccess(response) {
+    Loading.dismiss();
     Navigator.of(context).pushReplacementNamed(Routes.home);
   }
 
   void _onLoginError(error) {
+    Loading.dismiss();
     RecToast.showError(context, error.message);
     if (error.message == 'User without phone validated') {
       Navigator.of(context).push(
