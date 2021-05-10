@@ -1,5 +1,6 @@
 import 'package:rec/Api/ApiPath.dart';
 
+/// [API Documentation](https://github.com/QbitArtifacts/rec_app_v2/wiki/Api-Documentation) available.
 class ApiPaths {
   static ApiPath token = ApiPath('/oauth/v3/token');
   static ApiPath transactions = ApiPath('/user/v2/wallet/transactions');

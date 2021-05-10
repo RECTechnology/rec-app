@@ -3,8 +3,8 @@ import 'package:http_interceptor/models/request_data.dart';
 import 'package:http_interceptor/models/response_data.dart';
 import 'package:rec/Api/Auth.dart';
 
-class InjectTokenInterceptor implements InterceptorContract {
-  InjectTokenInterceptor();
+class InjectAppTokenInterceptor implements InterceptorContract {
+  InjectAppTokenInterceptor();
 
   @override
   Future<RequestData> interceptRequest({RequestData data}) async {

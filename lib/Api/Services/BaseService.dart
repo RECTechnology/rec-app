@@ -7,6 +7,7 @@ import 'package:http_interceptor/interceptor_contract.dart';
 import 'package:rec/Api/ApiError.dart';
 import 'package:rec/Api/Interceptors/ApiInterceptor.dart';
 
+/// [API Documentation](https://github.com/QbitArtifacts/rec_app_v2/wiki/Api-Documentation) available.
 abstract class ServiceBase {
   Client client;
 

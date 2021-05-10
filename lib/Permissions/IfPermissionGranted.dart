@@ -4,6 +4,8 @@ import 'package:rec/Permissions/PermissionProvider.dart';
 
 /// Shows [widget] if permission is granted, otherwise it shows [RequestPermission] screen
 /// for a specific [PermissionProvider]
+///
+/// You can check the docs at the [Permissions Wiki](https://github.com/QbitArtifacts/rec_app_v2/wiki/Permissions-Documentation)
 class IfPermissionGranted extends StatefulWidget {
   final Widget child;
   final PermissionProvider permission;
