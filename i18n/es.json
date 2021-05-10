@@ -27,7 +27,7 @@
   "RETURN_WRITE_PIN": "Vuelve a escribir tu codigo PIN",
   "PROMOTE_TRADE": "Promueve el comercio local",
   "CREATE_USER": "¡Crea tu usuario!",
-  "ACORD_WHIT_TEMS": "Estoy de acuerdo con REC Terminos de Uso",
+  "ACORD_WHIT_TEMS": "Estoy de acuerdo con los Terminos de Uso",
   "DNI_NIE": "DNI/NIE",
   "PRESS_NEXT_TO_ADD": "Pulsa Siguiente para añadir tu organizacion",
   "TO_START_WRITE": "Para empezar escribe tus datos personales",
@@ -80,11 +80,13 @@
   "STATUS_SUCCESS": "Completado",
   "NO_TRANSACTIONS": "No hay transacciones",
 
+  "Invalid username and password combination": "Nombre de usuario o contraseña incorrectos",
   "phone already registered": "Numero de telefóno ya registrado",
   "dni already registered": "DNI/NIE ya registrado",
   "Incorrect Pin": "Pin Incorrecto",
   "KYC max_out limit has been reached": "Limite de envios alcanzado",
   "Amount under minimum": "Cantidad por debajo del minimo",
+  "Error, cannot send money to the same origin address": "Error, no puedes enviar dinero a la misma cuenta",
 
   "UNEXPECTED_SERVER_ERROR": "Error inesperado, prueba de nuevo en 5 minutos, si el error persiste contacte con nosotros.",
   "ERROR_PASS_MIN_6": "Contraseña incorrecta, minimo 6 caracteres",
@@ -161,7 +163,8 @@
   "CHARGE_TO": "Cobro de {{name}}",
   "QR_CHARGE_MESSAGE": "Solicita al usuario que escanee el código QR para realizar el pago",
   "FINALIZE": "Finalizar",
+  
 
 
-  "PAYMENT_SHARE_MESSAGE": "¡Hola! 👋 Soy {{account}} tenemos pendiente el pago “{{concept}}” con importe de *{{amount}}R*. Para pagar haz click en el enlace que te envío 👇  abrélo con la app. del REC. 📲 y pulsa al botón Enviar pago 💸 ¡Gracias! {{link}}"
+  "PAYMENT_SHARE_MESSAGE": "¡Hola! 👋 Soy {{account}}, tenemos pendiente el pago “{{concept}}” con importe de {{amount}}R. Haz click en el enlace y ábrelo con la app. del REC. 📲 ¡Gracias! {{link}}"
 }

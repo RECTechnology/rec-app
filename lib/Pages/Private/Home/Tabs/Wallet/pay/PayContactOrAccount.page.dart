@@ -20,7 +20,7 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
   TabController _tabController;
   final int items = 2;
   final int initialIndex = 0;
-  final PaymentData _paymentData = PaymentData();
+  final PaymentData _paymentData = PaymentData.empty();
 
   @override
   void initState() {
@@ -87,13 +87,12 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
       },
     );
 
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (ctx) => PayAddress(
-          paymentData: data,
-        ),
-      ),
+    var route = MaterialPageRoute(
+      builder: (ctx) => PayAddress(paymentData: data),
     );
+    Navigator.of(context).push(route).then((value) {
+      if (value == true) Navigator.of(context).pop(value);
+    });
   }
 
   AppBar _constructAppBar() {

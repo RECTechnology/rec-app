@@ -94,7 +94,7 @@ class _RegisterRequest extends State<RegisterRequest> {
     validateSMS.validateSMSCode(code: smsCode, NIF: widget.data.dni).then(
       (value) {
         Navigator.of(context).popUntil(ModalRoute.withName(Routes.login));
-        RecToast.showInfo(context, 'REGISTERED_OK');
+        RecToast.showSuccess(context, 'REGISTERED_OK');
         EasyLoading.dismiss();
       },
     ).catchError(_onError);

@@ -20,7 +20,8 @@ class RegisterOne extends StatefulWidget {
   RegisterOneState createState() => RegisterOneState();
 }
 
-class RegisterOneState extends State<RegisterOne> {
+class RegisterOneState extends State<RegisterOne>
+    with SingleTickerProviderStateMixin {
   RegisterData registerData = RegisterData(
     prefix: '+34',
     accountType: Account.TYPE_PRIVATE,
@@ -31,11 +32,18 @@ class RegisterOneState extends State<RegisterOne> {
   final smsService = SMSService();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _header(),
-      body: _body(),
-      resizeToAvoidBottomInset: false,
+    return SafeArea(
+      child: Scaffold(
+        appBar: _header(),
+        body: _body(),
+        resizeToAvoidBottomInset: true,
+      ),
     );
   }
 
@@ -45,79 +53,76 @@ class RegisterOneState extends State<RegisterOne> {
         ? Brand.backgroundPrivateColor
         : Brand.backgroundCompanyColor;
 
-    return PreferredSize(
-      preferredSize: Size.fromHeight(170.0),
-      child: AppBar(
-        backgroundColor: bg,
-        leading: IconButton(
-          icon: Icon(Icons.close, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(180),
-          child: Container(
-            height: 120,
-            padding: EdgeInsets.only(left: 24, right: 24),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      IconButton(
-                        icon: registerData.isAccountPrivate
-                            ? Image.asset('assets/avatar.png')
-                            : Image.asset('assets/avatar-bw.png'),
-                        onPressed: () =>
-                            _registerFormKey.currentState.setToPrivate(),
-                        iconSize: 60,
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        localizations.translate('PARTICULAR'),
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
-                              color: registerData.isAccountPrivate
-                                  ? Brand.grayDark
-                                  : Brand.grayDark3,
-                              fontWeight: registerData.isAccountPrivate
-                                  ? FontWeight.w500
-                                  : FontWeight.w400,
-                            ),
-                      )
-                    ],
-                  ),
+    return AppBar(
+      backgroundColor: bg,
+      leading: IconButton(
+        icon: Icon(Icons.close, color: Colors.black),
+        onPressed: () => Navigator.of(context).pop(),
+      ),
+      bottom: PreferredSize(
+        preferredSize: Size.fromHeight(100),
+        child: Container(
+          height: 100,
+          padding: EdgeInsets.only(left: 24, right: 24),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Column(
+                  children: [
+                    IconButton(
+                      icon: registerData.isAccountPrivate
+                          ? Image.asset('assets/avatar.png')
+                          : Image.asset('assets/avatar-bw.png'),
+                      onPressed: () =>
+                          _registerFormKey.currentState.setToPrivate(),
+                      iconSize: 50,
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      localizations.translate('PARTICULAR'),
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            color: registerData.isAccountPrivate
+                                ? Brand.grayDark
+                                : Brand.grayDark3,
+                            fontWeight: registerData.isAccountPrivate
+                                ? FontWeight.w500
+                                : FontWeight.w400,
+                          ),
+                    )
+                  ],
                 ),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      IconButton(
-                        icon: registerData.isAccountPrivate
-                            ? Image.asset('assets/organization-bw.png')
-                            : Image.asset('assets/organization.png'),
-                        onPressed: () =>
-                            _registerFormKey.currentState.setToCompany(),
-                        iconSize: 60,
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        localizations.translate('ORGANIZATION'),
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
-                              color: registerData.isAccountCompany
-                                  ? Brand.grayDark
-                                  : Brand.grayDark3,
-                              fontWeight: registerData.isAccountCompany
-                                  ? FontWeight.w500
-                                  : FontWeight.w400,
-                            ),
-                      )
-                    ],
-                  ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Column(
+                  children: [
+                    IconButton(
+                      icon: registerData.isAccountPrivate
+                          ? Image.asset('assets/organization-bw.png')
+                          : Image.asset('assets/organization.png'),
+                      onPressed: () =>
+                          _registerFormKey.currentState.setToCompany(),
+                      iconSize: 50,
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      localizations.translate('ORGANIZATION'),
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            color: registerData.isAccountCompany
+                                ? Brand.grayDark
+                                : Brand.grayDark3,
+                            fontWeight: registerData.isAccountCompany
+                                ? FontWeight.w500
+                                : FontWeight.w400,
+                          ),
+                    )
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -125,42 +130,36 @@ class RegisterOneState extends State<RegisterOne> {
   }
 
   Widget _body() {
-    return Container(
-      child: Padding(
-        padding: Paddings.page,
-        child: Column(
-          children: [
-            Expanded(
-              flex: 4,
-              child: ListView(
-                physics: NeverScrollableScrollPhysics(),
-                children: [
-                  CaptionText(
-                    registerData.isAccountPrivate
-                        ? 'PROMOTE_TRADE'
-                        : 'TO_START_WRITE',
-                  ),
-                  TitleText('CREATE_USER'),
-                  RegisterStepOneForm(
-                    key: _registerFormKey,
-                    formKey: _formKey,
-                    onChange: (data) {
-                      setState(() => registerData = data);
-                    },
-                  ),
-                  _pressNextToAdd(),
-                  _termsAndServices(),
-                ],
+    return SingleChildScrollView(
+      child: Container(
+        child: Padding(
+          padding: Paddings.page,
+          child: Column(
+            children: [
+              CaptionText(
+                registerData.isAccountPrivate
+                    ? 'PROMOTE_TRADE'
+                    : 'TO_START_WRITE',
               ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: _registerButton(),
+              TitleText(
+                'CREATE_USER',
+                showTooltip: registerData.isAccountCompany,
+                tooltipText: 'INTRODUCE_INFO',
+                tooltipColor: Brand.accentColor,
               ),
-            )
-          ],
+              RegisterStepOneForm(
+                key: _registerFormKey,
+                formKey: _formKey,
+                onChange: (data) {
+                  setState(() => registerData = data);
+                },
+              ),
+              _pressNextToAdd(),
+              SizedBox(height: 8),
+              _termsAndServices(),
+              _registerButton(),
+            ],
+          ),
         ),
       ),
     );
@@ -179,6 +178,7 @@ class RegisterOneState extends State<RegisterOne> {
       onPressed: next,
       icon: registerData.isAccountPrivate ? null : Icons.arrow_forward_ios,
       backgroundColor: background,
+      padding: EdgeInsets.zero,
     );
   }
 
@@ -192,7 +192,7 @@ class RegisterOneState extends State<RegisterOne> {
           : Brand.accentColor,
       title: Text(
         localizations.translate('ACORD_WHIT_TEMS'),
-        style: Theme.of(context).textTheme.bodyText2,
+        style: Theme.of(context).textTheme.caption,
       ),
       value: registerData.termsAccepted,
       onChanged: (value) => setState(
@@ -205,7 +205,7 @@ class RegisterOneState extends State<RegisterOne> {
     var localizations = AppLocalizations.of(context);
     return Container(
       alignment: Alignment.centerLeft,
-      margin: EdgeInsets.fromLTRB(0, 32, 0, 16),
+      // margin: EdgeInsets.fromLTRB(0, 24, 0, 16),
       child: Text(
         registerData.isAccountPrivate
             ? ''

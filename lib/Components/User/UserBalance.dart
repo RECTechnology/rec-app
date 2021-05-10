@@ -11,11 +11,12 @@ class UserBalance extends StatefulWidget {
   final Currency currency;
 
   UserBalance({
-    this.balance,
     this.label = 'TOTAL_BALANCE',
     this.color,
+    double balance = 0,
     Currency currency,
-  }) : currency = currency ?? Currency.rec;
+  })  : balance = balance ?? 0,
+        currency = currency ?? Currency.rec;
 
   @override
   State<StatefulWidget> createState() {

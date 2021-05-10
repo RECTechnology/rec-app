@@ -8,6 +8,7 @@ class SimpleTextField extends StatefulWidget {
   final Function(String value) validator;
   final Color color;
   final String label;
+  final bool readOnly;
 
   const SimpleTextField({
     Key key,
@@ -16,6 +17,7 @@ class SimpleTextField extends StatefulWidget {
     this.validator,
     this.color = Colors.black87,
     this.label,
+    this.readOnly,
   }) : super(key: key);
 
   @override
@@ -39,6 +41,7 @@ class SimpleTextFieldState extends State<SimpleTextField> {
       onChange: widget.onChange,
       colorLine: widget.color,
       validator: widget.validator,
+      readOnly: widget.readOnly,
       isPhone: false,
       icon: Icon(
         Icons.person,

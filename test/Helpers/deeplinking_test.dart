@@ -6,23 +6,23 @@ import 'package:rec/Helpers/Deeplinking.dart';
 void main() {
   test('Deeplinking.constructPayUrl works', () async {
     var env = Env();
-    var payData = PaymentData();
+    var payData = PaymentData(address: 'address', amount: 0);
     var payUrl = Deeplinking.constructPayUrl(env, payData);
 
     expect(
       payUrl,
-      '${env.DEEPLINK_SCHEME}://${env.DEEPLINK_URL}${Deeplinking.PATH_PAY}?amount=0.0&concept&address',
+      '${env.DEEPLINK_SCHEME}://${env.DEEPLINK_URL}${Deeplinking.PATH_PAY}?amount=0.0&address=address',
     );
   });
 
   test('Deeplinking.constructPayUrl works with custom data', () async {
     var env = Env();
-    var payData = PaymentData(address: 'test');
+    var payData = PaymentData(address: 'test', amount: 0);
     var payUrl = Deeplinking.constructPayUrl(env, payData);
 
     expect(
       payUrl,
-      '${env.DEEPLINK_SCHEME}://${env.DEEPLINK_URL}${Deeplinking.PATH_PAY}?amount=0.0&concept&address=test',
+      '${env.DEEPLINK_SCHEME}://${env.DEEPLINK_URL}${Deeplinking.PATH_PAY}?amount=0.0&address=test',
     );
   });
 

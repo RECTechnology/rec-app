@@ -13,7 +13,6 @@ import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/TransactionsProvider.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
-import 'package:rec/routes.dart';
 
 class AttemptPayment extends StatefulWidget {
   final PaymentData data;
@@ -105,7 +104,7 @@ class _AttemptPaymentState extends State<AttemptPayment> {
     transactionProvider.refresh();
 
     Loading.dismiss();
-    Navigator.popUntil(context, ModalRoute.withName(Routes.home));
+    Navigator.pop(context, true);
     RecToast.showSuccess(context, localizations.translate('PAYMENT_OK'));
   }
 

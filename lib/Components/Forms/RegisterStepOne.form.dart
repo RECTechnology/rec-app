@@ -6,7 +6,6 @@ import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
 import 'package:rec/Helpers/Validators.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
 
 class RegisterStepOneForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -41,7 +40,7 @@ class RegisterStepOneFormState extends State<RegisterStepOneForm> {
       },
       child: Column(
         children: [
-          SizedBox(height: 42),
+          SizedBox(height: 32),
           PrefixPhoneField(
             prefix: registerData.prefix,
             phone: registerData.phone,
@@ -55,9 +54,6 @@ class RegisterStepOneFormState extends State<RegisterStepOneForm> {
           ),
           DniTextField(
             onChange: setDni,
-            color: registerData.isAccountPrivate
-                ? Brand.primaryColor
-                : Brand.accentColor,
             validator: (dni) => registerData.hasError('dni')
                 ? registerData.getError('dni')
                 : localizations.translate(
@@ -71,9 +67,6 @@ class RegisterStepOneFormState extends State<RegisterStepOneForm> {
                 : localizations.translate(
                     Validators.verifyPassword(password),
                   ),
-            color: registerData.isAccountPrivate
-                ? Brand.primaryColor
-                : Brand.accentColor,
           ),
         ],
       ),

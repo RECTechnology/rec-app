@@ -1,59 +1,35 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 import 'package:rec/preferences.dart';
 
 class RecToast {
-  static void showInfo(
+  static ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showInfo(
     BuildContext context,
     String msg, {
     Color backgroundColor = Brand.primaryColor,
     Color color = Colors.white,
     double borderRadius = 10,
   }) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          msg.toString(),
-          style: TextStyle(
-            color: color,
-            fontSize: 14,
-          ),
-        ),
-        elevation: 4,
-        backgroundColor: backgroundColor,
-        duration: Preferences.toastDuration,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
-        ),
-      ),
+    return show(
+      context,
+      msg,
+      textColor: Colors.white,
+      backgroundColor: Brand.primaryColor,
     );
   }
 
-  static void showSuccess(
+  static ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSuccess(
     BuildContext context,
     String msg, {
-    Color backgroundColor = Colors.green,
     double borderRadius = 10,
   }) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          msg.toString(),
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 14,
-          ),
-        ),
-        elevation: 4,
-        backgroundColor: backgroundColor,
-        duration: Preferences.toastDuration,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
-        ),
-      ),
+    return show(
+      context,
+      msg,
+      textColor: Colors.white,
+      backgroundColor: Colors.green[400],
     );
   }
 
@@ -75,24 +51,27 @@ class RecToast {
     Color textColor = Colors.white,
     Color backgroundColor = Colors.black87,
   }) {
+    var localizations = AppLocalizations.of(context);
+
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: backgroundColor,
-        content: Text(
-          msg.toString(),
-          style: TextStyle(
-            color: textColor,
-            fontSize: 14,
+        content: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              localizations.translate(msg.toString()),
+              style: TextStyle(
+                color: textColor,
+                fontSize: 14,
+              ),
+              textAlign: TextAlign.center,
+            ),
           ),
-          textAlign: TextAlign.center,
         ),
         duration: Preferences.toastDuration,
         padding: EdgeInsets.symmetric(horizontal: 8.0),
-        margin: EdgeInsets.only(bottom: 24, right: 32, left: 32),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
+        behavior: SnackBarBehavior.fixed,
       ),
     );
   }

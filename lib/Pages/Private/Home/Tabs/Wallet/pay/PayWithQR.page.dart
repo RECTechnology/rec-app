@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:rec/Api/ApiError.dart';
@@ -27,6 +29,18 @@ class _PayWithQRState extends State<PayWithQR> {
   Barcode result;
   QRViewController controller;
   PaymentData paymentData;
+
+  @override
+  @override
+  void reassemble() {
+    super.reassemble();
+
+    if (Platform.isAndroid) {
+      controller.pauseCamera();
+    } else if (Platform.isIOS) {
+      controller.resumeCamera();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -148,15 +162,19 @@ class _PayWithQRState extends State<PayWithQR> {
   }
 
   void _openPinPage() {
-    Navigator.of(context)
-        .push(
-          MaterialPageRoute(
-            builder: (ctx) => AttemptPayment(
-              data: paymentData,
-            ),
-          ),
-        )
-        .then((value) => setState(() => result = null));
+    var route = MaterialPageRoute(
+      builder: (ctx) => AttemptPayment(
+        data: paymentData,
+      ),
+    );
+
+    Navigator.of(context).push(route).then((value) {
+      if (value == true) {
+        Navigator.of(context).pop(value);
+      } else {
+        setState(() => result = null);
+      }
+    });
   }
 
   void _showErrorToast(error) => RecToast.showError(context, error.message);

@@ -13,7 +13,7 @@ class RequestPin extends StatefulWidget {
     Key key,
     @required this.ifPin,
     this.buttonContent,
-    this.buttonWithArrow,
+    this.buttonWithArrow = true,
   }) : super(key: key);
 
   @override
@@ -24,16 +24,20 @@ class _RequestPin extends State<RequestPin> {
   @override
   Widget build(BuildContext context) {
     var userState = UserState.of(context, listen: false);
-    return userState.user.hasPin
-        ? EnterPin(
-            ifPin: widget.ifPin,
-            buttonContent: widget.buttonContent,
-            buttonWithArrow: widget.buttonWithArrow,
-          )
-        : CreatePin(
-            ifPin: widget.ifPin,
-            buttonContent: widget.buttonContent,
-            buttonWithArrow: widget.buttonWithArrow,
-          );
+    return SafeArea(
+      child: Scaffold(
+        body: userState.user.hasPin
+            ? EnterPin(
+                ifPin: widget.ifPin,
+                buttonContent: widget.buttonContent,
+                buttonWithArrow: widget.buttonWithArrow,
+              )
+            : CreatePin(
+                ifPin: widget.ifPin,
+                buttonContent: widget.buttonContent,
+                buttonWithArrow: widget.buttonWithArrow,
+              ),
+      ),
+    );
   }
 }

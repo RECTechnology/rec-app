@@ -26,7 +26,7 @@ class ChargePage extends StatefulWidget {
 
 class _ChargePageState extends State<ChargePage> {
   final _formKey = GlobalKey<FormState>();
-  final PaymentData paymentData = PaymentData();
+  final PaymentData paymentData = PaymentData.empty();
 
   @override
   void didChangeDependencies() {
@@ -65,70 +65,74 @@ class _ChargePageState extends State<ChargePage> {
           ),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: Paddings.page,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CaptionText('FILL_CHARGE_FORM'),
-                const SizedBox(height: 24),
-                _chargeForm(),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              bottom: 24,
-              left: 32,
-              right: 32,
-            ),
-            child: Align(
-              alignment: Alignment.bottomCenter,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: Paddings.page,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.share, size: 16, color: color),
-                      SizedBox(width: 8),
-                      LinkText(
-                        localizations.translate('SHARE_PAY_LINK'),
-                        color: color,
-                        onTap: () {
-                          var payUrl = Deeplinking.constructPayUrl(
-                            env,
-                            paymentData,
-                          );
-                          var payText = localizations.translate(
-                            'PAYMENT_SHARE_MESSAGE',
-                            params: {
-                              'account': userState.account.name,
-                              'concept': paymentData.concept,
-                              'amount': paymentData.amount,
-                              'link': payUrl,
-                            },
-                          );
-                          Share.share(payText).then((c) {
-                            Navigator.of(context).pop();
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  RecActionButton(
-                    label: localizations.translate('CHARGE_QR'),
-                    backgroundColor: color,
-                    onPressed: _isFormValid() ? _proceedWithPayment : null,
-                  )
+                  CaptionText('FILL_CHARGE_FORM'),
+                  const SizedBox(height: 24),
+                  _chargeForm(),
                 ],
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 32,
+                right: 32,
+                bottom: 24,
+              ),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.share, size: 16, color: color),
+                        SizedBox(width: 8),
+                        LinkText(
+                          localizations.translate('SHARE_PAY_LINK'),
+                          color: color,
+                          onTap: () {
+                            var payUrl = Deeplinking.constructPayUrl(
+                              env,
+                              paymentData,
+                            );
+                            var payText = localizations.translate(
+                              'PAYMENT_SHARE_MESSAGE',
+                              params: {
+                                'account': userState.account.name,
+                                'concept': paymentData.concept,
+                                'amount': paymentData.amount,
+                                'link': payUrl,
+                              },
+                            );
+                            Share.share(payText).then((c) {
+                              Navigator.of(context).pop();
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    RecActionButton(
+                      padding: EdgeInsets.zero,
+                      label: localizations.translate('CHARGE_QR'),
+                      backgroundColor: color,
+                      onPressed: _isFormValid() ? _proceedWithPayment : null,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -137,10 +141,16 @@ class _ChargePageState extends State<ChargePage> {
     return PayAddressForm(
       data: paymentData,
       formKey: _formKey,
-      onChange: (data) {
-        setState(() => paymentData.update(data));
+      onSubmitted: (d) {
+        _formChanged(d);
+        _proceedWithPayment();
       },
+      onChange: _formChanged,
     );
+  }
+
+  void _formChanged(data) {
+    setState(() => paymentData.update(data));
   }
 
   bool _isFormValid() {

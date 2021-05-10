@@ -40,72 +40,61 @@ class _SmsCodeState extends State<SmsCode> {
 
     return Scaffold(
       appBar: EmptyAppBar(context),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: Paddings.pageNoTop,
-            child: Column(
-              children: [
-                TitleText(
-                  'SEND_SMS_U',
-                  alignment: MainAxisAlignment.center,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 32),
-                  child: Text(
-                    localizations.translate('HELP_US_VALIDATE_PHONE') + ' ',
-                    style: Theme.of(context).textTheme.headline4,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Text(
-                  widget.phone,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4
-                      .copyWith(color: Brand.primaryColor),
+      body: Padding(
+        padding: Paddings.pageNoTop,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(children: [
+              TitleText(
+                'SEND_SMS_U',
+                alignment: MainAxisAlignment.center,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 32),
+                child: Text(
+                  localizations.translate('HELP_US_VALIDATE_PHONE') + ' ',
+                  style: Theme.of(context).textTheme.headline4,
                   textAlign: TextAlign.center,
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 40),
-                  child: Form(
-                    key: _formKey,
-                    child: Container(
-                      child: RecTextField(
-                        autofocus: true,
-                        placeholder: '......',
-                        needObscureText: false,
-                        keyboardType: TextInputType.number,
-                        isPassword: false,
-                        isNumeric: false,
-                        textSize: 20,
-                        letterSpicing: 25,
-                        maxLength: 6,
-                        textAlign: TextAlign.center,
-                        colorLine: Brand.primaryColor,
-                        onChange: setSMS,
-                        isPhone: false,
-                        validator: Validators.smsCode,
-                      ),
-                    ),
+              ),
+              Text(
+                widget.phone,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4
+                    .copyWith(color: Brand.primaryColor),
+                textAlign: TextAlign.center,
+              ),
+              Form(
+                key: _formKey,
+                child: Container(
+                  child: RecTextField(
+                    autofocus: true,
+                    placeholder: '......',
+                    needObscureText: false,
+                    keyboardType: TextInputType.number,
+                    isPassword: false,
+                    isNumeric: false,
+                    textSize: 20,
+                    letterSpicing: 25,
+                    maxLength: 6,
+                    textAlign: TextAlign.center,
+                    colorLine: Brand.primaryColor,
+                    onChange: setSMS,
+                    isPhone: false,
+                    validator: Validators.smsCode,
                   ),
                 ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: Paddings.pageNoTop,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: RecActionButton(
-                label: localizations.translate('VALIDATE'),
-                backgroundColor: Brand.primaryColor,
-                onPressed: tryValidateSMS,
               ),
+            ]),
+            RecActionButton(
+              label: localizations.translate('VALIDATE'),
+              backgroundColor: Brand.primaryColor,
+              onPressed: tryValidateSMS,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

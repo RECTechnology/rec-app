@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Api/Services/UsersService.dart';
+import 'package:rec/Components/Scaffold/RecNavigationBar.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Map/Map.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/Settings.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/Wallet.page.dart';
 import 'package:rec/Providers/UserState.dart';
-import 'package:rec/brand.dart';
 import 'package:rec/preferences.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,12 +27,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   UserState _userState;
-
   int _currentTabIndex;
   TabController _tabController;
-  UsersService users = UsersService();
   Timer _userPollTimer;
 
+  final UsersService _users = UsersService();
   final List<Widget> _tabs = <Widget>[
     MapPage(),
     WalletPageRec(),
@@ -41,40 +40,24 @@ class _HomePageState extends State<HomePage>
 
   @override
   void initState() {
-    super.initState();
     _currentTabIndex = widget.defaultTab;
     _tabController = TabController(length: 3, vsync: this);
+
+    super.initState();
   }
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
-
     _userState ??= UserState.of(context);
     if (widget.pollUser) _userPollTimer ??= getUserTimer();
+
+    super.didChangeDependencies();
   }
 
   Widget _bottomNavigationBar() {
-    return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.map),
-          label: 'Mapa',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.account_balance_wallet_outlined),
-          label: 'Billetera',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          label: 'Configuracion',
-        ),
-      ],
-      currentIndex: _currentTabIndex,
-      selectedItemColor: Brand.primaryColor,
-      onTap: (int index) {
-        setState(() => _currentTabIndex = index);
-      },
+    return RecNavigationBar(
+      currentTabIndex: _currentTabIndex,
+      onTabTap: (int index) => setState(() => _currentTabIndex = index),
     );
   }
 
@@ -89,7 +72,7 @@ class _HomePageState extends State<HomePage>
     return Timer.periodic(
       Preferences.userRefreshInterval,
       (_) {
-        users.getUser().then((value) => _userState?.setUser(value));
+        _users.getUser().then((value) => _userState?.setUser(value));
       },
     );
   }

@@ -28,7 +28,7 @@ void main() {
 
     var app = TestUtils.wrapPrivateRoute(
       AttemptPayment(
-        data: PaymentData(),
+        data: PaymentData(amount: 1, address: 'test'),
         transactionsService: txService,
       ),
       state: UserState(

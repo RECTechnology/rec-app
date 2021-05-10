@@ -6,6 +6,7 @@ import 'package:rec/brand.dart';
 class PasswordField extends StatefulWidget {
   final String initialValue;
   final Function(String newValue) onChange;
+  final Function(String newValue) onSubmitted;
   final Function(String value) validator;
   final Color color;
   final String title;
@@ -19,6 +20,7 @@ class PasswordField extends StatefulWidget {
     this.color = Colors.black87,
     this.title = 'PASSWORD',
     this.autofocus = false,
+    this.onSubmitted,
   }) : super(key: key);
 
   @override
@@ -43,6 +45,7 @@ class PasswordFieldState extends State<PasswordField> {
       colorLine: widget.color,
       onChange: widget.onChange,
       validator: widget.validator,
+      onSubmitted: widget.onSubmitted,
     );
   }
 }

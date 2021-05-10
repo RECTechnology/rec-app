@@ -10,7 +10,7 @@ import 'package:rec/app.dart';
 
 void main() {
   testWidgets('RecApp builds', (WidgetTester tester) async {
-    var app = RecApp('asdasds');
+    var app = RecApp();
     await tester.pumpWidget(app);
 
     expect(find.byWidget(app), findsOneWidget);

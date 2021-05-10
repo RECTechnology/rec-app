@@ -36,7 +36,7 @@ class RegisterTwoState extends State<RegisterTwo> {
     return Scaffold(
       appBar: _header(),
       body: _body(),
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
     );
   }
 
@@ -46,39 +46,36 @@ class RegisterTwoState extends State<RegisterTwo> {
         ? Brand.backgroundPrivateColor
         : Brand.backgroundCompanyColor;
 
-    return PreferredSize(
-      preferredSize: Size.fromHeight(170),
-      child: AppBar(
-        backgroundColor: background,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(registerData),
-        ),
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(180),
-          child: Container(
-            height: 120,
-            padding: EdgeInsets.only(left: 24, right: 24),
-            child: Center(
-              child: Column(
-                children: [
-                  IconButton(
-                    icon: registerData.isAccountPrivate
-                        ? Image.asset('assets/organization-bw.png')
-                        : Image.asset('assets/organization.png'),
-                    iconSize: 60,
-                    onPressed: null,
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    localizations.translate('ORGANIZATION'),
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          color: Brand.grayDark,
-                          fontWeight: FontWeight.w500,
-                        ),
-                  )
-                ],
-              ),
+    return AppBar(
+      backgroundColor: background,
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back, color: Colors.black),
+        onPressed: () => Navigator.of(context).pop(registerData),
+      ),
+      bottom: PreferredSize(
+        preferredSize: Size.fromHeight(100),
+        child: Container(
+          height: 100,
+          padding: EdgeInsets.only(left: 24, right: 24),
+          child: Center(
+            child: Column(
+              children: [
+                IconButton(
+                  icon: registerData.isAccountPrivate
+                      ? Image.asset('assets/organization-bw.png')
+                      : Image.asset('assets/organization.png'),
+                  iconSize: 50,
+                  onPressed: null,
+                ),
+                SizedBox(height: 8),
+                Text(
+                  localizations.translate('ORGANIZATION'),
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        color: Brand.grayDark,
+                        fontWeight: FontWeight.w500,
+                      ),
+                )
+              ],
             ),
           ),
         ),
@@ -89,41 +86,32 @@ class RegisterTwoState extends State<RegisterTwo> {
   Widget _body() {
     var localizations = AppLocalizations.of(context);
 
-    return Container(
-      child: Padding(
-        padding: Paddings.page,
-        child: Column(
-          children: [
-            Expanded(
-              flex: 4,
-              child: ListView(
-                physics: NeverScrollableScrollPhysics(),
-                children: [
-                  CaptionText('MAKE_KNOW'),
-                  TitleText(
-                    'ADD_ORG',
-                    showTooltip: false,
-                    tooltipText: 'INTRODUCE_INFO',
-                    tooltipColor: Brand.accentColor,
-                  ),
-                  RegisterStepTwoForm(
-                    formKey: _formKey,
-                    registerData: registerData,
-                    onChange: (data) => setState(() => registerData = data),
-                  ),
-                  Text(
-                    localizations.translate('WHEN_INIT_SESION'),
-                    style: Theme.of(context)
-                        .textTheme
-                        .caption
-                        .copyWith(color: Brand.accentColor),
-                  ),
-                ],
+    return SingleChildScrollView(
+      child: Container(
+        child: Padding(
+          padding: Paddings.page,
+          child: Column(
+            children: [
+              CaptionText('MAKE_KNOW'),
+              TitleText(
+                'ADD_ORG',
+                showTooltip: false,
+                tooltipText: 'INTRODUCE_INFO',
+                tooltipColor: Brand.accentColor,
               ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Align(
+              RegisterStepTwoForm(
+                formKey: _formKey,
+                registerData: registerData,
+                onChange: (data) => setState(() => registerData = data),
+              ),
+              Text(
+                localizations.translate('WHEN_INIT_SESION'),
+                style: Theme.of(context)
+                    .textTheme
+                    .caption
+                    .copyWith(color: Brand.accentColor),
+              ),
+              Align(
                 alignment: Alignment.bottomCenter,
                 child: RecActionButton(
                   onPressed: register,
@@ -131,9 +119,9 @@ class RegisterTwoState extends State<RegisterTwo> {
                   icon: Icons.arrow_forward_ios,
                   label: localizations.translate('REGISTER'),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -166,9 +154,9 @@ class RegisterTwoState extends State<RegisterTwo> {
         if (!['cif', 'name'].contains(fieldName)) {
           Navigator.of(context).pop(registerData);
         }
+      } else {
+        _showError(translatedMessage);
       }
-
-      _showError(translatedMessage);
     });
   }
 

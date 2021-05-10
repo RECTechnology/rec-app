@@ -11,11 +11,13 @@ import 'package:rec/Styles/Paddings.dart';
 class LoginForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final Function(LoginData data) onChange;
+  final Function(LoginData data) onSubmitted;
 
   const LoginForm({
     Key key,
     this.formKey,
     this.onChange,
+    this.onSubmitted,
   }) : super(key: key);
 
   @override
@@ -79,6 +81,10 @@ class LoginFormState extends State<LoginForm> {
         validator: (s) => localizations.translate(
           Validators.verifyPassword(s),
         ),
+        onSubmitted: (s) {
+          setPassword(s);
+          widget.onSubmitted(loginData);
+        },
       ),
     );
   }

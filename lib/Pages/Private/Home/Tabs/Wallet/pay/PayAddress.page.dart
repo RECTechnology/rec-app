@@ -13,10 +13,12 @@ import 'package:rec/brand.dart';
 
 class PayAddress extends StatefulWidget {
   final PaymentData paymentData;
+  final List<String> disabledFields;
 
   const PayAddress({
     Key key,
     @required this.paymentData,
+    this.disabledFields = const [],
   }) : super(key: key);
 
   @override
@@ -75,7 +77,7 @@ class _PayAddressState extends State<PayAddress> {
           ),
           Padding(
             padding: const EdgeInsets.only(
-              bottom: 24,
+              bottom: 23,
               left: 32,
               right: 32,
             ),
@@ -96,6 +98,7 @@ class _PayAddressState extends State<PayAddress> {
   Widget _payForm() {
     return PayAddressForm(
       data: widget.paymentData,
+      disabledFields: widget.disabledFields,
       formKey: _formKey,
       onChange: (data) {
         setState(() => widget.paymentData.update(data));
@@ -114,16 +117,18 @@ class _PayAddressState extends State<PayAddress> {
     if (!_formKey.currentState.validate()) return;
 
     FocusScope.of(context).requestFocus(FocusNode());
-    _openPinPage();
+    _attemptPayment();
   }
 
-  void _openPinPage() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (ctx) => AttemptPayment(
-          data: widget.paymentData,
-        ),
-      ),
-    );
+  void _attemptPayment() {
+    Navigator.of(context)
+        .push(
+          MaterialPageRoute(
+            builder: (ctx) => AttemptPayment(
+              data: widget.paymentData,
+            ),
+          ),
+        )
+        .then((c) => Navigator.of(context).pop(c));
   }
 }

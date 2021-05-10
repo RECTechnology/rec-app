@@ -7,6 +7,7 @@ class LinkText extends StatefulWidget {
   final Color color;
   final Alignment alignment;
   final Function onTap;
+  final EdgeInsets padding;
 
   const LinkText(
     this.text, {
@@ -14,6 +15,7 @@ class LinkText extends StatefulWidget {
     this.color = Brand.primaryColor,
     this.alignment = Alignment.centerLeft,
     this.onTap,
+    this.padding = const EdgeInsets.symmetric(vertical: 8),
   }) : super(key: key);
 
   @override
@@ -28,6 +30,7 @@ class _LinkText extends State<LinkText> {
       onTap: widget.onTap,
       child: Container(
         alignment: widget.alignment,
+        padding: widget.padding,
         child: Text(
           localizations.translate(widget.text),
           style: Theme.of(context).textTheme.caption.copyWith(

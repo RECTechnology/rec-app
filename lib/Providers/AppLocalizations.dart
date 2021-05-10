@@ -3,15 +3,40 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:rec/Helpers/Strings.dart';
 
 class AppLocalizations {
   final Locale locale;
-
   AppLocalizations(this.locale);
+
+  static List<String> supportedLocaleNames = ['en', 'es', 'ca'];
+
+  static Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates = [
+    AppLocalizations.delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate
+  ];
+
+  static List<Locale> supportedLocales = [
+    Locale('en', 'UK'),
+    Locale('ca', 'CA'),
+    Locale('es', 'ES')
+  ];
 
   static AppLocalizations of(BuildContext context) {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
+  }
+
+  static Locale localeResolutionCallback(locale, supportedLocales) {
+    for (var supportedLocale in supportedLocales) {
+      if (supportedLocale.languageCode == locale?.languageCode ||
+          supportedLocale.countryCode == locale?.countryCode) {
+        return supportedLocale;
+      }
+    }
+    return supportedLocales.first;
   }
 
   static const LocalizationsDelegate<AppLocalizations> delegate =
@@ -56,7 +81,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) {
-    return ['en', 'es', 'ca'].contains(locale.languageCode);
+    return AppLocalizations.supportedLocaleNames.contains(locale.languageCode);
   }
 
   @override

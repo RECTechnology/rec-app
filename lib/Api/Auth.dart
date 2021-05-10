@@ -14,7 +14,10 @@ class Auth {
   }
 
   static Future<bool> isTokenExpired() async {
-    var expireDate = DateTime.parse(await Auth.getTokenExpireDate());
+    var dateUnparsed = await Auth.getTokenExpireDate();
+    if (dateUnparsed == null || dateUnparsed.isEmpty) return true;
+
+    var expireDate = DateTime.parse(dateUnparsed);
     var isExpired = DateTime.now().compareTo(expireDate) > -1;
     return isExpired;
   }

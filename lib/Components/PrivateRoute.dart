@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rec/Api/ApiError.dart';
 import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Services/UsersService.dart';
 import 'package:rec/Components/Indicators/LoadingIndicator.dart';
@@ -37,6 +38,8 @@ class _PrivateRouteState extends State<PrivateRoute> {
 
     if (userState.user == null) {
       loadUser();
+    } else {
+      loading = false;
     }
   }
 
@@ -56,7 +59,12 @@ class _PrivateRouteState extends State<PrivateRoute> {
 
   void gotUserError(e) async {
     print(e);
-    if (e['code'] == 401 || e['code'] == 403) {
+
+    if (e.runtimeType != ApiError) {
+      return;
+    }
+
+    if (e.code == 401 || e.code == 403) {
       await Auth.logout();
       await Navigator.of(context).pushReplacementNamed(Routes.login);
     }

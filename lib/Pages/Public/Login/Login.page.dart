@@ -15,6 +15,13 @@ import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/routes.dart';
 
 class LoginPage extends StatefulWidget {
+  final Function onLogin;
+
+  const LoginPage({
+    Key key,
+    this.onLogin,
+  }) : super(key: key);
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -38,61 +45,54 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-        constraints: BoxConstraints.expand(
-          height: MediaQuery.of(context).size.height,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              children: [
-                RecHeader(),
-                Padding(
-                  padding: Paddings.page,
-                  child: Column(
-                    children: [
-                      LoginForm(
-                        formKey: _formKey,
-                        onChange: (data) {
-                          setState(() => loginData = data);
-                        },
-                      ),
-                      _forgotPassLink(),
-                      RecActionButton(
-                        label: 'LOGIN',
-                        onPressed: _loginButtonPressed,
-                        icon: Icons.arrow_forward_ios,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
+      resizeToAvoidBottomInset: true,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          RecHeader(),
+          Expanded(
+            child: SingleChildScrollView(
               child: Padding(
                 padding: Paddings.page,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    (!hasSavedUser)
-                        ? Padding(
-                            padding: EdgeInsets.fromLTRB(0, 70, 0, 16),
-                            child: Text(
-                              localizations.translate('NOT_REGISTRED'),
-                              style: Theme.of(context).textTheme.bodyText2,
-                            ),
-                          )
-                        : SizedBox(),
-                    (!hasSavedUser) ? _registerButton() : SizedBox(),
+                    LoginForm(
+                      formKey: _formKey,
+                      onChange: (data) {
+                        setState(() => loginData = data);
+                      },
+                      onSubmitted: (data) {
+                        setState(() => loginData = data);
+                        _loginButtonPressed();
+                      },
+                    ),
+                    _forgotPassLink(),
+                    RecActionButton(
+                      label: 'LOGIN',
+                      onPressed: _loginButtonPressed,
+                      icon: Icons.arrow_forward_ios,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        (!hasSavedUser)
+                            ? Padding(
+                                padding: EdgeInsets.fromLTRB(0, 60, 0, 16),
+                                child: Text(
+                                  localizations.translate('NOT_REGISTRED'),
+                                  style: Theme.of(context).textTheme.bodyText2,
+                                ),
+                              )
+                            : SizedBox(),
+                        (!hasSavedUser) ? _registerButton() : SizedBox(),
+                      ],
+                    )
                   ],
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -140,7 +140,6 @@ class _LoginPageState extends State<LoginPage> {
 
     FocusScope.of(context).requestFocus(FocusNode());
     await Loading.show();
-
     await loginService
         .login(loginData)
         .then(_onLoginSuccess)
@@ -149,12 +148,18 @@ class _LoginPageState extends State<LoginPage> {
 
   void _onLoginSuccess(response) {
     Loading.dismiss();
-    Navigator.of(context).pushReplacementNamed(Routes.home);
+
+    if (widget.onLogin != null) {
+      widget.onLogin();
+    } else {
+      Navigator.of(context).pushReplacementNamed(Routes.home);
+    }
   }
 
   void _onLoginError(error) {
     Loading.dismiss();
     RecToast.showError(context, error.message);
+
     if (error.message == 'User without phone validated') {
       Navigator.of(context).push(
         MaterialPageRoute(

@@ -49,24 +49,28 @@ class _InAppBrowser extends State<InAppBrowser> {
 
   @override
   Widget build(BuildContext context) {
-    return IndexedStack(
-      index: position,
-      children: <Widget>[
-        WebView(
-          initialUrl: widget.url,
-          javascriptMode: JavascriptMode.disabled,
-          onPageFinished: doneLoading,
-          onPageStarted: startLoading,
-          onWebViewCreated: (controller) {
-            print('onWebViewCreated');
-            this.controller = controller;
-          },
+    return SafeArea(
+      child: Scaffold(
+        body: IndexedStack(
+          index: position,
+          children: <Widget>[
+            WebView(
+              initialUrl: widget.url,
+              javascriptMode: JavascriptMode.disabled,
+              onPageFinished: doneLoading,
+              onPageStarted: startLoading,
+              onWebViewCreated: (controller) {
+                print('onWebViewCreated');
+                this.controller = controller;
+              },
+            ),
+            Container(
+              color: Colors.white,
+              child: Center(child: CircularProgressIndicator()),
+            ),
+          ],
         ),
-        Container(
-          color: Colors.white,
-          child: Center(child: CircularProgressIndicator()),
-        ),
-      ],
+      ),
     );
   }
 }

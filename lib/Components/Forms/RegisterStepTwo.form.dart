@@ -42,7 +42,6 @@ class RegisterStepOneFoTwotate extends State<RegisterStepTwoForm> {
               isPassword: false,
               isNumeric: false,
               label: localizations.translate('NAME'),
-              colorLine: Brand.accentColor,
               icon: Icon(
                 Icons.storefront_outlined,
                 color: Brand.grayIcon,
@@ -61,7 +60,6 @@ class RegisterStepOneFoTwotate extends State<RegisterStepTwoForm> {
               keyboardType: TextInputType.text,
               isPassword: false,
               isNumeric: false,
-              colorLine: Brand.accentColor,
               onChange: setCIF,
               icon: Icon(
                 Icons.work_outlined,
