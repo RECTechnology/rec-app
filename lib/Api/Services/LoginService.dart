@@ -21,8 +21,8 @@ class LoginService extends ServiceBase {
     return this.post(ApiPaths.token.toUri(), body).then(saveToken);
   }
 
-  static dynamic saveToken(value) {
-    Auth.saveTokenData(value);
+  static Future saveToken(value) async {
+    await Auth.saveTokenData(value);
     return value;
   }
 }
