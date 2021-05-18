@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Services/PhoneVerificationService.dart';
 import 'package:rec/Api/Services/SMSService.dart';
 import 'package:rec/Components/Forms/DniPhone.form.dart';
@@ -110,26 +109,24 @@ class _ValidatePhoneState extends State<ValidatePhone> {
 
     FocusScope.of(context).requestFocus(FocusNode());
 
-    await _sendSmsCode(data.phone, data.dni);
+    await _sendSmsCode();
     await _goToEnterSmsCode();
   }
 
-  Future<void> _sendSmsCode(String phone, String dni) {
-    return Auth.getAppToken().then((appToken) {
-      return smsService
-          .sendSMS(
-            phone: phone,
-            dni: dni,
-            appToken: appToken,
-          )
-          .catchError(_onError);
-    });
+  Future<void> _sendSmsCode() {
+    return smsService
+        .sendValidatePhoneSms(
+          phone: data.phone,
+          prefix: data.prefix,
+        )
+        .catchError(_onError);
   }
 
   Future<void> _goToEnterSmsCode() async {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (c) => SmsCode(
+          prefix: data.prefix,
           phone: data.phone,
           dni: data.dni,
           onCode: _validateSmsCode,
@@ -140,13 +137,21 @@ class _ValidatePhoneState extends State<ValidatePhone> {
 
   void _validateSmsCode(String smsCode) {
     EasyLoading.show();
-    validateSMS.validateSMSCode(code: smsCode, NIF: data.dni).then(
-      (value) {
-        Navigator.of(context).popUntil(ModalRoute.withName(Routes.login));
-        RecToast.showInfo(context, 'REGISTERED_OK');
-        EasyLoading.dismiss();
-      },
-    ).catchError(_onError);
+    validateSMS
+        .validatePhone(
+          smscode: smsCode,
+          dni: data.dni,
+          prefix: data.prefix,
+          phone: data.phone,
+        )
+        .then(_validateOk)
+        .catchError(_onError);
+  }
+
+  void _validateOk(value) {
+    Navigator.of(context).popUntil(ModalRoute.withName(Routes.login));
+    RecToast.showInfo(context, 'REGISTERED_OK');
+    EasyLoading.dismiss();
   }
 
   void _onError(error) {

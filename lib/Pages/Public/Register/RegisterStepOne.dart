@@ -243,7 +243,7 @@ class RegisterOneState extends State<RegisterOne>
     var localizations = AppLocalizations.of(context);
 
     RegisterRequest.tryRegister(context, registerData).then((result) {
-      if (result == null && !result.error) return;
+      if (result == null || !result.error) return;
 
       if (result.message.contains('Server Error')) {
         return _showError('UNEXPECTED_SERVER_ERROR');

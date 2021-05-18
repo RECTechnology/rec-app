@@ -10,7 +10,7 @@ import 'package:rec/Environments/env.dart';
 class AppService extends ServiceBase {
   AppService({Client client}) : super(client: client);
 
-  Future getAppToken({String username, String password}) async {
+  Future getAppToken() async {
     var headers = await getHeaders();
     var body = json.encode({
       'grant_type': GrantTypes.clientCredentials,

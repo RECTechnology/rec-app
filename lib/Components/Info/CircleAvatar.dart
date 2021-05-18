@@ -85,8 +85,11 @@ class _CircleAvatarRecState extends State<CircleAvatarRec> {
     }
 
     if (widget.name != null) {
+      var safeName = widget.name == null || widget.name.isEmpty
+          ? 'Particular'
+          : widget.name;
       child = Text(
-        widget.name[0].toUpperCase(),
+        safeName[0].toUpperCase(),
         style: TextStyle(color: ColorHelper.getContrastColor(randomColor)),
       );
     }

@@ -122,7 +122,9 @@ class Account extends Entity {
       id: '${json['id']}',
       createdAt: json['created'],
       updatedAt: json['updated'],
-      name: json['name'],
+      name: json['name'] == null || json['name'].isEmpty
+          ? 'PARTICULAR'
+          : json['name'],
       type: json['type'],
       active: json['active'],
       publicImage: json['public_image'],

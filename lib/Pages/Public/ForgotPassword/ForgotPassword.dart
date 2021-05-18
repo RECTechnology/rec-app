@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Services/SMSService.dart';
 import 'package:rec/Components/Forms/DniPhone.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
@@ -28,7 +27,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   final smsService = SMSService();
   final _formKey = GlobalKey<FormState>();
 
-  DniPhoneData data = DniPhoneData();
+  DniPhoneData data = DniPhoneData(prefix: '+34');
 
   @override
   void initState() {
@@ -56,10 +55,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   label: localizations.translate('NEXT'),
                   backgroundColor: Brand.primaryColor,
                   icon: Icons.arrow_forward_ios_sharp,
-                  onPressed: () => _next(
-                    data.phone,
-                    data.dni,
-                  ),
+                  onPressed: () => _next(),
                 )
               ],
             ),
@@ -90,35 +86,34 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     );
   }
 
-  void _next(String phone, String dni) async {
+  void _next() async {
     if (!_formKey.currentState.validate()) return;
 
     await EasyLoading.show();
-    await Auth.getAppToken().then((appToken) {
-      return smsService
-          .sendSMS(
-            phone: phone,
-            dni: dni,
-            appToken: appToken,
-          )
-          .then((c) => _goToSmsCode(phone, dni))
-          .catchError(_smsError);
-    });
+    await smsService
+        .sendForgotPasswordSms(
+          phone: data.phone,
+          prefix: data.prefix,
+          dni: data.dni,
+        )
+        .then((c) => _goToSmsCode())
+        .catchError(_smsError);
   }
 
   void _smsError(err) {
     print(err);
     EasyLoading.dismiss();
-    RecToast.showError(context, err['body']['message']);
+    RecToast.showError(context, err.message);
   }
 
-  void _goToSmsCode(String phone, String dni) async {
+  void _goToSmsCode() async {
     await EasyLoading.dismiss();
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (c) => SmsCode(
-          phone: phone,
-          dni: dni,
+          prefix: data.prefix,
+          phone: data.phone,
+          dni: data.dni,
           onCode: (c) => _gotCode(c),
         ),
       ),
@@ -128,7 +123,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   void _gotCode(String code) {
     print('got code $code');
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (c) => SetPasswordPage(code)),
+      MaterialPageRoute(builder: (c) => SetPasswordPage(data, code)),
     );
   }
 }

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Services/PhoneVerificationService.dart';
 import 'package:rec/Api/Services/RegisterService.dart';
 import 'package:rec/Api/Services/SMSService.dart';
 import 'package:rec/Components/Indicators/LoadingIndicator.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
+import 'package:rec/Entities/User.ent.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Public/Register/RegisterRequestResult.dart';
 import 'package:rec/Pages/Public/SmsCode/SmsCode.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/Providers/UserState.dart';
 import 'package:rec/routes.dart';
 
 class RegisterRequest extends StatefulWidget {
@@ -66,15 +67,12 @@ class _RegisterRequest extends State<RegisterRequest> {
   }
 
   Future<void> _sendSmsCode(String phone, String dni) {
-    return Auth.getAppToken().then((appToken) {
-      return smsService
-          .sendSMS(
-            phone: phone,
-            dni: dni,
-            appToken: appToken,
-          )
-          .catchError(_onError);
-    });
+    return smsService
+        .sendValidatePhoneSms(
+          phone: widget.data.phone,
+          prefix: widget.data.prefix,
+        )
+        .catchError(_onError);
   }
 
   Future<void> _goToEnterSmsCode() async {
@@ -84,6 +82,7 @@ class _RegisterRequest extends State<RegisterRequest> {
           phone: widget.data.phone,
           dni: widget.data.dni,
           onCode: _validateSmsCode,
+          prefix: widget.data.prefix,
         ),
       ),
     );
@@ -91,13 +90,24 @@ class _RegisterRequest extends State<RegisterRequest> {
 
   void _validateSmsCode(String smsCode) {
     EasyLoading.show();
-    validateSMS.validateSMSCode(code: smsCode, NIF: widget.data.dni).then(
-      (value) {
-        Navigator.of(context).popUntil(ModalRoute.withName(Routes.login));
-        RecToast.showSuccess(context, 'REGISTERED_OK');
-        EasyLoading.dismiss();
-      },
-    ).catchError(_onError);
+    validateSMS
+        .validatePhone(
+          smscode: smsCode,
+          dni: widget.data.dni,
+          prefix: widget.data.prefix,
+          phone: widget.data.phone,
+        )
+        .then(_validateOk)
+        .catchError(_onError);
+  }
+
+  void _validateOk(value) {
+    var userState = UserState.of(context, listen: false);
+    userState.setSavedUser(User(username: widget.data.dni));
+
+    Navigator.of(context).popUntil(ModalRoute.withName(Routes.login));
+    RecToast.showSuccess(context, 'REGISTERED_OK');
+    EasyLoading.dismiss();
   }
 
   void _onError(error) {
@@ -105,7 +115,7 @@ class _RegisterRequest extends State<RegisterRequest> {
     EasyLoading.dismiss();
     RecToast.showError(
       context,
-      localizations.translate(error['body']['message']),
+      localizations.translate(error.message),
     );
   }
 

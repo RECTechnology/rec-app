@@ -13,6 +13,7 @@ import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/brand.dart';
 
 class SmsCode extends StatefulWidget {
+  final String prefix;
   final String phone;
   final String dni;
   final Function(String code) onCode;
@@ -21,6 +22,7 @@ class SmsCode extends StatefulWidget {
     @required this.phone,
     @required this.dni,
     @required this.onCode,
+    @required this.prefix,
   });
 
   @override

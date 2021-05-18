@@ -1,10 +1,15 @@
 import 'package:http/http.dart';
 import 'package:rec/Api/ApiPaths.dart';
+import 'package:rec/Api/Interceptors/InjectAppTokenInterceptor.dart';
 import 'package:rec/Api/Services/BaseService.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
 
 class RegisterService extends ServiceBase {
-  RegisterService({Client client}) : super(client: client);
+  RegisterService({Client client})
+      : super(
+          client: client,
+          interceptors: [InjectAppTokenInterceptor()],
+        );
 
   Future register(RegisterData data) async {
     var body = data.toJson();

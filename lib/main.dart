@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Services/AppService.dart';
 import 'package:rec/app.dart';
 import 'package:rec/brand.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -23,7 +22,6 @@ Future<void> main() async {
 
 Future<void> setup() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await AppService().getAppToken();
   timeago.setLocaleMessages('es', timeago.EsMessages());
   Brand.configLoading();
 }

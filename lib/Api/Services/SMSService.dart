@@ -1,20 +1,49 @@
 import 'package:http/http.dart';
 import 'package:rec/Api/ApiPaths.dart';
+import 'package:rec/Api/Interceptors/InjectAppTokenInterceptor.dart';
 import 'package:rec/Api/Services/BaseService.dart';
-import 'package:rec/Environments/env.dart';
 
 class SMSService extends ServiceBase {
-  SMSService({Client client}) : super(client: client);
+  static String TYPE_FORGOT_PASSWORD = 'forget-password';
+  static String TYPE_VALIDATE_PHONE = 'validate-phone';
 
-  Future sendSMS({String dni, String phone, String appToken}) async {
-    var pathWithParams = ApiPaths.sendRecoverSms
-        .withQueryParams({'access_token': appToken}).toUri();
-    var body = {
+  SMSService({Client client})
+      : super(
+          client: client,
+          interceptors: [InjectAppTokenInterceptor()],
+        );
+
+  Future sendPublicSms({
+    Map<String, String> data,
+    String type,
+  }) async {
+    var pathWithParams = ApiPaths.sendPublicSmsCode.withId(type).toUri();
+    return this.post(pathWithParams, data);
+  }
+
+  Future sendForgotPasswordSms({
+    String dni,
+    String prefix,
+    String phone,
+  }) async {
+    var path = ApiPaths.sendPublicSmsCode.withId(TYPE_FORGOT_PASSWORD).toUri();
+    var data = {
       'dni': dni,
+      'prefix': prefix,
       'phone': phone,
-      'client_secret': env.CLIENT_SECRET,
     };
+    return this.post(path, data);
+  }
 
-    return this.post(pathWithParams, body);
+  Future sendValidatePhoneSms({
+    String prefix,
+    String phone,
+  }) async {
+    var path = ApiPaths.sendPublicSmsCode.withId(TYPE_VALIDATE_PHONE).toUri();
+    var data = {
+      'prefix': prefix,
+      'phone': phone,
+    };
+    return this.post(path, data);
   }
 }

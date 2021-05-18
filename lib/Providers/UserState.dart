@@ -41,11 +41,15 @@ class UserState with ChangeNotifier {
     return _user;
   }
 
-  void setUser(User user) {
-    _user = user;
+  void setSavedUser(User user) {
     _storage.write(key: RecStorage.PREV_USER_DNI, value: user.username);
     _savedUser = user;
     notifyListeners();
+  }
+
+  void setUser(User user) {
+    _user = user;
+    setSavedUser(user);
   }
 
   void setSelectedAccount(Account account) {
