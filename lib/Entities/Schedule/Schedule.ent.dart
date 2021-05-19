@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:intl/intl.dart';
 import 'package:rec/Entities/Schedule/ScheduleDay.ent.dart';
 import 'package:rec/Entities/Schedule/ScheduleType.dart';
 import 'package:rec/Helpers/ScheduleHelper.dart';
