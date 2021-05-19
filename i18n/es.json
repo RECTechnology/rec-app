@@ -151,6 +151,7 @@
   "QR_CHARGE_MESSAGE": "Solicita al usuario que escanee el código QR para realizar el pago",
   "FINALIZE": "Finalizar",
   "PASSWORD_CHANGED_CORRECLY": "Contraseña cambiada correctamente!",
+  "PHONE_VALIDATED_OK": "Telefono validado correctamente, ya puedes acceder al REC!",
 
 
   "PAYMENT_SHARE_MESSAGE": "¡Hola! 👋 Soy {{account}}, tenemos pendiente el pago “{{concept}}” con importe de {{amount}}R. Haz click en el enlace y ábrelo con la app. del REC. 📲 ¡Gracias! {{link}}"

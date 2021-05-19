@@ -7,6 +7,7 @@ import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
+import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Public/SmsCode/SmsCode.dart';
 
@@ -28,7 +29,7 @@ class _ValidatePhoneState extends State<ValidatePhone> {
   final validateSMS = PhoneVerificationService();
   final smsService = SMSService();
 
-  DniPhoneData data = DniPhoneData();
+  DniPhoneData data = DniPhoneData(prefix: '+34');
 
   @override
   void initState() {
@@ -109,6 +110,7 @@ class _ValidatePhoneState extends State<ValidatePhone> {
 
     FocusScope.of(context).requestFocus(FocusNode());
 
+    await Loading.show();
     await _sendSmsCode();
     await _goToEnterSmsCode();
   }
@@ -123,6 +125,7 @@ class _ValidatePhoneState extends State<ValidatePhone> {
   }
 
   Future<void> _goToEnterSmsCode() async {
+    await Loading.dismiss();
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (c) => SmsCode(
@@ -150,7 +153,7 @@ class _ValidatePhoneState extends State<ValidatePhone> {
 
   void _validateOk(value) {
     Navigator.of(context).popUntil(ModalRoute.withName(Routes.login));
-    RecToast.showInfo(context, 'REGISTERED_OK');
+    RecToast.showSuccess(context, 'PHONE_VALIDATED_OK');
     EasyLoading.dismiss();
   }
 
@@ -159,7 +162,7 @@ class _ValidatePhoneState extends State<ValidatePhone> {
     EasyLoading.dismiss();
     RecToast.showError(
       context,
-      localizations.translate(error['body']['message']),
+      localizations.translate(error.message),
     );
   }
 }
