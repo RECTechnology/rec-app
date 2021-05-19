@@ -87,11 +87,7 @@ class _RequestPermission extends State<RequestPermission> {
 
   void _onAccept() {
     widget.permission.request().then((isGranted) {
-      print('permission grant granted: $isGranted');
-      if (isGranted) {
-        return widget.onAccept();
-      }
-
+      if (isGranted) return widget.onAccept();
       widget.onDecline();
     });
   }

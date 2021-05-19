@@ -20,7 +20,6 @@ class RecContactsService extends ServiceBase {
     return this.post(pathWithParams, {
       'phone_list': phoneList,
     }).then((value) {
-      print('got value');
       return _mapToApiListReponse(value);
     });
   }

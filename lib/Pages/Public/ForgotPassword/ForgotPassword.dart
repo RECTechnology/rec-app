@@ -121,7 +121,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   }
 
   void _gotCode(String code) {
-    print('got code $code');
     Navigator.of(context).push(
       MaterialPageRoute(builder: (c) => SetPasswordPage(data, code)),
     );

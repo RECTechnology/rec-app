@@ -95,5 +95,22 @@
   "HOW_TO_GO": "Cómo llegar",
   "CALL": "Llamar",
   "VALIDATE_PHOME": "Validar numero de teléfono",
-  "INTRODUCE_DOCUMENT_AND_PHONE": "Introduce tu docukento de identidad y el teléfono vinculado a tu usuario para proceder a validar tu numero de teléfono"
+  "INTRODUCE_DOCUMENT_AND_PHONE": "Introduce tu documento de identidad y el teléfono vinculado a tu usuario para proceder a validar tu numero de teléfono",
+  "OPEN_SINCE": "Abierto . Cierra a las",
+  "CLOSED_SINCE": "Cerrado . Abre a las ",
+  "SHOW_MORE": "Mostrar mas",
+  "SHOW_LESS": "Mostrar menos",
+  "MONDAY": "Lunes",
+  "TUESDAY": "Martes",
+  "WEDNESDAY": "Miercoles",
+  "THURSDAY": "Jueves",
+  "FRIDAY": "Viernes",
+  "SATURDAY": "Sabado",
+  "SUNDAY": "Domingo",
+  "OPEN": "Abierto",
+  "CLOSED": "Cerrado",
+  "NOT_AVAILABLE": "Horario no disponible",
+  "CLOSES_AT": " - Cierra {{day}} {{at}}",
+  "OPENS_AT": " - Abre {{day}} {{at}}",
+  "AT": "a las"
 }

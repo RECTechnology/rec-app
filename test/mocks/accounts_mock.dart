@@ -7,6 +7,9 @@ class AccountsMock {
     'wallets': [
       {'currency': Currency.rec.name, 'balance': 0},
       {'currency': Currency.eur.name, 'balance': 0},
-    ]
+    ],
+    'street': 'aaa',
+    'address_number': 'aaa',
+    'zip': 'aaa'
   });
 }

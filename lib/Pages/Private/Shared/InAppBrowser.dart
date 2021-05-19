@@ -60,7 +60,6 @@ class _InAppBrowser extends State<InAppBrowser> {
               onPageFinished: doneLoading,
               onPageStarted: startLoading,
               onWebViewCreated: (controller) {
-                print('onWebViewCreated');
                 this.controller = controller;
               },
             ),

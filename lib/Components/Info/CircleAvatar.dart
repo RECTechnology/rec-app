@@ -11,15 +11,17 @@ class CircleAvatarRec extends StatefulWidget {
   final String seed;
   final Icon icon;
   final Color color;
+  final double radius;
 
-  CircleAvatarRec({
-    String imageUrl,
-    String name,
-    String seed,
-    Icon icon,
-    Color color,
-    Uint8List imageBytes,
-  })  : imageUrl = imageUrl,
+  CircleAvatarRec(
+      {String imageUrl,
+      String name,
+      String seed,
+      Icon icon,
+      Color color,
+      Uint8List imageBytes,
+      this.radius})
+      : imageUrl = imageUrl,
         name = name,
         icon = icon,
         color = color,
@@ -31,6 +33,7 @@ class CircleAvatarRec extends StatefulWidget {
     Account account, {
     String seed,
     Color color,
+    this.radius,
   })  : imageUrl = account.publicImage,
         name = account.name,
         icon = null,
@@ -43,6 +46,7 @@ class CircleAvatarRec extends StatefulWidget {
     Icon icon, {
     String seed,
     Color color,
+    this.radius,
   })  : icon = icon,
         imageUrl = null,
         imageBytes = null,
@@ -63,6 +67,7 @@ class _CircleAvatarRecState extends State<CircleAvatarRec> {
   Widget build(BuildContext context) {
     if (widget.imageUrl != null && widget.imageUrl.isNotEmpty) {
       return CircleAvatar(
+        radius: widget.radius,
         backgroundImage: NetworkImage(widget.imageUrl),
       );
     }
@@ -95,6 +100,7 @@ class _CircleAvatarRecState extends State<CircleAvatarRec> {
     }
 
     return CircleAvatar(
+      radius: widget.radius,
       backgroundColor: widget.color ?? randomColor,
       child: child,
     );

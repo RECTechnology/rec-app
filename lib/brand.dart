@@ -14,6 +14,7 @@ class Brand {
   static const Color backgroundPrivateColor = Color(0xffe5f5fc);
   static const Color backgroundCompanyColor = Color(0xfffcede6);
   static const Color defectText = Color(0xff343434);
+  static const Color detailsTextColor = Color(0xff3B3B3B);
   static const Color green = Color(0xff21EB00);
 
   static const Color defaultAvatarBackground = Color(0xffF2F2F2);
@@ -24,11 +25,13 @@ class Brand {
 
   static const Color gradientSecondaryLight = Color(0xffED9707);
   static const Color gradientSecondaryDark = Color(0xffF73807);
+  static const Color filterColor = Color(0xffFCEDE6);
 
   // Text Colors
   static const Color grayDark = Color(0xff3B3B3B);
   static const Color grayDark2 = Color(0xff4f4f4f);
   static const Color grayDark3 = Color(0xff808080);
+  static const Color grayDark4 = Color(0xff828282);
 
   static const Color grayLight = Color(0xff666666);
   static const Color grayLight2 = Color(0xffBDBDBD);

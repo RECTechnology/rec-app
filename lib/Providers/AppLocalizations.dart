@@ -20,9 +20,9 @@ class AppLocalizations {
   ];
 
   static List<Locale> supportedLocales = [
+    Locale('es', 'ES'),
     Locale('en', 'UK'),
     Locale('ca', 'CA'),
-    Locale('es', 'ES')
   ];
 
   static AppLocalizations of(BuildContext context) {

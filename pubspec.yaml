@@ -55,22 +55,7 @@ flutter_icons:
 
 flutter:
    assets:
-     - assets/userIcon.png
-     - assets/avatar.png
-     - assets/avatar-bw.png
-     - assets/organization-bw.png
-     - assets/organization.png
-     - assets/BolasRec.PNG
-     - assets/logo.png
-     - assets/imagenUsuarioPredeterminada.jpg
-     - assets/aj-bcn.jpg
-     - assets/login-header.jpg
-     - assets/marcador.png
-     - assets/recharge-ok.png
-     - assets/recharge-ko.png
-     - assets/marker.svg
-     - assets/credit-cards/visa.png
-     - assets/credit-cards/mastercard.png
+     - assets/
      - i18n/ca.json
      - i18n/en.json
      - i18n/es.json

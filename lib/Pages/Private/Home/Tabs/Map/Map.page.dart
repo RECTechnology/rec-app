@@ -4,19 +4,21 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rec/Api/Services/MapService.dart';
-import 'package:rec/Api/Services/BussinesDataService.dart';
+import 'package:rec/Api/Services/AccountsService.dart';
 import 'package:rec/Components/Inputs/SearchInput.dart';
-import 'package:rec/Components/RecFilterButton.dart';
+import 'package:rec/Components/RecFilters.dart';
+import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Map/MapSearchData.dart';
 import 'package:rec/Entities/Marck.ent.dart';
+import 'package:rec/Entities/RecFilterData.dart';
+import 'package:rec/Helpers/ImageHelpers.dart';
+import 'package:rec/Helpers/RecToast.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/Details.page.dart';
 import 'package:rec/Permissions/IfPermissionGranted.dart';
 import 'package:rec/Permissions/PermissionProviders.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:rec/Styles/Paddings.dart';
+import 'package:rec/Styles/BoxDecorations.dart';
 import 'package:rec/brand.dart';
-
-import 'DetailsPage/Details.page.dart';
 
 class MapPage extends StatefulWidget {
   MapPage({Key key}) : super(key: key);
@@ -27,18 +29,23 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   MapsService mapService = MapsService();
-  BussinesDataService bussinesDataService = BussinesDataService();
+  AccountsService accountService = AccountsService();
   MapSearchData searchData = MapSearchData();
+  List<RecFilterData<bool>> recFilters = [];
+  String selectedAccountId;
+
+  bool bottomSheetEnabled = false;
+  Account account;
+  List<Widget> bottomSheetList = [];
+
+  // Google maps stuff
+  Set<Marker> _markerList = {};
   BitmapDescriptor markerIcon;
-  int activeFilttersCount = 0;
-  List<Widget> buttonFilters = [];
-  Set<Marker> _markers = {};
   final CameraPosition _initialPosition = CameraPosition(
     target: LatLng(41.4414534, 2.2086006),
     zoom: 12,
   );
   final Completer<GoogleMapController> _controller = Completer();
-  BitmapDescriptor customIcon1;
 
   @override
   void initState() {
@@ -46,16 +53,10 @@ class _MapPageState extends State<MapPage> {
     setCustomMapPin();
   }
 
-  List<IconData> icons = [
-    Icons.ac_unit,
-    Icons.account_balance,
-    Icons.adb,
-    Icons.add_photo_alternate,
-    Icons.format_line_spacing
-  ];
-
   @override
   Widget build(BuildContext context) {
+    addFiltersButtons();
+
     return IfPermissionGranted(
       permission: PermissionProviders.location,
       child: _content(),
@@ -66,86 +67,123 @@ class _MapPageState extends State<MapPage> {
     var localizations = AppLocalizations.of(context);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           GoogleMap(
             onMapCreated: _onMapCreated,
-            markers: _markers,
+            markers: _markerList,
             initialCameraPosition: _initialPosition,
+            onTap: (c) {
+              setState(() => bottomSheetEnabled = false);
+            },
           ),
           Positioned(
-            top: 30.0,
-            right: 15.0,
-            left: 15.0,
+            top: 42,
+            right: 16,
+            left: 16,
             child: SearchInput(
-                hintText: 'SEARCH_HERE',
-                fieldSubmited: (val) {
-                  setSearch(val);
-                  _search();
-                }),
-          )
+              hintText: localizations.translate('SEARCH_HERE'),
+              shaded: true,
+              borderRadius: 100,
+              fieldSubmited: (val) {
+                setSearch(val);
+                _search();
+              },
+            ),
+          ),
+          Positioned(
+            top: 100,
+            right: 16,
+            left: 16,
+            child: Container(
+              child: RecFilters(
+                filterData: recFilters,
+                onChanged: (Map<String, bool> map) {
+                  setOnlyWithOffers(map['OFFERS']);
+                },
+              ),
+            ),
+          ),
+          bottomSheetEnabled ? _bussinesDraggableSheet() : SizedBox(),
         ],
       ),
-      bottomSheet: Container(
-        height: 70,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          children: [
-            Expanded(
-              flex: 1,
-              child: Center(
-                child: Container(
-                  width: 60,
-                  height: 5,
-                  color: Brand.grayLight2,
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Container(
-                margin: EdgeInsets.only(left: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      localizations.translate('FILTERS'),
-                      style: TextStyle(
-                          color: activeFilttersCount != 0
-                              ? Colors.deepOrange
-                              : Colors.black,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    RecFilterButton(
-                      icon: Icons.add,
-                      label: localizations.translate('OFFERS'),
-                      padding: Paddings.filterButton,
-                      onPressed: setOnlyWithOffers,
-                      disabled: false,
-                      backgroundColor: searchData.onlyWithOffers == true
-                          ? Colors.orange[100]
-                          : Colors.white,
-                    ),
-                    RecFilterButton(
-                      icon: Icons.add,
-                      label: localizations.translate('TOUCH_HOOD'),
-                      padding: Paddings.filterButton,
-                      onPressed: () {
-                        setSearch('Li toca al barri');
-                      },
-                      disabled: false,
-                      backgroundColor: searchData.search.isNotEmpty
-                          ? Colors.orange[100]
-                          : Colors.white,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+    );
+  }
+
+  Widget _greyBar() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+          color: Colors.white,
+        ),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(8),
+          topRight: Radius.circular(8),
         ),
       ),
+      child: Center(
+        child: Container(
+          margin: const EdgeInsets.all(8.0),
+          width: 60,
+          height: 5,
+          decoration: BoxDecoration(
+            color: Brand.grayLight2,
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _bussinesDraggableSheet() {
+    return DraggableScrollableSheet(
+      maxChildSize: 0.95,
+      minChildSize: 0.18,
+      initialChildSize: 0.18,
+      builder: (
+        BuildContext context,
+        ScrollController scrollController,
+      ) {
+        bottomSheetList.clear();
+        bottomSheetList.add(_greyBar());
+        bottomSheetList.add(
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height - 56,
+            child: ListView.builder(
+              itemCount: 1,
+              controller: scrollController,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return Container(
+                  color: Colors.white,
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height - 108,
+                  child: DetailsPage(account),
+                );
+              },
+            ),
+          ),
+        );
+
+        return Container(
+          decoration: BoxDecorations.create(
+            color: Colors.transparent,
+            blurRadius: 15,
+            offset: Offset(0, 40),
+          ),
+          child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            controller: scrollController,
+            itemCount: bottomSheetList.length,
+            itemBuilder: (context, index) {
+              return bottomSheetList[index];
+            },
+          ),
+        );
+      },
     );
   }
 
@@ -155,50 +193,76 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _search() {
-    mapService
-        .getMarks(searchData)
-        .then((value) => setMarks(value.items))
-        .onError(
+    mapService.getMarks(searchData).then((value) {
+      setMarks(value.items);
+    }).onError(
       (error, stackTrace) {
         print(error);
       },
     );
   }
 
-  void getDetailsPage(String id) {
-    bussinesDataService.getData(id).then((value) {
-      showCupertinoModalBottomSheet<dynamic>(
-        expand: true,
-        context: context,
-        backgroundColor: Colors.transparent,
-        builder: (context) => DetailsPage(value),
-      );
-    }).catchError((err) {
-      print(err);
-    });
+  void addFiltersButtons() {
+    var localizations = AppLocalizations.of(context);
+    recFilters = [
+      RecFilterData<bool>(
+        icon: Icons.check,
+        label: localizations.translate('OFFERS'),
+        id: 'OFFERS',
+        defaultValue: false,
+        color: Colors.white,
+      ),
+      RecFilterData<bool>(
+        icon: Icons.check,
+        label: localizations.translate('TOUCH_HOOD'),
+        id: 'TOUCH_HOOD',
+        defaultValue: false,
+        color: Colors.white,
+      ),
+    ];
+  }
+
+  Future<void> getBussineData() async {
+    await accountService
+        .getOne(selectedAccountId)
+        .then((value) => account = value)
+        // ignore: return_of_invalid_type_from_catch_error
+        .catchError((err) => RecToast.showError(context, err.message));
+  }
+
+  Future<void> openModalBottomSheet() async {
+    await getBussineData().then(
+      (value) {
+        setState(() => bottomSheetEnabled = true);
+      },
+    );
   }
 
   void setCustomMapPin() async {
-    markerIcon = await BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(devicePixelRatio: 2.5),
-      'assets/marcador.png',
+    markerIcon = BitmapDescriptor.fromBytes(
+      await ImageHelpers.getBytesFromAsset(
+        'assets/marcador.png',
+        70,
+      ),
     );
   }
 
   void setMarks(List<Marck> marks) {
     setState(() {
-      _markers = {};
+      _markerList = {};
       for (var element in marks) {
-        _markers.add(
+        _markerList.add(
           Marker(
             markerId: MarkerId(element.id.toString()),
             position: LatLng(element.lat, element.long),
             icon: markerIcon,
+            onTap: () {
+              selectedAccountId = element.id.toString();
+              openModalBottomSheet();
+            },
             infoWindow: InfoWindow(
               title: element.name,
-              onTap: () {
-                getDetailsPage(element.id.toString());
-              },
+              onTap: () {},
             ),
           ),
         );
@@ -207,53 +271,13 @@ class _MapPageState extends State<MapPage> {
   }
 
   void setSearch(String search) {
-    if (searchData.search.isEmpty) {
-      searchData.search = search;
-      activeFilttersCount++;
-    } else {
-      searchData.search = '';
-      activeFilttersCount--;
-    }
+    searchData.search = search;
   }
 
-  void setOffset(int offset) {
-    searchData.offset = offset;
-  }
-
-  void setOnMap(bool onMap) {
-    searchData.onMap = onMap;
-  }
-
-  void setOnlyWithOffers() {
+  void setOnlyWithOffers(bool onlyWithOffers) {
     setState(() {
-      if (searchData.onlyWithOffers == true) {
-        searchData.onlyWithOffers = false;
-        activeFilttersCount++;
-      } else {
-        searchData.onlyWithOffers = true;
-        activeFilttersCount--;
-      }
+      searchData.onlyWithOffers = onlyWithOffers;
       _search();
     });
-  }
-
-  void setType(String type) {
-    searchData.type = type;
-  }
-
-  void setSubType(String subType) {
-    searchData.subType = subType;
-  }
-
-  void setLimit(int limit) {
-    searchData.limit = limit;
-  }
-
-  void setSort(String sort) {
-    searchData.sort = sort;
-  }
-
-  void setOrder(String order) {
-    searchData.order = order;
   }
 }

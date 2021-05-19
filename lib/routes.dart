@@ -40,9 +40,6 @@ class Routes {
   }
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
-    print(
-      'on generate route ${settings.name}, ${json.encode(settings.arguments)}',
-    );
     if (settings.name.startsWith(Routes.payLink)) {
       return MaterialPageRoute(
         builder: (ctx) => PayLink(

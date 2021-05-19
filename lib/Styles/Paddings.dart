@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 
 class Paddings {
   static const EdgeInsets page = EdgeInsets.fromLTRB(32, 24, 32, 32);
-  static const EdgeInsets filterButton = EdgeInsets.fromLTRB(9, 0, 9, 0);
+  static const EdgeInsets filterButton = EdgeInsets.fromLTRB(0, 0, 8, 0);
   static const EdgeInsets pageNoTop = EdgeInsets.fromLTRB(32, 0, 32, 32);
   // text
   static const EdgeInsets headline = EdgeInsets.only(bottom: 8.0);

@@ -9,9 +9,9 @@ import 'package:rec/Entities/Marck.ent.dart';
 class MapsService extends ServiceBase {
   MapsService({Client client})
       : super(
-          client: client,
-          interceptors: [InjectTokenInterceptor()],
-        );
+    client: client,
+    interceptors: [InjectTokenInterceptor()],
+  );
 
   Future<ApiListResponse<Marck>> getMarks(MapSearchData searchData) async {
     var pathWithParams = ApiPaths.mapService.withQueryParams({

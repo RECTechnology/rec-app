@@ -10,6 +10,8 @@ class RecFilterButton extends StatefulWidget {
   final Function() onPressed;
   final Color backgroundColor;
   final Color textColor;
+  final Color iconColor;
+  final double borderRadius;
 
   const RecFilterButton(
       {Key key,
@@ -19,7 +21,9 @@ class RecFilterButton extends StatefulWidget {
       this.padding = Paddings.button,
       this.disabled = false,
       this.textColor,
-      this.backgroundColor})
+      this.iconColor,
+      this.backgroundColor,
+      this.borderRadius = 6})
       : super(key: key);
 
   @override
@@ -30,7 +34,6 @@ class RecFilterButton extends StatefulWidget {
 
 class _RecActionButton extends State<RecFilterButton> {
   var color = Colors.white;
-  var textColor = Colors.black;
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +46,12 @@ class _RecActionButton extends State<RecFilterButton> {
           child: ElevatedButton(
             onPressed: widget.disabled ? null : widget.onPressed,
             style: ElevatedButton.styleFrom(
-              primary: widget.backgroundColor,
-            ),
+                primary: widget.backgroundColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(widget.borderRadius))),
             child: Container(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Only show icon if icon is passed
@@ -55,15 +59,18 @@ class _RecActionButton extends State<RecFilterButton> {
                       ? Icon(
                           widget.icon,
                           size: 16,
-                          color: Colors.black,
+                          color: widget.iconColor??Colors.black,
                         )
                       : SizedBox(),
-                  Text(
-                    localizations.translate(widget.label),
-                    style: TextStyle(
-                        color: textColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    child: Text(
+                      localizations.translate(widget.label),
+                      style: TextStyle(
+                          color: widget.textColor,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12),
+                    ),
                   ),
                 ],
               ),

@@ -121,7 +121,6 @@ class _InputField extends State<RecTextField> {
   }
 
   void onChanged(String string) {
-    print(string);
     if (widget.needObscureText == true) {
       setState(() {
         obscureText = true;

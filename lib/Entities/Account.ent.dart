@@ -1,6 +1,8 @@
 import 'package:rec/Entities/Campaign.ent.dart';
 import 'package:rec/Entities/Currency.ent.dart';
 import 'package:rec/Entities/Entity.base.dart';
+import 'package:rec/Entities/Offer.ent.dart';
+import 'package:rec/Entities/Schedule/Schedule.ent.dart';
 import 'package:rec/Entities/Transactions/Wallet.ent.dart';
 
 import 'Activity.ent.dart';
@@ -21,7 +23,7 @@ class Account extends Entity {
   List<Product> consumingProducts = [];
   List<Wallet> wallets = [];
   List<Campaign> campaigns = [];
-  List<dynamic> offers = [];
+  List<Offer> offers = [];
 
   String name;
   String companyImage;
@@ -29,11 +31,16 @@ class Account extends Entity {
   String type;
   String recAddress;
   String description;
-  String schedule;
   String street;
   String webUrl;
   String phone;
   String prefix;
+  String scheduleString;
+
+  Schedule schedule;
+
+  num latitude;
+  num longitude;
 
   bool active;
 
@@ -54,10 +61,14 @@ class Account extends Entity {
     this.recAddress,
     this.description,
     this.schedule,
+    this.latitude,
+    this.longitude,
     this.street,
     this.prefix,
     this.phone,
     this.webUrl,
+    this.offers,
+    this.scheduleString,
   }) : super(id, createdAt, updatedAt);
 
   bool isPrivate() {
@@ -85,6 +96,10 @@ class Account extends Entity {
     return campaigns.firstWhere((el) => el.id == campaignId) != null;
   }
 
+  bool hasOffers() {
+    return offers != null && offers.isNotEmpty;
+  }
+
   int getWalletBalance(String currencyName) {
     return wallets
         .firstWhere((element) => element.currency.name == currencyName)
@@ -95,14 +110,12 @@ class Account extends Entity {
     return getWalletBalance(currency.name);
   }
 
-  @override
-  Map<String, dynamic> toJson() {
-    throw UnimplementedError();
-  }
+  String get fullPhone => '+$prefix $phone';
 
   factory Account.fromJson(Map<String, dynamic> json) {
     var wallets = <Wallet>[];
     var campaigns = <Campaign>[];
+    var offers = <Offer>[];
 
     if (json['wallets'] != null) {
       var jsonWallets = List.from(json['wallets']);
@@ -118,6 +131,17 @@ class Account extends Entity {
           : <Campaign>[];
     }
 
+    if (json['offers'] != null) {
+      var jsonOffers = List.from(json['offers']);
+      offers = jsonOffers.isNotEmpty
+          ? jsonOffers.map<Offer>((el) => Offer.fromJson(el)).toList()
+          : <Offer>[];
+    }
+
+    var addressString = [json['street'], json['address_number'], json['zip']]
+        .where((element) => element != null)
+        .join(', ');
+
     return Account(
       id: '${json['id']}',
       createdAt: json['created'],
@@ -128,14 +152,20 @@ class Account extends Entity {
       type: json['type'],
       active: json['active'],
       publicImage: json['public_image'],
-      companyImage: json['company_image'],
+      companyImage: json['image'],
       recAddress: json['rec_address'],
       description: json['description'],
-      schedule: json['schedule'],
+      schedule: Schedule.fromJsonString(json['schedule']),
+      scheduleString: json['schedule'],
       prefix: json['prefix'],
       phone: json['phone'],
+      latitude: json['latitude'],
+      longitude: json['longitude'],
       wallets: wallets,
       campaigns: campaigns,
+      offers: offers,
+      webUrl: json['web'],
+      street: addressString,
     );
   }
 }

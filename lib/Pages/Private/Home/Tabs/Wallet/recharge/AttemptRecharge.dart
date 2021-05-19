@@ -61,8 +61,6 @@ class _AttemptRecharge extends State<AttemptRecharge> {
     var localizations = AppLocalizations.of(context);
     return rechargeService.recharge(widget.data).then(
       (value) {
-        print('recharge_result: ${json.encode(value)}');
-
         if (value.payInInfo != null && value.payInInfo.paymentUrl != null) {
           launchPaymentUrl(value.payInInfo.paymentUrl);
           return;
