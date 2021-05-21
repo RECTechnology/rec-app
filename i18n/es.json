@@ -152,7 +152,10 @@
   "FINALIZE": "Finalizar",
   "PASSWORD_CHANGED_CORRECLY": "Contraseña cambiada correctamente!",
   "PHONE_VALIDATED_OK": "Telefono validado correctamente, ya puedes acceder al REC!",
-
+  "MUST_UPDATE_APP": "Actualizacion necesaria para continuar",
+  "MUST_UPDATE_DESC": "Es necesario actaulizar la aplicacion del REC para poder seguir usandola, puedes hacerlo desde el botton \"Actualizar\", o manualmente.",
+  "DONT_UPDATE": "Cancelar",
+  "UPDATE_APP": "Actualizar",
 
   "PAYMENT_SHARE_MESSAGE": "¡Hola! 👋 Soy {{account}}, tenemos pendiente el pago “{{concept}}” con importe de {{amount}}R. Haz click en el enlace y ábrelo con la app. del REC. 📲 ¡Gracias! {{link}}"
 }

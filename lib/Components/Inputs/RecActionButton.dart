@@ -43,7 +43,7 @@ class _RecActionButton extends State<RecActionButton> {
         child: Container(
           height: 48,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(),
@@ -53,7 +53,7 @@ class _RecActionButton extends State<RecActionButton> {
                       padding: const EdgeInsets.only(right: 16.0, top: 2),
                       child: Icon(
                         widget.icon,
-                        size: 16,
+                        size: 18,
                       ),
                     )
                   : SizedBox(),

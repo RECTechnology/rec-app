@@ -54,9 +54,9 @@ flutter_icons:
   image_path: "assets/logo.png"
 
 flutter:
-   assets:
-     - assets/
-     - i18n/ca.json
-     - i18n/en.json
-     - i18n/es.json
-   uses-material-design: true
+  assets:
+    - assets/
+    - i18n/ca.json
+    - i18n/en.json
+    - i18n/es.json
+  uses-material-design: true

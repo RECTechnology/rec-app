@@ -227,16 +227,16 @@ class _ResumeTabState extends State<ResumeTab> {
   }
 
   void _launchWeb() async {
-    BrowserHelper.openBrowser(widget.account.webUrl);
+    await BrowserHelper.openBrowser(widget.account.webUrl);
   }
 
   void _launchMapsUrl() async {
     final url =
         'https://www.google.com/maps/search/?api=1&query=${widget.account.latitude},${widget.account.longitude}';
-    BrowserHelper.openBrowser(url);
+    await BrowserHelper.openBrowser(url);
   }
 
   void _call() async {
-    BrowserHelper.openCallPhone(widget.account.fullPhone);
+    await BrowserHelper.openCallPhone(widget.account.fullPhone);
   }
 }

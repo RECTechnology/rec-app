@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:rec/Api/Storage.dart';
@@ -20,7 +21,14 @@ class TestUtils {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => AppState(),
+          create: (context) => AppState(
+            packageInfo: PackageInfo(
+              appName: 'rec',
+              packageName: 'com.barcelona.rec',
+              version: '2.0.0',
+              buildNumber: '8',
+            ),
+          ),
         ),
         ChangeNotifierProvider(
           create: (context) => state ?? UserState(RecStorage(), null),

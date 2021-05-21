@@ -37,7 +37,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.rec.barcelona"
+        applicationId "com.barcelona.rec"
         minSdkVersion 20
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()

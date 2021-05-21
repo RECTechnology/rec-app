@@ -1,13 +1,28 @@
+import 'dart:io';
+
 import 'package:url_launcher/url_launcher.dart';
 
 class BrowserHelper {
-  static void openBrowser(url) async {
+  static Future openBrowser(url) async {
+    print('Opening Link: $url');
+
     if (await canLaunch(url)) {
-      await launch(url);
-    } else {}
+      return await launch(url);
+    }
   }
 
-  static void openCallPhone(String number) async {
-    await launch('tel://$number');
+  static Future openCallPhone(String number) async {
+    return await launch('tel://$number');
+  }
+
+  static Future openMarketOrPlayStore(appPackageName) async {
+    if (Platform.isAndroid) {
+      return await openBrowser(
+        'https://play.google.com/store/apps/details?id=' + appPackageName,
+      );
+    }
+    if (Platform.isIOS) {
+      return await openBrowser('market://details?id=' + appPackageName);
+    }
   }
 }

@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:rec/Api/HandledErrors.dart';
 import 'package:rec/Api/Services/LoginService.dart';
 import 'package:rec/Components/Forms/Login.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
@@ -8,8 +11,10 @@ import 'package:rec/Entities/Forms/LoginData.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Public/ForgotPassword/ForgotPassword.dart';
+import 'package:rec/Pages/Public/MustUpdate.dart';
 import 'package:rec/Pages/Public/ValidatePhone.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/Providers/AppState.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/routes.dart';
@@ -139,6 +144,10 @@ class _LoginPageState extends State<LoginPage> {
     if (!_formKey.currentState.validate()) return;
 
     FocusScope.of(context).requestFocus(FocusNode());
+
+    var appState = AppState.of(context, listen: false);
+    loginData.version = appState.versionInt;
+
     await Loading.show();
     await loginService
         .login(loginData)
@@ -146,24 +155,30 @@ class _LoginPageState extends State<LoginPage> {
         .catchError(_onLoginError);
   }
 
-  void _onLoginSuccess(response) {
+  dynamic _onLoginSuccess(response) {
     Loading.dismiss();
 
-    if (widget.onLogin != null) {
-      widget.onLogin();
-    } else {
-      Navigator.of(context).pushReplacementNamed(Routes.home);
-    }
+    if (widget.onLogin != null) return widget.onLogin();
+
+    Navigator.of(context).pushReplacementNamed(Routes.home);
   }
 
-  void _onLoginError(error) {
+  dynamic _onLoginError(error) {
     Loading.dismiss();
     RecToast.showError(context, error.message);
 
-    if (error.message == 'User without phone validated') {
-      Navigator.of(context).push(
+    if (error.message == HandledErrors.userPhoneNotValidated) {
+      return Navigator.of(context).push(
         MaterialPageRoute(
           builder: (c) => ValidatePhone(dni: loginData.username),
+        ),
+      );
+    }
+
+    if (error.message == HandledErrors.mustUpdate) {
+      return Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (c) => MustUpdate(),
         ),
       );
     }

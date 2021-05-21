@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:http/http.dart';
 import 'package:rec/Api/ApiPaths.dart';
 import 'package:rec/Api/Auth.dart';
@@ -13,9 +15,11 @@ class LoginService extends ServiceBase {
     var body = {
       'username': data.username,
       'password': data.password,
+      'version': data.version,
       'grant_type': GrantTypes.password,
       'client_id': env.CLIENT_ID,
       'client_secret': env.CLIENT_SECRET,
+      'platform': Platform.operatingSystem,
     };
 
     return this.post(ApiPaths.token.toUri(), body).then(saveToken);
