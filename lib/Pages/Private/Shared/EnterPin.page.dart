@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
-import 'package:rec/Components/Inputs/RecTextField.dart';
-import 'package:rec/Helpers/Validators.dart';
+import 'package:rec/Components/Inputs/RecPinInput.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/Styles/TextStyles.dart';
@@ -25,13 +24,14 @@ class EnterPin extends StatefulWidget {
 
 class _EnterPinState extends State<EnterPin> {
   final _formKey = GlobalKey<FormState>();
-
   String pin;
 
   @override
   Widget build(BuildContext context) {
     return _body();
   }
+
+  bool get formValid => pin != null && pin.isNotEmpty && pin.length == 4;
 
   Widget _body() {
     var localizations = AppLocalizations.of(context);
@@ -49,7 +49,7 @@ class _EnterPinState extends State<EnterPin> {
               textAlign: TextAlign.center,
             ),
           ),
-          SizedBox(height: 32),
+          SizedBox(height: 16),
           Center(
             child: Text(
               localizations.translate('ENTER_PIN_DESC'),
@@ -62,20 +62,17 @@ class _EnterPinState extends State<EnterPin> {
             key: _formKey,
             child: Column(
               children: [
-                RecTextField(
-                  autofocus: true,
-                  placeholder: '....',
-                  needObscureText: true,
-                  keyboardType: TextInputType.phone,
-                  isNumeric: true,
-                  textSize: 20,
-                  letterSpicing: 25,
-                  maxLength: 4,
-                  textAlign: TextAlign.center,
-                  colorLine: Brand.primaryColor,
-                  onChange: setPin,
-                  validator: Validators.smsCode,
+                SizedBox(height: 16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: RecPinInput(
+                    autofocus: true,
+                    fieldsCount: 4,
+                    onSaved: (s) => _next(),
+                    onChanged: _setPin,
+                  ),
                 ),
+                SizedBox(height: 16),
                 Text(
                   localizations.translate('FORGOT_PIN'),
                   style: TextStyles.link,
@@ -86,9 +83,7 @@ class _EnterPinState extends State<EnterPin> {
                       ? Icons.arrow_forward_ios_outlined
                       : null,
                   backgroundColor: Brand.primaryColor,
-                  onPressed: pin != null && pin.isNotEmpty && pin.length == 4
-                      ? _next
-                      : null,
+                  onPressed: formValid ? _next : null,
                 ),
               ],
             ),
@@ -98,12 +93,12 @@ class _EnterPinState extends State<EnterPin> {
     );
   }
 
-  void setPin(String pin) {
+  void _setPin(String pin) {
     setState(() => this.pin = pin);
   }
 
   void _next() {
-    if (!_formKey.currentState.validate()) return;
+    if (!_formKey.currentState.validate() || !formValid) return;
     widget.ifPin(pin);
   }
 }

@@ -164,7 +164,7 @@
   "PASSWORD_CHANGED_CORRECLY": "Contraseña cambiada correctamente!",
   "PHONE_VALIDATED_OK": "Telefono validado correctamente, ya puedes acceder al REC!",
   "MUST_UPDATE_APP": "Actualizacion necesaria para continuar",
-  "MUST_UPDATE_DESC": "Es necesario actaulizar la aplicacion del REC para poder seguir usandola, puedes hacerlo desde el botton \"Actualizar\", o manualmente.",
+  "MUST_UPDATE_DESC": "Es necesario actualizar la aplicacion del REC para poder seguir usandola, puedes hacerlo desde el botton \"Actualizar\", o manualmente.",
   "DONT_UPDATE": "Cancelar",
   "UPDATE_APP": "Actualizar",
   "AMOUNT": "Cantidad",
@@ -183,13 +183,14 @@
   "ENTER_PIN_DESC": "Teclea tu código secreto del REC",
   "FORGOT_PIN": "¿Has olvidado tu PIN del REC?",
   "CREATE_PIN": "Crea tu PIN del REC",
-  "CREATE_PIN_DESC": "Para empezar a operar necesitas un código secreto, tu PIN del REC. Créalo ahora y anótalo en un lugar seguro, lo necesitarás en tus futuras operaciones.",
+  "CREATE_PIN_DESC": "Para empezar a operar necesitas crear tu PIN del REC. Créalo ahora y anótalo en un lugar seguro, lo necesitarás en futuras operaciones.",
   "RECHARGE_OK": "¡Has recargado {{amount}}!",
   "RECHARGE_OK_DESC": "Los RECs estarán en tu cuenta en menos de 10 minutos",
   "RECHARGE_KO": "¡Oops... Algo ha ido mal!",
   "RECHARGE_KO_DESC": "Lo sentimos, la operación no ha podido realizarse. Inténtalo más tarde, si el error persiste contacte con nuestro equipo de soporte.",
   "ALRIGHT": "Entendido",
   "PAYMENT_OK": "Pago realizado correctamente!",
+  "CREATE_AND": "Crear y",
 
   "PAYMENT_SHARE_MESSAGE": "¡Hola! 👋 Soy {{account}}, tenemos pendiente el pago “{{concept}}” con importe de {{amount}}R. Haz click en el enlace y ábrelo con la app. del REC. 📲 ¡Gracias! {{link}}"
 }

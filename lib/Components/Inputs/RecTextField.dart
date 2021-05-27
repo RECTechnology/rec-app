@@ -77,6 +77,12 @@ class _InputField extends State<RecTextField> {
   bool isNotIcon = false;
 
   @override
+  void initState() {
+    super.initState();
+    obscureText = widget.needObscureText;
+  }
+
+  @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
     var translatedError = localizations.translate(error);
@@ -98,7 +104,7 @@ class _InputField extends State<RecTextField> {
             borderSide: BorderSide(color: widget.colorLine),
           ),
           fillColor: Colors.lightBlueAccent,
-          suffixIcon: isNotIcon
+          suffixIcon: widget.needObscureText
               ? IconButton(
                   onPressed: () => setState(() => changeObscureText()),
                   icon: Icon(
@@ -132,12 +138,11 @@ class _InputField extends State<RecTextField> {
   }
 
   void onChanged(String string) {
-    if (widget.needObscureText == true) {
-      setState(() {
-        obscureText = true;
-        isNotIcon = true;
-      });
-    }
+    // if (widget.needObscureText == true) {
+    //   setState(() {
+    //     isNotIcon = true;
+    //   });
+    // }
     widget.onChange(string);
   }
 

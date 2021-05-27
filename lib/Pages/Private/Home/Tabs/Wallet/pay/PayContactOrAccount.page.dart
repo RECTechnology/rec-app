@@ -19,8 +19,8 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
     with TickerProviderStateMixin {
   TabController _tabController;
   final int items = 2;
-  final int initialIndex = 0;
   final PaymentData _paymentData = PaymentData.empty();
+  int initialIndex = 0;
 
   @override
   void initState() {
@@ -29,7 +29,19 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
       vsync: this,
       initialIndex: initialIndex,
     );
+    _tabController.addListener(() {
+      setState(() {
+        initialIndex = _tabController.index;
+      });
+    });
+
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
   }
 
   @override
@@ -42,7 +54,7 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
         ? SizedBox()
         : TabBarView(
             controller: _tabController,
-            physics: NeverScrollableScrollPhysics(),
+            // physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
               IfPermissionGranted(
                 permission: PermissionProviders.contacts,

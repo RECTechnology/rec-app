@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
-import 'package:rec/Components/Inputs/RecTextField.dart';
-import 'package:rec/Helpers/Validators.dart';
+import 'package:rec/Components/Inputs/RecPinInput.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/Styles/TextStyles.dart';
@@ -62,22 +61,17 @@ class _CreatePinState extends State<CreatePin> {
             key: _formKey,
             child: Column(
               children: [
-                RecTextField(
-                  autofocus: true,
-                  placeholder: '....',
-                  needObscureText: true,
-                  isNumeric: true,
-                  textSize: 20,
-                  letterSpicing: 25,
-                  maxLength: 4,
-                  keyboardType: TextInputType.phone,
-                  textAlign: TextAlign.center,
-                  colorLine: Brand.primaryColor,
-                  onChange: setPin,
-                  validator: Validators.pin,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: RecPinInput(
+                    autofocus: true,
+                    fieldsCount: 4,
+                    onSaved: (s) => _next(),
+                    onChanged: _setPin,
+                  ),
                 ),
                 RecActionButton(
-                  label: btnLabel,
+                  label: localizations.translate('CREATE_AND') + ' ' + btnLabel,
                   icon: widget.buttonWithArrow
                       ? Icons.arrow_forward_ios_outlined
                       : null,
@@ -92,7 +86,7 @@ class _CreatePinState extends State<CreatePin> {
     );
   }
 
-  void setPin(String pin) {
+  void _setPin(String pin) {
     this.pin = pin;
   }
 
