@@ -23,7 +23,6 @@ class PayWithQR extends StatefulWidget {
 }
 
 class _PayWithQRState extends State<PayWithQR> {
-  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   final TransactionsService transactionsService = TransactionsService();
 
   Barcode result;
@@ -36,9 +35,9 @@ class _PayWithQRState extends State<PayWithQR> {
     super.reassemble();
 
     if (Platform.isAndroid) {
-      controller.pauseCamera();
+      controller?.pauseCamera();
     } else if (Platform.isIOS) {
-      controller.resumeCamera();
+      controller?.resumeCamera();
     }
   }
 
@@ -46,12 +45,13 @@ class _PayWithQRState extends State<PayWithQR> {
   Widget build(BuildContext context) {
     return IfPermissionGranted(
       permission: PermissionProviders.qr,
-      child: _content(),
+      builder: (_) => _content(),
     );
   }
 
   Widget _content() {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: EmptyAppBar(context, title: 'PAY_WITH_QR'),
       body: Column(
         children: <Widget>[
@@ -67,7 +67,7 @@ class _PayWithQRState extends State<PayWithQR> {
     return Expanded(
       flex: 4,
       child: QRView(
-        key: qrKey,
+        key: GlobalKey(debugLabel: 'QR'),
         onQRViewCreated: _onQRViewCreated,
         overlay: QrScannerOverlayShape(
           borderColor: Brand.green,
@@ -98,7 +98,7 @@ class _PayWithQRState extends State<PayWithQR> {
     var localizations = AppLocalizations.of(context);
     var hasFoundCode = result != null;
     var statusText = hasFoundCode
-        ? localizations.translate('FOUND_PAYMENT')
+        ? localizations.translate('FOUND_QR')
         : localizations.translate('SCANNING');
 
     return Padding(

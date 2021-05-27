@@ -38,7 +38,7 @@ class _ChargePageState extends State<ChargePage> {
 
       paymentData.address = userState.account.recAddress;
       paymentData.concept = localizations.translate(
-        'CHARGE_TO',
+        'PAY_TO_NAME',
         params: {
           'name': userState.account.name,
         },
@@ -65,73 +65,75 @@ class _ChargePageState extends State<ChargePage> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: Paddings.page,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CaptionText('FILL_CHARGE_FORM'),
-                  const SizedBox(height: 24),
-                  _chargeForm(),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 32,
-                right: 32,
-                bottom: 24,
-              ),
-              child: Align(
-                alignment: Alignment.bottomCenter,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: Paddings.page,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.share, size: 16, color: color),
-                        SizedBox(width: 8),
-                        LinkText(
-                          localizations.translate('SHARE_PAY_LINK'),
-                          color: color,
-                          onTap: () {
-                            var payUrl = Deeplinking.constructPayUrl(
-                              env,
-                              paymentData,
-                            );
-                            var payText = localizations.translate(
-                              'PAYMENT_SHARE_MESSAGE',
-                              params: {
-                                'account': userState.account.name,
-                                'concept': paymentData.concept,
-                                'amount': paymentData.amount,
-                                'link': payUrl,
-                              },
-                            );
-                            Share.share(payText).then((c) {
-                              Navigator.of(context).pop();
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    RecActionButton(
-                      padding: EdgeInsets.zero,
-                      label: localizations.translate('CHARGE_QR'),
-                      backgroundColor: color,
-                      onPressed: _isFormValid() ? _proceedWithPayment : null,
-                    )
+                    CaptionText('FILL_CHARGE_FORM'),
+                    const SizedBox(height: 24),
+                    _chargeForm(),
                   ],
                 ),
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 32,
+                  right: 32,
+                  bottom: 24,
+                ),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.share, size: 16, color: color),
+                          SizedBox(width: 8),
+                          LinkText(
+                            localizations.translate('SHARE_PAY_LINK'),
+                            color: color,
+                            onTap: () {
+                              var payUrl = Deeplinking.constructPayUrl(
+                                env,
+                                paymentData,
+                              );
+                              var payText = localizations.translate(
+                                'PAYMENT_SHARE_MESSAGE',
+                                params: {
+                                  'account': userState.account.name,
+                                  'concept': paymentData.concept,
+                                  'amount': paymentData.amount,
+                                  'link': payUrl,
+                                },
+                              );
+                              Share.share(payText).then((c) {
+                                Navigator.of(context).pop();
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 16),
+                      RecActionButton(
+                        padding: EdgeInsets.zero,
+                        label: localizations.translate('CHARGE_QR'),
+                        backgroundColor: color,
+                        onPressed: _isFormValid() ? _proceedWithPayment : null,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

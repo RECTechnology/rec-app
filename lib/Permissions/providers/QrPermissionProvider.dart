@@ -11,5 +11,6 @@ class QrPermissionProvider extends PermissionProvider {
           subtitle: 'QR_PERMISSION_SUBTITLE',
           buttonAcceptText: 'QR_PERMISSION_ACCEPT',
           buttonDeclineText: 'QR_PERMISSION_DECLINE',
+          permanentlyDeniedMessage: 'QR_PERMISSION_PERMANENTLY_DENIED',
         );
 }

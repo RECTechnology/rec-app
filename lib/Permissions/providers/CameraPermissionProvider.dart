@@ -11,5 +11,6 @@ class CameraPermissionProvider extends PermissionProvider {
           subtitle: 'CAMERA_PERMISSION_SUBTITLE',
           buttonAcceptText: 'CAMERA_PERMISSION_ACCEPT',
           buttonDeclineText: 'CAMERA_PERMISSION_DECLINE',
+          permanentlyDeniedMessage: 'CAMERA_PERMISSION_PERMANENTLY_DENIED',
         );
 }

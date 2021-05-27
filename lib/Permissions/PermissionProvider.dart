@@ -6,6 +6,7 @@ abstract class PermissionProvider {
   IconData icon;
   String title;
   String subtitle;
+  String permanentlyDeniedMessage;
 
   String buttonAcceptText;
   String buttonDeclineText;
@@ -17,14 +18,19 @@ abstract class PermissionProvider {
     this.subtitle,
     this.buttonAcceptText,
     this.buttonDeclineText,
+    this.permanentlyDeniedMessage,
   });
 
   Future<bool> isGranted() {
     return permission.isGranted;
   }
 
-  Future<bool> request() {
-    return permission.request().isGranted;
+  Future<PermissionStatus> status() {
+    return permission.status;
+  }
+
+  Future<PermissionStatus> request() {
+    return permission.request();
   }
 
   bool matches(PermissionProvider provider) {

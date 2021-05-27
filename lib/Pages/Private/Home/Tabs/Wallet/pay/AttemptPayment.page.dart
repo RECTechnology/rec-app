@@ -5,9 +5,9 @@ import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/User/UserBalance.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
-import 'package:rec/Helpers/Formatting.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
+import 'package:rec/Mixins/Loadable.mixin.dart';
 import 'package:rec/Pages/Private/Shared/RequestPin.page.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/TransactionsProvider.dart';
@@ -28,7 +28,7 @@ class AttemptPayment extends StatefulWidget {
   _AttemptPaymentState createState() => _AttemptPaymentState();
 }
 
-class _AttemptPaymentState extends State<AttemptPayment> {
+class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
   final TransactionsService _transactionsService = TransactionsService();
 
   TransactionsService get service =>
@@ -52,6 +52,8 @@ class _AttemptPaymentState extends State<AttemptPayment> {
             'name': widget.data.vendor.name,
           },
         ),
+        textAlign: TextAlign.left,
+        alignment: Alignment.centerLeft,
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
           child: UserBalance(
@@ -69,12 +71,7 @@ class _AttemptPaymentState extends State<AttemptPayment> {
 
   Widget _body() {
     var localizations = AppLocalizations.of(context);
-    var content = localizations.translate(
-      'SEND_PAYMENT',
-      params: {
-        'amount': Formatting.formatCurrency(widget.data.amount),
-      },
-    );
+    var content = localizations.translate('PAY_BTN');
 
     return RequestPin(
       buttonContent: content,
@@ -84,6 +81,10 @@ class _AttemptPaymentState extends State<AttemptPayment> {
   }
 
   void _gotPin(String pin) async {
+    if (isLoading) return;
+
+    setIsLoading(true);
+
     widget.data.pin = pin;
 
     FocusScope.of(context).requestFocus(FocusNode());
@@ -103,12 +104,14 @@ class _AttemptPaymentState extends State<AttemptPayment> {
 
     transactionProvider.refresh();
 
+    setIsLoading(false);
     Loading.dismiss();
     Navigator.pop(context, true);
     RecToast.showSuccess(context, localizations.translate('PAYMENT_OK'));
   }
 
   void _onPaymentError(error) {
+    setIsLoading(false);
     Loading.dismiss();
     _showErrorToast(error);
   }
@@ -124,5 +127,10 @@ class _AttemptPaymentState extends State<AttemptPayment> {
         to: CircleAvatarRec(imageUrl: widget.data.vendor.image),
       ),
     );
+  }
+
+  @override
+  void setIsLoading(bool isLoading) {
+    setState(() => this.isLoading = isLoading);
   }
 }

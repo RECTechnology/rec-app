@@ -71,6 +71,7 @@ class _PrivateAppBar extends State<PrivateAppBar> {
                   },
                 )
               : Container(
+                  padding: const EdgeInsets.only(left: 16),
                   alignment: Alignment.center,
                   child: CircleAvatarRec.fromAccount(account),
                 ),
@@ -98,7 +99,7 @@ class _PrivateAppBar extends State<PrivateAppBar> {
                       color: widget.color ?? Colors.white,
                     ),
                   )
-                : SizedBox(height: 45, width: 65),
+                : SizedBox(),
           ],
         ),
       ),

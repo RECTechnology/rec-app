@@ -7,6 +7,7 @@ class InfoSplash extends StatefulWidget {
   final String subtitle;
   final IconData icon;
   final Color iconColor;
+  final EdgeInsets padding;
 
   const InfoSplash({
     Key key,
@@ -14,6 +15,7 @@ class InfoSplash extends StatefulWidget {
     @required this.icon,
     this.subtitle,
     this.iconColor = Brand.primaryColor,
+    this.padding = const EdgeInsets.symmetric(horizontal: 24.0),
   }) : super(key: key);
 
   @override
@@ -26,7 +28,7 @@ class _InfoSplash extends State<InfoSplash> {
     var localizations = AppLocalizations.of(context);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      padding: widget.padding,
       child: Column(
         children: [
           Icon(

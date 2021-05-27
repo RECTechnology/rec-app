@@ -11,5 +11,6 @@ class ContactsPermissionProvider extends PermissionProvider {
           subtitle: 'CONTACTS_PERMISSION_SUBTITLE',
           buttonAcceptText: 'CONTACTS_PERMISSION_ACCEPT',
           buttonDeclineText: 'CONTACTS_PERMISSION_DECLINE',
+          permanentlyDeniedMessage: 'CONTACTS_PERMISSION_PERMANENTLY_DENIED',
         );
 }

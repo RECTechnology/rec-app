@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:rec/Components/Inputs/RecTextField.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
@@ -47,6 +48,7 @@ class AmountTextFieldState extends State<AmountTextField> {
       validator: widget.validator,
       readOnly: widget.readOnly,
       autofocus: widget.autofocus,
+      inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))],
       isPhone: false,
       icon: Icon(
         Icons.euro,

@@ -59,7 +59,8 @@ class _MapPageState extends State<MapPage> {
 
     return IfPermissionGranted(
       permission: PermissionProviders.location,
-      child: _content(),
+      onDecline: () {},
+      builder: (_) => _content(),
     );
   }
 

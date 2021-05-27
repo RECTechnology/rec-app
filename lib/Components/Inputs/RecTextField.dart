@@ -5,9 +5,18 @@ import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 
 class RecTextField extends StatefulWidget {
+  /// Text that appears below the [InputDecorator.child] and the border.
   final String placeholder;
+
+  /// What keyboard type to use
   final TextInputType keyboardType;
+
+  /// Configures how the platform keyboard will select an uppercase or lowercase keyboard.
+  /// Only supports text keyboards, other keyboard types will ignore this configuration. Capitalization is locale-aware.
   final TextCapitalization capitalizeMode;
+
+  /// Optional input validation and formatting overrides.
+  final List<TextInputFormatter> inputFormatters;
 
   final bool isNumeric;
   final bool needObscureText;
@@ -54,6 +63,7 @@ class RecTextField extends StatefulWidget {
     this.capitalizeMode = TextCapitalization.none,
     this.readOnly = false,
     this.onSubmitted,
+    this.inputFormatters = const [],
   });
 
   @override
@@ -80,6 +90,7 @@ class _InputField extends State<RecTextField> {
         autofocus: widget.autofocus,
         maxLength: widget.maxLength,
         readOnly: widget.readOnly,
+        inputFormatters: widget.inputFormatters,
         textAlignVertical: TextAlignVertical.bottom,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(bottom: 10),

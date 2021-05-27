@@ -46,9 +46,13 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
             children: <Widget>[
               IfPermissionGranted(
                 permission: PermissionProviders.contacts,
-                child: ContactsList(
+                canBeDeclined: false,
+                builder: (_) => ContactsList(
                   onPick: _pickedContact,
                 ),
+                onDecline: () {
+                  print('permission declined');
+                },
               ),
               AccountList(
                 onPick: _pickedAccount,

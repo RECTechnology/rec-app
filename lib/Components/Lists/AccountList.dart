@@ -29,8 +29,11 @@ class _AccountList extends State<AccountList> {
   }
 
   void _updateAccounts(List<Account> accounts) {
+    var userState = UserState.of(context, listen: false);
+
     setState(
       () => searchedAccountsWidgets = accounts
+          .where((element) => element.id != userState.account.id)
           .where(_accountMatchesSearchQuery)
           .map(
             (account) => AccountListTile.fromAccount(

@@ -21,5 +21,6 @@ class TextStyles {
   static const TextStyle link = TextStyle(
     color: Brand.primaryColor,
     fontSize: 14,
+    fontWeight: FontWeight.w300,
   );
 }

@@ -28,7 +28,7 @@ class _RecNavigationBarState extends State<RecNavigationBar> {
           label: localizations.translate('MAP'),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.account_balance_wallet_outlined),
+          icon: Icon(Icons.account_balance_wallet),
           label: localizations.translate('WALLET'),
         ),
         BottomNavigationBarItem(

@@ -22,7 +22,7 @@ class PaymentData extends FormData {
         vendor = vendor ?? VendorData();
 
   PaymentData.empty() {
-    amount = 0;
+    amount = null;
     address = '';
     concept = '';
     vendor = VendorData();

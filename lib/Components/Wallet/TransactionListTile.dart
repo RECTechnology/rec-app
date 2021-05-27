@@ -104,7 +104,11 @@ class _TransactionsListTile extends State<TransactionsListTile> {
       localizations.translate(concept.isEmpty ? 'NO_CONCEPT' : concept),
       maxLines: 2,
       overflow: TextOverflow.ellipsis,
-      style: TextStyle(fontSize: 14, color: Brand.grayDark2),
+      style: TextStyle(
+        fontSize: 16,
+        color: Brand.grayDark2,
+        fontWeight: FontWeight.w300,
+      ),
     );
   }
 
@@ -123,7 +127,7 @@ class _TransactionsListTile extends State<TransactionsListTile> {
     return Text(
       amount,
       style: TextStyle(
-        fontSize: 14,
+        fontSize: 16,
         color: color,
         fontWeight: FontWeight.w300,
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:rec/Components/Icons/RecCurrencyIcon.dart';
 import 'package:rec/Entities/Currency.ent.dart';
 import 'package:rec/Helpers/Formatting.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
@@ -30,7 +31,7 @@ class _UserBalance extends State<UserBalance> {
     var localizations = AppLocalizations.of(context);
     var amount = Formatting.formatCurrency(
       widget.balance,
-      symbol: widget.currency.symbol,
+      // symbol: widget.currency.symbol,
     );
 
     return Container(
@@ -40,15 +41,25 @@ class _UserBalance extends State<UserBalance> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.only(bottom: 5.0),
-            child: Text(
-              amount,
-              style: TextStyle(
-                fontSize: 40,
-                color: widget.color ?? Colors.white,
-                fontWeight: FontWeight.w500,
-              ),
-              textAlign: TextAlign.center,
+            padding: const EdgeInsets.only(bottom: 5.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  amount,
+                  style: TextStyle(
+                    fontSize: 40,
+                    color: widget.color ?? Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: RecCurrencyIcon(color: widget.color),
+                ),
+              ],
             ),
           ),
           Padding(

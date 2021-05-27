@@ -62,27 +62,31 @@ class TransactionDetailsModal {
 
   Widget _txHeader(Transaction transaction) {
     var userState = UserState.of(context);
-    var currentAccount = userState.account;
+    var selfAccount = userState.account;
+    var otherAccount = TransactionIcon(transaction);
+
+    var selfImage = Container(
+      width: 64,
+      height: 64,
+      child: CircleAvatarRec.fromAccount(selfAccount),
+    );
+    var otherImage = Container(
+      width: 64,
+      height: 64,
+      child: otherAccount,
+    );
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            width: 55,
-            height: 55,
-            child: CircleAvatarRec.fromAccount(currentAccount),
-          ),
+          transaction.isOut() ? selfImage : otherImage,
           Icon(
-            transaction.isIn() ? Icons.west : Icons.east,
+            Icons.east,
             color: Brand.grayLight2,
           ),
-          Container(
-            width: 55,
-            height: 55,
-            child: TransactionIcon(transaction),
-          ),
+          transaction.isOut() ? otherImage : selfImage,
         ],
       ),
     );
@@ -99,7 +103,11 @@ class TransactionDetailsModal {
         padding: const EdgeInsets.symmetric(vertical: 24.0),
         child: Text(
           dateString,
-          style: TextStyle(color: Brand.primaryColor, fontSize: 16),
+          style: TextStyle(
+            color: Brand.primaryColor,
+            fontSize: 16,
+            fontWeight: FontWeight.w300,
+          ),
         ),
       ),
     );

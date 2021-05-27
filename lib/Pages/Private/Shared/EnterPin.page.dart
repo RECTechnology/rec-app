@@ -44,7 +44,7 @@ class _EnterPinState extends State<EnterPin> {
         children: [
           Center(
             child: Text(
-              localizations.translate('ENTER_PIN'),
+              localizations.translate('PIN'),
               style: TextStyles.pageTitle,
               textAlign: TextAlign.center,
             ),
@@ -86,7 +86,9 @@ class _EnterPinState extends State<EnterPin> {
                       ? Icons.arrow_forward_ios_outlined
                       : null,
                   backgroundColor: Brand.primaryColor,
-                  onPressed: _next,
+                  onPressed: pin != null && pin.isNotEmpty && pin.length == 4
+                      ? _next
+                      : null,
                 ),
               ],
             ),
@@ -97,7 +99,7 @@ class _EnterPinState extends State<EnterPin> {
   }
 
   void setPin(String pin) {
-    this.pin = pin;
+    setState(() => this.pin = pin);
   }
 
   void _next() {

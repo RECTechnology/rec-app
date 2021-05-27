@@ -4,7 +4,7 @@ class Formatting {
   static String formatCurrency(
     double amount, {
     String locale = 'es_ES',
-    String symbol = 'R',
+    String symbol = '',
   }) {
     var f = NumberFormat.currency(
       locale: locale,

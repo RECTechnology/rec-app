@@ -5,18 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:rec/Permissions/RequestPermission.dart';
 import 'package:rec/Permissions/PermissionProvider.dart';
 
+typedef PermissionChildBuilder = Function(BuildContext context);
+
 /// Shows [widget] if permission is granted, otherwise it shows [RequestPermission] screen
 /// for a specific [PermissionProvider]
 ///
 /// You can check the docs at the [Permissions Wiki](https://github.com/QbitArtifacts/rec_app_v2/wiki/Permissions-Documentation)
 class IfPermissionGranted extends StatefulWidget {
-  final Widget child;
+  final PermissionChildBuilder builder;
   final PermissionProvider permission;
+  final bool canBeDeclined;
+
+  final Function onDecline;
 
   const IfPermissionGranted({
     Key key,
     this.permission,
-    this.child,
+    this.builder,
+    this.canBeDeclined = true,
+    this.onDecline,
   }) : super(key: key);
 
   @override
@@ -52,11 +59,12 @@ class _IfPermissionGranted extends State<IfPermissionGranted> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: granted
-          ? widget.child
+          ? widget.builder(context)
           : RequestPermission(
               permission: widget.permission,
               onAccept: _checkPermission,
-              onDecline: () => Navigator.pop(context),
+              onDecline: widget.onDecline ?? () => Navigator.pop(context),
+              canBeDeclined: widget.canBeDeclined,
             ),
     );
   }

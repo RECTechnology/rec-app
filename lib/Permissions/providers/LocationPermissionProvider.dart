@@ -7,9 +7,10 @@ class LocationPermissionProvider extends PermissionProvider {
       : super(
           Permission.location,
           icon: Icons.location_on,
-          title: 'PERMISSIONS_PERMISSION_TITLE',
-          subtitle: 'PERMISSIONS_PERMISSION_SUBTITLE',
-          buttonAcceptText: 'PERMISSIONS_PERMISSION_ACCEPT',
-          buttonDeclineText: 'PERMISSIONS_PERMISSION_DECLINE',
+          title: 'LOCATION_PERMISSION_TITLE',
+          subtitle: 'LOCATION_PERMISSION_SUBTITLE',
+          buttonAcceptText: 'LOCATION_PERMISSION_ACCEPT',
+          buttonDeclineText: 'LOCATION_PERMISSION_DECLINE',
+          permanentlyDeniedMessage: 'LOCATION_PERMISSION_PERMANENTLY_DENIED',
         );
 }
