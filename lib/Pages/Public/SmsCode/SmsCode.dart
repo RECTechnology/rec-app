@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Services/PhoneVerificationService.dart';
-import 'package:rec/Api/Services/SMSService.dart';
+import 'package:rec/Api/Services/public/PhoneVerificationService.dart';
+import 'package:rec/Api/Services/public/PublicSMSService.dart';
 
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Inputs/RecPinInput.dart';
@@ -29,7 +29,7 @@ class SmsCode extends StatefulWidget {
 }
 
 class _SmsCodeState extends State<SmsCode> {
-  final smsService = SMSService();
+  final smsService = PublicSMSService();
   final validateSMS = PhoneVerificationService();
 
   String smsCode = '';
@@ -78,27 +78,6 @@ class _SmsCodeState extends State<SmsCode> {
                   onChanged: setSMS,
                 ),
               ),
-              // Form(
-              //   key: _formKey,
-              //   child: Container(
-              //     child: RecTextField(
-              //       autofocus: true,
-              //       placeholder: '......',
-              //       needObscureText: false,
-              //       keyboardType: TextInputType.number,
-              //       isPassword: false,
-              //       isNumeric: false,
-              //       textSize: 20,
-              //       letterSpicing: 25,
-              //       maxLength: 6,
-              //       textAlign: TextAlign.center,
-              //       colorLine: Brand.primaryColor,
-              //       onChange: setSMS,
-              //       isPhone: false,
-              //       validator: Validators.smsCode,
-              //     ),
-              //   ),
-              // ),
             ]),
             RecActionButton(
               label: localizations.translate('VALIDATE'),

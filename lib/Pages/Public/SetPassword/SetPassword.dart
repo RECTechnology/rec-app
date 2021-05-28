@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Auth.dart';
-import 'package:rec/Api/Services/ChangePasswordService.dart';
+import 'package:rec/Api/Services/public/RecoverPasswordService.dart';
 import 'package:rec/Components/Forms/DniPhone.form.dart';
 import 'package:rec/Components/Inputs/PasswordField.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
@@ -31,7 +31,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
   String confirmNewPassword = '';
 
   final _formKey = GlobalKey<FormState>();
-  final setPassword = ChangePasswordService();
+  final _recoverPasswordService = RecoverPasswordService();
 
   @override
   Widget build(BuildContext context) {
@@ -122,8 +122,8 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
     Loading.show();
     FocusScope.of(context).requestFocus(FocusNode());
     Auth.getAppToken().then((appToken) {
-      setPassword
-          .changePassword(
+      _recoverPasswordService
+          .recoverPassword(
             code: widget.sms,
             password: newPassword,
             repassword: confirmNewPassword,

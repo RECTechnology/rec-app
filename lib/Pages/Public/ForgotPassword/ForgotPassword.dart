@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:rec/Api/Services/SMSService.dart';
+import 'package:rec/Api/Services/public/PublicSMSService.dart';
 import 'package:rec/Components/Forms/DniPhone.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
@@ -24,7 +24,7 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  final smsService = SMSService();
+  final smsService = PublicSMSService();
   final _formKey = GlobalKey<FormState>();
 
   DniPhoneData data = DniPhoneData(prefix: '+34');

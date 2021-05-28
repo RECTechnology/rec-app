@@ -3,14 +3,15 @@ import 'package:rec/Api/ApiPaths.dart';
 import 'package:rec/Api/Interceptors/InjectAppTokenInterceptor.dart';
 import 'package:rec/Api/Services/BaseService.dart';
 
-class ChangePasswordService extends ServiceBase {
-  ChangePasswordService({Client client})
+// TODO: Merge this service with all public app requests?
+class RecoverPasswordService extends ServiceBase {
+  RecoverPasswordService({Client client})
       : super(
           client: client,
           interceptors: [InjectAppTokenInterceptor()],
         );
 
-  Future changePassword({
+  Future recoverPassword({
     String password,
     String repassword,
     String code,
@@ -18,7 +19,7 @@ class ChangePasswordService extends ServiceBase {
     String prefix,
     String phone,
   }) async {
-    var pathWithParams = ApiPaths.changePassword.toUri();
+    var pathWithParams = ApiPaths.recoverPassword.toUri();
     var body = {
       'password': password,
       'repassword': repassword,

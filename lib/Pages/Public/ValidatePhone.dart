@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:rec/Api/Services/PhoneVerificationService.dart';
-import 'package:rec/Api/Services/SMSService.dart';
+import 'package:rec/Api/Services/public/PhoneVerificationService.dart';
+import 'package:rec/Api/Services/public/PublicSMSService.dart';
 import 'package:rec/Components/Forms/DniPhone.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
@@ -27,7 +27,7 @@ class ValidatePhone extends StatefulWidget {
 class _ValidatePhoneState extends State<ValidatePhone> {
   final _formKey = GlobalKey<FormState>();
   final validateSMS = PhoneVerificationService();
-  final smsService = SMSService();
+  final smsService = PublicSMSService();
 
   DniPhoneData data = DniPhoneData(prefix: '+34');
 

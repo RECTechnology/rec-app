@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Services/PhoneVerificationService.dart';
-import 'package:rec/Api/Services/SMSService.dart';
+import 'package:rec/Api/Services/public/PhoneVerificationService.dart';
+import 'package:rec/Api/Services/public/PublicSMSService.dart';
 import 'package:rec/Components/Forms/RegisterStepOne.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
@@ -29,7 +29,7 @@ class RegisterOneState extends State<RegisterOne>
   final _formKey = GlobalKey<FormState>();
   final _registerFormKey = GlobalKey<RegisterStepOneFormState>();
   final validateSMS = PhoneVerificationService();
-  final smsService = SMSService();
+  final smsService = PublicSMSService();
 
   @override
   void initState() {

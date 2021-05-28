@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Api/HandledErrors.dart';
-import 'package:rec/Api/Services/LoginService.dart';
+import 'package:rec/Api/Services/public/LoginService.dart';
 import 'package:rec/Components/Forms/Login.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/RecHeader.dart';

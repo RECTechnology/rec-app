@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:rec/Api/Services/PhoneVerificationService.dart';
-import 'package:rec/Api/Services/RegisterService.dart';
-import 'package:rec/Api/Services/SMSService.dart';
+import 'package:rec/Api/Services/public/PhoneVerificationService.dart';
+import 'package:rec/Api/Services/public/RegisterService.dart';
+import 'package:rec/Api/Services/public/PublicSMSService.dart';
 import 'package:rec/Components/Indicators/LoadingIndicator.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
 import 'package:rec/Entities/User.ent.dart';
@@ -42,7 +42,7 @@ class RegisterRequest extends StatefulWidget {
 class _RegisterRequest extends State<RegisterRequest> {
   RegisterService registerService = RegisterService();
   final validateSMS = PhoneVerificationService();
-  final smsService = SMSService();
+  final smsService = PublicSMSService();
 
   @override
   void initState() {
