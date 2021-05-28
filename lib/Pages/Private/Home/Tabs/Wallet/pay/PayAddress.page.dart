@@ -5,6 +5,7 @@ import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/User/UserBalance.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
+import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/AttemptPayment.page.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/UserState.dart';
@@ -107,8 +108,8 @@ class _PayAddressState extends State<PayAddress> {
   }
 
   bool _isFormValid() {
-    return widget.paymentData.concept != null &&
-        widget.paymentData.concept.isNotEmpty &&
+    var hasConcept = Checks.isNotEmpty(widget.paymentData.concept);
+    return hasConcept &&
         widget.paymentData.amount != null &&
         widget.paymentData.amount > 0;
   }

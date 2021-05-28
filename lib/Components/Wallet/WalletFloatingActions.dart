@@ -5,13 +5,21 @@ import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
 import 'package:rec/routes.dart';
 
-class WalletFloatingActions extends StatelessWidget {
+class WalletFloatingActions extends StatefulWidget {
   final TextStyle labelStyle = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w300,
     color: Brand.grayDark,
   );
+  final ValueNotifier<bool> isDialOpen;
 
+  WalletFloatingActions({Key key, @required this.isDialOpen}) : super(key: key);
+
+  @override
+  WalletFloatingActionsState createState() => WalletFloatingActionsState();
+}
+
+class WalletFloatingActionsState extends State<WalletFloatingActions> {
   @override
   Widget build(BuildContext context) {
     return buildSpeedDial(context);
@@ -90,6 +98,7 @@ class WalletFloatingActions extends StatelessWidget {
       marginEnd: 20,
       marginBottom: 20,
       childMarginBottom: 24,
+      openCloseDial: widget.isDialOpen,
       animationSpeed: 150,
       buttonSize: 60,
       icon: Icons.multiple_stop,
@@ -126,12 +135,11 @@ class WalletFloatingActions extends StatelessWidget {
         padding: const EdgeInsets.only(right: 15.0),
         child: Text(
           localization.translate(label),
-          style: labelStyle.copyWith(fontWeight: FontWeight.w400),
+          style: widget.labelStyle.copyWith(fontWeight: FontWeight.w400),
         ),
       ),
       elevation: 0,
       onTap: () => {if (route != null) Navigator.of(context).pushNamed(route)},
-      onLongPress: () => print('FIRST CHILD LONG PRESS'),
     );
   }
 }

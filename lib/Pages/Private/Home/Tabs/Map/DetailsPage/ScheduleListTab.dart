@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Entities/Schedule/Schedule.ent.dart';
-import 'package:rec/Helpers/ScheduleHelper.dart';
+import 'package:rec/Helpers/DateHelper.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 
@@ -54,6 +54,7 @@ class _ScheduleListTabState extends State<ScheduleListTab> {
           flex: 4,
           child: Container(
             child: ListView(
+              physics: NeverScrollableScrollPhysics(),
               children: daysList.map((weekday) {
                 var scheduleDay = widget.schedule.days.isNotEmpty
                     ? widget.schedule.getScheduleForDay(weekday - 1)
@@ -102,7 +103,7 @@ class _ScheduleListTabState extends State<ScheduleListTab> {
                 return ListTile(
                   title: Text(
                     localizations.translate(
-                      ScheduleHelper.getWeekdayName(weekday),
+                      DateHelper.getWeekdayName(weekday),
                     ),
                     style: weekday % 2 == 0
                         ? Theme.of(context)

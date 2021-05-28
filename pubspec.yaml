@@ -36,6 +36,7 @@ dependencies:
   webview_flutter: ^1.0.7
   draggable_bottom_sheet: ^0.1.2
   pinput: ^1.2.0
+  location: ^4.1.1
 
 dev_dependencies:
   flutter_test:

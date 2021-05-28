@@ -26,8 +26,7 @@ class ReadMoreText extends StatefulWidget {
   final TextStyle delimiterStyle;
   final Function(bool val) callback;
 
-  const ReadMoreText(
-     {
+  const ReadMoreText({
     this.data,
     Key key,
     this.trimExpandedText = 'show less',
@@ -103,7 +102,7 @@ class ReadMoreTextState extends State<ReadMoreText> {
               ? widget.delimiter
               : ''
           : widget.trimExpandedText.isNotEmpty
-              ? widget.delimiter
+              ? ' '
               : '',
       style: _defaultDelimiterStyle,
       recognizer: TapGestureRecognizer()..onTap = _onTapLink,

@@ -37,6 +37,10 @@ class _ValidatePhoneState extends State<ValidatePhone> {
     data.dni = widget.dni;
   }
 
+  bool get isFormValid {
+    return data.complete();
+  }
+
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
@@ -55,7 +59,7 @@ class _ValidatePhoneState extends State<ValidatePhone> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _topTexts(),
-                  _forgotPasswordForm(),
+                  _validatePhoneForm(),
                 ],
               ),
               Padding(
@@ -70,10 +74,7 @@ class _ValidatePhoneState extends State<ValidatePhone> {
                     label: localizations.translate('NEXT'),
                     backgroundColor: Brand.primaryColor,
                     icon: Icons.arrow_forward_ios_sharp,
-                    onPressed: () => _next(
-                      data.phone,
-                      data.dni,
-                    ),
+                    onPressed: isFormValid ? _next : null,
                   ),
                 ),
               ),
@@ -95,7 +96,7 @@ class _ValidatePhoneState extends State<ValidatePhone> {
     );
   }
 
-  Widget _forgotPasswordForm() {
+  Widget _validatePhoneForm() {
     return DniPhoneForm(
       formKey: _formKey,
       data: data,
@@ -105,23 +106,22 @@ class _ValidatePhoneState extends State<ValidatePhone> {
     );
   }
 
-  void _next(String phone, String dni) async {
+  void _next() async {
     if (!_formKey.currentState.validate()) return;
 
     FocusScope.of(context).requestFocus(FocusNode());
 
     await Loading.show();
-    await _sendSmsCode();
-    await _goToEnterSmsCode();
+    await _sendSmsCode()
+        .then((value) => _goToEnterSmsCode())
+        .catchError(_onError);
   }
 
   Future<void> _sendSmsCode() {
-    return smsService
-        .sendValidatePhoneSms(
-          phone: data.phone,
-          prefix: data.prefix,
-        )
-        .catchError(_onError);
+    return smsService.sendValidatePhoneSms(
+      phone: data.phone,
+      prefix: data.prefix,
+    );
   }
 
   Future<void> _goToEnterSmsCode() async {

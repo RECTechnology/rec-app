@@ -1,13 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:rec/Components/Lists/OffersList.dart';
 import 'package:rec/Components/ReadMoreText.dart';
 import 'package:rec/Components/RecFilterButton.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Schedule/Schedule.ent.dart';
 import 'package:rec/Helpers/BrowserHelper.dart';
-import 'package:rec/Helpers/ScheduleHelper.dart';
+import 'package:rec/Helpers/Checks.dart';
+import 'package:rec/Helpers/DateHelper.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/Styles/TextStyles.dart';
@@ -31,6 +31,7 @@ class _ResumeTabState extends State<ResumeTab> {
         icon: Icons.call_made,
         label: localizations.translate('PAY'),
         padding: Paddings.filterButton,
+        margin: EdgeInsets.only(right: 8),
         onPressed: () {},
         disabled: false,
         backgroundColor: Brand.primaryColor,
@@ -41,6 +42,7 @@ class _ResumeTabState extends State<ResumeTab> {
         icon: Icons.assistant_direction,
         label: localizations.translate('HOW_TO_GO'),
         padding: Paddings.filterButton,
+        margin: EdgeInsets.only(right: 8),
         onPressed: _launchMapsUrl,
         disabled: false,
         backgroundColor: Colors.white,
@@ -51,6 +53,7 @@ class _ResumeTabState extends State<ResumeTab> {
         icon: Icons.phone,
         label: localizations.translate('CALL'),
         padding: Paddings.filterButton,
+        margin: EdgeInsets.only(right: 8),
         onPressed: _call,
         disabled: false,
         backgroundColor: Colors.white,
@@ -65,15 +68,20 @@ class _ResumeTabState extends State<ResumeTab> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16),
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: Row(children: filterButtons),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: filterButtons,
                     ),
                   ),
                 ),
@@ -98,33 +106,34 @@ class _ResumeTabState extends State<ResumeTab> {
                   ),
                 ),
                 SizedBox(height: 16),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: ReadMoreText(
-                    data: ('"${widget.account.description}"'),
-                    colorClickableText: Brand.grayDark,
-                    style: TextStyle(
-                      color: Brand.grayDark,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 14,
-                      fontStyle: FontStyle.italic,
+                if (widget.account.description.isNotEmpty)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: ReadMoreText(
+                      data: ('"${widget.account.description.trim()}"'),
+                      colorClickableText: Brand.grayDark,
+                      style: TextStyle(
+                        color: Brand.grayDark,
+                        fontWeight: FontWeight.w300,
+                        fontSize: 14,
+                        fontStyle: FontStyle.italic,
+                      ),
+                      lessStyle: TextStyle(
+                        color: Brand.grayDark,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        fontStyle: FontStyle.normal,
+                      ),
+                      moreStyle: TextStyle(
+                        color: Brand.grayDark,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        fontStyle: FontStyle.normal,
+                      ),
+                      trimCollapsedText: localizations.translate('SHOW_MORE'),
+                      trimExpandedText: localizations.translate('SHOW_LESS'),
                     ),
-                    lessStyle: TextStyle(
-                      color: Brand.grayDark,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                      fontStyle: FontStyle.normal,
-                    ),
-                    moreStyle: TextStyle(
-                      color: Brand.grayDark,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                      fontStyle: FontStyle.normal,
-                    ),
-                    trimCollapsedText: localizations.translate('SHOW_MORE'),
-                    trimExpandedText: localizations.translate('SHOW_LESS'),
                   ),
-                ),
                 if (widget.account.webUrl != null &&
                     widget.account.webUrl.isNotEmpty)
                   SizedBox(height: 16),
@@ -193,20 +202,22 @@ class _ResumeTabState extends State<ResumeTab> {
     if (state == ScheduleState.open) {
       var closeDate = widget.account.schedule.getNextClosingTime();
       var closesToday = closeDate.day == now.day;
-      var day =
-          closesToday ? '' : ScheduleHelper.getWeekdayName(closeDate.weekday);
+      var day = closesToday ? '' : DateHelper.getWeekdayName(closeDate.weekday);
+      var formattedDate = DateHelper.formatDate(context, closeDate);
+      var formattedDay = [
+        localizations.translate(day),
+        localizations.translate('AT')
+      ].where(Checks.isNotEmpty);
 
       return localizations.translate(
         'CLOSES_AT',
         params: {
-          'day': localizations.translate(day) +
-              ' ' +
-              localizations.translate('AT'),
-          'at': DateFormat.Hm(localizations.locale.languageCode)
-              .format(closeDate),
+          'day': formattedDay,
+          'at': formattedDate,
         },
       );
     }
+
     if (state == ScheduleState.openAllDay) {
       return localizations.translate('OPEN_ALL_DAY');
     }
@@ -214,14 +225,18 @@ class _ResumeTabState extends State<ResumeTab> {
     // Closed
     var openDate = widget.account.schedule.getNextOpeningTime();
     var opensToday = openDate.day == now.day;
-    var day = opensToday ? '' : ScheduleHelper.getWeekdayName(openDate.weekday);
+    var day = opensToday ? '' : DateHelper.getWeekdayName(openDate.weekday);
+    var formattedDate = DateHelper.formatDate(context, openDate);
+    var formattedDay = [
+      localizations.translate(day),
+      localizations.translate('AT')
+    ].where(Checks.isNotEmpty);
 
     return localizations.translate(
       'OPENS_AT',
       params: {
-        'day':
-            localizations.translate(day) + ' ' + localizations.translate('AT'),
-        'at': DateFormat.Hm(localizations.locale.languageCode).format(openDate),
+        'day': formattedDay,
+        'at': formattedDate,
       },
     );
   }

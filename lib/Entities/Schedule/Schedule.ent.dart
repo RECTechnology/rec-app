@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:rec/Entities/Schedule/ScheduleDay.ent.dart';
 import 'package:rec/Entities/Schedule/ScheduleType.dart';
-import 'package:rec/Helpers/ScheduleHelper.dart';
+import 'package:rec/Helpers/DateHelper.dart';
 
 enum ScheduleState {
   open,
@@ -86,7 +86,7 @@ class Schedule {
 
         var state = getTodayState(nextDay);
         if (state == ScheduleState.open || state == ScheduleState.openAllDay) {
-          return ScheduleHelper.timeStringToDateTime(
+          return DateHelper.timeStringToDateTime(
             getScheduleForWeekday(nextDay).firstOpen,
             nextDay,
           );
@@ -110,7 +110,7 @@ class Schedule {
 
       var nextDay = today.add(Duration(days: 1));
       if (day.opensThisDate(nextDay)) {
-        return ScheduleHelper.timeStringToDateTime(
+        return DateHelper.timeStringToDateTime(
           getScheduleForWeekday(nextDay).firstClose,
           nextDay,
         );

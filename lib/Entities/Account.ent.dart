@@ -1,9 +1,11 @@
 import 'package:rec/Entities/Campaign.ent.dart';
 import 'package:rec/Entities/Currency.ent.dart';
 import 'package:rec/Entities/Entity.base.dart';
+import 'package:rec/Entities/FormattedAddress.dart';
 import 'package:rec/Entities/Offer.ent.dart';
 import 'package:rec/Entities/Schedule/Schedule.ent.dart';
 import 'package:rec/Entities/Transactions/Wallet.ent.dart';
+import 'package:rec/Helpers/Checks.dart';
 
 import 'Activity.ent.dart';
 import 'Product.ent.dart';
@@ -31,11 +33,12 @@ class Account extends Entity {
   String type;
   String recAddress;
   String description;
-  String street;
   String webUrl;
   String phone;
   String prefix;
   String scheduleString;
+  String addressString;
+  FormattedAddress address;
 
   Schedule schedule;
 
@@ -63,7 +66,8 @@ class Account extends Entity {
     this.schedule,
     this.latitude,
     this.longitude,
-    this.street,
+    this.addressString,
+    this.address,
     this.prefix,
     this.phone,
     this.webUrl,
@@ -97,7 +101,7 @@ class Account extends Entity {
   }
 
   bool hasOffers() {
-    return offers != null && offers.isNotEmpty;
+    return Checks.isNotEmpty(offers);
   }
 
   int getWalletBalance(String currencyName) {
@@ -138,9 +142,8 @@ class Account extends Entity {
           : <Offer>[];
     }
 
-    var addressString = [json['street'], json['address_number'], json['zip']]
-        .where((element) => element != null)
-        .join(', ');
+    var formattedAddress = FormattedAddress.fromJson(json);
+    var addressString = formattedAddress.toString();
 
     return Account(
       id: '${json['id']}',
@@ -165,7 +168,8 @@ class Account extends Entity {
       campaigns: campaigns,
       offers: offers,
       webUrl: json['web'],
-      street: addressString,
+      addressString: addressString,
+      address: formattedAddress,
     );
   }
 }

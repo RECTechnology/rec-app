@@ -2,7 +2,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:rec/Entities/Account.ent.dart';
-import 'package:rec/Helpers/ColorHelper.dart';
+import 'package:rec/Helpers/Checks.dart';
+import 'package:rec/brand.dart';
 
 class CircleAvatarRec extends StatefulWidget {
   final String imageUrl;
@@ -13,15 +14,15 @@ class CircleAvatarRec extends StatefulWidget {
   final Color color;
   final double radius;
 
-  CircleAvatarRec(
-      {String imageUrl,
-      String name,
-      String seed,
-      Icon icon,
-      Color color,
-      Uint8List imageBytes,
-      this.radius})
-      : imageUrl = imageUrl,
+  CircleAvatarRec({
+    String imageUrl,
+    String name,
+    String seed,
+    Icon icon,
+    Color color,
+    Uint8List imageBytes,
+    this.radius,
+  })  : imageUrl = imageUrl,
         name = name,
         icon = icon,
         color = color,
@@ -65,24 +66,24 @@ class _CircleAvatarRecState extends State<CircleAvatarRec> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.imageUrl != null && widget.imageUrl.isNotEmpty) {
+    if (Checks.isNotEmpty(widget.imageUrl)) {
       return CircleAvatar(
         radius: widget.radius,
         backgroundImage: NetworkImage(widget.imageUrl),
       );
     }
 
-    if (widget.imageBytes != null && widget.imageBytes.isNotEmpty) {
+    if (Checks.isNotEmpty(widget.imageBytes)) {
       return CircleAvatar(
         backgroundImage: MemoryImage(widget.imageBytes),
       );
     }
 
-    var randomColor = ColorHelper.getRandomColorForSeed(getSeed());
+    var randomColor = Brand.getRandomColor(getSeed());
 
     Widget child = Text(
       'P',
-      style: TextStyle(color: ColorHelper.getContrastColor(randomColor)),
+      style: TextStyle(color: Brand.getContrastColor(randomColor)),
     );
 
     if (widget.icon != null) {
@@ -90,12 +91,12 @@ class _CircleAvatarRecState extends State<CircleAvatarRec> {
     }
 
     if (widget.name != null) {
-      var safeName = widget.name == null || widget.name.isEmpty
-          ? 'Particular'
-          : widget.name;
+      var hasName = Checks.isNotEmpty(widget.name);
+      var safeName = !hasName ? 'Particular' : widget.name;
+
       child = Text(
         safeName[0].toUpperCase(),
-        style: TextStyle(color: ColorHelper.getContrastColor(randomColor)),
+        style: TextStyle(color: Brand.getContrastColor(randomColor)),
       );
     }
 

@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:rec/Entities/Currency.ent.dart';
 import 'package:rec/Entities/Forms/FormData.dart';
 import 'package:rec/Entities/VendorData.ent.dart';
+import 'package:rec/Helpers/Checks.dart';
 
 class PaymentData extends FormData {
   double amount;
@@ -77,15 +78,9 @@ class PaymentData extends FormData {
     // ignore: omit_local_variable_types
     Map<String, dynamic> map = {};
 
-    if (amount != null) {
-      map['amount'] = '$amount';
-    }
-    if (concept != null && concept.isNotEmpty) {
-      map['concept'] = concept;
-    }
-    if (address != null && address.isNotEmpty) {
-      map['address'] = address;
-    }
+    if (amount != null) map['amount'] = '$amount';
+    if (Checks.isNotEmpty(concept)) map['concept'] = concept;
+    if (Checks.isNotEmpty(address)) map['address'] = address;
 
     return map;
   }

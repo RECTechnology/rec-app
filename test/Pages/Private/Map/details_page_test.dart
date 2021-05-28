@@ -15,7 +15,7 @@ void main() {
     WidgetTester tester,
   ) async {
     var account = Account(
-      street: 'Avenida',
+      addressString: 'Avenida',
       webUrl: 'https://www.google.com/search?',
       phone: '691087803',
       type: 'open',

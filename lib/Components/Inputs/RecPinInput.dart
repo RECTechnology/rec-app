@@ -3,13 +3,24 @@ import 'package:flutter/services.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:rec/brand.dart';
 
+/// Renders a custom Pin Input
 class RecPinInput extends StatefulWidget {
+  /// Displayed fields count. PIN code length.
   final int fieldsCount;
+
+  /// Called when RecInputPin is saved
   final void Function(String) onSaved;
+
+  /// Called when RecInputPin is submitted
   final void Function(String) onSubmit;
+
+  /// Called when the pin changes (ie: each time character is typed)
   final void Function(String) onChanged;
 
+  /// Whether the RecInputPin should be focused by default
   final bool autofocus;
+
+  final Pattern validator;
 
   RecPinInput({
     Key key,
@@ -18,7 +29,9 @@ class RecPinInput extends StatefulWidget {
     this.onSubmit,
     this.onChanged,
     this.autofocus = false,
-  }) : super(key: key);
+    Pattern validator,
+  })  : validator = validator ?? RegExp(r'[0-9]'),
+        super(key: key);
 
   @override
   _RecPinInputState createState() => _RecPinInputState();
@@ -36,32 +49,42 @@ class _RecPinInputState extends State<RecPinInput> {
 
   @override
   Widget build(BuildContext context) {
-    return PinPut(
-      autofocus: widget.autofocus,
-      fieldsCount: widget.fieldsCount,
-      controller: _pinPutController,
-      selectedFieldDecoration: _pinPutDecoration.copyWith(
-        border: Border.all(
-          color: Brand.primaryColor.withOpacity(.5),
-          width: 2,
+    return GestureDetector(
+      onLongPress: () async {
+        var clipboardContent = (await Clipboard.getData('text/plain')).text;
+        var matchesLength = clipboardContent.length == widget.fieldsCount;
+        var onlyDigits = clipboardContent.contains(widget.validator);
+
+        // If the clipboardContent does not fit the current pin format, we ignore it
+        if (!matchesLength || !onlyDigits) return;
+
+        _pinPutController.text = (await Clipboard.getData('text/plain')).text;
+      },
+      child: PinPut(
+        autofocus: widget.autofocus,
+        fieldsCount: widget.fieldsCount,
+        controller: _pinPutController,
+        selectedFieldDecoration: _pinPutDecoration.copyWith(
+          border: Border.all(
+            color: Brand.primaryColor.withOpacity(.5),
+            width: 2,
+          ),
         ),
-      ),
-      followingFieldDecoration: _pinPutDecoration.copyWith(
-        border: Border.all(
-          color: Colors.black.withOpacity(.5),
+        followingFieldDecoration: _pinPutDecoration.copyWith(
+          border: Border.all(
+            color: Colors.black.withOpacity(.5),
+          ),
         ),
+        submittedFieldDecoration: _pinPutDecoration,
+        onSaved: widget.onSaved,
+        onChanged: widget.onChanged,
+        onSubmit: widget.onSubmit,
+        keyboardType: TextInputType.number,
+        useNativeKeyboard: true,
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(widget.validator),
+        ],
       ),
-      submittedFieldDecoration: _pinPutDecoration,
-      disabledDecoration: _pinPutDecoration.copyWith(
-        border: Border.all(
-          color: Colors.purple.withOpacity(.5),
-        ),
-      ),
-      onSaved: widget.onSaved,
-      onChanged: widget.onChanged,
-      onSubmit: widget.onSubmit,
-      keyboardType: TextInputType.number,
-      inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))],
     );
   }
 }

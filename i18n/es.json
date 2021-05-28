@@ -54,7 +54,7 @@
   "SEND_SMS_U": "Te hemos enviado un SMS",
   "HELP_US_VALIDATE_PHONE": "Ayúdanos a validar esta acción introduciendo el codigo enviado a ",
   "ERROR_CODE": "Error, el código introducido no es válido",
-  "PARTICULAR": "PARTICULAR",
+  "PARTICULAR": "Particular",
   "ORGANIZATION": "ORGANIZAZCIÓN",
   "TOTAL_BALANCE": "Saldo total",
   "CREDIT_CARD_TX": "Tarjeta bancaria",
@@ -80,6 +80,7 @@
 
   "phone already registered": "Numero de telefóno ya registrado",
   "dni already registered": "DNI/NIE ya registrado",
+  "User not found": "Usuario no encontrado",
   "UNEXPECTED_SERVER_ERROR": "Error inesperado, prueba de nuevo en 5 minutos, si el error persiste contacte con nosotros.",
   "ERROR_PASS_MIN_6": "Contraseña incorrecta, minimo 6 caracteres",
   "ERROR_DNI": "DNI/NIE incorrecto",
@@ -162,7 +163,7 @@
   "QR_CHARGE_MESSAGE": "Solicita al usuario que escanee el código QR para realizar el pago",
   "FINALIZE": "Finalizar",
   "PASSWORD_CHANGED_CORRECLY": "Contraseña cambiada correctamente!",
-  "PHONE_VALIDATED_OK": "Telefono validado correctamente, ya puedes acceder al REC!",
+  "PHONE_VALIDATED_OK": "¡Telefono validado! Ya puedes iniciar sesión",
   "MUST_UPDATE_APP": "Actualizacion necesaria para continuar",
   "MUST_UPDATE_DESC": "Es necesario actualizar la aplicacion del REC para poder seguir usandola, puedes hacerlo desde el botton \"Actualizar\", o manualmente.",
   "DONT_UPDATE": "Cancelar",
@@ -191,6 +192,7 @@
   "ALRIGHT": "Entendido",
   "PAYMENT_OK": "Pago realizado correctamente!",
   "CREATE_AND": "Crear y",
+  "NOT_SPECIFIED": "Sin dirección",
 
   "PAYMENT_SHARE_MESSAGE": "¡Hola! 👋 Soy {{account}}, tenemos pendiente el pago “{{concept}}” con importe de {{amount}}R. Haz click en el enlace y ábrelo con la app. del REC. 📲 ¡Gracias! {{link}}"
 }

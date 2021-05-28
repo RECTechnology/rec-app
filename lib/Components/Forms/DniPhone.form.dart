@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/DniTextField.dart';
 import 'package:rec/Components/Inputs/PrefixPhoneField.dart';
+import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Helpers/Validators.dart';
 
 class DniPhoneData {
@@ -9,6 +10,14 @@ class DniPhoneData {
   String prefix;
 
   DniPhoneData({this.dni, this.phone, this.prefix});
+
+  bool complete() {
+    var hasDni = Checks.isNotEmpty(dni);
+    var hasPrefix = Checks.isNotEmpty(prefix);
+    var hasPhone = Checks.isNotEmpty(phone);
+
+    return hasDni && hasPrefix && hasPhone;
+  }
 }
 
 class DniPhoneForm extends StatefulWidget {

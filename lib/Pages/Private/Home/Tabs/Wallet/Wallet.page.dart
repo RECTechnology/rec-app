@@ -20,24 +20,38 @@ class WalletPageRec extends StatefulWidget {
 }
 
 class _WalletPageRecState extends State<WalletPageRec> {
+  ValueNotifier<bool> isDialOpen = ValueNotifier(false);
+
   @override
   Widget build(BuildContext context) {
     var userState = UserState.of(context);
-    return Scaffold(
-      appBar: PrivateAppBar(
-        size: 160,
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(kToolbarHeight),
-          child: UserBalance(
-            balance: userState.account
-                ?.getWalletByCurrency(Currency.rec)
-                ?.getScaledBalance(),
+    var floatingActions = WalletFloatingActions(
+      isDialOpen: isDialOpen,
+    );
+
+    return WillPopScope(
+      onWillPop: () async {
+        if (isDialOpen.value) {
+          isDialOpen.value = false;
+        }
+        return false;
+      },
+      child: Scaffold(
+        appBar: PrivateAppBar(
+          size: 160,
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(kToolbarHeight),
+            child: UserBalance(
+              balance: userState.account
+                  ?.getWalletByCurrency(Currency.rec)
+                  ?.getScaledBalance(),
+            ),
           ),
         ),
-      ),
-      floatingActionButton: WalletFloatingActions(),
-      body: TransactionsList(
-        autoReloadEnabled: widget.autoReloadEnabled,
+        floatingActionButton: floatingActions,
+        body: TransactionsList(
+          autoReloadEnabled: widget.autoReloadEnabled,
+        ),
       ),
     );
   }

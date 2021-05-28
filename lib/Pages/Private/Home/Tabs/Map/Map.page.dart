@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 import 'package:rec/Api/Services/MapService.dart';
 import 'package:rec/Api/Services/AccountsService.dart';
 import 'package:rec/Components/Inputs/SearchInput.dart';
@@ -14,11 +15,11 @@ import 'package:rec/Entities/RecFilterData.dart';
 import 'package:rec/Helpers/ImageHelpers.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/Details.page.dart';
-import 'package:rec/Permissions/IfPermissionGranted.dart';
 import 'package:rec/Permissions/PermissionProviders.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/BoxDecorations.dart';
 import 'package:rec/brand.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class MapPage extends StatefulWidget {
   MapPage({Key key}) : super(key: key);
@@ -38,6 +39,8 @@ class _MapPageState extends State<MapPage> {
   Account account;
   List<Widget> bottomSheetList = [];
 
+  double _initialChildSize = 0.2;
+
   // Google maps stuff
   Set<Marker> _markerList = {};
   BitmapDescriptor markerIcon;
@@ -56,58 +59,72 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     addFiltersButtons();
-
-    return IfPermissionGranted(
-      permission: PermissionProviders.location,
-      onDecline: () {},
-      builder: (_) => _content(),
-    );
+    return _content();
   }
 
   Widget _content() {
     var localizations = AppLocalizations.of(context);
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          GoogleMap(
-            onMapCreated: _onMapCreated,
-            markers: _markerList,
-            initialCameraPosition: _initialPosition,
-            onTap: (c) {
-              setState(() => bottomSheetEnabled = false);
-            },
-          ),
-          Positioned(
-            top: 42,
-            right: 16,
-            left: 16,
-            child: SearchInput(
-              hintText: localizations.translate('SEARCH_HERE'),
-              shaded: true,
-              borderRadius: 100,
-              fieldSubmited: (val) {
-                setSearch(val);
-                _search();
+    return WillPopScope(
+      onWillPop: () async {
+        setState(() => bottomSheetEnabled = false);
+        return false;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        floatingActionButton: bottomSheetEnabled
+            ? null
+            : FloatingActionButton(
+                backgroundColor: Colors.white,
+                onPressed: _centerOnCurrentLocation,
+                elevation: 1,
+                child: Icon(Icons.my_location, color: Brand.grayDark),
+              ),
+        body: Stack(
+          children: [
+            GoogleMap(
+              padding: EdgeInsets.only(top: 150, left: 4),
+              onMapCreated: _onMapCreated,
+              markers: _markerList,
+              initialCameraPosition: _initialPosition,
+              myLocationEnabled: true,
+              myLocationButtonEnabled: false,
+              zoomControlsEnabled: false,
+              buildingsEnabled: true,
+              onTap: (c) {
+                setState(() => bottomSheetEnabled = false);
               },
             ),
-          ),
-          Positioned(
-            top: 100,
-            right: 16,
-            left: 16,
-            child: Container(
-              child: RecFilters(
-                filterData: recFilters,
-                onChanged: (Map<String, bool> map) {
-                  setOnlyWithOffers(map['OFFERS']);
+            Positioned(
+              top: 42,
+              right: 16,
+              left: 16,
+              child: SearchInput(
+                hintText: localizations.translate('SEARCH_HERE'),
+                shaded: true,
+                borderRadius: 100,
+                fieldSubmited: (val) {
+                  setSearch(val);
+                  _search();
                 },
               ),
             ),
-          ),
-          bottomSheetEnabled ? _bussinesDraggableSheet() : SizedBox(),
-        ],
+            Positioned(
+              top: 100,
+              right: 16,
+              left: 16,
+              child: Container(
+                child: RecFilters(
+                  filterData: recFilters,
+                  onChanged: (Map<String, bool> map) {
+                    setOnlyWithOffers(map['OFFERS']);
+                  },
+                ),
+              ),
+            ),
+            bottomSheetEnabled ? _bussinesDraggableSheet() : SizedBox(),
+          ],
+        ),
       ),
     );
   }
@@ -142,7 +159,7 @@ class _MapPageState extends State<MapPage> {
     return DraggableScrollableSheet(
       maxChildSize: 0.95,
       minChildSize: 0.18,
-      initialChildSize: 0.18,
+      initialChildSize: _initialChildSize,
       builder: (
         BuildContext context,
         ScrollController scrollController,
@@ -186,6 +203,30 @@ class _MapPageState extends State<MapPage> {
         );
       },
     );
+  }
+
+  void _centerOnCurrentLocation() async {
+    var result = await PermissionProviders.location.request();
+    if (!result.isGranted) return;
+
+    var controller = await _controller.future;
+    var location = Location();
+
+    try {
+      var currentLocation = await location.getLocation();
+      await controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            bearing: 0,
+            target: LatLng(currentLocation.latitude, currentLocation.longitude),
+            zoom: 13.0,
+          ),
+        ),
+      );
+      // ignore: empty_catches
+    } catch (e) {
+      print(e);
+    }
   }
 
   void _onMapCreated(GoogleMapController controller) {
@@ -263,7 +304,9 @@ class _MapPageState extends State<MapPage> {
             },
             infoWindow: InfoWindow(
               title: element.name,
-              onTap: () {},
+              onTap: () {
+                setState(() => _initialChildSize = 0.9);
+              },
             ),
           ),
         );

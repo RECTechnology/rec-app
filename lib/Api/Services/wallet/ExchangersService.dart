@@ -23,8 +23,6 @@ class ExchangersService extends ServiceBase {
   Future<Account> getRandom() async {
     return await list().then((resp) {
       return resp.items[Random().nextInt(resp.items.length)];
-    }).catchError((e) {
-      print(e);
     });
   }
 

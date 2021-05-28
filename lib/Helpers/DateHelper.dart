@@ -1,4 +1,8 @@
-class ScheduleHelper {
+import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
+import 'package:rec/Providers/AppLocalizations.dart';
+
+class DateHelper {
   static String getWeekdayName(int weekday) {
     if (weekday == 1) return 'MONDAY';
     if (weekday == 2) return 'TUESDAY';
@@ -8,6 +12,14 @@ class ScheduleHelper {
     if (weekday == 6) return 'SATURDAY';
     if (weekday == 7) return 'SUNDAY';
     return null;
+  }
+
+  static String formatDate(BuildContext context, DateTime date) {
+    var localizations = AppLocalizations.of(context);
+
+    return DateFormat.Hm(
+      localizations.locale.languageCode,
+    ).format(date);
   }
 
   static DateTime timeStringToDateTime(String time, DateTime now) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Entities/Account.ent.dart';
+import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 
 class BussinessHeader extends StatefulWidget with PreferredSizeWidget {
@@ -22,6 +23,8 @@ class BussinessHeader extends StatefulWidget with PreferredSizeWidget {
 class _BussinessHeaderState extends State<BussinessHeader> {
   @override
   Widget build(BuildContext context) {
+    var localizations = AppLocalizations.of(context);
+
     return PreferredSize(
       preferredSize: widget.preferredSize,
       child: Stack(
@@ -76,7 +79,7 @@ class _BussinessHeaderState extends State<BussinessHeader> {
                         ),
                       ),
                       Text(
-                        widget.account.street ?? 'Text not found',
+                        localizations.translate(widget.account.addressString),
                         style: TextStyle(
                           fontSize: 14,
                           color: Brand.grayDark,

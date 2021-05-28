@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -73,6 +74,28 @@ class Brand {
     return account.type == Account.TYPE_PRIVATE
         ? appBarGradientPrimary
         : appBarGradientSecondary;
+  }
+
+  static Color getRandomPrimaryColorForSeed(int seed) {
+    var color = Colors.primaries[Random(seed).nextInt(Colors.primaries.length)];
+    return color;
+  }
+
+  static Color getRandomColor(int seed) {
+    var rand = Random(seed);
+    var r = rand.nextInt(150) + 50;
+    var g = rand.nextInt(150) + 50;
+    var b = rand.nextInt(150) + 50;
+
+    var color = Color.fromRGBO(r, g, b, 1);
+    return color;
+  }
+
+  static Color getContrastColor(Color randomColor) {
+    var luminance = randomColor.computeLuminance();
+    if (luminance > .5) return Colors.black;
+
+    return Colors.white;
   }
 
   static ThemeData createTheme() {

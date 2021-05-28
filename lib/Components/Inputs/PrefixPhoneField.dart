@@ -54,12 +54,11 @@ class PrefixPhoneFieldState extends State<PrefixPhoneField> {
               flex: 2,
               child: Container(
                 alignment: Alignment.topCenter,
-                height: 75,
                 child: CountryCodePicker(
                   onChanged: setPrefix,
                   initialSelection: 'ES',
                   favorite: ['+34', 'ES'],
-                  textStyle: TextStyle(fontSize: 16),
+                  textStyle: TextStyle(fontSize: 16, color: Brand.grayDark),
                 ),
               ),
             ),

@@ -3,12 +3,11 @@ import 'package:rec/Api/Services/PhoneVerificationService.dart';
 import 'package:rec/Api/Services/SMSService.dart';
 
 import 'package:rec/Components/Inputs/RecActionButton.dart';
-import 'package:rec/Components/Inputs/RecTextField.dart';
+import 'package:rec/Components/Inputs/RecPinInput.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/TitleText.dart';
 
 import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Helpers/Validators.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/brand.dart';
 
@@ -30,11 +29,12 @@ class SmsCode extends StatefulWidget {
 }
 
 class _SmsCodeState extends State<SmsCode> {
-  final _formKey = GlobalKey<FormState>();
   final smsService = SMSService();
   final validateSMS = PhoneVerificationService();
 
-  String sms = '';
+  String smsCode = '';
+
+  bool get isFormValid => smsCode.isNotEmpty && smsCode.length == 6;
 
   @override
   Widget build(BuildContext context) {
@@ -68,32 +68,42 @@ class _SmsCodeState extends State<SmsCode> {
                     .copyWith(color: Brand.primaryColor),
                 textAlign: TextAlign.center,
               ),
-              Form(
-                key: _formKey,
-                child: Container(
-                  child: RecTextField(
-                    autofocus: true,
-                    placeholder: '......',
-                    needObscureText: false,
-                    keyboardType: TextInputType.number,
-                    isPassword: false,
-                    isNumeric: false,
-                    textSize: 20,
-                    letterSpicing: 25,
-                    maxLength: 6,
-                    textAlign: TextAlign.center,
-                    colorLine: Brand.primaryColor,
-                    onChange: setSMS,
-                    isPhone: false,
-                    validator: Validators.smsCode,
-                  ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 32,
+                ),
+                child: RecPinInput(
+                  fieldsCount: 6,
+                  onChanged: setSMS,
                 ),
               ),
+              // Form(
+              //   key: _formKey,
+              //   child: Container(
+              //     child: RecTextField(
+              //       autofocus: true,
+              //       placeholder: '......',
+              //       needObscureText: false,
+              //       keyboardType: TextInputType.number,
+              //       isPassword: false,
+              //       isNumeric: false,
+              //       textSize: 20,
+              //       letterSpicing: 25,
+              //       maxLength: 6,
+              //       textAlign: TextAlign.center,
+              //       colorLine: Brand.primaryColor,
+              //       onChange: setSMS,
+              //       isPhone: false,
+              //       validator: Validators.smsCode,
+              //     ),
+              //   ),
+              // ),
             ]),
             RecActionButton(
               label: localizations.translate('VALIDATE'),
               backgroundColor: Brand.primaryColor,
-              onPressed: tryValidateSMS,
+              onPressed: isFormValid ? _tryValidateSMS : null,
             ),
           ],
         ),
@@ -101,14 +111,14 @@ class _SmsCodeState extends State<SmsCode> {
     );
   }
 
-  void tryValidateSMS() {
-    if (!_formKey.currentState.validate()) return;
+  void _tryValidateSMS() {
+    if (!isFormValid) return;
 
     FocusScope.of(context).requestFocus(FocusNode());
-    if (widget.onCode != null) widget.onCode(sms);
+    if (widget.onCode != null) widget.onCode(smsCode);
   }
 
-  void setSMS(String sms) {
-    this.sms = sms;
+  void setSMS(String smsCode) {
+    setState(() => this.smsCode = smsCode);
   }
 }

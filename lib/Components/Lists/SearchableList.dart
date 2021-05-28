@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Indicators/LoadingIndicator.dart';
 import 'package:rec/Components/Inputs/SearchInput.dart';
+import 'package:rec/Helpers/Checks.dart';
 
 class SearchableList<T> extends StatefulWidget {
   final List<Widget> items;
@@ -38,7 +39,7 @@ class _SearchableList extends State<SearchableList> {
         ),
         Expanded(
           flex: 4,
-          child: widget.items != null && widget.items.isNotEmpty
+          child: Checks.isNotEmpty(widget.items)
               ? ListView(children: widget.items)
               : widget.isLoading
                   ? LoadingIndicator()

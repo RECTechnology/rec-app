@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Inputs/RecPinInput.dart';
+import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/Styles/TextStyles.dart';
@@ -31,7 +32,7 @@ class _EnterPinState extends State<EnterPin> {
     return _body();
   }
 
-  bool get formValid => pin != null && pin.isNotEmpty && pin.length == 4;
+  bool get formValid => Checks.isNotEmpty(pin) && pin.length == 4;
 
   Widget _body() {
     var localizations = AppLocalizations.of(context);

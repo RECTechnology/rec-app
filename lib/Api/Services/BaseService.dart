@@ -6,6 +6,7 @@ import 'package:http_interceptor/http_client_with_interceptor.dart';
 import 'package:http_interceptor/interceptor_contract.dart';
 import 'package:rec/Api/ApiError.dart';
 import 'package:rec/Api/Interceptors/ApiInterceptor.dart';
+import 'package:rec/Helpers/Checks.dart';
 
 /// [API Documentation](https://github.com/QbitArtifacts/rec_app_v2/wiki/Api-Documentation) available.
 abstract class ServiceBase {
@@ -72,9 +73,7 @@ abstract class ServiceBase {
       return Future.error(ApiError.fromResponse(response));
     }
     return Future.value(
-      response.body != null && response.body.isNotEmpty
-          ? json.decode(response.body)
-          : {},
+      Checks.isNotEmpty(response.body) ? json.decode(response.body) : {},
     );
   }
 }

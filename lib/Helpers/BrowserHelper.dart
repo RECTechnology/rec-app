@@ -4,8 +4,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 class BrowserHelper {
   static Future openBrowser(url) async {
-    print('Opening Link: $url');
-
     if (await canLaunch(url)) {
       return await launch(url);
     }
