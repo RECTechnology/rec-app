@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:rec/Api/Services/LoginService.dart';
+import 'package:rec/Api/Services/public/LoginService.dart';
 
 class ApiProvider with ChangeNotifier {
   LoginService loginService;

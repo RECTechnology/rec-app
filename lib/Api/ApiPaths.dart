@@ -10,9 +10,12 @@ class ApiPaths {
 
   // Public
   static ApiPath sendPublicSmsCode = ApiPath('/app/v4/sms-code');
-  static ApiPath changePassword = ApiPath('/app/v4/recover-password');
+  static ApiPath recoverPassword = ApiPath('/app/v4/recover-password');
   static ApiPath verifyPhone = ApiPath('/app/v4/validate-phone');
   static ApiPath register = ApiPath('/app/v4/register');
+
+  // Security
+  // static ApiPath changePassword = ApiPath('/user/v4/users/security/change-password');
 
   // User
   static ApiPath currentUserAccount = ApiPath('/user/v1/account');

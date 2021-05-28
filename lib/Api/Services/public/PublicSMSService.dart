@@ -3,11 +3,11 @@ import 'package:rec/Api/ApiPaths.dart';
 import 'package:rec/Api/Interceptors/InjectAppTokenInterceptor.dart';
 import 'package:rec/Api/Services/BaseService.dart';
 
-class SMSService extends ServiceBase {
+class PublicSMSService extends ServiceBase {
   static String TYPE_FORGOT_PASSWORD = 'forget-password';
   static String TYPE_VALIDATE_PHONE = 'validate-phone';
 
-  SMSService({Client client})
+  PublicSMSService({Client client})
       : super(
           client: client,
           interceptors: [InjectAppTokenInterceptor()],

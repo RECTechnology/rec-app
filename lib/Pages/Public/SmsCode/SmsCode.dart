@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Services/PhoneVerificationService.dart';
-import 'package:rec/Api/Services/SMSService.dart';
+import 'package:rec/Api/Services/public/PhoneVerificationService.dart';
+import 'package:rec/Api/Services/public/PublicSMSService.dart';
 
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Inputs/RecPinInput.dart';
@@ -29,7 +29,7 @@ class SmsCode extends StatefulWidget {
 }
 
 class _SmsCodeState extends State<SmsCode> {
-  final smsService = SMSService();
+  final smsService = PublicSMSService();
   final validateSMS = PhoneVerificationService();
 
   String smsCode = '';
