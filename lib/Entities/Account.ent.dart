@@ -42,8 +42,8 @@ class Account extends Entity {
 
   Schedule schedule;
 
-  num latitude;
-  num longitude;
+  double latitude;
+  double longitude;
 
   bool active;
 
@@ -162,8 +162,8 @@ class Account extends Entity {
       scheduleString: json['schedule'],
       prefix: json['prefix'],
       phone: json['phone'],
-      latitude: json['latitude'],
-      longitude: json['longitude'],
+      latitude: double.parse((json['latitude'] ?? 0).toString()),
+      longitude: double.parse((json['latitude'] ?? 0).toString()),
       wallets: wallets,
       campaigns: campaigns,
       offers: offers,

@@ -10,6 +10,8 @@ class User extends Entity {
   Account selectedAccount;
   String username;
   String image;
+  String phone;
+  String prefix;
 
   bool hasPin = false;
 
@@ -21,6 +23,8 @@ class User extends Entity {
     this.accounts,
     this.selectedAccount,
     this.hasPin = false,
+    this.phone = '',
+    this.prefix = '',
   }) : super(id, createdAt, updatedAt);
 
   bool isCampaignActive(Campaign campaign) {
@@ -56,6 +60,8 @@ class User extends Entity {
       createdAt: json['created'],
       updatedAt: json['updated'],
       username: json['username'],
+      phone: json['phone'].toString(),
+      prefix: json['prefix'].toString(),
       hasPin: json['has_pin'],
       selectedAccount: Account.fromJson(json['active_group']),
       accounts: List.from(json['activeAccounts'])

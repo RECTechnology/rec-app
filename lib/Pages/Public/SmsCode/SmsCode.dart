@@ -78,27 +78,6 @@ class _SmsCodeState extends State<SmsCode> {
                   onChanged: setSMS,
                 ),
               ),
-              // Form(
-              //   key: _formKey,
-              //   child: Container(
-              //     child: RecTextField(
-              //       autofocus: true,
-              //       placeholder: '......',
-              //       needObscureText: false,
-              //       keyboardType: TextInputType.number,
-              //       isPassword: false,
-              //       isNumeric: false,
-              //       textSize: 20,
-              //       letterSpicing: 25,
-              //       maxLength: 6,
-              //       textAlign: TextAlign.center,
-              //       colorLine: Brand.primaryColor,
-              //       onChange: setSMS,
-              //       isPhone: false,
-              //       validator: Validators.smsCode,
-              //     ),
-              //   ),
-              // ),
             ]),
             RecActionButton(
               label: localizations.translate('VALIDATE'),

@@ -15,7 +15,13 @@ class ApiPaths {
   static ApiPath register = ApiPath('/app/v4/register');
 
   // Security
-  // static ApiPath changePassword = ApiPath('/user/v4/users/security/change-password');
+  static ApiPath changePassword = ApiPath(
+    '/user/v4/users/security/change-password',
+  );
+  static ApiPath changePin = ApiPath(
+    '/user/v4/users/security/change-pin',
+  );
+  static ApiPath sendUserSmsCode = ApiPath('/user/v4/users/security/sms-code');
 
   // User
   static ApiPath currentUserAccount = ApiPath('/user/v1/account');
@@ -24,11 +30,11 @@ class ApiPaths {
   static ApiPath listCards = ApiPath('/company/v1/credit_card');
   static ApiPath getContacts = ApiPath('/user/v1/public_phone_list');
 
+  // Accounts
+  static ApiPath accounts = ApiPath('/user/v3/accounts');
+  static ApiPath accountsSearch = ApiPath('/user/v4/accounts/search');
+
   // Recharge
   static ApiPath rechargeRecs = ApiPath('/methods/v1/in/lemonway');
   static ApiPath getExchangers = ApiPath('/user/v1/wallet/exchangers');
-
-  // Map
-  static ApiPath mapService = ApiPath('/user/v4/accounts/search');
-  static ApiPath bussinesDataService = ApiPath('/user/v3/accounts');
 }

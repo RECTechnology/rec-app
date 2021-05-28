@@ -4,13 +4,11 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:rec/Api/Services/MapService.dart';
 import 'package:rec/Api/Services/AccountsService.dart';
 import 'package:rec/Components/Inputs/SearchInput.dart';
 import 'package:rec/Components/RecFilters.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Map/MapSearchData.dart';
-import 'package:rec/Entities/Marck.ent.dart';
 import 'package:rec/Entities/RecFilterData.dart';
 import 'package:rec/Helpers/ImageHelpers.dart';
 import 'package:rec/Helpers/RecToast.dart';
@@ -29,7 +27,6 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  MapsService mapService = MapsService();
   AccountsService accountService = AccountsService();
   MapSearchData searchData = MapSearchData();
   List<RecFilterData<bool>> recFilters = [];
@@ -38,8 +35,6 @@ class _MapPageState extends State<MapPage> {
   bool bottomSheetEnabled = false;
   Account account;
   List<Widget> bottomSheetList = [];
-
-  double _initialChildSize = 0.2;
 
   // Google maps stuff
   Set<Marker> _markerList = {};
@@ -159,7 +154,7 @@ class _MapPageState extends State<MapPage> {
     return DraggableScrollableSheet(
       maxChildSize: 0.95,
       minChildSize: 0.18,
-      initialChildSize: _initialChildSize,
+      initialChildSize: 0.2,
       builder: (
         BuildContext context,
         ScrollController scrollController,
@@ -235,7 +230,7 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _search() {
-    mapService.getMarks(searchData).then((value) {
+    accountService.search(searchData).then((value) {
       setMarks(value.items);
     }).onError(
       (error, stackTrace) {
@@ -289,25 +284,22 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
-  void setMarks(List<Marck> marks) {
+  void setMarks(List<Account> accounts) {
     setState(() {
       _markerList = {};
-      for (var element in marks) {
+      for (var element in accounts) {
         _markerList.add(
           Marker(
             markerId: MarkerId(element.id.toString()),
-            position: LatLng(element.lat, element.long),
+            position: LatLng(
+              element.latitude,
+              element.longitude,
+            ),
             icon: markerIcon,
             onTap: () {
               selectedAccountId = element.id.toString();
               openModalBottomSheet();
             },
-            infoWindow: InfoWindow(
-              title: element.name,
-              onTap: () {
-                setState(() => _initialChildSize = 0.9);
-              },
-            ),
           ),
         );
       }
