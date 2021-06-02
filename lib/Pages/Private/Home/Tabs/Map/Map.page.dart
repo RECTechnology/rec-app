@@ -6,7 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:rec/Api/Services/AccountsService.dart';
 import 'package:rec/Components/Inputs/SearchInput.dart';
-import 'package:rec/Components/RecFilters.dart';
+import 'package:rec/Components/Inputs/RecFilters.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Map/MapSearchData.dart';
 import 'package:rec/Entities/RecFilterData.dart';
@@ -18,7 +18,9 @@ import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/BoxDecorations.dart';
 import 'package:rec/brand.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:rec/preferences.dart';
 
+// TODO: Clean this page up, it's messy and way to big
 class MapPage extends StatefulWidget {
   MapPage({Key key}) : super(key: key);
 
@@ -27,61 +29,51 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  AccountsService accountService = AccountsService();
-  MapSearchData searchData = MapSearchData();
-  List<RecFilterData<bool>> recFilters = [];
-  String selectedAccountId;
+  final AccountsService _accountService = AccountsService();
+  final MapSearchData _searchData = MapSearchData();
+  final Completer<GoogleMapController> _controller = Completer();
 
   bool bottomSheetEnabled = false;
-  Account account;
+
+  /// This will hold information for selected bussines
+  /// ie: after a bussines is clicked in the map
+  Account _selectedBusiness;
+
+  List<RecFilterData<bool>> recFilters = [];
   List<Widget> bottomSheetList = [];
 
   // Google maps stuff
-  Set<Marker> _markerList = {};
+  Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   BitmapDescriptor markerIcon;
-  final CameraPosition _initialPosition = CameraPosition(
-    target: LatLng(41.4414534, 2.2086006),
-    zoom: 12,
-  );
-  final Completer<GoogleMapController> _controller = Completer();
 
   @override
   void initState() {
     super.initState();
-    setCustomMapPin();
+    _setCustomMapPin();
   }
 
   @override
   Widget build(BuildContext context) {
-    addFiltersButtons();
+    _addFiltersButtons();
     return _content();
   }
 
   Widget _content() {
     var localizations = AppLocalizations.of(context);
+    var markerValues = Set<Marker>.of(markers.values);
 
     return WillPopScope(
-      onWillPop: () async {
-        setState(() => bottomSheetEnabled = false);
-        return false;
-      },
+      onWillPop: _onWillPop,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        floatingActionButton: bottomSheetEnabled
-            ? null
-            : FloatingActionButton(
-                backgroundColor: Colors.white,
-                onPressed: _centerOnCurrentLocation,
-                elevation: 1,
-                child: Icon(Icons.my_location, color: Brand.grayDark),
-              ),
+        floatingActionButton: _myLocationButton(),
         body: Stack(
           children: [
             GoogleMap(
               padding: EdgeInsets.only(top: 150, left: 4),
               onMapCreated: _onMapCreated,
-              markers: _markerList,
-              initialCameraPosition: _initialPosition,
+              markers: markerValues.where((element) => element != null).toSet(),
+              initialCameraPosition: Preferences.initialCameraPosition,
               myLocationEnabled: true,
               myLocationButtonEnabled: false,
               zoomControlsEnabled: false,
@@ -99,7 +91,7 @@ class _MapPageState extends State<MapPage> {
                 shaded: true,
                 borderRadius: 100,
                 fieldSubmited: (val) {
-                  setSearch(val);
+                  _setSearch(val);
                   _search();
                 },
               ),
@@ -112,7 +104,7 @@ class _MapPageState extends State<MapPage> {
                 child: RecFilters(
                   filterData: recFilters,
                   onChanged: (Map<String, bool> map) {
-                    setOnlyWithOffers(map['OFFERS']);
+                    _setOnlyWithOffers(map['OFFERS']);
                   },
                 ),
               ),
@@ -174,7 +166,7 @@ class _MapPageState extends State<MapPage> {
                   color: Colors.white,
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height - 108,
-                  child: DetailsPage(account),
+                  child: DetailsPage(_selectedBusiness),
                 );
               },
             ),
@@ -198,6 +190,22 @@ class _MapPageState extends State<MapPage> {
         );
       },
     );
+  }
+
+  Widget _myLocationButton() {
+    return bottomSheetEnabled
+        ? null
+        : FloatingActionButton(
+            backgroundColor: Colors.white,
+            onPressed: _centerOnCurrentLocation,
+            elevation: 1,
+            child: Icon(Icons.my_location, color: Brand.grayDark),
+          );
+  }
+
+  Future<bool> _onWillPop() async {
+    setState(() => bottomSheetEnabled = false);
+    return false;
   }
 
   void _centerOnCurrentLocation() async {
@@ -230,16 +238,13 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _search() {
-    accountService.search(searchData).then((value) {
-      setMarks(value.items);
-    }).onError(
-      (error, stackTrace) {
-        print(error);
-      },
-    );
+    _accountService
+        .search(_searchData)
+        .then((value) => _setMarks(value.items))
+        .onError((error, stackTrace) => print(error));
   }
 
-  void addFiltersButtons() {
+  void _addFiltersButtons() {
     var localizations = AppLocalizations.of(context);
     recFilters = [
       RecFilterData<bool>(
@@ -259,23 +264,19 @@ class _MapPageState extends State<MapPage> {
     ];
   }
 
-  Future<void> getBussineData() async {
-    await accountService
-        .getOne(selectedAccountId)
-        .then((value) => account = value)
+  Future<void> _getBussineData(String id) async {
+    await _accountService
+        .getOne(id)
+        .then((value) => _selectedBusiness = value)
         // ignore: return_of_invalid_type_from_catch_error
         .catchError((err) => RecToast.showError(context, err.message));
   }
 
-  Future<void> openModalBottomSheet() async {
-    await getBussineData().then(
-      (value) {
-        setState(() => bottomSheetEnabled = true);
-      },
-    );
+  void _openModalBottomSheet(value) {
+    setState(() => bottomSheetEnabled = true);
   }
 
-  void setCustomMapPin() async {
+  void _setCustomMapPin() async {
     markerIcon = BitmapDescriptor.fromBytes(
       await ImageHelpers.getBytesFromAsset(
         'assets/marcador.png',
@@ -284,35 +285,38 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
-  void setMarks(List<Account> accounts) {
+  void _setMarks(List<Account> accounts) {
     setState(() {
-      _markerList = {};
-      for (var element in accounts) {
-        _markerList.add(
-          Marker(
-            markerId: MarkerId(element.id.toString()),
-            position: LatLng(
-              element.latitude,
-              element.longitude,
-            ),
-            icon: markerIcon,
-            onTap: () {
-              selectedAccountId = element.id.toString();
-              openModalBottomSheet();
-            },
+      markers = {};
+
+      for (var account in accounts) {
+        var accountId = account.id;
+        var markerId = MarkerId(accountId);
+
+        markers[markerId] = Marker(
+          markerId: MarkerId(account.id.toString()),
+          position: LatLng(
+            account.latitude,
+            account.longitude,
           ),
+          icon: markerIcon,
+          onTap: () => _bussinessTapped(accountId),
         );
       }
     });
   }
 
-  void setSearch(String search) {
-    searchData.search = search;
+  void _bussinessTapped(String id) {
+    _getBussineData(id).then(_openModalBottomSheet);
   }
 
-  void setOnlyWithOffers(bool onlyWithOffers) {
+  void _setSearch(String search) {
+    _searchData.search = search;
+  }
+
+  void _setOnlyWithOffers(bool onlyWithOffers) {
     setState(() {
-      searchData.onlyWithOffers = onlyWithOffers;
+      _searchData.onlyWithOffers = onlyWithOffers;
       _search();
     });
   }

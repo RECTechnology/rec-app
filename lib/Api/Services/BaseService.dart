@@ -55,8 +55,8 @@ abstract class ServiceBase {
         .then(onResponse);
   }
 
-  Future delete(String id) {
-    throw UnimplementedError();
+  Future delete(Uri url) {
+    return client.delete(url).then(onResponse);
   }
 
   Future<Map<String, dynamic>> get(Uri url) async {

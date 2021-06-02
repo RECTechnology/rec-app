@@ -4,6 +4,8 @@ import 'package:rec/Api/Interceptors/InjectTokenInterceptor.dart';
 import 'package:rec/Api/Interfaces/ApiListResponse.dart';
 import 'package:rec/Api/Services/BaseService.dart';
 import 'package:rec/Entities/Account.ent.dart';
+import 'package:rec/Entities/AccountPermission.ent.dart';
+import 'package:rec/Entities/Forms/CreatePermissionData.dart';
 import 'package:rec/Entities/Map/MapSearchData.dart';
 
 /// used to perform actions on accounts
@@ -16,7 +18,7 @@ class AccountsService extends ServiceBase {
 
   /// Used to get an account by it's [id]
   Future<Account> getOne(String id) async {
-    var path = ApiPaths.accounts.withId(id).toUri();
+    var path = ApiPaths.accounts.append(id).toUri();
 
     return this.get(path).then(_mapToObject);
   }
@@ -36,10 +38,47 @@ class AccountsService extends ServiceBase {
     return this.get(pathWithParams).then(_mapToApiListReponse);
   }
 
+  Future addUserToAccount(String accountId, CreatePermissionData data) {
+    var path = ApiPaths.accountsAddUser.append(accountId).toUri();
+
+    return this.post(path, {
+      'user_dni': data.dni,
+      'role': data.role,
+    });
+  }
+
+  Future updateUserInAccount(String accountId, int permissionId, String role) {
+    var path = ApiPaths.accountsAddUser.append(accountId).toUri();
+    return this.put(path, {'role': role});
+  }
+
+  Future deleteUserFromAccount(String accountId, int permissionId) {
+    var path = ApiPaths.accountsAddUser
+        .appendMultiple([accountId, permissionId.toString()]).toUri();
+
+    return this.delete(path);
+  }
+
+  Future<ApiListResponse<AccountPermission>> listAccountPermissions(
+    String accountId,
+  ) {
+    var path = ApiPaths.accountsPermissions.append(accountId).toUri();
+
+    return this.get(path).then(_mapPermissions);
+  }
+
   ApiListResponse<Account> _mapToApiListReponse(Map<String, dynamic> data) {
     return ApiListResponse<Account>.fromJson(
       data['data'],
       mapper: (el) => Account.fromJson(el),
+    );
+  }
+
+  ApiListResponse<AccountPermission> _mapPermissions(
+      Map<String, dynamic> data) {
+    return ApiListResponse<AccountPermission>.fromJson(
+      data['data'],
+      mapper: (el) => AccountPermission.fromJson(el),
     );
   }
 

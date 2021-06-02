@@ -26,9 +26,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  UserState _userState;
   int _currentTabIndex;
-  TabController _tabController;
+  UserState _userState;
   Timer _userPollTimer;
 
   final UsersService _users = UsersService();
@@ -41,8 +40,6 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     _currentTabIndex = widget.defaultTab;
-    _tabController = TabController(length: 3, vsync: this);
-
     super.initState();
   }
 
@@ -63,7 +60,6 @@ class _HomePageState extends State<HomePage>
 
   @override
   void dispose() {
-    _tabController.dispose();
     _userPollTimer?.cancel();
     super.dispose();
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,15 @@ import 'package:rec/routes.dart';
 class RecApp extends StatefulWidget {
   @override
   _RecAppState createState() => _RecAppState();
+
+  static void setLocale(BuildContext context, Locale locale) {
+    var state = context.findAncestorStateOfType<_RecAppState>();
+
+    // ignore: invalid_use_of_protected_member
+    state.setState(() {
+      state.locale = locale;
+    });
+  }
 }
 
 class _RecAppState extends State<RecApp> {
@@ -23,6 +33,7 @@ class _RecAppState extends State<RecApp> {
 
   User savedUser;
   PackageInfo packageInfo;
+  Locale locale;
 
   Future _setUp() async {
     savedUser = await UserState.getSavedUser(storage);
@@ -40,8 +51,8 @@ class _RecAppState extends State<RecApp> {
   Widget _buildAppWithProviders(snapshot) {
     var app = MaterialApp(
       title: Brand.appName,
+      locale: locale,
       theme: Brand.createTheme(),
-      locale: Locale('es_ES'),
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       localeResolutionCallback: AppLocalizations.localeResolutionCallback,

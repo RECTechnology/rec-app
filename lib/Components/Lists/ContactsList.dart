@@ -1,6 +1,6 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:rec/Components/AccountListTile.dart';
+import 'package:rec/Components/ListTiles/AccountListTile.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Components/Info/InfoSplash.dart';
 import 'package:rec/Components/Lists/SearchableList.dart';

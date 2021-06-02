@@ -9,25 +9,30 @@ import 'package:rec/Entities/User.ent.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/routes.dart';
 
+/// This widget tries to fetch user data from the API
+/// It renders the child if it was successful fetching the data.
+/// Otherwise it will redirect the user back to login page.
+///
+/// TODO: Might need to rethink this approach, as it's a bit consfusing and hidden
 class PrivateRoute extends StatefulWidget {
-  final Widget route;
-  PrivateRoute(this.route) : super();
+  final Widget child;
+  PrivateRoute(this.child) : super();
 
   @override
   _PrivateRouteState createState() {
-    return _PrivateRouteState(route);
+    return _PrivateRouteState(child);
   }
 }
 
 class _PrivateRouteState extends State<PrivateRoute> {
-  final Widget route;
+  final Widget child;
   bool loading = true;
 
   UserState userState;
   UsersService users = UsersService();
   StreamSubscription<User> userStream;
 
-  _PrivateRouteState(this.route);
+  _PrivateRouteState(this.child);
 
   @override
   void initState() {
@@ -55,7 +60,7 @@ class _PrivateRouteState extends State<PrivateRoute> {
 
   @override
   Widget build(BuildContext context) {
-    return loading ? LoadingIndicator() : route;
+    return loading ? LoadingIndicator() : child;
   }
 
   void loadUser() {

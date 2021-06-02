@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rec/Api/Storage.dart';
-import 'package:rec/Pages/Private/Shared/CreatePin.page.dart';
+import 'package:rec/Pages/Private/Shared/CreatePin.dart';
 import 'package:rec/Pages/Private/Shared/RequestPin.page.dart';
 import 'package:rec/Providers/UserState.dart';
 import '../../../mocks/users_mock.dart';
@@ -24,6 +24,6 @@ void main() {
     await tester.pumpWidget(app);
     await tester.pumpAndSettle();
 
-    TestUtils.widgetExistsByType(CreatePin);
+    TestUtils.widgetExistsByType(CreatePinWidget);
   });
 }

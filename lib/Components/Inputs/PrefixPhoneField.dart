@@ -8,9 +8,9 @@ class PrefixPhoneField extends StatefulWidget {
   final String prefix;
   final String phone;
 
-  final Function(String phone) phoneChange;
-  final Function(String prefix) prefixChange;
-  final Function(String value) phoneValidator;
+  final ValueChanged<String> phoneChange;
+  final ValueChanged<String> prefixChange;
+  final FormFieldValidator<String> phoneValidator;
 
   final Color color;
 

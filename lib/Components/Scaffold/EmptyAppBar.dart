@@ -7,6 +7,7 @@ Widget EmptyAppBar(
   bool backArrow = true,
   String title,
   Text titleText,
+  List<Widget> actions,
 }) {
   var localizations = AppLocalizations.of(context);
   var titleWidget = titleText ??
@@ -33,5 +34,6 @@ Widget EmptyAppBar(
     elevation: 0,
     title: titleWidget,
     leading: leadingIcon,
+    actions: actions,
   );
 }

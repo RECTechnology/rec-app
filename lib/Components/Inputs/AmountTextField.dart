@@ -4,11 +4,22 @@ import 'package:rec/Components/Inputs/RecTextField.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 
+/// [AmountTextField] renders a TextField, with some options for handling amounts.
+/// Used when we need the user to enter an amount
 class AmountTextField extends StatefulWidget {
+  /// The initial value the field will initilize itself with
   final String initialValue;
-  final Function(String newValue) onChange;
-  final Function(String newValue) onSubmitted;
-  final Function(String value) validator;
+
+  /// Called when [AmountTextField] changes value (ie: each time character is typed)
+  final ValueChanged<String> onChange;
+
+  /// Called when [RecTextField] is submitted
+  final ValueChanged<String> onSubmitted;
+
+  /// An optional method that validates an input. Returns an error string to
+  /// display if the input is invalid, or null otherwise.
+  final FormFieldValidator<String> validator;
+
   final Color color;
   final bool readOnly;
   final bool autofocus;
@@ -38,7 +49,6 @@ class AmountTextFieldState extends State<AmountTextField> {
     return RecTextField(
       label: localizations.translate('AMOUNT'),
       initialValue: widget.initialValue ?? '',
-      isNumeric: false,
       keyboardType: TextInputType.number,
       needObscureText: false,
       placeholder: localizations.translate('WRITE_AMOUNT'),
@@ -49,7 +59,6 @@ class AmountTextFieldState extends State<AmountTextField> {
       readOnly: widget.readOnly,
       autofocus: widget.autofocus,
       inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))],
-      isPhone: false,
       icon: Icon(
         Icons.euro,
         color: Brand.grayIcon,

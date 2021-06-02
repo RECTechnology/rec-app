@@ -4,7 +4,8 @@ import 'package:rec/brand.dart';
 class SelectableChip extends StatefulWidget {
   final bool isSelected;
   final String label;
-  final Function(bool selected) onSelected;
+
+  final ValueChanged<bool> onSelected;
 
   SelectableChip({
     Key key,

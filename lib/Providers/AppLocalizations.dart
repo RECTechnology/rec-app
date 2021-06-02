@@ -6,11 +6,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:rec/Helpers/Strings.dart';
 
+/// [AppLocalizations] handles localizations/translations within the app
 class AppLocalizations {
   final Locale locale;
   AppLocalizations(this.locale);
 
-  static List<String> supportedLocaleNames = ['en', 'es', 'ca'];
+  static List<String> supportedLocaleNames = ['es', 'en', 'ca'];
 
   static Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates = [
     AppLocalizations.delegate,
@@ -29,6 +30,10 @@ class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
+  void setIdiom(Locale locale) {
+    localeResolutionCallback(locale, supportedLocales);
+  }
+
   static Locale localeResolutionCallback(locale, supportedLocales) {
     for (var supportedLocale in supportedLocales) {
       if (supportedLocale.languageCode == locale?.languageCode ||
@@ -37,6 +42,13 @@ class AppLocalizations {
       }
     }
     return supportedLocales.first;
+  }
+
+  // ignore: missing_return
+  String getNameByLocaleId(String id) {
+    if (id == 'es') return 'Español';
+    if (id == 'en') return 'Ingles';
+    if (id == 'ca') return 'Catalan';
   }
 
   static const LocalizationsDelegate<AppLocalizations> delegate =

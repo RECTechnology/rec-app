@@ -29,7 +29,7 @@ class PublicSMSService extends ServiceBase {
       'Type must be one of ${SMS_TYPES.join(', ')}',
     );
 
-    var pathWithParams = ApiPaths.sendPublicSmsCode.withId(type).toUri();
+    var pathWithParams = ApiPaths.sendPublicSmsCode.append(type).toUri();
     return this.post(pathWithParams, data);
   }
 

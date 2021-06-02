@@ -22,6 +22,7 @@ Future<void> main() async {
 
 Future<void> setup() async {
   WidgetsFlutterBinding.ensureInitialized();
-  timeago.setLocaleMessages('es', timeago.EsMessages());
   Brand.configLoading();
+
+  timeago.setLocaleMessages('es', timeago.EsMessages());
 }

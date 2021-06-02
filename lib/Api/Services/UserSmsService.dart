@@ -30,7 +30,7 @@ class UserSmsService extends ServiceBase {
       'Type must be one of ${SMS_TYPES.join(', ')}',
     );
 
-    var pathWithParams = ApiPaths.sendUserSmsCode.withId(type).toUri();
+    var pathWithParams = ApiPaths.sendUserSmsCode.append(type).toUri();
     return this.post(pathWithParams, data);
   }
 

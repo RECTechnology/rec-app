@@ -3,14 +3,15 @@ import 'package:provider/provider.dart';
 import 'package:rec/Api/Services/wallet/TransactionsService.dart';
 import 'package:rec/Entities/Transactions/Transaction.ent.dart';
 
+/// [TransactionProvider] contains list of transactions for current user
+/// aswell as methods to fetch and filter
 class TransactionProvider with ChangeNotifier {
+  final TransactionsService txService;
+
   List<Transaction> _transactions = [];
   int _total = 0;
   bool hasRequested = false;
   bool loading = false;
-
-  final TransactionsService txService;
-
   int _limit = 10;
   int _offset = 0;
 
@@ -63,6 +64,15 @@ class TransactionProvider with ChangeNotifier {
   void setTransactions(List<Transaction> transactions) {
     _transactions = transactions;
     notifyListeners();
+  }
+
+  void clear() {
+    _transactions = [];
+    _total = 0;
+    hasRequested = false;
+    loading = false;
+    _limit = 10;
+    _offset = 0;
   }
 
   int get total {

@@ -4,20 +4,23 @@ import 'package:rec/Components/Inputs/SimpleTextField.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
 import 'package:rec/Helpers/Validators.dart';
 
+/// Form for asking for payment data
 class PayAddressForm extends StatefulWidget {
   final PaymentData data;
-  final Function(PaymentData) onChange;
-  final Function(PaymentData) onSubmitted;
   final GlobalKey<FormState> formKey;
+
+  final ValueChanged<PaymentData> onChange;
+  final ValueChanged<PaymentData> onSubmitted;
+
   final List<String> disabledFields;
 
   const PayAddressForm({
     Key key,
     this.data,
     this.onChange,
-    @required this.formKey,
     this.disabledFields = const [],
     this.onSubmitted,
+    @required this.formKey,
   }) : super(key: key);
 
   @override

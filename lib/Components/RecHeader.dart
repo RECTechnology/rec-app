@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// This widgets renders the REC Login header image
 class RecHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

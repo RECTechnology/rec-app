@@ -10,6 +10,7 @@ import 'package:rec/Helpers/Checks.dart';
 import 'Activity.ent.dart';
 import 'Product.ent.dart';
 
+/// This entity hold the information for an [Account]
 class Account extends Entity {
   static const String TYPE_PRIVATE = 'PRIVATE';
   static const String TYPE_COMPANY = 'COMPANY';
@@ -163,7 +164,7 @@ class Account extends Entity {
       prefix: json['prefix'],
       phone: json['phone'],
       latitude: double.parse((json['latitude'] ?? 0).toString()),
-      longitude: double.parse((json['latitude'] ?? 0).toString()),
+      longitude: double.parse((json['longitude'] ?? 0).toString()),
       wallets: wallets,
       campaigns: campaigns,
       offers: offers,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Pages/Private/Shared/CreatePin.page.dart';
+import 'package:rec/Pages/Private/Shared/CreatePin.dart';
 import 'package:rec/Pages/Private/Shared/EnterPin.page.dart';
 import 'package:rec/Providers/UserState.dart';
 
@@ -32,7 +32,7 @@ class _RequestPin extends State<RequestPin> {
                 buttonContent: widget.buttonContent,
                 buttonWithArrow: widget.buttonWithArrow,
               )
-            : CreatePin(
+            : CreatePinWidget(
                 ifPin: widget.ifPin,
                 buttonContent: widget.buttonContent,
                 buttonWithArrow: widget.buttonWithArrow,

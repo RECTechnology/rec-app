@@ -46,63 +46,72 @@ class _PrivateAppBar extends State<PrivateAppBar> {
     var account = userState.user.selectedAccount;
     var accountSelector = AccountSelectorModal(context);
 
-    return PreferredSize(
-      preferredSize: Size.fromHeight(kToolbarHeight),
-      child: InkWell(
-        onTap: widget.selectAccountEnabled ? accountSelector.open : null,
-        child: AppBar(
-          toolbarHeight: kToolbarHeight,
-          flexibleSpace: Container(
-            decoration: widget.backgroundColor != null
-                ? BoxDecorations.solid(widget.backgroundColor)
-                : BoxDecorations.gradient(
-                    Brand.getGradientForAccount(account),
-                  ),
-          ),
-          elevation: 0,
-          leading: widget.hasBackArrow
-              ? IconButton(
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: widget.color ?? Colors.white,
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              : Container(
-                  padding: const EdgeInsets.only(left: 16),
-                  alignment: Alignment.center,
-                  child: CircleAvatarRec.fromAccount(account),
-                ),
-          title: Align(
-            alignment: widget.alignment,
-            child: Text(
-              widget.title ?? userState.user.selectedAccount.name,
-              textAlign: widget.textAlign,
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w300,
+    var flexibleSpace = Container(
+      decoration: widget.backgroundColor != null
+          ? BoxDecorations.solid(widget.backgroundColor)
+          : BoxDecorations.gradient(
+              Brand.getGradientForAccount(account),
+            ),
+    );
+
+    var appBar = AppBar(
+      backgroundColor: widget.backgroundColor,
+      flexibleSpace: widget.bottom == null ? null : flexibleSpace,
+      elevation: 0,
+      leading: widget.hasBackArrow
+          ? IconButton(
+              icon: Icon(
+                Icons.arrow_back,
                 color: widget.color ?? Colors.white,
               ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          : Container(
+              alignment: Alignment.center,
+              child: CircleAvatarRec.fromAccount(account),
             ),
+      title: Align(
+        alignment: widget.alignment,
+        child: Text(
+          widget.title ?? userState.user.selectedAccount.name,
+          textAlign: widget.textAlign,
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w300,
+            color: widget.color ?? Colors.white,
           ),
-          bottom: widget.bottom,
-          actions: [
-            widget.selectAccountEnabled
-                ? Container(
-                    alignment: Alignment.center,
-                    height: 45,
-                    width: 65,
-                    child: Icon(
-                      Icons.arrow_drop_down_sharp,
-                      color: widget.color ?? Colors.white,
-                    ),
-                  )
-                : SizedBox(),
-          ],
         ),
       ),
+      bottom: widget.bottom,
+      actions: [
+        widget.selectAccountEnabled
+            ? Container(
+                alignment: Alignment.center,
+                height: 45,
+                width: 65,
+                child: Icon(
+                  Icons.arrow_drop_down_sharp,
+                  color: widget.color ?? Colors.white,
+                ),
+              )
+            : SizedBox(height: 45, width: 65),
+      ],
     );
+
+    var appBarInkWell = InkWell(
+      onTap: widget.selectAccountEnabled ? accountSelector.open : null,
+      child: appBar,
+    );
+
+    if (widget.bottom != null) {
+      return PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight),
+        child: appBarInkWell,
+      );
+    }
+
+    return appBarInkWell;
   }
 }

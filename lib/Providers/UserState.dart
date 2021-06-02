@@ -8,6 +8,9 @@ import 'package:rec/brand.dart';
 // UserState is setup in PrivateRoute, each time a private route is rendered
 // This is done there because only private routes need access to UserState
 // And we can also check if user is logged in
+
+/// UserState holds data for the current authenticated user, like it's own data
+/// aswell as information about accounts
 class UserState with ChangeNotifier {
   final RecStorage _storage;
 

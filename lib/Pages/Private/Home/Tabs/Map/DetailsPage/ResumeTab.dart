@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Lists/OffersList.dart';
 import 'package:rec/Components/ReadMoreText.dart';
-import 'package:rec/Components/RecFilterButton.dart';
+import 'package:rec/Components/Inputs/RecFilterButton.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Schedule/Schedule.ent.dart';
 import 'package:rec/Helpers/BrowserHelper.dart';

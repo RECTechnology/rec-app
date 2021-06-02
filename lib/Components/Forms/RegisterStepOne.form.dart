@@ -9,7 +9,7 @@ import 'package:rec/Providers/AppLocalizations.dart';
 
 class RegisterStepOneForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
-  final Function(RegisterData data) onChange;
+  final ValueChanged<RegisterData> onChange;
 
   const RegisterStepOneForm({
     Key key,

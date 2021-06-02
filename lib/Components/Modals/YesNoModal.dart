@@ -1,45 +1,49 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Modals/GenericModal.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 
 class YesNoModal extends GenericModal {
   @override
-  final Text title;
+  final Widget title;
   @override
-  final Text content;
+  final Widget content;
   final BuildContext context;
 
-  YesNoModal({this.title, this.context, this.content})
-      : super(
+  YesNoModal({
+    this.title,
+    this.context,
+    this.content,
+  }) : super(
           content: content,
           title: title,
           widget: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Container(
-                width: 150,
-                height: 150,
-                child: TextButton(
-                  onPressed: () {},
-                  child: Text('Yes'),
+              TextButton(
+                onPressed: () => GenericModal.closeDialog(context, true),
+                child: LocalizedText(
+                  'DELETE',
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
-              Container(
-                width: 150,
-                height: 150,
-                child: TextButton(
-                  onPressed: () {},
-                  child: Text('No'),
+              TextButton(
+                onPressed: () => GenericModal.closeDialog(context, false),
+                child: LocalizedText(
+                  'CANCEL',
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
-              )
+              ),
             ],
           ),
         );
 
-  void showDialog() {
-    super.showAlertDialog(context);
+  Future showDialog(context) {
+    return super.showAlertDialog(context);
   }
 
-  void closeModal() {
-    super.closeDialog(context);
+  void closeModal(dynamic result) {
+    GenericModal.closeDialog(context, result);
   }
 }

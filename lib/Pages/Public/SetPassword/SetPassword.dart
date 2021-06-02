@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Services/public/RecoverPasswordService.dart';
-import 'package:rec/Components/Forms/DniPhone.form.dart';
 import 'package:rec/Components/Inputs/PasswordField.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
+import 'package:rec/Entities/Forms/DniPhoneData.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Helpers/Validators.dart';

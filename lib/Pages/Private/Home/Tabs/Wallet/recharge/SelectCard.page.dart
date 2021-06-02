@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Services/wallet/CardsService.dart';
 import 'package:rec/Components/Indicators/LoadingIndicator.dart';
-import 'package:rec/Components/OutlinedListTile.dart';
+import 'package:rec/Components/ListTiles/OutlinedListTile.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/User/UserBalance.dart';
 import 'package:rec/Components/Wallet/CardListTile.dart';

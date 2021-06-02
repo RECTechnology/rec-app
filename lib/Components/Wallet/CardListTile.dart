@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:rec/Components/OutlinedListTile.dart';
+import 'package:rec/Components/ListTiles/OutlinedListTile.dart';
 import 'package:rec/Entities/CreditCard.dart';
 import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/brand.dart';

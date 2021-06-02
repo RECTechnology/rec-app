@@ -4,11 +4,12 @@ import 'package:rec/Providers/AppLocalizations.dart';
 
 class SimpleTextField extends StatefulWidget {
   final String initialValue;
-  final Function(String newValue) onChange;
-  final Function(String value) validator;
   final Color color;
   final String label;
   final bool readOnly;
+
+  final ValueChanged<String> onChange;
+  final FormFieldValidator<String> validator;
 
   const SimpleTextField({
     Key key,
@@ -34,7 +35,6 @@ class SimpleTextFieldState extends State<SimpleTextField> {
     return RecTextField(
       label: localizations.translate(widget.label),
       initialValue: widget.initialValue,
-      isNumeric: false,
       keyboardType: TextInputType.text,
       needObscureText: false,
       placeholder: localizations.translate(widget.label),
@@ -42,7 +42,6 @@ class SimpleTextFieldState extends State<SimpleTextField> {
       colorLine: widget.color,
       validator: widget.validator,
       readOnly: widget.readOnly,
-      isPhone: false,
       icon: Icon(
         Icons.person,
         color: Colors.white,

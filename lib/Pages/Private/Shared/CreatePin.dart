@@ -12,28 +12,30 @@ import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/brand.dart';
 
-class CreatePin extends StatefulWidget {
+class CreatePinWidget extends StatefulWidget {
   final Function(String pin) ifPin;
+  final String label;
   final String buttonContent;
   final bool buttonWithArrow;
 
-  const CreatePin({
+  const CreatePinWidget({
     Key key,
     @required this.ifPin,
     this.buttonContent,
     this.buttonWithArrow = true,
+    this.label,
   }) : super(key: key);
 
   @override
-  _CreatePinState createState() => _CreatePinState();
+  _CreatePinWidgetState createState() => _CreatePinWidgetState();
 }
 
-class _CreatePinState extends State<CreatePin> {
+class _CreatePinWidgetState extends State<CreatePinWidget> {
   final _formKey = GlobalKey<FormState>();
   final _securityService = SecurityService();
   final _smsService = UserSmsService();
 
-  String pin;
+  String pin = '';
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +45,8 @@ class _CreatePinState extends State<CreatePin> {
   Widget _body() {
     var localizations = AppLocalizations.of(context);
     var btnLabel = widget.buttonContent ?? localizations.translate('NEXT');
+    var label =
+        widget.label ?? localizations.translate('CREATE_AND') + ' ' + btnLabel;
 
     return Padding(
       padding: Paddings.page,
@@ -79,12 +83,12 @@ class _CreatePinState extends State<CreatePin> {
                   ),
                 ),
                 RecActionButton(
-                  label: localizations.translate('CREATE_AND') + ' ' + btnLabel,
+                  label: label,
                   icon: widget.buttonWithArrow
                       ? Icons.arrow_forward_ios_outlined
                       : null,
                   backgroundColor: Brand.primaryColor,
-                  onPressed: _next,
+                  onPressed: pin.length == 4 ? _next : null,
                 ),
               ],
             ),
@@ -95,7 +99,7 @@ class _CreatePinState extends State<CreatePin> {
   }
 
   void _setPin(String pin) {
-    this.pin = pin;
+    setState(() => this.pin = pin);
   }
 
   void _next() async {
@@ -120,14 +124,15 @@ class _CreatePinState extends State<CreatePin> {
           dni: userState.user.username,
           onCode: (code) {
             Navigator.of(context).pop();
-            _createPin(code);
+            _createPinWidget(code);
           },
         ),
       ),
     );
   }
 
-  Future _createPin(String smsCode) {
+  Future _createPinWidget(String smsCode) {
+    Loading.show();
     return _securityService
         .createPin(pin: pin, repin: pin, smscode: smsCode)
         .then((r) => _pinCreated(pin))
@@ -135,6 +140,7 @@ class _CreatePinState extends State<CreatePin> {
   }
 
   void _pinCreated(String pin) {
+    Loading.dismiss();
     return widget.ifPin(pin);
   }
 

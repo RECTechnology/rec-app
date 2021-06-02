@@ -7,7 +7,7 @@ import 'package:rec/brand.dart';
 
 class RegisterStepTwoForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
-  final Function(RegisterData data) onChange;
+  final ValueChanged<RegisterData> onChange;
   final RegisterData registerData;
 
   const RegisterStepTwoForm({
@@ -39,8 +39,6 @@ class RegisterStepOneFoTwotate extends State<RegisterStepTwoForm> {
               needObscureText: false,
               placeholder: localizations.translate('NAME'),
               keyboardType: TextInputType.text,
-              isPassword: false,
-              isNumeric: false,
               label: localizations.translate('NAME'),
               icon: Icon(
                 Icons.storefront_outlined,
@@ -58,8 +56,6 @@ class RegisterStepOneFoTwotate extends State<RegisterStepTwoForm> {
               placeholder: localizations.translate('CIF'),
               needObscureText: false,
               keyboardType: TextInputType.text,
-              isPassword: false,
-              isNumeric: false,
               onChange: setCIF,
               icon: Icon(
                 Icons.work_outlined,

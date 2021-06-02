@@ -3,6 +3,8 @@ import 'package:http/http.dart';
 import 'package:rec/Api/ApiPaths.dart';
 import 'package:rec/Api/Interceptors/InjectTokenInterceptor.dart';
 import 'package:rec/Api/Services/BaseService.dart';
+import 'package:rec/Entities/Forms/ChangePasswordData.dart';
+import 'package:rec/Entities/Forms/ChangePinData.dart';
 
 class SecurityService extends ServiceBase {
   SecurityService({Client client})
@@ -14,22 +16,12 @@ class SecurityService extends ServiceBase {
 
   /// This requests a pin change for the current authenticated user
   /// When the user has the pin is already set in the user
-  Future<dynamic> changePin({
-    @required String pin,
-    @required String repin,
-    @required String smscode,
-    @required String password,
-  }) {
+  Future<dynamic> changePin(ChangePinData data) {
     var path = ApiPaths.changePin.toUri();
 
-    return post(
+    return this.put(
       path,
-      body: {
-        pin: pin,
-        repin: repin,
-        smscode: smscode,
-        password: password,
-      },
+      data.toJson(),
     );
   }
 
@@ -42,9 +34,9 @@ class SecurityService extends ServiceBase {
   }) {
     var path = ApiPaths.changePin.toUri();
 
-    return post(
+    return this.put(
       path,
-      body: {
+      {
         pin: pin,
         repin: repin,
         smscode: smscode,
@@ -53,21 +45,12 @@ class SecurityService extends ServiceBase {
   }
 
   /// This requests a passwrod change for the current authenticated user
-  Future<dynamic> changePassword({
-    String password,
-    String repassword,
-    String smscode,
-  }) {
-    var path = ApiPaths.changePin.toUri();
+  Future<dynamic> changePassword(ChangePasswordData data) {
+    var path = ApiPaths.changePassword.toUri();
 
-    return post(
+    return this.put(
       path,
-      body: {
-        password: password,
-        repassword: repassword,
-        smscode: smscode,
-        password: password,
-      },
+      data.toJson(),
     );
   }
 }

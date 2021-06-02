@@ -76,6 +76,7 @@ class _SmsCodeState extends State<SmsCode> {
                 child: RecPinInput(
                   fieldsCount: 6,
                   onChanged: setSMS,
+                  autofocus: true,
                 ),
               ),
             ]),

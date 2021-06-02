@@ -8,10 +8,11 @@ import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Styles/Paddings.dart';
 
+/// Form for asking for loggin credentials, username & password
 class LoginForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
-  final Function(LoginData data) onChange;
-  final Function(LoginData data) onSubmitted;
+  final ValueChanged<LoginData> onChange;
+  final ValueChanged<LoginData> onSubmitted;
 
   const LoginForm({
     Key key,

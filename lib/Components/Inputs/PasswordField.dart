@@ -5,12 +5,20 @@ import 'package:rec/brand.dart';
 
 class PasswordField extends StatefulWidget {
   final String initialValue;
-  final Function(String newValue) onChange;
-  final Function(String newValue) onSubmitted;
-  final Function(String value) validator;
+
+  final ValueChanged<String> onChange;
+  final ValueChanged<String> onSubmitted;
+  final FormFieldValidator<String> validator;
+
   final Color color;
   final String title;
+  final String placeholder;
   final bool autofocus;
+
+  /// Defines the keyboard focus for this widget.
+  /// To give the keyboard focus to this widget, provide a [focusNode] and then
+  /// use the current [FocusScope] to request the focus:
+  final FocusNode focusNode;
 
   const PasswordField({
     Key key,
@@ -21,6 +29,8 @@ class PasswordField extends StatefulWidget {
     this.title = 'PASSWORD',
     this.autofocus = false,
     this.onSubmitted,
+    this.focusNode,
+    this.placeholder,
   }) : super(key: key);
 
   @override
@@ -36,16 +46,17 @@ class PasswordFieldState extends State<PasswordField> {
 
     return RecTextField(
       label: localizations.translate(widget.title),
-      placeholder: localizations.translate(widget.title),
+      placeholder: widget.placeholder ?? localizations.translate(widget.title),
       initialValue: widget.initialValue,
       needObscureText: true,
-      autofocus: widget.autofocus,
       keyboardType: TextInputType.visiblePassword,
       icon: Icon(Icons.lock, color: Brand.grayIcon),
       colorLine: widget.color,
       onChange: widget.onChange,
       validator: widget.validator,
       onSubmitted: widget.onSubmitted,
+      autofocus: widget.autofocus,
+      focusNode: widget.focusNode,
     );
   }
 }

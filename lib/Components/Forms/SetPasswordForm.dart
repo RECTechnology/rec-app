@@ -6,8 +6,8 @@ import 'package:rec/Helpers/Validators.dart';
 
 class SetPasswordForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
-  final Function(String string) onChangeRePassword;
-  final Function(String string) onChangePassword;
+  final ValueChanged<String> onChangeRePassword;
+  final ValueChanged<String> onChangePassword;
 
   const SetPasswordForm({
     Key key,

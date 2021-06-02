@@ -29,7 +29,7 @@ class ErrorModal extends GenericModal {
     super.showAlertDialog(context);
   }
 
-  void closeModal() {
-    super.closeDialog(context);
+  void closeModal(res) {
+    GenericModal.closeDialog(context, res);
   }
 }

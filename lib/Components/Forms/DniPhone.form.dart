@@ -1,29 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/DniTextField.dart';
 import 'package:rec/Components/Inputs/PrefixPhoneField.dart';
-import 'package:rec/Helpers/Checks.dart';
+import 'package:rec/Entities/Forms/DniPhoneData.dart';
 import 'package:rec/Helpers/Validators.dart';
 
-class DniPhoneData {
-  String dni;
-  String phone;
-  String prefix;
-
-  DniPhoneData({this.dni, this.phone, this.prefix});
-
-  bool complete() {
-    var hasDni = Checks.isNotEmpty(dni);
-    var hasPrefix = Checks.isNotEmpty(prefix);
-    var hasPhone = Checks.isNotEmpty(phone);
-
-    return hasDni && hasPrefix && hasPhone;
-  }
-}
-
+/// Form for requesting a prefix, phone and a DNI
 class DniPhoneForm extends StatefulWidget {
   final DniPhoneData data;
-  final Function(DniPhoneData) onChange;
   final GlobalKey<FormState> formKey;
+  final ValueChanged<DniPhoneData> onChange;
 
   const DniPhoneForm({
     Key key,

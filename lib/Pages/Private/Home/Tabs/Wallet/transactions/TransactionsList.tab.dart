@@ -59,25 +59,30 @@ class _TransactionsListState extends State<TransactionsList> {
       child: Column(
         children: [
           Expanded(
-            child: hasTransactions
-                ? ListView.separated(
-                    separatorBuilder: (context, index) => Divider(height: 1),
-                    itemBuilder: (ctx, idx) {
-                      if (hasMoreTx && idx == transactionsProvider.length) {
-                        return loadMore();
-                      }
+            child: Scrollbar(
+              thickness: 8,
+              showTrackOnHover: true,
+              radius: Radius.circular(3),
+              child: hasTransactions
+                  ? ListView.separated(
+                      separatorBuilder: (context, index) => Divider(height: 1),
+                      itemBuilder: (ctx, idx) {
+                        if (hasMoreTx && idx == transactionsProvider.length) {
+                          return loadMore();
+                        }
 
-                      return TransactionsListTile(
-                        tx: transactionsProvider.get(idx),
-                      );
-                    },
-                    itemCount:
-                        transactionsProvider.length + (hasMoreTx ? 1 : 0),
-                    physics: AlwaysScrollableScrollPhysics(),
-                  )
-                : isLoading
-                    ? LoadingIndicator()
-                    : noItems(localizations),
+                        return TransactionsListTile(
+                          tx: transactionsProvider.get(idx),
+                        );
+                      },
+                      itemCount:
+                          transactionsProvider.length + (hasMoreTx ? 1 : 0),
+                      physics: AlwaysScrollableScrollPhysics(),
+                    )
+                  : isLoading
+                      ? LoadingIndicator()
+                      : noItems(localizations),
+            ),
           )
         ],
       ),

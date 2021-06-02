@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 
+/// [RecTextField] is the main TextField widget used in the app,
+/// independently or used in other widgets to add an extra layer, like [DniTextField]
 class RecTextField extends StatefulWidget {
   /// Text that appears below the [InputDecorator.child] and the border.
   final String placeholder;
@@ -18,41 +20,60 @@ class RecTextField extends StatefulWidget {
   /// Optional input validation and formatting overrides.
   final List<TextInputFormatter> inputFormatters;
 
-  final bool isNumeric;
+  /// Defines the keyboard focus for this widget.
+  /// To give the keyboard focus to this widget, provide a [focusNode] and then
+  /// use the current [FocusScope] to request the focus:
+  final FocusNode focusNode;
+
   final bool needObscureText;
-  final bool isPassword;
-  final bool isPhone;
+
+  /// Whether the [RecInputPin] should be focused by default
   final bool autofocus;
 
+  /// Initial value of the TextField
   final String initialValue;
+
+  /// Text that describes the input field.
   final String label;
 
   final Color colorLine;
   final Color colorLabel;
+
   final Icon icon;
-  final Function validator;
+
   final TextAlign textAlign;
+
   final double textSize;
+
   final double letterSpicing;
 
-  final Function(String string) onChange;
-  final Function(String string) onSubmitted;
+  /// An optional method that validates an input. Returns an error string to
+  /// display if the input is invalid, or null otherwise.
+  final FormFieldValidator<String> validator;
 
+  /// Called when [RecTextField] changes value (ie: each time character is typed)
+  final ValueChanged<String> onChange;
+
+  /// Called when [RecTextField] is submitted
+  final ValueChanged<String> onSubmitted;
+
+  // Max amount of characters the field can contain
   final int maxLength;
+
+  /// Whether the field can be written, or just read
   final bool readOnly;
+
+  final EdgeInsets padding;
 
   RecTextField({
     this.keyboardType = TextInputType.text,
-    this.isNumeric = false,
     this.needObscureText = false,
-    this.isPassword = false,
     this.colorLine = Colors.black87,
     this.colorLabel = Colors.black87,
     this.placeholder,
     this.onChange,
     this.icon,
     this.validator,
-    this.isPhone,
     this.initialValue,
     this.textSize = 16,
     this.textAlign = TextAlign.left,
@@ -64,7 +85,9 @@ class RecTextField extends StatefulWidget {
     this.readOnly = false,
     this.onSubmitted,
     this.inputFormatters = const [],
-  });
+    this.focusNode,
+    EdgeInsets padding,
+  }) : padding = padding ?? const EdgeInsets.only(bottom: 24.0);
 
   @override
   _InputField createState() => _InputField();
@@ -88,12 +111,13 @@ class _InputField extends State<RecTextField> {
     var translatedError = localizations.translate(error);
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 24.0),
+      padding: widget.padding,
       child: TextFormField(
         textCapitalization: widget.capitalizeMode,
         initialValue: widget.initialValue ?? '',
         textAlign: widget.textAlign,
         autofocus: widget.autofocus,
+        focusNode: widget.focusNode,
         maxLength: widget.maxLength,
         readOnly: widget.readOnly,
         inputFormatters: widget.inputFormatters,
@@ -128,6 +152,8 @@ class _InputField extends State<RecTextField> {
         obscureText: obscureText ? true : false,
         keyboardType: widget.keyboardType,
         validator: (v) {
+          if (widget.validator == null) return null;
+
           var error = widget.validator(v);
           if (error == null) return null;
 
@@ -138,11 +164,6 @@ class _InputField extends State<RecTextField> {
   }
 
   void onChanged(String string) {
-    // if (widget.needObscureText == true) {
-    //   setState(() {
-    //     isNotIcon = true;
-    //   });
-    // }
     widget.onChange(string);
   }
 

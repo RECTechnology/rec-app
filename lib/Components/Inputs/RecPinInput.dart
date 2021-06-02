@@ -8,19 +8,25 @@ class RecPinInput extends StatefulWidget {
   /// Displayed fields count. PIN code length.
   final int fieldsCount;
 
-  /// Called when RecInputPin is saved
-  final void Function(String) onSaved;
+  /// Called when [RecInputPin] is saved
+  final ValueChanged<String> onSaved;
 
-  /// Called when RecInputPin is submitted
-  final void Function(String) onSubmit;
+  /// Called when [RecInputPin] is submitted
+  final ValueChanged<String> onSubmit;
 
   /// Called when the pin changes (ie: each time character is typed)
-  final void Function(String) onChanged;
+  final ValueChanged<String> onChanged;
 
-  /// Whether the RecInputPin should be focused by default
+  /// Whether the [RecInputPin] should be focused by default
   final bool autofocus;
 
+  /// Validates the pin, agains a pattern r'\d{3}'
   final Pattern validator;
+
+  /// Defines the keyboard focus for this widget.
+  /// To give the keyboard focus to this widget, provide a [focusNode] and then
+  /// use the current [FocusScope] to request the focus:
+  final FocusNode focusNode;
 
   RecPinInput({
     Key key,
@@ -29,6 +35,7 @@ class RecPinInput extends StatefulWidget {
     this.onSubmit,
     this.onChanged,
     this.autofocus = false,
+    this.focusNode,
     Pattern validator,
   })  : validator = validator ?? RegExp(r'[0-9]'),
         super(key: key);
@@ -61,6 +68,7 @@ class _RecPinInputState extends State<RecPinInput> {
         _pinPutController.text = (await Clipboard.getData('text/plain')).text;
       },
       child: PinPut(
+        focusNode: widget.focusNode,
         autofocus: widget.autofocus,
         fieldsCount: widget.fieldsCount,
         controller: _pinPutController,

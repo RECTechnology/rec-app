@@ -2,24 +2,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class GenericModal {
-  final Text title;
-  final Text content;
+  final Widget title;
+  final Widget content;
   final Widget widget;
-  GenericModal({this.title, this.content, this.widget});
+  GenericModal({
+    this.title,
+    this.content,
+    this.widget,
+  });
 
-  void showAlertDialog(BuildContext context) {
-    showDialog(
+  Future showAlertDialog(BuildContext context) {
+    return showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: content,
+        title: title,
         content: content,
         actions: <Widget>[widget],
       ),
     );
   }
 
-  void showSimpleDialog(BuildContext context) {
-    showDialog(
+  Future showSimpleDialog(BuildContext context) {
+    return showDialog(
       context: context,
       builder: (_) => Dialog(
         child: widget,
@@ -27,7 +31,7 @@ class GenericModal {
     );
   }
 
-  void closeDialog(BuildContext context) {
-    Navigator.of(context).pop();
+  static void closeDialog(BuildContext context, dynamic result) {
+    Navigator.of(context).pop(result);
   }
 }

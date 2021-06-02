@@ -5,6 +5,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Styles/TextStyles.dart';
 
+import 'Entities/Document.ent.dart';
+
 class Brand {
   static const String appName = 'REC';
   static const String logoUrl = 'assets/logo.jpg';
@@ -37,6 +39,8 @@ class Brand {
   static const Color grayLight = Color(0xff666666);
   static const Color grayLight2 = Color(0xffBDBDBD);
   static const Color grayIcon = Color(0xffBFBFBF);
+  static const Color graySubtitle = Color(0xff828282);
+  static const Color grayDisabled = Color(0xffC5C5C5);
 
   static const Color amountNegative = Color(0xffD91636);
 
@@ -68,6 +72,14 @@ class Brand {
 
   static Color getColorForAccount(Account account) {
     return account.type == Account.TYPE_PRIVATE ? primaryColor : accentColor;
+  }
+
+  static Color getColorForDocumentStatus(String status) {
+    if (status == Document.STATUS_DECLINED) return Brand.amountNegative;
+    if (status == Document.STATUS_SUBMITTED) return Brand.graySubtitle;
+    if (status == Document.STATUS_APPROVED) return Brand.primaryColor;
+
+    return Brand.graySubtitle;
   }
 
   static LinearGradient getGradientForAccount(Account account) {

@@ -4,10 +4,12 @@ import 'package:rec/brand.dart';
 
 class SearchInput extends StatefulWidget {
   final TextEditingController searchController;
-  final Function(String search) fieldChanged;
-  final Function(String search) fieldSubmited;
+
+  final ValueChanged<String> fieldChanged;
+  final ValueChanged<String> fieldSubmited;
   final Function() onFocused;
   final Function() onUnfocused;
+
   final String hintText;
   final bool isLoading;
   final bool shaded;
