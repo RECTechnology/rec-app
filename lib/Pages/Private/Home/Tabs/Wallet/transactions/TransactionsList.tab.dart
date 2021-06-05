@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Components/Indicators/LoadingIndicator.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Wallet/TransactionListTile.dart';
 import 'package:rec/Providers/TransactionsProvider.dart';
 import 'package:rec/Providers/UserState.dart';
@@ -43,7 +44,6 @@ class _TransactionsListState extends State<TransactionsList> {
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
     var transactionsProvider = TransactionProvider.of(context);
     var userState = UserState.of(context);
 
@@ -68,7 +68,7 @@ class _TransactionsListState extends State<TransactionsList> {
                       separatorBuilder: (context, index) => Divider(height: 1),
                       itemBuilder: (ctx, idx) {
                         if (hasMoreTx && idx == transactionsProvider.length) {
-                          return loadMore();
+                          return _loadMore();
                         }
 
                         return TransactionsListTile(
@@ -81,7 +81,7 @@ class _TransactionsListState extends State<TransactionsList> {
                     )
                   : isLoading
                       ? LoadingIndicator()
-                      : noItems(localizations),
+                      : ListView(children: [_noItems()]),
             ),
           )
         ],
@@ -89,7 +89,7 @@ class _TransactionsListState extends State<TransactionsList> {
     );
   }
 
-  Widget loadMore() {
+  Widget _loadMore() {
     var transactionsProvider = TransactionProvider.of(context);
     var userState = UserState.of(context);
     var localizations = AppLocalizations.of(context);
@@ -109,12 +109,12 @@ class _TransactionsListState extends State<TransactionsList> {
     );
   }
 
-  Widget noItems(localizations) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Text(
-          localizations.translate('NO_TRANSACTIONS'),
+  Widget _noItems() {
+    return ListTile(
+      title: Center(
+        child: LocalizedText(
+          'NO_TRANSACTIONS',
+          style: Theme.of(context).textTheme.bodyText2,
         ),
       ),
     );

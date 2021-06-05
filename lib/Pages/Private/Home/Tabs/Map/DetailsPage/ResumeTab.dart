@@ -207,7 +207,7 @@ class _ResumeTabState extends State<ResumeTab> {
       var formattedDay = [
         localizations.translate(day),
         localizations.translate('AT')
-      ].where(Checks.isNotEmpty);
+      ].where(Checks.isNotEmpty).join(' ');
 
       return localizations.translate(
         'CLOSES_AT',
@@ -230,7 +230,7 @@ class _ResumeTabState extends State<ResumeTab> {
     var formattedDay = [
       localizations.translate(day),
       localizations.translate('AT')
-    ].where(Checks.isNotEmpty);
+    ].where(Checks.isNotEmpty).join(' ');
 
     return localizations.translate(
       'OPENS_AT',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
 
 class RecNavigationBar extends StatefulWidget {
@@ -20,6 +21,8 @@ class _RecNavigationBarState extends State<RecNavigationBar> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
+    var userState = UserState.of(context);
+    var isLtabAccount = userState.account.isLtabAccount();
 
     return BottomNavigationBar(
       items: [
@@ -38,7 +41,14 @@ class _RecNavigationBarState extends State<RecNavigationBar> {
       ],
       currentIndex: widget.currentTabIndex,
       selectedItemColor: Brand.primaryColor,
-      onTap: widget.onTabTap,
+      onTap: (int index) {
+        // HACK: Disable settings if account is ltab
+        // Need to look for some way of disabling tabs,
+        // as they are somewhat custom
+        if (isLtabAccount && index == 2) return;
+
+        widget.onTabTap(index);
+      },
     );
   }
 }

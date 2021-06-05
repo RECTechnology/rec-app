@@ -48,8 +48,11 @@ class AccountsService extends ServiceBase {
   }
 
   Future updateUserInAccount(String accountId, int permissionId, String role) {
-    var path = ApiPaths.accountsAddUser.append(accountId).toUri();
-    return this.put(path, {'role': role});
+    var path = ApiPaths.accountsEditRole.appendMultiple([
+      accountId,
+      permissionId.toString(),
+    ]).toUri();
+    return this.post(path, {'role': role});
   }
 
   Future deleteUserFromAccount(String accountId, int permissionId) {

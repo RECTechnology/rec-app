@@ -7,8 +7,10 @@ class RechargeData extends FormData {
   String concept;
   String pin;
 
-  bool saveCard;
+  bool campaignTermsAccepted = true;
+  bool willEnterCampaign = false;
 
+  bool saveCard;
   CreditCard card;
 
   @override

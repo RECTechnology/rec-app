@@ -8,6 +8,7 @@ Widget EmptyAppBar(
   String title,
   Text titleText,
   List<Widget> actions,
+  Color backgroundColor = Colors.white,
 }) {
   var localizations = AppLocalizations.of(context);
   var titleWidget = titleText ??
@@ -30,10 +31,11 @@ Widget EmptyAppBar(
       : null;
 
   return AppBar(
-    backgroundColor: Colors.white,
+    backgroundColor: backgroundColor,
     elevation: 0,
     title: titleWidget,
     leading: leadingIcon,
     actions: actions,
+    automaticallyImplyLeading: backArrow,
   );
 }

@@ -4,6 +4,7 @@ import 'package:rec/Api/Interceptors/InjectTokenInterceptor.dart';
 import 'package:rec/Api/Interfaces/ApiListResponse.dart';
 import 'package:rec/Api/Services/BaseService.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
+import 'package:rec/Entities/Transactions/PaymentResult.dart';
 import 'package:rec/Entities/Transactions/Transaction.ent.dart';
 import 'package:rec/Entities/VendorData.ent.dart';
 
@@ -32,9 +33,11 @@ class TransactionsService extends ServiceBase {
     return this.get(uri).then((resp) => VendorData.fromJson(resp['data']));
   }
 
-  Future<dynamic> makePayment(PaymentData data) {
+  Future<PaymentResult> makePayment(PaymentData data) {
     final uri = ApiPaths.payment.toUri();
-    return this.post(uri, data.toJson());
+    return this
+        .post(uri, data.toJson())
+        .then((resp) => PaymentResult.fromJson(resp));
   }
 
   // Maps api list reponse to an instance of ApiListResponse<Transaction>

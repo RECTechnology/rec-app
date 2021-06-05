@@ -17,7 +17,8 @@ class ChangePasswordData extends FormData {
   bool get isValid =>
       Checks.isNotEmpty(oldPassword) &&
       Checks.isNotEmpty(password) &&
-      Checks.isNotEmpty(repassword);
+      Checks.isNotEmpty(repassword) &&
+      password == repassword;
 
   @override
   Map<String, dynamic> toJson() {

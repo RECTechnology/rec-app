@@ -42,10 +42,12 @@ class _AccountPermissionTileState extends State<AccountPermissionTile> {
         padding: EdgeInsets.only(right: 8, top: 8, bottom: 0),
         onChanged: isSameUser ? null : widget.onChangeRole,
       ),
-      trailing: IconButton(
-        icon: Icon(Icons.delete),
-        onPressed: widget.onDelete,
-      ),
+      trailing: isSameUser
+          ? null
+          : IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: widget.onDelete,
+            ),
     );
   }
 }

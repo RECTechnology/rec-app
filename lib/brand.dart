@@ -16,6 +16,8 @@ class Brand {
   static const Color accentColor = Color(0xffE05205);
   static const Color backgroundPrivateColor = Color(0xffe5f5fc);
   static const Color backgroundCompanyColor = Color(0xfffcede6);
+  static const Color backgroundBanner = Color(0xfeFEEED8);
+
   static const Color defectText = Color(0xff343434);
   static const Color detailsTextColor = Color(0xff3B3B3B);
   static const Color green = Color(0xff21EB00);
@@ -75,6 +77,7 @@ class Brand {
   }
 
   static Color getColorForDocumentStatus(String status) {
+    if (status == Document.STATUS_EXPIRED) return Brand.amountNegative;
     if (status == Document.STATUS_DECLINED) return Brand.amountNegative;
     if (status == Document.STATUS_SUBMITTED) return Brand.graySubtitle;
     if (status == Document.STATUS_APPROVED) return Brand.primaryColor;

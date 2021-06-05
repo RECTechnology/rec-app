@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 import 'package:rec/Api/Services/wallet/TransactionsService.dart';
 import 'package:rec/Api/Storage.dart';
-import 'package:rec/Entities/User.ent.dart';
+import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
+import 'package:rec/Providers/CampaignProvider.dart';
+import 'package:rec/Providers/DocumentsProvider.dart';
+import 'package:rec/Providers/PreferenceProvider.dart';
+import 'package:rec/Providers/Preferences/PreferenceDefinitions.dart';
 import 'package:rec/Providers/TransactionsProvider.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
@@ -31,24 +36,50 @@ class _RecAppState extends State<RecApp> {
   final RecStorage storage = RecStorage();
   final TransactionsService txService = TransactionsService();
 
-  User savedUser;
-  PackageInfo packageInfo;
   Locale locale;
+  List<SingleChildWidget> providers;
 
-  Future _setUp() async {
-    savedUser = await UserState.getSavedUser(storage);
-    packageInfo = await PackageInfo.fromPlatform();
+  @override
+  void initState() {
+    getProviders().then((value) {
+      setState(() => providers = value);
+    });
+    super.initState();
+  }
+
+  Future<List<SingleChildWidget>> getProviders() async {
+    var savedUser = await UserState.getSavedUser(storage);
+    var packageInfo = await PackageInfo.fromPlatform();
+
+    var prefProvider = PreferenceProvider.getProvider(
+      preferences: PreferenceDefinitions.all,
+      groups: [
+        PreferenceDefinitions.general,
+      ],
+    );
+
+    return [
+      AppState.getProvider(packageInfo),
+      UserState.getProvider(storage, savedUser),
+      TransactionProvider.getProvider(txService),
+      DocumentsProvider.getProvider(),
+      CampaignProvider.getProvider(),
+      prefProvider,
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _setUp(),
-      builder: (ctx, snapshot) => _buildAppWithProviders(snapshot),
-    );
+    return Checks.isNotEmpty(providers)
+        ? _buildAppWithProviders(providers)
+        : Center(
+            child: CircularProgressIndicator(),
+          );
   }
 
-  Widget _buildAppWithProviders(snapshot) {
+  Widget _buildAppWithProviders(
+    List<SingleChildWidget> providers,
+  ) {
     var app = MaterialApp(
       title: Brand.appName,
       locale: locale,
@@ -62,15 +93,9 @@ class _RecAppState extends State<RecApp> {
       onGenerateRoute: Routes.onGenerateRoute,
     );
 
-    var appProvided = MultiProvider(
-      providers: [
-        AppState.getProvider(packageInfo),
-        UserState.getProvider(storage, savedUser),
-        TransactionProvider.getProvider(txService),
-      ],
+    return MultiProvider(
+      providers: providers,
       child: app,
     );
-
-    return appProvided;
   }
 }

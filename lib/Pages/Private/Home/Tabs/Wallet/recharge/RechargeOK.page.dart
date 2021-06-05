@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
+import 'package:rec/Entities/Currency.ent.dart';
 import 'package:rec/Helpers/Formatting.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/TextStyles.dart';
@@ -7,6 +10,7 @@ import 'package:rec/routes.dart';
 
 class RechargeOK extends StatefulWidget {
   final double amount;
+
   const RechargeOK({
     Key key,
     @required this.amount,
@@ -47,7 +51,10 @@ class _RechargeOKState extends State<RechargeOK> {
               Center(
                 child: Text(
                   localizations.translate('RECHARGE_OK', params: {
-                    'amount': Formatting.formatCurrency(widget.amount),
+                    // TODO: refactor currency formatting
+                    'amount': Formatting.formatCurrency(
+                      (widget.amount / pow(10, Currency.eur.scale)),
+                    ),
                   }),
                   style: TextStyles.pageTitle,
                   textAlign: TextAlign.center,

@@ -1,4 +1,7 @@
+import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Entity.base.dart';
+import 'package:rec/Entities/User.ent.dart';
+import 'package:rec/Providers/UserState.dart';
 
 class Campaign extends Entity {
   DateTime initDate;
@@ -9,7 +12,8 @@ class Campaign extends Entity {
   int balance;
 
   String name;
-  String viewPromoUrl;
+  String videoPromoUrl;
+  String imageUrl;
 
   Campaign({
     String id,
@@ -21,7 +25,8 @@ class Campaign extends Entity {
     this.max,
     this.balance,
     this.name,
-    this.viewPromoUrl,
+    this.videoPromoUrl,
+    this.imageUrl,
   }) : super(id, createdAt, updatedAt);
 
   bool isFinished() {
@@ -36,6 +41,19 @@ class Campaign extends Entity {
     return diff.inSeconds <= 0;
   }
 
+  bool isActiveForState(UserState userState) {
+    return isActive(this, userState.user, userState.account);
+  }
+
+  /// Checks if this campaign is active for [user] and [account]
+  static bool isActive(Campaign campaign, User user, Account account) {
+    var campaignStarted = campaign.isStarted();
+    var isInCampaign = user.hasCampaignAccount();
+    var isCompany = account.isCompany();
+
+    return campaignStarted && !isInCampaign && !isCompany;
+  }
+
   factory Campaign.fromJson(Map<String, dynamic> json) {
     return Campaign(
       id: '${json['id']}',
@@ -47,7 +65,8 @@ class Campaign extends Entity {
       max: json['max'],
       balance: json['balance'],
       name: json['name'],
-      viewPromoUrl: json['viewPromoUrl'],
+      videoPromoUrl: json['video_promo_url'],
+      imageUrl: json['image_url'],
     );
   }
 }

@@ -3,10 +3,14 @@ import 'package:rec/Entities/Entity.base.dart';
 import 'package:rec/Entities/Transactions/PayInInfo.dart';
 
 class RechargeResult extends Entity {
+  static String STATUS_OK = 'ok';
+  static String STATUS_KO = 'ko';
+  static String STATUS_CANCEL = 'cancel';
+
   final String status;
   final String message;
 
-  final int amount;
+  final double amount;
 
   final Currency currency;
   final PayInInfo payInInfo;
@@ -39,7 +43,7 @@ class RechargeResult extends Entity {
       createdAt: json['created'],
       updatedAt: json['updated'],
       status: json['status'],
-      amount: json['amount'],
+      amount: double.parse((json['amount'] ?? 0).toString()),
       message: json['message'],
       currency: Currency.find(json['currency']),
       payInInfo: json['pay_in_info'] != null

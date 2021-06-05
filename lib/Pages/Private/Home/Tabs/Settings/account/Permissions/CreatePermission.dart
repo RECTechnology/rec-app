@@ -25,7 +25,7 @@ class _CreatePermissionState extends State<CreatePermission> {
   final AccountsService _accountService = AccountsService();
   final _formKey = GlobalKey<FormState>();
   CreatePermissionData _data = CreatePermissionData(
-    role: AccountPermission.ROLE_USER,
+    role: AccountPermission.ROLE_WORKER,
   );
 
   @override
@@ -87,7 +87,7 @@ class _CreatePermissionState extends State<CreatePermission> {
   void _createdPermissionOk(r) {
     setState(() {
       _data = CreatePermissionData(
-        role: AccountPermission.ROLE_USER,
+        role: AccountPermission.ROLE_WORKER,
       );
     });
 

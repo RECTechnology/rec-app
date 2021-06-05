@@ -19,6 +19,7 @@ class ApiPath {
     return this;
   }
 
+
   /// Returns a new ApiPath with a path segment appended to the path
   /// of the original ApiPath
   ApiPath append(String suffix) {

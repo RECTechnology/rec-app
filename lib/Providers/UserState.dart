@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:rec/Api/Storage.dart';
 import 'package:rec/Entities/Account.ent.dart';
+import 'package:rec/Entities/DocumentKind.ent.dart';
 import 'package:rec/Entities/User.ent.dart';
 import 'package:rec/brand.dart';
 
@@ -16,6 +17,8 @@ class UserState with ChangeNotifier {
 
   User _user;
   User _savedUser;
+
+  List<DocumentKind> _documentKinds = [];
 
   UserState(
     this._storage,
@@ -55,6 +58,11 @@ class UserState with ChangeNotifier {
     setSavedUser(user);
   }
 
+  void setDocumentKinds(List<DocumentKind> kinds) {
+    _documentKinds = kinds;
+    notifyListeners();
+  }
+
   void setSelectedAccount(Account account) {
     _user?.selectedAccount = account;
     notifyListeners();
@@ -66,6 +74,10 @@ class UserState with ChangeNotifier {
 
   String get username {
     return _user != null ? user.username : '...';
+  }
+
+  List<DocumentKind> get documentKinds {
+    return _documentKinds;
   }
 
   bool hasSavedUser() {

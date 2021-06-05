@@ -62,4 +62,14 @@ void main() {
       false,
     );
   });
+
+  test('Deeplink.matchesRechargeResult', () {
+    var env = Env();
+    var matches = Deeplinking.matchesRechargeResultUri(
+      env,
+      'https://rec.barcelona/recharge-result?status=ok',
+    );
+
+    expect(matches, true);
+  });
 }

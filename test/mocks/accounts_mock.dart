@@ -10,6 +10,7 @@ class AccountsMock {
     ],
     'street': 'aaa',
     'address_number': 'aaa',
-    'zip': 'aaa'
+    'zip': 'aaa',
+    'level': Map<String, dynamic>.from({'code': 'KYC2'}),
   });
 }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Services/wallet/TransactionsService.dart';
 import 'package:rec/Components/FromToRow.dart';
@@ -5,14 +7,17 @@ import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/User/UserBalance.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
+import 'package:rec/Entities/Transactions/PaymentResult.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Mixins/Loadable.mixin.dart';
+import 'package:rec/Pages/LtabCampaign/LtabRewarded.page.dart';
 import 'package:rec/Pages/Private/Shared/RequestPin.page.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/TransactionsProvider.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
+import 'package:rec/routes.dart';
 
 class AttemptPayment extends StatefulWidget {
   final PaymentData data;
@@ -98,16 +103,30 @@ class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
 
   void _showErrorToast(error) => RecToast.showError(context, error.message);
 
-  void _onPaymentOk(resp) {
+  void _onPaymentOk(PaymentResult paymentResult) {
     var localizations = AppLocalizations.of(context);
     var transactionProvider = TransactionProvider.of(context, listen: false);
-
     transactionProvider.refresh();
 
     setIsLoading(false);
     Loading.dismiss();
-    Navigator.pop(context, true);
-    RecToast.showSuccess(context, localizations.translate('PAYMENT_OK'));
+
+    // LTAB
+    if (paymentResult.hasBeenRewarded()) {
+      var rewardedAmount = paymentResult.extraData.rewardedLtabAmount;
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => LtabRewarded(
+            amount: (rewardedAmount / pow(10, paymentResult.currency.scale)),
+          ),
+        ),
+        ModalRoute.withName(Routes.home),
+      );
+    } else {
+      RecToast.showSuccess(context, localizations.translate('PAYMENT_OK'));
+      Navigator.pop(context, true);
+    }
   }
 
   void _onPaymentError(error) {

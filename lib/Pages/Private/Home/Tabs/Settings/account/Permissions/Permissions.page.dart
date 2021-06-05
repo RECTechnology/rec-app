@@ -14,10 +14,6 @@ import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/brand.dart';
 
-// TODO: Change roles per permission
-// TODO: Improve yes/no dialog
-// TODO: TEST
-
 class AccountPermissionsPage extends StatefulWidget {
   AccountPermissionsPage({Key key}) : super(key: key);
 
@@ -89,21 +85,25 @@ class _AccountPermissionsPageState extends State<AccountPermissionsPage> {
 
   Widget _permissionsList() {
     return _users.isNotEmpty
-        ? ListView.separated(
-            itemBuilder: (BuildContext context, int index) {
-              return AccountPermissionTile(
-                _users[index],
-                onDelete: () => _deletePermission(_users[index]),
-                onChangeRole: (role) => _changeRole(_users[index], role),
-              );
-            },
-            itemCount: _users.length,
-            separatorBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Divider(),
-              );
-            },
+        ? RefreshIndicator(
+            color: Brand.primaryColor,
+            onRefresh: _loadPermissions,
+            child: ListView.separated(
+              itemBuilder: (BuildContext context, int index) {
+                return AccountPermissionTile(
+                  _users[index],
+                  onDelete: () => _deletePermission(_users[index]),
+                  onChangeRole: (role) => _changeRole(_users[index], role),
+                );
+              },
+              itemCount: _users.length,
+              separatorBuilder: (BuildContext context, int index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Divider(),
+                );
+              },
+            ),
           )
         : Center(child: CircularProgressIndicator());
   }
@@ -112,10 +112,10 @@ class _AccountPermissionsPageState extends State<AccountPermissionsPage> {
     _loadPermissions();
   }
 
-  void _loadPermissions() {
-    _accountService.listAccountPermissions(userState.account.id).then((value) {
-      setState(() => _users = value.items);
-    });
+  Future<void> _loadPermissions() {
+    return _accountService
+        .listAccountPermissions(userState.account.id)
+        .then((value) => setState(() => _users = value.items));
   }
 
   void _deletePermission(AccountPermission permission) async {
@@ -153,16 +153,16 @@ class _AccountPermissionsPageState extends State<AccountPermissionsPage> {
         .catchError(_onError);
   }
 
-  void _removedOk(c) {
-    Loading.dismiss();
+  Future<void> _removedOk(c) async {
+    await _loadPermissions();
+    await Loading.dismiss();
     RecToast.showSuccess(context, 'REMOVED_USER_CORRECTLY');
-    _loadPermissions();
   }
 
-  void _updatedRoleOk(c) {
-    Loading.dismiss();
+  Future<void> _updatedRoleOk(c) async {
+    await _loadPermissions();
+    await Loading.dismiss();
     RecToast.showSuccess(context, 'UPDATED_USER_CORRECTLY');
-    _loadPermissions();
   }
 
   void _onError(e) {

@@ -24,6 +24,8 @@ class ScheduleDay {
   bool isClosed(DateTime date) => !isOpen(date);
 
   bool isClosedForTheDay(DateTime now) {
+    if (Checks.isEmpty(firstOpen) && Checks.isEmpty(secondOpen)) return true;
+
     var hasFirstClose = Checks.isNotEmpty(firstClose);
     var hasSecondClose = Checks.isNotEmpty(secondClose);
 

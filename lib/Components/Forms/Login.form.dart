@@ -5,6 +5,8 @@ import 'package:rec/Components/Info/LoggedInBeforeCard.dart';
 import 'package:rec/Entities/Forms/LoginData.dart';
 import 'package:rec/Helpers/Validators.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/Providers/PreferenceProvider.dart';
+import 'package:rec/Providers/Preferences/PreferenceDefinitions.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Styles/Paddings.dart';
 
@@ -51,7 +53,7 @@ class LoginFormState extends State<LoginForm> {
                   padding: const EdgeInsets.only(bottom: 24),
                   child: LoggedInBeforeCard(
                     savedUser: savedUser,
-                    onNotYou: () => onNotYou(userState),
+                    onNotYou: () => onNotYou(),
                   ),
                 )
               : _dniField(),
@@ -98,7 +100,14 @@ class LoginFormState extends State<LoginForm> {
     setState(() => loginData.password = password);
   }
 
-  void onNotYou(UserState userState) async {
+  void onNotYou() async {
+    var userState = UserState.of(context, listen: false);
+    var preferences = PreferenceProvider.deaf(context);
+
+    preferences.set(
+      PreferenceKeys.showLtabCampaign,
+      PreferenceDefinitions.showLtabCampaign.defaultValue,
+    );
     await userState.unstoreUser();
     setUsername('');
   }

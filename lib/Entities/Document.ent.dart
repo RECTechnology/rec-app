@@ -1,5 +1,6 @@
 import 'package:rec/Entities/DocumentKind.ent.dart';
 import 'package:rec/Entities/Entity.base.dart';
+import 'package:rec/Entities/User.ent.dart';
 import 'package:rec/Helpers/Checks.dart';
 
 /// Document entity class defining a document instance
@@ -7,6 +8,7 @@ class Document extends Entity {
   static final String STATUS_SUBMITTED = 'rec_submitted';
   static final String STATUS_DECLINED = 'rec_declined';
   static final String STATUS_APPROVED = 'rec_approved';
+  static final String STATUS_EXPIRED = 'rec_expired';
   static final String STATUS_UNSUBMITTED = 'internal_unsubmitted';
 
   /// List of all posible statuses
@@ -15,6 +17,11 @@ class Document extends Entity {
     STATUS_DECLINED,
     STATUS_APPROVED,
   ];
+
+  /// Creates a name for a document for a user
+  static String createDocName(Document doc, User user) {
+    return '${user.username}-${doc.kind.id}';
+  }
 
   /// Specifies what kind of document this is
   DocumentKind kind;
@@ -32,9 +39,9 @@ class Document extends Entity {
     String id,
     String createdAt,
     String updatedAt,
-    String statusText,
+    String statusText = '',
     String status,
-    this.content,
+    this.content = '',
     this.kind,
   })  : status = status ?? STATUS_UNSUBMITTED,
         statusText = statusText ?? '',
@@ -52,22 +59,29 @@ class Document extends Entity {
   /// Whether this document status is DECLINED
   bool get isDeclined => status == STATUS_DECLINED;
 
+  /// Whether this document status is DECLINED
+  bool get isExpired => status == STATUS_EXPIRED;
+
   /// Whether this document status is SUBMITTED
   bool get isSubmitted => status == STATUS_SUBMITTED;
 
   /// Whether this document status is APPROVED
   bool get isApproved => status == STATUS_APPROVED;
 
+  /// Whether this Documents required to be uploaded, wither for the first time
+  /// or in case it has been declined or the document is expired
+  bool get needsUploading => isUnsubmitted || isDeclined || isExpired;
+
   factory Document.fromJson(Map<String, dynamic> json) {
     return Document(
-      id: json['id'],
+      id: json['id'].toString(),
       createdAt: json['created'],
       updatedAt: json['updated'],
       content: json['content'],
       status: json['status'],
       statusText: json['status_text'],
-      kind: Checks.isNotNull(json['kind'])
-          ? DocumentKind.fromJson(json['kind'])
+      kind: Checks.isNotNull(json['document_kind'])
+          ? DocumentKind.fromJson(json['document_kind'])
           : null,
     );
   }

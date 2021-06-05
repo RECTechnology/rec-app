@@ -4,6 +4,7 @@ import 'package:rec/Api/Services/UserSmsService.dart';
 import 'package:rec/Components/Forms/ChangePinForm.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Entities/Forms/ChangePinData.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
@@ -35,7 +36,7 @@ class _ChangePinPageState extends State<ChangePinPage> {
         backgroundColor: Colors.white,
         appBar: EmptyAppBar(
           context,
-          title: localizations.translate('CHANGE_PASSWORD'),
+          title: localizations.translate('CHANGE_PIN'),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -49,6 +50,14 @@ class _ChangePinPageState extends State<ChangePinPage> {
                   onChangeRePin: onChangeRePin,
                   onChangePassword: onChangePassword,
                 ),
+                if (data.pin != data.repin)
+                  LocalizedText(
+                    'PINS_DO_NOT_MATCH',
+                    style: Theme.of(context)
+                        .textTheme
+                        .caption
+                        .copyWith(color: Colors.red),
+                  ),
                 RecActionButton(
                   label: localizations.translate('UPDATE'),
                   backgroundColor: Brand.primaryColor,
@@ -117,6 +126,9 @@ class _ChangePinPageState extends State<ChangePinPage> {
   }
 
   void _changePinOK(result) {
+    var userState = UserState.of(context, listen: false);
+    userState.setUser(userState.user..hasPin = true);
+
     Loading.dismiss();
     RecToast.showSuccess(context, 'CHANGE_PIN_OK');
     Navigator.of(context).pushReplacementNamed(Routes.home);

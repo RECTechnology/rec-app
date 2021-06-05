@@ -31,11 +31,14 @@ class ApiPaths {
   static ApiPath uploadFile = ApiPath('/user/v1/upload_file');
   static ApiPath listCards = ApiPath('/company/v1/credit_card');
 
+  static ApiPath campaigns = ApiPath('/user/v3/campaigns');
+
   // Accounts
   static ApiPath accounts = ApiPath('/user/v3/accounts');
   static ApiPath accountsSearch = ApiPath('/user/v4/accounts/search');
   static ApiPath accountsAddUser = ApiPath('/manager/v1/groups');
   static ApiPath accountsPermissions = ApiPath('/users/v1/usersbygroup');
+  static ApiPath accountsEditRole = ApiPath('/manager/v1/groupsrole');
 
   // Recharge
   static ApiPath rechargeRecs = ApiPath('/methods/v1/in/lemonway');
@@ -43,4 +46,5 @@ class ApiPaths {
 
   // Documents
   static ApiPath documentKinds = ApiPath('/user/v3/document_kinds');
+  static ApiPath documents = ApiPath('/user/v4/documents');
 }

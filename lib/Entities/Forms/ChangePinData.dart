@@ -17,7 +17,8 @@ class ChangePinData extends FormData {
   bool get isValid =>
       Checks.isNotEmpty(pin) &&
       Checks.isNotEmpty(repin) &&
-      Checks.isNotEmpty(password);
+      Checks.isNotEmpty(password) &&
+      pin == repin;
 
   @override
   Map<String, dynamic> toJson() {

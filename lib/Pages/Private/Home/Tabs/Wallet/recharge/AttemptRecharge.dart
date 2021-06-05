@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Services/wallet/ExchangersService.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/Entities/Transactions/RechargeResult.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/LemonWayPaymentWebView.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/RechargeKO.page.dart';
@@ -8,7 +10,6 @@ import 'package:rec/Api/Services/wallet/RechargeService.dart';
 import 'package:rec/Components/Indicators/LoadingIndicator.dart';
 import 'package:rec/Entities/Forms/RechargeData.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/routes.dart';
 
 class AttemptRecharge extends StatefulWidget {
@@ -57,10 +58,11 @@ class _AttemptRecharge extends State<AttemptRecharge> {
 
   Future<Null> attemptRecharge() {
     var localizations = AppLocalizations.of(context);
+
     return rechargeService.recharge(widget.data).then(
       (value) {
         if (value.payInInfo != null && value.payInInfo.paymentUrl != null) {
-          launchPaymentUrl(value.payInInfo.paymentUrl);
+          launchPaymentUrl(value);
           return;
         }
 
@@ -88,10 +90,14 @@ class _AttemptRecharge extends State<AttemptRecharge> {
     );
   }
 
-  Future<void> launchPaymentUrl(String url) async {
+  Future<void> launchPaymentUrl(RechargeResult rechargeResult) async {
     await Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
-        builder: (ctx) => LemonWayPaymentWebView(url: url),
+        builder: (ctx) => LemonWayPaymentWebView(
+          url: rechargeResult.payInInfo.paymentUrl,
+          rechargeResult: rechargeResult,
+          rechargeData: widget.data,
+        ),
       ),
       ModalRoute.withName(Routes.home),
     );
@@ -100,24 +106,26 @@ class _AttemptRecharge extends State<AttemptRecharge> {
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
-
     if (isLoading) {
       return Scaffold(
         backgroundColor: Colors.transparent,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              localizations.translate('RECHARGE_IN_PROGRESS'),
-              style: TextStyles.pageTitle,
-            ),
-            const SizedBox(height: 16),
-            Center(
-              child: LoadingIndicator(),
-            )
-          ],
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              LocalizedText(
+                'RECHARGE_IN_PROGRESS',
+                style: Theme.of(context).textTheme.bodyText2,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              Center(
+                child: LoadingIndicator(),
+              )
+            ],
+          ),
         ),
       );
     }

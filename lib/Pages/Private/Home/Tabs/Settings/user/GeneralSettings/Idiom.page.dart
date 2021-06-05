@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Api/Services/UsersService.dart';
+import 'package:rec/Api/Storage.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
@@ -84,6 +85,10 @@ class _IdiomPageState extends State<IdiomPage> {
                         title: localizations
                             .getNameByLocaleId(idiomCards[index].id),
                         onTap: () {
+                          RecStorage().write(
+                            key: 'locale',
+                            value: idiomCards[index].id,
+                          );
                           changeIdiom(idiomCards[index].id);
                         },
                         textStyle: TextStyles.outlineTileText.copyWith(

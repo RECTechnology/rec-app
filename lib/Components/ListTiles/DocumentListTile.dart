@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:rec/Entities/Document.ent.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/user/LimitAndVerification/UploadDocument/UploadDocument.dart';
@@ -6,32 +8,17 @@ import 'package:rec/brand.dart';
 
 import 'GeneralSettingsTile.dart';
 
-class DocumentStatus extends StatelessWidget {
-  final Document document;
-
-  const DocumentStatus(this.document, {Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
-    var localizedStatus = localizations.translate(document.status);
-
-    return RichText(
-      text: TextSpan(
-        children: [
-          TextSpan(text: localizedStatus),
-          TextSpan(text: ': '),
-          TextSpan(text: document.statusText),
-        ],
-      ),
-    );
-  }
-}
-
 class DocumentListTile extends StatefulWidget {
   final Document document;
+  final Function(Document document, String contentUrl) onCreateDocument;
+  final Function(Document document, String contentUrl) onUpdateDocument;
 
-  DocumentListTile(this.document, {Key key}) : super(key: key);
+  DocumentListTile(
+    this.document, {
+    Key key,
+    @required this.onCreateDocument,
+    @required this.onUpdateDocument,
+  }) : super(key: key);
 
   @override
   _DocumentListTileState createState() => _DocumentListTileState();
@@ -48,7 +35,9 @@ class _DocumentListTileState extends State<DocumentListTile> {
     var status = localizations.translate(document.status);
     var title = localizations.translate(document.kind.name);
     var statusTextPart = ': ${document.statusText}';
-    var subtitle = '$status${document.hasStatusText ? statusTextPart : ''}';
+    var subtitle = document.isUnsubmitted
+        ? null
+        : '$status${document.hasStatusText ? statusTextPart : ''}';
 
     var ganGoForwards = !(document.isSubmitted || document.isApproved);
     var icon = ganGoForwards
@@ -66,7 +55,7 @@ class _DocumentListTileState extends State<DocumentListTile> {
     }
 
     return GeneralSettingsTile(
-      title: title,
+      title: title ?? 'Document',
       subtitle: subtitle,
       subtitleTextStyle: theme.textTheme.caption.copyWith(
         fontWeight: FontWeight.w400,
@@ -82,10 +71,23 @@ class _DocumentListTileState extends State<DocumentListTile> {
   }
 
   Future _goForwards() async {
-    await Navigator.of(context).push(MaterialPageRoute(
-      builder: (ctx) => UploadDocument(
-        title: document.kind.name,
+    var docContentUrl = await Navigator.of(context).push<String>(
+      MaterialPageRoute(
+        builder: (ctx) => UploadDocument(
+          document: document,
+        ),
       ),
-    ));
+    );
+
+    // No result means upload document did not upload any document
+    if (docContentUrl == null) return;
+
+    // If document is unsubmitted we need to create the document
+    if (document.isUnsubmitted) {
+      return widget.onCreateDocument(document, docContentUrl);
+    }
+
+    // If it's already submitted we need tu update it
+    return widget.onUpdateDocument(document, docContentUrl);
   }
 }

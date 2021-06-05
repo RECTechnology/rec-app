@@ -3,7 +3,4 @@ class DocumentRequieredDataTiles {
   final String state;
 
   DocumentRequieredDataTiles({this.name, this.state});
-
-  // ignore: missing_return
-
 }

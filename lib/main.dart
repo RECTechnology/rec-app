@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:rec/Api/RecPreferences.dart';
 import 'package:rec/app.dart';
 import 'package:rec/brand.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -23,6 +25,12 @@ Future<void> main() async {
 Future<void> setup() async {
   WidgetsFlutterBinding.ensureInitialized();
   Brand.configLoading();
+
+  await RecPreferences.initialize();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   timeago.setLocaleMessages('es', timeago.EsMessages());
 }

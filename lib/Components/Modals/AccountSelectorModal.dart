@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Api/Services/UsersService.dart';
 import 'package:rec/Components/ListTiles/AccountListTile.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Entities/Account.ent.dart';
@@ -130,18 +131,28 @@ class AccountSelectorModal {
 
     return Container(
       color: Brand.defaultAvatarBackground,
-      child: ListView.builder(
-        padding: EdgeInsets.symmetric(vertical: 8),
-        itemCount: accounts.length,
-        itemBuilder: (ctx, index) {
-          var account = accounts[index];
-          return AccountListTile(
-            onTap: () => onSelected(account),
-            avatar: CircleAvatarRec.fromAccount(account),
-            name: account.name,
-          );
-        },
-      ),
+      child: accounts.isEmpty
+          ? Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Center(
+                child: LocalizedText(
+                  'NO_MORE_ACCOUNTS',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            )
+          : ListView.builder(
+              padding: EdgeInsets.symmetric(vertical: 8),
+              itemCount: accounts.length,
+              itemBuilder: (ctx, index) {
+                var account = accounts[index];
+                return AccountListTile(
+                  onTap: () => onSelected(account),
+                  avatar: CircleAvatarRec.fromAccount(account),
+                  name: account.name,
+                );
+              },
+            ),
     );
   }
 

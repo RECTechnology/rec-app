@@ -3,8 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/user/GeneralSettings/Idiom.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/user/GeneralSettings/PrincipalAccount.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/user/UserProfile/ChangeEmail/ChangeEmail.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/UserState.dart';

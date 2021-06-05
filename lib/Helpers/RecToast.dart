@@ -50,6 +50,7 @@ class RecToast {
     String msg, {
     Color textColor = Colors.white,
     Color backgroundColor = Colors.black87,
+    double elevation = 1,
   }) {
     var localizations = AppLocalizations.of(context);
 
@@ -72,6 +73,7 @@ class RecToast {
         duration: Preferences.toastDuration,
         padding: EdgeInsets.symmetric(horizontal: 8.0),
         behavior: SnackBarBehavior.fixed,
+        elevation: elevation,
       ),
     );
   }

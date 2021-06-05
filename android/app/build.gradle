@@ -51,6 +51,18 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions "version"
+    productFlavors {
+        pre {
+            applicationId "com.barcelona.prec"
+            versionNameSuffix "-pre"
+        }
+
+        prod {
+            applicationId "com.barcelona.rec"
+        }
+    }
 }
 
 flutter {

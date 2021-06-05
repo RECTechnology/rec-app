@@ -1,7 +1,7 @@
 name: rec
 description: Rec Barcelona app.
 publish_to: 'none' 
-version: 2.0.0+10
+version: 2.0.0+11
 
 environment:
   sdk: '>=2.7.0 <3.0.0'
@@ -31,6 +31,7 @@ dependencies:
   provider: ^5.0.0
   sentry_flutter: ^5.0.0
   share: ^2.0.2
+  shared_preferences: ^2.0.6
   timeago: ^2.0.26
   url_launcher: ^6.0.4
   webview_flutter: ^1.0.7

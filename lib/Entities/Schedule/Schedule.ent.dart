@@ -73,7 +73,7 @@ class Schedule {
 
     // It's closed so return next opening date
     if (todaySchedule.isClosedForTheDay(today)) {
-      for (var day = 1; day < 7; day++) {
+      for (var day = 1; day <= 7; day++) {
         if (day == today.weekday - 1) continue;
 
         var nextDay = DateTime(

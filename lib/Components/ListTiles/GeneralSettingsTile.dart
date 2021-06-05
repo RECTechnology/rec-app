@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Indicators/Badge.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/brand.dart';
 
 class GeneralSettingsTile extends StatefulWidget {
@@ -33,7 +33,6 @@ class GeneralSettingsTile extends StatefulWidget {
 class _GeneralSettingsTileState extends State<GeneralSettingsTile> {
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
     var theme = Theme.of(context);
 
     return Container(
@@ -50,15 +49,15 @@ class _GeneralSettingsTileState extends State<GeneralSettingsTile> {
             child: InkWell(
               onTap: widget.onTap,
               child: ListTile(
-                title: Text(
-                  localizations.translate(widget.title),
+                title: LocalizedText(
+                  widget.title ?? '',
                   style: widget.textStyle ?? theme.textTheme.subtitle1,
                 ),
                 subtitle: widget.subtitle != null
                     ? Padding(
                         padding: const EdgeInsets.only(top: 8.0),
-                        child: Text(
-                          localizations.translate(widget.subtitle),
+                        child: LocalizedText(
+                          widget.subtitle,
                           style: widget.subtitleTextStyle ??
                               theme.textTheme.caption.copyWith(
                                 fontWeight: FontWeight.w400,

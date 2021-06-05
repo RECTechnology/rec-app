@@ -102,7 +102,7 @@ class _ValidatePhoneState extends State<ValidatePhone> {
       formKey: _formKey,
       data: data,
       onChange: (data) {
-        this.data = data;
+        setState(() => {this.data = data});
       },
     );
   }

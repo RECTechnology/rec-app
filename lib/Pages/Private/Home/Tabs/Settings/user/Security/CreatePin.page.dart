@@ -3,6 +3,7 @@ import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Entities/Forms/ChangePinData.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Shared/CreatePin.dart';
+import 'package:rec/Providers/UserState.dart';
 import 'package:rec/routes.dart';
 
 class CreatePinPage extends StatefulWidget {
@@ -24,6 +25,9 @@ class _CreatePinPageState extends State<CreatePinPage> {
             label: 'CREATE_PIN_SHORT',
             buttonWithArrow: false,
             ifPin: (String pin) {
+              var userState = UserState.of(context, listen: false);
+              userState.setUser(userState.user..hasPin = true);
+
               RecToast.showSuccess(context, 'CREATED_PIN_OK');
               Navigator.of(context).pushReplacementNamed(Routes.home);
             },

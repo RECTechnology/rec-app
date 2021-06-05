@@ -8,6 +8,8 @@ import 'package:provider/single_child_widget.dart';
 import 'package:rec/Api/Storage.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
+import 'package:rec/Providers/CampaignProvider.dart';
+import 'package:rec/Providers/DocumentsProvider.dart';
 import 'package:rec/Providers/TransactionsProvider.dart';
 import 'package:rec/Providers/UserState.dart';
 
@@ -16,6 +18,8 @@ class TestUtils {
     Widget page, {
     UserState state,
     TransactionProvider transactionProvider,
+    DocumentsProvider documentsProvider,
+    CampaignProvider campaignsProvider,
     List<SingleChildWidget> providers = const [],
   }) {
     return MultiProvider(
@@ -32,6 +36,12 @@ class TestUtils {
         ),
         ChangeNotifierProvider(
           create: (context) => state ?? UserState(RecStorage(), null),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => documentsProvider ?? DocumentsProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => campaignsProvider ?? CampaignProvider(),
         ),
         ...providers
       ],

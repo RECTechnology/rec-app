@@ -2,6 +2,7 @@ import 'package:rec/Entities/Campaign.ent.dart';
 import 'package:rec/Entities/Currency.ent.dart';
 import 'package:rec/Entities/Entity.base.dart';
 import 'package:rec/Entities/FormattedAddress.dart';
+import 'package:rec/Entities/Level.ent.dart';
 import 'package:rec/Entities/Offer.ent.dart';
 import 'package:rec/Entities/Schedule/Schedule.ent.dart';
 import 'package:rec/Entities/Transactions/Wallet.ent.dart';
@@ -40,11 +41,14 @@ class Account extends Entity {
   String scheduleString;
   String addressString;
   FormattedAddress address;
+  Level level;
 
   Schedule schedule;
 
   double latitude;
   double longitude;
+
+  num redeemableAmount;
 
   bool active;
 
@@ -69,11 +73,13 @@ class Account extends Entity {
     this.longitude,
     this.addressString,
     this.address,
+    this.level,
     this.prefix,
     this.phone,
     this.webUrl,
     this.offers,
     this.scheduleString,
+    this.redeemableAmount,
   }) : super(id, createdAt, updatedAt);
 
   bool isPrivate() {
@@ -101,8 +107,21 @@ class Account extends Entity {
     return campaigns.firstWhere((el) => el.id == campaignId) != null;
   }
 
+  // LTAB
+  bool isLtabAccount({String ltabAccountName = 'LI TOCA AL BARRI'}) {
+    return name == ltabAccountName;
+  }
+
   bool hasOffers() {
     return Checks.isNotEmpty(offers);
+  }
+
+  bool hasLevel(Level level) {
+    return level == this.level;
+  }
+
+  bool hasLevelByCode(String code) {
+    return level.code == code;
   }
 
   int getWalletBalance(String currencyName) {
@@ -165,6 +184,10 @@ class Account extends Entity {
       phone: json['phone'],
       latitude: double.parse((json['latitude'] ?? 0).toString()),
       longitude: double.parse((json['longitude'] ?? 0).toString()),
+      redeemableAmount: json['redeemable_amount'],
+      level: Checks.isNotNull(json['level'])
+          ? Level.fromJson(json['level'])
+          : null,
       wallets: wallets,
       campaigns: campaigns,
       offers: offers,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/brand.dart';
 
 class SectionTitleTile extends StatelessWidget {
@@ -9,10 +9,9 @@ class SectionTitleTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
     return ListTile(
-      title: Text(
-        localizations.translate(title),
+      title: LocalizedText(
+        title,
         style: Theme.of(context)
             .textTheme
             .subtitle1

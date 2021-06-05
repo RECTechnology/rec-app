@@ -12,7 +12,6 @@ import 'package:rec/Pages/Private/Home/Tabs/Wallet/charge/Charge.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayContactOrAccount.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayLink.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayWithQR.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/AddNewCard.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/Recharge.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/user/General.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/user/GeneralSettings/PrincipalAccount.page.dart';
@@ -38,6 +37,7 @@ class Routes {
 
   // Route for deeplink recharge result
   static String rechargeResult = 'recharge-result';
+  static String rechargeResultRedirect = '/recharge-result';
   static String payLink = '/pay';
 
   static String home = 'home';
@@ -50,6 +50,7 @@ class Routes {
   static String settingsUserPassword = 'settings-user-change-password';
   static String settingsUserChangePin = 'settings-user-change-pin';
   static String settingsUserCreatePin = 'settings-user-create-pin';
+
   static String settingsUserDocuments = 'settings-user-documents';
   static String settingsUserGeneral = 'settings-user-general';
   static String settingsUserMainAccount = 'settings-user-main-account';
@@ -81,10 +82,10 @@ final Map<String, Widget Function(BuildContext)> ROUTES = {
   Routes.register: (context) => RegisterOne(),
   Routes.home: (context) => PrivateRoute(HomePage()),
   Routes.recharge: (context) => RechargePage(),
-  Routes.newCard: (context) => AddNewCard(),
   Routes.payQr: (context) => PayWithQR(),
   Routes.payContactAccount: (context) => PayContactOrAccount(),
   Routes.charge: (context) => ChargePage(),
+
   // User settings
   Routes.settingsUserSecurity: (context) => UserSecurityPage(),
   Routes.settingsUserProfile: (context) => UserProfile(),
@@ -95,6 +96,7 @@ final Map<String, Widget Function(BuildContext)> ROUTES = {
   Routes.settingsUserChangePin: (context) => ChangePinPage(),
   Routes.settingsUserCreatePin: (context) => CreatePinPage(),
   Routes.settingsUserDocuments: (context) => LimitAndVerificationPage(),
+
   // Account settings
   Routes.settingsAccountPermissions: (context) => AccountPermissionsPage()
 };

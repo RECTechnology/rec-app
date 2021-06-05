@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Components/Modals/AccountSelectorModal.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Styles/BoxDecorations.dart';
 
@@ -58,23 +59,26 @@ class _PrivateAppBar extends State<PrivateAppBar> {
       backgroundColor: widget.backgroundColor,
       flexibleSpace: widget.bottom == null ? null : flexibleSpace,
       elevation: 0,
-      leading: widget.hasBackArrow
-          ? IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: widget.color ?? Colors.white,
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 8.0),
+        child: widget.hasBackArrow
+            ? IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: widget.color ?? Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            : Container(
+                alignment: Alignment.center,
+                child: CircleAvatarRec.fromAccount(account),
               ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          : Container(
-              alignment: Alignment.center,
-              child: CircleAvatarRec.fromAccount(account),
-            ),
+      ),
       title: Align(
         alignment: widget.alignment,
-        child: Text(
+        child: LocalizedText(
           widget.title ?? userState.user.selectedAccount.name,
           textAlign: widget.textAlign,
           style: TextStyle(

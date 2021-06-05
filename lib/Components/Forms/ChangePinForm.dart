@@ -83,7 +83,7 @@ class ChangePinFormState extends State<ChangePinForm> {
               },
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 24, bottom: 16.0),
+              padding: const EdgeInsets.only(top: 60, bottom: 16.0),
               child: PasswordField(
                 focusNode: passwordFocus,
                 title: localizations.translate('PASSWORD'),

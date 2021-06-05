@@ -2,6 +2,7 @@ import 'package:rec/Entities/Campaign.ent.dart';
 import 'package:rec/Entities/Entity.base.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Environments/env-local.dart';
+import 'package:rec/Helpers/Checks.dart';
 
 class User extends Entity {
   List<Account> accounts = [];
@@ -14,6 +15,7 @@ class User extends Entity {
   String prefix;
 
   bool hasPin = false;
+  bool privateTosCampaign = false;
 
   User({
     String id,
@@ -23,6 +25,7 @@ class User extends Entity {
     this.accounts,
     this.selectedAccount,
     this.hasPin = false,
+    this.privateTosCampaign = false,
     this.phone = '',
     this.prefix = '',
   }) : super(id, createdAt, updatedAt);
@@ -39,19 +42,36 @@ class User extends Entity {
     return getCampaignAccount() != null;
   }
 
+  /// Returns the campaign account for this user
   Account getCampaignAccount() {
-    var ltabAccounts = accounts.where((el) => el.type == 'PRIVATE').where((el) {
-      return el.campaigns != null
-          ? el.campaigns.where((el) => el.id == env.CAMPAIGN_ID) != null
-          : false;
+    if (Checks.isEmpty(accounts)) return null;
+
+    var ltabAccounts = accounts.where((el) => el.isPrivate()).where((account) {
+      if (account.campaigns == null || account.campaigns.isEmpty) return false;
+
+      var matchingCampaign =
+          account.campaigns.where((campaign) => campaign.id == env.CAMPAIGN_ID);
+
+      return matchingCampaign != null && matchingCampaign.isNotEmpty;
     });
 
     return ltabAccounts.isNotEmpty ? ltabAccounts.last : null;
   }
 
-  @override
-  Map<String, dynamic> toJson() {
-    return {};
+  /// Checks whether any [Account] of this [User] satisfies [test].
+  /// Checks every account in iteration order, and returns true if any of them make [test] return true, otherwise returns false.
+  bool anyAccountMatches(bool Function(Account account) test) {
+    if (Checks.isEmpty(accounts)) return false;
+
+    return accounts.any(test);
+  }
+
+  /// Checks whether this user has any account with a level that matches [code]
+  /// Codes are available as constants in Level [Level.CODE_KYC2]
+  bool anyAccountAtLevel(String code) {
+    return anyAccountMatches(
+      (account) => account.hasLevelByCode(code),
+    );
   }
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -63,6 +83,7 @@ class User extends Entity {
       phone: json['phone'].toString(),
       prefix: json['prefix'].toString(),
       hasPin: json['has_pin'],
+      privateTosCampaign: json['private_tos_campaign'],
       selectedAccount: Account.fromJson(json['active_group']),
       accounts: List.from(json['activeAccounts'])
           .map((el) => Account.fromJson(el))

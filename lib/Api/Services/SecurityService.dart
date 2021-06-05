@@ -37,9 +37,9 @@ class SecurityService extends ServiceBase {
     return this.put(
       path,
       {
-        pin: pin,
-        repin: repin,
-        smscode: smscode,
+        'pin': pin,
+        'repin': repin,
+        'sms_code': smscode,
       },
     );
   }

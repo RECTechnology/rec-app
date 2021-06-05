@@ -31,7 +31,6 @@ class _UserBalance extends State<UserBalance> {
     var localizations = AppLocalizations.of(context);
     var amount = Formatting.formatCurrency(
       widget.balance,
-      // symbol: widget.currency.symbol,
     );
 
     return Container(

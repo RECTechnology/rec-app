@@ -30,6 +30,7 @@ class WalletFloatingActionsState extends State<WalletFloatingActions> {
     var isPrivate = userState.user.selectedAccount.isPrivate();
     var accountTypeColor =
         Brand.getColorForAccount(userState.user.selectedAccount);
+    var isLtabAccount = userState.account.isLtabAccount();
 
     var privateChildren = [
       buildSpeedDialChild(
@@ -46,21 +47,25 @@ class WalletFloatingActionsState extends State<WalletFloatingActions> {
         bgColor: accountTypeColor,
         route: Routes.payContactAccount,
       ),
-      buildSpeedDialChild(
-        'RECEIVE_PAYMENT',
-        Icons.call_received,
-        context,
-        bgColor: accountTypeColor,
-        route: Routes.charge,
-      ),
-      buildSpeedDialChild(
-        'RECHARGE_RECS',
-        Icons.credit_card,
-        context,
-        iconColor: Brand.grayDark,
-        bgColor: Brand.defaultAvatarBackground,
-        route: Routes.recharge,
-      ),
+      isLtabAccount
+          ? null
+          : buildSpeedDialChild(
+              'RECEIVE_PAYMENT',
+              Icons.call_received,
+              context,
+              bgColor: accountTypeColor,
+              route: Routes.charge,
+            ),
+      isLtabAccount
+          ? null
+          : buildSpeedDialChild(
+              'RECHARGE_RECS',
+              Icons.credit_card,
+              context,
+              iconColor: Brand.grayDark,
+              bgColor: Brand.defaultAvatarBackground,
+              route: Routes.recharge,
+            ),
     ];
     var companyChildren = [
       buildSpeedDialChild(
@@ -111,7 +116,9 @@ class WalletFloatingActionsState extends State<WalletFloatingActions> {
       backgroundColor: accountTypeColor,
       foregroundColor: Colors.white,
       elevation: 0,
-      children: isPrivate ? privateChildren : companyChildren,
+      children: (isPrivate ? privateChildren : companyChildren)
+          .where((element) => element != null)
+          .toList(),
     );
   }
 

@@ -1,6 +1,4 @@
-import 'package:dio/dio.dart';
 import 'package:rec/Api/ApiPaths.dart';
-import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Interceptors/InjectTokenInterceptor.dart';
 import 'package:rec/Api/Services/BaseService.dart';
 import 'package:rec/Api/Storage.dart';
@@ -14,23 +12,16 @@ class UsersService extends ServiceBase {
     return get(uri).then(_mapToUser);
   }
 
-  Future getImageURL(var imagePath) async {
-    var token = await Auth.getAccessToken();
-    var formData =
-    FormData.fromMap({'file': await MultipartFile.fromFile(imagePath)});
-    var dio = Dio();
-    return dio.post(ApiPaths.uploadFile.toUri().toString(),
-        data: formData,
-        options: Options(headers: {
-          'Authorization': 'Bearer $token',
-        }));
+  Future<Map<String, dynamic>> updateUser(Map<dynamic, dynamic> data) {
+    final uri = ApiPaths.currentUserAccount.toUri();
+
+    return put(uri, data);
   }
 
   Future<Map<String, dynamic>> changeIdiom(String locale) {
+    final uri = ApiPaths.currentUserAccount.toUri();
     RecStorage().write(key: 'locale', value: locale);
-    final uri = ApiPaths.uploadFile.withQueryParams({
-      'locale': locale,
-    }).toUri();
+
     return put(uri, {'locale': locale});
   }
 
