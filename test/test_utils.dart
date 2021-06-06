@@ -43,6 +43,9 @@ class TestUtils {
         ChangeNotifierProvider(
           create: (context) => campaignsProvider ?? CampaignProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => documentsProvider ?? DocumentsProvider(),
+        ),
         ...providers
       ],
       child: wrapInMaterialApp(page),
