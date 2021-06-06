@@ -35,7 +35,7 @@ class TestUtils {
           ),
         ),
         ChangeNotifierProvider(
-          create: (context) => state ?? UserState(RecStorage(), null),
+          create: (context) => state ?? UserState(RecSecureStorage(), null),
         ),
         ChangeNotifierProvider(
           create: (context) => documentsProvider ?? DocumentsProvider(),

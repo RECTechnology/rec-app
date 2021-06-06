@@ -13,7 +13,7 @@ void main() {
     var app = TestUtils.wrapPrivateRoute(
       ChangePinPage(),
       state: UserState(
-        RecStorage(),
+        RecSecureStorage(),
         null,
         user: UserMocks.userNormal(),
       ),

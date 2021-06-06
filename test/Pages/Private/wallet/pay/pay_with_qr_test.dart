@@ -12,7 +12,7 @@ void main() {
     var app = TestUtils.wrapPrivateRoute(
       PayWithQR(),
       state: UserState(
-        RecStorage(),
+        RecSecureStorage(),
         null,
         user: UserMocks.userNormal(),
       ),

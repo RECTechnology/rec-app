@@ -13,7 +13,7 @@ import 'package:rec/brand.dart';
 /// UserState holds data for the current authenticated user, like it's own data
 /// aswell as information about accounts
 class UserState with ChangeNotifier {
-  final RecStorage _storage;
+  final RecSecureStorage _storage;
 
   User _user;
   User _savedUser;
@@ -31,7 +31,7 @@ class UserState with ChangeNotifier {
   }
 
   static ChangeNotifierProvider<UserState> getProvider(
-    RecStorage _storage,
+    RecSecureStorage _storage,
     User savedUser,
   ) {
     return ChangeNotifierProvider(
@@ -48,7 +48,7 @@ class UserState with ChangeNotifier {
   }
 
   void setSavedUser(User user) {
-    _storage.write(key: RecStorage.PREV_USER_DNI, value: user.username);
+    _storage.write(key: RecSecureStorage.PREV_USER_DNI, value: user.username);
     _savedUser = user;
     notifyListeners();
   }
@@ -99,16 +99,16 @@ class UserState with ChangeNotifier {
     return account == null ? defaultColor : Brand.getColorForAccount(account);
   }
 
-  static Future<User> getSavedUser(RecStorage _storage) async {
+  static Future<User> getSavedUser(RecSecureStorage _storage) async {
     var savedUsername = await _storage.read(
-      key: RecStorage.PREV_USER_DNI,
+      key: RecSecureStorage.PREV_USER_DNI,
     );
     return User(username: savedUsername);
   }
 
-  static Future<void> removeSavedUser(RecStorage _storage) async {
+  static Future<void> removeSavedUser(RecSecureStorage _storage) async {
     await _storage.delete(
-      key: RecStorage.PREV_USER_DNI,
+      key: RecSecureStorage.PREV_USER_DNI,
     );
   }
 }

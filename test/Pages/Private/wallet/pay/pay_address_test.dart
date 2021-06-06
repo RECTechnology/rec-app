@@ -15,7 +15,7 @@ void main() {
         paymentData: PaymentData.empty(),
       ),
       state: UserState(
-        RecStorage(),
+        RecSecureStorage(),
         null,
         user: UserMocks.userNormal(),
       ),

@@ -1,12 +1,13 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class RecStorage {
+/// A wrapper for flutter_secure_storage
+class RecSecureStorage {
   static String PREV_USER_DNI = 'previous_user_dni';
   static String PREV_USER_IMAGE = 'previous_user_image';
 
   FlutterSecureStorage storage;
 
-  RecStorage() {
+  RecSecureStorage() {
     storage = FlutterSecureStorage();
   }
 

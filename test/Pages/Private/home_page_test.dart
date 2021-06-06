@@ -18,7 +18,7 @@ void main() {
     var app = TestUtils.wrapPrivateRoute(
       HomePage(pollUser: false, defaultTab: 2),
       state: UserState(
-        RecStorage(),
+        RecSecureStorage(),
         null,
         user: UserMocks.userNormal(),
       ),

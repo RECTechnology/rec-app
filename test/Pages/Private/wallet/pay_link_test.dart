@@ -18,7 +18,7 @@ void main() {
         ),
       ),
       state: UserState(
-        RecStorage(),
+        RecSecureStorage(),
         null,
         user: UserMocks.userNormal(),
       ),

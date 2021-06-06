@@ -20,7 +20,7 @@ class UsersService extends ServiceBase {
 
   Future<Map<String, dynamic>> changeIdiom(String locale) {
     final uri = ApiPaths.currentUserAccount.toUri();
-    RecStorage().write(key: 'locale', value: locale);
+    RecSecureStorage().write(key: 'locale', value: locale);
 
     return put(uri, {'locale': locale});
   }

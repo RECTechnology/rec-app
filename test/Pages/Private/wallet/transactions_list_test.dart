@@ -16,7 +16,7 @@ void main() {
     var app = TestUtils.wrapPrivateRoute(
       TransactionsList(),
       state: UserState(
-        RecStorage(),
+        RecSecureStorage(),
         null,
         user: UserMocks.userNormal(),
       ),

@@ -16,6 +16,7 @@ class NotInitializedException implements Exception {
   }
 }
 
+/// A static wrapper and additional funcionality on top of shared_preferences
 class RecPreferences {
   static SharedPreferences _prefs;
 

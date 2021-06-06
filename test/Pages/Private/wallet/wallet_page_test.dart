@@ -47,7 +47,7 @@ void main() {
     var app = TestUtils.wrapPrivateRoute(
       WalletPageRec(autoReloadEnabled: false),
       state: UserState(
-        RecStorage(),
+        RecSecureStorage(),
         null,
         user: UserMocks.userNormal(),
       ),

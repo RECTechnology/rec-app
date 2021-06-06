@@ -14,7 +14,7 @@ void main() {
         ifPin: (pin) => print('got pin $pin'),
       ),
       state: UserState(
-        RecStorage(),
+        RecSecureStorage(),
         null,
         user: UserMocks.userNormal(),
       ),

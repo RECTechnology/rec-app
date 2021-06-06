@@ -85,7 +85,7 @@ class _IdiomPageState extends State<IdiomPage> {
                         title: localizations
                             .getNameByLocaleId(idiomCards[index].id),
                         onTap: () {
-                          RecStorage().write(
+                          RecSecureStorage().write(
                             key: 'locale',
                             value: idiomCards[index].id,
                           );

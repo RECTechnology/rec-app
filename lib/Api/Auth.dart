@@ -1,7 +1,7 @@
 import 'Storage.dart';
 
 class Auth {
-  static RecStorage storage = RecStorage();
+  static RecSecureStorage storage = RecSecureStorage();
   static const String _tokenKey = 'token';
   static const String _refreshTokenKey = 'refresh_token';
   static const String _expireDate = 'expires_in';

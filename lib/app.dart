@@ -33,7 +33,7 @@ class RecApp extends StatefulWidget {
 }
 
 class _RecAppState extends State<RecApp> {
-  final RecStorage storage = RecStorage();
+  final RecSecureStorage storage = RecSecureStorage();
   final TransactionsService txService = TransactionsService();
 
   Locale locale;
