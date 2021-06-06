@@ -6,33 +6,33 @@ import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
+import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Entities/IdiomCard.ent.dart';
 import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/app.dart';
 import 'package:rec/brand.dart';
-import 'package:rec/routes.dart';
 
-class IdiomPage extends StatefulWidget {
-  IdiomPage({Key key}) : super(key: key);
+class ChangeLanguagePage extends StatefulWidget {
+  ChangeLanguagePage({Key key}) : super(key: key);
 
   @override
-  _IdiomPageState createState() => _IdiomPageState();
+  _ChangeLanguagePageState createState() => _ChangeLanguagePageState();
 }
 
-class _IdiomPageState extends State<IdiomPage> {
-  var idiomCards = <IdiomCard>[
+class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
+  List<IdiomCard> languageCards = [
     IdiomCard(
       id: 'es',
-      image: AssetImage('assets/bandera-española.png'),
+      image: AssetImage('assets/flag-es.png'),
     ),
     IdiomCard(
       id: 'en',
-      image: AssetImage('assets/bandera-inglesa.png'),
+      image: AssetImage('assets/flag-en.png'),
     ),
     IdiomCard(
       id: 'ca',
-      image: AssetImage('assets/bandera-catalana.png'),
+      image: AssetImage('assets/flag-cat.png'),
     ),
   ];
 
@@ -51,7 +51,7 @@ class _IdiomPageState extends State<IdiomPage> {
           children: [
             GeneralSettingsTile(
               title: localizations.getNameByLocaleId(getMainIdiom().id),
-              subtitle: localizations.translate('MAIN_IDIOM'),
+              subtitle: localizations.translate('MAIN_IDIOMa'),
               circleAvatar: CircleAvatarRec(
                 radius: 27,
                 image: getMainIdiom().image,
@@ -75,21 +75,23 @@ class _IdiomPageState extends State<IdiomPage> {
               width: 400,
               height: 300,
               child: ListView.builder(
-                itemCount: idiomCards.length,
+                itemCount: languageCards.length,
                 itemBuilder: (context, index) {
-                  if (idiomCards[index].id !=
-                      localizations.locale.languageCode) {
+                  print('locale: ${localizations.locale.languageCode}');
+                  print('list lang: ${languageCards[index].id}');
+
+                  var isSelectedLocale = languageCards[index].id ==
+                      localizations.locale.languageCode;
+
+                  if (!isSelectedLocale) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 20),
                       child: GeneralSettingsTile(
-                        title: localizations
-                            .getNameByLocaleId(idiomCards[index].id),
+                        title: localizations.getNameByLocaleId(
+                          languageCards[index].id,
+                        ),
                         onTap: () {
-                          RecSecureStorage().write(
-                            key: 'locale',
-                            value: idiomCards[index].id,
-                          );
-                          changeIdiom(idiomCards[index].id);
+                          changeIdiom(languageCards[index].id);
                         },
                         textStyle: TextStyles.outlineTileText.copyWith(
                           fontWeight: FontWeight.w300,
@@ -97,12 +99,12 @@ class _IdiomPageState extends State<IdiomPage> {
                         ),
                         circleAvatar: CircleAvatarRec(
                           radius: 27,
-                          image: idiomCards[index].image,
+                          image: languageCards[index].image,
                         ),
                       ),
                     );
                   }
-                  return null;
+                  return SizedBox.shrink();
                 },
               ),
             ),
@@ -119,18 +121,26 @@ class _IdiomPageState extends State<IdiomPage> {
   IdiomCard getMainIdiom() {
     var localizations = AppLocalizations.of(context);
 
-    for (var idiom in idiomCards) {
+    for (var idiom in languageCards) {
       if (idiom.id == localizations.locale.languageCode) return idiom;
     }
+
+    return languageCards[0];
   }
 
-  void changeIdiom(String id) {
-    var userService = UsersService();
+  void changeIdiom(String locale) {
+    Loading.show();
 
+    var userService = UsersService();
+    RecSecureStorage().write(
+      key: 'locale',
+      value: locale,
+    );
     setState(() {
-      userService.changeIdiom(id).then((value) {
-        Navigator.of(context).pushReplacementNamed(Routes.home);
-        RecApp.setLocale(context, Locale(id, id.toUpperCase()));
+      userService.changeIdiom(locale).then((value) {
+        Loading.dismiss();
+        RecApp.setLocale(context, Locale(locale, locale));
+        Navigator.of(context).pop();
       });
     });
   }

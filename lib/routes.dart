@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Settings/AddNewAccount.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/user/LimitAndVerification/LimitAndVerification.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/account/Permissions/Permissions.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/user/Security/ChangePassword.dart';
@@ -15,7 +16,7 @@ import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayWithQR.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/Recharge.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/user/General.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/user/GeneralSettings/PrincipalAccount.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/user/GeneralSettings/Idiom.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Settings/user/GeneralSettings/Language.page.dart';
 import 'package:rec/Pages/Public/Register/RegisterStepOne.dart';
 
 import 'Pages/Private/Home/Home.page.dart';
@@ -54,10 +55,11 @@ class Routes {
   static String settingsUserDocuments = 'settings-user-documents';
   static String settingsUserGeneral = 'settings-user-general';
   static String settingsUserMainAccount = 'settings-user-main-account';
-  static String settingsUserGeneralIdiom = 'settings-user-general-idiom';
+  static String settingsUserGeneralLanguage = 'settings-user-general-language';
 
   static String settingsAccount = 'settings-account';
   static String settingsAccountPermissions = 'settings-account-permissions';
+  static String settingsAddNewAccount = 'settings-add-new-account';
 
   static String getInitialRoute({bool hasToken = true}) {
     return hasToken ? Routes.home : Routes.login;
@@ -89,14 +91,15 @@ final Map<String, Widget Function(BuildContext)> ROUTES = {
   // User settings
   Routes.settingsUserSecurity: (context) => UserSecurityPage(),
   Routes.settingsUserProfile: (context) => UserProfile(),
-  Routes.settingsUserMainAccount: (context) => PrincipalAccountPage(),
+  Routes.settingsUserMainAccount: (context) => MainAccountPage(),
   Routes.settingsUserGeneral: (context) => GeneralSettingsPage(),
-  Routes.settingsUserGeneralIdiom: (context) => IdiomPage(),
+  Routes.settingsUserGeneralLanguage: (context) => ChangeLanguagePage(),
   Routes.settingsUserPassword: (context) => ChangePasswordPage(),
   Routes.settingsUserChangePin: (context) => ChangePinPage(),
   Routes.settingsUserCreatePin: (context) => CreatePinPage(),
   Routes.settingsUserDocuments: (context) => LimitAndVerificationPage(),
 
   // Account settings
-  Routes.settingsAccountPermissions: (context) => AccountPermissionsPage()
+  Routes.settingsAccountPermissions: (context) => AccountPermissionsPage(),
+  Routes.settingsAddNewAccount: (context) => AddNewAccountPage(),
 };

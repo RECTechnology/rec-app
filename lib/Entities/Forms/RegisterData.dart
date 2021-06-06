@@ -1,13 +1,16 @@
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Forms/FormData.dart';
+import 'package:rec/Mixins/AccountType.mixin.dart';
 
-class RegisterData extends FormData {
+class RegisterData extends FormData with AccountType {
   String dni;
   String password;
   String prefix;
   String phone;
 
+  @override
   String accountType;
+
   bool termsAccepted = false;
 
   // Only if type COMPANY
@@ -23,9 +26,6 @@ class RegisterData extends FormData {
     this.companyName,
     this.companyCif,
   });
-
-  bool get isAccountPrivate => accountType == Account.TYPE_PRIVATE;
-  bool get isAccountCompany => accountType == Account.TYPE_COMPANY;
 
   @override
   Map<String, dynamic> toJson() {

@@ -39,6 +39,7 @@ class ApiPaths {
   static ApiPath accountsAddUser = ApiPath('/manager/v1/groups');
   static ApiPath accountsPermissions = ApiPath('/users/v1/usersbygroup');
   static ApiPath accountsEditRole = ApiPath('/manager/v1/groupsrole');
+  static ApiPath accountsAddNew = ApiPath('/user/v1/new/account');
 
   // Recharge
   static ApiPath rechargeRecs = ApiPath('/methods/v1/in/lemonway');

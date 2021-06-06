@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Forms/RegisterStepTwo.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
+import 'package:rec/Components/Scaffold/AccountTypeHeader.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
 import 'package:rec/Helpers/RecToast.dart';
@@ -22,7 +24,6 @@ class RegisterTwo extends StatefulWidget {
 
 class RegisterTwoState extends State<RegisterTwo> {
   final _formKey = GlobalKey<FormState>();
-
   RegisterData registerData;
 
   @override
@@ -41,7 +42,6 @@ class RegisterTwoState extends State<RegisterTwo> {
   }
 
   Widget _header() {
-    var localizations = AppLocalizations.of(context);
     var background = registerData.isAccountPrivate
         ? Brand.backgroundPrivateColor
         : Brand.backgroundCompanyColor;
@@ -52,40 +52,15 @@ class RegisterTwoState extends State<RegisterTwo> {
         icon: Icon(Icons.arrow_back, color: Colors.black),
         onPressed: () => Navigator.of(context).pop(registerData),
       ),
-      bottom: PreferredSize(
-        preferredSize: Size.fromHeight(100),
-        child: Container(
-          height: 100,
-          padding: EdgeInsets.only(left: 24, right: 24),
-          child: Center(
-            child: Column(
-              children: [
-                IconButton(
-                  icon: registerData.isAccountPrivate
-                      ? Image.asset('assets/organization-bw.png')
-                      : Image.asset('assets/organization.png'),
-                  iconSize: 50,
-                  onPressed: null,
-                ),
-                SizedBox(height: 8),
-                Text(
-                  localizations.translate('ORGANIZATION'),
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                        color: Brand.grayDark,
-                        fontWeight: FontWeight.w500,
-                      ),
-                )
-              ],
-            ),
-          ),
-        ),
+      bottom: AccountTypeHeader(
+        isPrivate: false,
+        hidePrivate: true,
+        onChanged: (_) {},
       ),
     );
   }
 
   Widget _body() {
-    var localizations = AppLocalizations.of(context);
-
     return SingleChildScrollView(
       child: Container(
         child: Padding(
@@ -104,8 +79,8 @@ class RegisterTwoState extends State<RegisterTwo> {
                 registerData: registerData,
                 onChange: (data) => setState(() => registerData = data),
               ),
-              Text(
-                localizations.translate('WHEN_INIT_SESION'),
+              LocalizedText(
+                'WHEN_INIT_SESION',
                 style: Theme.of(context)
                     .textTheme
                     .caption
@@ -117,7 +92,7 @@ class RegisterTwoState extends State<RegisterTwo> {
                   onPressed: register,
                   backgroundColor: Brand.accentColor,
                   icon: Icons.arrow_forward_ios,
-                  label: localizations.translate('REGISTER'),
+                  label: 'REGISTER',
                 ),
               )
             ],

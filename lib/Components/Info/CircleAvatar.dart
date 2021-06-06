@@ -78,7 +78,7 @@ class _CircleAvatarRecState extends State<CircleAvatarRec> {
       );
     }
 
-    if (Checks.isNotEmpty(widget.image)) {
+    if (Checks.isNotNull(widget.image)) {
       return CircleAvatar(
         radius: widget.radius,
         backgroundImage: widget.image,

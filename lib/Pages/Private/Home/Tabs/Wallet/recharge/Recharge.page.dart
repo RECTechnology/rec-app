@@ -6,6 +6,7 @@ import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/User/UserBalance.dart';
 import 'package:rec/Entities/Forms/RechargeData.dart';
 import 'package:rec/Helpers/Loading.dart';
+import 'package:rec/Helpers/RecNavigation.dart';
 import 'package:rec/Pages/LtabCampaign/CampaignDescriptionCard.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/AttemptRecharge.dart';
 import 'package:rec/Pages/Private/Shared/RequestPin.page.dart';
@@ -140,19 +141,19 @@ class _RechargePageState extends State<RechargePage> {
         rechargeData.amount >= activeCampaign.min;
 
     Loading.dismiss();
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (ctx) => RequestPin(
-          ifPin: (pin) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (ctx) => AttemptRecharge(
-                  data: rechargeData..pin = pin,
-                ),
-              ),
-            );
-          },
-        ),
+    _requestPin();
+  }
+
+  void _requestPin() {
+    RecNavigation.of(context).navigate(
+      (_) => RequestPin(ifPin: _attemptRecharge),
+    );
+  }
+
+  void _attemptRecharge(String pin) {
+    RecNavigation.of(context).navigate(
+      (_) => AttemptRecharge(
+        data: rechargeData..pin = pin,
       ),
     );
   }

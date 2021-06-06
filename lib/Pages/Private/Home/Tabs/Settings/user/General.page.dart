@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/user/GeneralSettings/Idiom.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/user/GeneralSettings/PrincipalAccount.page.dart';
+import 'package:rec/Helpers/RecNavigation.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
+import 'package:rec/routes.dart';
 
 class GeneralSettingsPage extends StatefulWidget {
   GeneralSettingsPage({Key key}) : super(key: key);
@@ -33,21 +33,20 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
             GeneralSettingsTile(
               title: userState.account.name,
               subtitle: localization.translate('PRINCIPAL_ACCOUNT'),
-              onTap: () async {
-                await Navigator.of(context).push(MaterialPageRoute(
-                  builder: (ctx) => PrincipalAccountPage(),
-                ));
-              },
+              onTap: RecNavigation.getNavigateToRouteCallback(
+                context,
+                Routes.settingsUserMainAccount,
+              ),
             ),
             GeneralSettingsTile(
-              title: localization
-                  .getNameByLocaleId(localization.locale.languageCode),
+              title: localization.getNameByLocaleId(
+                localization.locale.languageCode,
+              ),
               subtitle: localization.translate('MAIN_IDIOM'),
-              onTap: () async {
-                await Navigator.of(context).push(MaterialPageRoute(
-                  builder: (ctx) => IdiomPage(),
-                ));
-              },
+              onTap: RecNavigation.getNavigateToRouteCallback(
+                context,
+                Routes.settingsUserGeneralLanguage,
+              ),
             ),
             const SizedBox(
               height: 16,

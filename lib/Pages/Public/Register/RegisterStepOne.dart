@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Services/public/PhoneVerificationService.dart';
-import 'package:rec/Api/Services/public/PublicSMSService.dart';
 import 'package:rec/Components/Forms/RegisterStepOne.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
+import 'package:rec/Components/Scaffold/AccountTypeHeader.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
 import 'package:rec/Entities/Account.ent.dart';
@@ -28,13 +27,6 @@ class RegisterOneState extends State<RegisterOne>
   );
   final _formKey = GlobalKey<FormState>();
   final _registerFormKey = GlobalKey<RegisterStepOneFormState>();
-  final validateSMS = PhoneVerificationService();
-  final smsService = PublicSMSService();
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +40,6 @@ class RegisterOneState extends State<RegisterOne>
   }
 
   Widget _header() {
-    var localizations = AppLocalizations.of(context);
     var bg = registerData.isAccountPrivate
         ? Brand.backgroundPrivateColor
         : Brand.backgroundCompanyColor;
@@ -59,72 +50,15 @@ class RegisterOneState extends State<RegisterOne>
         icon: Icon(Icons.close, color: Colors.black),
         onPressed: () => Navigator.of(context).pop(),
       ),
-      bottom: PreferredSize(
-        preferredSize: Size.fromHeight(100),
-        child: Container(
-          height: 100,
-          padding: EdgeInsets.only(left: 24, right: 24),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 1,
-                child: Column(
-                  children: [
-                    IconButton(
-                      icon: registerData.isAccountPrivate
-                          ? Image.asset('assets/avatar.png')
-                          : Image.asset('assets/avatar-bw.png'),
-                      onPressed: () =>
-                          _registerFormKey.currentState.setToPrivate(),
-                      iconSize: 50,
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      localizations.translate('PARTICULAR'),
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: registerData.isAccountPrivate
-                                ? Brand.grayDark
-                                : Brand.grayDark3,
-                            fontWeight: registerData.isAccountPrivate
-                                ? FontWeight.w500
-                                : FontWeight.w400,
-                          ),
-                    )
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  children: [
-                    IconButton(
-                      icon: registerData.isAccountPrivate
-                          ? Image.asset('assets/organization-bw.png')
-                          : Image.asset('assets/organization.png'),
-                      onPressed: () =>
-                          _registerFormKey.currentState.setToCompany(),
-                      iconSize: 50,
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      localizations.translate('ORGANIZATION'),
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: registerData.isAccountCompany
-                                ? Brand.grayDark
-                                : Brand.grayDark3,
-                            fontWeight: registerData.isAccountCompany
-                                ? FontWeight.w500
-                                : FontWeight.w400,
-                          ),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+      bottom: AccountTypeHeader(
+        isPrivate: registerData.isAccountPrivate,
+        onChanged: (isPrivate) {
+          if (isPrivate) {
+            _registerFormKey.currentState.setToPrivate();
+          } else {
+            _registerFormKey.currentState.setToCompany();
+          }
+        },
       ),
     );
   }

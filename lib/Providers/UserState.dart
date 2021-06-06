@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:rec/Api/Services/UsersService.dart';
 import 'package:rec/Api/Storage.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/DocumentKind.ent.dart';
@@ -14,6 +15,7 @@ import 'package:rec/brand.dart';
 /// aswell as information about accounts
 class UserState with ChangeNotifier {
   final RecSecureStorage _storage;
+  final UsersService _userService;
 
   User _user;
   User _savedUser;
@@ -24,7 +26,9 @@ class UserState with ChangeNotifier {
     this._storage,
     this._savedUser, {
     User user,
-  }) : _user = user;
+    UsersService userService,
+  })  : _user = user,
+        _userService = userService ?? UsersService();
 
   static UserState of(context, {bool listen = true}) {
     return Provider.of<UserState>(context, listen: listen);
@@ -37,6 +41,13 @@ class UserState with ChangeNotifier {
     return ChangeNotifierProvider(
       create: (context) => UserState(_storage, savedUser),
     );
+  }
+
+  Future<User> getUser() {
+    return _userService.getUser().then((user) {
+      setUser(user);
+      return user;
+    });
   }
 
   void clear() {

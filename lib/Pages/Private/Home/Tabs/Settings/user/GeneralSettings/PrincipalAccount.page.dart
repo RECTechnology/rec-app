@@ -11,14 +11,14 @@ import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
 import 'package:rec/routes.dart';
 
-class PrincipalAccountPage extends StatefulWidget {
-  PrincipalAccountPage({Key key}) : super(key: key);
+class MainAccountPage extends StatefulWidget {
+  MainAccountPage({Key key}) : super(key: key);
 
   @override
-  _PrincipalAccountPageState createState() => _PrincipalAccountPageState();
+  _MainAccountPageState createState() => _MainAccountPageState();
 }
 
-class _PrincipalAccountPageState extends State<PrincipalAccountPage> {
+class _MainAccountPageState extends State<MainAccountPage> {
   @override
   Widget build(BuildContext context) {
     var userState = UserState.of(context);

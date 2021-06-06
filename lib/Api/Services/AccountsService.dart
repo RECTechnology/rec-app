@@ -6,6 +6,7 @@ import 'package:rec/Api/Services/BaseService.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/AccountPermission.ent.dart';
 import 'package:rec/Entities/Forms/CreatePermissionData.dart';
+import 'package:rec/Entities/Forms/NewAccountData.dart';
 import 'package:rec/Entities/Map/MapSearchData.dart';
 
 /// used to perform actions on accounts
@@ -60,6 +61,13 @@ class AccountsService extends ServiceBase {
         .appendMultiple([accountId, permissionId.toString()]).toUri();
 
     return this.delete(path);
+  }
+
+  /// Creates a new account linked to the authenticated user
+  Future addAccount(NewAccountData data) {
+    var path = ApiPaths.accountsAddNew.toUri();
+
+    return this.post(path, data.toJson());
   }
 
   Future<ApiListResponse<AccountPermission>> listAccountPermissions(

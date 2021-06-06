@@ -7,49 +7,58 @@ import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Entities/Account.ent.dart';
+import 'package:rec/Pages/Private/Home/Home.page.dart';
 import 'package:rec/Styles/Borders.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/TransactionsProvider.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Styles/BoxDecorations.dart';
 import 'package:rec/brand.dart';
+import 'package:rec/routes.dart';
 
 class AccountSelectorModal {
   final BuildContext context;
   final UsersService userService;
 
-  AccountSelectorModal(this.context) : userService = UsersService();
+  AccountSelectorModal(
+    this.context,
+  ) : userService = UsersService();
 
   Widget dialogContent() {
-    var localization = AppLocalizations.of(context);
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          localization.translate('MY_ACCOUNTS'),
-          style: Theme.of(context).textTheme.headline6,
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.close, color: Colors.black),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              const SizedBox(width: 8),
+              LocalizedText(
+                'MY_ACCOUNTS',
+                style: Theme.of(context).textTheme.headline6,
+              )
+            ],
+          ),
         ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.close, color: Colors.black),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        bottom: currentAccount(),
-      ),
-      body: accountList(),
-      bottomNavigationBar: newAccountButton(),
+        currentAccount(),
+        Expanded(child: accountList()),
+        newAccountButton(),
+      ],
     );
   }
 
   Widget newAccountButton() {
-    var localization = AppLocalizations.of(context);
     return PreferredSize(
       preferredSize: Size.fromHeight(80),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.pop(context);
+          Navigator.pushNamed(context, Routes.settingsAddNewAccount);
+        },
         child: Container(
           decoration: BoxDecoration(border: Borders.borderTop),
           padding: EdgeInsets.all(15),
@@ -58,9 +67,7 @@ class AccountSelectorModal {
               Icon(Icons.person_add),
               Padding(
                 padding: const EdgeInsets.only(left: 15.0),
-                child: Text(
-                  localization.translate('ADD_ANOTHER_ACCOUNT'),
-                ),
+                child: LocalizedText('ADD_ANOTHER_ACCOUNT'),
               ),
             ],
           ),
@@ -72,7 +79,6 @@ class AccountSelectorModal {
   Widget currentAccount() {
     var userState = UserState.of(context);
     var account = userState.user.selectedAccount;
-    var localization = AppLocalizations.of(context);
 
     return PreferredSize(
       preferredSize: Size.fromHeight(kToolbarHeight + 70),
@@ -90,7 +96,7 @@ class AccountSelectorModal {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 15.0),
-                    child: Text(
+                    child: LocalizedText(
                       account.name,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
@@ -100,13 +106,16 @@ class AccountSelectorModal {
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                    HomePageState.changeTab(context, 2);
+                  },
                   style: OutlinedButton.styleFrom(
                     primary: Brand.grayDark,
                     side: BorderSide(width: 1, color: Brand.grayDark2),
                   ),
-                  child: Text(
-                    localization.translate('MANAGE_ACCOUNT'),
+                  child: LocalizedText(
+                    'MANAGE_ACCOUNT',
                     style: Theme.of(context)
                         .textTheme
                         .caption

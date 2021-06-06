@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Api/Services/UsersService.dart';
 import 'package:rec/Components/Scaffold/RecNavigationBar.dart';
+import 'package:rec/Helpers/RecNavigation.dart';
 import 'package:rec/Pages/LtabCampaign/LtabInitialBanner.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Map/Map.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/Settings.page.dart';
@@ -23,11 +24,17 @@ class HomePage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
+class HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
+  /// Method to change tabs from other widgets
+  static void changeTab(BuildContext context, int tab) {
+    var state = context.findAncestorStateOfType<HomePageState>();
+    state.setCurrentTab(tab);
+  }
+
   int _currentTabIndex;
   UserState _userState;
   Timer _userPollTimer;
@@ -76,9 +83,7 @@ class _HomePageState extends State<HomePage>
   Widget _bottomNavigationBar() {
     return RecNavigationBar(
       currentTabIndex: _currentTabIndex,
-      onTabTap: (int index) {
-        setState(() => _currentTabIndex = index);
-      },
+      onTabTap: setCurrentTab,
     );
   }
 
@@ -91,6 +96,10 @@ class _HomePageState extends State<HomePage>
     );
   }
 
+  void setCurrentTab(int index) {
+    setState(() => _currentTabIndex = index);
+  }
+
   void _checkCampaign() {
     if (LtabInitialBanner.shouldBeOpenned(context)) {
       _showLtabBanner();
@@ -98,12 +107,9 @@ class _HomePageState extends State<HomePage>
   }
 
   void _showLtabBanner() {
-    var activeCampaign = _campaignProvider.activeCampaign;
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (BuildContext context) => LtabInitialBanner(
-          activeCampaign,
-        ),
+    RecNavigation.of(context).navigate(
+      (_) => LtabInitialBanner(
+        _campaignProvider.activeCampaign,
       ),
     );
   }

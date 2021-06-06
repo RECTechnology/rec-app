@@ -55,7 +55,7 @@
   "HELP_US_VALIDATE_PHONE": "Ayúdanos a validar esta acción introduciendo el codigo enviado a ",
   "ERROR_CODE": "Error, el código introducido no es válido",
   "PARTICULAR": "Particular",
-  "ORGANIZATION": "ORGANIZAZCIÓN",
+  "ORGANIZATION": "Organización",
   "TOTAL_BALANCE": "Saldo total",
   "CREDIT_CARD_TX": "Tarjeta bancaria",
   "RECHARGE_EUR_REC": "Recarga realiza de euros a RECs",
@@ -283,6 +283,10 @@
   "GENERAL_SETTINGS": "Ajustes generales",
 
   "REWARD_OBTAINED_DESC": "{{amount}}R están de camino a tu cuenta LI TOCA AL BARRI",
+  "CREATE_ACCOUNT": "¡Crea tu cuenta!",
+  "CREATE_ACCOUNT_DESC": "Añade una nueva cuenta a tu usuario",
+  "ADD_ACCOUNT": "Añadir cuenta",
+  "ACCOUNT_CREATED_OK": "Cuenta creada correctamente",
 
   "PAYMENT_SHARE_MESSAGE": "¡Hola! 👋 Soy {{account}}, tenemos pendiente el pago “{{concept}}” con importe de {{amount}}R. Haz click en el enlace y ábrelo con la app. del REC. 📲 ¡Gracias! {{link}}"
 }
