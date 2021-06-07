@@ -54,6 +54,7 @@ class _SettingsPageState extends State<SettingsPage> {
     }
 
     var userState = UserState.of(context);
+    var isCompany = userState.account.isCompany();
     var hasPin = userState.user.hasPin;
     var hasRequiredDocs = Checks.isNotEmpty(
       documentsProvider.requiredDocuments,
@@ -114,8 +115,16 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               SectionTitleTile('SETTINGS_ACCOUNT'),
               SettingsListTile(
-                title: 'SETTINGS_ACCOUNT_YOURS',
-                icon: Icons.account_circle,
+                title: isCompany
+                    ? 'SETTINGS_BUSSINESS_ON_MAP'
+                    : 'SETTINGS_YOUR_ACCOUNT',
+                icon: isCompany ? Icons.storefront : Icons.account_circle,
+                onTap: RecNavigation.getNavigateToRouteCallback(
+                  context,
+                  isCompany
+                      ? Routes.settingsBussinessAccount
+                      : Routes.settingsYourAccount,
+                ),
               ),
               SettingsListTile(
                 title: 'SETTINGS_ACCOUNT_PERMISSIONS',

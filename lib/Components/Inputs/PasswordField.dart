@@ -57,6 +57,8 @@ class PasswordFieldState extends State<PasswordField> {
       onSubmitted: widget.onSubmitted,
       autofocus: widget.autofocus,
       focusNode: widget.focusNode,
+      maxLines: 1,
+      minLines: 1,
     );
   }
 }

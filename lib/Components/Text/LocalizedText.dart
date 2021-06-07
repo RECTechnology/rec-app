@@ -6,6 +6,7 @@ class LocalizedText extends StatefulWidget {
   final Map<String, dynamic> params;
   final TextStyle style;
   final TextAlign textAlign;
+  final TextOverflow overflow;
 
   LocalizedText(
     this.text, {
@@ -13,6 +14,7 @@ class LocalizedText extends StatefulWidget {
     this.style,
     this.textAlign,
     Key key,
+    this.overflow,
   }) : super(key: key);
 
   @override
@@ -27,6 +29,7 @@ class _LocalizedTextState extends State<LocalizedText> {
       localizations.translate(widget.text, params: widget.params),
       style: widget.style,
       textAlign: widget.textAlign,
+      overflow: widget.overflow,
     );
   }
 }

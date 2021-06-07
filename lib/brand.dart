@@ -42,7 +42,7 @@ class Brand {
   static const Color grayLight2 = Color(0xffBDBDBD);
   static const Color grayIcon = Color(0xffBFBFBF);
   static const Color graySubtitle = Color(0xff828282);
-  static const Color grayDisabled = Color(0xffC5C5C5);
+  static const Color grayDisabled = Color(0xffBBBBBB);
 
   static const Color amountNegative = Color(0xffD91636);
 

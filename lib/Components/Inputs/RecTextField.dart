@@ -60,6 +60,9 @@ class RecTextField extends StatefulWidget {
   // Max amount of characters the field can contain
   final int maxLength;
 
+  final int maxLines;
+  final int minLines;
+
   /// Whether the field can be written, or just read
   final bool readOnly;
 
@@ -87,6 +90,8 @@ class RecTextField extends StatefulWidget {
     this.inputFormatters = const [],
     this.focusNode,
     EdgeInsets padding,
+    this.minLines = 1,
+    this.maxLines = 10,
   }) : padding = padding ?? const EdgeInsets.only(bottom: 24.0);
 
   @override
@@ -113,6 +118,8 @@ class _InputField extends State<RecTextField> {
     return Padding(
       padding: widget.padding,
       child: TextFormField(
+        maxLines: widget.maxLines,
+        minLines: widget.minLines,
         textCapitalization: widget.capitalizeMode,
         initialValue: widget.initialValue ?? '',
         textAlign: widget.textAlign,
@@ -141,6 +148,7 @@ class _InputField extends State<RecTextField> {
           hintText: widget.placeholder,
           labelText: widget.label,
           labelStyle: TextStyle(height: 1.5, color: widget.colorLabel),
+          hintStyle: TextStyle(height: 1.5, color: widget.colorLabel),
         ),
         style: TextStyle(
           color: Colors.black,

@@ -10,6 +10,7 @@ class SectionTitleTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      tileColor: Colors.white,
       title: LocalizedText(
         title,
         style: Theme.of(context)

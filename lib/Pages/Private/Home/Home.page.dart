@@ -42,9 +42,9 @@ class HomePageState extends State<HomePage>
 
   final UsersService _users = UsersService();
   final List<Widget> _tabs = <Widget>[
-    MapPage(),
-    WalletPageRec(),
-    SettingsPage(),
+    MapPage(key: GlobalKey()),
+    WalletPageRec(key: GlobalKey()),
+    SettingsPage(key: GlobalKey()),
   ];
 
   @override

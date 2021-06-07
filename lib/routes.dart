@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/AddNewAccount.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Settings/account/AccountContact.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Settings/account/AccountLocation.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Settings/account/AccountSchedule.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Settings/account/MyAccount.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/user/LimitAndVerification/LimitAndVerification.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/account/Permissions/Permissions.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/user/Security/ChangePassword.dart';
@@ -20,6 +24,7 @@ import 'package:rec/Pages/Private/Home/Tabs/Settings/user/GeneralSettings/Langua
 import 'package:rec/Pages/Public/Register/RegisterStepOne.dart';
 
 import 'Pages/Private/Home/Home.page.dart';
+import 'Pages/Private/Home/Tabs/Settings/account/BussinessAccount.page.dart';
 import 'Pages/Public/Login/Login.page.dart';
 import 'Components/PrivateRoute.dart';
 
@@ -57,8 +62,12 @@ class Routes {
   static String settingsUserMainAccount = 'settings-user-main-account';
   static String settingsUserGeneralLanguage = 'settings-user-general-language';
 
-  static String settingsAccount = 'settings-account';
+  static String settingsYourAccount = 'settings-your-account';
+  static String settingsBussinessAccount = 'settings-bussiness-account-map';
   static String settingsAccountPermissions = 'settings-account-permissions';
+  static String settingsAccountLocation = 'settings-account-location';
+  static String settingsAccountContact = 'settings-account-contact';
+  static String settingsAccountSchedule = 'settings-account-schedule';
   static String settingsAddNewAccount = 'settings-add-new-account';
 
   static String getInitialRoute({bool hasToken = true}) {
@@ -101,5 +110,10 @@ final Map<String, Widget Function(BuildContext)> ROUTES = {
 
   // Account settings
   Routes.settingsAccountPermissions: (context) => AccountPermissionsPage(),
+  Routes.settingsYourAccount: (context) => MyAccountPage(),
+  Routes.settingsBussinessAccount: (context) => BussinessAccountPage(),
   Routes.settingsAddNewAccount: (context) => AddNewAccountPage(),
+  Routes.settingsAccountLocation: (context) => AccountLocationPage(),
+  Routes.settingsAccountContact: (context) => AccountContactPage(),
+  Routes.settingsAccountSchedule: (context) => AccountSchedulePage(),
 };

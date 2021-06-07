@@ -57,12 +57,12 @@ class _DocumentListTileState extends State<DocumentListTile> {
     return GeneralSettingsTile(
       title: title ?? 'Document',
       subtitle: subtitle,
-      subtitleTextStyle: theme.textTheme.caption.copyWith(
+      icon: icon,
+      subtitleStyle: theme.textTheme.caption.copyWith(
         fontWeight: FontWeight.w400,
         color: Brand.getColorForDocumentStatus(document.status),
       ),
-      icon: icon,
-      textStyle: theme.textTheme.subtitle1.copyWith(
+      titleStyle: theme.textTheme.subtitle1.copyWith(
         fontWeight: FontWeight.w500,
         color: Brand.grayDark,
       ),

@@ -70,6 +70,12 @@ class AccountsService extends ServiceBase {
     return this.post(path, data.toJson());
   }
 
+  Future updateAccount(String accountId, Map<String, dynamic> data) {
+    var path = ApiPaths.accounts.append(accountId).toUri();
+
+    return this.put(path, data);
+  }
+
   Future<ApiListResponse<AccountPermission>> listAccountPermissions(
     String accountId,
   ) {

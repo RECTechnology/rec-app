@@ -9,21 +9,23 @@ class GeneralSettingsTile extends StatefulWidget {
   final CircleAvatarRec circleAvatar;
   final String subtitle;
   final Function onTap;
-  final TextStyle textStyle;
-  final TextStyle subtitleTextStyle;
+  final TextStyle titleStyle;
+  final TextStyle subtitleStyle;
   final Icon icon;
   final bool requiresActions;
+  final bool disabled;
 
   GeneralSettingsTile({
     Key key,
     @required this.title,
     this.circleAvatar,
     this.subtitle,
-    this.textStyle,
-    this.subtitleTextStyle,
+    this.titleStyle,
+    this.subtitleStyle,
     this.onTap,
     this.icon,
     this.requiresActions = false,
+    this.disabled = false,
   }) : super(key: key);
 
   @override
@@ -33,7 +35,17 @@ class GeneralSettingsTile extends StatefulWidget {
 class _GeneralSettingsTileState extends State<GeneralSettingsTile> {
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
+    var textTheme = Theme.of(context).textTheme;
+    var titleStyle = (widget.titleStyle ?? textTheme.subtitle1).copyWith(
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      color: widget.disabled ? Brand.grayDisabled : null,
+    );
+    var subtitleStyle = (widget.subtitleStyle ?? textTheme.caption).copyWith(
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      color: widget.disabled ? Brand.grayDisabled : null,
+    );
 
     return Container(
       color: Colors.white,
@@ -51,18 +63,16 @@ class _GeneralSettingsTileState extends State<GeneralSettingsTile> {
               child: ListTile(
                 title: LocalizedText(
                   widget.title ?? '',
-                  style: widget.textStyle ?? theme.textTheme.subtitle1,
+                  style: titleStyle,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 subtitle: widget.subtitle != null
                     ? Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: LocalizedText(
                           widget.subtitle,
-                          style: widget.subtitleTextStyle ??
-                              theme.textTheme.caption.copyWith(
-                                fontWeight: FontWeight.w400,
-                                color: Brand.graySubtitle,
-                              ),
+                          style: subtitleStyle,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       )
                     : null,

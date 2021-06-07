@@ -2,10 +2,10 @@ import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Helpers/DateHelper.dart';
 
 class ScheduleDay {
-  final String firstOpen;
-  final String firstClose;
-  final String secondOpen;
-  final String secondClose;
+  String firstOpen;
+  String firstClose;
+  String secondOpen;
+  String secondClose;
 
   ScheduleDay({
     this.firstOpen,
@@ -99,12 +99,21 @@ class ScheduleDay {
         now.isBefore(secondclose);
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'first_open': firstOpen,
+      'first_close': firstClose,
+      'second_open': secondOpen,
+      'second_close': secondClose,
+    };
+  }
+
   factory ScheduleDay.fromJson(Map<String, dynamic> json) {
     return ScheduleDay(
-      firstOpen: json['first_open'] ?? '',
-      firstClose: json['first_close'] ?? '',
-      secondOpen: json['second_open'] ?? '',
-      secondClose: json['second_close'] ?? '',
+      firstOpen: json['first_open'],
+      firstClose: json['first_close'],
+      secondOpen: json['second_open'],
+      secondClose: json['second_close'],
     );
   }
 }

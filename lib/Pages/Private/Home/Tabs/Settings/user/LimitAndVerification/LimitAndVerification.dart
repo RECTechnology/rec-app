@@ -174,7 +174,7 @@ class _LimitAndVerificationState extends State<LimitAndVerificationPage> {
 
     return GeneralSettingsTile(
       title: localizations.translate('NO_DOCUMENT'),
-      textStyle: TextStyle(
+      titleStyle: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w400,
         color: Brand.grayDark4,

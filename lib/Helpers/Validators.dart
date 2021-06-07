@@ -14,6 +14,21 @@ class Validators {
     return null;
   }
 
+  static String isEmail(String string) {
+    // Null or empty string is invalid
+    if (string == null || string.isEmpty) {
+      return 'INVALID_EMAIL';
+    }
+
+    const pattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+    final regExp = RegExp(pattern);
+
+    if (!regExp.hasMatch(string)) {
+      return 'INVALID_EMAIL';
+    }
+    return null;
+  }
+
   static String phoneVerification(String phone) {
     if (phone.length > 9 || phone.length < 9) {
       return 'ERROR_PHONE';

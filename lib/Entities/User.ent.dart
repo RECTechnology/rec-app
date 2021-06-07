@@ -13,6 +13,7 @@ class User extends Entity {
   String image;
   String phone;
   String prefix;
+  String email;
 
   bool hasPin = false;
   bool privateTosCampaign = false;
@@ -28,6 +29,7 @@ class User extends Entity {
     this.privateTosCampaign = false,
     this.phone = '',
     this.prefix = '',
+    this.email = '',
   }) : super(id, createdAt, updatedAt);
 
   bool isCampaignActive(Campaign campaign) {
@@ -74,6 +76,8 @@ class User extends Entity {
     );
   }
 
+  String get formattedPhone => '(+$prefix) $phone';
+
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: '${json['id']}',
@@ -83,6 +87,7 @@ class User extends Entity {
       phone: json['phone'].toString(),
       prefix: json['prefix'].toString(),
       hasPin: json['has_pin'],
+      email: json['email'],
       privateTosCampaign: json['private_tos_campaign'],
       selectedAccount: Account.fromJson(json['active_group']),
       accounts: List.from(json['activeAccounts'])

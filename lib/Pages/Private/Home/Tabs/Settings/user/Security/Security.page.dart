@@ -32,11 +32,11 @@ class _UserSecurityPageState extends State<UserSecurityPage> {
     return GeneralSettingsTile(
       title: localization.translate(title),
       subtitle: localization.translate(subtitle),
-      textStyle: TextStyle(
+      titleStyle: TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w500,
       ),
-      subtitleTextStyle: theme.textTheme.bodyText2.copyWith(
+      subtitleStyle: theme.textTheme.bodyText2.copyWith(
         color: Brand.grayDark4,
       ),
       onTap: RecNavigation.getNavigateToRouteCallback(context, route),
@@ -51,11 +51,11 @@ class _UserSecurityPageState extends State<UserSecurityPage> {
     return GeneralSettingsTile(
       title: localization.translate('CHANGE_PASSWORD'),
       subtitle: localization.translate('CHANGE_PASSWORD'),
-      textStyle: TextStyle(
+      titleStyle: TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w500,
       ),
-      subtitleTextStyle: theme.textTheme.bodyText2.copyWith(
+      subtitleStyle: theme.textTheme.bodyText2.copyWith(
         color: Brand.grayDark4,
       ),
       onTap: RecNavigation.getNavigateToRouteCallback(

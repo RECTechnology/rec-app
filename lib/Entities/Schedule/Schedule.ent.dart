@@ -13,16 +13,18 @@ enum ScheduleState {
 
 class Schedule {
   /// Specifies the type of schedule
-  final ScheduleType type;
+  ScheduleType type;
 
   /// Specifies the schedule for each day of the week
-  final List<ScheduleDay> days;
+  List<ScheduleDay> days;
 
   Schedule({
     ScheduleType type,
     List<ScheduleDay> days,
   })  : type = type ?? ScheduleType.NOT_AVAILABLE,
-        days = days ?? [];
+        days = (days != null && days.isNotEmpty)
+            ? days
+            : List.generate(7, (index) => ScheduleDay());
 
   /// Returns the state of the schedule for the current day
   /// For example: Closed · Opens at 10am
@@ -137,6 +139,13 @@ class Schedule {
       type: ScheduleType.fromName(parsedJson['type']),
       days: days,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'type': type.type,
+      'days': days.map((e) => e.toJson()).toList(),
+    };
   }
 
   static Map<String, dynamic> _tryParseScheduleJsonString(String jsonString) {

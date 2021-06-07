@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
@@ -42,8 +40,7 @@ class _WalletPageRecState extends State<WalletPageRec> {
             'YOU_HAVE_RECS_REDEMABLE',
             params: {
               'amount': Formatting.formatCurrency(
-                campaignAccount.redeemableAmount / pow(10, Currency.eur.scale),
-              ),
+                  campaignAccount.redeemableAmount * 1.0),
             },
           )
         : '';

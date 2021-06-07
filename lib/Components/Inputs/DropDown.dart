@@ -4,7 +4,7 @@ import 'package:rec/brand.dart';
 
 class DropDown extends StatefulWidget {
   final List data;
-  final Function onSelect;
+  final Function(String) onSelect;
   final String title;
   final String current;
   final bool isDense;
@@ -15,9 +15,9 @@ class DropDown extends StatefulWidget {
     Key key,
     @required this.title,
     this.onSelect,
-    this.current,
+    this.current = '',
     this.isDense = true,
-    List data,
+    List data = const [],
     BoxDecoration decoration,
     EdgeInsets padding,
   })  : data = data ?? [],

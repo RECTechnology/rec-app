@@ -7,10 +7,14 @@ import 'package:rec/brand.dart';
 class BussinessHeader extends StatefulWidget with PreferredSizeWidget {
   final Account account;
   final int size = 120;
+  final Widget avatarBadge;
+  final Widget subtitle;
 
   BussinessHeader(
     this.account, {
     Key key,
+    this.avatarBadge,
+    this.subtitle,
   }) : super(key: key);
 
   @override
@@ -55,9 +59,17 @@ class _BussinessHeaderState extends State<BussinessHeader> {
               children: [
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: CircleAvatarRec(
-                    imageUrl: widget.account.companyImage,
-                    radius: 32,
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 16.0),
+                        child: CircleAvatarRec(
+                          imageUrl: widget.account.companyImage,
+                          radius: 32,
+                        ),
+                      ),
+                      widget.avatarBadge ?? SizedBox.shrink(),
+                    ],
                   ),
                 ),
                 Padding(
@@ -78,14 +90,16 @@ class _BussinessHeaderState extends State<BussinessHeader> {
                           ),
                         ),
                       ),
-                      Text(
-                        localizations.translate(widget.account.addressString),
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Brand.grayDark,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
+                      widget.subtitle ??
+                          Text(
+                            localizations
+                                .translate(widget.account.addressString),
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Brand.grayDark,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
                     ],
                   ),
                 ),

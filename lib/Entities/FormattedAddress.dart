@@ -2,20 +2,20 @@ import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Helpers/Strings.dart';
 
 class FormattedAddress {
-  final String streetType;
-  final String streetName;
-  final String streetNumber;
-  final String city;
-  final String zip;
-  final String country;
+  String streetType;
+  String streetName;
+  String streetNumber;
+  String city;
+  String zip;
+  String country;
 
   FormattedAddress({
-    this.streetType = '',
-    this.streetName = '',
-    this.streetNumber = '',
-    this.city = '',
-    this.zip = '',
-    this.country = '',
+    this.streetType,
+    this.streetName,
+    this.streetNumber,
+    this.city,
+    this.zip,
+    this.country,
   });
 
   @override
@@ -31,16 +31,28 @@ class FormattedAddress {
         .where(Checks.isNotEmpty)
         .join(', ');
 
-    return formatted.isEmpty ? 'NOT_SPECIFIED' : Strings.capitalize(formatted);
+    return formatted.isEmpty ? '' : Strings.capitalize(formatted);
   }
 
   factory FormattedAddress.fromJson(Map<String, dynamic> json) {
     return FormattedAddress(
-      streetType: json['street_type'],
-      streetName: json['street'],
-      streetNumber: json['street_number'],
+      streetType:
+          Checks.isEmpty(json['street_type']) ? 'calle' : json['street_type'],
+      streetName: Checks.isEmpty(json['street']) ? null : json['street'],
+      streetNumber: Checks.isEmpty(json['address_number'])
+          ? null
+          : json['address_number'],
       city: json['city'],
       zip: json['zip'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'street_type': streetType,
+      'street': streetName,
+      'address_number': streetNumber,
+      'zip': zip,
+    };
   }
 }

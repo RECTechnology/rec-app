@@ -66,6 +66,8 @@ class CifTextFieldState extends State<CifTextField> {
       colorLine: widget.color,
       validator: widget.validator,
       padding: widget.padding,
+      maxLines: 1,
+      minLines: 1,
       icon: widget.showIcon
           ? Icon(
               Icons.work_outlined,

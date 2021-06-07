@@ -1,7 +1,7 @@
 name: rec
 description: Rec Barcelona app.
 publish_to: 'none' 
-version: 2.0.0+11
+version: 2.0.0+12
 
 environment:
   sdk: '>=2.7.0 <3.0.0'
@@ -19,6 +19,7 @@ dependencies:
   contacts_service: ^0.4.6
   country_code_picker: ^2.0.1
   cupertino_icons: ^1.0.0
+  geocoding: ^2.0.0
   google_maps_flutter: ^2.0.6
   qr_flutter: ^3.1.0
   qr_code_scanner: ^0.4.0

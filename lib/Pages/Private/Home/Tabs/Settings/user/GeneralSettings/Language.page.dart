@@ -56,11 +56,11 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
                 radius: 27,
                 image: getMainIdiom().image,
               ),
-              textStyle: TextStyles.outlineTileText.copyWith(
+              titleStyle: TextStyles.outlineTileText.copyWith(
                 fontWeight: FontWeight.w500,
                 color: Brand.grayDark,
               ),
-              subtitleTextStyle: TextStyles.outlineTileText.copyWith(
+              subtitleStyle: TextStyles.outlineTileText.copyWith(
                 fontWeight: FontWeight.w400,
                 color: Brand.graySubtitle,
               ),
@@ -93,7 +93,7 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
                         onTap: () {
                           changeIdiom(languageCards[index].id);
                         },
-                        textStyle: TextStyles.outlineTileText.copyWith(
+                        titleStyle: TextStyles.outlineTileText.copyWith(
                           fontWeight: FontWeight.w300,
                           color: Brand.grayDark,
                         ),

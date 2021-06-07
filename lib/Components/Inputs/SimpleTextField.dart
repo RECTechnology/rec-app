@@ -42,6 +42,8 @@ class SimpleTextFieldState extends State<SimpleTextField> {
       colorLine: widget.color,
       validator: widget.validator,
       readOnly: widget.readOnly,
+      maxLines: 1,
+      minLines: 1,
       icon: Icon(
         Icons.person,
         color: Colors.white,

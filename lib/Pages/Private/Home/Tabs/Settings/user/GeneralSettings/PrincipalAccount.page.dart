@@ -49,7 +49,7 @@ class _MainAccountPageState extends State<MainAccountPage> {
                 userState.account,
                 radius: 27,
               ),
-              textStyle: theme.textTheme.subtitle1.copyWith(
+              titleStyle: theme.textTheme.subtitle1.copyWith(
                 fontWeight: FontWeight.w500,
                 color: Brand.grayDark,
               ),
@@ -74,7 +74,6 @@ class _MainAccountPageState extends State<MainAccountPage> {
     );
   }
 
-//
   Widget accountList() {
     var userState = UserState.of(context);
     var accounts = userState.user.accounts
@@ -97,7 +96,7 @@ class _MainAccountPageState extends State<MainAccountPage> {
             title: account.name,
             onTap: () => onSelectedAccount(account),
             circleAvatar: CircleAvatarRec.fromAccount(account),
-            textStyle: theme.textTheme.subtitle1.copyWith(
+            titleStyle: theme.textTheme.subtitle1.copyWith(
               fontWeight: FontWeight.w300,
             ),
           );

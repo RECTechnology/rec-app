@@ -36,10 +36,13 @@ class Account extends Entity {
   String recAddress;
   String description;
   String webUrl;
+  String email;
   String phone;
   String prefix;
+
   String scheduleString;
   String addressString;
+
   FormattedAddress address;
   Level level;
 
@@ -77,6 +80,7 @@ class Account extends Entity {
     this.prefix,
     this.phone,
     this.webUrl,
+    this.email,
     this.offers,
     this.scheduleString,
     this.redeemableAmount,
@@ -182,6 +186,7 @@ class Account extends Entity {
       scheduleString: json['schedule'],
       prefix: json['prefix'],
       phone: json['phone'],
+      email: json['email'],
       latitude: double.parse((json['latitude'] ?? 0).toString()),
       longitude: double.parse((json['longitude'] ?? 0).toString()),
       redeemableAmount: json['redeemable_amount'],
