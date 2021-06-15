@@ -26,30 +26,32 @@ class _AccountContactPageState extends State<AccountContactPage> {
   @override
   Widget build(BuildContext context) {
     var userState = UserState.of(context);
+    var hasEmail = Checks.isNotEmpty(userState.account.email);
+    var hasWebsite = Checks.isNotEmpty(userState.account.webUrl);
+    var hasPhone = Checks.isNotEmpty(userState.account.fullPhone);
+
     var tiles = [
       GeneralSettingsTile(
-        title: userState.account.fullPhone ?? 'PHONE',
-        subtitle: 'PHONE_DESC',
+        title: hasPhone ? userState.account.fullPhone : 'PHONE',
+        subtitle: hasPhone ? 'PHONE' : 'PHONE_DESC',
         onTap: _editPhone,
       ),
       Divider(height: 1),
       GeneralSettingsTile(
-        title: userState.account.email ?? 'Email',
-        subtitle: 'CHANGE_EMAIL',
+        title: hasEmail ? userState.account.email : 'EMAIL_ONLY',
+        subtitle: hasEmail ? 'EMAIL_ONLY' : 'CHANGE_EMAIL',
         onTap: _editEmail,
       ),
       GeneralSettingsTile(
-        title: Checks.isNotEmpty(userState.account.webUrl)
-            ? userState.account.webUrl
-            : 'WEBSITE',
-        subtitle: 'WEBSITE_DESC',
+        title: hasWebsite ? userState.account.webUrl : 'WEBSITE',
+        subtitle: hasWebsite ? 'WEBSITE' : 'WEBSITE_DESC',
         onTap: _editWeb,
       ),
     ];
 
     return Scaffold(
       backgroundColor: Brand.defaultAvatarBackground,
-      appBar: EmptyAppBar(context, title: 'SETTINGS_BUSSINESS_ON_MAP'),
+      appBar: EmptyAppBar(context, title: 'BUSSINESS_CONTACT'),
       body: Scrollbar(
         thickness: 8,
         showTrackOnHover: true,
@@ -141,6 +143,7 @@ class _AccountContactPageState extends State<AccountContactPage> {
       icon: Icons.mail_outline,
       initialValue: userState.account.email,
       validator: Validators.isEmail,
+      apiFieldName: 'email',
     );
   }
 

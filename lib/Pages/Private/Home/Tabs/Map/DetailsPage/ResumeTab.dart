@@ -1,13 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Lists/OffersList.dart';
 import 'package:rec/Components/ReadMoreText.dart';
 import 'package:rec/Components/Inputs/RecFilterButton.dart';
 import 'package:rec/Entities/Account.ent.dart';
-import 'package:rec/Entities/Schedule/Schedule.ent.dart';
+import 'package:rec/Entities/Forms/PaymentData.dart';
+import 'package:rec/Entities/VendorData.ent.dart';
 import 'package:rec/Helpers/BrowserHelper.dart';
-import 'package:rec/Helpers/Checks.dart';
-import 'package:rec/Helpers/DateHelper.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayAddress.page.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/Styles/TextStyles.dart';
@@ -32,7 +31,7 @@ class _ResumeTabState extends State<ResumeTab> {
         label: localizations.translate('PAY'),
         padding: Paddings.filterButton,
         margin: EdgeInsets.only(right: 8),
-        onPressed: () {},
+        onPressed: _payTo,
         disabled: false,
         backgroundColor: Brand.primaryColor,
         textColor: Colors.white,
@@ -98,10 +97,10 @@ class _ResumeTabState extends State<ResumeTab> {
                         ),
                         style: TextStyle(fontSize: 14),
                       ),
-                      Text(
-                        _getNextScheduleState(),
-                        style: TextStyle(fontSize: 14),
-                      ),
+                      // Text(
+                      //   _getNextScheduleState(),
+                      //   style: TextStyle(fontSize: 14),
+                      // ),
                     ],
                   ),
                 ),
@@ -152,17 +151,18 @@ class _ResumeTabState extends State<ResumeTab> {
                 SizedBox(height: 16),
                 if (widget.account.publicImage != null &&
                     widget.account.publicImage.isNotEmpty)
-                  Container(
-                    width: 380,
-                    height: 130,
-                    decoration: BoxDecoration(
-                      color: Brand.defaultAvatarBackground,
-                      borderRadius: BorderRadius.circular(6),
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                          widget.account.publicImage ??
-                              'https://picsum.photos/250?image=9',
+                  AspectRatio(
+                    aspectRatio: 16 / 9,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Brand.defaultAvatarBackground,
+                        borderRadius: BorderRadius.circular(6),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                            widget.account.publicImage ??
+                                'https://picsum.photos/250?image=9',
+                          ),
                         ),
                       ),
                     ),
@@ -171,73 +171,8 @@ class _ResumeTabState extends State<ResumeTab> {
               ],
             ),
           ),
-          ...(widget.account.hasOffers()
-              ? [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Text(
-                      'Ofertas',
-                      style: Theme.of(context).textTheme.subtitle1.copyWith(
-                            fontWeight: FontWeight.w500,
-                            color: Brand.grayDark,
-                          ),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  OffersList(offers: widget.account.offers),
-                  SizedBox(height: 8),
-                ]
-              : []),
         ],
       ),
-    );
-  }
-
-  String _getNextScheduleState() {
-    var now = DateTime.now();
-    var state = widget.account.schedule.getTodayState(now);
-    var localizations = AppLocalizations.of(context);
-
-    if (state == ScheduleState.notAvailable) return '';
-    if (state == ScheduleState.open) {
-      var closeDate = widget.account.schedule.getNextClosingTime();
-      var closesToday = closeDate.day == now.day;
-      var day = closesToday ? '' : DateHelper.getWeekdayName(closeDate.weekday);
-      var formattedDate = DateHelper.formatDate(context, closeDate);
-      var formattedDay = [
-        localizations.translate(day),
-        localizations.translate('AT')
-      ].where(Checks.isNotEmpty).join(' ');
-
-      return localizations.translate(
-        'CLOSES_AT',
-        params: {
-          'day': formattedDay,
-          'at': formattedDate,
-        },
-      );
-    }
-
-    if (state == ScheduleState.openAllDay) {
-      return localizations.translate('OPEN_ALL_DAY');
-    }
-
-    // Closed
-    var openDate = widget.account.schedule.getNextOpeningTime();
-    var opensToday = openDate.day == now.day;
-    var day = opensToday ? '' : DateHelper.getWeekdayName(openDate.weekday);
-    var formattedDate = DateHelper.formatDate(context, openDate);
-    var formattedDay = [
-      localizations.translate(day),
-      localizations.translate('AT')
-    ].where(Checks.isNotEmpty).join(' ');
-
-    return localizations.translate(
-      'OPENS_AT',
-      params: {
-        'day': formattedDay,
-        'at': formattedDate,
-      },
     );
   }
 
@@ -253,5 +188,34 @@ class _ResumeTabState extends State<ResumeTab> {
 
   void _call() async {
     await BrowserHelper.openCallPhone(widget.account.fullPhone);
+  }
+
+  // TODO: refactor
+  void _payTo() {
+    var localizations = AppLocalizations.of(context);
+    var paymentData = PaymentData(
+      address: widget.account.recAddress,
+      amount: null,
+      concept: localizations.translate(
+        'PAY_TO_NAME',
+        params: {
+          'name': widget.account.name,
+        },
+      ),
+      vendor: VendorData(
+        name: widget.account.name,
+      ),
+    );
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (c) {
+          return PayAddress(
+            paymentData: paymentData,
+          );
+        },
+      ),
+    );
   }
 }

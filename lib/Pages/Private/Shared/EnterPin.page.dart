@@ -6,6 +6,7 @@ import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/brand.dart';
+import 'package:rec/routes.dart';
 
 class EnterPin extends StatefulWidget {
   final Function(String pin) ifPin;
@@ -74,9 +75,12 @@ class _EnterPinState extends State<EnterPin> {
                   ),
                 ),
                 SizedBox(height: 16),
-                Text(
-                  localizations.translate('FORGOT_PIN'),
-                  style: TextStyles.link,
+                GestureDetector(
+                  onTap: _forgotPin,
+                  child: Text(
+                    localizations.translate('FORGOT_PIN'),
+                    style: TextStyles.link,
+                  ),
                 ),
                 RecActionButton(
                   label: btnLabel,
@@ -101,5 +105,9 @@ class _EnterPinState extends State<EnterPin> {
   void _next() {
     if (!_formKey.currentState.validate() || !formValid) return;
     widget.ifPin(pin);
+  }
+
+  void _forgotPin() {
+    Navigator.pushNamed(context, Routes.settingsUserChangePin);
   }
 }

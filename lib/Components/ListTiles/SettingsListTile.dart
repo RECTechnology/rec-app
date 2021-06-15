@@ -8,6 +8,7 @@ class SettingsListTile extends StatefulWidget {
   final IconData icon;
   final String subtitle;
   final Function onTap;
+  final Widget leading;
 
   final bool requiresActions;
 
@@ -18,6 +19,7 @@ class SettingsListTile extends StatefulWidget {
     this.subtitle,
     this.onTap,
     this.requiresActions = false,
+    this.leading,
   }) : super(key: key);
 
   @override
@@ -36,7 +38,7 @@ class _SettingsListTileState extends State<SettingsListTile> {
         child: InkWell(
           onTap: widget.onTap,
           child: ListTile(
-            leading: Icon(widget.icon),
+            leading: widget.leading ?? Icon(widget.icon),
             enableFeedback: true,
             title: Text(
               localizations.translate(widget.title),

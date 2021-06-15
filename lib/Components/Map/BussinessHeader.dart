@@ -34,17 +34,18 @@ class _BussinessHeaderState extends State<BussinessHeader> {
       child: Stack(
         children: [
           Container(
+            height: widget.preferredSize.height,
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: NetworkImage(
-                  widget.account.publicImage ??
-                      'https://picsum.photos/250?image=9',
+                  widget.account.publicImage,
                 ),
               ),
             ),
           ),
           Container(
+            height: widget.preferredSize.height,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -72,35 +73,39 @@ class _BussinessHeaderState extends State<BussinessHeader> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(26, 15, 0, 7),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(bottom: 8),
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          widget.account.name ?? 'Text not found',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Brand.grayDark,
-                            fontWeight: FontWeight.w500,
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(16, 15, 0, 7),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(bottom: 8),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            widget.account.name ?? 'Text not found',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Brand.grayDark,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                      ),
-                      widget.subtitle ??
-                          Text(
-                            localizations
-                                .translate(widget.account.addressString),
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Brand.grayDark,
-                              fontWeight: FontWeight.w300,
+                        widget.subtitle ??
+                            Text(
+                              localizations
+                                  .translate(widget.account.addressString),
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Brand.grayDark,
+                                fontWeight: FontWeight.w300,
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
-                          ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],

@@ -3,9 +3,11 @@ import 'package:flutter/widgets.dart';
 import 'package:rec/Api/Services/AccountsService.dart';
 import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
 import 'package:rec/Components/Map/BussinessHeader.dart';
+import 'package:rec/Components/PickImage.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
@@ -28,6 +30,8 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
   @override
   Widget build(BuildContext context) {
     var userState = UserState.of(context);
+    var hasDescription = Checks.isNotEmpty(userState.account.description);
+
     var tiles = [
       SectionTitleTile('YOUR_BUSSINESS'),
       GeneralSettingsTile(
@@ -37,10 +41,12 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
       ),
       Divider(height: 1),
       GeneralSettingsTile(
-        title: Checks.isNotEmpty(userState.account.description)
+        title: hasDescription
             ? userState.account.description
             : 'BUSSINESS_DESCRIPTION',
-        subtitle: 'BUSSINESS_DESCRIPTION_DESC',
+        subtitle: hasDescription
+            ? 'BUSSINESS_DESCRIPTION'
+            : 'BUSSINESS_DESCRIPTION_DESC',
         onTap: _editDescription,
       ),
       Container(height: 16),
@@ -80,10 +86,17 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
             color: Colors.white,
             child: BussinessHeader(
               userState.account,
-              subtitle: Text(
-                'CHANGE_IMAGE',
-                style: TextStyle(
-                  color: Brand.accentColor,
+              subtitle: PickImage(
+                onPick: _changePublicImage,
+                title: 'IMAGE_PUBLIC',
+                buttonLabel: 'UPDATE',
+                hint: 'IMAGE_PUBLIC_DESC',
+                padding: EdgeInsets.zero,
+                child: LocalizedText(
+                  'CHANGE_IMAGE',
+                  style: TextStyle(
+                    color: Brand.accentColor,
+                  ),
                 ),
               ),
               avatarBadge: Positioned(
@@ -91,20 +104,11 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
                 right: -4,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: InkResponse(
-                    onTap: () {
-                      print('tappppped');
-                    },
-                    child: Container(
-                      height: 32,
-                      width: 32,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Brand.accentColor,
-                      ),
-                      child: Icon(Icons.add_a_photo,
-                          color: Colors.white, size: 16),
-                    ),
+                  child: PickImage(
+                    onPick: _changeCompanyImage,
+                    title: 'IMAGE_DE_CUENTA',
+                    buttonLabel: 'UPDATE',
+                    hint: 'IMAGE_DE_CUENTA_DESC',
                   ),
                 ),
               ),
@@ -117,7 +121,6 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
               radius: Radius.circular(3),
               child: ListView.builder(
                 itemBuilder: (ctx, index) => tiles[index],
-                // separatorBuilder: (ctx, index) => Divider(height: 1),
                 itemCount: tiles.length,
               ),
             ),
@@ -143,14 +146,24 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
     RecToast.showInfo(context, 'FEATURE_NOT_YET_AVAILABLE');
   }
 
+  void _changeCompanyImage(String link) {
+    _updateAccount({
+      'company_image': link,
+    });
+  }
+
+  void _changePublicImage(String link) {
+    _updateAccount({
+      'public_image': link,
+    });
+  }
+
   void _editField({
     String fieldName = 'FIELD',
     FormFieldValidator<String> validator = Validators.isRequired,
     String initialValue,
     IconData icon,
   }) async {
-    var userState = UserState.of(context, listen: false);
-
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => EditFieldPage(
@@ -159,7 +172,7 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
           icon: icon,
           validator: validator,
           onSave: (value) {
-            _updateAccount(userState.account.id, {
+            _updateAccount({
               fieldName.toLowerCase(): value,
             });
           },
@@ -187,13 +200,12 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
     );
   }
 
-  void _updateAccount(
-    String accountId,
-    Map<String, dynamic> data,
-  ) {
+  void _updateAccount(Map<String, dynamic> data) {
     Loading.show();
+
+    var userState = UserState.of(context, listen: false);
     _accountsService
-        .updateAccount(accountId, data)
+        .updateAccount(userState.account.id, data)
         .then(_updateOk)
         .catchError(_onError);
   }

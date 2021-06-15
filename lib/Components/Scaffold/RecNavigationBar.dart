@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
@@ -45,7 +46,10 @@ class _RecNavigationBarState extends State<RecNavigationBar> {
         // HACK: Disable settings if account is ltab
         // Need to look for some way of disabling tabs,
         // as they are somewhat custom
-        if (isLtabAccount && index == 2) return;
+        if (isLtabAccount && index == 2) {
+          RecToast.showInfo(context, 'SETTINGS_NOT_AVAILABLE');
+          return;
+        }
 
         widget.onTabTap(index);
       },

@@ -6,7 +6,7 @@ import 'package:rec/Api/Services/BaseService.dart';
 /// Service to manage app-level sms codes
 /// Used for public requests, like validating phone
 class PublicSMSService extends ServiceBase {
-  static String SMS_FORGOT_PASSWORD = 'forget-password';
+  static String SMS_FORGOT_PASSWORD = 'recover-password';
   static String SMS_VALIDATE_PHONE = 'validate-phone';
   static final List<String> SMS_TYPES = [
     SMS_FORGOT_PASSWORD,
@@ -54,6 +54,6 @@ class PublicSMSService extends ServiceBase {
       'prefix': prefix,
       'phone': phone,
     };
-    return sendSms(data: data, type: SMS_FORGOT_PASSWORD);
+    return sendSms(data: data, type: SMS_VALIDATE_PHONE);
   }
 }

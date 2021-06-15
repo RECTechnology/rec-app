@@ -6,6 +6,7 @@ import 'package:rec/Components/Wallet/Transactions/TransactionIcon.dart';
 import 'package:rec/Components/Wallet/Transactions/TransactionTitle.dart';
 import 'package:rec/Entities/Transactions/Transaction.ent.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -97,8 +98,14 @@ class _TransactionsListTile extends State<TransactionsListTile> {
   }
 
   Text getConcept() {
+    var account = UserState.of(context).account;
     var localizations = AppLocalizations.of(context);
     var concept = tx.getConcept();
+
+    // HACK
+    if (tx.isIn() && account.isLtabAccount()) {
+      concept = 'LTAB_REWARD';
+    }
 
     return Text(
       localizations.translate(concept.isEmpty ? 'NO_CONCEPT' : concept),

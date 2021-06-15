@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Entities/Transactions/Transaction.ent.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
 
 class TransactionTitle extends StatefulWidget {
@@ -22,11 +23,16 @@ class _TransactionTitle extends State<TransactionTitle> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
+    var account = UserState.of(context).account;
 
     var prefix = 'FROM';
     var owner = '';
 
-    if (widget.tx.isRecharge()) {
+    // HACK: LTAB
+    if (widget.tx.isIn() && account.isLtabAccount()) {
+      prefix = localizations.translate('FROM');
+      owner = 'LTAB';
+    } else if (widget.tx.isRecharge()) {
       prefix = localizations.translate('FROM_CREDIT_CARD');
       owner = localizations.translate('CREDIT_CARD_TX');
     } else if (widget.tx.isOut()) {
@@ -35,6 +41,10 @@ class _TransactionTitle extends State<TransactionTitle> {
     } else if (widget.tx.isIn()) {
       prefix = localizations.translate('FROM');
       owner = widget.tx.payInInfo.name;
+    }
+
+    if (owner == null || owner.isEmpty) {
+      owner = localizations.translate('PARTICULAR');
     }
 
     return RichText(

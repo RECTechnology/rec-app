@@ -3,9 +3,11 @@ import 'package:flutter/widgets.dart';
 import 'package:rec/Api/Services/AccountsService.dart';
 import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
 import 'package:rec/Components/Map/BussinessHeader.dart';
+import 'package:rec/Components/PickImage.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
+import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Helpers/Validators.dart';
@@ -23,18 +25,23 @@ class MyAccountPage extends StatefulWidget {
 class _MyAccountPageState extends State<MyAccountPage> {
   final AccountsService _accountsService = AccountsService();
 
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     var userState = UserState.of(context);
+    var hasEmail = Checks.isNotEmpty(userState.account.email);
     var tiles = [
       GeneralSettingsTile(
-        title: userState.account.name ?? 'NAME',
+        title: Checks.isEmpty(userState.account.name)
+            ? 'NAME'
+            : userState.account.name,
         subtitle: 'ACCOUNT_NAME',
         onTap: _editName,
       ),
       GeneralSettingsTile(
-        title: userState.account.email ?? 'Email',
-        subtitle: 'CHANGE_EMAIL',
+        title: hasEmail ? userState.account.email : 'EMAIL_ONLY',
+        subtitle: hasEmail ? 'EMAIL_ONLY' : 'CHANGE_EMAIL',
         onTap: _editEmail,
       ),
     ];
@@ -51,25 +58,14 @@ class _MyAccountPageState extends State<MyAccountPage> {
               avatarBadge: Positioned(
                 bottom: -8,
                 right: -4,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InkResponse(
-                    onTap: () {
-                      print('tappppped');
-                    },
-                    child: Container(
-                      height: 32,
-                      width: 32,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Brand.primaryColor,
-                      ),
-                      child: Icon(Icons.add_a_photo,
-                          color: Colors.white, size: 16),
-                    ),
-                  ),
+                child: PickImage(
+                  onPick: _changeImage,
+                  title: 'IMAGE_DE_CUENTA',
+                  buttonLabel: 'UPDATE',
+                  hint: 'IMAGE_DE_CUENTA_DESC',
                 ),
               ),
+              subtitle: const SizedBox.shrink(),
             ),
           ),
           SectionTitleTile('YOUR_ACCOUNT'),
@@ -95,9 +91,8 @@ class _MyAccountPageState extends State<MyAccountPage> {
     FormFieldValidator<String> validator = Validators.isRequired,
     String initialValue,
     IconData icon,
+    String apiFieldName,
   }) async {
-    var userState = UserState.of(context, listen: false);
-
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => EditFieldPage(
@@ -106,13 +101,19 @@ class _MyAccountPageState extends State<MyAccountPage> {
           icon: icon,
           validator: validator,
           onSave: (value) {
-            _updateAccount(userState.account.id, {
-              fieldName.toLowerCase(): value,
+            _updateAccount({
+              (apiFieldName ?? fieldName.toLowerCase()): value,
             });
           },
         ),
       ),
     );
+  }
+
+  void _changeImage(String link) {
+    _updateAccount({
+      'company_image': link,
+    });
   }
 
   void _editName() async {
@@ -133,16 +134,20 @@ class _MyAccountPageState extends State<MyAccountPage> {
       icon: Icons.mail_outline,
       initialValue: userState.account.email,
       validator: Validators.isEmail,
+      apiFieldName: 'email',
     );
   }
 
-  void _updateAccount(
-    String accountId,
-    Map<String, dynamic> data,
-  ) {
+  void _updateAccount(Map<String, dynamic> data) {
+    if (isLoading) return;
+
+    isLoading = true;
+
     Loading.show();
+
+    var userState = UserState.of(context, listen: false);
     _accountsService
-        .updateAccount(accountId, data)
+        .updateAccount(userState.account.id, data)
         .then(_updateOk)
         .catchError(_onError);
   }
@@ -153,11 +158,13 @@ class _MyAccountPageState extends State<MyAccountPage> {
 
     Navigator.pop(context);
 
+    isLoading = false;
     await Loading.dismiss();
     RecToast.showSuccess(context, 'UPDATED_OK');
   }
 
   void _onError(e) {
+    isLoading = false;
     Loading.dismiss();
     RecToast.showError(context, e.message);
   }

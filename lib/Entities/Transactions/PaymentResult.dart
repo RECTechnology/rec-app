@@ -26,7 +26,7 @@ class PaymentResult extends Entity {
   }) : super(id, createdAt, updatedAt);
 
   bool hasBeenRewarded() {
-    return extraData.rewardedLtabAmount != null;
+    return extraData != null && extraData.rewardedLtabAmount != null;
   }
 
   @override
@@ -53,7 +53,7 @@ class PaymentResult extends Entity {
       payOutInfo: json['pay_out_info'] != null
           ? PayOutInfo.fromJson(json['pay_out_info'])
           : null,
-      extraData: json['extra_data'] != null
+      extraData: json['extra_data'] != null && json['extra_data'] is Map
           ? ExtraData.fromJson(json['extra_data'])
           : null,
     );

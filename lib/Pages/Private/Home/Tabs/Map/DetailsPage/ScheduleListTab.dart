@@ -59,11 +59,26 @@ class _ScheduleListTabState extends State<ScheduleListTab> {
                 var scheduleDay = widget.schedule.days.isNotEmpty
                     ? widget.schedule.getScheduleForDay(weekday - 1)
                     : null;
+
+                var dayScheduleLabel;
+
+                if (widget.schedule.isClosed) {
+                  dayScheduleLabel = localizations.translate('CLOSED');
+                }
+
+                if (widget.schedule.isOpen24h) {
+                  dayScheduleLabel = localizations.translate('OPEN');
+                }
+
+                if (widget.schedule.isNotAvailable) {
+                  dayScheduleLabel = localizations.translate('N/A');
+                }
+
                 var daySchedule = scheduleDay == null ||
                         !scheduleDay.isDefined()
                     ? <Widget>[
                         Text(
-                          localizations.translate('CLOSED'),
+                          dayScheduleLabel ?? localizations.translate('CLOSED'),
                           style: weekday % 2 == 0
                               ? Theme.of(context)
                                   .textTheme
@@ -74,7 +89,8 @@ class _ScheduleListTabState extends State<ScheduleListTab> {
                       ]
                     : <Widget>[
                         Text(
-                          '${scheduleDay.firstOpen} - ${scheduleDay.firstClose}',
+                          dayScheduleLabel ??
+                              '${scheduleDay.firstOpen} - ${scheduleDay.firstClose}',
                           style: weekday % 2 == 0
                               ? Theme.of(context)
                                   .textTheme
@@ -82,7 +98,8 @@ class _ScheduleListTabState extends State<ScheduleListTab> {
                                   .copyWith(fontWeight: FontWeight.w500)
                               : Theme.of(context).textTheme.subtitle1,
                         ),
-                        ...(scheduleDay.isSecondDefined()
+                        ...(scheduleDay.isSecondDefined() &&
+                                dayScheduleLabel == null
                             ? [
                                 SizedBox(
                                   height: 4,

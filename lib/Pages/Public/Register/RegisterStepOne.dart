@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Forms/RegisterStepOne.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
@@ -7,6 +8,7 @@ import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
+import 'package:rec/Pages/Private/Shared/InAppBrowser.dart';
 import 'package:rec/Pages/Public/Register/RegisterRequest.dart';
 import 'package:rec/Pages/Public/Register/RegisterStepTwo.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
@@ -124,9 +126,45 @@ class RegisterOneState extends State<RegisterOne>
       activeColor: registerData.isAccountPrivate
           ? Brand.primaryColor
           : Brand.accentColor,
-      title: Text(
-        localizations.translate('ACORD_WHIT_TEMS'),
-        style: Theme.of(context).textTheme.caption,
+      title: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: localizations.translate('I_ACCEPT'),
+              style: Theme.of(context).textTheme.caption,
+            ),
+            TextSpan(
+              text: localizations.translate('TERMS'),
+              style: Theme.of(context).textTheme.caption.copyWith(
+                    decoration: TextDecoration.underline,
+                  ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  InAppBrowser.openLink(
+                    context,
+                    localizations.translate('link_tos'),
+                  );
+                },
+            ),
+            TextSpan(
+              text: localizations.translate('AND'),
+              style: Theme.of(context).textTheme.caption,
+            ),
+            TextSpan(
+              text: localizations.translate('PRIVACY'),
+              style: Theme.of(context).textTheme.caption.copyWith(
+                    decoration: TextDecoration.underline,
+                  ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  InAppBrowser.openLink(
+                    context,
+                    localizations.translate('link_privacy'),
+                  );
+                },
+            ),
+          ],
+        ),
       ),
       value: registerData.termsAccepted,
       onChanged: (value) => setState(

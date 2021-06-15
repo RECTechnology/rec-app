@@ -57,7 +57,7 @@ class PrefixPhoneFieldState extends State<PrefixPhoneField> {
                 child: CountryCodePicker(
                   onChanged: setPrefix,
                   initialSelection:
-                      widget.prefix != null ? '+${widget.prefix}' : '+34',
+                      widget.prefix != null ? '${widget.prefix}' : '+34',
                   favorite: ['+34', 'ES'],
                   textStyle: TextStyle(fontSize: 16, color: Brand.grayDark),
                 ),

@@ -10,6 +10,7 @@ import 'package:rec/Components/Inputs/RecFilters.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Map/MapSearchData.dart';
 import 'package:rec/Entities/RecFilterData.dart';
+import 'package:rec/Environments/env.dart';
 import 'package:rec/Helpers/ImageHelpers.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/Details.page.dart';
@@ -45,6 +46,7 @@ class _MapPageState extends State<MapPage> {
   // Google maps stuff
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   BitmapDescriptor markerIcon;
+  BitmapDescriptor markerLtab;
 
   @override
   void initState() {
@@ -104,7 +106,15 @@ class _MapPageState extends State<MapPage> {
                 child: RecFilters(
                   filterData: recFilters,
                   onChanged: (Map<String, bool> map) {
-                    _setOnlyWithOffers(map['OFFERS']);
+                    if (map.containsKey('OFFERS')) {
+                      _setOnlyWithOffers(map['OFFERS']);
+                    }
+
+                    if (map.containsKey('TOUCH_HOOD')) {
+                      _setLtab(map['TOUCH_HOOD']);
+                    }
+
+                    _search();
                   },
                 ),
               ),
@@ -247,18 +257,18 @@ class _MapPageState extends State<MapPage> {
   void _addFiltersButtons() {
     var localizations = AppLocalizations.of(context);
     recFilters = [
-      RecFilterData<bool>(
-        icon: Icons.check,
-        label: localizations.translate('OFFERS'),
-        id: 'OFFERS',
-        defaultValue: false,
-        color: Colors.white,
-      ),
+      // RecFilterData<bool>(
+      //   icon: Icons.check,
+      //   label: localizations.translate('OFFERS'),
+      //   id: 'OFFERS',
+      //   defaultValue: false,
+      //   color: Colors.white,
+      // ),
       RecFilterData<bool>(
         icon: Icons.check,
         label: localizations.translate('TOUCH_HOOD'),
         id: 'TOUCH_HOOD',
-        defaultValue: false,
+        defaultValue: true,
         color: Colors.white,
       ),
     ];
@@ -283,6 +293,13 @@ class _MapPageState extends State<MapPage> {
         70,
       ),
     );
+
+    markerLtab = BitmapDescriptor.fromBytes(
+      await ImageHelpers.getBytesFromAsset(
+        'assets/marker-ltab.png',
+        70,
+      ),
+    );
   }
 
   void _setMarks(List<Account> accounts) {
@@ -299,7 +316,7 @@ class _MapPageState extends State<MapPage> {
             account.latitude,
             account.longitude,
           ),
-          icon: markerIcon,
+          icon: account.isInLtabCampaign ? markerLtab : markerIcon,
           onTap: () => _bussinessTapped(accountId),
         );
       }
@@ -310,6 +327,12 @@ class _MapPageState extends State<MapPage> {
     _getBussineData(id).then(_openModalBottomSheet);
   }
 
+  void _setLtab(bool state) {
+    setState(() {
+      _searchData.campaign = state ? env.CAMPAIGN_ID : null;
+    });
+  }
+
   void _setSearch(String search) {
     _searchData.search = search;
   }
@@ -317,7 +340,6 @@ class _MapPageState extends State<MapPage> {
   void _setOnlyWithOffers(bool onlyWithOffers) {
     setState(() {
       _searchData.onlyWithOffers = onlyWithOffers;
-      _search();
     });
   }
 }

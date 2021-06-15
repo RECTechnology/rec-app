@@ -24,7 +24,7 @@ class PayOutInfo {
   factory PayOutInfo.fromJson(Map<String, dynamic> json) {
     return PayOutInfo(
       address: json['address'],
-      amount: json['amount'],
+      amount: double.parse('${json['amount']}').toInt(),
       concept: json['concept'] ?? '',
       txId: json['txid'],
       status: json['status'],

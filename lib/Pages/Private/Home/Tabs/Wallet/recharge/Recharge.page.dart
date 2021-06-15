@@ -4,6 +4,7 @@ import 'package:rec/Components/Inputs/AmountTextField.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/User/UserBalance.dart';
+import 'package:rec/Entities/Campaign.ent.dart';
 import 'package:rec/Entities/Forms/RechargeData.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecNavigation.dart';
@@ -26,6 +27,18 @@ class _RechargePageState extends State<RechargePage> {
   final _usersService = UsersService();
 
   RechargeData rechargeData = RechargeData();
+
+  Campaign activeCampaign;
+
+  @override
+  void didChangeDependencies() {
+    activeCampaign ??= CampaignProvider.of(
+      context,
+      listen: false,
+    ).activeCampaign;
+
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,12 +80,7 @@ class _RechargePageState extends State<RechargePage> {
                 children: [
                   SizedBox(height: 16),
                   AmountTextField(
-                    onChange: (v) {
-                      setState(
-                        () => rechargeData.amount =
-                            double.parse(v.isEmpty ? '0' : v),
-                      );
-                    },
+                    onChange: _amountChanged,
                     validator: _customAmountValidator,
                   ),
                   SizedBox(height: 32),
@@ -99,6 +107,14 @@ class _RechargePageState extends State<RechargePage> {
     );
   }
 
+  void _amountChanged(value) {
+    var newAmount = double.parse(value.isEmpty ? '0' : value);
+
+    setState(() {
+      rechargeData.amount = newAmount;
+    });
+  }
+
   String _customAmountValidator(String value) {
     var userState = UserState.of(context, listen: false);
     var localizations = AppLocalizations.of(context);
@@ -123,17 +139,11 @@ class _RechargePageState extends State<RechargePage> {
     return null;
   }
 
-  // TODO: refactor
   void _forwards() {
     if (!_formKey.currentState.validate()) return;
 
     Loading.show();
     _updateTos();
-
-    var activeCampaign = CampaignProvider.of(
-      context,
-      listen: false,
-    ).activeCampaign;
 
     rechargeData.card = null;
     rechargeData.saveCard = false;
@@ -146,7 +156,9 @@ class _RechargePageState extends State<RechargePage> {
 
   void _requestPin() {
     RecNavigation.of(context).navigate(
-      (_) => RequestPin(ifPin: _attemptRecharge),
+      (_) => RequestPin(
+        ifPin: _attemptRecharge,
+      ),
     );
   }
 

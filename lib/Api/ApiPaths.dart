@@ -4,6 +4,7 @@ import 'package:rec/Api/ApiPath.dart';
 class ApiPaths {
   // Transactions
   static ApiPath token = ApiPath('/oauth/v3/token');
+  static ApiPath refreshToken = ApiPath('/oauth/v2/token');
   static ApiPath transactions = ApiPath('/user/v2/wallet/transactions');
   static ApiPath vendorData = ApiPath('/transaction/v1/vendor');
   static ApiPath payment = ApiPath('/methods/v1/out/rec');

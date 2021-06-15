@@ -25,6 +25,17 @@ class LoginService extends ServiceBase {
     return this.post(ApiPaths.token.toUri(), body).then(saveToken);
   }
 
+  Future refreshToken(String refreshToken) async {
+    var body = {
+      'grant_type': GrantTypes.refreshToken,
+      'client_id': env.CLIENT_ID,
+      'client_secret': env.CLIENT_SECRET,
+      'refresh_token': refreshToken,
+    };
+
+    return this.post(ApiPaths.refreshToken.toUri(), body).then(saveToken);
+  }
+
   static Future saveToken(value) async {
     await Auth.saveTokenData(value);
     return value;

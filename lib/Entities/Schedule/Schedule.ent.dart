@@ -26,6 +26,11 @@ class Schedule {
             ? days
             : List.generate(7, (index) => ScheduleDay());
 
+  bool get isNotAvailable => type == ScheduleType.NOT_AVAILABLE;
+  bool get isClosed => type == ScheduleType.CLOSED;
+  bool get isOpen24h => type == ScheduleType.FULL;
+  bool get isDefined => type == ScheduleType.TIMETABLE;
+
   /// Returns the state of the schedule for the current day
   /// For example: Closed · Opens at 10am
   ScheduleState getTodayState(DateTime now) {
@@ -94,6 +99,8 @@ class Schedule {
           );
         }
       }
+
+      return todaySchedule.opensAt(today);
     }
 
     return todaySchedule.opensAt(today);

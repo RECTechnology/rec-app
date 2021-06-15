@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/Pages/Private/Shared/InAppBrowser.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/CampaignProvider.dart';
 import 'package:rec/Providers/UserState.dart';
@@ -129,6 +130,13 @@ class _CampaignDescriptionCardState extends State<CampaignDescriptionCard> {
     );
   }
 
-  void _campaignLinkTapped() {}
-  void _openTermsOfService() {}
+  void _campaignLinkTapped() {
+    var link = AppLocalizations.of(context).translate('link_ltab');
+    InAppBrowser.openLink(context, link);
+  }
+
+  void _openTermsOfService() {
+    var link = AppLocalizations.of(context).translate('link_ltab_tos');
+    InAppBrowser.openLink(context, link);
+  }
 }

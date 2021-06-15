@@ -66,7 +66,7 @@ class _PrivateRouteState extends State<PrivateRoute> {
   void loadUser() {
     setState(() => loading = true);
     userStream = users.getUser().asStream().listen(gotUser);
-    userStream.onError((e) => gotUserError);
+    userStream.onError((e) => gotUserError(e));
   }
 
   void gotUser(user) {

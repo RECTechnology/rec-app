@@ -39,7 +39,7 @@ class CircleAvatarRec extends StatefulWidget {
     Color color,
     this.radius,
     this.image,
-  })  : imageUrl = account.publicImage,
+  })  : imageUrl = account.companyImage,
         name = account.name,
         icon = null,
         imageBytes = null,
@@ -74,7 +74,9 @@ class _CircleAvatarRecState extends State<CircleAvatarRec> {
     if (Checks.isNotEmpty(widget.imageUrl)) {
       return CircleAvatar(
         radius: widget.radius,
-        backgroundImage: NetworkImage(widget.imageUrl),
+        backgroundImage: NetworkImage(
+          widget.imageUrl,
+        ),
       );
     }
 

@@ -16,8 +16,16 @@ import 'package:rec/brand.dart';
 
 class UploadDocument extends StatefulWidget {
   final Document document;
+  final String title;
+  final String buttonLabel;
+  final String hint;
 
-  UploadDocument({this.document});
+  UploadDocument({
+    this.document,
+    this.title,
+    this.buttonLabel,
+    this.hint,
+  });
 
   @override
   _UploadDocumentState createState() => _UploadDocumentState();
@@ -38,7 +46,9 @@ class _UploadDocumentState extends State<UploadDocument> {
         backgroundColor: Colors.white,
         appBar: EmptyAppBar(
           context,
-          title: widget.document.kind.name,
+          title: widget.document != null
+              ? widget.document.kind.name
+              : widget.title,
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -50,7 +60,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                   height: 24,
                 ),
                 LocalizedText(
-                  'SURE_IMAGE_READ',
+                  widget.hint ?? 'SURE_IMAGE_READ',
                   style: TextStyle(
                     fontWeight: FontWeight.w300,
                     fontSize: 14,
@@ -76,7 +86,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                     child: Checks.isNotEmpty(imageFilePath)
                         ? Image.file(
                             File(imageFilePath),
-                            fit: BoxFit.fill,
+                            fit: BoxFit.fitHeight,
                           )
                         : Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -102,7 +112,8 @@ class _UploadDocumentState extends State<UploadDocument> {
                   ),
                 ),
                 RecActionButton(
-                  label: localizations.translate('SEND_LEGGIBLE_IMAGE'),
+                  label: widget.buttonLabel ??
+                      localizations.translate('SEND_LEGGIBLE_IMAGE'),
                   backgroundColor: Checks.isNotEmpty(imageFilePath)
                       ? Brand.primaryColor
                       : null,
@@ -126,14 +137,16 @@ class _UploadDocumentState extends State<UploadDocument> {
   }
 
   void _uploadImage() {
-    Loading.show();
+    Loading.showCustom(
+      content: LocalizedText('UPLOADING_IMAGE_PLEASE_WAIT'),
+    );
 
     _imageUploader.uploadImage(imageFilePath).then((value) {
       Loading.dismiss();
       Navigator.pop(context, value['data']['src']);
     }).onError((error, stackTrace) {
       Loading.dismiss();
-      RecToast.showError(context, error.toString());
+      RecToast.showError(context, 'ERROR_UPLOADING_FILE');
     });
   }
 }

@@ -2,7 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:rec/Api/ApiError.dart';
+import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Services/UsersService.dart';
+import 'package:rec/Api/Services/public/LoginService.dart';
 import 'package:rec/Components/Scaffold/RecNavigationBar.dart';
 import 'package:rec/Helpers/RecNavigation.dart';
 import 'package:rec/Pages/LtabCampaign/LtabInitialBanner.page.dart';
@@ -12,6 +15,7 @@ import 'package:rec/Pages/Private/Home/Tabs/Wallet/Wallet.page.dart';
 import 'package:rec/Providers/CampaignProvider.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/preferences.dart';
+import 'package:rec/routes.dart';
 
 class HomePage extends StatefulWidget {
   final bool pollUser;
@@ -41,6 +45,7 @@ class HomePageState extends State<HomePage>
   CampaignProvider _campaignProvider;
 
   final UsersService _users = UsersService();
+  final LoginService _loginService = LoginService();
   final List<Widget> _tabs = <Widget>[
     MapPage(key: GlobalKey()),
     WalletPageRec(key: GlobalKey()),
@@ -91,9 +96,17 @@ class HomePageState extends State<HomePage>
     return Timer.periodic(
       Preferences.userRefreshInterval,
       (_) {
-        _users.getUser().then((value) => _userState?.setUser(value));
+        _refreshToken();
+        _users
+            .getUser()
+            .then((value) => _userState?.setUser(value))
+            .catchError(_onAuthError);
       },
     );
+  }
+
+  void _refreshToken() async {
+    await _loginService.refreshToken(await Auth.getRefreshToken());
   }
 
   void setCurrentTab(int index) {
@@ -112,5 +125,13 @@ class HomePageState extends State<HomePage>
         _campaignProvider.activeCampaign,
       ),
     );
+  }
+
+  void _onAuthError(err) async {
+    if (err is ApiError) return;
+    if (err.code == 401 || err.code == 403) {
+      await Auth.logout();
+      await Navigator.of(context).pushReplacementNamed(Routes.login);
+    }
   }
 }

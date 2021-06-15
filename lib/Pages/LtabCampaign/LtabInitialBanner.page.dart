@@ -23,21 +23,27 @@ class LtabInitialBanner extends StatefulWidget {
   @override
   _LtabInitialBannerState createState() => _LtabInitialBannerState();
 
-  static bool shouldBeOpenned(BuildContext context) {
-    var preferences = PreferenceProvider.of(context, listen: false);
+  static bool isActive(BuildContext context) {
     var campaignProvider = CampaignProvider.of(context, listen: false);
-    var userState = UserState.of(context, listen: false);
 
-    var showBanner = preferences.get(PreferenceKeys.showLtabCampaign);
     var activeCampaign = campaignProvider.activeCampaign;
     var noActiveCampaign = Checks.isNull(activeCampaign);
 
     // If there is no active campaign, it's most definitely should not be opened
     if (noActiveCampaign) return false;
+    return activeCampaign.isStarted();
+  }
 
-    var campaignActive = activeCampaign.isActiveForState(userState);
+  static bool shouldBeOpenned(BuildContext context) {
+    var preferences = PreferenceProvider.of(context, listen: false);
+    var showBanner = preferences.get(PreferenceKeys.showLtabCampaign);
+    var campaignProvider = CampaignProvider.of(context, listen: false);
+    var userState = UserState.of(context, listen: false);
+    var activeCampaign = campaignProvider.activeCampaign;
 
-    return campaignActive && showBanner && campaignActive;
+    return isActive(context) &&
+        showBanner &&
+        activeCampaign.isActiveForState(userState);
   }
 }
 
@@ -79,6 +85,15 @@ class _LtabInitialBannerState extends State<LtabInitialBanner> {
             children: [
               LocalizedText(
                 'LTAB_INITIAL_BANNER_TITLE',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline4.copyWith(
+                      color: Brand.grayDark,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 30,
+                    ),
+              ),
+              Text(
+                widget.campaign.name.toUpperCase(),
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline4.copyWith(
                       color: Brand.grayDark,

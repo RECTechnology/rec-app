@@ -43,22 +43,24 @@ class _PayWithQRState extends State<PayWithQR> {
 
   @override
   Widget build(BuildContext context) {
-    return IfPermissionGranted(
-      permission: PermissionProviders.qr,
-      builder: (_) => _content(),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: EmptyAppBar(context, title: 'PAY_WITH_QR'),
+      body: IfPermissionGranted(
+        permission: PermissionProviders.qr,
+        builder: (_) => _content(),
+        onDecline: () {},
+        canBeDeclined: false,
+      ),
     );
   }
 
   Widget _content() {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: EmptyAppBar(context, title: 'PAY_WITH_QR'),
-      body: Column(
-        children: <Widget>[
-          _qrView(),
-          _bottomTexts(),
-        ],
-      ),
+    return Column(
+      children: <Widget>[
+        _qrView(),
+        _bottomTexts(),
+      ],
     );
   }
 

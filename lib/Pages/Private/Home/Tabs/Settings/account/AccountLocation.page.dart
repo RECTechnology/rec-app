@@ -194,6 +194,6 @@ class _AccountLocationPageState extends State<AccountLocationPage> {
 
   void _onError(e) {
     Loading.dismiss();
-    RecToast.showError(context, e.message);
+    RecToast.showError(context, e.message ?? 'LOCATION_NOT_FOUND');
   }
 }

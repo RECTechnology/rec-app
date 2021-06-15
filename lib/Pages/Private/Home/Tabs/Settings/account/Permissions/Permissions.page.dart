@@ -45,12 +45,12 @@ class _AccountPermissionsPageState extends State<AccountPermissionsPage> {
       appBar: EmptyAppBar(
         context,
         title: 'SETTINGS_ACCOUNT_PERMISSIONS',
-        actions: [
-          IconButton(
-            icon: Icon(Icons.help, color: Brand.grayDark),
-            onPressed: () {},
-          )
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(Icons.help, color: Brand.grayDark),
+        //     onPressed: () {},
+        //   )
+        // ],
       ),
       body: Scrollbar(
         thickness: 8,

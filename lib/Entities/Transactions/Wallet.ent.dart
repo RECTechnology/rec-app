@@ -23,8 +23,8 @@ class Wallet {
     //
     return Wallet(
       currency: Currency.find(json['currency']),
-      balance: json['balance'],
-      available: json['available'],
+      balance: double.parse('${json['balance']}').toInt(),
+      available: double.parse('${json['available']}').toInt(),
     );
   }
 }

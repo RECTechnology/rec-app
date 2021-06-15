@@ -29,10 +29,15 @@ class ScheduleDay {
     var hasFirstClose = Checks.isNotEmpty(firstClose);
     var hasSecondClose = Checks.isNotEmpty(secondClose);
 
-    if (hasFirstClose && hasSecondClose) return true;
+    if (hasFirstClose && !hasSecondClose) {
+      var firstclose = DateHelper.timeStringToDateTime(firstClose, now);
+      return now.isAfter(firstclose);
+    } else if (hasSecondClose) {
+      var secondclose = DateHelper.timeStringToDateTime(secondClose, now);
+      return now.isAfter(secondclose);
+    }
 
-    var secondclose = DateHelper.timeStringToDateTime(secondClose, now);
-    return now.isAfter(secondclose);
+    return true;
   }
 
   bool isDefined() {

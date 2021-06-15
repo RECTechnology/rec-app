@@ -6,6 +6,8 @@ class ExtraData {
   });
 
   factory ExtraData.fromJson(Map<String, dynamic> json) {
-    return ExtraData(rewardedLtabAmount: json['rewarded_ltab']);
+    return ExtraData(
+      rewardedLtabAmount: double.parse('${json['rewarded_ltab']}').toInt(),
+    );
   }
 }

@@ -26,13 +26,13 @@ void main() {
   test('Schedule works without data', () async {
     var schedule = Schedule();
     expect(schedule.type, ScheduleType.NOT_AVAILABLE);
-    expect(schedule.days, const []);
+    expect(schedule.days.length, 7);
   });
 
   test('Schedule.fromJsonString works with bad json', () async {
     var schedule = Schedule.fromJsonString('');
     expect(schedule.type, ScheduleType.NOT_AVAILABLE);
-    expect(schedule.days, const []);
+    expect(schedule.days.length, 7);
   });
 
   test('Schedule.fromJsonString works with good json', () async {

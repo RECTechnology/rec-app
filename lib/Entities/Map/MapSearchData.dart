@@ -11,6 +11,8 @@ class MapSearchData {
   String sort = 'name';
   String order = SortDir.desc;
 
+  String campaign = '1';
+
   int limit = 300;
   int offset = 0;
 
@@ -34,6 +36,7 @@ class MapSearchData {
       'order': '$order',
       'search': '$search',
       'only_with_offers': '$onlyWithOffers',
+      'campaigns': '$campaign',
       'type': type,
       'subtype': subType,
     };

@@ -105,7 +105,10 @@ class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
 
   void _onPaymentOk(PaymentResult paymentResult) {
     var localizations = AppLocalizations.of(context);
+    var userState = UserState.of(context, listen: false);
     var transactionProvider = TransactionProvider.of(context, listen: false);
+
+    userState.getUser();
     transactionProvider.refresh();
 
     setIsLoading(false);

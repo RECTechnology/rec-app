@@ -5,6 +5,18 @@ import 'package:rec/brand.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class InAppBrowser extends StatefulWidget {
+  static Future openLink(BuildContext context, String url) {
+    return Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (BuildContext context) {
+          return InAppBrowser(
+            url: url,
+          );
+        },
+      ),
+    );
+  }
+
   final String url;
   final void Function(String) onPageStarted;
   final void Function(String) onPageFinished;

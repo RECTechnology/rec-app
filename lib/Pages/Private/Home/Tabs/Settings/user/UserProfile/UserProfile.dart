@@ -27,9 +27,8 @@ class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
     var userState = UserState.of(context);
     var localization = AppLocalizations.of(context);
-    var emailTitle = Checks.isNotEmpty(userState.user.email)
-        ? userState.user.email
-        : 'EMAIL_ONLY';
+    var hasEmail = Checks.isNotEmpty(userState.user.email);
+    var emailTitle = hasEmail ? userState.user.email : 'EMAIL_ONLY';
 
     var tiles = [
       GeneralSettingsTile(
@@ -44,7 +43,7 @@ class _UserProfileState extends State<UserProfile> {
       ),
       GeneralSettingsTile(
         title: emailTitle,
-        subtitle: 'CHANGE_EMAIL',
+        subtitle: hasEmail ? 'EMAIL_ONLY' : 'CHANGE_EMAIL',
         onTap: _goToEditEmail,
       ),
     ];

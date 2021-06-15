@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Entities/Transactions/Transaction.ent.dart';
+import 'package:rec/Providers/CampaignProvider.dart';
+import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
 
 class TransactionIcon extends StatefulWidget {
@@ -32,6 +34,16 @@ class _TransactionIcon extends State<TransactionIcon> {
 
   @override
   Widget build(BuildContext context) {
+    var account = UserState.of(context).account;
+    var activeCampaign = CampaignProvider.of(context).activeCampaign;
+
+    if (widget.tx.isIn() && account.isLtabAccount()) {
+      return CircleAvatarRec(
+        imageUrl: activeCampaign == null ? '' : activeCampaign.imageUrl,
+        color: Brand.defaultAvatarBackground,
+      );
+    }
+
     if (widget.tx.isRecharge()) {
       return CircleAvatarRec.withIcon(
         Icon(

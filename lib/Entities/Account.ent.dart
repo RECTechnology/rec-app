@@ -54,6 +54,8 @@ class Account extends Entity {
   num redeemableAmount;
 
   bool active;
+  bool hasOffers;
+  bool isInLtabCampaign;
 
   Account({
     String id,
@@ -84,6 +86,8 @@ class Account extends Entity {
     this.offers,
     this.scheduleString,
     this.redeemableAmount,
+    this.isInLtabCampaign = false,
+    this.hasOffers,
   }) : super(id, createdAt, updatedAt);
 
   bool isPrivate() {
@@ -104,11 +108,13 @@ class Account extends Entity {
   }
 
   bool isCampaignActive(Campaign campaign) {
-    return campaigns.contains(campaign);
+    return campaigns != null && campaigns.contains(campaign);
   }
 
   bool isCampaignActiveById(String campaignId) {
-    return campaigns.firstWhere((el) => el.id == campaignId) != null;
+    return campaigns != null &&
+        campaigns.isNotEmpty &&
+        campaigns.firstWhere((el) => el.id == campaignId) != null;
   }
 
   // LTAB
@@ -116,16 +122,12 @@ class Account extends Entity {
     return name == ltabAccountName;
   }
 
-  bool hasOffers() {
-    return Checks.isNotEmpty(offers);
-  }
-
   bool hasLevel(Level level) {
     return level == this.level;
   }
 
   bool hasLevelByCode(String code) {
-    return level.code == code;
+    return level != null && level.code == code;
   }
 
   int getWalletBalance(String currencyName) {
@@ -138,7 +140,8 @@ class Account extends Entity {
     return getWalletBalance(currency.name);
   }
 
-  String get fullPhone => '+$prefix $phone';
+  String get fullPhone =>
+      '${prefix.startsWith('+') ? prefix : '+' + prefix} $phone';
 
   factory Account.fromJson(Map<String, dynamic> json) {
     var wallets = <Wallet>[];
@@ -179,7 +182,7 @@ class Account extends Entity {
       type: json['type'],
       active: json['active'],
       publicImage: json['public_image'],
-      companyImage: json['image'],
+      companyImage: json['company_image'],
       recAddress: json['rec_address'],
       description: json['description'],
       schedule: Schedule.fromJsonString(json['schedule']),
@@ -199,6 +202,8 @@ class Account extends Entity {
       webUrl: json['web'],
       addressString: addressString,
       address: formattedAddress,
+      hasOffers: json['has_offers'],
+      isInLtabCampaign: json['in_ltab_campaign'],
     );
   }
 }

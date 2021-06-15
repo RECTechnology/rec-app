@@ -39,8 +39,8 @@ class PayInInfo {
     return PayInInfo(
       // Api returns sometimes strings, and sometimes ints
       // Hack to not get error
-      amount: int.parse('${json['amount']}'),
-      received: json['received'],
+      amount: double.parse('${json['amount']}').toInt(),
+      received: double.parse('${json['received']}').toInt(),
       scale: json['scale'],
       expiresIn: json['expires_in'],
       minComfirmations: json['min_comfirmations'],

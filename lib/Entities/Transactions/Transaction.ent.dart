@@ -82,6 +82,13 @@ class Transaction extends Entity {
     return type == TransactionType.OUT;
   }
 
+  bool isLtabReward() {
+    return isIn() &&
+        hasPayInInfo() &&
+        payInInfo.concept == 'Internal exchange' &&
+        payInInfo.name == 'LI TOCA AL BARRI';
+  }
+
   bool isRecharge() {
     return isIn() && hasPayInInfo() && payInInfo.concept == 'Internal exchange';
   }
@@ -99,6 +106,10 @@ class Transaction extends Entity {
   }
 
   String getConcept() {
+    if (isLtabReward()) {
+      return 'LTAB_REWARD';
+    }
+
     if (isRecharge()) {
       return 'RECHARGE_EUR_REC';
     }
@@ -126,8 +137,8 @@ class Transaction extends Entity {
       hasDataIn: json['has_data_in'],
       currency: json['currency'],
       type: json['type'],
-      amount: json['amount'],
-      total: json['total'],
+      amount: double.parse('${json['amount']}').toInt(),
+      total: double.parse('${json['total']}').toInt(),
       scale: json['scale'],
       variableFee: (json['variable_fee'] ?? 0).toDouble(),
       fixedFee: (json['fixed_fee'] ?? 0).toDouble(),

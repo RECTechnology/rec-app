@@ -25,7 +25,7 @@ class AccountsService extends ServiceBase {
   }
 
   Future<ApiListResponse<Account>> search(MapSearchData searchData) async {
-    var pathWithParams = ApiPaths.accountsSearch.withQueryParams({
+    var data = {
       'offset': searchData.offset.toString(),
       'limit': searchData.limit.toString(),
       'sort': searchData.sort.toString(),
@@ -34,7 +34,12 @@ class AccountsService extends ServiceBase {
       'only_with_offers': '${searchData.onlyWithOffers ? 1 : 0}',
       'type': searchData.type.toString(),
       'subtype': searchData.subType.toString(),
-    }).toUri();
+    };
+    if (searchData.campaign != null && searchData.campaign.isNotEmpty) {
+      data['campaigns'] = searchData.campaign;
+    }
+
+    var pathWithParams = ApiPaths.accountsSearch.withQueryParams(data).toUri();
 
     return this.get(pathWithParams).then(_mapToApiListReponse);
   }

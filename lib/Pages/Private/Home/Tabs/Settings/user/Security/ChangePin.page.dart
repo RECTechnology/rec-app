@@ -25,6 +25,8 @@ class _ChangePinPageState extends State<ChangePinPage> {
   final _smsService = UserSmsService();
   final _formKey = GlobalKey<FormState>();
 
+  bool touched = false;
+
   ChangePinData data = ChangePinData();
 
   @override
@@ -50,7 +52,7 @@ class _ChangePinPageState extends State<ChangePinPage> {
                   onChangeRePin: onChangeRePin,
                   onChangePassword: onChangePassword,
                 ),
-                if (data.pin != data.repin)
+                if (touched && data.pin != data.repin)
                   LocalizedText(
                     'PINS_DO_NOT_MATCH',
                     style: Theme.of(context)
@@ -72,14 +74,23 @@ class _ChangePinPageState extends State<ChangePinPage> {
   }
 
   void onChangePin(String string) {
+    if (string.isNotEmpty) {
+      touched = true;
+    }
     setState(() => data.pin = string);
   }
 
   void onChangeRePin(String string) {
+    if (string.isNotEmpty) {
+      touched = true;
+    }
     setState(() => data.repin = string);
   }
 
   void onChangePassword(String string) {
+    if (string.isNotEmpty) {
+      touched = true;
+    }
     setState(() => data.password = string);
   }
 

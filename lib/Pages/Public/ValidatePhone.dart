@@ -30,7 +30,7 @@ class _ValidatePhoneState extends State<ValidatePhone> {
   final validateSMS = PhoneVerificationService();
   final smsService = PublicSMSService();
 
-  DniPhoneData data = DniPhoneData(prefix: '+34');
+  DniPhoneData data = DniPhoneData(prefix: '34');
 
   @override
   void initState() {
