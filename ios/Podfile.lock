@@ -9,10 +9,10 @@ PODS:
   - google_maps_flutter (0.0.1):
     - Flutter
     - GoogleMaps
-  - GoogleMaps (5.0.0):
-    - GoogleMaps/Maps (= 5.0.0)
-  - GoogleMaps/Base (5.0.0)
-  - GoogleMaps/Maps (5.0.0):
+  - GoogleMaps (4.1.0):
+    - GoogleMaps/Maps (= 4.1.0)
+  - GoogleMaps/Base (4.1.0)
+  - GoogleMaps/Maps (4.1.0):
     - GoogleMaps/Base
   - image_picker (0.0.1):
     - Flutter
@@ -112,7 +112,7 @@ SPEC CHECKSUMS:
   flutter_secure_storage: 7953c38a04c3fdbb00571bcd87d8e3b5ceb9daec
   geocoding: 32cfcdb16d38d907caaba65e2e42ad10d38bee58
   google_maps_flutter: df4e7de95264aa0a2f11aac0fc7e313acb8ffc7e
-  GoogleMaps: 600e5e69bdf7f4ed7cac4d6aa96c7ec08a5aa254
+  GoogleMaps: 008e2c80e38605b56b560e8deb73d4194ff30bef
   image_picker: 50e7c7ff960e5f58faa4d1f4af84a771c671bc4a
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
@@ -128,6 +128,6 @@ SPEC CHECKSUMS:
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
   webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
 
-PODFILE CHECKSUM: d68ed118c3ccb6722bb8bf885dedc37260aacc51
+PODFILE CHECKSUM: 1e80c854c103d2bb089dfc0d1f5e290968d860cb
 
 COCOAPODS: 1.10.1

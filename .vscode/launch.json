@@ -13,6 +13,11 @@
             ]
         },
         {
+            "name": "RecBarcelona - Dev ios",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
             "name": "RecBarcelona - Dev profile",
             "request": "launch",
             "type": "dart",
