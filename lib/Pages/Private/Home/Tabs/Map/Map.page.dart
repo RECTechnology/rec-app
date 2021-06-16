@@ -168,6 +168,7 @@ class _MapPageState extends State<MapPage> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height - 56,
             child: ListView.builder(
+              padding: EdgeInsets.zero,
               itemCount: 1,
               controller: scrollController,
               shrinkWrap: true,
@@ -185,11 +186,12 @@ class _MapPageState extends State<MapPage> {
 
         return Container(
           decoration: BoxDecorations.create(
-            color: Colors.transparent,
+            color: Colors.white,
             blurRadius: 15,
             offset: Offset(0, 40),
           ),
           child: ListView.builder(
+            padding: EdgeInsets.zero,
             physics: NeverScrollableScrollPhysics(),
             controller: scrollController,
             itemCount: bottomSheetList.length,

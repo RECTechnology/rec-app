@@ -61,37 +61,39 @@ class _PayAddressState extends State<PayAddress> {
           ),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: Paddings.page,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CaptionText('FILL_PAY_FORM'),
-                const SizedBox(height: 24),
-                _payForm(),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              bottom: 23,
-              left: 32,
-              right: 32,
-            ),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: RecActionButton(
-                label: localizations.translate('CONFIRM_PAYMENT'),
-                backgroundColor: Brand.primaryColor,
-                onPressed: _isFormValid() ? _proceedWithPayment : null,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: Paddings.page,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CaptionText('FILL_PAY_FORM'),
+                  const SizedBox(height: 24),
+                  _payForm(),
+                ],
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.only(
+                bottom: 23,
+                left: 32,
+                right: 32,
+              ),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: RecActionButton(
+                  label: localizations.translate('CONFIRM_PAYMENT'),
+                  backgroundColor: Brand.primaryColor,
+                  onPressed: _isFormValid() ? _proceedWithPayment : null,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

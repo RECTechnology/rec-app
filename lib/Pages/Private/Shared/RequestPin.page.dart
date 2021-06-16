@@ -36,17 +36,20 @@ class _RequestPin extends State<RequestPin> {
 
     return SafeArea(
       child: Scaffold(
-        body: userState.user.hasPin
-            ? EnterPin(
-                ifPin: widget.ifPin,
-                buttonContent: widget.buttonContent,
-                buttonWithArrow: widget.buttonWithArrow,
-              )
-            : CreatePinWidget(
-                ifPin: widget.ifPin,
-                buttonContent: widget.buttonContent,
-                buttonWithArrow: widget.buttonWithArrow,
-              ),
+        resizeToAvoidBottomInset: false,
+        body: SingleChildScrollView(
+          child: userState.user.hasPin
+              ? EnterPin(
+                  ifPin: widget.ifPin,
+                  buttonContent: widget.buttonContent,
+                  buttonWithArrow: widget.buttonWithArrow,
+                )
+              : CreatePinWidget(
+                  ifPin: widget.ifPin,
+                  buttonContent: widget.buttonContent,
+                  buttonWithArrow: widget.buttonWithArrow,
+                ),
+        ),
       ),
     );
   }

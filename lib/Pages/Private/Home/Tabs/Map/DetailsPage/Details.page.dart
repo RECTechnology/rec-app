@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Components/Map/BussinessHeader.dart';
 import 'package:rec/Entities/Schedule/ScheduleType.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/ScheduleListTab.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/ResumeTab.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Providers/CampaignProvider.dart';
-import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
 
 class DetailsPage extends StatefulWidget {
