@@ -24,5 +24,6 @@ Steps before requesting review:
 #### Tested in:
 - [ ] Android
 - [ ] iOS
+- [ ] Does not affect code or devices (no need to test)
 
 
