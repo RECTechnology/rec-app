@@ -126,44 +126,48 @@ class RegisterOneState extends State<RegisterOne>
       activeColor: registerData.isAccountPrivate
           ? Brand.primaryColor
           : Brand.accentColor,
-      title: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: localizations.translate('I_ACCEPT'),
-              style: Theme.of(context).textTheme.caption,
-            ),
-            TextSpan(
-              text: localizations.translate('TERMS'),
-              style: Theme.of(context).textTheme.caption.copyWith(
-                    decoration: TextDecoration.underline,
-                  ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  InAppBrowser.openLink(
-                    context,
-                    localizations.translate('link_tos'),
-                  );
-                },
-            ),
-            TextSpan(
-              text: localizations.translate('AND'),
-              style: Theme.of(context).textTheme.caption,
-            ),
-            TextSpan(
-              text: localizations.translate('PRIVACY'),
-              style: Theme.of(context).textTheme.caption.copyWith(
-                    decoration: TextDecoration.underline,
-                  ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  InAppBrowser.openLink(
-                    context,
-                    localizations.translate('link_privacy'),
-                  );
-                },
-            ),
-          ],
+      // ExcludeSemantics is here, because it made tests fail, could not find any other solution
+      // Got solution from https://github.com/flutter/flutter/issues/31437
+      title: ExcludeSemantics(
+        child: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: localizations.translate('I_ACCEPT'),
+                style: Theme.of(context).textTheme.caption,
+              ),
+              TextSpan(
+                text: localizations.translate('TERMS'),
+                style: Theme.of(context).textTheme.caption.copyWith(
+                      decoration: TextDecoration.underline,
+                    ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    InAppBrowser.openLink(
+                      context,
+                      localizations.translate('link_tos'),
+                    );
+                  },
+              ),
+              TextSpan(
+                text: localizations.translate('AND'),
+                style: Theme.of(context).textTheme.caption,
+              ),
+              TextSpan(
+                text: localizations.translate('PRIVACY'),
+                style: Theme.of(context).textTheme.caption.copyWith(
+                      decoration: TextDecoration.underline,
+                    ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    InAppBrowser.openLink(
+                      context,
+                      localizations.translate('link_privacy'),
+                    );
+                  },
+              ),
+            ],
+          ),
         ),
       ),
       value: registerData.termsAccepted,

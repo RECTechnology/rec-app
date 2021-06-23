@@ -20,11 +20,10 @@ class Wallet {
   }
 
   factory Wallet.fromJson(Map<String, dynamic> json) {
-    //
     return Wallet(
       currency: Currency.find(json['currency']),
-      balance: double.parse('${json['balance']}').toInt(),
-      available: double.parse('${json['available']}').toInt(),
+      balance: double.parse('${json['balance'] ?? 0}').toInt(),
+      available: double.parse('${json['available'] ?? 0}').toInt(),
     );
   }
 }

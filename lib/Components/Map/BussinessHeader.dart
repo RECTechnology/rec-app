@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Entities/Account.ent.dart';
+import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 
@@ -35,14 +36,16 @@ class _BussinessHeaderState extends State<BussinessHeader> {
         children: [
           Container(
             height: widget.preferredSize.height,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(
-                  widget.account.publicImage,
-                ),
-              ),
-            ),
+            decoration: Checks.isNotEmpty(widget.account.publicImage)
+                ? BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                        widget.account.publicImage,
+                      ),
+                    ),
+                  )
+                : null,
           ),
           Container(
             height: widget.preferredSize.height,
