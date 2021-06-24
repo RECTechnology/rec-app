@@ -16,6 +16,7 @@ class AttemptRecharge extends StatefulWidget {
   final RechargeData data;
 
   const AttemptRecharge({
+    
     Key key,
     @required this.data,
   }) : super(key: key);
@@ -58,8 +59,8 @@ class _AttemptRecharge extends State<AttemptRecharge> {
 
   Future<Null> attemptRecharge() {
     var localizations = AppLocalizations.of(context);
-
-    return rechargeService.recharge(widget.data).then(
+   
+    return   rechargeService.recharge(widget.data).then(
       (value) {
         if (value.payInInfo != null && value.payInInfo.paymentUrl != null) {
           launchPaymentUrl(value);

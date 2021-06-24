@@ -96,7 +96,7 @@ class _RechargePageState extends State<RechargePage> {
                   RecActionButton(
                     label: localizations.translate('RECHARGE'),
                     icon: Icons.arrow_forward_ios_sharp,
-                    onPressed: rechargeData.amount >= 1 ? _forwards : null,
+                    onPressed:  _forwards ,
                   )
                 ],
               ),
@@ -125,8 +125,10 @@ class _RechargePageState extends State<RechargePage> {
 
     var campaignActive = activeCampaign.isActiveForState(userState);
     var valueDouble = double.parse(value.isEmpty ? '0' : value);
-    var reachesMin = valueDouble >= activeCampaign.min;
-
+    var reachesMin = valueDouble >= activeCampaign.min  ;
+    if(valueDouble < 0.5){
+      return localizations.translate('MIN_RECHARGE');
+    }
     if (campaignActive && !reachesMin && rechargeData.campaignTermsAccepted) {
       return localizations.translate(
         'CAMPAIGN_NOT_REACH_MIN',

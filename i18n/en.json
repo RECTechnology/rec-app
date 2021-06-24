@@ -349,6 +349,6 @@
   "link_ltab_tos": "https://rec.barcelona/letocaalbarrio-condiciones-de-uso/",
 
   "PAYMENT_SHARE_MESSAGE": "¡Hola! 👋 Soy {{account}}, tenemos pendiente el pago “{{concept}}” con importe de {{amount}}R. Haz click en el enlace y ábrelo con la app. del REC. 📲 ¡Gracias! {{link}}",
+  "MIN_RECHARGE": "Minimum recharge of 0.5 RECs",
   "NON_SEARCH_RESULT": "No se ha encontrado ningun comercio"
-
 }
