@@ -1,9 +1,9 @@
-name: Test & Lint PR
+name: Lint PR
 
 on: pull_request
 
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -15,4 +15,3 @@ jobs:
           flutter-version: '2.2.0'
       - run: flutter pub get
       - run: flutter analyze
-      - run: flutter test

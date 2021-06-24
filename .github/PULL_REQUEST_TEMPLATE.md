@@ -21,9 +21,13 @@ Steps before requesting review:
 #### Considerations:
 <!-- Leave empty if no considerations needed -->
 
-#### Tested in:
-- [ ] Android
-- [ ] iOS
-- [ ] Does not affect code or devices (no need to test)
+## Screenshots
+<!-- Only if necessary: if it adds new widget/layout/page, any visual changes -->
+
+#### Checklist:
+- [ ] Tested in Android
+- [ ] Tested in iOS
+- [ ] Adds tests
+
 
 
