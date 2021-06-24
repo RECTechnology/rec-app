@@ -290,17 +290,19 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _setCustomMapPin() async {
+
+
     markerIcon = BitmapDescriptor.fromBytes(
       await ImageHelpers.getBytesFromAsset(
         'assets/marcador.png',
-        70,
+        50,
       ),
     );
 
     markerLtab = BitmapDescriptor.fromBytes(
       await ImageHelpers.getBytesFromAsset(
         'assets/marker-ltab.png',
-        70,
+          50,
       ),
     );
   }
@@ -314,6 +316,7 @@ class _MapPageState extends State<MapPage> {
         var markerId = MarkerId(accountId);
 
         markers[markerId] = Marker(
+
           markerId: MarkerId(account.id.toString()),
           position: LatLng(
             account.latitude,
