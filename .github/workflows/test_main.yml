@@ -29,8 +29,8 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '2.2.0'
-      - run: flutter build apk
+      - run: flutter build apk --flavor=pre
       - uses: actions/upload-artifact@v2
         with:
-          name: Apk
+          name: RecBarcelona.apk
           path: build/app/outputs/flutter-apk/app-release.apk
