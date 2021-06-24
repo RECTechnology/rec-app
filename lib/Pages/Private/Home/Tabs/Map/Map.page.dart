@@ -250,22 +250,23 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _search() {
-    _accountService
-        .search(_searchData)
-        .then((value) => _setMarks(value.items))
-        .onError((error, stackTrace) => print(error));
+    _accountService.search(_searchData).then((value) {
+      value.items.isNotEmpty?
+      _setMarks(value.items):notFindSearch(value.items);
+    }).onError((error, stackTrace) {
+      print(error);
+    });
+  }
+
+  void notFindSearch( List items){
+    var localizations = AppLocalizations.of(context);
+    RecToast.showInfo(context, localizations.translate('NON_SEARCH_RESULT'));
+    _setMarks(items);
   }
 
   void _addFiltersButtons() {
     var localizations = AppLocalizations.of(context);
     recFilters = [
-      // RecFilterData<bool>(
-      //   icon: Icons.check,
-      //   label: localizations.translate('OFFERS'),
-      //   id: 'OFFERS',
-      //   defaultValue: false,
-      //   color: Colors.white,
-      // ),
       RecFilterData<bool>(
         icon: Icons.check,
         label: localizations.translate('TOUCH_HOOD'),

@@ -381,5 +381,7 @@
   "link_tos": "https://rec.barcelona/es/condiciones-de-uso/",
   "link_privacy": "https://rec.barcelona/es/politicaprivacidadweb_cast/",
 
-  "PAYMENT_SHARE_MESSAGE": "¡Hola! 👋 Soy {{account}}, tenemos pendiente el pago “{{concept}}” con importe de {{amount}}R. Haz click en el enlace y ábrelo con la app. del REC. 📲 ¡Gracias! {{link}}"
+  "PAYMENT_SHARE_MESSAGE": "¡Hola! 👋 Soy {{account}}, tenemos pendiente el pago “{{concept}}” con importe de {{amount}}R. Haz click en el enlace y ábrelo con la app. del REC. 📲 ¡Gracias! {{link}}",
+  "NON_SEARCH_RESULT": "No trade found"
+
 }
