@@ -512,6 +512,6 @@
   "UNLOCK": "Desbloquear",
   "UNLOCK_USER_SUCCES": "User unlocked, you can now login",
   "NON_SEARCH_RESULT": "No business found",
-  "MIN_RECHARGE": "Minimum recharge of 0.5 RECs",
-  "NON_SEARCH_RESULT": "No business found"
+  "MIN_RECHARGE": "Minimum recharge of 0.5 RECs"
+
 }

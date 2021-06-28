@@ -503,6 +503,6 @@
   "UNLOCK": "Desbloquear",
   "UNLOCK_USER_SUCCES": "Usuario desbloqueado, ya puedes acceder con él",
   "MIN_RECHARGE": "Recarga mínima de 0.5 RECs",
-  "NON_SEARCH_RESULT": "No se ha encontrado ningun comercio",
-  "NON_SEARCH_RESULT": "No business found"
+  "NON_SEARCH_RESULT": "No se ha encontrado ningun comercio"
+
 }
