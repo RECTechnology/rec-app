@@ -15,12 +15,13 @@ class LoginForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final ValueChanged<LoginData> onChange;
   final ValueChanged<LoginData> onSubmitted;
-
+  final String initialDNI;
   const LoginForm({
     Key key,
     this.formKey,
     this.onChange,
     this.onSubmitted,
+    this.initialDNI,
   }) : super(key: key);
 
   @override
@@ -66,7 +67,7 @@ class LoginFormState extends State<LoginForm> {
   Widget _dniField() {
     var localizations = AppLocalizations.of(context);
     return DniTextField(
-      initialValue: loginData.username,
+      initialValue: widget.initialDNI ?? loginData.username,
       onChange: setUsername,
       validator: (s) => localizations.translate(
         Validators.verifyIdentityDocument(s),

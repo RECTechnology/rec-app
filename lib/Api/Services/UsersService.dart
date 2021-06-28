@@ -1,4 +1,5 @@
 import 'package:rec/Api/ApiPaths.dart';
+
 import 'package:rec/Api/Interceptors/InjectTokenInterceptor.dart';
 import 'package:rec/Api/Services/BaseService.dart';
 import 'package:rec/Api/Storage.dart';
@@ -31,6 +32,7 @@ class UsersService extends ServiceBase {
     }).toUri();
     return put(uri, {'group_id': accountId});
   }
+
 
   User _mapToUser(Map<String, dynamic> resp) {
     return User.fromJson(resp['data']);

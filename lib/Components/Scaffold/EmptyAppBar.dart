@@ -5,6 +5,7 @@ import 'package:rec/brand.dart';
 Widget EmptyAppBar(
   BuildContext context, {
   bool backArrow = true,
+  bool crossX = false,
   String title,
   Text titleText,
   List<Widget> actions,
@@ -28,7 +29,17 @@ Widget EmptyAppBar(
             Navigator.of(context).pop();
           },
         )
-      : null;
+      : crossX
+          ? IconButton(
+              icon: Icon(
+                Icons.clear,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          : null;
 
   return AppBar(
     backgroundColor: backgroundColor,

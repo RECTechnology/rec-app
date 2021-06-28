@@ -19,10 +19,12 @@ import 'package:rec/routes.dart';
 
 class LoginPage extends StatefulWidget {
   final Function onLogin;
+  final String dni;
 
   const LoginPage({
     Key key,
     this.onLogin,
+    this.dni,
   }) : super(key: key);
 
   @override
@@ -133,6 +135,7 @@ class _LoginPageState extends State<LoginPage> {
       MaterialPageRoute(builder: (c) => ForgotPassword()),
     );
   }
+
 
   void _registerButtonPressed() {
     Navigator.of(context).pushNamed(Routes.register);

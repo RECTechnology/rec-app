@@ -31,6 +31,7 @@ class ApiPaths {
   static ApiPath getContacts = ApiPath('/user/v1/public_phone_list');
   static ApiPath uploadFile = ApiPath('/user/v1/upload_file');
   static ApiPath listCards = ApiPath('/company/v1/credit_card');
+  static ApiPath unlockUser = ApiPath('app/v4/unlock-user');
 
   static ApiPath campaigns = ApiPath('/user/v3/campaigns');
 

@@ -3,7 +3,6 @@ import 'package:rec/Entities/Entity.base.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Environments/env-local.dart';
 import 'package:rec/Helpers/Checks.dart';
-
 class User extends Entity {
   List<Account> accounts = [];
   List<Campaign> campaigns = [];

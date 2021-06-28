@@ -22,6 +22,7 @@ import 'package:rec/Pages/Private/Home/Tabs/Settings/user/General.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/user/GeneralSettings/PrincipalAccount.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/user/GeneralSettings/Language.page.dart';
 import 'package:rec/Pages/Public/Register/RegisterStepOne.dart';
+import 'package:rec/Pages/Public/UnlockUser/UnlockUserPage.dart';
 
 import 'Pages/Private/Home/Home.page.dart';
 import 'Pages/Private/Home/Tabs/Settings/account/BussinessAccount.page.dart';
@@ -34,6 +35,7 @@ class Routes {
   static String register = 'register';
   static String forgotPassword = 'forgot-password';
   static String changePassword = 'change-password';
+  static String unlockUser = 'unlock-user';
 
   // Walet routes
   static String payQr = 'pay-qr';
@@ -45,6 +47,7 @@ class Routes {
   static String rechargeResult = 'recharge-result';
   static String rechargeResultRedirect = '/recharge-result';
   static String payLink = '/pay';
+  static String unlockUserLink = '/unlock-user';
 
   static String home = 'home';
   static String newCard = 'new-card';
@@ -75,6 +78,7 @@ class Routes {
   }
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+
     if (settings.name.startsWith(Routes.payLink)) {
       return MaterialPageRoute(
         builder: (ctx) => PayLink(
@@ -82,6 +86,14 @@ class Routes {
             'https://rec.barcelona' + settings.name,
           ),
         ),
+      );
+    }
+    if (settings.name.startsWith(Routes.unlockUserLink)) {
+      var uri = 'https://rec.barcelona' + settings.name;
+      var params = Uri.parse(uri).queryParameters;
+      var sms = params['smscode'];
+      return MaterialPageRoute(
+        builder: (ctx) => UnlockUserPage(sms: sms,),
       );
     }
     return null;
@@ -96,6 +108,7 @@ final Map<String, Widget Function(BuildContext)> ROUTES = {
   Routes.payQr: (context) => PayWithQR(),
   Routes.payContactAccount: (context) => PayContactOrAccount(),
   Routes.charge: (context) => ChargePage(),
+  Routes.unlockUser: (context) => UnlockUserPage(),
 
   // User settings
   Routes.settingsUserSecurity: (context) => UserSecurityPage(),

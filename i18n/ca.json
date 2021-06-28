@@ -489,6 +489,11 @@
   "link_privacy": "https://rec.barcelona/es/politicaprivacidadweb_cast/",
   
   "PAYMENT_SHARE_MESSAGE": "¡Hola! 👋 Soy {{account}}, tenemos pendiente el pago “{{concept}}” con importe de {{amount}}R. Haz click en el enlace y ábrelo con la app. del REC. 📲 ¡Gracias! {{link}}",
+  "UNLOCK_PASSWORD": "Desbloquea tu usuario",
+  "INTRODUCE_TO_UNLOCK": "Introduce tu documento de identidad y el teléfono vinculado a tu suuario para que podamos indentificarte y desbloquear tu usuario",
+  "SMS_CODE": "Código SMS",
+  "UNLOCK": "Desbloquear",
+  "UNLOCK_USER_SUCCES": "Usuari desbloquejat, ja pots accedir amb ell",
   "MIN_RECHARGE": "Recàrrega mínima de 0.5 RECs",
   "NON_SEARCH_RESULT": "No s'ha trobat cap comerç"
 }
