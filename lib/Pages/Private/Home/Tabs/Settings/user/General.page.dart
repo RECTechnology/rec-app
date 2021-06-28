@@ -4,7 +4,6 @@ import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
 import 'package:rec/Helpers/RecNavigation.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
 import 'package:rec/routes.dart';
 
@@ -18,26 +17,25 @@ class GeneralSettingsPage extends StatefulWidget {
 class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
   @override
   Widget build(BuildContext context) {
-    var userState = UserState.of(context);
     var localization = AppLocalizations.of(context);
 
     return Scaffold(
       backgroundColor: Brand.defaultAvatarBackground,
-      appBar: EmptyAppBar(context, title: 'SETTINGS_USER_GENERAL'),
+      appBar: EmptyAppBar(context, title: 'GENERAL_SETTINGS'),
       body: Scrollbar(
         thickness: 8,
         showTrackOnHover: true,
         radius: Radius.circular(3),
         child: ListView(
           children: [
-            GeneralSettingsTile(
-              title: userState.account.name,
-              subtitle: localization.translate('PRINCIPAL_ACCOUNT'),
-              onTap: RecNavigation.getNavigateToRouteCallback(
-                context,
-                Routes.settingsUserMainAccount,
-              ),
-            ),
+            // GeneralSettingsTile(
+            //   title: userState.account.name,
+            //   subtitle: localization.translate('PRINCIPAL_ACCOUNT'),
+            //   onTap: RecNavigation.getNavigateToRouteCallback(
+            //     context,
+            //     Routes.settingsUserMainAccount,
+            //   ),
+            // ),
             GeneralSettingsTile(
               title: localization.getNameByLocaleId(
                 localization.locale.languageCode,

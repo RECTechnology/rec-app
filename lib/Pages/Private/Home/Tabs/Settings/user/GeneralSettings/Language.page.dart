@@ -7,6 +7,7 @@ import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
 import 'package:rec/Helpers/Loading.dart';
+import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Entities/IdiomCard.ent.dart';
 import 'package:rec/Styles/TextStyles.dart';
@@ -39,7 +40,7 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
-
+    var getMainIdiom = getMainLanguage();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: EmptyAppBar(context, title: localizations.translate('IDIOM')),
@@ -50,11 +51,11 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
         child: ListView(
           children: [
             GeneralSettingsTile(
-              title: localizations.getNameByLocaleId(getMainIdiom().id),
-              subtitle: localizations.translate('MAIN_IDIOMa'),
+              title: localizations.getNameByLocaleId(getMainIdiom.id),
+              subtitle: localizations.translate('MAIN_LANGUAGE'),
               circleAvatar: CircleAvatarRec(
                 radius: 27,
-                image: getMainIdiom().image,
+                image: getMainIdiom.image,
               ),
               titleStyle: TextStyles.outlineTileText.copyWith(
                 fontWeight: FontWeight.w500,
@@ -118,7 +119,7 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
   }
 
   // ignore: missing_return
-  IdiomCard getMainIdiom() {
+  IdiomCard getMainLanguage() {
     var localizations = AppLocalizations.of(context);
 
     for (var idiom in languageCards) {
@@ -141,6 +142,9 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
         Loading.dismiss();
         RecApp.setLocale(context, Locale(locale, locale));
         Navigator.of(context).pop();
+      }).onError((error, stackTrace) {
+        Loading.dismiss();
+        RecToast.showError(context, error.message);
       });
     });
   }

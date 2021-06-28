@@ -132,7 +132,7 @@ class _AccountLocationPageState extends State<AccountLocationPage> {
                 ),
                 const SizedBox(height: 48),
                 RecActionButton(
-                  label: 'ACTUALIZAR',
+                  label: 'UPDATE_APP',
                   onPressed: _update,
                   backgroundColor: Brand.primaryColor,
                   padding: EdgeInsets.zero,

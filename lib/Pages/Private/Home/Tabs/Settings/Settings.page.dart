@@ -113,6 +113,14 @@ class _SettingsPageState extends State<SettingsPage> {
                   Routes.settingsUserSecurity,
                 ),
               ),
+              SettingsListTile(
+                title: 'GENERAL_SETTINGS',
+                icon: Icons.settings,
+                onTap: RecNavigation.getNavigateToRouteCallback(
+                  context,
+                  Routes.settingsUserGeneral,
+                ),
+              ),
               SectionTitleTile('SETTINGS_ACCOUNT'),
               SettingsListTile(
                 title: isCompany
