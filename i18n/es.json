@@ -502,7 +502,7 @@
   "SMS_CODE": "Código SMS",
   "UNLOCK": "Desbloquear",
   "UNLOCK_USER_SUCCES": "Usuario desbloqueado, ya puedes acceder con él",
+  "NON_SEARCH_RESULT": "No se ha encontrado ningun comercio",
   "MIN_RECHARGE": "Recarga mínima de 0.5 RECs",
-  "NON_SEARCH_RESULT": "No se ha encontrado ningun comercio"
-
+  "WRONG_PHONE_DNI": "La combinación de usuario y teléfono no son correctos"
 }

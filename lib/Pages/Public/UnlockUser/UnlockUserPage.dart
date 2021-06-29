@@ -103,7 +103,11 @@ class _UnlockUserPageState extends State<UnlockUserPage> {
           context, localizations.translate('UNLOCK_USER_SUCCES'));
       EasyLoading.dismiss();
     }).onError((error, stackTrace) {
-      RecToast.showError(context, error.toString());
+      if(error.message == 'Wrong phone' || error.message == 'Wrong DNI' ) {
+        RecToast.showError(context,'WRONG_PHONE_DNI' );
+      }else{
+        RecToast.showError(context,error.message );
+      }
       EasyLoading.dismiss();
     });
   }
