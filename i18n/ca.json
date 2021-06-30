@@ -445,8 +445,6 @@
   "Incorrect pin": "PIN Incorrecte",
 
 
-
-
   "PHONE": "Telèfon",
   "SETTINGS_MY_ACCOUNT": "El teu compte del REC",
   "DESCRIPTION": "Descripció",
@@ -486,7 +484,7 @@
   "link_contact": "https://rec.barcelona/contacte/",
   "link_tos": "https://rec.barcelona/condicions-dus/",
   "link_privacy": "https://rec.barcelona/politica-de-privacitat-web/",
-  
+
   "PAYMENT_SHARE_MESSAGE": "Hola! 👋 Sóc {{account}}, tenim pendent el pagament “{{concept}}” amb import de {{amount}}R. Fes clic en l'enllaç i obre'l amb l'app. del REC. 📲 Gràcies! {{link}}","
   "UNLOCK_PASSWORD": "Desbloqueja el teu usuari",
   "INTRODUCE_TO_UNLOCK": "Introdueix el teu document d'identitat i el telèfon vinculat al teu usuari perquè puguem identificar-lo i desbloquejar-lo",
@@ -495,6 +493,7 @@
   "UNLOCK_USER_SUCCES": "Usuari desbloquejat, ja pots accedir amb ell",
   "MIN_RECHARGE": "Recàrrega mínima de 0.5 RECs",
   "NON_SEARCH_RESULT": "No s'ha trobat cap comerç",
-  "WRONG_PHONE_DNI": "La combinació d'usuari i telèfon no són correctes"
+  "WRONG_PHONE_DNI": "La combinació d'usuari i telèfon no són correctes",
+  "MAX_ATTEMPTS_EXCEEDED": "Usuari bloquejat. Has excedit el límit d'intents d'accés"
 
 }

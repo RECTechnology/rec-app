@@ -166,7 +166,6 @@ class _LoginPageState extends State<LoginPage> {
 
   dynamic _onLoginError(error) {
     Loading.dismiss();
-    RecToast.showError(context, error.message);
 
     if (error.message == HandledErrors.userPhoneNotValidated) {
       return Navigator.of(context).push(
@@ -182,6 +181,12 @@ class _LoginPageState extends State<LoginPage> {
           builder: (c) => MustUpdate(),
         ),
       );
+    }
+
+    if (error.message == HandledErrors.maxAttempstExceeded) {
+      RecToast.showError(context, 'MAX_ATTEMPTS_EXCEEDED');
+    }else{
+      RecToast.showError(context, error.message);
     }
   }
 }

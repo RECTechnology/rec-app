@@ -514,5 +514,8 @@
   "NON_SEARCH_RESULT": "No business found",
   "MIN_RECHARGE": "Minimum recharge of 0.5 RECs",
   "NON_SEARCH_RESULT": "No business found",
-  "WRONG_PHONE_DNI": "The combination of user and phone is not correct"
+
+  "WRONG_PHONE_DNI": "The combination of user and phone is not correct",
+  "MAX_ATTEMPTS_EXCEEDED": "User blocked. You have exceeded the limit of access attempts"
+
 }
