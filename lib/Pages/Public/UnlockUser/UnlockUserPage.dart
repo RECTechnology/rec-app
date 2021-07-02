@@ -105,6 +105,11 @@ class _UnlockUserPageState extends State<UnlockUserPage> {
     }).onError((error, stackTrace) {
       if(error.message == 'Wrong phone' || error.message == 'Wrong DNI' ) {
         RecToast.showError(context,'WRONG_PHONE_DNI' );
+        return;
+      }
+      if(error.message == 'The sms code is invalid or has expired'){
+        RecToast.showError(context,'WRONG_SMS' );
+        return;
       }else{
         RecToast.showError(context,error.message );
       }

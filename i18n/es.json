@@ -506,6 +506,7 @@
   "NON_SEARCH_RESULT": "No se ha encontrado ningún comercio",
   "MIN_RECHARGE": "Recarga mínima de 0.5 RECs",
   "WRONG_PHONE_DNI": "La combinación de usuario y teléfono no son correctos",
-  "MAX_ATTEMPTS_EXCEEDED": "Usuario bloqueado. Has excedido el límite de intentos de acceso"
+  "MAX_ATTEMPTS_EXCEEDED": "Usuario bloqueado. Has excedido el límite de intentos de acceso",
+  "WRONG_SMS": "El código SMS es incorrecto"
 
 }

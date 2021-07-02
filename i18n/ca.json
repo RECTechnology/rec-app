@@ -494,6 +494,7 @@
   "MIN_RECHARGE": "Recàrrega mínima de 0.5 RECs",
   "NON_SEARCH_RESULT": "No s'ha trobat cap comerç",
   "WRONG_PHONE_DNI": "La combinació d'usuari i telèfon no són correctes",
-  "MAX_ATTEMPTS_EXCEEDED": "Usuari bloquejat. Has excedit el límit d'intents d'accés"
+  "MAX_ATTEMPTS_EXCEEDED": "Usuari bloquejat. Has excedit el límit d'intents d'accés",
+  "WRONG_SMS": "El codi SMS és incorrecte"
 
 }
