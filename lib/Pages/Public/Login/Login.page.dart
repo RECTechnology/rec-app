@@ -48,6 +48,9 @@ class _LoginPageState extends State<LoginPage> {
     if (hasSavedUser) {
       _loginFormKey.currentState?.setUsername(savedUser.username);
     }
+    if(widget.dni != null){
+     loginData.username =  widget.dni;
+    }
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
