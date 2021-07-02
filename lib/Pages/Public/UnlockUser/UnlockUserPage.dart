@@ -88,23 +88,38 @@ class _UnlockUserPageState extends State<UnlockUserPage> {
   }
 
   void _next() async {
+
     var localizations = AppLocalizations.of(context);
     var userService = UnlockUserService();
     if (!_formKey.currentState.validate()) return;
     await EasyLoading.show();
     await userService.unlockUser(data).then((value) {
-      Navigator.pop(
-          context,
-          MaterialPageRoute(
-              builder: (context) => LoginPage(
-                    dni: data.dni,
-                  )));
+      if(Navigator.canPop(context)){
+        Navigator.pop(
+            context,
+            MaterialPageRoute(
+                builder: (context) => LoginPage(
+                  dni: data.dni,
+                )));
+
+      }else{
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => LoginPage(
+              dni: data.dni,
+            )));
+      }
+
       RecToast.showSuccess(
           context, localizations.translate('UNLOCK_USER_SUCCES'));
       EasyLoading.dismiss();
     }).onError((error, stackTrace) {
       if(error.message == 'Wrong phone' || error.message == 'Wrong DNI' ) {
         RecToast.showError(context,'WRONG_PHONE_DNI' );
+        return;
+      }
+      if(error.message == 'The sms code is invalid or has expired'){
+        RecToast.showError(context,'WRONG_SMS' );
+        return;
       }else{
         RecToast.showError(context,error.message );
       }

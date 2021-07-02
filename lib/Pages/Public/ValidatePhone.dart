@@ -159,11 +159,14 @@ class _ValidatePhoneState extends State<ValidatePhone> {
   }
 
   void _onError(error) {
-    var localizations = AppLocalizations.of(context);
     EasyLoading.dismiss();
-    RecToast.showError(
-      context,
-      localizations.translate(error.message),
-    );
+    if(error.message =='Incorrect Code'){
+      RecToast.showError(context, 'WRONG_SMS');
+      return;
+    }else{
+      RecToast.showError(context, error.message);
+
+    }
+
   }
 }

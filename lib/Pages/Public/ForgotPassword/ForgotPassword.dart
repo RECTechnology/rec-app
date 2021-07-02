@@ -104,7 +104,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   void _smsError(err) {
     print(err);
     EasyLoading.dismiss();
-    RecToast.showError(context, err.message);
+    if(err.message =='Smscode not found'){
+      RecToast.showError(context, 'WRONG_SMS');
+      return;
+    }else{
+      RecToast.showError(context, err.message);
+
+    }
   }
 
   void _goToSmsCode() async {

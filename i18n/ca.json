@@ -90,7 +90,7 @@
   "AMOUNT": "Quantitat",
   "NEXT_CREDIT_CARD": "Introduiràs la targeta en la següent pantalla",
   "RECHARGE": "Recarregar",
-  "RECHARGE_OK": "¡Has recarregat {{amount}}!",
+  "RECHARGE_OK": "Has recarregat {{amount}}!",
   "RECHARGE_OK_DESC": "Los RECs estarán en tu cuenta en menos de 10 minutos",
 
 
@@ -152,7 +152,7 @@
   "CREATE_PIN": "Crea el teu pin del REC",
   "CREATE_PIN_SHORT": "Crear PIN",
   "CREATE_PIN_DESC": "Per a començar a operar necessites crear el teu pin del REC. Crea-ho ara i anota-ho en un lloc segur, el necessitaràs en futures operacions.",
-  "RECHARGE_KO": "¡Oops... Alguna cosa ha anat malament!",
+  "RECHARGE_KO": "Oops... Alguna cosa ha anat malament!",
   "RECHARGE_KO_DESC": "Ho sentim, l'operació no ha pogut realitzar-se. Intenta-ho més tard, si l'error persisteix contacti amb el nostre equip de suport.",
 
 
@@ -384,7 +384,7 @@
   "CAMPAIGN_NOT_REACH_MIN": "No arriba al mínim ({{min}}R) per a entrar en la campanya",
   "CAMPAIGN_WELCOME_TITLE": "Has entrat en la campanya {{campaign}}",
   "CAMPAIGN_WELCOME_DESC": "Rebràs un 15% de bonificació en les teves compres a comerços adherits a la campanya,",
-  "CONGRATULATIONS": "¡ENHORABONA!",
+  "CONGRATULATIONS": "ENHORABONA!",
   "PURCHASE_DONE": "Compra realitzada",
   "REWARD_OBTAINED": "Bonificació obtinguda!",
   "YOU_HAVE_RECS_REDEMABLE": "Tens {{amount}}R bonificables",
@@ -432,7 +432,6 @@
   "closed": "Tancat",
   "full": "Obert 24h",
 
-  "PAYMENT_SHARE_MESSAGE": "Hola! \uD83D\uDC4B Sóc {{account}}, tenim pendent el pagament “{{concept}}” amb import de {{amount}}R. Fes clic en l'enllaç i obre'l amb l'app. del REC. \uD83D\uDCF2 Gràcies! {{link}}",
   "MAIN_LANGUAGE": "Idioma principal",
   "CHANGE_IMAGE": "Cambiar imatge",
   "AVARIABLE": "Disponible",
@@ -446,10 +445,8 @@
   "Incorrect pin": "PIN Incorrecte",
 
 
-
-
   "PHONE": "Telèfon",
-  "SETTINGS_MY_ACCOUNT": "El teu compte del REX",
+  "SETTINGS_MY_ACCOUNT": "El teu compte del REC",
   "DESCRIPTION": "Descripció",
   "EMAIL_ONLY": "Email",
 
@@ -480,22 +477,24 @@
 
   "KYX max_out limit has bean reached": "Has aconseguit el límit màxim d'enviament",
 
-  "link_ltab": "https://rec.barcelona/es/letocaalbarrio/",
-  "link_ltab_tos": "https://rec.barcelona/es/letocaalbarrio-condiciones-de-uso/",
-  "link_about": "https://rec.barcelona/es/sobre-nosotros/",
-  "link_faqs": "https://rec.barcelona/es/faqs-es/",
-  "link_contact": "https://rec.barcelona/es/contacto/",
-  "link_tos": "https://rec.barcelona/es/condiciones-de-uso/",
-  "link_privacy": "https://rec.barcelona/es/politicaprivacidadweb_cast/",
-  
-  "PAYMENT_SHARE_MESSAGE": "¡Hola! 👋 Soy {{account}}, tenemos pendiente el pago “{{concept}}” con importe de {{amount}}R. Haz click en el enlace y ábrelo con la app. del REC. 📲 ¡Gracias! {{link}}",
-  "UNLOCK_PASSWORD": "Desbloquea tu usuario",
-  "INTRODUCE_TO_UNLOCK": "Introduce tu documento de identidad y el teléfono vinculado a tu suuario para que podamos indentificarte y desbloquear tu usuario",
-  "SMS_CODE": "Código SMS",
-  "UNLOCK": "Desbloquear",
+  "link_ltab": "https://rec.barcelona/litocaalbarri/",
+  "link_ltab_tos": "https://rec.barcelona/litocaalbarri-condicions-dus/",
+  "link_about": "https://rec.barcelona/sobre-nosaltres/",
+  "link_faqs": "https://rec.barcelona/faqs/",
+  "link_contact": "https://rec.barcelona/contacte/",
+  "link_tos": "https://rec.barcelona/condicions-dus/",
+  "link_privacy": "https://rec.barcelona/politica-de-privacitat-web/",
+
+  "PAYMENT_SHARE_MESSAGE": "Hola! 👋 Sóc {{account}}, tenim pendent el pagament “{{concept}}” amb import de {{amount}}R. Fes clic en l'enllaç i obre'l amb l'app. del REC. 📲 Gràcies! {{link}}","
+  "UNLOCK_PASSWORD": "Desbloqueja el teu usuari",
+  "INTRODUCE_TO_UNLOCK": "Introdueix el teu document d'identitat i el telèfon vinculat al teu usuari perquè puguem identificar-lo i desbloquejar-lo",
+  "SMS_CODE": "Codi SMS",
+  "UNLOCK": "Desbloquejar",
   "UNLOCK_USER_SUCCES": "Usuari desbloquejat, ja pots accedir amb ell",
   "MIN_RECHARGE": "Recàrrega mínima de 0.5 RECs",
   "NON_SEARCH_RESULT": "No s'ha trobat cap comerç",
-  "WRONG_PHONE_DNI": "La combinació d'usuari i telèfon no són correctes"
+  "WRONG_PHONE_DNI": "La combinació d'usuari i telèfon no són correctes",
+  "MAX_ATTEMPTS_EXCEEDED": "Usuari bloquejat. Has excedit el límit d'intents d'accés",
+  "WRONG_SMS": "El codi SMS és incorrecte"
 
 }
