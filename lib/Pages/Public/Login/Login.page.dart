@@ -63,6 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     LoginForm(
                       formKey: _formKey,
+                      initialDNI: widget.dni,
                       onChange: (data) {
                         setState(() => loginData = data);
                       },

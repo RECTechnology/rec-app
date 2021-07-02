@@ -65,6 +65,7 @@ class LoginFormState extends State<LoginForm> {
   }
 
   Widget _dniField() {
+
     var localizations = AppLocalizations.of(context);
     return DniTextField(
       initialValue: widget.initialDNI ?? loginData.username,
