@@ -49,7 +49,9 @@ class AmountTextFieldState extends State<AmountTextField> {
     return RecTextField(
       label: localizations.translate('AMOUNT'),
       initialValue: widget.initialValue ?? '',
-      keyboardType: TextInputType.numberWithOptions(decimal: true),//Used this type of keyboard to avoid error in  IOS with decimals
+      keyboardType: TextInputType.numberWithOptions(
+          decimal:
+              true), //Used this type of keyboard to avoid error in  IOS with decimals
       needObscureText: false,
       placeholder: localizations.translate('WRITE_AMOUNT'),
       onChange: widget.onChange,
@@ -60,7 +62,7 @@ class AmountTextFieldState extends State<AmountTextField> {
       autofocus: widget.autofocus,
       maxLines: 1,
       minLines: 1,
-      inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))],
+      inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]'))],
       icon: Icon(
         Icons.euro,
         color: Brand.grayIcon,

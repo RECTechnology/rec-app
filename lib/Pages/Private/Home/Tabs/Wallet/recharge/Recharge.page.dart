@@ -96,7 +96,7 @@ class _RechargePageState extends State<RechargePage> {
                   RecActionButton(
                     label: localizations.translate('RECHARGE'),
                     icon: Icons.arrow_forward_ios_sharp,
-                    onPressed:  _forwards ,
+                    onPressed: _forwards,
                   )
                 ],
               ),
@@ -108,8 +108,9 @@ class _RechargePageState extends State<RechargePage> {
   }
 
   void _amountChanged(value) {
-    var newAmount = double.parse(value.isEmpty ? '0' : value);
-
+    var newAmount =
+        double.parse(value.isEmpty ? '0' : value.replaceAll(',', '.'));
+    print(newAmount);
     setState(() {
       rechargeData.amount = newAmount;
     });
@@ -125,8 +126,8 @@ class _RechargePageState extends State<RechargePage> {
 
     var campaignActive = activeCampaign.isActiveForState(userState);
     var valueDouble = double.parse(value.isEmpty ? '0' : value);
-    var reachesMin = valueDouble >= activeCampaign.min  ;
-    if(valueDouble < 0.5){
+    var reachesMin = valueDouble >= activeCampaign.min;
+    if (valueDouble < 0.5) {
       return localizations.translate('MIN_RECHARGE');
     }
     if (campaignActive && !reachesMin && rechargeData.campaignTermsAccepted) {
