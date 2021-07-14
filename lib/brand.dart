@@ -127,6 +127,10 @@ class Brand {
       dividerTheme: baseTheme.dividerTheme.copyWith(
         color: Brand.separatorColor,
       ),
+      tabBarTheme: baseTheme.tabBarTheme.copyWith(
+        labelColor: Brand.primaryColor,
+        unselectedLabelColor: Brand.grayDark4,
+      ),
       textTheme: baseTheme.textTheme.copyWith(
         bodyText1: baseTheme.textTheme.bodyText1.copyWith(
           color: grayDark,

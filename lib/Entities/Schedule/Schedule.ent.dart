@@ -33,7 +33,7 @@ class Schedule {
 
   /// Returns the state of the schedule for the current day
   /// For example: Closed · Opens at 10am
-  ScheduleState getTodayState(DateTime now) {
+  ScheduleState getStateForDate(DateTime now) {
     if (type == ScheduleType.CLOSED) {
       return ScheduleState.closed;
     }
@@ -48,8 +48,8 @@ class Schedule {
     return ScheduleState.notAvailable;
   }
 
-  String getTodayStateString(DateTime now) {
-    var state = getTodayState(now);
+  String getStateNameForDate(DateTime now) {
+    var state = getStateForDate(now);
 
     if (state == ScheduleState.notAvailable) return 'NOT_AVAILABLE';
     if (state == ScheduleState.closed) return 'CLOSED';
@@ -91,7 +91,7 @@ class Schedule {
           today.minute,
         ).add(Duration(days: day));
 
-        var state = getTodayState(nextDay);
+        var state = getStateForDate(nextDay);
         if (state == ScheduleState.open || state == ScheduleState.openAllDay) {
           return DateHelper.timeStringToDateTime(
             getScheduleForWeekday(nextDay).firstOpen,

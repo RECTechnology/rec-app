@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/brand.dart';
 
 class SelectableChip extends StatefulWidget {
@@ -28,7 +29,7 @@ class _SelectableChipState extends State<SelectableChip> {
         selectedColor: Colors.white,
         checkmarkColor: Brand.accentColor,
         elevation: 1,
-        label: Text(
+        label: LocalizedText(
           widget.label,
           style: TextStyle(
             color: widget.isSelected ? Brand.accentColor : Brand.grayDark2,

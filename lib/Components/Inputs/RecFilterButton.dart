@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Styles/Paddings.dart';
+import 'package:rec/brand.dart';
 
 class RecFilterButton extends StatefulWidget {
   final bool disabled;
@@ -19,12 +20,12 @@ class RecFilterButton extends StatefulWidget {
     this.onPressed,
     this.label,
     this.icon,
-    this.padding = Paddings.button,
+    this.padding = Paddings.filterButton,
     this.margin = EdgeInsets.zero,
     this.disabled = false,
-    this.textColor,
-    this.iconColor,
-    this.backgroundColor,
+    this.textColor = Brand.grayDark,
+    this.iconColor = Brand.grayDark,
+    this.backgroundColor = Colors.white,
     this.borderRadius = 6,
   }) : super(key: key);
 
@@ -39,8 +40,6 @@ class _RecActionButton extends State<RecFilterButton> {
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
-
     return Container(
       height: 27,
       margin: widget.margin,
@@ -67,8 +66,8 @@ class _RecActionButton extends State<RecFilterButton> {
                 : SizedBox(),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-              child: Text(
-                localizations.translate(widget.label),
+              child: LocalizedText(
+                widget.label,
                 style: TextStyle(
                     color: widget.textColor,
                     fontWeight: FontWeight.w500,

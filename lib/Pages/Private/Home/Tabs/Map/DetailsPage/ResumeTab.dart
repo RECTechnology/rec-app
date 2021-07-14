@@ -2,13 +2,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/ReadMoreText.dart';
 import 'package:rec/Components/Inputs/RecFilterButton.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
 import 'package:rec/Entities/VendorData.ent.dart';
 import 'package:rec/Helpers/BrowserHelper.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayAddress.page.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/brand.dart';
 
@@ -28,36 +28,26 @@ class _ResumeTabState extends State<ResumeTab> {
     var filterButtons = <RecFilterButton>[
       RecFilterButton(
         icon: Icons.call_made,
-        label: localizations.translate('PAY'),
-        padding: Paddings.filterButton,
+        label: 'PAY',
         margin: EdgeInsets.only(right: 8),
         onPressed: _payTo,
-        disabled: false,
         backgroundColor: Brand.primaryColor,
         textColor: Colors.white,
         iconColor: Colors.white,
       ),
       RecFilterButton(
         icon: Icons.assistant_direction,
-        label: localizations.translate('HOW_TO_GO'),
-        padding: Paddings.filterButton,
+        label: 'HOW_TO_GO',
         margin: EdgeInsets.only(right: 8),
         onPressed: _launchMapsUrl,
-        disabled: false,
         backgroundColor: Colors.white,
-        textColor: Brand.grayDark,
-        iconColor: Brand.grayDark,
       ),
       RecFilterButton(
         icon: Icons.phone,
-        label: localizations.translate('CALL'),
-        padding: Paddings.filterButton,
+        label: 'CALL',
         margin: EdgeInsets.only(right: 8),
         onPressed: _call,
-        disabled: false,
         backgroundColor: Colors.white,
-        textColor: Brand.grayDark,
-        iconColor: Brand.grayDark,
       ),
     ];
 
@@ -89,18 +79,11 @@ class _ResumeTabState extends State<ResumeTab> {
                   alignment: Alignment.centerLeft,
                   child: Row(
                     children: [
-                      Text(
-                        localizations.translate(
-                          widget.account.schedule.getTodayStateString(
-                            DateTime.now(),
-                          ),
-                        ),
+                      LocalizedText(
+                        widget.account.schedule
+                            .getStateNameForDate(DateTime.now()),
                         style: TextStyle(fontSize: 14),
                       ),
-                      // Text(
-                      //   _getNextScheduleState(),
-                      //   style: TextStyle(fontSize: 14),
-                      // ),
                     ],
                   ),
                 ),
@@ -110,34 +93,12 @@ class _ResumeTabState extends State<ResumeTab> {
                     alignment: Alignment.centerLeft,
                     child: ReadMoreText(
                       data: ('"${widget.account.description.trim()}"'),
-                      colorClickableText: Brand.grayDark,
-                      style: TextStyle(
-                        color: Brand.grayDark,
-                        fontWeight: FontWeight.w300,
-                        fontSize: 14,
-                        fontStyle: FontStyle.italic,
-                      ),
-                      lessStyle: TextStyle(
-                        color: Brand.grayDark,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                        fontStyle: FontStyle.normal,
-                      ),
-                      moreStyle: TextStyle(
-                        color: Brand.grayDark,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                        fontStyle: FontStyle.normal,
-                      ),
                       trimCollapsedText: localizations.translate('SHOW_MORE'),
                       trimExpandedText: localizations.translate('SHOW_LESS'),
                     ),
                   ),
-                if (widget.account.webUrl != null &&
-                    widget.account.webUrl.isNotEmpty)
-                  SizedBox(height: 16),
-                if (widget.account.webUrl != null &&
-                    widget.account.webUrl.isNotEmpty)
+                if (widget.account.hasWeb()) SizedBox(height: 16),
+                if (widget.account.hasWeb())
                   Align(
                     alignment: Alignment.centerLeft,
                     child: RichText(
@@ -149,8 +110,7 @@ class _ResumeTabState extends State<ResumeTab> {
                     ),
                   ),
                 SizedBox(height: 16),
-                if (widget.account.publicImage != null &&
-                    widget.account.publicImage.isNotEmpty)
+                if (widget.account.hasPublicImage())
                   AspectRatio(
                     aspectRatio: 16 / 9,
                     child: Container(

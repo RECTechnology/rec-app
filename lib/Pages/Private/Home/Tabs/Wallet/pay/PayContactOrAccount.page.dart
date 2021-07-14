@@ -54,7 +54,6 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
         ? SizedBox()
         : TabBarView(
             controller: _tabController,
-            // physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
               IfPermissionGranted(
                 permission: PermissionProviders.contacts,
