@@ -1,3 +1,4 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rec/Entities/Campaign.ent.dart';
 import 'package:rec/Entities/Currency.ent.dart';
 import 'package:rec/Entities/Entity.base.dart';
@@ -98,6 +99,14 @@ class Account extends Entity {
     return type == Account.TYPE_COMPANY;
   }
 
+  bool hasWeb() {
+    return Checks.isNotEmpty(webUrl);
+  }
+
+  bool hasPublicImage() {
+    return Checks.isNotEmpty(publicImage);
+  }
+
   Wallet getWallet(String currencyName) {
     return wallets
         .firstWhere((element) => element.currency.name == currencyName);
@@ -116,6 +125,8 @@ class Account extends Entity {
         campaigns.isNotEmpty &&
         campaigns.firstWhere((el) => el.id == campaignId) != null;
   }
+
+  LatLng getLatLong() => LatLng(latitude, longitude);
 
   // LTAB
   bool isLtabAccount({String ltabAccountName = 'LI TOCA AL BARRI'}) {

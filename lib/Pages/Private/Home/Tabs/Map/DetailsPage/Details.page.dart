@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Map/BussinessHeader.dart';
-import 'package:rec/Entities/Schedule/ScheduleType.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/ScheduleListTab.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/ResumeTab.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -18,8 +17,6 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage>
     with SingleTickerProviderStateMixin {
-  List<String> days = [];
-  bool isResume = true;
   TabController _tabController;
 
   @override
@@ -30,8 +27,6 @@ class _DetailsPageState extends State<DetailsPage>
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
-
     return Scaffold(
       appBar: BussinessHeader(widget.account),
       body: Column(
@@ -45,14 +40,11 @@ class _DetailsPageState extends State<DetailsPage>
             isScrollable: true,
             tabs: [
               Tab(
-                child: Text(localizations.translate('RESUME')),
+                child: LocalizedText('RESUME'),
               ),
               IgnorePointer(
-                ignoring:
-                    widget.account.schedule.type == ScheduleType.NOT_AVAILABLE,
-                child: Tab(
-                  child: Text(localizations.translate('SCHEDULE')),
-                ),
+                ignoring: widget.account.schedule.isNotAvailable,
+                child: Tab(child: LocalizedText('SCHEDULE')),
               ),
             ],
           ),
