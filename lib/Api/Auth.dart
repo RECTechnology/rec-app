@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:rec/Providers/TransactionsProvider.dart';
+import 'package:rec/Providers/UserState.dart';
+
 import 'Storage.dart';
 
 class Auth {
@@ -7,7 +11,10 @@ class Auth {
   static const String _expireDate = 'expires_in';
   static const String _appTokenKey = 'app_token';
 
-  static Future<void> logout() async {
+  static Future<void> logout(BuildContext context) async {
+    UserState.of(context, listen: false).clear();
+    TransactionProvider.of(context, listen: false).clear();
+
     await storage.delete(key: Auth._tokenKey);
     await storage.delete(key: Auth._refreshTokenKey);
     await storage.delete(key: Auth._expireDate);

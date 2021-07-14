@@ -378,7 +378,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/manolo/Documents/Dev/flutter;
@@ -396,9 +396,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.3;
 				NEW_SETTING = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.barcelona.rec;
+				PRODUCT_BUNDLE_IDENTIFIER = rec.barcelona;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -523,7 +523,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/manolo/Documents/Dev/flutter;
@@ -541,9 +541,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.3;
 				NEW_SETTING = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.barcelona.rec;
+				PRODUCT_BUNDLE_IDENTIFIER = rec.barcelona;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -562,7 +562,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/manolo/Documents/Dev/flutter;
@@ -580,9 +580,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.3;
 				NEW_SETTING = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.barcelona.rec;
+				PRODUCT_BUNDLE_IDENTIFIER = rec.barcelona;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";

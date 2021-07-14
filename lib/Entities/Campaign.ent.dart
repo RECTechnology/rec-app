@@ -54,6 +54,23 @@ class Campaign extends Entity {
     return campaignStarted && !isInCampaign && !isCompany;
   }
 
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'created_at': createdAt.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
+      'init_date': initDate.toIso8601String(),
+      'end_date': endDate.toIso8601String(),
+      'min': min,
+      'max': max,
+      'balance': balance,
+      'name': name,
+      'video_promo_url': videoPromoUrl,
+      'image_url': imageUrl,
+    };
+  }
+
   factory Campaign.fromJson(Map<String, dynamic> json) {
     return Campaign(
       id: '${json['id']}',

@@ -47,10 +47,9 @@ class _TransactionsListState extends State<TransactionsList> {
     var transactionsProvider = TransactionProvider.of(context);
     var userState = UserState.of(context);
 
-    var hasTransactions = transactionsProvider.hasTransactions();
+    var hasTransactions = transactionsProvider.hasTransactions;
     var hasMoreTx = transactionsProvider.total > transactionsProvider.length;
     var isLoading = transactionsProvider.loading;
-
     var color = userState.getColor(defaultColor: Brand.primaryColor);
 
     return RefreshIndicator(

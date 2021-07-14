@@ -64,7 +64,7 @@ class HomePageState extends State<HomePage>
     if (widget.pollUser) _userPollTimer ??= getUserTimer();
 
     if (_campaignProvider == null) {
-      _campaignProvider ??= CampaignProvider.of(context);
+      _campaignProvider = CampaignProvider.of(context);
       _campaignProvider.load().then((value) => _checkCampaign());
     }
 
@@ -100,7 +100,7 @@ class HomePageState extends State<HomePage>
         _users
             .getUser()
             .then((value) => _userState?.setUser(value))
-            .catchError(_onAuthError);
+            .catchError(_onGetUserError);
       },
     );
   }
@@ -127,10 +127,10 @@ class HomePageState extends State<HomePage>
     );
   }
 
-  void _onAuthError(err) async {
+  void _onGetUserError(err) async {
     if (err is ApiError) return;
     if (err.code == 401 || err.code == 403) {
-      await Auth.logout();
+      await Auth.logout(context);
       await Navigator.of(context).pushReplacementNamed(Routes.login);
     }
   }

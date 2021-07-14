@@ -170,10 +170,8 @@ class _LimitAndVerificationState extends State<LimitAndVerificationPage> {
   }
 
   Widget _noDocumentTile() {
-    var localizations = AppLocalizations.of(context);
-
     return GeneralSettingsTile(
-      title: localizations.translate('NO_DOCUMENT'),
+      title: 'NO_DOCUMENT',
       titleStyle: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w400,

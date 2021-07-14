@@ -30,6 +30,10 @@ class CampaignProvider extends ChangeNotifier {
     );
   }
 
+  static CampaignProvider deaf(context) {
+    return of(context, listen: false);
+  }
+
   static ChangeNotifierProvider<CampaignProvider> getProvider({
     CampaignsService service,
   }) {

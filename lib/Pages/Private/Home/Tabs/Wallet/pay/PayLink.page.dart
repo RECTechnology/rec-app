@@ -4,6 +4,7 @@ import 'package:rec/Api/Services/wallet/TransactionsService.dart';
 import 'package:rec/Components/PrivateRoute.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
 import 'package:rec/Entities/VendorData.ent.dart';
+import 'package:rec/Environments/env.dart';
 import 'package:rec/Helpers/RecPlatformHelper.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/AttemptPayment.page.dart';
@@ -12,6 +13,18 @@ import 'package:rec/Pages/Public/Login/Login.page.dart';
 import 'package:rec/routes.dart';
 
 class PayLink extends StatefulWidget {
+  /// Handles onGenerateRoute,
+  /// will be called if a generated route matches [Routes.payLink]
+  static MaterialPageRoute handleRoute(RouteSettings settings, Env env) {
+    return MaterialPageRoute(
+      builder: (ctx) => PayLink(
+        paymentData: PaymentData.fromUriString(
+          '${env.DEEPLINK_URL}${settings.name}',
+        ),
+      ),
+    );
+  }
+
   final PaymentData paymentData;
 
   PayLink({

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Api/Services/AccountsService.dart';
+import 'package:rec/Components/Layout/ScrollableListLayout.dart';
 import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
 import 'package:rec/Components/Map/BussinessHeader.dart';
 import 'package:rec/Components/PickImage.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
-
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
 import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Helpers/Loading.dart';
@@ -13,7 +13,6 @@ import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Helpers/Validators.dart';
 import 'package:rec/Pages/Private/Shared/EditField.page.dart';
 import 'package:rec/Providers/UserState.dart';
-import 'package:rec/brand.dart';
 
 class MyAccountPage extends StatefulWidget {
   MyAccountPage({Key key}) : super(key: key);
@@ -46,43 +45,30 @@ class _MyAccountPageState extends State<MyAccountPage> {
       ),
     ];
 
-    return Scaffold(
-      backgroundColor: Brand.defaultAvatarBackground,
+    return ScrollableListLayout.separated(
       appBar: EmptyAppBar(context, title: 'SETTINGS_MY_ACCOUNT'),
-      body: Column(
-        children: [
-          Container(
-            color: Colors.white,
-            child: BussinessHeader(
-              userState.account,
-              avatarBadge: Positioned(
-                bottom: -8,
-                right: -4,
-                child: PickImage(
-                  onPick: _changeImage,
-                  title: 'IMAGE_DE_CUENTA',
-                  buttonLabel: 'UPDATE',
-                  hint: 'IMAGE_DE_CUENTA_DESC',
-                ),
-              ),
-              subtitle: const SizedBox.shrink(),
-            ),
-          ),
-          SectionTitleTile('YOUR_ACCOUNT'),
-          Expanded(
-            child: Scrollbar(
-              thickness: 8,
-              showTrackOnHover: true,
-              radius: Radius.circular(3),
-              child: ListView.separated(
-                itemBuilder: (ctx, index) => tiles[index],
-                separatorBuilder: (ctx, index) => Divider(height: 1),
-                itemCount: tiles.length,
+      physics: NeverScrollableScrollPhysics(),
+      children: [
+        Container(
+          color: Colors.white,
+          child: BussinessHeader(
+            userState.account,
+            avatarBadge: Positioned(
+              bottom: -8,
+              right: -4,
+              child: PickImage(
+                onPick: _changeImage,
+                title: 'IMAGE_DE_CUENTA',
+                buttonLabel: 'UPDATE',
+                hint: 'IMAGE_DE_CUENTA_DESC',
               ),
             ),
+            subtitle: const SizedBox.shrink(),
           ),
-        ],
-      ),
+        ),
+        SectionTitleTile('YOUR_ACCOUNT'),
+        ...tiles
+      ],
     );
   }
 

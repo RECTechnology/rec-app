@@ -1,34 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:rec/Entities/Forms/PaymentData.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/AddNewAccount.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/account/AccountContact.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/account/AccountLocation.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/account/AccountSchedule.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/account/MyAccount.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/user/LimitAndVerification/LimitAndVerification.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/account/Permissions/Permissions.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/user/Security/ChangePassword.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/user/Security/ChangePin.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/user/Security/CreatePin.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/user/Security/Security.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/user/UserProfile/UserProfile.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Wallet/charge/Charge.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayContactOrAccount.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayLink.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayWithQR.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/Recharge.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/user/General.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/user/GeneralSettings/PrincipalAccount.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/user/GeneralSettings/Language.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Settings/All.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Wallet/All.dart';
+
 import 'package:rec/Pages/Public/Register/RegisterStepOne.dart';
 import 'package:rec/Pages/Public/UnlockUser/UnlockUserPage.dart';
+import 'package:rec/Pages/Public/Login/Login.page.dart';
 
-import 'Pages/Private/Home/Home.page.dart';
-import 'Pages/Private/Home/Tabs/Settings/account/BussinessAccount.page.dart';
-import 'Pages/Public/Login/Login.page.dart';
-import 'Components/PrivateRoute.dart';
+import 'package:rec/Pages/Private/Home/Home.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Settings/account/BussinessAccount.page.dart';
 
+import 'package:rec/Environments/env.dart';
+import 'package:rec/Components/PrivateRoute.dart';
+
+/// List of all Route names and some utilities for handling routes
 class Routes {
   // Public routes
   static String login = 'login';
@@ -77,38 +62,35 @@ class Routes {
     return hasToken ? Routes.home : Routes.login;
   }
 
+  /// The route generator callback used when the app is navigated to a named route.
+  /// If this returns null when building the routes to handle the specified [initialRoute],
+  /// then all the routes are discarded and [Navigator.defaultRouteName] is used instead (/). See [initialRoute].
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
-
     if (settings.name.startsWith(Routes.payLink)) {
-      return MaterialPageRoute(
-        builder: (ctx) => PayLink(
-          paymentData: PaymentData.fromUriString(
-            'https://rec.barcelona' + settings.name,
-          ),
-        ),
-      );
+      return PayLink.handleRoute(settings, env);
     }
+
     if (settings.name.startsWith(Routes.unlockUserLink)) {
-      var uri = 'https://rec.barcelona' + settings.name;
-      var params = Uri.parse(uri).queryParameters;
-      var sms = params['smscode'];
-      return MaterialPageRoute(
-        builder: (ctx) => UnlockUserPage(sms: sms,),
-      );
+      return UnlockUserPage.handleRoute(settings, env);
     }
+
     return null;
   }
 }
 
+/// List of all NAMED Routes
 final Map<String, Widget Function(BuildContext)> ROUTES = {
+  // Public routes
   Routes.login: (context) => LoginPage(),
   Routes.register: (context) => RegisterOne(),
+  Routes.unlockUser: (context) => UnlockUserPage(),
+
+  // Main private routes
   Routes.home: (context) => PrivateRoute(HomePage()),
   Routes.recharge: (context) => RechargePage(),
   Routes.payQr: (context) => PayWithQR(),
   Routes.payContactAccount: (context) => PayContactOrAccount(),
   Routes.charge: (context) => ChargePage(),
-  Routes.unlockUser: (context) => UnlockUserPage(),
 
   // User settings
   Routes.settingsUserSecurity: (context) => UserSecurityPage(),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:rec/Api/HandledErrors.dart';
 import 'package:rec/Api/Services/public/UnlockUserService.dart';
 import 'package:rec/Components/Forms/UnlockUserForm.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
@@ -7,6 +7,8 @@ import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
 import 'package:rec/Entities/Forms/UnlockUserData.dart';
+import 'package:rec/Environments/env.dart';
+import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Public/Login/Login.page.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
@@ -14,6 +16,18 @@ import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/brand.dart';
 
 class UnlockUserPage extends StatefulWidget {
+  /// Handles onGenerateRoute,
+  /// will be called if a generated route matches [Routes.unlockUserLink]
+  static MaterialPageRoute handleRoute(RouteSettings settings, Env env) {
+    var uri = '${env.DEEPLINK_URL}${settings.name}';
+    var params = Uri.parse(uri).queryParameters;
+    var sms = params['smscode'];
+
+    return MaterialPageRoute(
+      builder: (ctx) => UnlockUserPage(sms: sms),
+    );
+  }
+
   final String sms;
 
   UnlockUserPage({this.sms = ''});
@@ -24,13 +38,13 @@ class UnlockUserPage extends StatefulWidget {
 
 class _UnlockUserPageState extends State<UnlockUserPage> {
   final _formKey = GlobalKey<FormState>();
-
-  UnlockUserData data = UnlockUserData(prefix: '+34');
+  final _userService = UnlockUserService();
+  UnlockUserData data;
 
   @override
   void initState() {
     super.initState();
-    data.sms = widget.sms;
+    data = UnlockUserData(prefix: '+34', sms: widget.sms);
   }
 
   @override
@@ -88,46 +102,44 @@ class _UnlockUserPageState extends State<UnlockUserPage> {
   }
 
   void _next() async {
-
-    var localizations = AppLocalizations.of(context);
-    var userService = UnlockUserService();
     if (!_formKey.currentState.validate()) return;
-    await EasyLoading.show();
-    await userService.unlockUser(data).then((value) {
-      if(Navigator.canPop(context)){
-        Navigator.pop(
-            context,
-            MaterialPageRoute(
-                builder: (context) => LoginPage(
-                  dni: data.dni,
-                )));
 
-      }else{
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => LoginPage(
-              dni: data.dni,
-            )));
-      }
+    await Loading.show();
+    await _userService
+        .unlockUser(data)
+        .then(_unlockUserOk)
+        .onError(_unlockUserError);
+  }
 
-      EasyLoading.dismiss();
-      RecToast.showSuccess(
-          context, 
-          localizations.translate('UNLOCK_USER_SUCCES'),
-      );
-    }).onError((error, stackTrace) {
-       EasyLoading.dismiss();
+  void _unlockUserOk(value) {
+    Loading.dismiss();
+    RecToast.showSuccess(
+      context,
+      'UNLOCK_USER_SUCCES',
+    );
 
-      if(error.message == 'Wrong phone' || error.message == 'Wrong DNI' ) {
-        RecToast.showError(context,'WRONG_PHONE_DNI' );
-        return;
-      }
-      
-      if(error.message == 'The sms code is invalid or has expired'){
-        RecToast.showError(context,'WRONG_SMS' );
-        return;
-      }
-      
-      RecToast.showError(context,error.message );
-    });
+    if (Navigator.canPop(context)) {
+      return Navigator.pop(context);
+    }
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => LoginPage(dni: data.dni),
+      ),
+    );
+  }
+
+  void _unlockUserError(error, stackTrace) {
+    var errorMsg = error.message;
+
+    if (error.message == 'Wrong phone' || error.message == 'Wrong DNI') {
+      errorMsg = 'WRONG_PHONE_DNI';
+    }
+    if (error.message == HandledErrors.smsExpiredOrInvalid) {
+      errorMsg = 'WRONG_SMS';
+    }
+
+    Loading.dismiss();
+    RecToast.showError(context, errorMsg);
   }
 }

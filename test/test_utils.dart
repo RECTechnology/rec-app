@@ -10,8 +10,11 @@ import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
 import 'package:rec/Providers/CampaignProvider.dart';
 import 'package:rec/Providers/DocumentsProvider.dart';
+import 'package:rec/Providers/PreferenceProvider.dart';
 import 'package:rec/Providers/TransactionsProvider.dart';
 import 'package:rec/Providers/UserState.dart';
+
+import 'mocks/services_mock.dart';
 
 class TestUtils {
   static Widget wrapPrivateRoute(
@@ -20,6 +23,7 @@ class TestUtils {
     TransactionProvider transactionProvider,
     DocumentsProvider documentsProvider,
     CampaignProvider campaignsProvider,
+    PreferenceProvider preferenceProvider,
     List<SingleChildWidget> providers = const [],
   }) {
     return MultiProvider(
@@ -41,10 +45,17 @@ class TestUtils {
           create: (context) => documentsProvider ?? DocumentsProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => campaignsProvider ?? CampaignProvider(),
+          create: (context) =>
+              campaignsProvider ??
+              CampaignProvider(
+                service: ServicesMock.campaignService,
+              ),
         ),
         ChangeNotifierProvider(
           create: (context) => documentsProvider ?? DocumentsProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => preferenceProvider ?? PreferenceProvider(),
         ),
         ...providers
       ],

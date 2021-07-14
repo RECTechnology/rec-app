@@ -6,17 +6,6 @@ import 'package:rec/Entities/Transactions/Transaction.ent.dart';
 /// [TransactionProvider] contains list of transactions for current user
 /// aswell as methods to fetch and filter
 class TransactionProvider with ChangeNotifier {
-  final TransactionsService txService;
-
-  List<Transaction> _transactions = [];
-  int _total = 0;
-  bool hasRequested = false;
-  bool loading = false;
-  int _limit = 10;
-  int _offset = 0;
-
-  TransactionProvider(this.txService);
-
   static TransactionProvider of(context, {bool listen = true}) {
     return Provider.of<TransactionProvider>(context, listen: listen);
   }
@@ -29,16 +18,30 @@ class TransactionProvider with ChangeNotifier {
     );
   }
 
-  bool hasTransactions() {
-    return _transactions.isNotEmpty;
-  }
+  final TransactionsService txService;
+
+  List<Transaction> _transactions = [];
+  int _total = 0;
+  int _limit = 10;
+  int _offset = 0;
+
+  /// Indicates whether this provider has requested any data yet
+  bool hasRequested = false;
+
+  /// Indicates whether this provider is loading data or not
+  bool loading = false;
+
+  List<Transaction> get transactions => _transactions;
+  int get length => _transactions.length;
+  int get total => _total;
+  int get offset => _offset;
+  int get limit => _limit;
+  bool get hasTransactions => _transactions.isNotEmpty;
+
+  TransactionProvider(this.txService);
 
   Transaction get(int index) {
     return _transactions[index];
-  }
-
-  int get length {
-    return _transactions.length;
   }
 
   Future<void> loadData() {
@@ -57,8 +60,13 @@ class TransactionProvider with ChangeNotifier {
     return loadData().then((value) => notifyListeners());
   }
 
-  List<Transaction> get transactions {
-    return _transactions;
+  void clear() {
+    _transactions = [];
+    _total = 0;
+    _limit = 10;
+    _offset = 0;
+    hasRequested = false;
+    loading = false;
   }
 
   void setTransactions(List<Transaction> transactions) {
@@ -66,34 +74,13 @@ class TransactionProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void clear() {
-    _transactions = [];
-    _total = 0;
-    hasRequested = false;
-    loading = false;
-    _limit = 10;
-    _offset = 0;
-  }
-
-  int get total {
-    return _total;
-  }
-
   void setTotal(int total) {
     _total = total;
-  }
-
-  int get offset {
-    return _offset;
   }
 
   void setOffset(int offset) {
     _offset = offset;
     refresh().then((value) => notifyListeners());
-  }
-
-  int get limit {
-    return _limit;
   }
 
   void setLimit(int limit) {

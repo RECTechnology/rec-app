@@ -48,8 +48,8 @@ class _LoginPageState extends State<LoginPage> {
     if (hasSavedUser) {
       _loginFormKey.currentState?.setUsername(savedUser.username);
     }
-    if(widget.dni != null){
-     loginData.username =  widget.dni;
+    if (widget.dni != null) {
+      loginData.username = widget.dni;
     }
 
     return Scaffold(
@@ -140,7 +140,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-
   void _registerButtonPressed() {
     Navigator.of(context).pushNamed(Routes.register);
   }
@@ -189,7 +188,7 @@ class _LoginPageState extends State<LoginPage> {
 
     if (error.message == HandledErrors.maxAttempstExceeded) {
       RecToast.showError(context, 'MAX_ATTEMPTS_EXCEEDED');
-    }else{
+    } else {
       RecToast.showError(context, error.message);
     }
   }

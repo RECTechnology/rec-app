@@ -1,3 +1,4 @@
+import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Providers/Preferences/Preference.dart';
 
 class PreferenceGroup {
@@ -25,7 +26,10 @@ class PreferenceGroup {
     return List.from(_preferences.values);
   }
 
-  dynamic get(String key) => getPreference(key).value;
+  dynamic get(String key) {
+    var pref = getPreference(key);
+    return Checks.isNotNull(pref) ? pref.value : null;
+  }
 
   dynamic set(String key, dynamic value) {
     _preferences[key].set(value);

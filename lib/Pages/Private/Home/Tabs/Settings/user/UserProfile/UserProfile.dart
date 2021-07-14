@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Api/Services/UsersService.dart';
+import 'package:rec/Components/Layout/ScrollableListLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
@@ -9,9 +10,7 @@ import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Helpers/Validators.dart';
 import 'package:rec/Pages/Private/Shared/EditField.page.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/UserState.dart';
-import 'package:rec/brand.dart';
 
 class UserProfile extends StatefulWidget {
   UserProfile({Key key}) : super(key: key);
@@ -26,19 +25,17 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     var userState = UserState.of(context);
-    var localization = AppLocalizations.of(context);
     var hasEmail = Checks.isNotEmpty(userState.user.email);
     var emailTitle = hasEmail ? userState.user.email : 'EMAIL_ONLY';
-
     var tiles = [
       GeneralSettingsTile(
         title: userState.user.username,
-        subtitle: localization.translate('DNI_NIE'),
+        subtitle: 'DNI_NIE',
         disabled: true,
       ),
       GeneralSettingsTile(
         title: userState.user.formattedPhone,
-        subtitle: localization.translate('TELEFONO'),
+        subtitle: 'TELEFONO',
         disabled: true,
       ),
       GeneralSettingsTile(
@@ -48,19 +45,9 @@ class _UserProfileState extends State<UserProfile> {
       ),
     ];
 
-    return Scaffold(
-      backgroundColor: Brand.defaultAvatarBackground,
+    return ScrollableListLayout.separated(
       appBar: EmptyAppBar(context, title: 'SETTINGS_USER_PROFILE'),
-      body: Scrollbar(
-        thickness: 8,
-        showTrackOnHover: true,
-        radius: Radius.circular(3),
-        child: ListView.separated(
-          itemBuilder: (ctx, index) => tiles[index],
-          separatorBuilder: (ctx, index) => Divider(height: 1),
-          itemCount: tiles.length,
-        ),
-      ),
+      children: tiles,
     );
   }
 
@@ -94,11 +81,11 @@ class _UserProfileState extends State<UserProfile> {
 
   Future<void> _updateOk(c) async {
     var userState = UserState.of(context, listen: false);
-    await userState.getUser();
 
-    Navigator.pop(context);
+    await userState.getUser();
     await Loading.dismiss();
 
+    Navigator.pop(context);
     RecToast.showSuccess(context, 'UPDATED_OK');
   }
 

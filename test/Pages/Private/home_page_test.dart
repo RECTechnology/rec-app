@@ -12,7 +12,7 @@ import '../../test_utils.dart';
 
 void main() {
   setUpAll(() => HttpOverrides.global = null);
-  testWidgets('Home Page test build correctly', (
+  testWidgets('Home Page should build correctly', (
     WidgetTester tester,
   ) async {
     var app = TestUtils.wrapPrivateRoute(

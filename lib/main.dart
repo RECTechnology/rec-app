@@ -13,13 +13,13 @@ Future<void> main() async {
   var app = RecApp();
 
   if (env.SENTRY_ACTIVE) {
-    await SentryFlutter.init(
+    return await SentryFlutter.init(
       (options) => options.dsn = env.SENTRY_DSN,
       appRunner: () => runApp(app),
     );
-  } else {
-    runApp(app);
   }
+
+  runApp(app);
 }
 
 Future<void> setup() async {

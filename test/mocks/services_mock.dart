@@ -2,16 +2,31 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
+import 'package:rec/Api/Services/CampaignService.dart';
 import 'package:rec/Api/Services/DocumentsService.dart';
 import 'package:rec/Api/Services/wallet/TransactionsService.dart';
 
+import 'campaign_mock.dart';
 import 'transactions_mock.dart';
 
 class ServicesMock {
   static DocumentsService docsService = DocumentsService(
     client: MockClient(
       (request) {
-        final mapJson = {'data': {}};
+        final mapJson = {
+          'data': {},
+        };
+        return Future.value(Response(json.encode(mapJson), 200));
+      },
+    ),
+  );
+
+  static CampaignsService campaignService = CampaignsService(
+    client: MockClient(
+      (request) {
+        final mapJson = {
+          'data': CampaignsMocks.campaign1.toJson(),
+        };
         return Future.value(Response(json.encode(mapJson), 200));
       },
     ),

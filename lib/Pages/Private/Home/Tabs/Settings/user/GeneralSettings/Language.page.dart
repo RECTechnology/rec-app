@@ -51,7 +51,7 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
         child: ListView(
           children: [
             GeneralSettingsTile(
-              title: localizations.getNameByLocaleId(getMainIdiom.id),
+              title: localizations.getLocaleNameByLocaleId(getMainIdiom.id),
               subtitle: localizations.translate('MAIN_LANGUAGE'),
               circleAvatar: CircleAvatarRec(
                 radius: 27,
@@ -88,7 +88,7 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 20),
                       child: GeneralSettingsTile(
-                        title: localizations.getNameByLocaleId(
+                        title: localizations.getLocaleNameByLocaleId(
                           languageCards[index].id,
                         ),
                         onTap: () {

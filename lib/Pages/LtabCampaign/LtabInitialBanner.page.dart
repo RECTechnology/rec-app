@@ -36,7 +36,7 @@ class LtabInitialBanner extends StatefulWidget {
 
   static bool shouldBeOpenned(BuildContext context) {
     var preferences = PreferenceProvider.of(context, listen: false);
-    var showBanner = preferences.get(PreferenceKeys.showLtabCampaign);
+    var showBanner = preferences.get(PreferenceKeys.showLtabCampaign) ?? false;
     var campaignProvider = CampaignProvider.of(context, listen: false);
     var userState = UserState.of(context, listen: false);
     var activeCampaign = campaignProvider.activeCampaign;

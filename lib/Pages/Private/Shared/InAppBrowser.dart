@@ -1,16 +1,18 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/brand.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class InAppBrowser extends StatefulWidget {
-  static Future openLink(BuildContext context, String url) {
+  static Future openLink(BuildContext context, String url, {String title}) {
     return Navigator.of(context).push(
       MaterialPageRoute(
         builder: (BuildContext context) {
           return InAppBrowser(
             url: url,
+            title: title,
           );
         },
       ),
@@ -18,6 +20,7 @@ class InAppBrowser extends StatefulWidget {
   }
 
   final String url;
+  final String title;
   final void Function(String) onPageStarted;
   final void Function(String) onPageFinished;
   final void Function(int) onProgress;
@@ -33,6 +36,7 @@ class InAppBrowser extends StatefulWidget {
     this.onProgress,
     this.onWebViewCreated,
     this.debug = false,
+    this.title,
   }) : super(key: key);
 
   @override
@@ -74,6 +78,11 @@ class _InAppBrowser extends State<InAppBrowser> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: EmptyAppBar(
+          context,
+          backArrow: true,
+          title: widget.title,
+        ),
         body: Stack(
           children: <Widget>[
             WebView(
