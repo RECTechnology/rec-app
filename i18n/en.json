@@ -516,7 +516,7 @@
   "NON_SEARCH_RESULT": "No business found",
 
   "WRONG_PHONE_DNI": "The combination of user and phone is not correct",
-  "MAX_ATTEMPTS_EXCEEDED": "User blocked. You have exceeded the limit of access attempts",
+  "MAX_ATTEMPTS_EXCEEDED": "User blocked for security reasons",
   "WRONG_SMS": "The SMS code is wrong"
 
 }
