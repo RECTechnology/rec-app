@@ -1,3 +1,5 @@
+// Enviroment file
+
 import 'env.base.dart';
 
 class Env implements EnvBase {
@@ -8,7 +10,7 @@ class Env implements EnvBase {
   String CLIENT_SECRET = '2zspa4vc6ask0wk0kcso0sowg0w088k00k00gkcs8ggs0g400g';
 
   @override
-  String API_URL = 'api.rec.qbitartifacts.com';
+  String API_URL = 'api.rec.barcelona';
 
   @override
   String SENTRY_DSN =
