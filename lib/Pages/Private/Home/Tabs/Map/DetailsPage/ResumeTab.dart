@@ -91,25 +91,6 @@ class _ResumeTabState extends State<ResumeTab> {
                     alignment: Alignment.centerLeft,
                     child: ReadMoreText(
                       data: ('"${widget.account.description.trim()}"'),
-                      colorClickableText: Brand.grayDark,
-                      style: TextStyle(
-                        color: Brand.grayDark,
-                        fontWeight: FontWeight.w300,
-                        fontSize: 14,
-                        fontStyle: FontStyle.italic,
-                      ),
-                      lessStyle: TextStyle(
-                        color: Brand.grayDark,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                        fontStyle: FontStyle.normal,
-                      ),
-                      moreStyle: TextStyle(
-                        color: Brand.grayDark,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                        fontStyle: FontStyle.normal,
-                      ),
                       trimCollapsedText: localizations.translate('SHOW_MORE'),
                       trimExpandedText: localizations.translate('SHOW_LESS'),
                     ),

@@ -4,7 +4,6 @@ import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/ScheduleListTab.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/ResumeTab.dart';
-import 'package:rec/brand.dart';
 
 class DetailsPage extends StatefulWidget {
   final Account account;
@@ -34,9 +33,6 @@ class _DetailsPageState extends State<DetailsPage>
         children: [
           TabBar(
             controller: _tabController,
-            labelColor: Brand.primaryColor,
-            indicatorColor: Brand.primaryColor,
-            unselectedLabelColor: Brand.grayDark4,
             isScrollable: true,
             tabs: [
               Tab(

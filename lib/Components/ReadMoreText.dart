@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:rec/brand.dart';
 
 enum TrimMode {
   Length,
@@ -31,18 +32,33 @@ class ReadMoreText extends StatefulWidget {
     Key key,
     this.trimExpandedText = 'show less',
     this.trimCollapsedText = 'read more',
-    this.colorClickableText,
+    this.colorClickableText = Brand.grayDark,
     this.trimLength = 240,
     this.trimLines = 2,
     this.trimMode = TrimMode.Length,
-    this.style,
     this.textAlign,
     this.textDirection,
     this.locale,
     this.textScaleFactor,
     this.semanticsLabel,
-    this.moreStyle,
-    this.lessStyle,
+    this.style = const TextStyle(
+      color: Brand.grayDark,
+      fontWeight: FontWeight.w300,
+      fontSize: 14,
+      fontStyle: FontStyle.italic,
+    ),
+    this.moreStyle = const TextStyle(
+      color: Brand.grayDark,
+      fontWeight: FontWeight.w500,
+      fontSize: 14,
+      fontStyle: FontStyle.normal,
+    ),
+    this.lessStyle = const TextStyle(
+      color: Brand.grayDark,
+      fontWeight: FontWeight.w500,
+      fontSize: 14,
+      fontStyle: FontStyle.normal,
+    ),
     this.delimiter = '... ',
     this.delimiterStyle,
     this.callback,
