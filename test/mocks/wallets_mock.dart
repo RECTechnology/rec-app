@@ -1,4 +1,4 @@
-import 'package:rec/Entities/Currency.ent.dart';
+import 'package:rec/Entities/Transactions/Currency.ent.dart';
 import 'package:rec/Entities/Transactions/Wallet.ent.dart';
 
 class WalletsMock {

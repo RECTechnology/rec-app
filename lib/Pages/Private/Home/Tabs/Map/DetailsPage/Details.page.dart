@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Map/BussinessHeader.dart';
+import 'package:rec/Components/Scaffold/BussinessHeader.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/ScheduleListTab.dart';
 import 'package:rec/Entities/Account.ent.dart';

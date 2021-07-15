@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Info/InfoSplash.dart';
+import 'package:rec/Components/Layout/InfoSplash.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Helpers/BrowserHelper.dart';
 import 'package:rec/Helpers/RecPlatformHelper.dart';

@@ -4,7 +4,7 @@ import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/LinkText.dart';
-import 'package:rec/Components/User/UserBalance.dart';
+import 'package:rec/Components/Wallet/UserBalance.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
 import 'package:rec/Environments/env.dart';
 import 'package:rec/Helpers/Deeplinking.dart';
@@ -96,12 +96,12 @@ class _ChargePageState extends State<ChargePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.share, size: 16, color: color),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           LinkText(
                             localizations.translate('SHARE_PAY_LINK'),
                             color: color,
                             onTap: () {
-                              var payUrl = Deeplinking.constructPayUrl(
+                              var payUrl = DeepLinking.constructPayUrl(
                                 env,
                                 paymentData,
                               );

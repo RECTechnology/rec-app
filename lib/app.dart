@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
@@ -7,14 +6,7 @@ import 'package:provider/single_child_widget.dart';
 import 'package:rec/Api/Services/wallet/TransactionsService.dart';
 import 'package:rec/Api/Storage.dart';
 import 'package:rec/Helpers/Checks.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Providers/AppState.dart';
-import 'package:rec/Providers/CampaignProvider.dart';
-import 'package:rec/Providers/DocumentsProvider.dart';
-import 'package:rec/Providers/PreferenceProvider.dart';
-import 'package:rec/Providers/Preferences/PreferenceDefinitions.dart';
-import 'package:rec/Providers/TransactionsProvider.dart';
-import 'package:rec/Providers/UserState.dart';
+import 'package:rec/Providers/All.dart';
 import 'package:rec/brand.dart';
 import 'package:rec/routes.dart';
 

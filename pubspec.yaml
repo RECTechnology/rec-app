@@ -61,7 +61,6 @@ flutter_icons:
 flutter:
   assets:
     - assets/
-    - assets/credit-cards/
     - assets/custom-icons/
     - i18n/ca.json
     - i18n/en.json

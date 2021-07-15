@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:rec/Api/ApiError.dart';
 import 'package:rec/Api/Services/wallet/TransactionsService.dart';
+import 'package:rec/Helpers/Deeplinking.dart';
 import 'package:rec/Permissions/IfPermissionGranted.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
-import 'package:rec/Entities/VendorData.ent.dart';
+import 'package:rec/Entities/Transactions/VendorData.ent.dart';
 import 'package:rec/Environments/env.dart';
-import 'package:rec/Helpers/Deeplinking.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/AttemptPayment.page.dart';
 import 'package:rec/Permissions/PermissionProviders.dart';
@@ -136,7 +136,7 @@ class _PayWithQRState extends State<PayWithQR> {
 
   void _onQrRead(Barcode data) async {
     var uri = data.code;
-    var isPayLink = Deeplinking.matchesPaymentUri(env, uri);
+    var isPayLink = DeepLinking.matchesPaymentUri(env, uri);
 
     if (!isPayLink) return result = null;
     if (result != null) return;

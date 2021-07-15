@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/RecQrImage.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
-import 'package:rec/Components/User/UserBalance.dart';
+import 'package:rec/Components/Wallet/UserBalance.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
 import 'package:rec/Environments/env.dart';
 import 'package:rec/Helpers/Deeplinking.dart';
@@ -29,7 +29,7 @@ class _ChargeQrState extends State<ChargeQr> {
     var localizations = AppLocalizations.of(context);
     var userState = UserState.of(context);
     var color = Brand.getColorForAccount(userState.account);
-    var payUrl = Deeplinking.constructPayUrl(env, widget.paymentData);
+    var payUrl = DeepLinking.constructPayUrl(env, widget.paymentData);
 
     return Scaffold(
       appBar: PrivateAppBar(

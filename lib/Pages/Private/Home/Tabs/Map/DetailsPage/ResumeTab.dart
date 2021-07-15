@@ -1,11 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:rec/Components/ReadMoreText.dart';
+import 'package:rec/Components/Text/ReadMoreText.dart';
 import 'package:rec/Components/Inputs/RecFilterButton.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
-import 'package:rec/Entities/VendorData.ent.dart';
+import 'package:rec/Entities/Transactions/VendorData.ent.dart';
 import 'package:rec/Helpers/BrowserHelper.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayAddress.page.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
@@ -148,7 +148,6 @@ class _ResumeTabState extends State<ResumeTab> {
     await BrowserHelper.openCallPhone(widget.account.fullPhone);
   }
 
-  // TODO: refactor
   void _payTo() {
     var localizations = AppLocalizations.of(context);
     var paymentData = PaymentData(
@@ -160,9 +159,7 @@ class _ResumeTabState extends State<ResumeTab> {
           'name': widget.account.name,
         },
       ),
-      vendor: VendorData(
-        name: widget.account.name,
-      ),
+      vendor: VendorData(name: widget.account.name),
     );
 
     Navigator.push(

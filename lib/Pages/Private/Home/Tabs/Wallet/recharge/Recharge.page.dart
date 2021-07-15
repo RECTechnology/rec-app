@@ -3,7 +3,7 @@ import 'package:rec/Api/Services/UsersService.dart';
 import 'package:rec/Components/Inputs/AmountTextField.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
-import 'package:rec/Components/User/UserBalance.dart';
+import 'package:rec/Components/Wallet/UserBalance.dart';
 import 'package:rec/Entities/Campaign.ent.dart';
 import 'package:rec/Entities/Forms/RechargeData.dart';
 import 'package:rec/Helpers/Loading.dart';
@@ -148,8 +148,6 @@ class _RechargePageState extends State<RechargePage> {
     Loading.show();
     _updateTos();
 
-    rechargeData.card = null;
-    rechargeData.saveCard = false;
     rechargeData.willEnterCampaign = rechargeData.campaignTermsAccepted &&
         rechargeData.amount >= activeCampaign.min;
 

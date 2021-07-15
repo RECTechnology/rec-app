@@ -1,11 +1,11 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:rec/Api/third-party/Contacts.dart';
 import 'package:rec/Components/ListTiles/AccountListTile.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
-import 'package:rec/Components/Info/InfoSplash.dart';
+import 'package:rec/Components/Layout/InfoSplash.dart';
 import 'package:rec/Components/Lists/SearchableList.dart';
 import 'package:rec/Entities/ContactInfo.dart';
-import 'package:rec/Helpers/ContactsHelper.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/brand.dart';
 import 'package:rec/Api/Services/RecContactsService.dart';
@@ -45,7 +45,7 @@ class _ContactsList extends State<ContactsList> {
       isLoading = true;
     });
 
-    ContactHelper.getAllContacts('')
+    Contacts.getAllContacts('')
         .then((c) => c.toList())
         .then((c) => _searchInApi(c))
         .then((c) => _mapContacts(c))

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
-import 'package:rec/Components/User/UserBalance.dart';
+import 'package:rec/Components/Wallet/UserBalance.dart';
 import 'package:rec/Components/Wallet/WalletFloatingActions.dart';
-import 'package:rec/Entities/Currency.ent.dart';
-import 'package:rec/Helpers/Formatting.dart';
+import 'package:rec/Entities/Transactions/Currency.ent.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/transactions/TransactionsList.tab.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/UserState.dart';
@@ -39,8 +38,7 @@ class _WalletPageRecState extends State<WalletPageRec> {
         ? localizations.translate(
             'YOU_HAVE_RECS_REDEMABLE',
             params: {
-              'amount': Formatting.formatCurrency(
-                  campaignAccount.redeemableAmount * 1.0),
+              'amount': Currency.format(campaignAccount.redeemableAmount * 1.0),
             },
           )
         : '';

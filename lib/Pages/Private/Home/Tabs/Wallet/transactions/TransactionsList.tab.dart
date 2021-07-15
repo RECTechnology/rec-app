@@ -47,10 +47,11 @@ class _TransactionsListState extends State<TransactionsList> {
     var transactionsProvider = TransactionProvider.of(context);
     var userState = UserState.of(context);
 
+    var color = userState.getColor(defaultColor: Brand.primaryColor);
     var hasTransactions = transactionsProvider.hasTransactions;
     var hasMoreTx = transactionsProvider.total > transactionsProvider.length;
     var isLoading = transactionsProvider.loading;
-    var color = userState.getColor(defaultColor: Brand.primaryColor);
+    var itemCount = transactionsProvider.length + (hasMoreTx ? 1 : 0);
 
     return RefreshIndicator(
       color: color,
@@ -74,8 +75,7 @@ class _TransactionsListState extends State<TransactionsList> {
                           tx: transactionsProvider.get(idx),
                         );
                       },
-                      itemCount:
-                          transactionsProvider.length + (hasMoreTx ? 1 : 0),
+                      itemCount: itemCount,
                       physics: AlwaysScrollableScrollPhysics(),
                     )
                   : isLoading

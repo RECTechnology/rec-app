@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/ListTiles/AccountListTile.dart';
-import 'package:rec/Components/Info/InfoSplash.dart';
+import 'package:rec/Components/Layout/InfoSplash.dart';
 import 'package:rec/Components/Lists/SearchableList.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Providers/UserState.dart';

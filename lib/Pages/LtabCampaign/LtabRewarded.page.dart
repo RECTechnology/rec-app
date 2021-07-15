@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Helpers/Formatting.dart';
+import 'package:rec/Entities/Transactions/Currency.ent.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/CampaignProvider.dart';
 import 'package:rec/Styles/TextStyles.dart';
@@ -65,11 +65,14 @@ class _LtabRewardedState extends State<LtabRewarded> {
               SizedBox(height: 32),
               Center(
                 child: Text(
-                  localizations.translate('REWARD_OBTAINED_DESC', params: {
-                    'amount': Formatting.formatCurrency(
-                      widget.amount,
-                    ),
-                  }),
+                  localizations.translate(
+                    'REWARD_OBTAINED_DESC',
+                    params: {
+                      'amount': Currency.format(
+                        widget.amount,
+                      ),
+                    },
+                  ),
                   style: TextStyles.pageSubtitle1,
                   textAlign: TextAlign.center,
                 ),

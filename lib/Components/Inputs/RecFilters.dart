@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/SelectableChip.dart';
-import 'package:rec/Entities/RecFilterData.dart';
+import 'package:rec/Entities/Forms/RecFilterData.dart';
 
 class RecFilters extends StatefulWidget {
   final List<RecFilterData> filterData;

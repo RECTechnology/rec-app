@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:rec/Entities/Currency.ent.dart';
+import 'package:rec/Entities/Transactions/Currency.ent.dart';
 import 'package:rec/Entities/Forms/FormData.dart';
-import 'package:rec/Entities/VendorData.ent.dart';
+import 'package:rec/Entities/Transactions/VendorData.ent.dart';
 import 'package:rec/Helpers/Checks.dart';
 
 class PaymentData extends FormData {

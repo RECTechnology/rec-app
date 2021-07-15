@@ -1,5 +1,5 @@
 import 'package:rec/Entities/Account.ent.dart';
-import 'package:rec/Entities/Currency.ent.dart';
+import 'package:rec/Entities/Transactions/Currency.ent.dart';
 
 class AccountsMock {
   static Account accountNormal = Account.fromJson({

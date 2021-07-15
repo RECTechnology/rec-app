@@ -1,4 +1,4 @@
-import 'package:rec/Entities/Currency.ent.dart';
+import 'package:rec/Entities/Transactions/Currency.ent.dart';
 import 'package:rec/Entities/Entity.base.dart';
 import 'package:rec/Entities/Transactions/PayInInfo.dart';
 

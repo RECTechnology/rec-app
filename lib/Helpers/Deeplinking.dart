@@ -1,7 +1,7 @@
 import 'package:rec/Entities/Forms/PaymentData.dart';
 import 'package:rec/Environments/env.base.dart';
 
-class Deeplinking {
+class DeepLinking {
   static String PATH_PAY = '/pay';
   static String RECHARGE_PAY = '/recharge-result';
 

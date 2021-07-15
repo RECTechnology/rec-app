@@ -93,15 +93,19 @@ class _LimitAndVerificationState extends State<LimitAndVerificationPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  localizations.translate('SEND_REC_LIMIT', params: {
-                    'amount': userState.account.level.maxOut != null
-                        ? '${userState.account.level.maxOut}R'
-                        : unlimitedLimitText,
-                  }),
+                  localizations.translate(
+                    'SEND_REC_LIMIT',
+                    params: {
+                      'amount': userState.account.level.maxOut != null
+                          ? '${userState.account.level.maxOut}R'
+                          : unlimitedLimitText,
+                    },
+                  ),
                   style: theme.textTheme.subtitle1.copyWith(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                      color: Brand.detailsTextColor),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                    color: Brand.detailsTextColor,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Text(
@@ -144,9 +148,10 @@ class _LimitAndVerificationState extends State<LimitAndVerificationPage> {
               localizations.translate('PENDING_DOCUMENTS') +
                   ' (${pendingDocs.length})',
               style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Brand.grayDark4),
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: Brand.grayDark4,
+              ),
             ),
           ),
           Expanded(

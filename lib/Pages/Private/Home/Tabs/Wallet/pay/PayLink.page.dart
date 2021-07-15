@@ -3,7 +3,7 @@ import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Services/wallet/TransactionsService.dart';
 import 'package:rec/Components/PrivateRoute.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
-import 'package:rec/Entities/VendorData.ent.dart';
+import 'package:rec/Entities/Transactions/VendorData.ent.dart';
 import 'package:rec/Environments/env.dart';
 import 'package:rec/Helpers/RecPlatformHelper.dart';
 import 'package:rec/Helpers/RecToast.dart';

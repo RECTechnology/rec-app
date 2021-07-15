@@ -1,5 +1,9 @@
 import 'package:rec/Entities/Account.ent.dart';
-import 'package:rec/Helpers/SortDir.dart';
+
+class SortDir {
+  static const String asc = 'ASC';
+  static const String desc = 'DESC';
+}
 
 class MapSearchData {
   bool onMap = true;

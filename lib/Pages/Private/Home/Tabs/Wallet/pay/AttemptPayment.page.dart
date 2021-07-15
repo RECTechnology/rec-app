@@ -2,10 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Services/wallet/TransactionsService.dart';
-import 'package:rec/Components/FromToRow.dart';
+import 'package:rec/Components/Layout/FromToRow.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
-import 'package:rec/Components/User/UserBalance.dart';
+import 'package:rec/Components/Wallet/UserBalance.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
 import 'package:rec/Entities/Transactions/PaymentResult.dart';
 import 'package:rec/Helpers/Loading.dart';
@@ -63,9 +63,12 @@ class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
           preferredSize: Size.fromHeight(kToolbarHeight),
           child: UserBalance(
             balance: widget.data.amount,
-            label: localizations.translate('FROM_NAME', params: {
-              'name': userState.account.name,
-            }),
+            label: localizations.translate(
+              'FROM_NAME',
+              params: {
+                'name': userState.account.name,
+              },
+            ),
             color: Brand.grayDark,
           ),
         ),

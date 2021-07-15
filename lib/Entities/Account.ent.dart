@@ -1,6 +1,6 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rec/Entities/Campaign.ent.dart';
-import 'package:rec/Entities/Currency.ent.dart';
+import 'package:rec/Entities/Transactions/Currency.ent.dart';
 import 'package:rec/Entities/Entity.base.dart';
 import 'package:rec/Entities/FormattedAddress.dart';
 import 'package:rec/Entities/Level.ent.dart';

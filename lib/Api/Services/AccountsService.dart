@@ -97,7 +97,8 @@ class AccountsService extends ServiceBase {
   }
 
   ApiListResponse<AccountPermission> _mapPermissions(
-      Map<String, dynamic> data) {
+    Map<String, dynamic> data,
+  ) {
     return ApiListResponse<AccountPermission>.fromJson(
       data['data'],
       mapper: (el) => AccountPermission.fromJson(el),

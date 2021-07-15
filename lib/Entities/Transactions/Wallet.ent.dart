@@ -1,4 +1,4 @@
-import '../Currency.ent.dart';
+import 'Currency.ent.dart';
 // ignore: library_prefixes
 import 'dart:math' as Math;
 

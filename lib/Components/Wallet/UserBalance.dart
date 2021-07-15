@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Components/Icons/RecCurrencyIcon.dart';
-import 'package:rec/Entities/Currency.ent.dart';
-import 'package:rec/Helpers/Formatting.dart';
+import 'package:rec/Entities/Transactions/Currency.ent.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 
 class UserBalance extends StatefulWidget {
@@ -29,7 +28,7 @@ class _UserBalance extends State<UserBalance> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
-    var amount = Formatting.formatCurrency(
+    var amount = Currency.format(
       widget.balance,
     );
 

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rec/Components/User/UserBalance.dart';
-import 'package:rec/Helpers/Formatting.dart';
+import 'package:rec/Components/Wallet/UserBalance.dart';
+import 'package:rec/Entities/Transactions/Currency.ent.dart';
 
 import '../../test_utils.dart';
 
@@ -14,7 +14,7 @@ void main() {
     TestUtils.widgetExists(userBalance);
     TestUtils.isTextPresent('Saldo total');
     TestUtils.isTextPresent(
-      Formatting.formatCurrency(10),
+      Currency.format(10),
     );
   });
 }

@@ -9,7 +9,7 @@ import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Entities/FormattedAddress.dart';
 import 'package:rec/Helpers/Loading.dart';
-import 'package:rec/Helpers/RecGeocoding.dart';
+import 'package:rec/Api/third-party/RecGeocoding.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Helpers/Validators.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
@@ -110,7 +110,8 @@ class _AccountLocationPageState extends State<AccountLocationPage> {
                         validator: Validators.isRequired,
                         onChange: (streetNumber) {
                           setState(
-                              () => {_address.streetNumber = streetNumber});
+                            () => _address.streetNumber = streetNumber,
+                          );
                         },
                         padding: EdgeInsets.zero,
                       ),

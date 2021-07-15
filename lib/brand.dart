@@ -12,7 +12,6 @@ class Brand {
   static const String logoUrl = 'assets/logo.jpg';
 
   static const Color primaryColor = Color(0xff0098DA);
-  static const Color primaryColorLight = Color(0xff0C6FF0);
   static const Color accentColor = Color(0xffE05205);
   static const Color backgroundPrivateColor = Color(0xffe5f5fc);
   static const Color backgroundCompanyColor = Color(0xfffcede6);
@@ -43,10 +42,8 @@ class Brand {
   static const Color grayIcon = Color(0xffBFBFBF);
   static const Color graySubtitle = Color(0xff828282);
   static const Color grayDisabled = Color(0xffBBBBBB);
-
   static const Color amountNegative = Color(0xffD91636);
 
-  static const FontStyle font = FontStyle.normal;
   static const Brightness brightness = Brightness.light;
 
   static LinearGradient appBarGradientPrimary = LinearGradient(
@@ -106,8 +103,8 @@ class Brand {
     return color;
   }
 
-  static Color getContrastColor(Color randomColor) {
-    var luminance = randomColor.computeLuminance();
+  static Color getContrastColor(Color color) {
+    var luminance = color.computeLuminance();
     if (luminance > .5) return Colors.black;
 
     return Colors.white;
@@ -115,6 +112,7 @@ class Brand {
 
   static ThemeData createTheme() {
     final baseTheme = ThemeData();
+
     return baseTheme.copyWith(
       primaryColor: primaryColor,
       accentColor: primaryColor,

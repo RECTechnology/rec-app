@@ -9,7 +9,7 @@ import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Entities/IdiomCard.ent.dart';
+import 'package:rec/Entities/Forms/LanguageCardData.dart';
 import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/app.dart';
 import 'package:rec/brand.dart';
@@ -22,16 +22,16 @@ class ChangeLanguagePage extends StatefulWidget {
 }
 
 class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
-  List<IdiomCard> languageCards = [
-    IdiomCard(
+  List<LanguageCardData> languageCards = [
+    LanguageCardData(
       id: 'es',
       image: AssetImage('assets/flag-es.png'),
     ),
-    IdiomCard(
+    LanguageCardData(
       id: 'en',
       image: AssetImage('assets/flag-en.png'),
     ),
-    IdiomCard(
+    LanguageCardData(
       id: 'ca',
       image: AssetImage('assets/flag-cat.png'),
     ),
@@ -119,7 +119,7 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
   }
 
   // ignore: missing_return
-  IdiomCard getMainLanguage() {
+  LanguageCardData getMainLanguage() {
     var localizations = AppLocalizations.of(context);
 
     for (var idiom in languageCards) {

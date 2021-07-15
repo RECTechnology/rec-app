@@ -1,0 +1,17 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "prepare-env-pre",
+            "command": "./scripts/prepare-env.sh", // Could be any other shell command
+            "args": ["pre"],
+            "type": "shell"
+        },
+        {
+            "label": "prepare-env-prod",
+            "command": "./scripts/prepare-env.sh", // Could be any other shell command
+            "args": ["pre"],
+            "type": "shell"
+        },
+    ]
+}

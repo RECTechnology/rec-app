@@ -65,69 +65,71 @@ class _LtabInitialBannerState extends State<LtabInitialBanner> {
           ),
         ],
       ),
-      body: Stack(children: [
-        Image.asset(
-          'assets/banner-bg.jpg',
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          fit: BoxFit.cover,
-        ),
-        Container(
-          color: Colors.white.withAlpha(180),
-          padding: EdgeInsets.only(
-            left: 24,
-            right: 24,
-            top: 100,
-            bottom: 32,
+      body: Stack(
+        children: [
+          Image.asset(
+            'assets/banner-bg.jpg',
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            fit: BoxFit.cover,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              LocalizedText(
-                'LTAB_INITIAL_BANNER_TITLE',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline4.copyWith(
-                      color: Brand.grayDark,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 30,
-                    ),
-              ),
-              Text(
-                widget.campaign.name.toUpperCase(),
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline4.copyWith(
-                      color: Brand.grayDark,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 30,
-                    ),
-              ),
-              const SizedBox(height: 24),
-              AspectRatio(
-                aspectRatio: 16 / 9,
-                child: WebView(
-                  javascriptMode: JavascriptMode.unrestricted,
-                  initialUrl: widget.campaign.videoPromoUrl,
+          Container(
+            color: Colors.white.withAlpha(180),
+            padding: EdgeInsets.only(
+              left: 24,
+              right: 24,
+              top: 100,
+              bottom: 32,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                LocalizedText(
+                  'LTAB_INITIAL_BANNER_TITLE',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headline4.copyWith(
+                        color: Brand.grayDark,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 30,
+                      ),
                 ),
-              ),
-              const SizedBox(height: 24),
-              Row(
-                children: [
-                  Checkbox(
-                    value: _dontShowAgain,
-                    onChanged: onChanged,
+                Text(
+                  widget.campaign.name.toUpperCase(),
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headline4.copyWith(
+                        color: Brand.grayDark,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 30,
+                      ),
+                ),
+                const SizedBox(height: 24),
+                AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: WebView(
+                    javascriptMode: JavascriptMode.unrestricted,
+                    initialUrl: widget.campaign.videoPromoUrl,
                   ),
-                  LocalizedText('DONT_SHOW_AGAIN'),
-                ],
-              ),
-              const SizedBox(height: 24),
-              RecActionButton(
-                label: _dontShowAgain ? 'CLOSE' : 'PARTICIPATE',
-                onPressed: _dontShowAgain ? _close : _participate,
-              ),
-            ],
+                ),
+                const SizedBox(height: 24),
+                Row(
+                  children: [
+                    Checkbox(
+                      value: _dontShowAgain,
+                      onChanged: onChanged,
+                    ),
+                    LocalizedText('DONT_SHOW_AGAIN'),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                RecActionButton(
+                  label: _dontShowAgain ? 'CLOSE' : 'PARTICIPATE',
+                  onPressed: _dontShowAgain ? _close : _participate,
+                ),
+              ],
+            ),
           ),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Api/Services/AccountsService.dart';
 import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
-import 'package:rec/Components/Map/BussinessHeader.dart';
-import 'package:rec/Components/PickImage.dart';
+import 'package:rec/Components/Scaffold/BussinessHeader.dart';
+import 'package:rec/Components/Inputs/PickImage.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';

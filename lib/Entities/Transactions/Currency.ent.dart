@@ -1,10 +1,12 @@
+import 'package:intl/intl.dart';
+
 class Currency {
   final String name;
   final String symbol;
   final double scale;
   final int decimals;
 
-  Currency(
+  const Currency(
     this.name,
     this.symbol,
     this.scale,
@@ -20,8 +22,24 @@ class Currency {
     };
   }
 
-  static Currency rec = Currency('rec', 'R', 8, 2);
-  static Currency eur = Currency('eur', '€', 2, 2);
+  static String format(
+    num amount, {
+    String symbol = '',
+    String locale = 'es_ES',
+    num decimals = 2,
+  }) {
+    var f = NumberFormat.currency(
+      locale: locale,
+      symbol: symbol,
+      decimalDigits: decimals,
+    );
+
+    return f.format(amount);
+  }
+
+  static const Currency rec = Currency('rec', 'R', 8, 2);
+  static const Currency eur = Currency('eur', '€', 2, 2);
+
   static List<Currency> all = [Currency.eur, Currency.rec];
   static Currency find(String name) {
     return Currency.all.firstWhere(

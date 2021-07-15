@@ -1,12 +1,10 @@
-
 import 'package:flutter/cupertino.dart';
 
-class IdiomCard {
+class LanguageCardData {
   final String id;
-
   final AssetImage image;
 
-  IdiomCard({
+  LanguageCardData({
     this.id,
     this.image,
   });

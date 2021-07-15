@@ -4,34 +4,34 @@ import 'package:rec/Environments/env.dart';
 import 'package:rec/Helpers/Deeplinking.dart';
 
 void main() {
-  test('Deeplinking.constructPayUrl works', () async {
+  test('DeepLinking.constructPayUrl works', () async {
     var env = Env();
     var payData = PaymentData(address: 'address', amount: 0);
-    var payUrl = Deeplinking.constructPayUrl(env, payData);
+    var payUrl = DeepLinking.constructPayUrl(env, payData);
 
     expect(
       payUrl,
-      '${env.DEEPLINK_SCHEME}://${env.DEEPLINK_URL}${Deeplinking.PATH_PAY}?amount=0.0&address=address',
+      '${env.DEEPLINK_SCHEME}://${env.DEEPLINK_URL}${DeepLinking.PATH_PAY}?amount=0.0&address=address',
     );
   });
 
   test('Deeplinking.constructPayUrl works with custom data', () async {
     var env = Env();
     var payData = PaymentData(address: 'test', amount: 0);
-    var payUrl = Deeplinking.constructPayUrl(env, payData);
+    var payUrl = DeepLinking.constructPayUrl(env, payData);
 
     expect(
       payUrl,
-      '${env.DEEPLINK_SCHEME}://${env.DEEPLINK_URL}${Deeplinking.PATH_PAY}?amount=0.0&address=test',
+      '${env.DEEPLINK_SCHEME}://${env.DEEPLINK_URL}${DeepLinking.PATH_PAY}?amount=0.0&address=test',
     );
   });
 
   test('Deeplinking.matchesPaymentUri works for correct Deeplinking Pay link',
       () async {
     var env = Env();
-    var payUrl = Deeplinking.matchesPaymentUri(
+    var payUrl = DeepLinking.matchesPaymentUri(
       env,
-      '${env.DEEPLINK_SCHEME}://${env.DEEPLINK_URL}${Deeplinking.PATH_PAY}',
+      '${env.DEEPLINK_SCHEME}://${env.DEEPLINK_URL}${DeepLinking.PATH_PAY}',
     );
     expect(payUrl, true);
   });
@@ -41,21 +41,21 @@ void main() {
     var env = Env();
 
     expect(
-      Deeplinking.matchesPaymentUri(
+      DeepLinking.matchesPaymentUri(
         env,
-        'badscheme://${env.DEEPLINK_URL}${Deeplinking.PATH_PAY}',
+        'badscheme://${env.DEEPLINK_URL}${DeepLinking.PATH_PAY}',
       ),
       false,
     );
     expect(
-      Deeplinking.matchesPaymentUri(
+      DeepLinking.matchesPaymentUri(
         env,
-        '${env.DEEPLINK_SCHEME}://bad.url${Deeplinking.PATH_PAY}',
+        '${env.DEEPLINK_SCHEME}://bad.url${DeepLinking.PATH_PAY}',
       ),
       false,
     );
     expect(
-      Deeplinking.matchesPaymentUri(
+      DeepLinking.matchesPaymentUri(
         env,
         'badscheme://${env.DEEPLINK_URL}/bad-path',
       ),
@@ -65,7 +65,7 @@ void main() {
 
   test('Deeplink.matchesRechargeResult', () {
     var env = Env();
-    var matches = Deeplinking.matchesRechargeResultUri(
+    var matches = DeepLinking.matchesRechargeResultUri(
       env,
       'https://rec.barcelona/recharge-result?status=ok',
     );

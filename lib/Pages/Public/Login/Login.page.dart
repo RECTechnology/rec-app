@@ -3,7 +3,7 @@ import 'package:rec/Api/HandledErrors.dart';
 import 'package:rec/Api/Services/public/LoginService.dart';
 import 'package:rec/Components/Forms/Login.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
-import 'package:rec/Components/RecHeader.dart';
+import 'package:rec/Components/Scaffold/RecHeader.dart';
 
 import 'package:rec/Entities/Forms/LoginData.dart';
 import 'package:rec/Helpers/Loading.dart';

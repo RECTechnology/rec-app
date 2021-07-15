@@ -8,7 +8,7 @@ import 'package:rec/Components/Inputs/SearchInput.dart';
 import 'package:rec/Components/Inputs/RecFilters.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Map/MapSearchData.dart';
-import 'package:rec/Entities/RecFilterData.dart';
+import 'package:rec/Entities/Forms/RecFilterData.dart';
 import 'package:rec/Environments/env.dart';
 import 'package:rec/Helpers/ImageHelpers.dart';
 import 'package:rec/Helpers/RecToast.dart';

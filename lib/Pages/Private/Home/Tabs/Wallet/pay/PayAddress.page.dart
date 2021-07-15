@@ -3,7 +3,7 @@ import 'package:rec/Components/Forms/PayAddress.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
-import 'package:rec/Components/User/UserBalance.dart';
+import 'package:rec/Components/Wallet/UserBalance.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
 import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/AttemptPayment.page.dart';
@@ -54,9 +54,12 @@ class _PayAddressState extends State<PayAddress> {
           preferredSize: Size.fromHeight(kToolbarHeight),
           child: UserBalance(
             balance: widget.paymentData.amount,
-            label: localizations.translate('FROM_NAME', params: {
-              'name': userState.account.name,
-            }),
+            label: localizations.translate(
+              'FROM_NAME',
+              params: {
+                'name': userState.account.name,
+              },
+            ),
             color: Brand.grayDark,
           ),
         ),

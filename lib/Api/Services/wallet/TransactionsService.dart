@@ -6,7 +6,7 @@ import 'package:rec/Api/Services/BaseService.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
 import 'package:rec/Entities/Transactions/PaymentResult.dart';
 import 'package:rec/Entities/Transactions/Transaction.ent.dart';
-import 'package:rec/Entities/VendorData.ent.dart';
+import 'package:rec/Entities/Transactions/VendorData.ent.dart';
 
 class TransactionsService extends ServiceBase {
   TransactionsService({Client client})

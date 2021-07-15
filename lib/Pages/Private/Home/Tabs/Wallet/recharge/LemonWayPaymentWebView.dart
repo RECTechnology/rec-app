@@ -31,7 +31,7 @@ class _LemonWayPaymentWebView extends State<LemonWayPaymentWebView> {
       onPageStarted: (url) {
         // Quick and dirty way of checking if the url redirected to a deeplink
         // That matches recharge-result path
-        var isRechargeResultUrl = Deeplinking.matchesRechargeResultUri(
+        var isRechargeResultUrl = DeepLinking.matchesRechargeResultUri(
           env,
           url,
         );
