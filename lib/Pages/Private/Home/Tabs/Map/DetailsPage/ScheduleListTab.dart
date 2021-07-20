@@ -75,7 +75,8 @@ class _ScheduleListTabState extends State<ScheduleListTab> {
                 }
 
                 var daySchedule = scheduleDay == null ||
-                        !scheduleDay.isDefined()
+                        !scheduleDay.isDefined() ||
+                        !scheduleDay.opens
                     ? <Widget>[
                         Text(
                           dayScheduleLabel ?? localizations.translate('CLOSED'),

@@ -508,6 +508,8 @@
 
   "WRONG_PHONE_DNI": "The combination of user and phone is not correct",
   "MAX_ATTEMPTS_EXCEEDED": "User blocked for security reasons",
-  "WRONG_SMS": "The SMS code is wrong"
+  "WRONG_SMS": "The SMS code is wrong",
+  "COPY": "Copy",
+  "PASTE": "Paste"
 
 }

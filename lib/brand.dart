@@ -115,7 +115,7 @@ class Brand {
 
     return baseTheme.copyWith(
       primaryColor: primaryColor,
-      accentColor: primaryColor,
+      colorScheme: baseTheme.colorScheme.copyWith(secondary: primaryColor),
       brightness: brightness,
       dividerColor: separatorColor,
       scaffoldBackgroundColor: Colors.white,

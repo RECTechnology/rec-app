@@ -440,5 +440,8 @@
   "MIN_RECHARGE": "Recarga mínima de 0.5 RECs",
   "WRONG_PHONE_DNI": "La combinación de usuario y teléfono no son correctos",
   "MAX_ATTEMPTS_EXCEEDED": "Usuario bloqueado por razones de seguridad",
-  "WRONG_SMS": "El código SMS es incorrecto"
+  "WRONG_SMS": "El código SMS es incorrecto",
+
+  "COPY": "Copiar",
+  "PASTE": "Pegar"
 }

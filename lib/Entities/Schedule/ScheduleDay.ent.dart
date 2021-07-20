@@ -1,24 +1,48 @@
 import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Helpers/DateHelper.dart';
 
+// TODO: Clean this class, improve naming, etc...
 class ScheduleDay {
+  static final ScheduleDay defaultSchedule = ScheduleDay(
+    firstOpen: '9:00',
+    firstClose: '14:00',
+    secondOpen: '17:00',
+    secondClose: '20:00',
+  );
+
   String firstOpen;
   String firstClose;
   String secondOpen;
   String secondClose;
+  bool opens;
 
   ScheduleDay({
     this.firstOpen,
     this.firstClose,
     this.secondOpen,
     this.secondClose,
+    this.opens = true,
   });
+
+  /// Sets times to predefined one [ScheduleDay.defaultSchedule]
+  void resetToDefaultTime() {
+    copyFrom(defaultSchedule);
+  }
+
+  /// Copies the data from another [ScheduleDay] into this
+  void copyFrom(ScheduleDay otherDay) {
+    firstOpen = otherDay.firstOpen;
+    firstClose = otherDay.firstClose;
+    secondOpen = otherDay.secondOpen;
+    secondClose = otherDay.secondClose;
+    opens = otherDay.opens;
+  }
 
   bool isOpen(DateTime date) {
     var firstOpened = _isFirstOpened(date);
     var secondOpened = _isSecondOpened(date);
 
-    return firstOpened || secondOpened;
+    return opens && (firstOpened || secondOpened);
   }
 
   bool isClosed(DateTime date) => !isOpen(date);
@@ -110,15 +134,32 @@ class ScheduleDay {
       'first_close': firstClose,
       'second_open': secondOpen,
       'second_close': secondClose,
+      'opens': opens,
     };
   }
 
   factory ScheduleDay.fromJson(Map<String, dynamic> json) {
+    var firstOpen = json['first_open'];
+    var firstClose = json['first_close'];
+    var secondOpen = json['second_open'];
+    var secondClose = json['second_close'];
+
+    /// For old schedule data
+    if (!json.containsKey('opens')) {
+      var hasFirst =
+          Checks.isNotEmpty(firstOpen) && Checks.isNotEmpty(firstClose);
+      var hasSecond =
+          Checks.isNotEmpty(secondOpen) && Checks.isNotEmpty(secondClose);
+
+      json['opens'] = hasFirst || hasSecond;
+    }
+
     return ScheduleDay(
-      firstOpen: json['first_open'],
-      firstClose: json['first_close'],
-      secondOpen: json['second_open'],
-      secondClose: json['second_close'],
+      firstOpen: firstOpen,
+      firstClose: firstClose,
+      secondOpen: secondOpen,
+      secondClose: secondClose,
+      opens: json['opens'] ?? false,
     );
   }
 }

@@ -59,7 +59,7 @@ class RecToast {
         backgroundColor: backgroundColor,
         content: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16.0),
             child: Text(
               localizations.translate(msg.toString()),
               style: TextStyle(

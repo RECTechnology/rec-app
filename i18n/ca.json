@@ -485,7 +485,7 @@
   "link_tos": "https://rec.barcelona/condicions-dus/",
   "link_privacy": "https://rec.barcelona/politica-de-privacitat-web/",
 
-  "PAYMENT_SHARE_MESSAGE": "Hola! 👋 Sóc {{account}}, tenim pendent el pagament “{{concept}}” amb import de {{amount}}R. Fes clic en l'enllaç i obre'l amb l'app. del REC. 📲 Gràcies! {{link}}","
+  "PAYMENT_SHARE_MESSAGE": "Hola! 👋 Sóc {{account}}, tenim pendent el pagament “{{concept}}” amb import de {{amount}}R. Fes clic en l'enllaç i obre'l amb l'app. del REC. 📲 Gràcies! {{link}}",
   "UNLOCK_PASSWORD": "Desbloqueja el teu usuari",
   "INTRODUCE_TO_UNLOCK": "Introdueix el teu document d'identitat i el telèfon vinculat al teu usuari perquè puguem identificar-lo i desbloquejar-lo",
   "SMS_CODE": "Codi SMS",
@@ -495,6 +495,8 @@
   "NON_SEARCH_RESULT": "No s'ha trobat cap comerç",
   "WRONG_PHONE_DNI": "La combinació d'usuari i telèfon no són correctes",
   "MAX_ATTEMPTS_EXCEEDED": "Usuari bloquejat per raons de seguretat",
-  "WRONG_SMS": "El codi SMS és incorrecte"
+  "WRONG_SMS": "El codi SMS és incorrecte",
+  "COPY": "Copiar",
+  "PASTE": "Pegar"
 
 }

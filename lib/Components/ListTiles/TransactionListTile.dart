@@ -10,6 +10,10 @@ import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
+// TODO: Improve how we handle diferent transaction types
+//       I would suggest creating a diferent ListTile per transaction type,
+//       Transaction type would be set on instantiation, from (rules)
+//       then on build we render a diferent tile per type of transaction
 class TransactionsListTile extends StatefulWidget {
   final Transaction tx;
   final double height;
@@ -40,10 +44,12 @@ class _TransactionsListTile extends State<TransactionsListTile> {
   @override
   Widget build(BuildContext context) {
     var title = TransactionTitle(widget.tx);
-    var concept = getConcept();
     var icon = TransactionIcon(widget.tx);
+
+    var concept = getConcept();
     var amount = getAmount();
     var date = getDate();
+
     var detailsModal = TransactionDetailsModal(context);
 
     return InkWell(

@@ -5,16 +5,16 @@ import 'package:rec/Api/Services/AccountsService.dart';
 import 'package:rec/Components/Inputs/DropDown.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
+import 'package:rec/Components/ListTiles/ScheduleDayInput.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Entities/Schedule/Schedule.ent.dart';
+import 'package:rec/Entities/Schedule/ScheduleDay.ent.dart';
 import 'package:rec/Entities/Schedule/ScheduleType.dart';
-import 'package:rec/Helpers/DateHelper.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Styles/Paddings.dart';
-import 'package:rec/brand.dart';
 
 class AccountSchedulePage extends StatefulWidget {
   AccountSchedulePage({Key key}) : super(key: key);
@@ -27,6 +27,7 @@ class _AccountSchedulePageState extends State<AccountSchedulePage> {
   final AccountsService _accountsService = AccountsService();
 
   Schedule schedule;
+  ScheduleDay copiedDay;
 
   @override
   void didChangeDependencies() {
@@ -62,6 +63,7 @@ class _AccountSchedulePageState extends State<AccountSchedulePage> {
             Expanded(
               flex: 1,
               child: ListView.builder(
+                padding: EdgeInsets.zero,
                 itemCount: 7,
                 itemBuilder: _scheduleDayBuilder,
               ),
@@ -79,122 +81,38 @@ class _AccountSchedulePageState extends State<AccountSchedulePage> {
   Widget _scheduleDayBuilder(ctx, index) {
     var day = schedule.days[index];
 
-    return Padding(
-      padding: const EdgeInsets.only(top: 16.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 3,
-            child: LocalizedText(
-              DateHelper.getWeekdayName(index + 1),
-            ),
-          ),
-          Expanded(
-            flex: 4,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: _customInput(
-                        day.firstOpen,
-                        (val) {
-                          setState(() => day.firstOpen = val);
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Icon(Icons.remove),
-                    ),
-                    Expanded(
-                      child: _customInput(
-                        day.firstClose,
-                        (val) {
-                          setState(() => day.firstClose = val);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    Expanded(
-                      child: _customInput(
-                        day.secondOpen,
-                        (val) {
-                          setState(() => day.secondOpen = val);
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Icon(Icons.remove),
-                    ),
-                    Expanded(
-                      child: _customInput(
-                        day.secondClose,
-                        (val) {
-                          setState(() => day.secondClose = val);
-                        },
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _customInput(
-    String value,
-    ValueChanged<String> onChanged, {
-    String helpText,
-  }) {
-    var localizations = AppLocalizations.of(context);
-
-    return InkWell(
-      onTap: () async {
-        var result = await showTimePicker(
-          initialTime: TimeOfDay.now(),
-          context: context,
-          helpText: helpText,
-        );
-
-        if (result != null) {
-          onChanged(result.format(context));
-          schedule.type = ScheduleType.TIMETABLE;
-        }
+    return ScheduleDayInput(
+      day: day,
+      closed: schedule.isClosed,
+      opens24Hours: schedule.isOpen24h,
+      weekday: index + 1,
+      onChange: (ScheduleDay day) {
+        setState(() {
+          schedule.days[index] = day;
+        });
       },
-      child: Opacity(
-        opacity: (schedule.type == ScheduleType.TIMETABLE && value != null)
-            ? 1
-            : 0.6,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Brand.defaultAvatarBackground,
-            borderRadius: BorderRadius.all(
-              Radius.circular(6),
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 8.0,
-            ),
-            child: Text(
-              (schedule.type == ScheduleType.CLOSED || value == null)
-                  ? localizations.translate('CLOSED')
-                  : value,
-            ),
-          ),
-        ),
-      ),
+      onCompleteDay: () {
+        setState(() {
+          if (schedule.days[index - 1] != null) {
+            schedule.days[index].copyFrom(schedule.days[index - 1]);
+          } else {
+            schedule.days[index].resetToDefaultTime();
+          }
+        });
+      },
+      onAction: (action) {
+        switch (action) {
+          case CopyPasteAction.copy:
+            copiedDay = schedule.days[index];
+            break;
+          case CopyPasteAction.paste:
+            if (copiedDay != null) {
+              schedule.days[index].copyFrom(copiedDay);
+            }
+            break;
+        }
+        setState(() {});
+      },
     );
   }
 
@@ -211,11 +129,11 @@ class _AccountSchedulePageState extends State<AccountSchedulePage> {
         .catchError(_onError);
   }
 
-  void _updatedSchedule(c) {
+  void _updatedSchedule(c) async {
     var userState = UserState.of(context, listen: false);
-    userState.getUser();
+    await userState.getUser();
+    await Loading.dismiss();
 
-    Loading.dismiss();
     RecToast.showSuccess(context, 'SCHEDULE_UPDATED_OK');
     Navigator.pop(context);
   }

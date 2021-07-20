@@ -13,5 +13,19 @@
             "args": ["pre"],
             "type": "shell"
         },
+        {
+            "label": "build-pre-apk",
+            "command": "flutter", // Could be any other shell command
+            "args": ["build", "apk", "--flavor=pre"],
+            "type": "shell"
+        },
+        {
+            "label": "Build APK pre",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "prepare-env-pre",
+                "build-pre-apk",
+            ]
+        }
     ]
 }
