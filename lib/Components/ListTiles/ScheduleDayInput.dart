@@ -15,6 +15,7 @@ class ScheduleDayInput extends StatelessWidget {
   final int weekday;
   final bool closed;
   final bool opens24Hours;
+  final bool isNotAvailable;
   final ScheduleDay day;
   final ValueChanged<ScheduleDay> onChange;
   final ValueChanged<CopyPasteAction> onAction;
@@ -29,6 +30,7 @@ class ScheduleDayInput extends StatelessWidget {
     this.onCompleteDay,
     this.closed = false,
     this.opens24Hours = false,
+    this.isNotAvailable = false,
   }) : super(key: key);
 
   void _fillDay() {
@@ -107,7 +109,11 @@ class ScheduleDayInput extends StatelessWidget {
       content = [GrayBox(child: Center(child: LocalizedText('full')))];
     }
 
-    var center = opens24Hours || closed;
+    if (isNotAvailable) {
+      content = [GrayBox(child: Center(child: LocalizedText('not_available')))];
+    }
+
+    var center = opens24Hours || closed || isNotAvailable;
 
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
@@ -121,12 +127,13 @@ class ScheduleDayInput extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Checkbox(
-                  value: closed ? false : day.opens,
+                  value: (closed || isNotAvailable) ? false : day.opens,
                   onChanged: closed
                       ? null
                       : (bool value) {
                           if (!day.opens) {
-                            // Was closed, fill in with generic dates if empty
+                            // Was closed now is open, so we try to fill in the data
+                            // this is delegated to the parent widget to do
                             _fillDay();
                           }
 

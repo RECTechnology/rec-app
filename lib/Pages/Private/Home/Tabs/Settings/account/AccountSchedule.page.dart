@@ -31,7 +31,7 @@ class _AccountSchedulePageState extends State<AccountSchedulePage> {
 
   @override
   void didChangeDependencies() {
-    schedule ??= UserState.of(context).account.schedule ?? Schedule();
+    schedule ??= UserState.of(context).account.schedule.clone() ?? Schedule();
     super.didChangeDependencies();
   }
 
@@ -85,6 +85,7 @@ class _AccountSchedulePageState extends State<AccountSchedulePage> {
       day: day,
       closed: schedule.isClosed,
       opens24Hours: schedule.isOpen24h,
+      isNotAvailable: schedule.isNotAvailable,
       weekday: index + 1,
       onChange: (ScheduleDay day) {
         setState(() {

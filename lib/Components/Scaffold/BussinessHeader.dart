@@ -69,6 +69,7 @@ class _BussinessHeaderState extends State<BussinessHeader> {
                         padding: const EdgeInsets.only(right: 16.0),
                         child: CircleAvatarRec(
                           imageUrl: widget.account.companyImage,
+                          name: widget.account.name,
                           radius: 32,
                         ),
                       ),

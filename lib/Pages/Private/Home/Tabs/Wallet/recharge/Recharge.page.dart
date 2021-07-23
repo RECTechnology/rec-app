@@ -110,7 +110,6 @@ class _RechargePageState extends State<RechargePage> {
   void _amountChanged(value) {
     var newAmount =
         double.parse(value.isEmpty ? '0' : value.replaceAll(',', '.'));
-    print(newAmount);
     setState(() {
       rechargeData.amount = newAmount;
     });

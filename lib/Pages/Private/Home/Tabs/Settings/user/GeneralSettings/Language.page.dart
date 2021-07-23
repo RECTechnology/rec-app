@@ -78,9 +78,6 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
               child: ListView.builder(
                 itemCount: languageCards.length,
                 itemBuilder: (context, index) {
-                  print('locale: ${localizations.locale.languageCode}');
-                  print('list lang: ${languageCards[index].id}');
-
                   var isSelectedLocale = languageCards[index].id ==
                       localizations.locale.languageCode;
 
