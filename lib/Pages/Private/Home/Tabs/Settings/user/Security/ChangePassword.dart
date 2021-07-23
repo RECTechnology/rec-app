@@ -86,7 +86,6 @@ class _ChangePasswordState extends State<ChangePasswordPage> {
   void update() {
     if (!_formKey.currentState.validate()) return;
 
-    print('form is valid!');
     Loading.show();
 
     _sendSmsCode().then(_goToEnterSmsCode).catchError(_onError);

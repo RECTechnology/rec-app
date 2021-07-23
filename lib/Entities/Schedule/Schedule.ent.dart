@@ -129,12 +129,20 @@ class Schedule {
     return null;
   }
 
+  Schedule clone() {
+    return Schedule.fromJson(toJson());
+  }
+
   factory Schedule.fromJsonString(String jsonString) {
     var parsedJson = _tryParseScheduleJsonString(jsonString);
+    return Schedule.fromJson(parsedJson);
+  }
+
+  factory Schedule.fromJson(Map<String, dynamic> json) {
     var days = <ScheduleDay>[];
 
-    if (parsedJson['days'] != null) {
-      var jsonWallets = List.from(parsedJson['days']);
+    if (json['days'] != null) {
+      var jsonWallets = List.from(json['days']);
       days = jsonWallets.isNotEmpty
           ? jsonWallets
               .map<ScheduleDay>((el) => ScheduleDay.fromJson(el))
@@ -143,7 +151,7 @@ class Schedule {
     }
 
     return Schedule(
-      type: ScheduleType.fromName(parsedJson['type']),
+      type: ScheduleType.fromName(json['type']),
       days: days,
     );
   }
