@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:permission_handler_platform_interface/permission_handler_platform_interface.dart';
-import 'package:rec/Permissions/PermissionProviders.dart';
+import 'package:rec/Permissions/permission_data_provider.dart';
 import 'package:rec/preferences.dart';
 
 class GoogleMapInstance extends StatefulWidget {
@@ -27,7 +27,7 @@ class GoogleMapInstance extends StatefulWidget {
 
 class GoogleMapInstanceState extends State<GoogleMapInstance> {
   void centerOnCurrentLocation() async {
-    var result = await PermissionProviders.location.request();
+    var result = await PermissionDataProvider.location.request();
     if (!result.isGranted) return;
 
     try {

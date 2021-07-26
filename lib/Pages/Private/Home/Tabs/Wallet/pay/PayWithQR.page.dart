@@ -5,14 +5,14 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:rec/Api/ApiError.dart';
 import 'package:rec/Api/Services/wallet/TransactionsService.dart';
 import 'package:rec/Helpers/Deeplinking.dart';
-import 'package:rec/Permissions/IfPermissionGranted.dart';
+import 'package:rec/Components/IfPermissionGranted.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
 import 'package:rec/Entities/Transactions/VendorData.ent.dart';
 import 'package:rec/Environments/env.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/AttemptPayment.page.dart';
-import 'package:rec/Permissions/PermissionProviders.dart';
+import 'package:rec/Permissions/permission_data_provider.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/brand.dart';
@@ -47,7 +47,7 @@ class _PayWithQRState extends State<PayWithQR> {
       resizeToAvoidBottomInset: false,
       appBar: EmptyAppBar(context, title: 'PAY_WITH_QR'),
       body: IfPermissionGranted(
-        permission: PermissionProviders.qr,
+        permission: PermissionDataProvider.qr,
         builder: (_) => _content(),
         onDecline: () {},
         canBeDeclined: false,

@@ -3,19 +3,20 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:rec/Components/Layout/InfoSplash.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/ListTiles/OutlinedListTile.dart';
-import 'package:rec/Permissions/PermissionProvider.dart';
+import 'package:rec/Permissions/permission_data.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/brand.dart';
 
 /// Widget that manages permission requesting
-/// * if the permission is [allowed] it calls [onAccept]
+/// * if the permission is [allowed] it ca
+/// lls [onAccept]
 /// * if it's [denied] it will show a screen explaining why it's used and actions to either accept it or decline it (if `canBeDeclined == true`)
 /// * if it's [permanentlyDenied] it says it, and allows user to go to OS app settings
 class RequestPermission extends StatefulWidget {
   /// PermissionProvider instance, this tells [RequestPermission] which permission
   /// it's requesting.
-  final PermissionProvider permission;
+  final PermissionData permission;
 
   /// Callback for when a permission has been accepted
   final Function() onAccept;

@@ -5,8 +5,8 @@ import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/ContactInfo.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayAddress.page.dart';
-import 'package:rec/Permissions/IfPermissionGranted.dart';
-import 'package:rec/Permissions/PermissionProviders.dart';
+import 'package:rec/Components/IfPermissionGranted.dart';
+import 'package:rec/Permissions/permission_data_provider.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 
@@ -56,7 +56,7 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
             controller: _tabController,
             children: <Widget>[
               IfPermissionGranted(
-                permission: PermissionProviders.contacts,
+                permission: PermissionDataProvider.contacts,
                 canBeDeclined: false,
                 builder: (_) => ContactsList(
                   onPick: _pickedContact,
