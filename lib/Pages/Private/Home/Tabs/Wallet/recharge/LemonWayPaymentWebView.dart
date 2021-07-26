@@ -5,6 +5,7 @@ import 'package:rec/Environments/env.dart';
 import 'package:rec/Helpers/Deeplinking.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/RechargeResult.page.dart';
 import 'package:rec/Pages/Private/Shared/InAppBrowser.dart';
+import 'package:rec/Providers/All.dart';
 
 class LemonWayPaymentWebView extends StatefulWidget {
   final String url;
@@ -25,32 +26,44 @@ class LemonWayPaymentWebView extends StatefulWidget {
 class _LemonWayPaymentWebView extends State<LemonWayPaymentWebView> {
   @override
   Widget build(BuildContext context) {
-    return InAppBrowser(
-      url: widget.url,
-      debug: true,
-      onPageStarted: (url) {
-        // Quick and dirty way of checking if the url redirected to a deeplink
-        // That matches recharge-result path
-        var isRechargeResultUrl = DeepLinking.matchesRechargeResultUri(
-          env,
-          url,
-        );
+    var localizations = AppLocalizations.of(context);
 
-        if (isRechargeResultUrl) {
-          Navigator.of(context).pop();
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (ctx) {
-                return RechargeResultPage.fromDeeplink(
-                  widget.rechargeResult,
-                  widget.rechargeData,
-                  Uri.parse(url),
-                );
-              },
-            ),
-          );
-        }
+    return InAppBrowser(
+      title: localizations.translate('RECHARGE'),
+      url: widget.url,
+      debug: false,
+      onPageFinished: (url) {
+        _pageChanged(url, 'finished');
+      },
+      onPageStarted: (url) {
+        _pageChanged(url, 'started');
       },
     );
+  }
+
+  void _pageChanged(String url, String state) {
+    print('_pageChanged $state: $url');
+
+    // Quick and dirty way of checking if the url redirected to a deeplink
+    // That matches recharge-result path
+    var isRechargeResultUrl = DeepLinking.matchesRechargeResultUri(
+      env,
+      url,
+    );
+
+    if (isRechargeResultUrl) {
+      Navigator.of(context).pop();
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) {
+            return RechargeResultPage.fromDeeplink(
+              widget.rechargeResult,
+              widget.rechargeData,
+              Uri.parse(url),
+            );
+          },
+        ),
+      );
+    }
   }
 }

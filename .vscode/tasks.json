@@ -3,20 +3,26 @@
     "tasks": [
         {
             "label": "prepare-env-pre",
-            "command": "./scripts/prepare-env.sh", // Could be any other shell command
+            "command": "./scripts/prepare-env.sh",
             "args": ["pre"],
             "type": "shell"
         },
         {
             "label": "prepare-env-prod",
-            "command": "./scripts/prepare-env.sh", // Could be any other shell command
+            "command": "./scripts/prepare-env.sh",
             "args": ["pre"],
             "type": "shell"
         },
         {
             "label": "build-pre-apk",
-            "command": "flutter", // Could be any other shell command
+            "command": "flutter",
             "args": ["build", "apk", "--flavor=pre"],
+            "type": "shell"
+        },
+        {
+            "label": "open-pre-apk-path",
+            "command": "open",
+            "args": ["build/app/outputs/flutter-apk/"],
             "type": "shell"
         },
         {
@@ -25,6 +31,7 @@
             "dependsOn": [
                 "prepare-env-pre",
                 "build-pre-apk",
+                "open-pre-apk-path"
             ]
         }
     ]

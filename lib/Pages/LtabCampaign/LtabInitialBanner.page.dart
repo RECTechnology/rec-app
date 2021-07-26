@@ -89,7 +89,7 @@ class _LtabInitialBannerState extends State<LtabInitialBanner> {
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headline4.copyWith(
                         color: Brand.grayDark,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         fontSize: 30,
                       ),
                 ),

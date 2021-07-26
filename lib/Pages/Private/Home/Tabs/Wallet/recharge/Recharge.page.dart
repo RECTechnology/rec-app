@@ -81,6 +81,7 @@ class _RechargePageState extends State<RechargePage> {
                   SizedBox(height: 16),
                   AmountTextField(
                     onChange: _amountChanged,
+                    onSubmitted: (s) => _forwards(),
                     validator: _customAmountValidator,
                   ),
                   SizedBox(height: 32),

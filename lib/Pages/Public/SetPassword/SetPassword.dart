@@ -38,62 +38,64 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
     var localizations = AppLocalizations.of(context);
     return Scaffold(
       appBar: EmptyAppBar(context),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: Paddings.pageNoTop,
-            child: Column(
-              children: [
-                topTexts(),
-                SizedBox(height: 32),
-                Form(
-                  key: _formKey,
-                  child: Container(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: Paddings.textField,
-                          child: PasswordField(
-                            autofocus: true,
-                            validator: Validators.verifyPassword,
-                            color: Colors.blueAccent,
-                            onChange: setNewPassword,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: Paddings.pageNoTop,
+              child: Column(
+                children: [
+                  topTexts(),
+                  SizedBox(height: 32),
+                  Form(
+                    key: _formKey,
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: Paddings.textField,
+                            child: PasswordField(
+                              autofocus: true,
+                              validator: Validators.verifyPassword,
+                              color: Colors.blueAccent,
+                              onChange: setNewPassword,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: Paddings.textField,
-                          child: PasswordField(
-                            title: 'REPASSWORD',
-                            validator: Validators.verifyPassword,
-                            color: Colors.blueAccent,
-                            onChange: setNewConfirmPassword,
+                          Padding(
+                            padding: Paddings.textField,
+                            child: PasswordField(
+                              title: 'REPASSWORD',
+                              validator: Validators.verifyPassword,
+                              color: Colors.blueAccent,
+                              onChange: setNewConfirmPassword,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              bottom: 24,
-              left: 32,
-              right: 32,
-            ),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: RecActionButton(
-                label: localizations.translate('CHANGE'),
-                backgroundColor: Brand.primaryColor,
-                icon: Icons.arrow_forward_ios_sharp,
-                onPressed: changePassword,
+                ],
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.only(
+                bottom: 24,
+                left: 32,
+                right: 32,
+              ),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: RecActionButton(
+                  label: localizations.translate('CHANGE'),
+                  backgroundColor: Brand.primaryColor,
+                  icon: Icons.arrow_forward_ios_sharp,
+                  onPressed: changePassword,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

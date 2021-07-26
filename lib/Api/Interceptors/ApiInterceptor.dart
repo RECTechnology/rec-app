@@ -5,13 +5,13 @@ import 'package:http_interceptor/models/response_data.dart';
 class ApiLoggerInterceptor implements InterceptorContract {
   @override
   Future<RequestData> interceptRequest({RequestData data}) async {
-    print(data.toString());
+    // print(data.toString());
     return data;
   }
 
   @override
   Future<ResponseData> interceptResponse({ResponseData data}) async {
-    print(data.toString());
+    // print(data.toString());
     return data;
   }
 }

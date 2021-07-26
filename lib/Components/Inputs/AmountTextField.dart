@@ -50,8 +50,8 @@ class AmountTextFieldState extends State<AmountTextField> {
       label: localizations.translate('AMOUNT'),
       initialValue: widget.initialValue ?? '',
       keyboardType: TextInputType.numberWithOptions(
-          decimal:
-              true), //Used this type of keyboard to avoid error in  IOS with decimals
+        decimal: true,
+      ), //Used this type of keyboard to avoid error in  IOS with decimals
       needObscureText: false,
       placeholder: localizations.translate('WRITE_AMOUNT'),
       onChange: widget.onChange,

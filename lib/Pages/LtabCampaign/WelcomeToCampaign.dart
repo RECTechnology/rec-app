@@ -30,7 +30,9 @@ class _WelcomeToCampaignState extends State<WelcomeToCampaign> {
       onWillPop: _popBackHome,
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: _body(),
+        body: SingleChildScrollView(
+          child: _body(),
+        ),
       ),
     );
   }

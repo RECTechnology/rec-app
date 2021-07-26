@@ -16,7 +16,6 @@ class AttemptRecharge extends StatefulWidget {
   final RechargeData data;
 
   const AttemptRecharge({
-    
     Key key,
     @required this.data,
   }) : super(key: key);
@@ -59,8 +58,8 @@ class _AttemptRecharge extends State<AttemptRecharge> {
 
   Future<Null> attemptRecharge() {
     var localizations = AppLocalizations.of(context);
-   
-    return   rechargeService.recharge(widget.data).then(
+
+    return rechargeService.recharge(widget.data).then(
       (value) {
         if (value.payInInfo != null && value.payInInfo.paymentUrl != null) {
           launchPaymentUrl(value);
@@ -109,7 +108,7 @@ class _AttemptRecharge extends State<AttemptRecharge> {
   Widget build(BuildContext context) {
     if (isLoading) {
       return Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(

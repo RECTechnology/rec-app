@@ -27,15 +27,15 @@ class ValidatePhone extends StatefulWidget {
 
 class _ValidatePhoneState extends State<ValidatePhone> {
   final _formKey = GlobalKey<FormState>();
-  final validateSMS = PhoneVerificationService();
-  final smsService = PublicSMSService();
+  final _validateSMS = PhoneVerificationService();
+  final _smsService = PublicSMSService();
 
-  DniPhoneData data = DniPhoneData(prefix: '34');
+  DniPhoneData data;
 
   @override
   void initState() {
     super.initState();
-    data.dni = widget.dni;
+    data = DniPhoneData(dni: widget.dni);
   }
 
   bool get isFormValid {
@@ -50,36 +50,38 @@ class _ValidatePhoneState extends State<ValidatePhone> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: EmptyAppBar(context),
-        body: Padding(
-          padding: Paddings.pageNoTop,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _topTexts(),
-                  _validatePhoneForm(),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 24,
-                  left: 32,
-                  right: 32,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: Paddings.pageNoTop,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _topTexts(),
+                    _phoneForm(),
+                  ],
                 ),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: RecActionButton(
-                    label: localizations.translate('NEXT'),
-                    backgroundColor: Brand.primaryColor,
-                    icon: Icons.arrow_forward_ios_sharp,
-                    onPressed: isFormValid ? _next : null,
+                Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: 24,
+                    left: 32,
+                    right: 32,
+                  ),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: RecActionButton(
+                      label: localizations.translate('NEXT'),
+                      backgroundColor: Brand.primaryColor,
+                      icon: Icons.arrow_forward_ios_sharp,
+                      onPressed: isFormValid ? _next : null,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -97,12 +99,12 @@ class _ValidatePhoneState extends State<ValidatePhone> {
     );
   }
 
-  Widget _validatePhoneForm() {
+  Widget _phoneForm() {
     return DniPhoneForm(
       formKey: _formKey,
       data: data,
       onChange: (data) {
-        setState(() => {this.data = data});
+        setState(() => this.data = data);
       },
     );
   }
@@ -119,7 +121,7 @@ class _ValidatePhoneState extends State<ValidatePhone> {
   }
 
   Future<void> _sendSmsCode() {
-    return smsService.sendValidatePhoneSms(
+    return _smsService.sendValidatePhoneSms(
       phone: data.phone,
       prefix: data.prefix,
     );
@@ -141,7 +143,7 @@ class _ValidatePhoneState extends State<ValidatePhone> {
 
   void _validateSmsCode(String smsCode) {
     EasyLoading.show();
-    validateSMS
+    _validateSMS
         .validatePhone(
           smscode: smsCode,
           dni: data.dni,
@@ -160,13 +162,11 @@ class _ValidatePhoneState extends State<ValidatePhone> {
 
   void _onError(error) {
     EasyLoading.dismiss();
-    if(error.message =='Incorrect Code'){
+    if (error.message == 'Incorrect Code') {
       RecToast.showError(context, 'WRONG_SMS');
       return;
-    }else{
+    } else {
       RecToast.showError(context, error.message);
-
     }
-
   }
 }

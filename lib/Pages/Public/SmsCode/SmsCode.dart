@@ -42,50 +42,52 @@ class _SmsCodeState extends State<SmsCode> {
 
     return Scaffold(
       appBar: EmptyAppBar(context),
-      body: Padding(
-        padding: Paddings.pageNoTop,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(children: [
-              TitleText(
-                'SEND_SMS_U',
-                alignment: MainAxisAlignment.center,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 32),
-                child: Text(
-                  localizations.translate('HELP_US_VALIDATE_PHONE') + ' ',
-                  style: Theme.of(context).textTheme.headline4,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: Paddings.pageNoTop,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(children: [
+                TitleText(
+                  'SEND_SMS_U',
+                  alignment: MainAxisAlignment.center,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 32),
+                  child: Text(
+                    localizations.translate('HELP_US_VALIDATE_PHONE') + ' ',
+                    style: Theme.of(context).textTheme.headline4,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Text(
+                  widget.phone,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline4
+                      .copyWith(color: Brand.primaryColor),
                   textAlign: TextAlign.center,
                 ),
-              ),
-              Text(
-                widget.phone,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline4
-                    .copyWith(color: Brand.primaryColor),
-                textAlign: TextAlign.center,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 32,
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 32,
+                  ),
+                  child: RecPinInput(
+                    fieldsCount: 6,
+                    onChanged: setSMS,
+                    autofocus: true,
+                  ),
                 ),
-                child: RecPinInput(
-                  fieldsCount: 6,
-                  onChanged: setSMS,
-                  autofocus: true,
-                ),
+              ]),
+              RecActionButton(
+                label: localizations.translate('VALIDATE'),
+                backgroundColor: Brand.primaryColor,
+                onPressed: isFormValid ? _tryValidateSMS : null,
               ),
-            ]),
-            RecActionButton(
-              label: localizations.translate('VALIDATE'),
-              backgroundColor: Brand.primaryColor,
-              onPressed: isFormValid ? _tryValidateSMS : null,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
