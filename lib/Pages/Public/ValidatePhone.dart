@@ -4,6 +4,7 @@ import 'package:rec/Api/Services/public/PhoneVerificationService.dart';
 import 'package:rec/Api/Services/public/PublicSMSService.dart';
 import 'package:rec/Components/Forms/DniPhone.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
+import 'package:rec/Components/Layout/FormPageLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
@@ -11,9 +12,6 @@ import 'package:rec/Entities/Forms/DniPhoneData.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Public/SmsCode/SmsCode.dart';
-
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/brand.dart';
 import 'package:rec/routes.dart';
 
@@ -44,46 +42,15 @@ class _ValidatePhoneState extends State<ValidatePhone> {
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
-
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: EmptyAppBar(context),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: Paddings.pageNoTop,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _topTexts(),
-                    _phoneForm(),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    bottom: 24,
-                    left: 32,
-                    right: 32,
-                  ),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: RecActionButton(
-                      label: localizations.translate('NEXT'),
-                      backgroundColor: Brand.primaryColor,
-                      icon: Icons.arrow_forward_ios_sharp,
-                      onPressed: isFormValid ? _next : null,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+    return FormPageLayout(
+      appBar: EmptyAppBar(context),
+      form: _phoneForm(),
+      header: _topTexts(),
+      submitButton: RecActionButton(
+        label: 'NEXT',
+        backgroundColor: Brand.primaryColor,
+        icon: Icons.arrow_forward_ios_sharp,
+        onPressed: isFormValid ? _next : null,
       ),
     );
   }

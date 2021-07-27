@@ -25,9 +25,7 @@ class RechargePage extends StatefulWidget {
 class _RechargePageState extends State<RechargePage> {
   final _formKey = GlobalKey<FormState>();
   final _usersService = UsersService();
-
   RechargeData rechargeData = RechargeData();
-
   Campaign activeCampaign;
 
   @override

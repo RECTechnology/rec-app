@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Styles/Paddings.dart';
 
 class RecActionButton extends StatefulWidget {
@@ -29,7 +29,6 @@ class RecActionButton extends StatefulWidget {
 class _RecActionButton extends State<RecActionButton> {
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
     var color = widget.backgroundColor;
 
     return Padding(
@@ -47,7 +46,7 @@ class _RecActionButton extends State<RecActionButton> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(),
-              Text(localizations.translate(widget.label)),
+              LocalizedText(widget.label),
               widget.icon != null
                   ? Padding(
                       padding: const EdgeInsets.only(right: 16.0, top: 2),

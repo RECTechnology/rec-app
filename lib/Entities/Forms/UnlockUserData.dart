@@ -6,7 +6,7 @@ class UnlockUserData {
   String prefix;
   String sms;
 
-  UnlockUserData({this.dni, this.phone, this.prefix,this.sms});
+  UnlockUserData({this.dni, this.phone, this.prefix = '+34', this.sms});
 
   bool complete() {
     var hasDni = Checks.isNotEmpty(dni);

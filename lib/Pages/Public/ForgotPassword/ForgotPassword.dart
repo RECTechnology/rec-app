@@ -3,6 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:rec/Api/Services/public/PublicSMSService.dart';
 import 'package:rec/Components/Forms/DniPhone.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
+import 'package:rec/Components/Layout/FormPageLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
@@ -11,8 +12,6 @@ import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Public/SetPassword/SetPassword.dart';
 import 'package:rec/Pages/Public/SmsCode/SmsCode.dart';
 
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/brand.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -25,43 +24,28 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  final smsService = PublicSMSService();
+  final _smsService = PublicSMSService();
   final _formKey = GlobalKey<FormState>();
 
-  DniPhoneData data = DniPhoneData(prefix: '+34');
+  DniPhoneData data;
 
   @override
   void initState() {
     super.initState();
-    data.dni = widget.dni;
+    data = DniPhoneData(dni: widget.dni);
   }
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
-
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: EmptyAppBar(context),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: Paddings.pageNoTop,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _topTexts(),
-                _forgotPasswordForm(),
-                RecActionButton(
-                  label: localizations.translate('NEXT'),
-                  backgroundColor: Brand.primaryColor,
-                  icon: Icons.arrow_forward_ios_sharp,
-                  onPressed: () => _next(),
-                )
-              ],
-            ),
-          ),
-        ),
+    return FormPageLayout(
+      appBar: EmptyAppBar(context),
+      header: _topTexts(),
+      form: _forgotPasswordForm(),
+      submitButton: RecActionButton(
+        label: 'NEXT',
+        backgroundColor: Brand.primaryColor,
+        icon: Icons.arrow_forward_ios_sharp,
+        onPressed: () => _next(),
       ),
     );
   }
@@ -91,7 +75,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     if (!_formKey.currentState.validate()) return;
 
     await EasyLoading.show();
-    await smsService
+    await _smsService
         .sendForgotPasswordSms(
           phone: data.phone,
           prefix: data.prefix,
@@ -102,15 +86,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   }
 
   void _smsError(err) {
-    print(err);
     EasyLoading.dismiss();
-    if(err.message =='Smscode not found'){
+
+    if (err.message == 'Smscode not found') {
       RecToast.showError(context, 'WRONG_SMS');
       return;
-    }else{
-      RecToast.showError(context, err.message);
-
     }
+
+    RecToast.showError(context, err.message);
   }
 
   void _goToSmsCode() async {

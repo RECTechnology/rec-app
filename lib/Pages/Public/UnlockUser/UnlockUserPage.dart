@@ -3,6 +3,7 @@ import 'package:rec/Api/HandledErrors.dart';
 import 'package:rec/Api/Services/public/UnlockUserService.dart';
 import 'package:rec/Components/Forms/UnlockUserForm.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
+import 'package:rec/Components/Layout/FormPageLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
@@ -11,8 +12,6 @@ import 'package:rec/Environments/env.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Public/Login/Login.page.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Styles/Paddings.dart';
 import 'package:rec/brand.dart';
 
 class UnlockUserPage extends StatefulWidget {
@@ -44,35 +43,19 @@ class _UnlockUserPageState extends State<UnlockUserPage> {
   @override
   void initState() {
     super.initState();
-    data = UnlockUserData(prefix: '+34', sms: widget.sms);
+    data = UnlockUserData(sms: widget.sms);
   }
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
-
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: EmptyAppBar(context, backArrow: false, crossX: true),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: Paddings.pageNoTop,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _topTexts(),
-                _unlockUserForm(),
-                SizedBox(height: 130),
-                RecActionButton(
-                  label: localizations.translate('UNLOCK'),
-                  backgroundColor: Brand.primaryColor,
-                  onPressed: () => _next(),
-                )
-              ],
-            ),
-          ),
-        ),
+    return FormPageLayout(
+      appBar: EmptyAppBar(context),
+      form: _unlockUserForm(),
+      header: _topTexts(),
+      submitButton: RecActionButton(
+        label: 'UNLOCK',
+        backgroundColor: Brand.primaryColor,
+        onPressed: () => _next(),
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Services/public/RecoverPasswordService.dart';
 import 'package:rec/Components/Inputs/PasswordField.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
+import 'package:rec/Components/Layout/FormPageLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
@@ -35,78 +36,57 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
-    return Scaffold(
+    return FormPageLayout(
       appBar: EmptyAppBar(context),
-      body: SingleChildScrollView(
+      header: _topTexts(),
+      form: _changePassForm(),
+      submitButton: RecActionButton(
+        label: 'CHANGE',
+        backgroundColor: Brand.primaryColor,
+        icon: Icons.arrow_forward_ios_sharp,
+        onPressed: () => _next(),
+      ),
+    );
+  }
+
+  Widget _topTexts() {
+    return Column(
+      children: [
+        TitleText('CHANGE_PASSWORD'),
+        SizedBox(height: 16),
+        CaptionText('INTRODUCE_NEW_PASSWORD'),
+        SizedBox(height: 24),
+      ],
+    );
+  }
+
+  Widget _changePassForm() {
+    return Form(
+      key: _formKey,
+      child: Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: Paddings.pageNoTop,
-              child: Column(
-                children: [
-                  topTexts(),
-                  SizedBox(height: 32),
-                  Form(
-                    key: _formKey,
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: Paddings.textField,
-                            child: PasswordField(
-                              autofocus: true,
-                              validator: Validators.verifyPassword,
-                              color: Colors.blueAccent,
-                              onChange: setNewPassword,
-                            ),
-                          ),
-                          Padding(
-                            padding: Paddings.textField,
-                            child: PasswordField(
-                              title: 'REPASSWORD',
-                              validator: Validators.verifyPassword,
-                              color: Colors.blueAccent,
-                              onChange: setNewConfirmPassword,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+              padding: Paddings.textField,
+              child: PasswordField(
+                autofocus: true,
+                validator: Validators.verifyPassword,
+                color: Colors.blueAccent,
+                onChange: setNewPassword,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                bottom: 24,
-                left: 32,
-                right: 32,
-              ),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: RecActionButton(
-                  label: localizations.translate('CHANGE'),
-                  backgroundColor: Brand.primaryColor,
-                  icon: Icons.arrow_forward_ios_sharp,
-                  onPressed: changePassword,
-                ),
+              padding: Paddings.textField,
+              child: PasswordField(
+                title: 'REPASSWORD',
+                validator: Validators.verifyPassword,
+                color: Colors.blueAccent,
+                onChange: setNewConfirmPassword,
               ),
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget topTexts() {
-    return Column(
-      children: [
-        TitleText('FORGOT_PASSWORD'),
-        SizedBox(height: 16),
-        CaptionText('INTRODUCE_NEW_PASSWORD'),
-      ],
     );
   }
 
@@ -118,7 +98,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
     confirmNewPassword = confirmPassword;
   }
 
-  void changePassword() {
+  void _next() {
     if (!_formKey.currentState.validate()) return;
 
     Loading.show();
