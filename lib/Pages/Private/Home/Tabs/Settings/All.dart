@@ -12,5 +12,5 @@ export './user/Security/CreatePin.page.dart';
 export './user/Security/Security.page.dart';
 export './user/UserProfile/UserProfile.dart';
 export './user/General.page.dart';
-export './user/GeneralSettings/PrincipalAccount.page.dart';
+export 'user/GeneralSettings/MainAccount.page.dart';
 export './user/GeneralSettings/Language.page.dart';

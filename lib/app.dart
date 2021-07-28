@@ -15,6 +15,8 @@ class RecApp extends StatefulWidget {
   @override
   _RecAppState createState() => _RecAppState();
 
+  static final RecSecureStorage _storage = RecSecureStorage();
+
   static void setLocale(BuildContext context, Locale locale) {
     var state = context.findAncestorStateOfType<_RecAppState>();
 
@@ -22,6 +24,18 @@ class RecApp extends StatefulWidget {
     state.setState(() {
       state.locale = locale;
     });
+    _storage.write(
+      key: 'locale',
+      value: locale.languageCode,
+    );
+  }
+
+  static Future<Locale> restoreLocale() async {
+    var savedLocale = await _storage.read(
+      key: 'locale',
+    );
+
+    return AppLocalizations.getLocaleByLanguageCode(savedLocale);
   }
 }
 
@@ -30,14 +44,19 @@ class _RecAppState extends State<RecApp> {
   final TransactionsService txService = TransactionsService();
 
   Locale locale;
-  List<SingleChildWidget> providers;
+  List<SingleChildWidget> _providers;
 
   @override
   void initState() {
-    getProviders().then((value) {
-      setState(() => providers = value);
-    });
+    _setup();
     super.initState();
+  }
+
+  Future _setup() async {
+    locale = await RecApp.restoreLocale();
+
+    var providers = await getProviders();
+    setState(() => _providers = providers);
   }
 
   Future<List<SingleChildWidget>> getProviders() async {
@@ -63,8 +82,8 @@ class _RecAppState extends State<RecApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Checks.isNotEmpty(providers)
-        ? _buildAppWithProviders(providers)
+    return Checks.isNotEmpty(_providers)
+        ? _buildAppWithProviders(_providers)
         : Center(
             child: CircularProgressIndicator(),
           );

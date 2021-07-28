@@ -388,9 +388,7 @@
   "CONGRATULATIONS": "¡CONGRATULATIONS!",
   "PURCHASE_DONE": "Purchase made",
   "REWARD_OBTAINED": "Bonus earned!",
-  "YOU_HAVE_RECS_REDEMABLE": "You have {{amount}} bonus Rs",
-
-
+  "YOU_HAVE_RECS_REDEMABLE": "You have {{amount}}R bonus",
 
 
   "REWARD_OBTAINED_DESC": "{{amount}} R are on their way to your account LI TOCA AL BARRI",
@@ -434,10 +432,10 @@
   "full": "Open 24h",
 
   "PAYMENT_SHARE_MESSAGE": "Hi! \uD83D\uDC4B I am {{account}}, we have pending the payment “{{concept}}” with an amount of {{amount}} R. Click on the link and open it with the app. of the REC. \uD83D\uDCF2 Thank you! {{link}}",
-  "MAIN_LANGUAGE": "Main idiom",
+  "MAIN_LANGUAGE": "Selected language",
   "CHANGE_IMAGE": "Change image",
-  "AVARIABLE": "Avariable",
-  "IDIOM": "Idiom",
+  "AVAILABLE": "Available",
+  "LANGUAGE": "Language",
 
 
 

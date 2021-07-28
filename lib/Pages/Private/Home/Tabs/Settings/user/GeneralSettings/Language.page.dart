@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Api/Services/UsersService.dart';
-import 'package:rec/Api/Storage.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
@@ -22,7 +21,8 @@ class ChangeLanguagePage extends StatefulWidget {
 }
 
 class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
-  List<LanguageCardData> languageCards = [
+  final _userService = UsersService();
+  final _languageCards = [
     LanguageCardData(
       id: 'es',
       image: AssetImage('assets/flag-es.png'),
@@ -40,109 +40,90 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
-    var getMainIdiom = getMainLanguage();
+    var currentLocale = localizations.locale;
+    var mainLanguage = _getMainLanguage();
+
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: EmptyAppBar(context, title: localizations.translate('IDIOM')),
-      body: Scrollbar(
-        thickness: 8,
-        showTrackOnHover: true,
-        radius: Radius.circular(3),
-        child: ListView(
-          children: [
-            GeneralSettingsTile(
-              title: localizations.getLocaleNameByLocaleId(getMainIdiom.id),
-              subtitle: localizations.translate('MAIN_LANGUAGE'),
-              circleAvatar: CircleAvatarRec(
-                radius: 27,
-                image: getMainIdiom.image,
-              ),
-              titleStyle: TextStyles.outlineTileText.copyWith(
-                fontWeight: FontWeight.w500,
-                color: Brand.grayDark,
-              ),
-              subtitleStyle: TextStyles.outlineTileText.copyWith(
-                fontWeight: FontWeight.w400,
-                color: Brand.graySubtitle,
-              ),
+      appBar: EmptyAppBar(context, title: 'LANGUAGE'),
+      body: Column(
+        children: [
+          GeneralSettingsTile(
+            title: localizations.getLocaleNameByLocaleId(mainLanguage.id),
+            subtitle: 'MAIN_LANGUAGE',
+            circleAvatar: CircleAvatarRec(
+              radius: 27,
+              image: mainLanguage.image,
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                left: 22,
-              ),
-              child: SectionTitleTile(localizations.translate('AVARIABLE')),
+            subtitleStyle: TextStyles.outlineTileText.copyWith(
+              color: Brand.graySubtitle,
             ),
-            Container(
-              width: 400,
-              height: 300,
-              child: ListView.builder(
-                itemCount: languageCards.length,
-                itemBuilder: (context, index) {
-                  var isSelectedLocale = languageCards[index].id ==
-                      localizations.locale.languageCode;
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 22),
+            child: SectionTitleTile('AVAILABLE'),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: _languageCards.length,
+              itemBuilder: (context, index) {
+                var languageCard = _languageCards[index];
+                var isSelectedLocale =
+                    languageCard.id == currentLocale.languageCode;
 
-                  if (!isSelectedLocale) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: GeneralSettingsTile(
-                        title: localizations.getLocaleNameByLocaleId(
-                          languageCards[index].id,
-                        ),
-                        onTap: () {
-                          changeIdiom(languageCards[index].id);
-                        },
-                        titleStyle: TextStyles.outlineTileText.copyWith(
-                          fontWeight: FontWeight.w300,
-                          color: Brand.grayDark,
-                        ),
-                        circleAvatar: CircleAvatarRec(
-                          radius: 27,
-                          image: languageCards[index].image,
-                        ),
+                if (!isSelectedLocale) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: GeneralSettingsTile(
+                      title: localizations.getLocaleNameByLocaleId(
+                        languageCard.id,
                       ),
-                    );
-                  }
-                  return SizedBox.shrink();
-                },
-              ),
+                      onTap: () => _changeLanguage(languageCard.id),
+                      titleStyle: TextStyles.outlineTileText.copyWith(
+                        fontWeight: FontWeight.w300,
+                        color: Brand.grayDark,
+                      ),
+                      circleAvatar: CircleAvatarRec(
+                        radius: 27,
+                        image: languageCard.image,
+                      ),
+                    ),
+                  );
+                }
+
+                return SizedBox.shrink();
+              },
             ),
-            const SizedBox(
-              height: 16,
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
-  // ignore: missing_return
-  LanguageCardData getMainLanguage() {
+  LanguageCardData _getMainLanguage() {
     var localizations = AppLocalizations.of(context);
 
-    for (var idiom in languageCards) {
-      if (idiom.id == localizations.locale.languageCode) return idiom;
+    for (var lang in _languageCards) {
+      if (lang.id == localizations.locale.languageCode) return lang;
     }
 
-    return languageCards[0];
+    return _languageCards[0];
   }
 
-  void changeIdiom(String locale) {
+  void _changeLanguage(String locale) {
     Loading.show();
 
-    var userService = UsersService();
-    RecSecureStorage().write(
-      key: 'locale',
-      value: locale,
-    );
-    setState(() {
-      userService.changeIdiom(locale).then((value) {
-        Loading.dismiss();
-        RecApp.setLocale(context, Locale(locale, locale));
-        Navigator.of(context).pop();
-      }).onError((error, stackTrace) {
-        Loading.dismiss();
-        RecToast.showError(context, error.message);
-      });
-    });
+    _userService.changeLanguage(locale).then((value) {
+      RecApp.setLocale(context, Locale(locale, locale));
+      Loading.dismiss();
+      Navigator.of(context).pop();
+    }).catchError(_onError);
+
+    setState(() {});
+  }
+
+  void _onError(error) {
+    Loading.dismiss();
+    RecToast.showError(context, error.message);
   }
 }

@@ -47,19 +47,19 @@ class _GeneralSettingsTileState extends State<GeneralSettingsTile> {
       color: widget.disabled ? Brand.grayDisabled : null,
     );
 
-    return Container(
-      color: Colors.white,
-      child: Row(
-        children: [
-          widget.circleAvatar != null
-              ? Padding(
-                  padding: EdgeInsets.only(left: 32, right: 16),
-                  child: widget.circleAvatar,
-                )
-              : Container(),
-          Expanded(
-            child: InkWell(
-              onTap: widget.onTap,
+    return InkWell(
+      onTap: widget.onTap,
+      child: Container(
+        color: Colors.white,
+        child: Row(
+          children: [
+            widget.circleAvatar != null
+                ? Padding(
+                    padding: EdgeInsets.only(left: 32, right: 16),
+                    child: widget.circleAvatar,
+                  )
+                : Container(),
+            Expanded(
               child: ListTile(
                 title: LocalizedText(
                   widget.title ?? '',
@@ -79,23 +79,23 @@ class _GeneralSettingsTileState extends State<GeneralSettingsTile> {
                 trailing: widget.requiresActions ? RecBadge() : null,
               ),
             ),
-          ),
-          widget.icon != null
-              ? Padding(
-                  padding: EdgeInsets.only(
-                    right: 16,
-                  ),
-                  child: Container(
-                    width: 20,
-                    height: 40,
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: widget.icon,
+            widget.icon != null
+                ? Padding(
+                    padding: EdgeInsets.only(
+                      right: 16,
                     ),
-                  ),
-                )
-              : Container()
-        ],
+                    child: Container(
+                      width: 20,
+                      height: 40,
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: widget.icon,
+                      ),
+                    ),
+                  )
+                : Container()
+          ],
+        ),
       ),
     );
   }

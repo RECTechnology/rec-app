@@ -8,4 +8,6 @@ class EnvBase {
 
   String DEEPLINK_SCHEME;
   String DEEPLINK_URL;
+
+  String ENV_NAME = 'env';
 }

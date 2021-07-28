@@ -14,7 +14,10 @@ Future<void> main() async {
 
   if (env.SENTRY_ACTIVE) {
     return await SentryFlutter.init(
-      (options) => options.dsn = env.SENTRY_DSN,
+      (options) {
+        options.dsn = env.SENTRY_DSN;
+        options.environment = env.ENV_NAME;
+      },
       appRunner: () => runApp(app),
     );
   }

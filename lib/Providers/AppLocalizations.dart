@@ -22,6 +22,13 @@ class AppLocalizations {
   ];
   static const supportedLocaleNames = ['es', 'en', 'ca'];
 
+  static Locale getLocaleByLanguageCode(String languageCode) {
+    return supportedLocales.firstWhere(
+      (lang) => lang.languageCode == languageCode,
+      orElse: () => supportedLocales.first,
+    );
+  }
+
   static AppLocalizations of(BuildContext context) {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
@@ -42,8 +49,8 @@ class AppLocalizations {
   }
 
   /// Defines the current locale that is being used in the App
-  final Locale locale;
-  Map<String, String> _localizedStrings = {};
+  Locale locale;
+  Map<String, String> _localizedStrings = <String, String>{};
 
   AppLocalizations(this.locale);
 

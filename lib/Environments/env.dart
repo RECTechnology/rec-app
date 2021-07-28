@@ -25,6 +25,9 @@ class Env implements EnvBase {
 
   @override
   String DEEPLINK_URL = 'rec.barcelona';
+
+  @override
+  String ENV_NAME = 'pre';
 }
 
 Env env = Env();

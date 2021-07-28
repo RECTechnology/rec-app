@@ -5,8 +5,8 @@ import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
 import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Entities/Account.ent.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
 import 'package:rec/routes.dart';
@@ -23,7 +23,6 @@ class _MainAccountPageState extends State<MainAccountPage> {
   Widget build(BuildContext context) {
     var userState = UserState.of(context);
     var theme = Theme.of(context);
-    var localizations = AppLocalizations.of(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -36,15 +35,15 @@ class _MainAccountPageState extends State<MainAccountPage> {
           children: [
             Padding(
               padding: EdgeInsets.only(left: 32, right: 32, bottom: 32, top: 8),
-              child: Text(
-                localizations.translate('ACCOUNT_RECIVE_RECS'),
+              child: LocalizedText(
+                'ACCOUNT_RECIVE_RECS',
                 style: theme.textTheme.subtitle1
                     .copyWith(fontWeight: FontWeight.w300, fontSize: 16),
               ),
             ),
             GeneralSettingsTile(
               title: userState.account.name,
-              subtitle: localizations.translate('PRINCIPAL_ACCOUNT'),
+              subtitle: 'PRINCIPAL_ACCOUNT',
               circleAvatar: CircleAvatarRec.fromAccount(
                 userState.account,
                 radius: 27,
@@ -55,12 +54,8 @@ class _MainAccountPageState extends State<MainAccountPage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(
-                left: 22,
-              ),
-              child: SectionTitleTile(
-                localizations.translate('AVARIABLE'),
-              ),
+              padding: EdgeInsets.only(left: 22),
+              child: SectionTitleTile('AVAILABLE'),
             ),
             Container(
               child: accountList(),
