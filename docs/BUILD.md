@@ -31,3 +31,9 @@ open <path/to/build>
 # For AAB: Rename "app-prod-release.aab" to "RecBarcelona-vX.X.X.aab"
 ```
 
+### Build for iOS
+
+1. flutter build ipa --release
+2. open generated archive with xcode
+3. validate
+4. Export/Upload
