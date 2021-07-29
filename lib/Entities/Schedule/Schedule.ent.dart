@@ -22,9 +22,7 @@ class Schedule {
     ScheduleType type,
     List<ScheduleDay> days,
   })  : type = type ?? ScheduleType.NOT_AVAILABLE,
-        days = (days != null && days.isNotEmpty)
-            ? days
-            : List.generate(7, (index) => ScheduleDay());
+        days = (days != null && days.isNotEmpty) ? days : List.generate(7, (index) => ScheduleDay());
 
   bool get isNotAvailable => type == ScheduleType.NOT_AVAILABLE;
   bool get isClosed => type == ScheduleType.CLOSED;
@@ -133,6 +131,11 @@ class Schedule {
     return Schedule.fromJson(toJson());
   }
 
+  /// Runs a map function against each [ScheduleDay] in [days]
+  void updateEachDay(ScheduleDay Function(ScheduleDay) toElement) {
+    days = days.map(toElement).toList();
+  }
+
   factory Schedule.fromJsonString(String jsonString) {
     var parsedJson = _tryParseScheduleJsonString(jsonString);
     return Schedule.fromJson(parsedJson);
@@ -144,9 +147,7 @@ class Schedule {
     if (json['days'] != null) {
       var jsonWallets = List.from(json['days']);
       days = jsonWallets.isNotEmpty
-          ? jsonWallets
-              .map<ScheduleDay>((el) => ScheduleDay.fromJson(el))
-              .toList()
+          ? jsonWallets.map<ScheduleDay>((el) => ScheduleDay.fromJson(el)).toList()
           : <ScheduleDay>[];
     }
 

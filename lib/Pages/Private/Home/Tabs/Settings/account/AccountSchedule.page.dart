@@ -55,9 +55,7 @@ class _AccountSchedulePageState extends State<AccountSchedulePage> {
               title: localizations.translate('TYPE'),
               data: ScheduleType.values.map((e) => e.type).toList(),
               current: schedule.type.type,
-              onSelect: (type) {
-                setState(() => {schedule.type = ScheduleType.fromName(type)});
-              },
+              onSelect: _scheduleTypeSelected,
             ),
             const SizedBox(height: 16),
             Expanded(
@@ -78,6 +76,18 @@ class _AccountSchedulePageState extends State<AccountSchedulePage> {
     );
   }
 
+  void _scheduleTypeSelected(type) {
+    setState(() {
+      schedule.type = ScheduleType.fromName(type);
+
+      // Make all days closed when a type changes to some types
+      // So user can start editing schedule from 0
+      if (schedule.isDefined || schedule.isOpen24h || schedule.isClosed) {
+        schedule.updateEachDay((e) => e..opens = false);
+      }
+    });
+  }
+
   Widget _scheduleDayBuilder(ctx, index) {
     var day = schedule.days[index];
 
@@ -94,7 +104,7 @@ class _AccountSchedulePageState extends State<AccountSchedulePage> {
       },
       onCompleteDay: () {
         setState(() {
-          if (schedule.days[index - 1] != null) {
+          if (index > 0 && schedule.days[index - 1] != null) {
             schedule.days[index].copyFrom(schedule.days[index - 1]);
           } else {
             schedule.days[index].resetToDefaultTime();
