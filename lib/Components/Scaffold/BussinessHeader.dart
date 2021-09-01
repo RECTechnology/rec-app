@@ -7,7 +7,7 @@ import 'package:rec/brand.dart';
 
 class BussinessHeader extends StatefulWidget with PreferredSizeWidget {
   final Account account;
-  final int size = 120;
+  final double size = 120;
   final Widget avatarBadge;
   final Widget subtitle;
 
@@ -22,7 +22,7 @@ class BussinessHeader extends StatefulWidget with PreferredSizeWidget {
   _BussinessHeaderState createState() => _BussinessHeaderState();
 
   @override
-  Size get preferredSize => Size.fromHeight(120);
+  Size get preferredSize => Size.fromHeight(size);
 }
 
 class _BussinessHeaderState extends State<BussinessHeader> {
@@ -36,16 +36,16 @@ class _BussinessHeaderState extends State<BussinessHeader> {
         children: [
           Container(
             height: widget.preferredSize.height,
-            decoration: Checks.isNotEmpty(widget.account.publicImage)
-                ? BoxDecoration(
-                    image: DecorationImage(
+            decoration: BoxDecoration(
+              image: Checks.isNotEmpty(widget.account.publicImage)
+                  ? DecorationImage(
                       fit: BoxFit.cover,
                       image: NetworkImage(
                         widget.account.publicImage,
                       ),
-                    ),
-                  )
-                : null,
+                    )
+                  : null,
+            ),
           ),
           Container(
             height: widget.preferredSize.height,
@@ -53,12 +53,12 @@ class _BussinessHeaderState extends State<BussinessHeader> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Colors.white38, Colors.white],
+                colors: [Colors.white.withAlpha(0), Colors.white.withAlpha(255)],
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(30, 9, 0, 11),
+            padding: EdgeInsets.fromLTRB(24, 9, 24, 11),
             child: Row(
               children: [
                 Container(
@@ -99,8 +99,7 @@ class _BussinessHeaderState extends State<BussinessHeader> {
                         ),
                         widget.subtitle ??
                             Text(
-                              localizations
-                                  .translate(widget.account.addressString),
+                              localizations.translate(widget.account.addressString),
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Brand.grayDark,

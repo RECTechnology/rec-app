@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Api/Services/AccountsService.dart';
+import 'package:rec/Components/Layout/ScrollableListLayout.dart';
 import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
 import 'package:rec/Components/Scaffold/BussinessHeader.dart';
 import 'package:rec/Components/Inputs/PickImage.dart';
@@ -31,7 +32,6 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
   Widget build(BuildContext context) {
     var userState = UserState.of(context);
     var hasDescription = Checks.isNotEmpty(userState.account.description);
-
     var tiles = [
       SectionTitleTile('YOUR_BUSSINESS'),
       GeneralSettingsTile(
@@ -41,12 +41,8 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
       ),
       Divider(height: 1),
       GeneralSettingsTile(
-        title: hasDescription
-            ? userState.account.description
-            : 'BUSSINESS_DESCRIPTION',
-        subtitle: hasDescription
-            ? 'BUSSINESS_DESCRIPTION'
-            : 'BUSSINESS_DESCRIPTION_DESC',
+        title: hasDescription ? userState.account.description : 'BUSSINESS_DESCRIPTION',
+        subtitle: hasDescription ? 'BUSSINESS_DESCRIPTION' : 'BUSSINESS_DESCRIPTION_DESC',
         onTap: _editDescription,
       ),
       Container(height: 16),
@@ -77,56 +73,42 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
       ),
     ];
 
-    return Scaffold(
+    return ScrollableListLayout(
       backgroundColor: Brand.defaultAvatarBackground,
       appBar: EmptyAppBar(context, title: 'SETTINGS_BUSSINESS_ON_MAP'),
-      body: Column(
-        children: [
-          Container(
-            color: Colors.white,
-            child: BussinessHeader(
-              userState.account,
-              subtitle: PickImage(
-                onPick: _changePublicImage,
-                title: 'IMAGE_PUBLIC',
+      header: Container(
+        color: Colors.white,
+        child: BussinessHeader(
+          userState.account,
+          subtitle: PickImage(
+            onPick: _changePublicImage,
+            title: 'IMAGE_PUBLIC',
+            buttonLabel: 'UPDATE',
+            hint: 'IMAGE_PUBLIC_DESC',
+            padding: EdgeInsets.zero,
+            child: LocalizedText(
+              'CHANGE_IMAGE',
+              style: TextStyle(
+                color: Brand.accentColor,
+              ),
+            ),
+          ),
+          avatarBadge: Positioned(
+            bottom: -8,
+            right: -4,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: PickImage(
+                onPick: _changeCompanyImage,
+                title: 'IMAGE_DE_CUENTA',
                 buttonLabel: 'UPDATE',
-                hint: 'IMAGE_PUBLIC_DESC',
-                padding: EdgeInsets.zero,
-                child: LocalizedText(
-                  'CHANGE_IMAGE',
-                  style: TextStyle(
-                    color: Brand.accentColor,
-                  ),
-                ),
-              ),
-              avatarBadge: Positioned(
-                bottom: -8,
-                right: -4,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: PickImage(
-                    onPick: _changeCompanyImage,
-                    title: 'IMAGE_DE_CUENTA',
-                    buttonLabel: 'UPDATE',
-                    hint: 'IMAGE_DE_CUENTA_DESC',
-                  ),
-                ),
+                hint: 'IMAGE_DE_CUENTA_DESC',
               ),
             ),
           ),
-          Expanded(
-            child: Scrollbar(
-              thickness: 8,
-              showTrackOnHover: true,
-              radius: Radius.circular(3),
-              child: ListView.builder(
-                itemBuilder: (ctx, index) => tiles[index],
-                itemCount: tiles.length,
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
+      children: tiles,
     );
   }
 
@@ -143,7 +125,7 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
   }
 
   void _goToOffers() {
-    RecToast.showInfo(context, 'FEATURE_NOT_YET_AVAILABLE');
+    Navigator.pushNamed(context, Routes.settingsAccountOffers);
   }
 
   void _changeCompanyImage(String link) {
@@ -204,10 +186,7 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
     Loading.show();
 
     var userState = UserState.of(context, listen: false);
-    _accountsService
-        .updateAccount(userState.account.id, data)
-        .then(_updateOk)
-        .catchError(_onError);
+    _accountsService.updateAccount(userState.account.id, data).then(_updateOk).catchError(_onError);
   }
 
   Future<void> _updateOk(c) async {

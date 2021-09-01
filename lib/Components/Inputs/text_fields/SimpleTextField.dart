@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Inputs/RecTextField.dart';
+import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 
 class SimpleTextField extends StatefulWidget {
@@ -16,9 +16,9 @@ class SimpleTextField extends StatefulWidget {
     this.initialValue,
     this.onChange,
     this.validator,
-    this.color = Colors.black87,
     this.label,
-    this.readOnly,
+    this.color = Colors.black87,
+    this.readOnly = false,
   }) : super(key: key);
 
   @override

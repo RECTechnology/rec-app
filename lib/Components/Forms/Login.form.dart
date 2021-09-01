@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Inputs/DniTextField.dart';
-import 'package:rec/Components/Inputs/PasswordField.dart';
+import 'package:rec/Components/Inputs/text_fields/DniTextField.dart';
+import 'package:rec/Components/Inputs/text_fields/PasswordField.dart';
 import 'package:rec/Components/Info/LoggedInBeforeCard.dart';
 import 'package:rec/Entities/Forms/LoginData.dart';
 import 'package:rec/Helpers/Validators.dart';
@@ -65,7 +65,6 @@ class LoginFormState extends State<LoginForm> {
   }
 
   Widget _dniField() {
-
     var localizations = AppLocalizations.of(context);
     return DniTextField(
       initialValue: widget.initialDNI ?? loginData.username,

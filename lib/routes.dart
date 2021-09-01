@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/All.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Settings/account/offers/AccountOffers.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Settings/help.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/All.dart';
 
 import 'package:rec/Pages/Public/Register/RegisterStepOne.dart';
@@ -56,7 +58,10 @@ class Routes {
   static String settingsAccountLocation = 'settings-account-location';
   static String settingsAccountContact = 'settings-account-contact';
   static String settingsAccountSchedule = 'settings-account-schedule';
+  static String settingsAccountOffers = 'settings-account-offers';
   static String settingsAddNewAccount = 'settings-add-new-account';
+
+  static String settingsHelp = 'settings-help';
 
   static String getInitialRoute({bool hasToken = true}) {
     return hasToken ? Routes.home : Routes.login;
@@ -111,4 +116,8 @@ final Map<String, Widget Function(BuildContext)> ROUTES = {
   Routes.settingsAccountLocation: (context) => AccountLocationPage(),
   Routes.settingsAccountContact: (context) => AccountContactPage(),
   Routes.settingsAccountSchedule: (context) => AccountSchedulePage(),
+  Routes.settingsAccountOffers: (context) => AccountOffersPage(),
+
+  // Other settings
+  Routes.settingsHelp: (context) => HelpPage(),
 };

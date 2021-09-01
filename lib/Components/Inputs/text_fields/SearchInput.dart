@@ -41,8 +41,7 @@ class _SearchInput extends State<SearchInput> {
 
   String _searchInputText = '';
 
-  TextEditingController get controller =>
-      widget.searchController ?? _selfController;
+  TextEditingController get controller => widget.searchController ?? _selfController;
 
   @override
   void initState() {
@@ -99,7 +98,7 @@ class _SearchInput extends State<SearchInput> {
     controller.text = '';
     if (widget.fieldChanged != null) widget.fieldChanged('');
     if (widget.fieldSubmited != null) widget.fieldSubmited('');
-    Focus.of(context).requestFocus(FocusNode());
+    _focus.unfocus();
   }
 
   InputDecoration _getDecoration() {

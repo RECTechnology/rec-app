@@ -83,9 +83,7 @@ class Brand {
   }
 
   static LinearGradient getGradientForAccount(Account account) {
-    return account.type == Account.TYPE_PRIVATE
-        ? appBarGradientPrimary
-        : appBarGradientSecondary;
+    return account.type == Account.TYPE_PRIVATE ? appBarGradientPrimary : appBarGradientSecondary;
   }
 
   static Color getRandomPrimaryColorForSeed(int seed) {
@@ -184,7 +182,7 @@ class Brand {
       ..maskType = EasyLoadingMaskType.custom
       ..maskColor = Colors.white.withOpacity(0.8)
       ..textStyle = TextStyles.pageTitle
-      ..userInteractions = true
+      ..userInteractions = false
       ..dismissOnTap = false;
   }
 }

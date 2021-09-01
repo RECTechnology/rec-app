@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rec/Api/Interfaces/ApiListResponse.dart';
 import 'package:rec/Api/Services/AccountsService.dart';
-import 'package:rec/Components/Inputs/SearchInput.dart';
+import 'package:rec/Components/Inputs/text_fields/SearchInput.dart';
 import 'package:rec/Components/Inputs/RecFilters.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Map/MapSearchData.dart';
@@ -42,6 +42,13 @@ class _MapPageState extends State<MapPage> {
       label: 'TOUCH_HOOD',
       id: 'TOUCH_HOOD',
       defaultValue: true,
+      color: Colors.white,
+    ),
+    RecFilterData<bool>(
+      icon: Icons.label,
+      label: 'OFFERS',
+      id: 'OFFERS',
+      defaultValue: false,
       color: Colors.white,
     ),
   ];
@@ -128,10 +135,7 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _search() {
-    _accountService
-        .search(_searchData)
-        .then(_onSearchResults)
-        .catchError(_onError);
+    _accountService.search(_searchData).then(_onSearchResults).catchError(_onError);
   }
 
   void _onSearchResults(ApiListResponse<Account> value) {
@@ -146,10 +150,7 @@ class _MapPageState extends State<MapPage> {
   }
 
   Future<void> _getBussineData(String id) async {
-    await _accountService
-        .getOne(id)
-        .then((value) => _selectedBusiness = value)
-        .catchError(_onError);
+    await _accountService.getOne(id).then((value) => _selectedBusiness = value).catchError(_onError);
   }
 
   void _onError(err) {

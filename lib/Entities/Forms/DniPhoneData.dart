@@ -13,7 +13,7 @@ class DniPhoneData {
     this.prefix = defaultPrefix,
   });
 
-  bool complete() {
+  bool valid() {
     var hasDni = Checks.isNotEmpty(dni);
     var hasPrefix = Checks.isNotEmpty(prefix);
     var hasPhone = Checks.isNotEmpty(phone);

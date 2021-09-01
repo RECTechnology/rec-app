@@ -7,16 +7,12 @@
   "LOGIN": "Log in",
   "NOT_U": "Not you?",
 
-
-
   "PARTICULAR": "Particular",
   "ORGANIZATION": "Organization",
   "PROMOTE_TRADE": "Promote local commerce",
   "TELEFONO": "Telephone",
   "ACORD_WHIT_TEMS": "I agree to REC Terms of Use",
   "CREATE_USER": "Create your user!",
-
-
 
   "PRESS_NEXT_TO_ADD": "Click Next to add your organization",
   "TO_START_WRITE": "To start write your personal data",
@@ -26,30 +22,19 @@
   "CIF": "CIF",
   "WHEN_INIT_SESION": "When you log in, fill in the public information of your organization and you will appear on the REC map. Make yourself visible and increase your turnover!",
 
-
-
   "ITRODUCE_DNI_TELF": "Enter your identity document and the telephone number linked to your username to be able to change your password",
   "NEXT": "Next",
-
-
 
   "HELP_US_VALIDATE_PHONE": "Help us validate this action by entering the code sent to ",
   "SEND_SMS_U": "We have sent you an SMS",
   "VALIDATE": "Validate",
 
-
-
-
   "CHANGE_PASSWORD": "Change Password",
   "INTRODUCE_NEW_PASSWORD": "Enter your new password and repeat it to make sure there are no errors",
   "CHANGE": "Change",
 
-
-
   "SEARCH_HERE": "Search here",
   "OFFERS": "Offers",
-
-
 
   "RESUME": "Resume",
   "SCHEDULE": "Schedule",
@@ -74,8 +59,6 @@
   "OPENS_AT": " - Opens {{day}} {{at}}",
   "AT": "at",
 
-
-
   "PAY_BTN": "Pay",
   "SECURE_YOUR_ACCOUNT": "Secure your account",
   "PIN_CODE": "PIN CODE *",
@@ -84,17 +67,12 @@
   "RETURN_WRITE_PIN": "Retype your PIN code",
   "DNI_NIE": "DNI/NIE",
 
-
-
   "RECHARGE_DESC": "Enter the amount of euros you want to convert to REC currency. Remember, € 1 is equal to 1R.",
   "AMOUNT": "Amount",
   "NEXT_CREDIT_CARD": "You will introduce the card on the next screen",
   "RECHARGE": "Recharge",
   "RECHARGE_OK": "¡You have recharged {{amount}}!",
   "RECHARGE_OK_DESC": "Los RECs estarán en tu cuenta en menos de 10 minutos",
-
-
-
 
   "FILL_PAY_FORM": "Fill in the form and press the Confirm payment button. Remember, € 1 = 1R.",
   "CONCEPT": "Concepto",
@@ -104,15 +82,11 @@
   "CHARGE_QR": "Charge with QR",
   "CHARGE_TO": "Collection of {{name}}",
 
-
-
   "CONTACTS": "Contact calendar",
   "ACCOUNTS": "My accounts",
   "PAY_TO": "Paying to",
   "SEARCH_CONTACTS": "Search your contacts ...",
   "SEARCH_ACCOUNTS": "Search between your accounts ...",
-
-
 
   "QR_PERMISSION_TITLE": "To scan a QR code we need permission to use the camera",
   "QR_PERMISSION_SUBTITLE": "We will only use the camera to capture images at the time you decide",
@@ -126,13 +100,9 @@
   "ENTER_PIN_DESC": "Enter your secret REC code",
   "FORGOT_PIN": "Forgot your REC PIN?",
 
-
-
   "CONTACTS_PERMISSION_TITLE": "To send money to your friends we need your permission to list your contacts",
   "CONTACTS_PERMISSION_SUBTITLE": "No emmagatzemem la informació dels teus contactes en el nostre servidor",
   "ONLY_ONE_ACCOUNT": "Only one account was found in the REC, you cannot pay yourself",
-
-
 
   "MY_ACCOUNTS": "My accounts",
   "ADD_ANOTHER_ACCOUNT": "Add another account",
@@ -147,15 +117,11 @@
   "TX_ID": "Transaction's ID",
   "TO": "To",
 
-
-
   "CREATE_PIN": "Create your REC PIN",
   "CREATE_PIN_SHORT": "Create PIN",
   "CREATE_PIN_DESC": "To start operating you need to create your REC PIN. Create it now and write it down in a safe place, you will need it in future operations.",
   "RECHARGE_KO": "¡Oops ... something has gone wrong!",
   "RECHARGE_KO_DESC": "Sorry, the operation could not be completed. Please try again later, if the error persists contact our support team.",
-
-
 
   "SETTINGS_USER": "User",
   "SETTINGS_USER_PROFILE": "User profile",
@@ -166,10 +132,10 @@
   "SETTINGS_YOUR_ACCOUNT": "Your REC account",
   "SETTINGS_BUSSINESS_ON_MAP": "Your business on the Map",
   "SETTINGS_ACCOUNT_PERMISSIONS": "Permissions",
-  "SETTINGS_BUSSINESS_DOCUMENTATION":  "Trade documentation",
+  "SETTINGS_BUSSINESS_DOCUMENTATION": "Trade documentation",
   "SETTINGS_ACCOUNT_PAYMENT_METHODS": "Payment methods",
   "SETTINGS_HELP": "Help",
-  "SETTINGS_HELP_ABOUT": "About the REC",
+  "SETTINGS_HELP_ABOUT": "About the REC project",
   "SETTINGS_HELP_FAQ": "Frequently asked questions",
   "SETTINGS_HELP_SUPPORT": "User support",
   "SETTINGS_HELP_TOS": "Terms of use",
@@ -177,13 +143,9 @@
   "ACCOUNT_NAME": "Account name",
   "SETTINGS_LOGOUT": "Sign off",
 
-
-
   "EMAIL": "Email",
   "CHANGE_EMAIL": "Touch to change email",
   "UPDATE_APP": "Update",
-
-
 
   "SEND_REC_LIMIT": "Shipping limit: {{amount}}",
   "LIMITS_DESC": "For legal reasons we need to verify your identity. Send the images listed in \"Necessary documents\" and we can expand the limits of your account.",
@@ -202,12 +164,9 @@
   "TOUCH_TO_UP_IMAGE": "Tap to add an image",
   "SEND_LEGGIBLE_IMAGE": "Send readable image",
 
-
-
   "SETTINGS_CREATE_PIN": "Create PIN",
   "SETTINGS_CREATE_PIN_DESC": "Create your secret REC code",
   "CURRENT_PASSWORD": "Current password",
-
 
   "EMAIL_OPTIONAL": "Email(Optional)",
   "BAD_PHONE": "El Telèfon introduït no és valgut",
@@ -231,11 +190,9 @@
   "FROM": "From",
   "FROM_CREDIT_CARD": "Since",
 
-
   "MANAGE_ACCOUNT": "Manage your REC account",
 
   "LOAD_MORE": "Load more",
-
 
   "STATUS_SUCCESS": "Success",
   "NO_TRANSACTIONS": "No transactions",
@@ -256,7 +213,6 @@
   "TOUCH_HOOD": "It's up to the neighborhood",
   "FILTERS": "Filters",
 
-
   "VALIDATE_PHOME": "Validar número de teléfono",
   "INTRODUCE_DOCUMENT_AND_PHONE": "Enter your identity document and the telephone number linked to your user to proceed to validate your telephone number",
 
@@ -268,7 +224,6 @@
   "SEND_PAYMENT": "Send payment {{amount}}",
   "MAKING_PAYMENT": "Making payment",
 
-
   "LOCATION_PERMISSION_TITLE": "In order to show businesses on the map, we need location permissions.",
   "LOCATION_PERMISSION_SUBTITLE": "We only use the location while the app is open",
 
@@ -278,20 +233,15 @@
   "LOCATION_PERMISSION_PERMANENTLY_DENIED": "Permission permanently denied, to grant permission click on 'Go to settings'. And approve the Location permission.",
   "GO_TO_SETTINGS": "Go to settings",
 
-
   "PAY_TO_NAME": "Pay to {{name}}",
   "NO_CONTACTS": "No contact available to send RECs",
   "NO_CONTACTS_DESC": "If any of your contacts do not appear here, ask them to activate their visibility from their account settings so that they can receive RECs from other users",
   "SEARCH": "Search",
 
-
-
   "NO_ACCOUNTS_FOUND": "No accounts were found for that search",
   "FROM_NAME": "From {{name}}",
   "CONFIRM_PAYMENT": "Confirm payment",
   "FILL_CHARGE_FORM": "Fill in the form and press the button to generate a QR code. This will be scanned by another user to make the payment. Remember, € 1 = 1R.",
-
-
 
   "YOUR_BUSSINESS": "Your bussiness",
   "BUSSINESS_INFO": "Information",
@@ -307,6 +257,7 @@
   "BUSSINESS_SCHEDULE": "Schedule",
   "BUSSINESS_SCHEDULE_DESC": "Improve your presence and add a schedule",
   "BUSSINESS_OFFERS": "Offers",
+  "YOUR_OFFERS": "Your Offers",
   "BUSSINESS_OFFERS_DESC": "Create new offers and they will appear on the Map",
   "WEBSITE": "Web page",
   "WEBSITE_DESC": "Add it if you have a web",
@@ -329,8 +280,6 @@
   "ENTER_PIN": "Enter your REC PIN",
   "PIN": "PIN",
 
-
-
   "ALRIGHT": "Alright",
   "PAYMENT_OK": "Payment successful!",
   "CREATE_AND": "Create and",
@@ -338,8 +287,6 @@
   "SETTINGS_CHANGE_PIN": "Change PIN",
   "SETTINGS_CHANGE_PIN_DESC": "It will modify your secret REC code",
   "UPDATE": "Update",
-
-
 
   "NEW_PASSWORD": "New password",
   "PIN_REQUIRED": "PIN is required to operate",
@@ -371,9 +318,6 @@
   "NO_LIMIT": "Unlimited",
   "NO_MORE_ACCOUNTS": "You do not have access to more accounts, you can create one by clicking 'Add another account'",
 
-
-
-
   "LTAB_INITIAL_BANNER_TITLE": "PARTICIPATE IN THE LI TOCA AL BARRI CAMPAIGN",
   "DONT_SHOW_AGAIN": "Do not show again",
   "PARTICIPATE": "Take part",
@@ -389,7 +333,6 @@
   "PURCHASE_DONE": "Purchase made",
   "REWARD_OBTAINED": "Bonus earned!",
   "YOU_HAVE_RECS_REDEMABLE": "You have {{amount}}R bonus",
-
 
   "REWARD_OBTAINED_DESC": "{{amount}} R are on their way to your account LI TOCA AL BARRI",
   "CREATE_ACCOUNT": "Creat your account!",
@@ -437,23 +380,16 @@
   "AVAILABLE": "Available",
   "LANGUAGE": "Language",
 
-
-
   "WRITE_TELF": "Write the phone",
   "BACK": "Back",
   "REPASSWORD": "Repeat password",
   "Invalid username and password combination": "Incorrect username and password combination",
   "Incorrect pin": "Incorrect PIN",
 
-
-
-
   "PHONE": "Phone",
   "SETTINGS_MY_ACCOUNT": "Your account",
   "DESCRIPTION": "Description",
   "EMAIL_ONLY": "Email",
-
-
 
   "IMAGE_DE_CUENTA": "Account Image",
   "IMAGE_DE_CUENTA_DESC": "Add an image for account",
@@ -465,7 +401,6 @@
   "LTAB_REWARD": "Bonus purchase in campaign Li Toca Al Barri",
   "LTAB": "LTAB",
   "OPEN_ALL_DAY": "Open all day",
-
 
   "SETTINGS_NOT_AVAILABLE": "Settings not available for this account",
   "CHANGE_PIN": "Change PIN",
@@ -508,6 +443,7 @@
   "MAX_ATTEMPTS_EXCEEDED": "User blocked for security reasons",
   "WRONG_SMS": "The SMS code is wrong",
   "COPY": "Copy",
-  "PASTE": "Paste"
+  "PASTE": "Paste",
 
+  "SETTINGS_HOW_CAN_WE_HELP": "How can we help you?"
 }

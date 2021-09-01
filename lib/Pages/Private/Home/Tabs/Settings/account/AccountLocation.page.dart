@@ -3,7 +3,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:rec/Api/Services/AccountsService.dart';
 import 'package:rec/Components/Inputs/DropDown.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
-import 'package:rec/Components/Inputs/RecTextField.dart';
+import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
@@ -154,8 +154,7 @@ class _AccountLocationPageState extends State<AccountLocationPage> {
     var account = UserState.of(context, listen: false).account;
     _address.streetType = _address.streetType ?? account.address.streetType;
     _address.streetName = _address.streetName ?? account.address.streetName;
-    _address.streetNumber =
-        _address.streetNumber ?? account.address.streetNumber;
+    _address.streetNumber = _address.streetNumber ?? account.address.streetNumber;
     _address.zip = _address.zip ?? account.address.zip;
 
     await RecGeocoding.reverseGeocodeAddress(_address)
@@ -174,10 +173,7 @@ class _AccountLocationPageState extends State<AccountLocationPage> {
       ...address.toJson(),
     };
 
-    _accountsService
-        .updateAccount(userState.account.id, data)
-        .then(_updatedLocation)
-        .catchError(_onError);
+    _accountsService.updateAccount(userState.account.id, data).then(_updatedLocation).catchError(_onError);
   }
 
   void _updatedLocation(res) {

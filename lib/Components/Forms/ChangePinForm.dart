@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Inputs/PasswordField.dart';
-import 'package:rec/Components/Inputs/RecPinInput.dart';
+import 'package:rec/Components/Inputs/text_fields/PasswordField.dart';
+import 'package:rec/Components/Inputs/text_fields/RecPinInput.dart';
 import 'package:rec/Helpers/Validators.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';

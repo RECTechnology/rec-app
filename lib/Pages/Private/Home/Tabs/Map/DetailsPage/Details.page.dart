@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Scaffold/BussinessHeader.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/ScheduleListTab.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/Offers.tab.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/Schedule.tab.dart';
 import 'package:rec/Entities/Account.ent.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/ResumeTab.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/Resume.tab.dart';
 
 class DetailsPage extends StatefulWidget {
   final Account account;
@@ -14,14 +15,13 @@ class DetailsPage extends StatefulWidget {
   _DetailsPageState createState() => _DetailsPageState();
 }
 
-class _DetailsPageState extends State<DetailsPage>
-    with SingleTickerProviderStateMixin {
+class _DetailsPageState extends State<DetailsPage> with SingleTickerProviderStateMixin {
   TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -35,8 +35,10 @@ class _DetailsPageState extends State<DetailsPage>
             controller: _tabController,
             isScrollable: true,
             tabs: [
-              Tab(
-                child: LocalizedText('RESUME'),
+              Tab(child: LocalizedText('RESUME')),
+              IgnorePointer(
+                ignoring: widget.account.offers == null || widget.account.offers.isEmpty,
+                child: Tab(child: LocalizedText('OFFERS')),
               ),
               IgnorePointer(
                 ignoring: widget.account.schedule.isNotAvailable,
@@ -49,12 +51,13 @@ class _DetailsPageState extends State<DetailsPage>
               controller: _tabController,
               children: [
                 ResumeTab(widget.account),
+                OffersTab(account: widget.account),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 16.0,
                     horizontal: 24,
                   ),
-                  child: ScheduleListTab(schedule: widget.account.schedule),
+                  child: ScheduleTab(schedule: widget.account.schedule),
                 )
               ],
             ),

@@ -12,7 +12,7 @@ class UsersService extends ServiceBase {
     final uri = ApiPaths.currentUserAccount.toUri();
     return get(uri).then(_mapToUser).then((value) {
       Sentry.configureScope((ctx) {
-        ctx.user.copyWith(
+        ctx.user = SentryUser(
           username: value.username,
           id: value.id,
           email: value.email,

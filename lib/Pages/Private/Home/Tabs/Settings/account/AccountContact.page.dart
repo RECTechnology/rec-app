@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Services/AccountsService.dart';
-import 'package:rec/Components/Inputs/PrefixPhoneField.dart';
+import 'package:rec/Components/Inputs/text_fields/PrefixPhoneField.dart';
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Entities/Forms/DniPhoneData.dart';
@@ -119,8 +119,7 @@ class _AccountContactPageState extends State<AccountContactPage> {
           ],
           onSave: (value) {
             var dataUnchanged = (data.phone == null && data.prefix == null) ||
-                data.phone == userState.account.phone &&
-                    data.prefix == userState.account.prefix;
+                data.phone == userState.account.phone && data.prefix == userState.account.prefix;
 
             if (dataUnchanged) {
               return Navigator.pop(context);
@@ -162,10 +161,7 @@ class _AccountContactPageState extends State<AccountContactPage> {
     Map<String, dynamic> data,
   ) {
     Loading.show();
-    _accountsService
-        .updateAccount(accountId, data)
-        .then(_updateOk)
-        .catchError(_onError);
+    _accountsService.updateAccount(accountId, data).then(_updateOk).catchError(_onError);
   }
 
   Future<void> _updateOk(c) async {

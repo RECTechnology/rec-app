@@ -4,19 +4,19 @@ import 'package:rec/Helpers/DateHelper.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 
-class ScheduleListTab extends StatefulWidget {
+class ScheduleTab extends StatefulWidget {
   final Schedule schedule;
 
-  ScheduleListTab({
+  ScheduleTab({
     Key key,
     @required this.schedule,
   }) : super(key: key);
 
   @override
-  _ScheduleListTabState createState() => _ScheduleListTabState();
+  _ScheduleTabState createState() => _ScheduleTabState();
 }
 
-class _ScheduleListTabState extends State<ScheduleListTab> {
+class _ScheduleTabState extends State<ScheduleTab> {
   @override
   Widget build(BuildContext context) {
     var daysList = List.generate(7, (index) => index + 1);
@@ -56,9 +56,8 @@ class _ScheduleListTabState extends State<ScheduleListTab> {
             child: ListView(
               physics: NeverScrollableScrollPhysics(),
               children: daysList.map((weekday) {
-                var scheduleDay = widget.schedule.days.isNotEmpty
-                    ? widget.schedule.getScheduleForDay(weekday - 1)
-                    : null;
+                var scheduleDay =
+                    widget.schedule.days.isNotEmpty ? widget.schedule.getScheduleForDay(weekday - 1) : null;
 
                 var dayScheduleLabel;
 
@@ -74,33 +73,23 @@ class _ScheduleListTabState extends State<ScheduleListTab> {
                   dayScheduleLabel = localizations.translate('N/A');
                 }
 
-                var daySchedule = scheduleDay == null ||
-                        !scheduleDay.isDefined() ||
-                        !scheduleDay.opens
+                var daySchedule = scheduleDay == null || !scheduleDay.isDefined() || !scheduleDay.opens
                     ? <Widget>[
                         Text(
                           dayScheduleLabel ?? localizations.translate('CLOSED'),
                           style: weekday % 2 == 0
-                              ? Theme.of(context)
-                                  .textTheme
-                                  .subtitle1
-                                  .copyWith(fontWeight: FontWeight.w500)
+                              ? Theme.of(context).textTheme.subtitle1.copyWith(fontWeight: FontWeight.w500)
                               : Theme.of(context).textTheme.subtitle1,
                         )
                       ]
                     : <Widget>[
                         Text(
-                          dayScheduleLabel ??
-                              '${scheduleDay.firstOpen} - ${scheduleDay.firstClose}',
+                          dayScheduleLabel ?? '${scheduleDay.firstOpen} - ${scheduleDay.firstClose}',
                           style: weekday % 2 == 0
-                              ? Theme.of(context)
-                                  .textTheme
-                                  .subtitle1
-                                  .copyWith(fontWeight: FontWeight.w500)
+                              ? Theme.of(context).textTheme.subtitle1.copyWith(fontWeight: FontWeight.w500)
                               : Theme.of(context).textTheme.subtitle1,
                         ),
-                        ...(scheduleDay.isSecondDefined() &&
-                                dayScheduleLabel == null
+                        ...(scheduleDay.isSecondDefined() && dayScheduleLabel == null
                             ? [
                                 SizedBox(
                                   height: 4,
@@ -108,10 +97,7 @@ class _ScheduleListTabState extends State<ScheduleListTab> {
                                 Text(
                                   '${scheduleDay.secondOpen} - ${scheduleDay.secondClose}',
                                   style: weekday % 2 == 0
-                                      ? Theme.of(context)
-                                          .textTheme
-                                          .subtitle1
-                                          .copyWith(fontWeight: FontWeight.w500)
+                                      ? Theme.of(context).textTheme.subtitle1.copyWith(fontWeight: FontWeight.w500)
                                       : Theme.of(context).textTheme.subtitle1,
                                 ),
                               ]
@@ -124,10 +110,7 @@ class _ScheduleListTabState extends State<ScheduleListTab> {
                       DateHelper.getWeekdayName(weekday),
                     ),
                     style: weekday % 2 == 0
-                        ? Theme.of(context)
-                            .textTheme
-                            .subtitle1
-                            .copyWith(fontWeight: FontWeight.w500)
+                        ? Theme.of(context).textTheme.subtitle1.copyWith(fontWeight: FontWeight.w500)
                         : Theme.of(context).textTheme.subtitle1,
                   ),
                   trailing: Column(

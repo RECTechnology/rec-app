@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Inputs/DniTextField.dart';
-import 'package:rec/Components/Inputs/PasswordField.dart';
-import 'package:rec/Components/Inputs/PrefixPhoneField.dart';
+import 'package:rec/Components/Inputs/text_fields/DniTextField.dart';
+import 'package:rec/Components/Inputs/text_fields/PasswordField.dart';
+import 'package:rec/Components/Inputs/text_fields/PrefixPhoneField.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
 import 'package:rec/Helpers/Validators.dart';

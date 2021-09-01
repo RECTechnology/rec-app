@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Api/Auth.dart';
-import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Components/Layout/ScrollableListLayout.dart';
 import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
 import 'package:rec/Components/ListTiles/SettingsListTile.dart';
@@ -9,13 +8,11 @@ import 'package:rec/Entities/Level.ent.dart';
 import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecNavigation.dart';
-import 'package:rec/Pages/LtabCampaign/LtabInitialBanner.page.dart';
-import 'package:rec/Pages/Private/Shared/InAppBrowser.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/AppState.dart';
-import 'package:rec/Providers/CampaignProvider.dart';
 import 'package:rec/Providers/DocumentsProvider.dart';
 import 'package:rec/Providers/UserState.dart';
+import 'package:rec/brand.dart';
 import 'package:rec/routes.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -46,14 +43,13 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    var hasNotLoadedDocuments = documentsProvider == null ||
-        documentsProvider.isLoading && documentsProvider.allDocuments.isEmpty;
+    var hasNotLoadedDocuments =
+        documentsProvider == null || documentsProvider.isLoading && documentsProvider.allDocuments.isEmpty;
 
     if (hasNotLoadedDocuments) {
       return Center(child: CircularProgressIndicator());
     }
 
-    var activeCampaign = CampaignProvider.deaf(context).activeCampaign;
     var userState = UserState.of(context);
     var isCompany = userState.account.isCompany();
     var hasPin = userState.user.hasPin;
@@ -102,15 +98,11 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           SectionTitleTile('SETTINGS_ACCOUNT'),
           SettingsListTile(
-            title: isCompany
-                ? 'SETTINGS_BUSSINESS_ON_MAP'
-                : 'SETTINGS_YOUR_ACCOUNT',
+            title: isCompany ? 'SETTINGS_BUSSINESS_ON_MAP' : 'SETTINGS_YOUR_ACCOUNT',
             icon: isCompany ? Icons.storefront : Icons.account_circle,
             onTap: RecNavigation.getNavigateToRouteCallback(
               context,
-              isCompany
-                  ? Routes.settingsBussinessAccount
-                  : Routes.settingsYourAccount,
+              isCompany ? Routes.settingsBussinessAccount : Routes.settingsYourAccount,
             ),
           ),
           SettingsListTile(
@@ -121,45 +113,24 @@ class _SettingsPageState extends State<SettingsPage> {
               Routes.settingsAccountPermissions,
             ),
           ),
-          SectionTitleTile('SETTINGS_HELP'),
+          SectionTitleTile('SETTINGS_OTHER'),
           SettingsListTile(
-            title: 'SETTINGS_HELP_ABOUT',
-            icon: Icons.group,
-            onTap: () => _openHelpLink('link_about'),
-          ),
-          SettingsListTile(
-            title: 'SETTINGS_HELP_FAQ',
+            title: 'SETTINGS_HOW_CAN_WE_HELP',
             icon: Icons.support,
-            onTap: () => _openHelpLink('link_faqs'),
-          ),
-          SettingsListTile(
-            title: 'SETTINGS_HELP_SUPPORT',
-            icon: Icons.headset_mic,
-            onTap: () => _openHelpLink('link_contact'),
-          ),
-          SettingsListTile(
-            title: 'SETTINGS_HELP_TOS',
-            icon: Icons.description,
-            onTap: () => _openHelpLink('link_tos'),
-          ),
-          if (LtabInitialBanner.isActive(context))
-            SettingsListTile(
-              title: 'LI TOCA AL BARRI',
-              leading: Container(
-                height: 24,
-                width: 24,
-                child: CircleAvatarRec(
-                  imageUrl: activeCampaign.imageUrl,
-                ),
-              ),
-              onTap: () => _openHelpLink('link_ltab'),
+            onTap: RecNavigation.getNavigateToRouteCallback(
+              context,
+              Routes.settingsHelp,
             ),
-          _version(),
+          ),
           SettingsListTile(
             title: 'SETTINGS_LOGOUT',
             icon: Icons.logout,
             onTap: _logout,
           ),
+          const SizedBox(
+            height: 16,
+          ),
+          _version(),
           const SizedBox(
             height: 16,
           )
@@ -186,17 +157,10 @@ class _SettingsPageState extends State<SettingsPage> {
       title: Text(
         localizations.translate('VERSION') + ' ' + appState.version,
         textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Brand.primaryColor,
+        ),
       ),
-    );
-  }
-
-  void _openHelpLink(String label) {
-    var localizations = AppLocalizations.of(context);
-
-    InAppBrowser.openLink(
-      context,
-      localizations.translate(label),
-      title: localizations.translate('title.$label'),
     );
   }
 

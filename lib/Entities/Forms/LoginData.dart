@@ -14,8 +14,8 @@ class LoginData extends FormData {
   @override
   Map<String, dynamic> toJson() {
     return {
-      'username': username,
-      'password': password,
+      'username': username.trim(),
+      'password': password.trim(),
       'version': version,
     };
   }

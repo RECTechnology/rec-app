@@ -1,6 +1,6 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Inputs/RecTextField.dart';
+import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 
@@ -56,8 +56,7 @@ class PrefixPhoneFieldState extends State<PrefixPhoneField> {
                 alignment: Alignment.topCenter,
                 child: CountryCodePicker(
                   onChanged: setPrefix,
-                  initialSelection:
-                      widget.prefix != null ? '${widget.prefix}' : '+34',
+                  initialSelection: widget.prefix != null ? '${widget.prefix}' : '+34',
                   favorite: ['+34', 'ES'],
                   textStyle: TextStyle(fontSize: 16, color: Brand.grayDark),
                 ),

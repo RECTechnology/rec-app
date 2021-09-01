@@ -3,7 +3,7 @@ import 'package:rec/Api/Services/public/PhoneVerificationService.dart';
 import 'package:rec/Api/Services/public/PublicSMSService.dart';
 
 import 'package:rec/Components/Inputs/RecActionButton.dart';
-import 'package:rec/Components/Inputs/RecPinInput.dart';
+import 'package:rec/Components/Inputs/text_fields/RecPinInput.dart';
 import 'package:rec/Components/Layout/FormPageLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
@@ -80,10 +80,7 @@ class _SmsCodeState extends State<SmsCode> {
       ),
       Text(
         widget.phone,
-        style: Theme.of(context)
-            .textTheme
-            .headline4
-            .copyWith(color: Brand.primaryColor),
+        style: Theme.of(context).textTheme.headline4.copyWith(color: Brand.primaryColor),
         textAlign: TextAlign.center,
       ),
     ]);

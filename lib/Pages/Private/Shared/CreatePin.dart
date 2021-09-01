@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Api/Services/SecurityService.dart';
 import 'package:rec/Api/Services/UserSmsService.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
-import 'package:rec/Components/Inputs/RecPinInput.dart';
+import 'package:rec/Components/Inputs/text_fields/RecPinInput.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Public/SmsCode/SmsCode.dart';
@@ -45,8 +45,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget> {
   Widget _body() {
     var localizations = AppLocalizations.of(context);
     var btnLabel = widget.buttonContent ?? localizations.translate('NEXT');
-    var label =
-        widget.label ?? localizations.translate('CREATE_AND') + ' ' + btnLabel;
+    var label = widget.label ?? localizations.translate('CREATE_AND') + ' ' + btnLabel;
 
     return Padding(
       padding: Paddings.page,
@@ -84,9 +83,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget> {
                 ),
                 RecActionButton(
                   label: label,
-                  icon: widget.buttonWithArrow
-                      ? Icons.arrow_forward_ios_outlined
-                      : null,
+                  icon: widget.buttonWithArrow ? Icons.arrow_forward_ios_outlined : null,
                   backgroundColor: Brand.primaryColor,
                   onPressed: pin.length == 4 ? _next : null,
                 ),
@@ -107,9 +104,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget> {
 
     // Send sms code
     await Loading.show();
-    await _sendSmsCode()
-        .then((value) => _goToEnterSmsCode())
-        .catchError(_onError);
+    await _sendSmsCode().then((value) => _goToEnterSmsCode()).catchError(_onError);
   }
 
   Future<void> _goToEnterSmsCode() async {

@@ -46,9 +46,7 @@ class _UploadDocumentState extends State<UploadDocument> {
         backgroundColor: Colors.white,
         appBar: EmptyAppBar(
           context,
-          title: widget.document != null
-              ? widget.document.kind.name
-              : widget.title,
+          title: widget.document != null ? widget.document.kind.name : widget.title,
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -112,14 +110,9 @@ class _UploadDocumentState extends State<UploadDocument> {
                   ),
                 ),
                 RecActionButton(
-                  label: widget.buttonLabel ??
-                      localizations.translate('SEND_LEGGIBLE_IMAGE'),
-                  backgroundColor: Checks.isNotEmpty(imageFilePath)
-                      ? Brand.primaryColor
-                      : null,
-                  onPressed: Checks.isNotEmpty(imageFilePath)
-                      ? () => _uploadImage()
-                      : null,
+                  label: widget.buttonLabel ?? localizations.translate('SEND_LEGGIBLE_IMAGE'),
+                  backgroundColor: Checks.isNotEmpty(imageFilePath) ? Brand.primaryColor : null,
+                  onPressed: Checks.isNotEmpty(imageFilePath) ? () => _uploadImage() : null,
                 )
               ],
             ),
@@ -130,7 +123,11 @@ class _UploadDocumentState extends State<UploadDocument> {
   }
 
   void _openGallery() async {
-    var picture = await picker.getImage(source: ImageSource.gallery);
+    var picture = await picker.getImage(
+      source: ImageSource.gallery,
+      imageQuality: 20,
+      maxHeight: 1000,
+    );
     setState(() {
       imageFilePath = picture.path;
     });
@@ -144,7 +141,7 @@ class _UploadDocumentState extends State<UploadDocument> {
     _imageUploader.uploadImage(imageFilePath).then((value) {
       Loading.dismiss();
       Navigator.pop(context, value['data']['src']);
-    }).onError((error, stackTrace) {
+    }).catchError((error, stackTrace) {
       Loading.dismiss();
       RecToast.showError(context, 'ERROR_UPLOADING_FILE');
     });
