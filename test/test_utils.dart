@@ -92,6 +92,17 @@ class TestUtils {
     );
   }
 
+  static String richTextToPlainText(final Widget widget) {
+    if (widget is RichText) {
+      if (widget.text is TextSpan) {
+        final buffer = StringBuffer();
+        (widget.text as TextSpan).computeToPlainText(buffer);
+        return buffer.toString();
+      }
+    }
+    return null;
+  }
+
   /// Expects a widget to exists, from a widget instance
   /// `widgetExistsByWidget(widget)`
   static void widgetExists(Widget page) {
@@ -108,5 +119,14 @@ class TestUtils {
   /// `widgetExistsByType('text')`
   static void isTextPresent(String text) {
     expect(find.text(text), findsOneWidget);
+  }
+
+  static void isRichTextPresent(String text) {
+    expect(
+      find.byWidgetPredicate(
+        (widget) => richTextToPlainText(widget) == text,
+      ),
+      findsOneWidget,
+    );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rec/Pages/Public/ForgotPassword/ForgotPassword.dart';
+import 'package:rec/Pages/Public/ForgotPassword.dart';
 
 import '../../test_utils.dart';
 

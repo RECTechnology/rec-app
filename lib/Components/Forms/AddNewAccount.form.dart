@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Inputs/CifTextField.dart';
-import 'package:rec/Components/Inputs/RecTextField.dart';
+import 'package:rec/Components/Inputs/text_fields/CifTextField.dart';
+import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
 import 'package:rec/Entities/Forms/NewAccountData.dart';
 import 'package:rec/Helpers/Validators.dart';
 import 'package:rec/Providers/AppLocalizations.dart';

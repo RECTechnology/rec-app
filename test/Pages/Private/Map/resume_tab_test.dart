@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Schedule/Schedule.ent.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/ResumeTab.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/Resume.tab.dart';
 
 import '../../../mocks/schedule_mock.dart';
 import '../../../test_utils.dart';

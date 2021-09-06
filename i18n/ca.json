@@ -7,16 +7,12 @@
   "LOGIN": "Iniciar sessió",
   "NOT_U": "No ets tu?",
 
-
-
   "PARTICULAR": "Particular",
   "ORGANIZATION": "Organització",
   "PROMOTE_TRADE": "Promou el comerç local",
   "TELEFONO": "Telèfon",
   "ACORD_WHIT_TEMS": "Estic d'acord amb REC Termes d'Ús",
   "CREATE_USER": "Crea el teu usuari!",
-
-
 
   "PRESS_NEXT_TO_ADD": "Prem Següent per a afegir la teva organització",
   "TO_START_WRITE": "Per a començar, escriu les teves dades personals",
@@ -26,30 +22,19 @@
   "CIF": "CIF",
   "WHEN_INIT_SESION": "Quan iniciïs sessió, completa la informació pública de la teva organització i apareixeràs en el mapa del REC. Fes-te visible i augmenta la teva facturació!",
 
-
-
   "ITRODUCE_DNI_TELF": "Introdueix el teu document d'identitat i el telèfon vinculat al teu usuari per a poder canviar la teva contrasenya",
   "NEXT": "Següent",
-
-
 
   "HELP_US_VALIDATE_PHONE": "Ajuda'ns a validar aquesta acció introduint el codi enviat ",
   "SEND_SMS_U": "T'hem enviat un SMS",
   "VALIDATE": "Validar",
 
-
-
-
   "CHANGE_PASSWORD": "Canviar contrasenya",
   "INTRODUCE_NEW_PASSWORD": "Introdueix la teva nova contrasenya i repeteix-la per a assegurar-nos que no hi hagi cap error",
   "CHANGE": "Canviar",
 
-
-
   "SEARCH_HERE": "Buscar aquí",
   "OFFERS": "Ofertes",
-
-
 
   "RESUME": "Resum",
   "SCHEDULE": "Horari",
@@ -74,8 +59,6 @@
   "OPENS_AT": " - Obre {{day}} {{at}}",
   "AT": "a les",
 
-
-
   "PAY_BTN": "Pagar",
   "SECURE_YOUR_ACCOUNT": "Assegura el teu compte",
   "PIN_CODE": "CODI PIN *",
@@ -84,17 +67,12 @@
   "RETURN_WRITE_PIN": "Torna a escriure el teu codi PIN",
   "DNI_NIE": "DNI/NIE",
 
-
-
   "RECHARGE_DESC": "Introdueix la quantitat d'euros que vols convertir a moneda REC. Recorda, 1€ és igual a 1R",
   "AMOUNT": "Quantitat",
   "NEXT_CREDIT_CARD": "Introduiràs la targeta en la següent pantalla",
   "RECHARGE": "Recarregar",
   "RECHARGE_OK": "Has recarregat {{amount}}!",
   "RECHARGE_OK_DESC": "Los RECs estarán en tu cuenta en menos de 10 minutos",
-
-
-
 
   "FILL_PAY_FORM": "Emplena el formulari i prem el botó Confirmar pagament. Recorda, 1€ = 1r",
   "CONCEPT": "Concepte",
@@ -104,15 +82,11 @@
   "CHARGE_QR": "Cobrar amb QR",
   "CHARGE_TO": "Cobrament de {{name}}",
 
-
-
   "CONTACTS": "Contacte agenda",
   "ACCOUNTS": "Els meus comptes",
   "PAY_TO": "Pagament a",
   "SEARCH_CONTACTS": "Buscar en els teus contactes...",
   "SEARCH_ACCOUNTS": "Buscar en els teus comptes...",
-
-
 
   "QR_PERMISSION_TITLE": "Per a escanejar un codi QR necessitem permís per a utilitzar la cambra",
   "QR_PERMISSION_SUBTITLE": "Per a escanejar un codi QR necessitem permís per a utilitzar la cambra",
@@ -126,13 +100,9 @@
   "ENTER_PIN_DESC": "Tecleja el teu codi secret del REC",
   "FORGOT_PIN": "Has oblidat el teu pin del REC?",
 
-
-
   "CONTACTS_PERMISSION_TITLE": "Per a enviar diners als teus amics necessitem el teu permís per a llistar els teus contactes",
   "CONTACTS_PERMISSION_SUBTITLE": "No emmagatzemem la informació dels teus contactes en el nostre servidor",
   "ONLY_ONE_ACCOUNT": "Solament s'ha trobat un compte en el REC, no pots pagar-te a tu mateix",
-
-
 
   "MY_ACCOUNTS": "Els meus comptes",
   "ADD_ANOTHER_ACCOUNT": "Afegir un altre compte",
@@ -147,15 +117,11 @@
   "TX_ID": "ID de transacció",
   "TO": "A",
 
-
-
   "CREATE_PIN": "Crea el teu pin del REC",
   "CREATE_PIN_SHORT": "Crear PIN",
   "CREATE_PIN_DESC": "Per a començar a operar necessites crear el teu pin del REC. Crea-ho ara i anota-ho en un lloc segur, el necessitaràs en futures operacions.",
   "RECHARGE_KO": "Oops... Alguna cosa ha anat malament!",
   "RECHARGE_KO_DESC": "Ho sentim, l'operació no ha pogut realitzar-se. Intenta-ho més tard, si l'error persisteix contacti amb el nostre equip de suport.",
-
-
 
   "SETTINGS_USER": "Usuari",
   "SETTINGS_USER_PROFILE": "Perfil d'usuari",
@@ -166,10 +132,10 @@
   "SETTINGS_YOUR_ACCOUNT": "El teu compte del REC",
   "SETTINGS_BUSSINESS_ON_MAP": "El teu negoci en el Mapa",
   "SETTINGS_ACCOUNT_PERMISSIONS": "Permisos",
-  "SETTINGS_BUSSINESS_DOCUMENTATION":  "Documentació comercio",
+  "SETTINGS_BUSSINESS_DOCUMENTATION": "Documentació comercio",
   "SETTINGS_ACCOUNT_PAYMENT_METHODS": "Mètodes de pagament",
   "SETTINGS_HELP": "Ajuda",
-  "SETTINGS_HELP_ABOUT": "Sobre el REC",
+  "SETTINGS_HELP_ABOUT": "Sobre el projecte REC",
   "SETTINGS_HELP_FAQ": "Preguntes freqüents",
   "SETTINGS_HELP_SUPPORT": "Atenció a l'usuari",
   "SETTINGS_HELP_TOS": "Condicions d'ús",
@@ -177,13 +143,9 @@
   "ACCOUNT_NAME": "Nom del compte",
   "SETTINGS_LOGOUT": "Tancar sessió",
 
-
-
   "EMAIL": "Email",
   "CHANGE_EMAIL": "Toca per a canviar l'email",
   "UPDATE_APP": "Actualitzar",
-
-
 
   "SEND_REC_LIMIT": "Limiti d'enviament: {{amount}}",
   "LIMITS_DESC": "Per motius legals necessitem verificar la teva identitat. Envia les imatges llistades en \"Documents necessaris\" i podrem ampliar els límits del teu compte.",
@@ -202,12 +164,9 @@
   "TOUCH_TO_UP_IMAGE": "Toca per a afegir una imatge",
   "SEND_LEGGIBLE_IMAGE": "Enviar imatge llegible",
 
-
-
   "SETTINGS_CREATE_PIN": "Crear PIN",
   "SETTINGS_CREATE_PIN_DESC": "Crearà el teu codi secret del REC",
   "CURRENT_PASSWORD": "Contrasenya actual",
-
 
   "EMAIL_OPTIONAL": "Email(Opcional)",
   "BAD_PHONE": "The entered phone is not valid",
@@ -231,11 +190,9 @@
   "FROM": "De",
   "FROM_CREDIT_CARD": "Des de",
 
-
   "MANAGE_ACCOUNT": "Gestiona el teu compte del REC",
 
   "LOAD_MORE": "Carregar mes",
-
 
   "STATUS_SUCCESS": "Completat",
   "NO_TRANSACTIONS": "No hi ha transaccions",
@@ -256,7 +213,6 @@
   "TOUCH_HOOD": "Li toca al barri",
   "FILTERS": "Filtres",
 
-
   "VALIDATE_PHOME": "Validar número de telèfon",
   "INTRODUCE_DOCUMENT_AND_PHONE": "Introdueix el teu document d'identitat i el telèfon vinculat al teu usuari per a procedir a validar el teu número de telèfon",
 
@@ -268,7 +224,6 @@
   "SEND_PAYMENT": "Enviar pagament {{amount}}",
   "MAKING_PAYMENT": "Enviar pagament",
 
-
   "LOCATION_PERMISSION_TITLE": "Per a poder mostrar comerços en el mapa necessitem permisos de localització!",
   "LOCATION_PERMISSION_SUBTITLE": "Només usem la ubicació mentre l'app aquesta oberta",
 
@@ -277,7 +232,6 @@
   "CONTACTS_PERMISSION_PERMANENTLY_DENIED": "Permís permanentment denegat, per a concedir el permís fes clic a 'Anar a ajustos'. I aprovi el permís Contactes.",
   "LOCATION_PERMISSION_PERMANENTLY_DENIED": "Permís permanentment denegat, per a concedir el permís fes clic a 'Anar a ajustos'. I aprovi el permís Ubicació.",
   "GO_TO_SETTINGS": "Anar a ajustos",
-
 
   "PAY_TO_NAME": "Pagament a {{name}}",
   "NO_CONTACTS": "Cap contacte disponible per a enviar RECs",
@@ -288,9 +242,6 @@
   "FROM_NAME": "des de {{name}}",
   "CONFIRM_PAYMENT": "Confirmar pagament",
   "FILL_CHARGE_FORM": "Emplena el formulari i prem el botó per a generar un codi QR. Aquest serà escanejat per un altre usuari per a realitzar el pagament. Recorda, 1€ = 1R",
-
-
-
 
   "YOUR_BUSSINESS": "El teu negoci",
   "BUSSINESS_INFO": "Informació",
@@ -306,6 +257,7 @@
   "BUSSINESS_SCHEDULE": "Horari",
   "BUSSINESS_SCHEDULE_DESC": "Millora la teva presència i afegeix un horari",
   "BUSSINESS_OFFERS": "Ofertes",
+  "YOUR_OFFERS": "Les teves Ofertes",
   "BUSSINESS_OFFERS_DESC": "Crea noves ofertes i apareixeran en el Mapa",
   "WEBSITE": "Pàgina web",
   "WEBSITE_DESC": "Afegeix-la si disposes de web",
@@ -328,8 +280,6 @@
   "ENTER_PIN": "Introdueix el teu pin del REC",
   "PIN": "PIN",
 
-
-
   "ALRIGHT": "Entès",
   "PAYMENT_OK": "Pagament realitzat correctament!",
   "CREATE_AND": "Crear y",
@@ -337,8 +287,6 @@
   "SETTINGS_CHANGE_PIN": "Canviar PIN",
   "SETTINGS_CHANGE_PIN_DESC": "Modificarà el teu codi secret del REC",
   "UPDATE": "Actualitzar",
-
-
 
   "NEW_PASSWORD": "Contrasenya nova",
   "PIN_REQUIRED": "Es requereix PIN per a operar",
@@ -370,9 +318,6 @@
   "NO_LIMIT": "Sense límit",
   "NO_MORE_ACCOUNTS": "No tens accés a més comptes, pots crear una prement 'Afegir un altre compte'",
 
-
-
-
   "LTAB_INITIAL_BANNER_TITLE": "PARTICIPA EN LA CAMPANYA LI TOCA Al BARRI",
   "DONT_SHOW_AGAIN": "No tornar a mostrar",
   "PARTICIPATE": "Participar",
@@ -388,9 +333,6 @@
   "PURCHASE_DONE": "Compra realitzada",
   "REWARD_OBTAINED": "Bonificació obtinguda!",
   "YOU_HAVE_RECS_REDEMABLE": "Tens {{amount}}R bonificables",
-
-
-
 
   "REWARD_OBTAINED_DESC": "{{amount}}R estan de camí al teu compte LI TOCA Al BARRI",
   "CREATE_ACCOUNT": "Crea el teu compte!",
@@ -437,20 +379,16 @@
   "AVAILABLE": "Disponible",
   "LANGUAGE": "Idioma",
 
-
   "WRITE_TELF": "Escriu el telèfon",
   "BACK": "Enrere",
   "REPASSWORD": "Repetir contrasenya",
   "Invalid username and password combination": "Combinació d'usuari i contrasenya incorrecta",
   "Incorrect pin": "PIN Incorrecte",
 
-
   "PHONE": "Telèfon",
   "SETTINGS_MY_ACCOUNT": "El teu compte del REC",
   "DESCRIPTION": "Descripció",
   "EMAIL_ONLY": "Email",
-
-
 
   "IMAGE_DE_CUENTA": "Imatge del teu compte",
   "IMAGE_DE_CUENTA_DESC": "Afegeix una imatge per al teu compte",
@@ -462,7 +400,6 @@
   "LTAB_REWARD": "Bonificació compra en campanya Li Toca Al Barri",
   "LTAB": "LTAB",
   "OPEN_ALL_DAY": "Obert tot el dia",
-
 
   "SETTINGS_NOT_AVAILABLE": "Configuració no disponible per a aquest compte",
   "CHANGE_PIN": "Canviar PIN",
@@ -497,6 +434,7 @@
   "MAX_ATTEMPTS_EXCEEDED": "Usuari bloquejat per raons de seguretat",
   "WRONG_SMS": "El codi SMS és incorrecte",
   "COPY": "Copiar",
-  "PASTE": "Pegar"
-
+  "PASTE": "Pegar",
+  "VERSION": "Versió",
+  "SETTINGS_HOW_CAN_WE_HELP": "Com podem ajudarte?"
 }

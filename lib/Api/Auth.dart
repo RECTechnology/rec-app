@@ -66,9 +66,6 @@ class Auth {
     await saveAccessToken(body['access_token']);
     await saveRefreshToken(body['refresh_token']);
     await saveTokenExpireDate(body['expires_in']);
-
-    print('saveAccessToken ${body['access_token']}');
-    print('saveRefreshToken ${body['refresh_token']}');
   }
 
   static Future<String> getAccessToken() {

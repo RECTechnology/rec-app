@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Indicators/LoadingIndicator.dart';
-import 'package:rec/Components/Inputs/SearchInput.dart';
+import 'package:rec/Components/Inputs/text_fields/SearchInput.dart';
 import 'package:rec/Helpers/Checks.dart';
 
 class SearchableList<T> extends StatefulWidget {

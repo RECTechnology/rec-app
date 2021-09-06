@@ -39,7 +39,7 @@ class RecTextField extends StatefulWidget {
   final Color colorLine;
   final Color colorLabel;
 
-  final Icon icon;
+  final Widget icon;
 
   final TextAlign textAlign;
 
@@ -68,6 +68,8 @@ class RecTextField extends StatefulWidget {
 
   final EdgeInsets padding;
 
+  final TextEditingController controller;
+
   RecTextField({
     this.keyboardType = TextInputType.text,
     this.needObscureText = false,
@@ -92,6 +94,7 @@ class RecTextField extends StatefulWidget {
     EdgeInsets padding,
     this.minLines = 1,
     this.maxLines = 10,
+    this.controller,
   }) : padding = padding ?? const EdgeInsets.only(bottom: 24.0);
 
   @override
@@ -99,9 +102,9 @@ class RecTextField extends StatefulWidget {
 }
 
 class _InputField extends State<RecTextField> {
+  String error = 'Contraseña incorrecta';
   bool obscureText = false;
   bool hasError = false;
-  String error = 'Contraseña incorrecta';
   bool isNotIcon = false;
 
   @override
@@ -118,10 +121,11 @@ class _InputField extends State<RecTextField> {
     return Padding(
       padding: widget.padding,
       child: TextFormField(
+        controller: widget.controller,
         maxLines: widget.maxLines,
         minLines: widget.minLines,
         textCapitalization: widget.capitalizeMode,
-        initialValue: widget.initialValue ?? '',
+        initialValue: widget.initialValue,
         textAlign: widget.textAlign,
         autofocus: widget.autofocus,
         focusNode: widget.focusNode,
@@ -145,8 +149,8 @@ class _InputField extends State<RecTextField> {
                 )
               : widget.icon,
           errorText: hasError ? translatedError : null,
-          hintText: widget.placeholder,
-          labelText: widget.label,
+          hintText: localizations.translate(widget.placeholder),
+          labelText: localizations.translate(widget.label),
           labelStyle: TextStyle(height: 1.5, color: widget.colorLabel),
           hintStyle: TextStyle(height: 1.5, color: widget.colorLabel),
         ),
@@ -172,7 +176,7 @@ class _InputField extends State<RecTextField> {
   }
 
   void onChanged(String string) {
-    widget.onChange(string);
+    if (widget.onChange != null) widget.onChange(string);
   }
 
   void changeObscureText() {

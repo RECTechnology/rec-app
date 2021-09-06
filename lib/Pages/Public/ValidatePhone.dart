@@ -37,7 +37,7 @@ class _ValidatePhoneState extends State<ValidatePhone> {
   }
 
   bool get isFormValid {
-    return data.complete();
+    return data.valid();
   }
 
   @override
@@ -82,9 +82,7 @@ class _ValidatePhoneState extends State<ValidatePhone> {
     FocusScope.of(context).requestFocus(FocusNode());
 
     await Loading.show();
-    await _sendSmsCode()
-        .then((value) => _goToEnterSmsCode())
-        .catchError(_onError);
+    await _sendSmsCode().then((value) => _goToEnterSmsCode()).catchError(_onError);
   }
 
   Future<void> _sendSmsCode() {

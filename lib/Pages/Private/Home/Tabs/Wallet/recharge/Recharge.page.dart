@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Services/UsersService.dart';
-import 'package:rec/Components/Inputs/AmountTextField.dart';
+import 'package:rec/Components/Inputs/text_fields/AmountTextField.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/Wallet/UserBalance.dart';
@@ -25,6 +25,7 @@ class RechargePage extends StatefulWidget {
 class _RechargePageState extends State<RechargePage> {
   final _formKey = GlobalKey<FormState>();
   final _usersService = UsersService();
+
   RechargeData rechargeData = RechargeData();
   Campaign activeCampaign;
 
@@ -95,7 +96,7 @@ class _RechargePageState extends State<RechargePage> {
                   RecActionButton(
                     label: localizations.translate('RECHARGE'),
                     icon: Icons.arrow_forward_ios_sharp,
-                    onPressed: _forwards,
+                    onPressed: rechargeData.amount > 0 ? _forwards : null,
                   )
                 ],
               ),
@@ -107,8 +108,7 @@ class _RechargePageState extends State<RechargePage> {
   }
 
   void _amountChanged(value) {
-    var newAmount =
-        double.parse(value.isEmpty ? '0' : value.replaceAll(',', '.'));
+    var newAmount = double.parse(value.isEmpty ? '0' : value.replaceAll(',', '.'));
     setState(() {
       rechargeData.amount = newAmount;
     });
@@ -146,8 +146,7 @@ class _RechargePageState extends State<RechargePage> {
     Loading.show();
     _updateTos();
 
-    rechargeData.willEnterCampaign = rechargeData.campaignTermsAccepted &&
-        rechargeData.amount >= activeCampaign.min;
+    rechargeData.willEnterCampaign = rechargeData.campaignTermsAccepted && rechargeData.amount >= activeCampaign.min;
 
     Loading.dismiss();
     _requestPin();

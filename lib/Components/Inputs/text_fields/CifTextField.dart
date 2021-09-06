@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Inputs/RecTextField.dart';
+import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 
-/// [DniTextField] renders a TextField, with some options for handling DNIs
+/// [CifTextField] renders a TextField, with some options for handling DNIs
 /// Used when we need the user to enter a DNI
-class DniTextField extends StatefulWidget {
+class CifTextField extends StatefulWidget {
   /// The initial value the field will initilize itself with
   final String initialValue;
 
@@ -27,25 +27,25 @@ class DniTextField extends StatefulWidget {
 
   final bool showIcon;
 
-  const DniTextField({
+  const CifTextField({
     Key key,
     this.initialValue,
     this.onChange,
     this.validator,
     this.color = Colors.black87,
-    this.labelText = 'DNI_NIE',
-    this.placeholderText = 'DNI_NIE',
+    this.labelText = 'CIF',
+    this.placeholderText = 'CIF',
     this.padding,
     this.showIcon = true,
   }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return DniTextFieldState();
+    return CifTextFieldState();
   }
 }
 
-class DniTextFieldState extends State<DniTextField> {
+class CifTextFieldState extends State<CifTextField> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
@@ -70,7 +70,7 @@ class DniTextFieldState extends State<DniTextField> {
       minLines: 1,
       icon: widget.showIcon
           ? Icon(
-              Icons.person,
+              Icons.work_outlined,
               color: Brand.grayIcon,
             )
           : null,

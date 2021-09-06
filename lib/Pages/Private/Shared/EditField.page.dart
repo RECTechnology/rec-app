@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
-import 'package:rec/Components/Inputs/RecTextField.dart';
+import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
@@ -41,6 +41,7 @@ class _EditFieldPageState extends State<EditFieldPage> {
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
 
+    // TODO: Replace with FormPageLayout
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -67,6 +68,7 @@ class _EditFieldPageState extends State<EditFieldPage> {
                               label: localizations.translate(widget.fieldName),
                               colorLabel: Brand.grayDark4,
                               validator: widget.validator,
+                              maxLines: 1,
                               onChange: (v) {
                                 setState(() {
                                   fieldValue = v;

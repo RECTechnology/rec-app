@@ -8,7 +8,7 @@ import 'package:rec/Components/Scaffold/RecHeader.dart';
 import 'package:rec/Entities/Forms/LoginData.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
-import 'package:rec/Pages/Public/ForgotPassword/ForgotPassword.dart';
+import 'package:rec/Pages/Public/ForgotPassword.dart';
 import 'package:rec/Pages/Public/MustUpdate.dart';
 import 'package:rec/Pages/Public/ValidatePhone.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
@@ -153,10 +153,7 @@ class _LoginPageState extends State<LoginPage> {
     loginData.version = appState.versionInt;
 
     await Loading.show();
-    await loginService
-        .login(loginData)
-        .then(_onLoginSuccess)
-        .catchError(_onLoginError);
+    await loginService.login(loginData).then(_onLoginSuccess).catchError(_onLoginError);
   }
 
   dynamic _onLoginSuccess(response) {

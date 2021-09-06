@@ -37,6 +37,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   @override
   Widget build(BuildContext context) {
+    var validData = data.valid();
+
     return FormPageLayout(
       appBar: EmptyAppBar(context),
       header: _topTexts(),
@@ -45,7 +47,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         label: 'NEXT',
         backgroundColor: Brand.primaryColor,
         icon: Icons.arrow_forward_ios_sharp,
-        onPressed: () => _next(),
+        onPressed: validData ? _next : null,
       ),
     );
   }
@@ -66,7 +68,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       formKey: _formKey,
       data: data,
       onChange: (data) {
-        this.data = data;
+        setState(() {
+          this.data = data;
+        });
       },
     );
   }

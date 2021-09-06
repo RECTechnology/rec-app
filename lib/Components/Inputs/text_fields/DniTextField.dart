@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Inputs/RecTextField.dart';
+import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 
-/// [CifTextField] renders a TextField, with some options for handling DNIs
+/// [DniTextField] renders a TextField, with some options for handling DNIs
 /// Used when we need the user to enter a DNI
-class CifTextField extends StatefulWidget {
+class DniTextField extends StatefulWidget {
   /// The initial value the field will initilize itself with
   final String initialValue;
 
@@ -27,25 +27,25 @@ class CifTextField extends StatefulWidget {
 
   final bool showIcon;
 
-  const CifTextField({
+  const DniTextField({
     Key key,
     this.initialValue,
     this.onChange,
     this.validator,
     this.color = Colors.black87,
-    this.labelText = 'CIF',
-    this.placeholderText = 'CIF',
+    this.labelText = 'DNI_NIE',
+    this.placeholderText = 'DNI_NIE',
     this.padding,
     this.showIcon = true,
   }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return CifTextFieldState();
+    return DniTextFieldState();
   }
 }
 
-class CifTextFieldState extends State<CifTextField> {
+class DniTextFieldState extends State<DniTextField> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
@@ -62,7 +62,7 @@ class CifTextFieldState extends State<CifTextField> {
       keyboardType: TextInputType.text,
       needObscureText: false,
       placeholder: localizedPlaceholder,
-      onChange: widget.onChange,
+      onChange: _fieldChanged,
       colorLine: widget.color,
       validator: widget.validator,
       padding: widget.padding,
@@ -70,10 +70,18 @@ class CifTextFieldState extends State<CifTextField> {
       minLines: 1,
       icon: widget.showIcon
           ? Icon(
-              Icons.work_outlined,
+              Icons.person,
               color: Brand.grayIcon,
             )
           : null,
     );
+  }
+
+  void _fieldChanged(value) {
+    // Trim whitespaces at the end and start of the [value]
+    // prevents incorrect validation in case a user adds a space at the end
+    if (widget.onChange != null) {
+      widget.onChange(value.trim());
+    }
   }
 }

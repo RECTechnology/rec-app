@@ -35,9 +35,8 @@ class _OffersCard extends State<OffersCard> {
               borderRadius: BorderRadius.circular(6),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(widget.offerData.image != ''
-                    ? widget.offerData.image
-                    : 'https://picsum.photos/250?image=9'),
+                image: NetworkImage(
+                    widget.offerData.image != '' ? widget.offerData.image : 'https://picsum.photos/250?image=9'),
               ),
             ),
             child: Center(
@@ -58,7 +57,7 @@ class _OffersCard extends State<OffersCard> {
                 ),
               ),
               Text(
-                widget.offerData.discount,
+                widget.offerData.initialPrice.toString(),
                 style: TextStyle(
                   color: Brand.grayDark,
                   fontWeight: FontWeight.w500,

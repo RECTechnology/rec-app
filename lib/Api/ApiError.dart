@@ -14,12 +14,16 @@ class ApiError {
     this.code,
   });
 
+  @override
+  String toString() {
+    return '$type($code): $message';
+  }
+
   ApiError.fromResponse(Response response) {
     var body = json.decode(response.body);
 
     code = response.statusCode;
-    message =
-        body['message'] ?? body['status_text'] ?? body['error_description'];
+    message = body['message'] ?? body['status_text'] ?? body['error_description'];
     type = body['message'];
   }
 
@@ -27,8 +31,7 @@ class ApiError {
     var body = json.decode(response.data);
 
     code = response.statusCode;
-    message =
-        body['message'] ?? body['status_text'] ?? body['error_description'];
+    message = body['message'] ?? body['status_text'] ?? body['error_description'];
     type = body['message'];
   }
 }

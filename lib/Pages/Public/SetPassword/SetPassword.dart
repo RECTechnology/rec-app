@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Services/public/RecoverPasswordService.dart';
-import 'package:rec/Components/Inputs/PasswordField.dart';
+import 'package:rec/Components/Inputs/text_fields/PasswordField.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Layout/FormPageLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';

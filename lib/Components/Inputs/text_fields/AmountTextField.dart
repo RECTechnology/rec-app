@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:rec/Components/Inputs/RecTextField.dart';
+import 'package:rec/Components/Icons/RecCurrencyIcon.dart';
+import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 
@@ -23,6 +24,8 @@ class AmountTextField extends StatefulWidget {
   final Color color;
   final bool readOnly;
   final bool autofocus;
+  final String label;
+  final Widget icon;
 
   const AmountTextField({
     Key key,
@@ -33,6 +36,8 @@ class AmountTextField extends StatefulWidget {
     this.readOnly = false,
     this.autofocus = false,
     this.onSubmitted,
+    this.label = 'AMOUNT',
+    this.icon = const RecCurrencyIcon(color: Brand.grayLight),
   }) : super(key: key);
 
   @override
@@ -47,7 +52,7 @@ class AmountTextFieldState extends State<AmountTextField> {
     var localizations = AppLocalizations.of(context);
 
     return RecTextField(
-      label: localizations.translate('AMOUNT'),
+      label: localizations.translate(widget.label),
       initialValue: widget.initialValue ?? '',
       keyboardType: TextInputType.numberWithOptions(
         decimal: true,
@@ -63,10 +68,7 @@ class AmountTextFieldState extends State<AmountTextField> {
       maxLines: 1,
       minLines: 1,
       inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]'))],
-      icon: Icon(
-        Icons.euro,
-        color: Brand.grayIcon,
-      ),
+      icon: widget.icon,
     );
   }
 }

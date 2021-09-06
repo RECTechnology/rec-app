@@ -21,8 +21,7 @@ class RegisterOne extends StatefulWidget {
   RegisterOneState createState() => RegisterOneState();
 }
 
-class RegisterOneState extends State<RegisterOne>
-    with SingleTickerProviderStateMixin {
+class RegisterOneState extends State<RegisterOne> with SingleTickerProviderStateMixin {
   RegisterData registerData = RegisterData(
     prefix: '+34',
     accountType: Account.TYPE_PRIVATE,
@@ -42,9 +41,7 @@ class RegisterOneState extends State<RegisterOne>
   }
 
   Widget _header() {
-    var bg = registerData.isAccountPrivate
-        ? Brand.backgroundPrivateColor
-        : Brand.backgroundCompanyColor;
+    var bg = registerData.isAccountPrivate ? Brand.backgroundPrivateColor : Brand.backgroundCompanyColor;
 
     return AppBar(
       backgroundColor: bg,
@@ -73,9 +70,7 @@ class RegisterOneState extends State<RegisterOne>
           child: Column(
             children: [
               CaptionText(
-                registerData.isAccountPrivate
-                    ? 'PROMOTE_TRADE'
-                    : 'TO_START_WRITE',
+                registerData.isAccountPrivate ? 'PROMOTE_TRADE' : 'TO_START_WRITE',
               ),
               TitleText(
                 'CREATE_USER',
@@ -103,11 +98,8 @@ class RegisterOneState extends State<RegisterOne>
 
   Widget _registerButton() {
     var localizations = AppLocalizations.of(context);
-    var label = registerData.isAccountPrivate
-        ? localizations.translate('REGISTER')
-        : localizations.translate('NEXT');
-    var background =
-        registerData.isAccountPrivate ? Brand.primaryColor : Brand.accentColor;
+    var label = registerData.isAccountPrivate ? localizations.translate('REGISTER') : localizations.translate('NEXT');
+    var background = registerData.isAccountPrivate ? Brand.primaryColor : Brand.accentColor;
 
     return RecActionButton(
       label: label,
@@ -123,9 +115,7 @@ class RegisterOneState extends State<RegisterOne>
     return CheckboxListTile(
       contentPadding: EdgeInsets.zero,
       controlAffinity: ListTileControlAffinity.leading,
-      activeColor: registerData.isAccountPrivate
-          ? Brand.primaryColor
-          : Brand.accentColor,
+      activeColor: registerData.isAccountPrivate ? Brand.primaryColor : Brand.accentColor,
       // ExcludeSemantics is here, because it made tests fail, could not find any other solution
       // Got solution from https://github.com/flutter/flutter/issues/31437
       title: ExcludeSemantics(
@@ -183,13 +173,8 @@ class RegisterOneState extends State<RegisterOne>
       alignment: Alignment.centerLeft,
       // margin: EdgeInsets.fromLTRB(0, 24, 0, 16),
       child: Text(
-        registerData.isAccountPrivate
-            ? ''
-            : localizations.translate('PRESS_NEXT_TO_ADD'),
-        style: Theme.of(context)
-            .textTheme
-            .bodyText2
-            .copyWith(color: Brand.accentColor),
+        registerData.isAccountPrivate ? '' : localizations.translate('PRESS_NEXT_TO_ADD'),
+        style: Theme.of(context).textTheme.bodyText2.copyWith(color: Brand.accentColor),
       ),
     );
   }
@@ -243,7 +228,7 @@ class RegisterOneState extends State<RegisterOne>
     var localizations = AppLocalizations.of(context);
     RecToast.showError(
       context,
-      localizations.translate('UNEXPECTED_SERVER_ERROR'),
+      localizations.translate(message ?? 'UNEXPECTED_SERVER_ERROR'),
     );
   }
 }

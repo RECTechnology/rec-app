@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
-import 'package:rec/Components/Inputs/RecPinInput.dart';
+import 'package:rec/Components/Inputs/text_fields/RecPinInput.dart';
 import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/Paddings.dart';
@@ -84,9 +84,7 @@ class _EnterPinState extends State<EnterPin> {
                 ),
                 RecActionButton(
                   label: btnLabel,
-                  icon: widget.buttonWithArrow
-                      ? Icons.arrow_forward_ios_outlined
-                      : null,
+                  icon: widget.buttonWithArrow ? Icons.arrow_forward_ios_outlined : null,
                   backgroundColor: Brand.primaryColor,
                   onPressed: formValid ? _next : null,
                 ),

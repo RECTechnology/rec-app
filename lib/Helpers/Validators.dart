@@ -68,10 +68,10 @@ class Validators {
   static String verifyIdentityDocument(String document) {
     var DNI_REGEX = RegExp(r'^(\d{8})([A-Z])$', caseSensitive: false);
     var NIE_REGEX = RegExp(r'^[XYZ]\d{7,8}[A-Z]$');
-    if (DNI_REGEX.hasMatch(document)) {
+    if (DNI_REGEX.hasMatch(document.trim())) {
       return null;
     } else {
-      if (NIE_REGEX.hasMatch(document)) {
+      if (NIE_REGEX.hasMatch(document.trim())) {
         return null;
       } else {
         return 'ERROR_DNI';
@@ -81,7 +81,7 @@ class Validators {
 
   static String validateCif(String document) {
     var CIF_REGEX = RegExp(r'^([a-z]|[A-Z]|[0-9])[0-9]{7}([a-z]|[A-Z]|[0-9])');
-    if (CIF_REGEX.hasMatch(document)) {
+    if (CIF_REGEX.hasMatch(document.trim())) {
       return null;
     } else {
       return 'ERROR_CIF';

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/Details.page.dart';
-import 'package:rec/Styles/BoxDecorations.dart';
 import 'package:rec/brand.dart';
 
-/// Renders a DraggableScrollableSheet for a specified [Account]
-/// TODO: Refactor this a bit
-class BusinessDraggableSheet extends StatefulWidget {
+class BusinessDraggableSheet extends StatelessWidget {
   final Account business;
 
   BusinessDraggableSheet({
@@ -15,59 +12,51 @@ class BusinessDraggableSheet extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _BusinessDraggableSheetState createState() => _BusinessDraggableSheetState();
-}
-
-class _BusinessDraggableSheetState extends State<BusinessDraggableSheet> {
-  List<Widget> bottomSheetList = [];
-
-  @override
   Widget build(BuildContext context) {
+    const radius = BorderRadius.only(
+      topLeft: Radius.circular(16),
+      topRight: Radius.circular(16),
+    );
+
     return DraggableScrollableSheet(
       maxChildSize: 0.95,
-      minChildSize: 0.18,
-      initialChildSize: 0.2,
+      minChildSize: 0.25,
+      initialChildSize: 0.25,
       builder: (
         BuildContext context,
         ScrollController scrollController,
       ) {
-        bottomSheetList.clear();
-        bottomSheetList.add(_greyBar());
-        bottomSheetList.add(
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height - 56,
-            child: ListView.builder(
-              padding: EdgeInsets.zero,
-              itemCount: 1,
-              controller: scrollController,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return Container(
-                  color: Colors.white,
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height - 108,
-                  child: DetailsPage(widget.business),
-                );
-              },
-            ),
-          ),
-        );
-
         return Container(
-          decoration: BoxDecorations.create(
+          decoration: BoxDecoration(
             color: Colors.white,
-            blurRadius: 15,
-            offset: Offset(0, 40),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withAlpha(25),
+                offset: Offset(0, -4),
+                blurRadius: 15,
+              ),
+            ],
+            borderRadius: radius,
           ),
-          child: ListView.builder(
-            padding: EdgeInsets.zero,
-            physics: NeverScrollableScrollPhysics(),
-            controller: scrollController,
-            itemCount: bottomSheetList.length,
-            itemBuilder: (context, index) {
-              return bottomSheetList[index];
-            },
+          child: ClipRRect(
+            borderRadius: radius,
+            child: Stack(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height - 56,
+                  child: SingleChildScrollView(
+                    controller: scrollController,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height - 108,
+                      child: DetailsPage(business),
+                    ),
+                  ),
+                ),
+                _greyBar()
+              ],
+            ),
           ),
         );
       },
@@ -75,18 +64,11 @@ class _BusinessDraggableSheetState extends State<BusinessDraggableSheet> {
   }
 
   Widget _greyBar() {
-    return Container(
-      decoration: BoxDecoration(
+    return IgnorePointer(
+      child: Container(
+        height: 25,
+        alignment: Alignment.center,
         color: Colors.white,
-        border: Border.all(
-          color: Colors.white,
-        ),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(8),
-          topRight: Radius.circular(8),
-        ),
-      ),
-      child: Center(
         child: Container(
           margin: const EdgeInsets.all(8.0),
           width: 60,

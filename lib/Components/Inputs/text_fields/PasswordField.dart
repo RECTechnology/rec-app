@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Inputs/RecTextField.dart';
+import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Pages/Private/Shared/CreatePin.dart';
 import 'package:rec/Pages/Private/Shared/EnterPin.page.dart';
 import 'package:rec/Providers/UserState.dart';
@@ -37,6 +38,7 @@ class _RequestPin extends State<RequestPin> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
+        appBar: EmptyAppBar(context),
         body: SingleChildScrollView(
           child: userState.user.hasPin
               ? EnterPin(

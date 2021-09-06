@@ -28,13 +28,15 @@ class Currency {
     String locale = 'es_ES',
     num decimals = 2,
   }) {
-    var f = NumberFormat.currency(
+    var formatter = NumberFormat.currency(
       locale: locale,
       symbol: symbol,
       decimalDigits: decimals,
     );
 
-    return f.format(amount);
+    // Trim is done to remove trailing space when no symbol provided,
+    // messed up tests and added unwanted space
+    return amount == null ? '' : formatter.format(amount).trim();
   }
 
   static const Currency rec = Currency('rec', 'R', 8, 2);
