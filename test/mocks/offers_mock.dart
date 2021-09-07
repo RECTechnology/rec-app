@@ -12,7 +12,7 @@ class OffersMock {
     'type': 'percentage',
     'description': 'Lorem bla bla bla asjodjasd',
     'image': 'https://i.imgur.com/CSMrmgZ.jpeg',
-    'discount': '10',
+    'discount': 10,
     'initial_price': 1,
     'offer_price': 0.90,
   });
