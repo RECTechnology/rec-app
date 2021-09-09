@@ -15,6 +15,7 @@ import 'package:rec/Styles/BoxDecorations.dart';
 import 'package:rec/brand.dart';
 import 'package:rec/routes.dart';
 
+// TODO: clean up this page, extract any widgets that could be reused
 class AccountSelectorModal {
   final BuildContext context;
   final UsersService userService;
@@ -79,6 +80,7 @@ class AccountSelectorModal {
   Widget currentAccount() {
     var userState = UserState.of(context);
     var account = userState.user.selectedAccount;
+    var isLtabAccount = userState.account.isLtabAccount();
 
     return PreferredSize(
       preferredSize: Size.fromHeight(kToolbarHeight + 70),
@@ -103,26 +105,24 @@ class AccountSelectorModal {
                   )
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: OutlinedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    HomePageState.changeTab(context, 2);
-                  },
-                  style: OutlinedButton.styleFrom(
-                    primary: Brand.grayDark,
-                    side: BorderSide(width: 1, color: Brand.grayDark2),
-                  ),
-                  child: LocalizedText(
-                    'MANAGE_ACCOUNT',
-                    style: Theme.of(context)
-                        .textTheme
-                        .caption
-                        .copyWith(fontWeight: FontWeight.w500),
+              if (!isLtabAccount)
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      HomePageState.changeTab(context, 2);
+                    },
+                    style: OutlinedButton.styleFrom(
+                      primary: Brand.grayDark,
+                      side: BorderSide(width: 1, color: Brand.grayDark2),
+                    ),
+                    child: LocalizedText(
+                      'MANAGE_ACCOUNT',
+                      style: Theme.of(context).textTheme.caption.copyWith(fontWeight: FontWeight.w500),
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         ),
