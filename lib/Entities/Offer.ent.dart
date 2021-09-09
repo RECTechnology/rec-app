@@ -55,6 +55,9 @@ class Offer extends Entity {
         super('', '', '');
 
   factory Offer.fromJson(Map<String, dynamic> json) {
+    var percentage = json['discount'];
+    if (percentage is String) percentage = double.tryParse(percentage);
+
     var data = Offer(
       id: '${json['id']}',
       createdAt: json['created'],
@@ -67,7 +70,7 @@ class Offer extends Entity {
       image: json['image'],
       initialPrice: json['initial_price'],
       discountedPrice: json['offer_price'],
-      percentage: json['discount'],
+      percentage: percentage,
       endDate: json['end'],
     );
 

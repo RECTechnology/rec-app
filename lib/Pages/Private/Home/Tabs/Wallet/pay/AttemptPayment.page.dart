@@ -36,8 +36,7 @@ class AttemptPayment extends StatefulWidget {
 class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
   final TransactionsService _transactionsService = TransactionsService();
 
-  TransactionsService get service =>
-      widget.transactionsService ?? _transactionsService;
+  TransactionsService get service => widget.transactionsService ?? _transactionsService;
 
   @override
   Widget build(BuildContext context) {
@@ -98,13 +97,13 @@ class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
     FocusScope.of(context).requestFocus(FocusNode());
 
     _showCustomLoading();
-    await service
-        .makePayment(widget.data)
-        .then(_onPaymentOk)
-        .catchError(_onPaymentError);
+    await service.makePayment(widget.data).then(_onPaymentOk).catchError(_onPaymentError);
   }
 
-  void _showErrorToast(error) => RecToast.showError(context, error.message);
+  void _showErrorToast(error) {
+    var localizations = AppLocalizations.of(context);
+    RecToast.showError(context, localizations.translate(error.message));
+  }
 
   void _onPaymentOk(PaymentResult paymentResult) {
     var localizations = AppLocalizations.of(context);

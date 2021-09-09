@@ -38,7 +38,7 @@ class _RequestPin extends State<RequestPin> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: EmptyAppBar(context),
+        appBar: EmptyAppBar(context, backArrow: widget.buttonWithArrow),
         body: SingleChildScrollView(
           child: userState.user.hasPin
               ? EnterPin(
