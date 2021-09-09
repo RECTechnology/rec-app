@@ -414,6 +414,7 @@
   "PRIVACY": " políticas de privacidad ",
   "TERMS": " condiciones de uso ",
   "TYPE": "Tipo",
+  "CIF not valid": "El CIF no es valido",
 
   "KYC max_out limit has been reached": "Has alcanzado el límite máximo de envío",
 

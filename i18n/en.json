@@ -412,6 +412,7 @@
   "PRIVACY": " privacy policies ",
   "TERMS": " terms of use ",
   "TYPE": "Type",
+  "CIF not valid": "CIF is not valid",
 
   "KYC max_out limit has been reached": "You have reached the maximum sending limit",
 

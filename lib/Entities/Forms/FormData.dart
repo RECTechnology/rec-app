@@ -12,7 +12,7 @@ abstract class FormData {
   }
 
   bool hasError(String field) {
-    return errors[field] != null;
+    return errors[(field ?? '').toLowerCase()] != null;
   }
 
   String getError(String field) {

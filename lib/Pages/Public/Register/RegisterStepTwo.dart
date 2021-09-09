@@ -42,9 +42,7 @@ class RegisterTwoState extends State<RegisterTwo> {
   }
 
   Widget _header() {
-    var background = registerData.isAccountPrivate
-        ? Brand.backgroundPrivateColor
-        : Brand.backgroundCompanyColor;
+    var background = registerData.isAccountPrivate ? Brand.backgroundPrivateColor : Brand.backgroundCompanyColor;
 
     return AppBar(
       backgroundColor: background,
@@ -81,10 +79,7 @@ class RegisterTwoState extends State<RegisterTwo> {
               ),
               LocalizedText(
                 'WHEN_INIT_SESION',
-                style: Theme.of(context)
-                    .textTheme
-                    .caption
-                    .copyWith(color: Brand.accentColor),
+                style: Theme.of(context).textTheme.caption.copyWith(color: Brand.accentColor),
               ),
               Align(
                 alignment: Alignment.bottomCenter,
@@ -118,12 +113,13 @@ class RegisterTwoState extends State<RegisterTwo> {
 
       var translatedMessage = localizations.translate(result.message);
       if (translatedMessage != result.message) {
-        String fieldName = result.message.split(' ').first;
+        String fieldName = result.message.split(' ').first.toLowerCase();
         registerData.addError(
           fieldName,
           localizations.translate(result.message),
         );
         _formKey.currentState.validate();
+        setState(() {});
 
         // If error is not a field from this page, go back
         if (!['cif', 'name'].contains(fieldName)) {
