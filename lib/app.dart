@@ -94,8 +94,8 @@ class _RecAppState extends State<RecApp> {
   ) {
     var app = MaterialApp(
       title: Brand.appName,
-      locale: locale,
       theme: Brand.createTheme(),
+      locale: locale,
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       localeResolutionCallback: AppLocalizations.localeResolutionCallback,
