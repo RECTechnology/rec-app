@@ -85,7 +85,7 @@ class AddOfferForm extends StatelessWidget {
               initialValue:
                   data.initialPrice == null ? '' : data.initialPrice.toString(),
               onChange: (val) {
-                onChange(data..initialPrice = double.parse(val));
+                onChange(data..initialPrice = double.tryParse(val));
               },
             ),
           ),
@@ -99,7 +99,7 @@ class AddOfferForm extends StatelessWidget {
               initialValue:
                   data.offerPrice == null ? '' : data.offerPrice.toString(),
               onChange: (val) {
-                onChange(data..offerPrice = double.parse(val));
+                onChange(data..offerPrice = double.tryParse(val));
               },
             ),
           ),
@@ -120,7 +120,7 @@ class AddOfferForm extends StatelessWidget {
               initialValue:
                   data.discount == null ? '' : data.discount.toString(),
               onChange: (val) {
-                onChange(data..discount = double.parse(val));
+                onChange(data..discount = double.tryParse(val));
               },
             ),
           ),

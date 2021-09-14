@@ -10,6 +10,7 @@ import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Providers/All.dart';
 import 'package:rec/brand.dart';
 import 'package:rec/routes.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 class RecApp extends StatefulWidget {
   @override
@@ -103,6 +104,9 @@ class _RecAppState extends State<RecApp> {
       initialRoute: Routes.home,
       routes: ROUTES,
       onGenerateRoute: Routes.onGenerateRoute,
+      navigatorObservers: [
+        SentryNavigatorObserver(),
+      ],
     );
 
     return MultiProvider(
