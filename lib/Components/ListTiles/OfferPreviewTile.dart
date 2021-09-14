@@ -1,21 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/ContainerWithImage.dart';
 import 'package:rec/Components/Info/OfferPriceBadge.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Text/OfferDiscount.dart';
 import 'package:rec/Entities/Offer.ent.dart';
 import 'package:rec/brand.dart';
 
 class OfferPreviewTile extends StatelessWidget {
   final Offer offer;
+  final VoidCallback onDelete;
 
-  const OfferPreviewTile({Key key, this.offer}) : super(key: key);
+  const OfferPreviewTile({
+    Key key,
+    this.offer,
+    this.onDelete,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
 
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        showModalBottomSheet(
+          context: context,
+          builder: (c) {
+            return OfferActionsModal(
+              onAction: (action) {
+                switch (action) {
+                  case OfferAction.delete:
+                    if (onDelete != null) onDelete();
+                }
+              },
+            );
+          },
+        );
+      },
       borderRadius: BorderRadius.all(Radius.circular(6)),
       child: Container(
         decoration: BoxDecoration(
@@ -84,6 +104,46 @@ class OfferPreviewTile extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+enum OfferAction {
+  delete,
+}
+
+class OfferActionsModal extends StatefulWidget {
+  final ValueChanged<OfferAction> onAction;
+  OfferActionsModal({Key key, this.onAction}) : super(key: key);
+
+  @override
+  _OfferActionsModalState createState() => _OfferActionsModalState();
+}
+
+class _OfferActionsModalState extends State<OfferActionsModal> {
+  void _deleteOffer() {
+    Navigator.of(context).pop();
+    if (widget.onAction != null) widget.onAction(OfferAction.delete);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: ListView(
+        shrinkWrap: true,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: LocalizedText('WHAT_TO_DO_WITH_OFFER'),
+          ),
+          ListTile(
+            leading: Icon(Icons.delete),
+            title: LocalizedText('DELETE'),
+            onTap: _deleteOffer,
+          ),
+        ],
       ),
     );
   }

@@ -459,11 +459,15 @@
   "PERCENTAGE": "Porcentage (%)",
   "FREE": "Gratis",
   "PICK_IMAGE": "Selecciona imagen",
-  "END_DATE": "Cuando acaba?",
+  "END_DATE": "¿Cuando acaba?",
   "REGULAR_PRICE": "Precio habitual",
   "DISCOUNT_PRICE": "Precio oferta",
   "NO_OFFERS": "No hay offertas activas",
+  "DELETE_OFFER": "Eliminar oferta",
+  "DELETE_OFFER_DESC": "¿Seguro que quieres eliminar esta oferta? No hay vuelta atrás",
   "OFFER_IMAGE": "Imagen de oferta",
-  "OFFER_IMAGE_DESC": "Esta imagen se mostrara junto al resto de información de la oferta",
-  "SETTINGS_HOW_CAN_WE_HELP": "¿Cómo podemos ayudarte?"
+  "OFFER_IMAGE_DESC": "Esta imagen se mostrará junto al resto de información de la oferta",
+  "SETTINGS_HOW_CAN_WE_HELP": "¿Cómo podemos ayudarte?",
+  "WHAT_TO_DO_WITH_OFFER": "¿Qué quieres hacer con la oferta?",
+  "OFFER_REMOVED_OK": "Oferta eliminada"
 }

@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:rec/Api/Services/OffersService.dart';
 import 'package:rec/Components/Layout/ScrollableListLayout.dart';
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
 import 'package:rec/Components/ListTiles/OfferPreviewTile.dart';
 import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
+import 'package:rec/Components/Modals/YesNoModal.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/Entities/Offer.ent.dart';
+import 'package:rec/Entities/User.ent.dart';
 import 'package:rec/Helpers/Checks.dart';
+import 'package:rec/Helpers/Loading.dart';
+import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/account/offers/AddOffer.page.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
@@ -18,6 +24,8 @@ class AccountOffersPage extends StatefulWidget {
 }
 
 class _AccountOffersPageState extends State<AccountOffersPage> {
+  final _offerService = OffersService();
+
   @override
   Widget build(BuildContext context) {
     var userState = UserState.of(context);
@@ -47,11 +55,12 @@ class _AccountOffersPageState extends State<AccountOffersPage> {
           ),
         if (Checks.isNotEmpty(offers))
           ...offers.map(
-            (e) => Padding(
+            (offer) => Padding(
               padding: const EdgeInsets.all(8.0),
               child: OfferPreviewTile(
-                key: Key(e.id.toString()),
-                offer: e,
+                key: Key(offer.id.toString()),
+                offer: offer,
+                onDelete: () => _onDelete(offer),
               ),
             ),
           ),
@@ -67,10 +76,39 @@ class _AccountOffersPageState extends State<AccountOffersPage> {
     ).then(_addedNewOffer);
   }
 
-  void _addedNewOffer(offer) {
-    if (offer != null) {
-      var userState = UserState.of(context, listen: false);
-      userState.getUser();
+  Future<User> _addedNewOffer(dynamic offer) {
+    var userState = UserState.of(context, listen: false);
+    return userState.getUser();
+  }
+
+  void _onDelete(Offer offer) async {
+    var yesNoModal = YesNoModal(
+      title: LocalizedText('DELETE_OFFER'),
+      content: LocalizedText('DELETE_OFFER_DESC'),
+      context: context,
+    );
+    var removeOfferConfirmed = await yesNoModal.showDialog(context);
+    if (removeOfferConfirmed) {
+      _deleteOffer(offer);
     }
+  }
+
+  void _deleteOffer(Offer offer) {
+    Loading.show();
+    _offerService
+        .deleteOffer(offer.id)
+        .then((res) => _addedNewOffer(null))
+        .then(_offerRemoved)
+        .catchError(_onError);
+  }
+
+  void _offerRemoved(res) {
+    RecToast.showError(context, 'OFFER_REMOVED_OK');
+    Loading.dismiss();
+  }
+
+  void _onError(err) {
+    Loading.dismiss();
+    RecToast.showError(context, err.toString());
   }
 }

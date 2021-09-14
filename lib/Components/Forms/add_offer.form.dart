@@ -82,7 +82,8 @@ class AddOfferForm extends StatelessWidget {
             padding: const EdgeInsets.only(right: 8.0),
             child: AmountTextField(
               label: 'REGULAR_PRICE',
-              initialValue: data.initialPrice == null ? '' : data.initialPrice.toString(),
+              initialValue:
+                  data.initialPrice == null ? '' : data.initialPrice.toString(),
               onChange: (val) {
                 onChange(data..initialPrice = double.parse(val));
               },
@@ -95,7 +96,8 @@ class AddOfferForm extends StatelessWidget {
             child: AmountTextField(
               label: 'DISCOUNT_PRICE',
               icon: RecCurrencyIcon(color: Brand.grayLight),
-              initialValue: data.offerPrice == null ? '' : data.offerPrice.toString(),
+              initialValue:
+                  data.offerPrice == null ? '' : data.offerPrice.toString(),
               onChange: (val) {
                 onChange(data..offerPrice = double.parse(val));
               },
@@ -113,9 +115,10 @@ class AddOfferForm extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: AmountTextField(
-              label: 'DICOUNT_PERCENTAGE',
+              label: 'PERCENTAGE',
               icon: PercentageIcon(color: Brand.grayLight),
-              initialValue: data.discount == null ? '' : data.discount.toString(),
+              initialValue:
+                  data.discount == null ? '' : data.discount.toString(),
               onChange: (val) {
                 onChange(data..discount = double.parse(val));
               },

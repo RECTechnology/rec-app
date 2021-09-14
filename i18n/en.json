@@ -446,5 +446,25 @@
   "COPY": "Copy",
   "PASTE": "Paste",
 
-  "SETTINGS_HOW_CAN_WE_HELP": "How can we help you?"
+  "PUBLISH": "Publish",
+  "PUBLISH_OFFER": "Publish new offer",
+  "PUBLISH_OFFER_DESC": "Add an offer to your Map card",
+  "ACTIVE_OFFERS": "Active offers",
+  "ADD_OFFER": "Publish an offer",
+  "OFFER_TYPE": "Offer type",
+  "PERCENTAGE": "Percentage (%)",
+  "FREE": "Free",
+  "PICK_IMAGE": "Select an imagen",
+  "END_DATE": "When does it end?",
+  "REGULAR_PRICE": "Usual price",
+  "DISCOUNT_PRICE": "Offer price",
+  "NO_OFFERS": "There are no active offers",
+  "DELETE_OFFER": "Delete offer",
+  "DELETE_OFFER_DESC": "Are you sure you want to delete this offer? There is no way back",
+  "OFFER_IMAGE": "Offer image",
+  "OFFER_IMAGE_DESC": "This image will be displayed together with the rest of the offer information",
+  "SETTINGS_HOW_CAN_WE_HELP": "How can we help you?",
+  "WHAT_TO_DO_WITH_OFFER": "What do you want to do with the offer?",
+  "OFFER_REMOVED_OK": "Offer deleted"
+
 }

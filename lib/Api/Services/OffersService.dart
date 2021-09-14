@@ -47,6 +47,13 @@ class OffersService extends ServiceBase {
     return this.put(uri, data.toJson());
   }
 
+  /// Delete an offer instance
+  Future deleteOffer(String offerId) {
+    final uri = ApiPaths.offers.append(offerId).toUri();
+
+    return this.delete(uri);
+  }
+
   ApiListResponse<Offer> _mapOffers(
     Map<String, dynamic> data,
   ) {
