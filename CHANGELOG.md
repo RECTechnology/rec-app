@@ -18,4 +18,6 @@
   * Show offers in map details page
 * Fix crash on startup on some devices, see https://github.com/QbitArtifacts/rec_app_v2/issues/210
 * Improved token handling and initial loading screen
+* Fix account selector, hide manage account if is LTAB account
+* Fix register step 2 CIF error not handled
 * Some minor fixes and enhancements

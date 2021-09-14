@@ -43,14 +43,6 @@ class _RecNavigationBarState extends State<RecNavigationBar> {
       currentIndex: widget.currentTabIndex,
       selectedItemColor: Brand.primaryColor,
       onTap: (int index) {
-        // HACK: Disable settings if account is ltab
-        // Need to look for some way of disabling tabs,
-        // as they are somewhat custom
-        if (isLtabAccount && index == 2) {
-          RecToast.showInfo(context, 'SETTINGS_NOT_AVAILABLE');
-          return;
-        }
-
         widget.onTabTap(index);
       },
     );

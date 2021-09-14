@@ -43,8 +43,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    var hasNotLoadedDocuments =
-        documentsProvider == null || documentsProvider.isLoading && documentsProvider.allDocuments.isEmpty;
+    var hasNotLoadedDocuments = documentsProvider == null ||
+        documentsProvider.isLoading && documentsProvider.allDocuments.isEmpty;
 
     if (hasNotLoadedDocuments) {
       return Center(child: CircularProgressIndicator());
@@ -54,40 +54,44 @@ class _SettingsPageState extends State<SettingsPage> {
     var isCompany = userState.account.isCompany();
     var hasPin = userState.user.hasPin;
     var showDocumentsBadge = _shouldShowDocumentsBadge();
+    var isLtabAccount = userState.account.isLtabAccount();
 
     return WillPopScope(
       onWillPop: () => Future.value(false),
       child: ScrollableListLayout(
         children: [
           SectionTitleTile('SETTINGS_USER'),
-          SettingsListTile(
-            title: 'SETTINGS_USER_PROFILE',
-            icon: Icons.person,
-            onTap: RecNavigation.getNavigateToRouteCallback(
-              context,
-              Routes.settingsUserProfile,
+          if (!isLtabAccount)
+            SettingsListTile(
+              title: 'SETTINGS_USER_PROFILE',
+              icon: Icons.person,
+              onTap: RecNavigation.getNavigateToRouteCallback(
+                context,
+                Routes.settingsUserProfile,
+              ),
             ),
-          ),
-          SettingsListTile(
-            title: 'SETTINGS_USER_LIMITS',
-            icon: Icons.badge,
-            subtitle: !showDocumentsBadge ? null : 'DOCS_REQUIRED',
-            requiresActions: showDocumentsBadge,
-            onTap: RecNavigation.getNavigateToRouteCallback(
-              context,
-              Routes.settingsUserDocuments,
+          if (!isLtabAccount)
+            SettingsListTile(
+              title: 'SETTINGS_USER_LIMITS',
+              icon: Icons.badge,
+              subtitle: !showDocumentsBadge ? null : 'DOCS_REQUIRED',
+              requiresActions: showDocumentsBadge,
+              onTap: RecNavigation.getNavigateToRouteCallback(
+                context,
+                Routes.settingsUserDocuments,
+              ),
             ),
-          ),
-          SettingsListTile(
-            title: 'SETTINGS_USER_SECURITY',
-            icon: Icons.lock,
-            subtitle: hasPin ? null : 'PIN_REQUIRED',
-            requiresActions: !hasPin,
-            onTap: RecNavigation.getNavigateToRouteCallback(
-              context,
-              Routes.settingsUserSecurity,
+          if (!isLtabAccount)
+            SettingsListTile(
+              title: 'SETTINGS_USER_SECURITY',
+              icon: Icons.lock,
+              subtitle: hasPin ? null : 'PIN_REQUIRED',
+              requiresActions: !hasPin,
+              onTap: RecNavigation.getNavigateToRouteCallback(
+                context,
+                Routes.settingsUserSecurity,
+              ),
             ),
-          ),
           SettingsListTile(
             title: 'GENERAL_SETTINGS',
             icon: Icons.settings,
@@ -96,23 +100,29 @@ class _SettingsPageState extends State<SettingsPage> {
               Routes.settingsUserGeneral,
             ),
           ),
-          SectionTitleTile('SETTINGS_ACCOUNT'),
-          SettingsListTile(
-            title: isCompany ? 'SETTINGS_BUSSINESS_ON_MAP' : 'SETTINGS_YOUR_ACCOUNT',
-            icon: isCompany ? Icons.storefront : Icons.account_circle,
-            onTap: RecNavigation.getNavigateToRouteCallback(
-              context,
-              isCompany ? Routes.settingsBussinessAccount : Routes.settingsYourAccount,
+          if (!isLtabAccount) SectionTitleTile('SETTINGS_ACCOUNT'),
+          if (!isLtabAccount)
+            SettingsListTile(
+              title: isCompany
+                  ? 'SETTINGS_BUSSINESS_ON_MAP'
+                  : 'SETTINGS_YOUR_ACCOUNT',
+              icon: isCompany ? Icons.storefront : Icons.account_circle,
+              onTap: RecNavigation.getNavigateToRouteCallback(
+                context,
+                isCompany
+                    ? Routes.settingsBussinessAccount
+                    : Routes.settingsYourAccount,
+              ),
             ),
-          ),
-          SettingsListTile(
-            title: 'SETTINGS_ACCOUNT_PERMISSIONS',
-            icon: Icons.supervised_user_circle,
-            onTap: RecNavigation.getNavigateToRouteCallback(
-              context,
-              Routes.settingsAccountPermissions,
+          if (!isLtabAccount)
+            SettingsListTile(
+              title: 'SETTINGS_ACCOUNT_PERMISSIONS',
+              icon: Icons.supervised_user_circle,
+              onTap: RecNavigation.getNavigateToRouteCallback(
+                context,
+                Routes.settingsAccountPermissions,
+              ),
             ),
-          ),
           SectionTitleTile('SETTINGS_OTHER'),
           SettingsListTile(
             title: 'SETTINGS_HOW_CAN_WE_HELP',

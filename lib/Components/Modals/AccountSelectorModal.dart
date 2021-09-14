@@ -119,7 +119,10 @@ class AccountSelectorModal {
                     ),
                     child: LocalizedText(
                       'MANAGE_ACCOUNT',
-                      style: Theme.of(context).textTheme.caption.copyWith(fontWeight: FontWeight.w500),
+                      style: Theme.of(context)
+                          .textTheme
+                          .caption
+                          .copyWith(fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),

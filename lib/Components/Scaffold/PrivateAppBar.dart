@@ -105,7 +105,7 @@ class _PrivateAppBar extends State<PrivateAppBar> {
     );
 
     var appBarInkWell = InkWell(
-      onTap: widget.selectAccountEnabled ? accountSelector.open : null,
+      onTap: (widget.selectAccountEnabled) ? accountSelector.open : null,
       child: appBar,
     );
 

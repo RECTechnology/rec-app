@@ -10,6 +10,8 @@ Building for prod:
 # Commit new version (replace vX.X.X with correct version)
 git commit -am "chore(release): vX.X.X"
 
+# Add changelog in CHANGELOG.md if it's missing for release version
+
 # Create tag for version (replace vX.X.X with correct version)
 git tag -a vX.X.X
 git push --follow-tags
@@ -30,6 +32,8 @@ open <path/to/build>
 # For APK: Rename "app-prod-release.apk" to "RecBarcelona-vX.X.X.apk"
 # For AAB: Rename "app-prod-release.aab" to "RecBarcelona-vX.X.X.aab"
 ```
+
+Test the release apk in your device, check if it point to PROD.
 
 ### Build for iOS
 
