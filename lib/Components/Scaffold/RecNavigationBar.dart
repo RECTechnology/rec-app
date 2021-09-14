@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
 
 class RecNavigationBar extends StatefulWidget {
@@ -22,8 +20,6 @@ class _RecNavigationBarState extends State<RecNavigationBar> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
-    var userState = UserState.of(context);
-    var isLtabAccount = userState.account.isLtabAccount();
 
     return BottomNavigationBar(
       items: [

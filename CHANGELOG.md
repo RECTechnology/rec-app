@@ -21,3 +21,4 @@
 * Fix account selector, hide manage account if is LTAB account
 * Fix register step 2 CIF error not handled
 * Some minor fixes and enhancements
+* Hidden user/account settings if selected account is LTAB account
