@@ -52,7 +52,10 @@ class _AddOfferPageState extends State<AddOfferPage> {
 
     await Loading.show();
 
-    await _offerService.createOffer(_newOffer).then(_offerCreated).catchError(_offerError);
+    await _offerService
+        .createOffer(_newOffer)
+        .then(_offerCreated)
+        .catchError(_offerError);
 
     await Loading.dismiss();
   }
