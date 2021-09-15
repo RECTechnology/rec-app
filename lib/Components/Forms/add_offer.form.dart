@@ -87,6 +87,7 @@ class AddOfferForm extends StatelessWidget {
               onChange: (val) {
                 onChange(data..initialPrice = double.tryParse(val));
               },
+              validator: Validators.isRequired,
             ),
           ),
         ),
@@ -101,6 +102,7 @@ class AddOfferForm extends StatelessWidget {
               onChange: (val) {
                 onChange(data..offerPrice = double.tryParse(val));
               },
+              validator: Validators.isRequired,
             ),
           ),
         ),
@@ -122,6 +124,7 @@ class AddOfferForm extends StatelessWidget {
               onChange: (val) {
                 onChange(data..discount = double.tryParse(val));
               },
+              validator: Validators.isRequired,
             ),
           ),
         ),
