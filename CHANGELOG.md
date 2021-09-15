@@ -24,4 +24,4 @@
 * Hidden user/account settings if selected account is LTAB account
 * Delete offers
 * Fixed missing translations
-  
+* Marked create offer fields as required

@@ -7,10 +7,10 @@ Building for prod:
 # Increment version in pubspec.yml
 # If not sure ask someone in charge
 
+# Add changelog in CHANGELOG.md if it's missing for release version
+
 # Commit new version (replace vX.X.X with correct version)
 git commit -am "chore(release): vX.X.X"
-
-# Add changelog in CHANGELOG.md if it's missing for release version
 
 # Create tag for version (replace vX.X.X with correct version)
 git tag -a vX.X.X
