@@ -35,6 +35,7 @@ class AccountsService extends ServiceBase {
       'type': searchData.type.toString(),
       'subtype': searchData.subType.toString(),
     };
+
     if (searchData.campaign != null && searchData.campaign.isNotEmpty) {
       data['campaigns'] = searchData.campaign;
     }

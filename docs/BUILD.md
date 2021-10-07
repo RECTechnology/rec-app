@@ -17,7 +17,6 @@ open <path/to/build>
 # For AAB: Rename "app-prod-release.aab" to "RecBarcelona-vX.X.X.aab"
 ```
 
-
 Building for prod:
 ```bash
 # Increment version in pubspec.yml
