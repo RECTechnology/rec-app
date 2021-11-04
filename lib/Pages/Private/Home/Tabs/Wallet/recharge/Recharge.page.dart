@@ -108,7 +108,8 @@ class _RechargePageState extends State<RechargePage> {
   }
 
   void _amountChanged(value) {
-    var newAmount = double.parse(value.isEmpty ? '0' : value.replaceAll(',', '.'));
+    var newAmount =
+        double.parse(value.isEmpty ? '0' : value.replaceAll(',', '.'));
     setState(() {
       rechargeData.amount = newAmount;
     });
@@ -146,24 +147,34 @@ class _RechargePageState extends State<RechargePage> {
     Loading.show();
     _updateTos();
 
-    rechargeData.willEnterCampaign = rechargeData.campaignTermsAccepted && rechargeData.amount >= activeCampaign.min;
+    rechargeData.willEnterCampaign = rechargeData.campaignTermsAccepted &&
+        rechargeData.amount >= activeCampaign.min;
 
     Loading.dismiss();
     _requestPin();
   }
 
   void _requestPin() {
+    var userState = UserState.of(context, listen: false);
+
+    // If user already has pin, we can proceed to attempt the recharge
+    // this is done so user does not need to enter the pin if he already has it
+    if (userState.user.hasPin) {
+      return _attemptRecharge();
+    }
+
+    // If user has no pin, we need him to create a pin before attempting the recharge
     RecNavigation.of(context).navigate(
       (_) => RequestPin(
-        ifPin: _attemptRecharge,
+        ifPin: (__) => _attemptRecharge(),
       ),
     );
   }
 
-  void _attemptRecharge(String pin) {
+  void _attemptRecharge() {
     RecNavigation.of(context).navigate(
       (_) => AttemptRecharge(
-        data: rechargeData..pin = pin,
+        data: rechargeData,
       ),
     );
   }
