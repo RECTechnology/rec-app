@@ -7,7 +7,7 @@ import 'package:rec/Entities/Forms/DniPhoneData.dart';
 import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
-import 'package:rec/Helpers/Validators.dart';
+import 'package:rec/Helpers/validators/validators.dart';
 import 'package:rec/Pages/Private/Shared/EditField.page.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
@@ -114,12 +114,12 @@ class _AccountContactPageState extends State<AccountContactPage> {
               prefixChange: (prefix) {
                 data.prefix = prefix;
               },
-              phoneValidator: Validators.phoneVerification,
             ),
           ],
           onSave: (value) {
             var dataUnchanged = (data.phone == null && data.prefix == null) ||
-                data.phone == userState.account.phone && data.prefix == userState.account.prefix;
+                data.phone == userState.account.phone &&
+                    data.prefix == userState.account.prefix;
 
             if (dataUnchanged) {
               return Navigator.pop(context);
@@ -161,7 +161,10 @@ class _AccountContactPageState extends State<AccountContactPage> {
     Map<String, dynamic> data,
   ) {
     Loading.show();
-    _accountsService.updateAccount(accountId, data).then(_updateOk).catchError(_onError);
+    _accountsService
+        .updateAccount(accountId, data)
+        .then(_updateOk)
+        .catchError(_onError);
   }
 
   Future<void> _updateOk(c) async {

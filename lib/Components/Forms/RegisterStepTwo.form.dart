@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
-import 'package:rec/Helpers/Validators.dart';
+import 'package:rec/Helpers/validators/validators.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 

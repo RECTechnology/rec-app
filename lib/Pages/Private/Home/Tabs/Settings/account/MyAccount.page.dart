@@ -10,7 +10,7 @@ import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
 import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
-import 'package:rec/Helpers/Validators.dart';
+import 'package:rec/Helpers/validators/validators.dart';
 import 'package:rec/Pages/Private/Shared/EditField.page.dart';
 import 'package:rec/Providers/UserState.dart';
 

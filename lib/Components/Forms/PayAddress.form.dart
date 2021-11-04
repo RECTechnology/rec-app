@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/AmountTextField.dart';
 import 'package:rec/Components/Inputs/text_fields/SimpleTextField.dart';
 import 'package:rec/Entities/Forms/PaymentData.dart';
-import 'package:rec/Helpers/Validators.dart';
+import 'package:rec/Helpers/validators/validators.dart';
 
 /// Form for asking for payment data
 class PayAddressForm extends StatefulWidget {
@@ -28,7 +28,8 @@ class PayAddressForm extends StatefulWidget {
 }
 
 class _PayAddressForm extends State<PayAddressForm> {
-  bool _isFieldDisabled(String field) => widget.disabledFields != null && widget.disabledFields.contains(field);
+  bool _isFieldDisabled(String field) =>
+      widget.disabledFields != null && widget.disabledFields.contains(field);
 
   @override
   Widget build(BuildContext context) {
@@ -47,14 +48,18 @@ class _PayAddressForm extends State<PayAddressForm> {
               readOnly: _isFieldDisabled('concept'),
             ),
             AmountTextField(
-              initialValue: widget.data.amount == null ? '' : widget.data.amount.toString(),
+              initialValue: widget.data.amount == null
+                  ? ''
+                  : widget.data.amount.toString(),
               onSubmitted: (v) {
                 widget.data.amount = double.parse(v.isEmpty ? '0' : v);
                 if (widget.onSubmitted != null) widget.onSubmitted(widget.data);
               },
               onChange: (v) {
                 widget.onChange(
-                  widget.data..amount = double.parse(v.isEmpty ? '0' : v.replaceAll(',', '.')),
+                  widget.data
+                    ..amount =
+                        double.parse(v.isEmpty ? '0' : v.replaceAll(',', '.')),
                 );
               },
               autofocus: true,

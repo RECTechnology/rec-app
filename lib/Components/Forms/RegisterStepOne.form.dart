@@ -4,7 +4,7 @@ import 'package:rec/Components/Inputs/text_fields/PasswordField.dart';
 import 'package:rec/Components/Inputs/text_fields/PrefixPhoneField.dart';
 import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
-import 'package:rec/Helpers/Validators.dart';
+import 'package:rec/Helpers/validators/validators.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 
 class RegisterStepOneForm extends StatefulWidget {
@@ -48,9 +48,7 @@ class RegisterStepOneFormState extends State<RegisterStepOneForm> {
             phoneChange: setPhone,
             phoneValidator: (phone) => registerData.hasError('phone')
                 ? registerData.getError('phone')
-                : localizations.translate(
-                    Validators.phoneVerification(phone),
-                  ),
+                : null,
           ),
           DniTextField(
             onChange: setDni,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/DniTextField.dart';
 import 'package:rec/Components/Inputs/RoleSelector.dart';
 import 'package:rec/Entities/Forms/CreatePermissionData.dart';
-import 'package:rec/Helpers/Validators.dart';
+import 'package:rec/Helpers/validators/validators.dart';
 
 /// Form for changing pin, used by [ChangedPinPage]
 class CreatePermissionForm extends StatefulWidget {

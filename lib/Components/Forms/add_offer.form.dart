@@ -9,7 +9,7 @@ import 'package:rec/Components/Inputs/text_fields/SimpleTextField.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Entities/Forms/CreateOfferData.dart';
 import 'package:rec/Entities/Offer.ent.dart';
-import 'package:rec/Helpers/Validators.dart';
+import 'package:rec/Helpers/validators/validators.dart';
 import 'package:rec/brand.dart';
 
 /// Form for creating a new offer

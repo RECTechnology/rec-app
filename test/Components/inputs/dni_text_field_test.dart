@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rec/Components/Inputs/text_fields/DniTextField.dart';
-import 'package:rec/Helpers/Validators.dart';
+import 'package:rec/Helpers/validators/validators.dart';
 
 import '../../test_utils.dart';
 
 void main() {
-  testWidgets('DniTextField works with invalid DNI', (WidgetTester tester) async {
+  testWidgets('DniTextField works with invalid DNI',
+      (WidgetTester tester) async {
     var key = GlobalKey<DniTextFieldState>();
     var formKey = GlobalKey<FormState>();
     var onChangedResult;

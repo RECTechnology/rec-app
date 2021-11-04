@@ -10,7 +10,7 @@ import 'package:rec/Components/Text/TitleText.dart';
 import 'package:rec/Entities/Forms/DniPhoneData.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
-import 'package:rec/Helpers/Validators.dart';
+import 'package:rec/Helpers/validators/validators.dart';
 import 'package:rec/Styles/Paddings.dart';
 
 import 'package:rec/Providers/AppLocalizations.dart';

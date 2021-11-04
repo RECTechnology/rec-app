@@ -3,7 +3,7 @@ import 'package:rec/Components/Inputs/text_fields/DniTextField.dart';
 import 'package:rec/Components/Inputs/text_fields/PasswordField.dart';
 import 'package:rec/Components/Info/LoggedInBeforeCard.dart';
 import 'package:rec/Entities/Forms/LoginData.dart';
-import 'package:rec/Helpers/Validators.dart';
+import 'package:rec/Helpers/validators/validators.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/PreferenceProvider.dart';
 import 'package:rec/Providers/Preferences/PreferenceDefinitions.dart';

@@ -153,6 +153,7 @@ class _TransactionsListTile extends State<TransactionsListTile> {
       milliseconds: DateTime.now().millisecondsSinceEpoch -
           tx.createdAt.millisecondsSinceEpoch,
     ).inDays;
+
     var dateString = DateFormat('d MMM', localizations.locale.languageCode)
         .format(tx.createdAt);
 

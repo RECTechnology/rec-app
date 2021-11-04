@@ -29,14 +29,6 @@ class Validators {
     return null;
   }
 
-  static String phoneVerification(String phone) {
-    if (phone.length > 9 || phone.length < 9) {
-      return 'ERROR_PHONE';
-    } else {
-      return null;
-    }
-  }
-
   static String verifyPassword(String password) {
     if (password.length >= 6) {
       return null;

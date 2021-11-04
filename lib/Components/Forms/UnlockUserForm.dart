@@ -3,7 +3,7 @@ import 'package:rec/Components/Inputs/text_fields/DniTextField.dart';
 import 'package:rec/Components/Inputs/text_fields/PrefixPhoneField.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
 import 'package:rec/Entities/Forms/UnlockUserData.dart';
-import 'package:rec/Helpers/Validators.dart';
+import 'package:rec/Helpers/validators/validators.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 
@@ -51,7 +51,6 @@ class _UnlockUserForm extends State<UnlockUserForm> {
               phoneChange: (phone) {
                 widget.onChange(widget.data..phone = phone);
               },
-              phoneValidator: Validators.phoneVerification,
             ),
             RecTextField(
               label: localizations.translate('SMS_CODE'),

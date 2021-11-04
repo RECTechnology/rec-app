@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/DniTextField.dart';
 import 'package:rec/Components/Inputs/text_fields/PrefixPhoneField.dart';
 import 'package:rec/Entities/Forms/DniPhoneData.dart';
-import 'package:rec/Helpers/Validators.dart';
+import 'package:rec/Helpers/validators/validators.dart';
 
 /// Form for requesting a prefix, phone and a DNI
 class DniPhoneForm extends StatefulWidget {
@@ -46,7 +46,6 @@ class _DniPhoneForm extends State<DniPhoneForm> {
               phoneChange: (phone) {
                 widget.onChange(widget.data..phone = phone);
               },
-              phoneValidator: Validators.phoneVerification,
             ),
           ],
         ),

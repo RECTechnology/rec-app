@@ -12,7 +12,7 @@ import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Helpers/Loading.dart';
 import 'package:rec/Helpers/RecToast.dart';
-import 'package:rec/Helpers/Validators.dart';
+import 'package:rec/Helpers/validators/validators.dart';
 import 'package:rec/Pages/Private/Shared/EditField.page.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
@@ -41,8 +41,12 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
       ),
       Divider(height: 1),
       GeneralSettingsTile(
-        title: hasDescription ? userState.account.description : 'BUSSINESS_DESCRIPTION',
-        subtitle: hasDescription ? 'BUSSINESS_DESCRIPTION' : 'BUSSINESS_DESCRIPTION_DESC',
+        title: hasDescription
+            ? userState.account.description
+            : 'BUSSINESS_DESCRIPTION',
+        subtitle: hasDescription
+            ? 'BUSSINESS_DESCRIPTION'
+            : 'BUSSINESS_DESCRIPTION_DESC',
         onTap: _editDescription,
       ),
       Container(height: 16),
@@ -186,7 +190,10 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
     Loading.show();
 
     var userState = UserState.of(context, listen: false);
-    _accountsService.updateAccount(userState.account.id, data).then(_updateOk).catchError(_onError);
+    _accountsService
+        .updateAccount(userState.account.id, data)
+        .then(_updateOk)
+        .catchError(_onError);
   }
 
   Future<void> _updateOk(c) async {
