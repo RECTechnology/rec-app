@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:rec/Components/ContainerWithImage.dart';
 import 'package:rec/Components/Info/OfferPriceBadge.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Text/OfferDiscount.dart';
 import 'package:rec/Entities/Offer.ent.dart';
+import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/brand.dart';
 
 class OfferPreviewTile extends StatelessWidget {
@@ -19,6 +21,10 @@ class OfferPreviewTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
+    var localizations = AppLocalizations.of(context);
+
+    var date = DateFormat.yMMMd(localizations.locale.languageCode)
+        .format(DateTime.tryParse(offer.endDate));
 
     return InkWell(
       onTap: () {
@@ -82,7 +88,7 @@ class OfferPreviewTile extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                '5 may 2021',
+                                date,
                                 style: textTheme.bodyText2.copyWith(
                                   color: Brand.grayDark3,
                                 ),
