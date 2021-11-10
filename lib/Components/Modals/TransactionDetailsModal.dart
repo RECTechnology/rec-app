@@ -96,7 +96,7 @@ class TransactionDetailsModal {
     var localizations = AppLocalizations.of(context);
     var dateString =
         DateFormat('d MMMM yyyy  HH:mm', localizations.locale.languageCode)
-            .format(transaction.createdAt);
+            .format(transaction.createdAt.toLocal());
 
     return Center(
       child: Padding(
