@@ -106,7 +106,8 @@ class Account extends Entity {
   }
 
   Wallet getWallet(String currencyName) {
-    return wallets.firstWhere((element) => element.currency.name == currencyName);
+    return wallets
+        .firstWhere((element) => element.currency.name == currencyName);
   }
 
   Wallet getWalletByCurrency(Currency currency) {
@@ -118,7 +119,9 @@ class Account extends Entity {
   }
 
   bool isCampaignActiveById(String campaignId) {
-    return campaigns != null && campaigns.isNotEmpty && campaigns.firstWhere((el) => el.id == campaignId) != null;
+    return campaigns != null &&
+        campaigns.isNotEmpty &&
+        campaigns.firstWhere((el) => el.id == campaignId) != null;
   }
 
   LatLng getLatLong() => LatLng(latitude, longitude);
@@ -137,14 +140,17 @@ class Account extends Entity {
   }
 
   int getWalletBalance(String currencyName) {
-    return wallets.firstWhere((element) => element.currency.name == currencyName).balance;
+    return wallets
+        .firstWhere((element) => element.currency.name == currencyName)
+        .balance;
   }
 
   int getWalletBalanceByCurrency(Currency currency) {
     return getWalletBalance(currency.name);
   }
 
-  String get fullPhone => '${prefix.startsWith('+') ? prefix : '+' + prefix} $phone';
+  String get fullPhone =>
+      '${prefix.startsWith('+') ? prefix : '+' + prefix} $phone';
 
   factory Account.fromJson(Map<String, dynamic> json) {
     var wallets = <Wallet>[];
@@ -153,18 +159,29 @@ class Account extends Entity {
 
     if (json['wallets'] != null) {
       var jsonWallets = List.from(json['wallets']);
-      wallets = jsonWallets.isNotEmpty ? jsonWallets.map<Wallet>((el) => Wallet.fromJson(el)).toList() : <Wallet>[];
+      wallets = jsonWallets.isNotEmpty
+          ? jsonWallets.map<Wallet>((el) => Wallet.fromJson(el)).toList()
+          : <Wallet>[];
     }
 
     if (json['campaigns'] != null) {
       var jsonCampaigns = List.from(json['campaigns']);
-      campaigns =
-          jsonCampaigns.isNotEmpty ? jsonCampaigns.map<Campaign>((el) => Campaign.fromJson(el)).toList() : <Campaign>[];
+      try {
+        campaigns = jsonCampaigns.isNotEmpty
+            ? jsonCampaigns
+                .map<Campaign>((el) => Campaign.fromJson(el))
+                .toList()
+            : <Campaign>[];
+      } catch (e) {
+        // TODO: remove in next big version
+      }
     }
 
     if (json['offers'] != null) {
       var jsonOffers = List.from(json['offers']);
-      offers = jsonOffers.isNotEmpty ? jsonOffers.map<Offer>((el) => Offer.fromJson(el)).toList() : <Offer>[];
+      offers = jsonOffers.isNotEmpty
+          ? jsonOffers.map<Offer>((el) => Offer.fromJson(el)).toList()
+          : <Offer>[];
     }
 
     var formattedAddress = FormattedAddress.fromJson(json);
@@ -174,7 +191,9 @@ class Account extends Entity {
       id: '${json['id']}',
       createdAt: json['created'],
       updatedAt: json['updated'],
-      name: json['name'] == null || json['name'].isEmpty ? 'PARTICULAR' : json['name'],
+      name: json['name'] == null || json['name'].isEmpty
+          ? 'PARTICULAR'
+          : json['name'],
       type: json['type'],
       active: json['active'],
       publicImage: json['public_image'],
@@ -189,7 +208,9 @@ class Account extends Entity {
       latitude: double.parse((json['latitude'] ?? 0).toString()),
       longitude: double.parse((json['longitude'] ?? 0).toString()),
       redeemableAmount: json['redeemable_amount'],
-      level: Checks.isNotNull(json['level']) ? Level.fromJson(json['level']) : null,
+      level: Checks.isNotNull(json['level'])
+          ? Level.fromJson(json['level'])
+          : null,
       wallets: wallets,
       campaigns: campaigns,
       offers: offers..sort((a, b) => b.updatedAt.compareTo(a.updatedAt)),
