@@ -57,9 +57,7 @@ class _PayAddressForm extends State<PayAddressForm> {
               },
               onChange: (v) {
                 widget.onChange(
-                  widget.data
-                    ..amount =
-                        double.parse(v.isEmpty ? '0' : v.replaceAll(',', '.')),
+                  widget.data..amount = double.parse(v.isEmpty ? '0' : v),
                 );
               },
               autofocus: true,

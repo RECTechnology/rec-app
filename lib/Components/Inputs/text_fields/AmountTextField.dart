@@ -59,8 +59,17 @@ class AmountTextFieldState extends State<AmountTextField> {
       ), //Used this type of keyboard to avoid error in  IOS with decimals
       needObscureText: false,
       placeholder: localizations.translate('WRITE_AMOUNT'),
-      onChange: widget.onChange,
-      onSubmitted: widget.onSubmitted,
+      // onChange: widget.onChange,
+      onChange: (value) {
+        if (widget.onChange != null) {
+          widget.onChange(value.isEmpty ? '0' : value.replaceAll(',', '.'));
+        }
+      },
+      onSubmitted: (value) {
+        if (widget.onSubmitted != null) {
+          widget.onSubmitted(value.isEmpty ? '0' : value.replaceAll(',', '.'));
+        }
+      },
       colorLine: widget.color,
       validator: widget.validator,
       readOnly: widget.readOnly,
