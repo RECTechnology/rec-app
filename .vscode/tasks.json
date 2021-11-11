@@ -10,7 +10,7 @@
         {
             "label": "prepare-env-prod",
             "command": "./scripts/prepare-env.sh",
-            "args": ["pre"],
+            "args": ["prod"],
             "type": "shell"
         },
         {
@@ -20,9 +20,21 @@
             "type": "shell"
         },
         {
+            "label": "build-prod-aab",
+            "command": "flutter",
+            "args": ["build", "appbundle", "--flavor=prod", "--release"],
+            "type": "shell"
+        },
+        {
             "label": "open-pre-apk-path",
             "command": "open",
             "args": ["build/app/outputs/flutter-apk/"],
+            "type": "shell"
+        },
+        {
+            "label": "open-prod-aab-path",
+            "command": "open",
+            "args": ["build/app/outputs/bundle/prodRelease"],
             "type": "shell"
         },
         {
@@ -32,6 +44,24 @@
                 "prepare-env-pre",
                 "build-pre-apk",
                 "open-pre-apk-path"
+            ]
+        },
+        {
+            "label": "Build AAB prod",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "prepare-env-prod",
+                "build-prod-aab",
+                "open-prod-aab-path"
+            ]
+        },
+        {
+            "label": "Build AAB pre",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "prepare-env-pre",
+                "build-prod-aab",
+                "open-prod-aab-path"
             ]
         }
     ]
