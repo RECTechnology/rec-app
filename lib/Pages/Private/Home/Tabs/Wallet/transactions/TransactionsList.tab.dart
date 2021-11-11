@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:rec/Components/Indicators/LoadingIndicator.dart';
 import 'package:rec/Components/ListTiles/TransactionListTile.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';

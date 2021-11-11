@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Forms/RegisterStepTwo.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';

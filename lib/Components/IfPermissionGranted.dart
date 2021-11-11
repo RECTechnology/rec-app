@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/RequestPermission.dart';
 import 'package:rec/Permissions/permission_data.dart';

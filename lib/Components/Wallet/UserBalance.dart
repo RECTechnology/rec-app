@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:rec/Components/Icons/RecCurrencyIcon.dart';
 import 'package:rec/Entities/Transactions/Currency.ent.dart';
 import 'package:rec/Providers/AppLocalizations.dart';

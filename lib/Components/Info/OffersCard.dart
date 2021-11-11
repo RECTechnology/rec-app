@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:rec/Entities/Offer.ent.dart';
 import 'package:rec/brand.dart';
 

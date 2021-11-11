@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Modals/GenericModal.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';

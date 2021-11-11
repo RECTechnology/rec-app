@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/Wallet/UserBalance.dart';
 import 'package:rec/Components/Wallet/WalletFloatingActions.dart';

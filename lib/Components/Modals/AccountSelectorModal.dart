@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Services/UsersService.dart';
 import 'package:rec/Components/ListTiles/AccountListTile.dart';

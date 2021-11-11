@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:rec/Api/ApiError.dart';
 import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Services/UsersService.dart';
@@ -31,7 +30,8 @@ class HomePage extends StatefulWidget {
   HomePageState createState() => HomePageState();
 }
 
-class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   /// Method to change tabs from other widgets
   static void changeTab(BuildContext context, int tab) {
     var state = context.findAncestorStateOfType<HomePageState>();
@@ -96,7 +96,10 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
       Preferences.userRefreshInterval,
       (_) {
         _refreshToken();
-        _users.getUser().then((value) => _userState?.setUser(value)).catchError(_onGetUserError);
+        _users
+            .getUser()
+            .then((value) => _userState?.setUser(value))
+            .catchError(_onGetUserError);
       },
     );
   }
