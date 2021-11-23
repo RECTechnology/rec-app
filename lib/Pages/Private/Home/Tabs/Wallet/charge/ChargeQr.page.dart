@@ -44,29 +44,34 @@ class _ChargeQrState extends State<ChargeQr> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              localizations.translate('QR_CHARGE_MESSAGE'),
-              style: Theme.of(context).textTheme.headline6,
-              textAlign: TextAlign.center,
-            ),
-            RecQrImage(payUrl),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: RecActionButton(
-                label: localizations.translate('FINALIZE'),
-                backgroundColor: color,
-                onPressed: () => Navigator.of(context).popUntil(
-                  ModalRoute.withName(Routes.home),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text(
+                localizations.translate('QR_CHARGE_MESSAGE'),
+                style: Theme.of(context).textTheme.headline6,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32),
+              RecQrImage(payUrl),
+              const SizedBox(height: 32),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: RecActionButton(
+                  label: localizations.translate('FINALIZE'),
+                  backgroundColor: color,
+                  onPressed: () => Navigator.of(context).popUntil(
+                    ModalRoute.withName(Routes.home),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
