@@ -68,8 +68,7 @@ class PrefixPhoneFieldState extends State<PrefixPhoneField> {
                   // NOTE: This is temporal  so  we only allow spanish numbers,
                   // and it might change in the future.
                   enabled: false,
-                  initialSelection:
-                      widget.prefix != null ? '${widget.prefix}' : '+34',
+                  initialSelection: widget.prefix != null ? '${widget.prefix}' : '+34',
                   favorite: ['+34', 'ES'],
                   textStyle: TextStyle(fontSize: 16, color: Brand.grayDark),
                 ),
@@ -93,9 +92,7 @@ class PrefixPhoneFieldState extends State<PrefixPhoneField> {
                     var validationResult = phoneValidator.validate(value);
                     if (validationResult != null) return validationResult;
 
-                    return widget.phoneValidator != null
-                        ? widget.phoneValidator(value)
-                        : null;
+                    return widget.phoneValidator != null ? widget.phoneValidator(value) : null;
                   },
                   initialValue: widget.phone,
                   maxLines: 1,
@@ -110,11 +107,15 @@ class PrefixPhoneFieldState extends State<PrefixPhoneField> {
   }
 
   void setPhone(String phone) {
-    widget.phoneChange(phone);
+    if (widget.phoneChange != null) {
+      widget.phoneChange(phone.trim());
+    }
   }
 
   void setPrefix(CountryCode prefix) {
     phoneValidator.setPrefix(prefix.toString());
-    widget.prefixChange(prefix.toString());
+    if (widget.prefixChange != null) {
+      widget.prefixChange(prefix.toString().trim());
+    }
   }
 }

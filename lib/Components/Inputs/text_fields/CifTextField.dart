@@ -62,7 +62,7 @@ class CifTextFieldState extends State<CifTextField> {
       keyboardType: TextInputType.text,
       needObscureText: false,
       placeholder: localizedPlaceholder,
-      onChange: widget.onChange,
+      onChange: _fieldChanged,
       colorLine: widget.color,
       validator: widget.validator,
       padding: widget.padding,
@@ -75,5 +75,13 @@ class CifTextFieldState extends State<CifTextField> {
             )
           : null,
     );
+  }
+
+  void _fieldChanged(value) {
+    // Trim whitespaces at the end and start of the [value]
+    // prevents incorrect validation in case a user adds a space at the end
+    if (widget.onChange != null) {
+      widget.onChange(value.trim());
+    }
   }
 }

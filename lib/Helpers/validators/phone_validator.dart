@@ -67,6 +67,6 @@ class PhoneValidator {
   String validate(String phoneNumber) {
     var strategy = _getStrategy(_prefix);
 
-    return strategy.validate(phoneNumber);
+    return strategy.validate(phoneNumber.trim());
   }
 }
