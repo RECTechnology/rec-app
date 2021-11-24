@@ -28,6 +28,9 @@ class RecPinInput extends StatefulWidget {
   /// use the current [FocusScope] to request the focus:
   final FocusNode focusNode;
 
+  /// If the value is [true] the inputs will be obscured (replaced with *)
+  final bool obscureText;
+
   RecPinInput({
     Key key,
     @required this.fieldsCount,
@@ -36,6 +39,7 @@ class RecPinInput extends StatefulWidget {
     this.onChanged,
     this.autofocus = false,
     this.focusNode,
+    this.obscureText = true,
     Pattern validator,
   })  : validator = validator ?? RegExp(r'[0-9]'),
         super(key: key);
@@ -72,6 +76,7 @@ class _RecPinInputState extends State<RecPinInput> {
         autofocus: widget.autofocus,
         fieldsCount: widget.fieldsCount,
         controller: _pinPutController,
+        obscureText: widget.obscureText ? '*' : null,
         selectedFieldDecoration: _pinPutDecoration.copyWith(
           border: Border.all(
             color: Brand.primaryColor.withOpacity(.5),
