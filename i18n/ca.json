@@ -459,5 +459,8 @@
   "WHAT_TO_DO_WITH_OFFER": "Què vols fer amb l'oferta?",
   "OFFER_REMOVED_OK": "Oferta eliminada",
   "ERROR_PHONE_MUST_START_WITH": "El número de telèfon ha de començar per 6 o 7",
-  "ERROR_PHONE_BAD_CHARACTERS": "Número incorrecte o conté caràcters no permesos"
+  "ERROR_PHONE_BAD_CHARACTERS": "Número incorrecte o conté caràcters no permesos",
+
+
+  "ACCOUNT_NOT_ACTIVE": "El teu compte no està actiu"
 }

@@ -467,6 +467,8 @@
   "WHAT_TO_DO_WITH_OFFER": "What do you want to do with the offer?",
   "OFFER_REMOVED_OK": "Offer deleted",
   "ERROR_PHONE_MUST_START_WITH": "The phone number must start with 6 or 7",
-  "ERROR_PHONE_BAD_CHARACTERS": "Incorrect number or contains illegal characters"
+  "ERROR_PHONE_BAD_CHARACTERS": "Incorrect number or contains illegal characters",
+
+  "ACCOUNT_NOT_ACTIVE": "Your account is not active"
 
 }

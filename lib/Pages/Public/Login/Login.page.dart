@@ -185,6 +185,9 @@ class _LoginPageState extends State<LoginPage> {
 
     if (error.message == HandledErrors.maxAttempstExceeded) {
       RecToast.showError(context, 'MAX_ATTEMPTS_EXCEEDED');
+    }
+    if (error.message == HandledErrors.accountNotActive) {
+      RecToast.showError(context, 'ACCOUNT_NOT_ACTIVE');
     } else {
       RecToast.showError(context, error.message);
     }

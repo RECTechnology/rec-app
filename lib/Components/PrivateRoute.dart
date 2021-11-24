@@ -6,6 +6,7 @@ import 'package:rec/Api/Auth.dart';
 import 'package:rec/Api/Services/UsersService.dart';
 import 'package:rec/Components/Indicators/LoadingIndicator.dart';
 import 'package:rec/Entities/User.ent.dart';
+import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/routes.dart';
 
@@ -77,6 +78,11 @@ class _PrivateRouteState extends State<PrivateRoute> {
   void gotUserError(e) async {
     if (e.runtimeType != ApiError) return;
     if (e.code == 401 || e.code == 403) {
+      await Auth.logout(context);
+      await Navigator.of(context).pushReplacementNamed(Routes.login);
+    }
+    if (e.code == 412) {
+      RecToast.showError(context, 'ACCOUNT_NOT_ACTIVE');
       await Auth.logout(context);
       await Navigator.of(context).pushReplacementNamed(Routes.login);
     }
