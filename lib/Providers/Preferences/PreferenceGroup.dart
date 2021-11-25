@@ -2,7 +2,7 @@ import 'package:rec/Helpers/Checks.dart';
 import 'package:rec/Providers/Preferences/Preference.dart';
 
 class PreferenceGroup {
-  final Map<String, Preference> _preferences = {};
+  final Map<String, Preference> preferences = {};
   String name;
 
   PreferenceGroup(
@@ -15,15 +15,15 @@ class PreferenceGroup {
   }
 
   void addPreference(Preference preference) {
-    _preferences[preference.storageKey] = preference;
+    preferences[preference.storageKey] = preference;
   }
 
   Preference getPreference(String key) {
-    return _preferences[key];
+    return preferences[key];
   }
 
   List<Preference> getPreferences() {
-    return List.from(_preferences.values);
+    return List.from(preferences.values);
   }
 
   dynamic get(String key) {
@@ -32,7 +32,7 @@ class PreferenceGroup {
   }
 
   dynamic set(String key, dynamic value) {
-    _preferences[key].set(value);
+    preferences[key].set(value);
     return value;
   }
 }

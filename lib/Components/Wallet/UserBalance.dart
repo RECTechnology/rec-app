@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Icons/RecCurrencyIcon.dart';
 import 'package:rec/Entities/Transactions/Currency.ent.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/Providers/PreferenceProvider.dart';
+import 'package:rec/Providers/Preferences/PreferenceDefinitions.dart';
 
 class UserBalance extends StatefulWidget {
   final double balance;
@@ -24,12 +26,22 @@ class UserBalance extends StatefulWidget {
 }
 
 class _UserBalance extends State<UserBalance> {
+  PreferenceProvider prefProvider;
+  bool showBalance = true;
+
+  @override
+  void initState() {
+    prefProvider = PreferenceProvider.deaf(context);
+    showBalance = prefProvider.get(PreferenceKeys.showWalletBalance) ?? true;
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
-    var amount = Currency.format(
-      widget.balance,
-    );
+    var amount = showBalance ? Currency.format(widget.balance) : '* * *';
+    var subtitle = showBalance ? localizations.translate(widget.label) : '';
 
     return Container(
       margin: EdgeInsets.only(bottom: 40),
@@ -43,14 +55,18 @@ class _UserBalance extends State<UserBalance> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  amount,
-                  style: TextStyle(
-                    fontSize: 40,
-                    color: widget.color ?? Colors.white,
-                    fontWeight: FontWeight.w500,
+                _showHideButton(),
+                InkWell(
+                  onTap: _toggleBalanceVisibility,
+                  child: Text(
+                    amount,
+                    style: TextStyle(
+                      fontSize: 40,
+                      color: widget.color ?? Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
@@ -62,7 +78,7 @@ class _UserBalance extends State<UserBalance> {
           Padding(
             padding: EdgeInsets.only(bottom: 10),
             child: Text(
-              localizations.translate(widget.label),
+              subtitle,
               style: TextStyle(
                 fontSize: 15,
                 color: widget.color ?? Colors.white,
@@ -72,5 +88,32 @@ class _UserBalance extends State<UserBalance> {
         ],
       ),
     );
+  }
+
+  Widget _showHideButton() {
+    var localizations = AppLocalizations.of(context);
+
+    return Tooltip(
+      message: localizations.translate('WALLET_SHOW_BALANCE_TOOLTIP'),
+      child: IconButton(
+        icon: Icon(
+          showBalance ? Icons.visibility : Icons.visibility_off,
+          color: Colors.white,
+          size: 16,
+        ),
+        splashRadius: 24,
+        onPressed: _toggleBalanceVisibility,
+      ),
+    );
+  }
+
+  void _toggleBalanceVisibility() {
+    prefProvider.set(
+      PreferenceKeys.showWalletBalance,
+      !showBalance,
+    );
+    setState(() {
+      showBalance = !showBalance;
+    });
   }
 }

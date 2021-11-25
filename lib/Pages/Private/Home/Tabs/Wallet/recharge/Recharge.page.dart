@@ -108,8 +108,7 @@ class _RechargePageState extends State<RechargePage> {
   }
 
   void _amountChanged(value) {
-    var newAmount =
-        double.parse(value.isEmpty ? '0' : value.replaceAll(',', '.'));
+    var newAmount = double.parse(value.isEmpty ? '0' : value.replaceAll(',', '.'));
     setState(() {
       rechargeData.amount = newAmount;
     });
@@ -126,6 +125,7 @@ class _RechargePageState extends State<RechargePage> {
     var campaignActive = activeCampaign.isActiveForState(userState);
     var valueDouble = double.parse(value.isEmpty ? '0' : value);
     var reachesMin = valueDouble >= activeCampaign.min;
+
     if (valueDouble < 0.5) {
       return localizations.translate('MIN_RECHARGE');
     }
@@ -147,8 +147,8 @@ class _RechargePageState extends State<RechargePage> {
     Loading.show();
     _updateTos();
 
-    rechargeData.willEnterCampaign = rechargeData.campaignTermsAccepted &&
-        rechargeData.amount >= activeCampaign.min;
+    rechargeData.willEnterCampaign =
+        rechargeData.campaignTermsAccepted && rechargeData.amount >= activeCampaign.min;
 
     Loading.dismiss();
     _requestPin();

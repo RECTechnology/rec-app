@@ -8,7 +8,7 @@ void main() {
   testWidgets('CircleAvatar with network image', (WidgetTester tester) async {
     var userBalance = UserBalance(balance: 10);
 
-    await tester.pumpWidget(TestUtils.wrapPublicWidget(userBalance));
+    await tester.pumpWidget(TestUtils.wrapPrivateRoute(userBalance));
     await tester.pumpAndSettle();
 
     TestUtils.widgetExists(userBalance);

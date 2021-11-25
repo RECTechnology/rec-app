@@ -24,13 +24,14 @@ class Preference<T> {
     dynamic defaultValue,
     String prettyName,
     PreferenceType type = PreferenceType.string,
+    dynamic value,
   })  : defaultValue = defaultValue,
         prettyName = prettyName ?? storageKey,
         type = type,
         _onChanged = onChanged,
         _value = RecPreferences.get(storageKey) ?? defaultValue;
 
-  T get value => _value;
+  T get value => RecPreferences.get(storageKey) ?? _value ?? defaultValue;
 
   void set(T value) {
     _value = value;
@@ -41,5 +42,16 @@ class Preference<T> {
     if (_onChanged != null) {
       _onChanged(context, value);
     }
+  }
+
+  Preference copyWith({dynamic value}) {
+    return Preference(
+      storageKey: storageKey,
+      acceptedValues: acceptedValues,
+      onChanged: onChanged,
+      defaultValue: defaultValue,
+      prettyName: prettyName,
+      type: type,
+    );
   }
 }

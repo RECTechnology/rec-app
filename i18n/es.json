@@ -472,6 +472,6 @@
   "OFFER_REMOVED_OK": "Oferta eliminada",
   "ERROR_PHONE_MUST_START_WITH": "El número debe comenzar por 6 o 7",
   "ERROR_PHONE_BAD_CHARACTERS": "Número incorrecto o contiene caracteres no permitidos",
-
+  "WALLET_SHOW_BALANCE_TOOLTIP": "Pulsa este boton para ocultar/mostrar tu balance",
   "ACCOUNT_NOT_ACTIVE": "Tu cuenta no está activa"
 }

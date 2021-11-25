@@ -4,7 +4,6 @@ import 'package:rec/Components/Modals/AccountSelectorModal.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Providers/UserState.dart';
 import 'package:rec/Styles/BoxDecorations.dart';
-
 import 'package:rec/brand.dart';
 
 class PrivateAppBar extends StatefulWidget with PreferredSizeWidget {
@@ -59,63 +58,59 @@ class _PrivateAppBar extends State<PrivateAppBar> {
       backgroundColor: widget.backgroundColor,
       flexibleSpace: widget.bottom == null ? null : flexibleSpace,
       elevation: 0,
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 8.0),
-        child: widget.hasBackArrow
-            ? IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: widget.color ?? Colors.white,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
-            : Container(
-                alignment: Alignment.center,
-                child: CircleAvatarRec.fromAccount(account),
+      bottom: widget.bottom,
+      automaticallyImplyLeading: false,
+      title: InkWell(
+        onTap: (widget.selectAccountEnabled) ? accountSelector.open : null,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            widget.hasBackArrow
+                ? IconButton(
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: widget.color ?? Colors.white,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  )
+                : Container(
+                    alignment: Alignment.center,
+                    child: CircleAvatarRec.fromAccount(account),
+                  ),
+            LocalizedText(
+              widget.title ?? userState.user.selectedAccount.name,
+              textAlign: widget.textAlign,
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w300,
+                color: widget.color ?? Colors.white,
               ),
-      ),
-      title: Align(
-        alignment: widget.alignment,
-        child: LocalizedText(
-          widget.title ?? userState.user.selectedAccount.name,
-          textAlign: widget.textAlign,
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w300,
-            color: widget.color ?? Colors.white,
-          ),
+            ),
+            widget.selectAccountEnabled
+                ? Container(
+                    alignment: Alignment.center,
+                    height: 45,
+                    width: 65,
+                    child: Icon(
+                      Icons.group,
+                      color: widget.color ?? Colors.white,
+                    ),
+                  )
+                : SizedBox(height: 45, width: 65),
+          ],
         ),
       ),
-      bottom: widget.bottom,
-      actions: [
-        widget.selectAccountEnabled
-            ? Container(
-                alignment: Alignment.center,
-                height: 45,
-                width: 65,
-                child: Icon(
-                  Icons.arrow_drop_down_sharp,
-                  color: widget.color ?? Colors.white,
-                ),
-              )
-            : SizedBox(height: 45, width: 65),
-      ],
-    );
-
-    var appBarInkWell = InkWell(
-      onTap: (widget.selectAccountEnabled) ? accountSelector.open : null,
-      child: appBar,
     );
 
     if (widget.bottom != null) {
       return PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
-        child: appBarInkWell,
+        child: appBar,
       );
     }
 
-    return appBarInkWell;
+    return appBar;
   }
 }
