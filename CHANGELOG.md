@@ -1,3 +1,11 @@
+## v2.1.2
+* fix: https://github.com/QbitArtifacts/rec_app_v2/issues/268
+* fix: https://github.com/QbitArtifacts/rec_app_v2/issues/269
+* fix: https://github.com/QbitArtifacts/rec_app_v2/issues/270
+* fix: https://github.com/QbitArtifacts/rec_app_v2/issues/272
+* fix: https://github.com/QbitArtifacts/rec_app_v2/issues/273 https://github.com/QbitArtifacts/rec_app_v2/issues/280
+* fix: https://github.com/QbitArtifacts/rec_app_v2/issues/281
+
 ## v2.1.0
 * fix: account selector, hide manage account if is LTAB account
 * fix: register step 2 CIF error not handled
