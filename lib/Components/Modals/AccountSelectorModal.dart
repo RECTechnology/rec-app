@@ -92,7 +92,7 @@ class AccountSelectorModal {
               Row(
                 children: [
                   CircleAvatarRec(
-                    imageUrl: account.publicImage,
+                    imageUrl: account.companyImage,
                     name: account.name,
                   ),
                   Padding(
