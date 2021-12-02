@@ -42,8 +42,8 @@ class _UserBalance extends State<UserBalance> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
-    var amount = showBalance ? Currency.format(widget.balance) : '* * *';
-    var subtitle = showBalance ? localizations.translate(widget.label) : '';
+    var amount = (showBalance || !widget.hidable) ? Currency.format(widget.balance) : '* * *';
+    var subtitle = (showBalance || !widget.hidable) ? localizations.translate(widget.label) : '';
 
     return Container(
       margin: EdgeInsets.only(bottom: 40),
