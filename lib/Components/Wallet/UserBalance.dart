@@ -10,10 +10,12 @@ class UserBalance extends StatefulWidget {
   final String label;
   final Color color;
   final Currency currency;
+  final bool hidable;
 
   UserBalance({
     this.label = 'TOTAL_BALANCE',
     this.color,
+    this.hidable = false,
     double balance = 0,
     Currency currency,
   })  : balance = balance ?? 0,
@@ -55,9 +57,9 @@ class _UserBalance extends State<UserBalance> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _showHideButton(),
+                if (widget.hidable) _showHideButton(),
                 InkWell(
-                  onTap: _toggleBalanceVisibility,
+                  onTap: widget.hidable ? _toggleBalanceVisibility : null,
                   child: Text(
                     amount,
                     style: TextStyle(
