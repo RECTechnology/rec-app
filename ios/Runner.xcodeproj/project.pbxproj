@@ -378,10 +378,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
-				FLUTTER_ROOT = /Users/manolo/Documents/Dev/flutter;
+				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -396,7 +396,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.1.1;
+				MARKETING_VERSION = 2.1.3;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = rec.barcelona;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -523,10 +523,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
-				FLUTTER_ROOT = /Users/manolo/Documents/Dev/flutter;
+				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -541,7 +541,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.1.1;
+				MARKETING_VERSION = 2.1.3;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = rec.barcelona;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -562,10 +562,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
-				FLUTTER_ROOT = /Users/manolo/Documents/Dev/flutter;
+				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -580,7 +580,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.1.1;
+				MARKETING_VERSION = 2.1.3;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = rec.barcelona;
 				PRODUCT_NAME = "$(TARGET_NAME)";
