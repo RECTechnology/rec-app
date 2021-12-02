@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rec/Components/Inputs/text_fields/CifTextField.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
 import 'package:rec/Entities/Forms/RegisterData.dart';
 import 'package:rec/Helpers/validators/validators.dart';
@@ -50,17 +51,9 @@ class RegisterStepOneFoTwotate extends State<RegisterStepTwoForm> {
           ),
           Container(
             margin: EdgeInsets.only(bottom: 16),
-            child: RecTextField(
+            child: CifTextField(
               initialValue: widget.registerData.companyCif,
-              label: localizations.translate('CIF'),
-              placeholder: localizations.translate('CIF'),
-              needObscureText: false,
-              keyboardType: TextInputType.text,
               onChange: setCIF,
-              icon: Icon(
-                Icons.work_outlined,
-                color: Brand.grayIcon,
-              ),
               validator: (cif) {
                 if (widget.registerData.hasError('cif')) {
                   return widget.registerData.getError('cif');
