@@ -31,10 +31,17 @@
             "args": ["build", "ipa", "--release"],
             "type": "shell"
         },
+        // arch -x86_64 flutter build ipa --release
         {
             "label": "build-prod-ios",
             "command": "flutter",
             "args": ["build", "ipa", "--release"],
+            "type": "shell"
+        },
+        {
+            "label": "m1-build-prod-ios",
+            "command": "arch",
+            "args": ["-x86_64","flutter","build", "ipa", "--release"],
             "type": "shell"
         },
         {
@@ -90,6 +97,14 @@
             "dependsOn": [
                 "prepare-env-prod",
                 "build-prod-ios"
+            ]
+        },
+        {
+            "label": "Build iOS prod (m1)",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "prepare-env-prod",
+                "m1-build-prod-ios"
             ]
         }
     ]
