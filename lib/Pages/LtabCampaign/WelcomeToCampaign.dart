@@ -68,10 +68,13 @@ class _WelcomeToCampaignState extends State<WelcomeToCampaign> {
               ),
               SizedBox(height: 32),
               Center(
-                child: Text(
-                  localizations.translate('CAMPAIGN_WELCOME_DESC'),
+                child: LocalizedText(
+                  'CAMPAIGN_WELCOME_DESC',
                   style: TextStyles.pageSubtitle1,
                   textAlign: TextAlign.center,
+                  params: {
+                    'percent': activeCampaign.percent,
+                  },
                 ),
               ),
             ],

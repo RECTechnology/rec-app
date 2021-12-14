@@ -53,6 +53,9 @@ class _CampaignDescriptionCardState extends State<CampaignDescriptionCard> {
                   fontWeight: FontWeight.w500,
                   color: Brand.accentColor,
                 ),
+                params: {
+                  'percent': activeCampaign.percent,
+                },
               ),
               const SizedBox(height: 8),
               RichText(

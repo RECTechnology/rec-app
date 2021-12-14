@@ -10,6 +10,7 @@ class Campaign extends Entity {
   int min;
   int max;
   int balance;
+  num percent;
 
   String name;
   String videoPromoUrl;
@@ -27,6 +28,7 @@ class Campaign extends Entity {
     this.name,
     this.videoPromoUrl,
     this.imageUrl,
+    this.percent,
   }) : super(id, createdAt, updatedAt);
 
   bool isFinished() {
@@ -84,6 +86,7 @@ class Campaign extends Entity {
       name: json['name'],
       videoPromoUrl: json['video_promo_url'],
       imageUrl: json['image_url'],
+      percent: json['redeemable_percentage'],
     );
   }
 }
