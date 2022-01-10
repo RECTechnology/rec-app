@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Styles/TextStyles.dart';
 import 'package:rec/routes.dart';
@@ -18,22 +19,25 @@ class LtabBonificacionStop extends StatefulWidget {
 }
 
 class _LtabBonificacionStopState extends State<LtabBonificacionStop> {
-  Future<bool> _popBackHome() {
-    Navigator.of(context).popUntil(
-      ModalRoute.withName(Routes.home),
-    );
-    return Future.value(false);
+  Future<bool> _pop() {
+    Navigator.of(context).pop();
+    return Future.value(true);
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _popBackHome,
+      onWillPop: _pop,
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: EmptyAppBar(
           context,
           backArrow: widget.buttonWithArrow,
+          backAction: () {
+            Navigator.of(context).popUntil(
+              ModalRoute.withName(Routes.home),
+            );
+          },
         ),
         body: _body(),
       ),
@@ -44,7 +48,7 @@ class _LtabBonificacionStopState extends State<LtabBonificacionStop> {
     var localizations = AppLocalizations.of(context);
 
     return Padding(
-      padding: EdgeInsets.fromLTRB(32, 84, 32, 32),
+      padding: EdgeInsets.fromLTRB(32, 32, 32, 32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,24 +56,31 @@ class _LtabBonificacionStopState extends State<LtabBonificacionStop> {
           Column(
             children: [
               Center(
-                child: Text(
-                  localizations.translate('LTAB_STOP_BONIFICATION_TITLE'),
+                child: LocalizedText(
+                  'LTAB_STOP_BONIFICATION_TITLE',
                   style: TextStyles.pageTitle,
                   textAlign: TextAlign.center,
+                  uppercase: true,
                 ),
               ),
               SizedBox(height: 32),
-              Center(
-                child: Text(
-                  localizations.translate('LTAB_STOP_BONIFICATION_DESC'),
-                  textAlign: TextAlign.center,
-                ),
+              LocalizedText(
+                'LTAB_STOP_BONIFICATION_DESC_1',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.button.copyWith(fontWeight: FontWeight.normal),
+              ),
+              SizedBox(height: 16),
+              LocalizedText(
+                'LTAB_STOP_BONIFICATION_DESC_2',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.button.copyWith(fontWeight: FontWeight.normal),
               ),
             ],
           ),
           RecActionButton(
             label: localizations.translate('ALRIGHT'),
-            onPressed: _popBackHome,
+            onPressed: _pop,
+            icon: Icons.arrow_forward_ios,
           )
         ],
       ),

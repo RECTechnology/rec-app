@@ -469,5 +469,8 @@
   "ERROR_PHONE_MUST_START_WITH": "The phone number must start with 6 or 7",
   "ERROR_PHONE_BAD_CHARACTERS": "Incorrect number or contains illegal characters",
   "WALLET_SHOW_BALANCE_TOOLTIP": "Press this button to hide / show your balance",
-  "ACCOUNT_NOT_ACTIVE": "Your account is not active"
+  "ACCOUNT_NOT_ACTIVE": "Your account is not active",
+  "LTAB_STOP_BONIFICATION_TITLE": "We have exhausted the rewardable RECs",
+   "LTAB_STOP_BONIFICATION_DESC_1": "From now on, when recharging RECs, you will not receive rewarded RECs.",
+   "LTAB_STOP_BONIFICATION_DESC_2": "If you have rewarded RECs in your account LI TOCA AL BARRI make use of them before the end of the campaign"
 }

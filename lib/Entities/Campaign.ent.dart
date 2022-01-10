@@ -33,7 +33,7 @@ class Campaign extends Entity {
     this.videoPromoUrl,
     this.imageUrl,
     this.percent,
-    this.bonusEnabled = true,
+    this.bonusEnabled,
   }) : super(id, createdAt, updatedAt);
 
   bool isFinished() {

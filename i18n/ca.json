@@ -461,5 +461,9 @@
   "ERROR_PHONE_MUST_START_WITH": "El número de telèfon ha de començar per 6 o 7",
   "ERROR_PHONE_BAD_CHARACTERS": "Número incorrecte o conté caràcters no permesos",
   "WALLET_SHOW_BALANCE_TOOLTIP": "Clica aquest botó per amagar/mostrar el teu balanç",
-  "ACCOUNT_NOT_ACTIVE": "El teu compte no està actiu"
+  "ACCOUNT_NOT_ACTIVE": "El teu compte no està actiu",
+
+  "LTAB_STOP_BONIFICATION_TITLE": "Hem esgotat els RECs bonificables",
+  "LTAB_STOP_BONIFICATION_DESC_1": "A partir d'ara, en recarregar RECs, no rebràs RECs bonificables.",
+  "LTAB_STOP_BONIFICATION_DESC_2": "Si disposes de RECs bonificats al teu compte LI TOCA AL BARRI fes-ne ús abans del final de campanya"
 }
