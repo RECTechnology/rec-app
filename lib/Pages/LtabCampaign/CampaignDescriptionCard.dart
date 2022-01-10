@@ -18,8 +18,7 @@ class CampaignDescriptionCard extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CampaignDescriptionCardState createState() =>
-      _CampaignDescriptionCardState();
+  _CampaignDescriptionCardState createState() => _CampaignDescriptionCardState();
 }
 
 class _CampaignDescriptionCardState extends State<CampaignDescriptionCard> {
@@ -29,8 +28,9 @@ class _CampaignDescriptionCardState extends State<CampaignDescriptionCard> {
     var theme = Theme.of(context);
     var localizations = AppLocalizations.of(context);
     var activeCampaign = CampaignProvider.of(context).activeCampaign;
+    var bonusEnabled = activeCampaign.bonusEnabled;
 
-    if (activeCampaign == null || !activeCampaign.isActiveForState(userState)) {
+    if (activeCampaign == null || !activeCampaign.isActiveForState(userState) || !bonusEnabled) {
       return SizedBox.shrink();
     }
 
@@ -70,8 +70,7 @@ class _CampaignDescriptionCardState extends State<CampaignDescriptionCard> {
                     TextSpan(text: ' '),
                     TextSpan(
                       text: activeCampaign.name.toUpperCase(),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = _campaignLinkTapped,
+                      recognizer: TapGestureRecognizer()..onTap = _campaignLinkTapped,
                       style: TextStyle(
                         decoration: TextDecoration.underline,
                         fontWeight: FontWeight.w500,
