@@ -2,7 +2,7 @@ import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Entity.base.dart';
 import 'package:rec/Entities/User.ent.dart';
 import 'package:rec/Providers/UserState.dart';
-import 'package:rec/helpers/DateHelper.dart';
+import 'package:rec/Helpers/DateHelper.dart';
 
 class Campaign extends Entity {
   DateTime initDate;
