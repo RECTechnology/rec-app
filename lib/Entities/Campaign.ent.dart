@@ -2,6 +2,7 @@ import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Entities/Entity.base.dart';
 import 'package:rec/Entities/User.ent.dart';
 import 'package:rec/Providers/UserState.dart';
+import 'package:rec/helpers/DateHelper.dart';
 
 class Campaign extends Entity {
   DateTime initDate;
@@ -16,6 +17,9 @@ class Campaign extends Entity {
   String videoPromoUrl;
   String imageUrl;
 
+  // implemented from: https://github.com/QbitArtifacts/rec_app_v2/issues/342
+  bool bonusEnabled;
+
   Campaign({
     String id,
     String createdAt,
@@ -29,17 +33,18 @@ class Campaign extends Entity {
     this.videoPromoUrl,
     this.imageUrl,
     this.percent,
+    this.bonusEnabled,
   }) : super(id, createdAt, updatedAt);
 
   bool isFinished() {
-    var currentDate = DateTime.now();
-    var diff = endDate.difference(currentDate);
+    var diff = DateHelper.differenceFromNow(endDate);
+
     return diff.inSeconds <= 0;
   }
 
   bool isStarted() {
-    var currentDate = DateTime.now();
-    var diff = initDate.difference(currentDate);
+    var diff = DateHelper.differenceFromNow(initDate);
+
     return diff.inSeconds <= 0;
   }
 
@@ -70,6 +75,7 @@ class Campaign extends Entity {
       'name': name,
       'video_promo_url': videoPromoUrl,
       'image_url': imageUrl,
+      'bonus_enabled': bonusEnabled,
     };
   }
 
@@ -87,6 +93,7 @@ class Campaign extends Entity {
       videoPromoUrl: json['video_promo_url'],
       imageUrl: json['image_url'],
       percent: json['redeemable_percentage'],
+      bonusEnabled: json['bonus_enabled'],
     );
   }
 }

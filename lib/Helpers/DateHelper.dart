@@ -39,4 +39,20 @@ class DateHelper {
       minutes,
     );
   }
+
+  /// Calculates the difference between two dates. Returns a [Duration]
+  static Duration difference(DateTime dateA, DateTime dateB) {
+    var diff = dateA.difference(dateB);
+
+    return diff;
+  }
+
+  /// Calculates the difference between a date to the current date (`DateTime.now()`)
+  ///
+  /// If you want to control the current date yourself, consider using [DateHelper.difference]
+  static Duration differenceFromNow(DateTime date) {
+    var currentDate = DateTime.now();
+
+    return difference(date, currentDate);
+  }
 }
