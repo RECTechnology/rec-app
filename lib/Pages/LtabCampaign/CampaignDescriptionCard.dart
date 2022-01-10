@@ -28,9 +28,10 @@ class _CampaignDescriptionCardState extends State<CampaignDescriptionCard> {
     var theme = Theme.of(context);
     var localizations = AppLocalizations.of(context);
     var activeCampaign = CampaignProvider.of(context).activeCampaign;
-    var bonusEnabled = activeCampaign.bonusEnabled;
 
-    if (activeCampaign == null || !activeCampaign.isActiveForState(userState) || !bonusEnabled) {
+    if (activeCampaign == null ||
+        !activeCampaign.isActiveForState(userState) ||
+        !activeCampaign.bonusEnabled) {
       return SizedBox.shrink();
     }
 

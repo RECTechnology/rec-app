@@ -147,8 +147,9 @@ class _RechargePageState extends State<RechargePage> {
     Loading.show();
     _updateTos();
 
-    rechargeData.willEnterCampaign =
-        rechargeData.campaignTermsAccepted && rechargeData.amount >= activeCampaign.min;
+    rechargeData.willEnterCampaign = rechargeData.campaignTermsAccepted &&
+        rechargeData.amount >= activeCampaign.min &&
+        activeCampaign.bonusEnabled;
 
     Loading.dismiss();
     _requestPin();
