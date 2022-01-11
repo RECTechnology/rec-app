@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:rec/Api/Services/UsersService.dart';
@@ -52,7 +50,6 @@ class _RechargePageState extends State<RechargePage> {
   void _checkLtabBonificatonStop() {
     var activeCampaign = CampaignProvider.of(context, listen: false).activeCampaign;
 
-    debugger();
     if (!activeCampaign.bonusEnabled) {
       showDialog(
         context: context,
