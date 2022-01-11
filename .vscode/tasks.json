@@ -20,6 +20,12 @@
             "type": "shell"
         },
         {
+            "label": "build-prod-apk",
+            "command": "flutter",
+            "args": ["build", "apk", "--flavor=prod", "--release"],
+            "type": "shell"
+        },
+        {
             "label": "build-prod-aab",
             "command": "flutter",
             "args": ["build", "appbundle", "--flavor=prod", "--release"],
@@ -62,6 +68,15 @@
             "dependsOn": [
                 "prepare-env-pre",
                 "build-pre-apk",
+                "open-pre-apk-path"
+            ]
+        },
+        {
+            "label": "Build APK prod",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "prepare-env-prod",
+                "build-prod-apk",
                 "open-pre-apk-path"
             ]
         },
