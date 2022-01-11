@@ -93,7 +93,7 @@ class Campaign extends Entity {
       videoPromoUrl: json['video_promo_url'],
       imageUrl: json['image_url'],
       percent: json['redeemable_percentage'],
-      bonusEnabled: json['bonus_enabled'],
+      bonusEnabled: json['bonus_enabled'] ?? false,
     );
   }
 }

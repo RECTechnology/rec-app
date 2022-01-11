@@ -50,7 +50,7 @@ class _RechargePageState extends State<RechargePage> {
   void _checkLtabBonificatonStop() {
     var activeCampaign = CampaignProvider.of(context, listen: false).activeCampaign;
 
-    if (!activeCampaign.bonusEnabled) {
+    if (activeCampaign != null && !activeCampaign.bonusEnabled) {
       showDialog(
         context: context,
         builder: (_) => Dialog(
