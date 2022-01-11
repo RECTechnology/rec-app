@@ -71,7 +71,7 @@
   "AMOUNT": "Amount",
   "NEXT_CREDIT_CARD": "You will introduce the card on the next screen",
   "RECHARGE": "Recharge",
-  "RECHARGE_OK": "¡You have recharged {{amount}}!",
+  "RECHARGE_OK": "¡You have recharged {{amount}}R!",
   "RECHARGE_OK_DESC": "Los RECs estarán en tu cuenta en menos de 10 minutos",
 
   "FILL_PAY_FORM": "Fill in the form and press the Confirm payment button. Remember, € 1 = 1R.",

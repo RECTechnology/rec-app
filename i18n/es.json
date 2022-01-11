@@ -71,7 +71,7 @@
   "AMOUNT": "Cantidad",
   "NEXT_CREDIT_CARD": "Introducirás la tarjeta en la siguiente pantalla",
   "RECHARGE": "Recargar",
-  "RECHARGE_OK": "¡Has recargado {{amount}}!",
+  "RECHARGE_OK": "¡Has recargado {{amount}}R!",
   "RECHARGE_OK_DESC": "Los RECs estarán en tu cuenta en menos de 10 minutos",
 
   "FILL_PAY_FORM": "Rellena el formulario y pulsa el botón Confirmar pago. Recuerda, 1€ = 1R.",

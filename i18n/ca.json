@@ -72,7 +72,7 @@
   "AMOUNT": "Quantitat",
   "NEXT_CREDIT_CARD": "Introduiràs la targeta en la següent pantalla",
   "RECHARGE": "Recarregar",
-  "RECHARGE_OK": "Has recarregat {{amount}}!",
+  "RECHARGE_OK": "Has recarregat {{amount}}R!",
   "RECHARGE_OK_DESC": "Los RECs estarán en tu cuenta en menos de 10 minutos",
 
   "FILL_PAY_FORM": "Emplena el formulari i prem el botó Confirmar pagament. Recorda, 1€ = 1r",
