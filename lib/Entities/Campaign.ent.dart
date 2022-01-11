@@ -37,6 +37,7 @@ class Campaign extends Entity {
   }) : super(id, createdAt, updatedAt);
 
   bool isFinished() {
+    return true;
     var diff = DateHelper.differenceFromNow(endDate);
 
     return diff.inSeconds <= 0;
