@@ -5,6 +5,7 @@ import 'package:rec/Components/Wallet/WalletFloatingActions.dart';
 import 'package:rec/Entities/Transactions/Currency.ent.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/transactions/TransactionsList.tab.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/Providers/CampaignProvider.dart';
 import 'package:rec/Providers/UserState.dart';
 
 class WalletPageRec extends StatefulWidget {
@@ -26,14 +27,14 @@ class _WalletPageRecState extends State<WalletPageRec> {
   Widget build(BuildContext context) {
     var userState = UserState.of(context);
     var localizations = AppLocalizations.of(context);
+    var activeCampaign = CampaignProvider.of(context).activeCampaign;
 
     var isInCampaign = userState.user.hasCampaignAccount();
     var campaignAccount = userState.user.getCampaignAccount();
+    var campaignActive = activeCampaign != null && !activeCampaign.isFinished();
 
-    var floatingActions = WalletFloatingActions(
-      isDialOpen: isDialOpen,
-    );
-    var redemableAmountText = isInCampaign
+    var showReedemable = campaignActive && isInCampaign;
+    var redemableAmountText = showReedemable
         ? localizations.translate(
             'YOU_HAVE_RECS_REDEMABLE',
             params: {
@@ -55,13 +56,15 @@ class _WalletPageRecState extends State<WalletPageRec> {
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(kToolbarHeight),
             child: UserBalance(
-              label: isInCampaign ? redemableAmountText : 'TOTAL_BALANCE',
+              label: showReedemable ? redemableAmountText : 'TOTAL_BALANCE',
               balance: userState.account?.getWalletByCurrency(Currency.rec)?.getScaledBalance(),
               hidable: true,
             ),
           ),
         ),
-        floatingActionButton: floatingActions,
+        floatingActionButton: WalletFloatingActions(
+          isDialOpen: isDialOpen,
+        ),
         body: TransactionsList(
           autoReloadEnabled: widget.autoReloadEnabled,
         ),

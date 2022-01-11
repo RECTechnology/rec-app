@@ -40,9 +40,11 @@ class LtabInitialBanner extends StatefulWidget {
     var campaignProvider = CampaignProvider.of(context, listen: false);
     var userState = UserState.of(context, listen: false);
     var activeCampaign = campaignProvider.activeCampaign;
+    var bonusEnabled = activeCampaign.bonusEnabled;
 
     return isActive(context) &&
         showBanner &&
+        bonusEnabled &&
         activeCampaign.isActiveForState(userState);
   }
 }

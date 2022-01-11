@@ -10,6 +10,8 @@ Widget EmptyAppBar(
   Text titleText,
   List<Widget> actions,
   Color backgroundColor = Colors.white,
+  VoidCallback backAction,
+  VoidCallback closeAction,
 }) {
   var localizations = AppLocalizations.of(context);
   var titleWidget = titleText ??
@@ -25,9 +27,10 @@ Widget EmptyAppBar(
             Icons.arrow_back,
             color: Colors.black,
           ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+          onPressed: backAction ??
+              () {
+                Navigator.of(context).pop();
+              },
         )
       : crossX
           ? IconButton(
@@ -35,9 +38,10 @@ Widget EmptyAppBar(
                 Icons.clear,
                 color: Colors.black,
               ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+              onPressed: closeAction ??
+                  () {
+                    Navigator.of(context).pop();
+                  },
             )
           : null;
 

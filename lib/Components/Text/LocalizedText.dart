@@ -7,6 +7,7 @@ class LocalizedText extends StatefulWidget {
   final TextStyle style;
   final TextAlign textAlign;
   final TextOverflow overflow;
+  final bool uppercase;
 
   LocalizedText(
     this.text, {
@@ -15,6 +16,7 @@ class LocalizedText extends StatefulWidget {
     this.textAlign,
     Key key,
     this.overflow,
+    this.uppercase = false,
   }) : super(key: key);
 
   @override
@@ -25,8 +27,14 @@ class _LocalizedTextState extends State<LocalizedText> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
+    var text = localizations.translate(widget.text, params: widget.params);
+
+    if (widget.uppercase) {
+      text = text.toUpperCase();
+    }
+
     return Text(
-      localizations.translate(widget.text, params: widget.params),
+      text,
       style: widget.style,
       textAlign: widget.textAlign,
       overflow: widget.overflow,

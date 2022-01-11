@@ -71,7 +71,7 @@
   "AMOUNT": "Cantidad",
   "NEXT_CREDIT_CARD": "Introducirás la tarjeta en la siguiente pantalla",
   "RECHARGE": "Recargar",
-  "RECHARGE_OK": "¡Has recargado {{amount}}!",
+  "RECHARGE_OK": "¡Has recargado {{amount}}R!",
   "RECHARGE_OK_DESC": "Los RECs estarán en tu cuenta en menos de 10 minutos",
 
   "FILL_PAY_FORM": "Rellena el formulario y pulsa el botón Confirmar pago. Recuerda, 1€ = 1R.",
@@ -473,5 +473,8 @@
   "ERROR_PHONE_MUST_START_WITH": "El número debe comenzar por 6 o 7",
   "ERROR_PHONE_BAD_CHARACTERS": "Número incorrecto o contiene caracteres no permitidos",
   "WALLET_SHOW_BALANCE_TOOLTIP": "Pulsa este boton para ocultar/mostrar tu balance",
-  "ACCOUNT_NOT_ACTIVE": "Tu cuenta no está activa"
+  "ACCOUNT_NOT_ACTIVE": "Tu cuenta no está activa",
+  "LTAB_STOP_BONIFICATION_TITLE": "Hemos agotado los RECs bonificables",
+  "LTAB_STOP_BONIFICATION_DESC_1": "A partir de ahora, al recargar RECs, no recibirás RECs bonificables.",
+  "LTAB_STOP_BONIFICATION_DESC_2": "Si dispones de RECs bonificados en tu cuenta LI TOCA AL BARRI haz uso de ellos antes del final de campaña"
 }

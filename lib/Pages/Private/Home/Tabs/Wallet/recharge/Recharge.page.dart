@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:rec/Api/Services/UsersService.dart';
 import 'package:rec/Components/Inputs/text_fields/AmountTextField.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
@@ -11,6 +12,7 @@ import 'package:rec/Helpers/RecNavigation.dart';
 import 'package:rec/Pages/LtabCampaign/CampaignDescriptionCard.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/AttemptRecharge.dart';
 import 'package:rec/Pages/Private/Shared/RequestPin.page.dart';
+import 'package:rec/Pages/Private/Shared/info_screens/ltab_bonificacion_stop.page.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
 import 'package:rec/Providers/CampaignProvider.dart';
 import 'package:rec/Providers/UserState.dart';
@@ -37,6 +39,34 @@ class _RechargePageState extends State<RechargePage> {
     ).activeCampaign;
 
     super.didChangeDependencies();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) => _checkLtabBonificatonStop());
+  }
+
+  void _checkLtabBonificatonStop() {
+    var activeCampaign = CampaignProvider.of(context, listen: false).activeCampaign;
+    var isInCampaign = UserState.of(context).user.hasCampaignAccount();
+
+    if (activeCampaign != null &&
+        !activeCampaign.bonusEnabled &&
+        !activeCampaign.isFinished() &&
+        isInCampaign) {
+      showDialog(
+        context: context,
+        builder: (_) => Dialog(
+          insetPadding: EdgeInsets.zero,
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: LtabBonificacionStop(),
+          ),
+        ),
+      ).then((value) => print('done ' + value));
+    }
   }
 
   @override
@@ -147,8 +177,9 @@ class _RechargePageState extends State<RechargePage> {
     Loading.show();
     _updateTos();
 
-    rechargeData.willEnterCampaign =
-        rechargeData.campaignTermsAccepted && rechargeData.amount >= activeCampaign.min;
+    rechargeData.willEnterCampaign = rechargeData.campaignTermsAccepted &&
+        rechargeData.amount >= activeCampaign.min &&
+        activeCampaign.bonusEnabled;
 
     Loading.dismiss();
     _requestPin();
