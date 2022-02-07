@@ -24,7 +24,6 @@ class LoginService extends ServiceBase {
   }
 
   Future refreshToken(String refreshToken) async {
-    print('refreshRoken $refreshToken');
     var body = {
       'grant_type': GrantTypes.refreshToken,
       'client_id': env.CLIENT_ID,

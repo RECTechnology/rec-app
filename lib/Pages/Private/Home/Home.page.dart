@@ -30,8 +30,7 @@ class HomePage extends StatefulWidget {
   HomePageState createState() => HomePageState();
 }
 
-class HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   /// Method to change tabs from other widgets
   static void changeTab(BuildContext context, int tab) {
     var state = context.findAncestorStateOfType<HomePageState>();
@@ -96,10 +95,7 @@ class HomePageState extends State<HomePage>
       Preferences.userRefreshInterval,
       (_) {
         _refreshToken();
-        _users
-            .getUser()
-            .then((value) => _userState?.setUser(value))
-            .catchError(_onGetUserError);
+        _users.getUser().then((value) => _userState?.setUser(value)).catchError(_onGetUserError);
       },
     );
   }

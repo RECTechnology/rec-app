@@ -49,7 +49,7 @@ class _RechargePageState extends State<RechargePage> {
 
   void _checkLtabBonificatonStop() {
     var activeCampaign = CampaignProvider.of(context, listen: false).activeCampaign;
-    var isInCampaign = UserState.of(context).user.hasCampaignAccount();
+    var isInCampaign = UserState.of(context, listen: false).user.hasCampaignAccount();
 
     if (activeCampaign != null &&
         !activeCampaign.bonusEnabled &&

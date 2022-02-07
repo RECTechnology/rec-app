@@ -13,6 +13,8 @@ import 'package:rec/Helpers/ImageHelpers.dart';
 import 'package:rec/Helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Map/BusinessDraggableSheet.dart';
 import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/Providers/CampaignProvider.dart';
+import 'package:rec/Providers/UserState.dart';
 import 'package:rec/brand.dart';
 
 import 'GoogleMapInstance.dart';
@@ -35,22 +37,7 @@ class _MapPageState extends State<MapPage> {
   Account _selectedBusiness;
 
   bool bottomSheetEnabled = false;
-  List<RecFilterData<bool>> mapFilters = [
-    RecFilterData<bool>(
-      icon: Icons.check,
-      label: 'TOUCH_HOOD',
-      id: 'TOUCH_HOOD',
-      defaultValue: true,
-      color: Colors.white,
-    ),
-    RecFilterData<bool>(
-      icon: Icons.label,
-      label: 'OFFERS',
-      id: 'OFFERS',
-      defaultValue: false,
-      color: Colors.white,
-    ),
-  ];
+  List<RecFilterData<bool>> mapFilters = [];
 
   // Google maps stuff
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
@@ -66,6 +53,9 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
+    var isInCampaign = UserState.of(context).user.hasCampaignAccount();
+    var activeCampaign = CampaignProvider.of(context, listen: false).activeCampaign;
+    var showLtabFilter = activeCampaign != null && !activeCampaign.isFinished() && isInCampaign;
 
     return WillPopScope(
       onWillPop: _onWillPop,
@@ -101,7 +91,23 @@ class _MapPageState extends State<MapPage> {
               left: 16,
               child: Container(
                 child: RecFilters(
-                  filterData: mapFilters,
+                  filterData: [
+                    if (showLtabFilter)
+                      RecFilterData<bool>(
+                        icon: Icons.check,
+                        label: 'TOUCH_HOOD',
+                        id: 'TOUCH_HOOD',
+                        defaultValue: true,
+                        color: Colors.white,
+                      ),
+                    RecFilterData<bool>(
+                      icon: Icons.label,
+                      label: 'OFFERS',
+                      id: 'OFFERS',
+                      defaultValue: false,
+                      color: Colors.white,
+                    ),
+                  ],
                   onChanged: _filtersChanged,
                 ),
               ),
@@ -149,7 +155,10 @@ class _MapPageState extends State<MapPage> {
   }
 
   Future<void> _getBussineData(String id) async {
-    await _accountService.getOne(id).then((value) => _selectedBusiness = value).catchError(_onError);
+    await _accountService
+        .getOne(id)
+        .then((value) => _selectedBusiness = value)
+        .catchError(_onError);
   }
 
   void _onError(err) {

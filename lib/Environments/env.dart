@@ -1,5 +1,3 @@
-// Enviroment file
-
 import 'env.base.dart';
 
 class Env implements EnvBase {
@@ -10,7 +8,7 @@ class Env implements EnvBase {
   String CLIENT_SECRET = '2zspa4vc6ask0wk0kcso0sowg0w088k00k00gkcs8ggs0g400g';
 
   @override
-  String API_URL = 'api.rec.barcelona';
+  String API_URL = 'api.rec.qbitartifacts.com';
 
   @override
   String SENTRY_DSN =
@@ -29,7 +27,7 @@ class Env implements EnvBase {
   String DEEPLINK_URL = 'rec.barcelona';
 
   @override
-  String ENV_NAME = 'prod';
+  String ENV_NAME = 'pre';
 }
 
 Env env = Env();
