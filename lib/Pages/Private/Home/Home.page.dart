@@ -93,15 +93,16 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
   Timer getUserTimer() {
     return Timer.periodic(
       Preferences.userRefreshInterval,
-      (_) {
-        _refreshToken();
-        _users.getUser().then((value) => _userState?.setUser(value)).catchError(_onGetUserError);
+      (_) async {
+        await _refreshToken().then((value) {
+          _users.getUser().then((value) => _userState?.setUser(value)).catchError(_onGetUserError);
+        });
       },
     );
   }
 
-  void _refreshToken() async {
-    await _loginService.refreshToken(await Auth.getRefreshToken());
+  Future<Future> _refreshToken() async {
+    return _loginService.refreshToken(await Auth.getRefreshToken());
   }
 
   void setCurrentTab(int index) {
