@@ -123,7 +123,7 @@ class _UploadDocumentState extends State<UploadDocument> {
   }
 
   void _openGallery() async {
-    var picture = await picker.getImage(
+    var picture = await picker.pickImage(
       source: ImageSource.gallery,
       imageQuality: 20,
       maxHeight: 1000,
