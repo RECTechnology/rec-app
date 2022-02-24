@@ -10,7 +10,8 @@
             "request": "launch",
             "type": "dart",
             "args": [
-                "--flavor=pre"
+                "--flavor=pre",
+                "--ignore-deprecation"
             ]
         },
         {

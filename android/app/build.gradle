@@ -32,7 +32,8 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
+    // multiDexEnabled true
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -44,8 +45,8 @@ android {
 
     defaultConfig {
         applicationId "com.barcelona.rec"
-        minSdkVersion 20
-        targetSdkVersion 30
+        minSdkVersion 21
+        targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
