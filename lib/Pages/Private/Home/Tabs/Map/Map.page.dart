@@ -140,6 +140,12 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _search() {
+    var activeCampaign = CampaignProvider.of(context, listen: false).activeCampaign;
+
+    if (activeCampaign.isFinished()) {
+      _searchData.campaign = null;
+    }
+
     _accountService.search(_searchData).then(_onSearchResults).catchError(_onError);
   }
 
@@ -176,17 +182,20 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _setMarks(List<Account> accounts) {
+    var activeCampaign = CampaignProvider.of(context, listen: false).activeCampaign;
+
     setState(() {
       markers = {};
 
       for (var account in accounts) {
         var accountId = account.id;
         var markerId = MarkerId(accountId);
+        var showLtabMarker = !activeCampaign.isFinished() && account.isInLtabCampaign;
 
         markers[markerId] = Marker(
           markerId: MarkerId(account.id.toString()),
           position: account.getLatLong(),
-          icon: account.isInLtabCampaign ? markerLtab : markerIcon,
+          icon: showLtabMarker ? markerLtab : markerIcon,
           onTap: () => _bussinessTapped(accountId),
         );
       }
