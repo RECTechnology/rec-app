@@ -142,6 +142,7 @@
   "YOUR_ACCOUNT": "Your account",
   "ACCOUNT_NAME": "Account name",
   "SETTINGS_LOGOUT": "Sign off",
+  "SETTINGS_OTHER": "Other",
 
   "EMAIL": "Email",
   "CHANGE_EMAIL": "Touch to change email",
@@ -452,7 +453,7 @@
   "ACTIVE_OFFERS": "Active offers",
   "ADD_OFFER": "Publish an offer",
   "OFFER_TYPE": "Offer type",
-  "PERCENTAGE": "Percentage (%)",
+  "PERCENTAGE": "Percentage",
   "FREE": "Free",
   "PICK_IMAGE": "Select an imagen",
   "END_DATE": "When does it end?",

@@ -14,6 +14,12 @@
             "type": "shell"
         },
         {
+            "label": "prepare-env-sandbox",
+            "command": "./scripts/prepare-env.sh",
+            "args": ["sandbox"],
+            "type": "shell"
+        },
+        {
             "label": "build-pre-apk",
             "command": "flutter",
             "args": ["build", "apk", "--flavor=pre"],
