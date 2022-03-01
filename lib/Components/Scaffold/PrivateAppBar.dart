@@ -79,13 +79,16 @@ class _PrivateAppBar extends State<PrivateAppBar> {
                     alignment: Alignment.center,
                     child: CircleAvatarRec.fromAccount(account),
                   ),
-            LocalizedText(
-              widget.title ?? userState.user.selectedAccount.name,
-              textAlign: widget.textAlign,
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w300,
-                color: widget.color ?? Colors.white,
+            Padding(
+              padding: const EdgeInsets.only(left: 12.0),
+              child: LocalizedText(
+                widget.title ?? userState.user.selectedAccount.name,
+                textAlign: widget.textAlign,
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w300,
+                  color: widget.color ?? Colors.white,
+                ),
               ),
             ),
             widget.selectAccountEnabled
