@@ -1,12 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:rec/Entities/Document.ent.dart';
+import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/user/LimitAndVerification/UploadDocument/UploadDocument.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
-
-import 'GeneralSettingsTile.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class DocumentListTile extends StatefulWidget {
   final Document document;
@@ -15,9 +14,9 @@ class DocumentListTile extends StatefulWidget {
 
   DocumentListTile(
     this.document, {
-    Key key,
-    @required this.onCreateDocument,
-    @required this.onUpdateDocument,
+    Key? key,
+    required this.onCreateDocument,
+    required this.onUpdateDocument,
   }) : super(key: key);
 
   @override
@@ -32,8 +31,8 @@ class _DocumentListTileState extends State<DocumentListTile> {
     var theme = Theme.of(context);
     var localizations = AppLocalizations.of(context);
 
-    var status = localizations.translate(document.status);
-    var title = localizations.translate(document.kind.name);
+    var status = localizations!.translate(document.status);
+    var title = localizations.translate(document.kind!.name!);
     var statusTextPart = ': ${document.statusText}';
     var subtitle = document.isUnsubmitted
         ? null
@@ -55,14 +54,14 @@ class _DocumentListTileState extends State<DocumentListTile> {
     }
 
     return GeneralSettingsTile(
-      title: title ?? 'Document',
+      title: title,
       subtitle: subtitle,
       icon: icon,
-      subtitleStyle: theme.textTheme.caption.copyWith(
+      subtitleStyle: theme.textTheme.caption!.copyWith(
         fontWeight: FontWeight.w400,
         color: Brand.getColorForDocumentStatus(document.status),
       ),
-      titleStyle: theme.textTheme.subtitle1.copyWith(
+      titleStyle: theme.textTheme.subtitle1!.copyWith(
         fontWeight: FontWeight.w500,
         color: Brand.grayDark,
       ),

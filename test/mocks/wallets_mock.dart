@@ -1,5 +1,4 @@
-import 'package:rec/Entities/Transactions/Currency.ent.dart';
-import 'package:rec/Entities/Transactions/Wallet.ent.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class WalletsMock {
   static Wallet walletRec = Wallet.fromJson({

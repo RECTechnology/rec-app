@@ -3,7 +3,7 @@ import 'package:rec/Components/Layout/ScrollableListLayout.dart';
 import 'package:rec/Components/ListTiles/SettingsListTile.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Pages/Private/Shared/InAppBrowser.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/providers/AppLocalizations.dart';
 
 class HelpPage extends StatelessWidget {
   @override
@@ -41,7 +41,7 @@ class HelpPage extends StatelessWidget {
 
     InAppBrowser.openLink(
       context,
-      localizations.translate(label),
+      localizations!.translate(label),
       title: localizations.translate('title.$label'),
     );
   }

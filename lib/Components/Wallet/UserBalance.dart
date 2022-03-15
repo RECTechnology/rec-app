@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Icons/RecCurrencyIcon.dart';
-import 'package:rec/Entities/Transactions/Currency.ent.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Providers/PreferenceProvider.dart';
-import 'package:rec/Providers/Preferences/PreferenceDefinitions.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/PreferenceProvider.dart';
+import 'package:rec/providers/preferences/PreferenceDefinitions.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class UserBalance extends StatefulWidget {
   final double balance;
   final String label;
-  final Color color;
+  final Color? color;
   final Currency currency;
   final bool hidable;
 
@@ -16,8 +17,8 @@ class UserBalance extends StatefulWidget {
     this.label = 'TOTAL_BALANCE',
     this.color,
     this.hidable = false,
-    double balance = 0,
-    Currency currency,
+    double? balance = 0,
+    Currency? currency,
   })  : balance = balance ?? 0,
         currency = currency ?? Currency.rec;
 
@@ -28,7 +29,7 @@ class UserBalance extends StatefulWidget {
 }
 
 class _UserBalance extends State<UserBalance> {
-  PreferenceProvider prefProvider;
+  late PreferenceProvider prefProvider;
   bool showBalance = true;
 
   @override
@@ -43,7 +44,7 @@ class _UserBalance extends State<UserBalance> {
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
     var amount = (showBalance || !widget.hidable) ? Currency.format(widget.balance) : '* * *';
-    var subtitle = (showBalance || !widget.hidable) ? localizations.translate(widget.label) : '';
+    var subtitle = (showBalance || !widget.hidable) ? localizations!.translate(widget.label) : '';
 
     return Container(
       margin: EdgeInsets.only(bottom: 40),
@@ -79,7 +80,7 @@ class _UserBalance extends State<UserBalance> {
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 10),
-            child: Text(
+            child: LocalizedText(
               subtitle,
               style: TextStyle(
                 fontSize: 15,
@@ -96,7 +97,7 @@ class _UserBalance extends State<UserBalance> {
     var localizations = AppLocalizations.of(context);
 
     return Tooltip(
-      message: localizations.translate('WALLET_SHOW_BALANCE_TOOLTIP'),
+      message: localizations!.translate('WALLET_SHOW_BALANCE_TOOLTIP'),
       child: IconButton(
         icon: Icon(
           showBalance ? Icons.visibility : Icons.visibility_off,

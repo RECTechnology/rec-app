@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Services/public/PhoneVerificationService.dart';
-import 'package:rec/Api/Services/public/PublicSMSService.dart';
 
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Inputs/text_fields/RecPinInput.dart';
@@ -9,29 +7,27 @@ import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
 
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
 
 class SmsCode extends StatefulWidget {
-  final String prefix;
-  final String phone;
-  final String dni;
-  final Function(String code) onCode;
+  final String? prefix;
+  final String? phone;
+  final String? dni;
+  final Function(String code)? onCode;
 
   SmsCode({
-    @required this.phone,
-    @required this.dni,
-    @required this.onCode,
-    @required this.prefix,
-  });
+    Key? key,
+    required this.phone,
+    required this.dni,
+    required this.onCode,
+    required this.prefix,
+  }) : super(key: key);
 
   @override
-  _SmsCodeState createState() => _SmsCodeState();
+  SmsCodeState createState() => SmsCodeState();
 }
 
-class _SmsCodeState extends State<SmsCode> {
-  final smsService = PublicSMSService();
-  final validateSMS = PhoneVerificationService();
-
+class SmsCodeState extends State<SmsCode> {
   String smsCode = '';
 
   bool get isFormValid => smsCode.isNotEmpty && smsCode.length == 6;
@@ -79,8 +75,8 @@ class _SmsCodeState extends State<SmsCode> {
         ),
       ),
       Text(
-        widget.phone,
-        style: Theme.of(context).textTheme.headline4.copyWith(color: Brand.primaryColor),
+        widget.phone!,
+        style: Theme.of(context).textTheme.headline4!.copyWith(color: Brand.primaryColor),
         textAlign: TextAlign.center,
       ),
     ]);
@@ -90,7 +86,7 @@ class _SmsCodeState extends State<SmsCode> {
     if (!isFormValid) return;
 
     FocusScope.of(context).requestFocus(FocusNode());
-    if (widget.onCode != null) widget.onCode(smsCode);
+    if (widget.onCode != null) widget.onCode!(smsCode);
   }
 
   void setSMS(String smsCode) {

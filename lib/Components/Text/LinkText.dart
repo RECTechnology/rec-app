@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/brand.dart';
 
 class LinkText extends StatefulWidget {
   final String text;
   final Color color;
   final Alignment alignment;
-  final Function onTap;
+  final Function? onTap;
   final EdgeInsets padding;
 
   const LinkText(
     this.text, {
-    Key key,
+    Key? key,
     this.color = Brand.primaryColor,
     this.alignment = Alignment.centerLeft,
     this.onTap,
@@ -25,15 +25,14 @@ class LinkText extends StatefulWidget {
 class _LinkText extends State<LinkText> {
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
     return InkWell(
-      onTap: widget.onTap,
+      onTap: widget.onTap as void Function()?,
       child: Container(
         alignment: widget.alignment,
         padding: widget.padding,
-        child: Text(
-          localizations.translate(widget.text),
-          style: Theme.of(context).textTheme.caption.copyWith(
+        child: LocalizedText(
+          widget.text,
+          style: Theme.of(context).textTheme.caption!.copyWith(
                 color: widget.color,
                 decoration: TextDecoration.underline,
               ),

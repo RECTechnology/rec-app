@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rec/Components/Modals/TransactionDetailsModal.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Wallet/Transactions/TransactionIcon.dart';
 import 'package:rec/Components/Wallet/Transactions/TransactionTitle.dart';
-import 'package:rec/Entities/Transactions/Transaction.ent.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/campaign_provider.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 // TODO: Improve how we handle diferent transaction types
@@ -19,8 +22,8 @@ class TransactionsListTile extends StatefulWidget {
   final EdgeInsets padding;
 
   const TransactionsListTile({
-    Key key,
-    @required this.tx,
+    Key? key,
+    required this.tx,
     this.height = 55,
     this.padding = const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
   }) : super(key: key);
@@ -42,7 +45,7 @@ class _TransactionsListTile extends State<TransactionsListTile> {
 
   @override
   Widget build(BuildContext context) {
-    var title = TransactionTitle(widget.tx);
+    var title = TransactionTitle(widget.tx, maxLines: 1);
     var icon = TransactionIcon(widget.tx);
 
     var concept = getConcept();
@@ -102,20 +105,23 @@ class _TransactionsListTile extends State<TransactionsListTile> {
     );
   }
 
-  Text getConcept() {
+  LocalizedText getConcept() {
     var account = UserState.of(context).account;
-    var localizations = AppLocalizations.of(context);
     var concept = tx.getConcept();
+    var cultureCampaign = CampaignProvider.of(context).getCampaignByCode(env.CMP_CULT_CODE);
 
     // HACK
-    if (tx.isIn() && account.isLtabAccount()) {
+    if (tx.isIn() && account!.isLtabAccount()) {
       concept = 'LTAB_REWARD';
     }
 
-    return Text(
-      localizations.translate(concept.isEmpty ? 'NO_CONCEPT' : concept),
+    return LocalizedText(
+      concept!.isEmpty ? 'NO_CONCEPT' : concept,
       maxLines: 2,
       overflow: TextOverflow.ellipsis,
+      params: {
+        'percent': cultureCampaign!.percent,
+      },
       style: TextStyle(
         fontSize: 16,
         color: Brand.grayDark2,
@@ -149,12 +155,10 @@ class _TransactionsListTile extends State<TransactionsListTile> {
   Text getDate() {
     var localizations = AppLocalizations.of(context);
     var daysSinceCreated = Duration(
-      milliseconds: DateTime.now().millisecondsSinceEpoch -
-          tx.createdAt.millisecondsSinceEpoch,
+      milliseconds: DateTime.now().millisecondsSinceEpoch - tx.createdAt.millisecondsSinceEpoch,
     ).inDays;
 
-    var dateString = DateFormat('d MMM', localizations.locale.languageCode)
-        .format(tx.createdAt);
+    var dateString = DateFormat('d MMM', localizations!.locale.languageCode).format(tx.createdAt);
 
     if (daysSinceCreated <= 1) {
       dateString = timeago.format(

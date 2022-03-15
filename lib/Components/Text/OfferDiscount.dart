@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/RecAmountText.dart';
-import 'package:rec/Entities/Offer.ent.dart';
-import 'package:rec/Helpers/Checks.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class OfferDiscount extends StatelessWidget {
-  final Offer offer;
+  final Offer? offer;
 
-  const OfferDiscount({Key key, @required this.offer}) : super(key: key);
+  const OfferDiscount({Key? key, required this.offer}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,18 +16,18 @@ class OfferDiscount extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        if (Checks.isNotNull(offer.initialPrice))
+        if (Checks.isNotNull(offer!.initialPrice))
           RecAmountText(
-            amount: offer.initialPrice,
+            amount: offer!.initialPrice,
             textStyle: TextStyle(
               color: Brand.accentColor,
               decoration: TextDecoration.lineThrough,
             ),
           ),
-        if (Checks.isNotNull(offer.percentage))
+        if (Checks.isNotNull(offer!.percentage))
           Text(
-            '-${offer.percentage.toStringAsFixed(2)}%',
-            style: textTheme.headline4.copyWith(
+            '-${offer!.percentage!.toStringAsFixed(2)}%',
+            style: textTheme.headline4!.copyWith(
               color: Brand.accentColor,
             ),
           ),

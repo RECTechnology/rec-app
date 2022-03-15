@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Services/UsersService.dart';
-import 'package:rec/Components/ListTiles/AccountListTile.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
+import 'package:rec/Components/ListTiles/AccountListTile.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Helpers/Loading.dart';
-import 'package:rec/Helpers/RecToast.dart';
-import 'package:rec/Entities/Account.ent.dart';
-import 'package:rec/Pages/Private/Home/Home.page.dart';
-import 'package:rec/Styles/Borders.dart';
-import 'package:rec/Providers/TransactionsProvider.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/Styles/BoxDecorations.dart';
-import 'package:rec/brand.dart';
-import 'package:rec/routes.dart';
+import 'package:rec/Components/conditionals/show_if_roles.dart';
+import 'package:rec/Pages/Private/Home/home.page.dart';
+import 'package:rec/config/roles_definitions.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/providers/transactions_provider.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec/config/routes.dart';
+import 'package:rec/helpers/RecToast.dart';
+import 'package:rec/helpers/loading.dart';
+import 'package:rec/styles/borders.dart';
+import 'package:rec/styles/box_decorations.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 // TODO: clean up this page, extract any widgets that could be reused
 class AccountSelectorModal {
@@ -21,7 +23,7 @@ class AccountSelectorModal {
 
   AccountSelectorModal(
     this.context,
-  ) : userService = UsersService();
+  ) : userService = UsersService(env: env);
 
   Widget dialogContent() {
     return Column(
@@ -78,8 +80,8 @@ class AccountSelectorModal {
 
   Widget currentAccount() {
     var userState = UserState.of(context);
-    var account = userState.user.selectedAccount;
-    var isLtabAccount = userState.account.isLtabAccount();
+    var account = userState.user!.selectedAccount!;
+    var isLtabAccount = userState.account!.isLtabAccount();
 
     return PreferredSize(
       preferredSize: Size.fromHeight(kToolbarHeight + 70),
@@ -98,32 +100,16 @@ class AccountSelectorModal {
                   Padding(
                     padding: const EdgeInsets.only(left: 15.0),
                     child: LocalizedText(
-                      account.name,
+                      account.name ?? '',
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                   )
                 ],
               ),
               if (!isLtabAccount)
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: OutlinedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      HomePageState.changeTab(context, 2);
-                    },
-                    style: OutlinedButton.styleFrom(
-                      primary: Brand.grayDark,
-                      side: BorderSide(width: 1, color: Brand.grayDark2),
-                    ),
-                    child: LocalizedText(
-                      'MANAGE_ACCOUNT',
-                      style: Theme.of(context)
-                          .textTheme
-                          .caption
-                          .copyWith(fontWeight: FontWeight.w500),
-                    ),
-                  ),
+                ShowIfRoles(
+                  validRoles: RoleDefinitions.manageAccount,
+                  child: _manageAccountButton(),
                 ),
             ],
           ),
@@ -132,11 +118,31 @@ class AccountSelectorModal {
     );
   }
 
+  Widget _manageAccountButton() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10.0),
+      child: OutlinedButton(
+        onPressed: () {
+          Navigator.pop(context);
+          HomePageState.changeTab(context, 2);
+        },
+        style: OutlinedButton.styleFrom(
+          primary: Brand.grayDark,
+          side: BorderSide(width: 1, color: Brand.grayDark2),
+        ),
+        child: LocalizedText(
+          'MANAGE_ACCOUNT',
+          style: Theme.of(context).textTheme.caption!.copyWith(fontWeight: FontWeight.w500),
+        ),
+      ),
+    );
+  }
+
   Widget accountList() {
     var userState = UserState.of(context);
-    var accounts = userState.user.accounts
+    var accounts = userState.user!.accounts
         .where(
-          (element) => element.id != userState.account.id && element.active,
+          (element) => element.id != userState.account!.id && element.active!,
         )
         .toList();
 
@@ -158,7 +164,7 @@ class AccountSelectorModal {
               itemBuilder: (ctx, index) {
                 var account = accounts[index];
                 return AccountListTile(
-                  onTap: () => onSelected(account),
+                  onTap: () => selectAccount(account),
                   avatar: CircleAvatarRec.fromAccount(account),
                   name: account.name,
                 );
@@ -167,10 +173,10 @@ class AccountSelectorModal {
     );
   }
 
-  void onSelected(Account account) async {
+  void selectAccount(Account account) async {
     await Loading.show();
     await userService
-        .changeAccount(account.id)
+        .selectMainAccount(account.id)
         .then((_) => onAccountChangeOk(account))
         .catchError((e) => onAccountChangeError(e));
   }
@@ -178,24 +184,26 @@ class AccountSelectorModal {
   void onAccountChangeError(error) {
     Loading.dismiss();
     closeModal();
-    RecToast.show(context, error.message);
+    RecToast.showError(context, error.message);
   }
 
   void onAccountChangeOk(Account account) {
     onAccountChange(account);
-    Loading.dismiss();
     closeModal();
   }
 
   /// Method called once the account has changed
   /// I'm leaving this here, as account change will only happen here
   /// But if a better way is found this might be changed
-  void onAccountChange(Account account) {
+  void onAccountChange(Account account) async {
     var userState = UserState.of(context, listen: false);
     var transactionsProvider = TransactionProvider.of(context, listen: false);
 
-    userState?.setSelectedAccount(account);
-    transactionsProvider?.refresh();
+    userState.setSelectedAccount(account);
+    await userState.getUser();
+    transactionsProvider.refresh();
+
+    Loading.dismiss();
   }
 
   void open() {

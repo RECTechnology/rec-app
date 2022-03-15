@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/DniTextField.dart';
 import 'package:rec/Components/Inputs/text_fields/PrefixPhoneField.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
-import 'package:rec/Entities/Forms/UnlockUserData.dart';
-import 'package:rec/Helpers/validators/validators.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/helpers/validators/validators.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 /// Form for requesting a prefix, phone and a DNI
 class UnlockUserForm extends StatefulWidget {
   final UnlockUserData data;
   final GlobalKey<FormState> formKey;
-  final ValueChanged<UnlockUserData> onChange;
+  final ValueChanged<UnlockUserData?>? onChange;
 
   const UnlockUserForm({
-    Key key,
-    this.data,
+    Key? key,
+    required this.data,
     this.onChange,
-    @required this.formKey,
+    required this.formKey,
   }) : super(key: key);
 
   @override
@@ -37,7 +37,7 @@ class _UnlockUserForm extends State<UnlockUserForm> {
             DniTextField(
               color: Colors.blueAccent,
               onChange: (dni) {
-                widget.onChange(widget.data..dni = dni);
+                widget.onChange!(widget.data..dni = dni);
               },
               initialValue: widget.data.dni,
               validator: Validators.verifyIdentityDocument,
@@ -46,18 +46,18 @@ class _UnlockUserForm extends State<UnlockUserForm> {
               prefix: widget.data.prefix,
               phone: widget.data.phone,
               prefixChange: (prefix) {
-                widget.onChange(widget.data..prefix = prefix);
+                widget.onChange!(widget.data..prefix = prefix);
               },
               phoneChange: (phone) {
-                widget.onChange(widget.data..phone = phone);
+                widget.onChange!(widget.data..phone = phone);
               },
             ),
             RecTextField(
-              label: localizations.translate('SMS_CODE'),
+              label: localizations!.translate('SMS_CODE'),
               keyboardType: TextInputType.text,
               needObscureText: false,
               onChange: (sms) {
-                widget.onChange(widget.data..sms = sms);
+                widget.onChange!(widget.data..sms = sms);
               },
               initialValue: widget.data.sms,
               validator: Validators.smsCode,

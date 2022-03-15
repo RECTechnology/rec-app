@@ -5,11 +5,11 @@ import 'package:rec/Components/Info/InfoColumn.dart';
 import 'package:rec/Components/Wallet/Transactions/TransactionAmount.dart';
 import 'package:rec/Components/Wallet/Transactions/TransactionIcon.dart';
 import 'package:rec/Components/Wallet/Transactions/TransactionTitle.dart';
-import 'package:rec/Entities/Transactions/Transaction.ent.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/Styles/BoxDecorations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/styles/box_decorations.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class TransactionDetailsModal {
   final BuildContext context;
@@ -68,7 +68,7 @@ class TransactionDetailsModal {
     var selfImage = Container(
       width: 64,
       height: 64,
-      child: CircleAvatarRec.fromAccount(selfAccount),
+      child: CircleAvatarRec.fromAccount(selfAccount!),
     );
     var otherImage = Container(
       width: 64,
@@ -94,9 +94,8 @@ class TransactionDetailsModal {
 
   Widget _txDate(Transaction transaction) {
     var localizations = AppLocalizations.of(context);
-    var dateString =
-        DateFormat('d MMMM yyyy  HH:mm', localizations.locale.languageCode)
-            .format(transaction.createdAt.toLocal());
+    var dateString = DateFormat('d MMMM yyyy  HH:mm', localizations!.locale.languageCode)
+        .format(transaction.createdAt.toLocal());
 
     return Center(
       child: Padding(
@@ -115,10 +114,10 @@ class TransactionDetailsModal {
 
   Widget _txConcept(Transaction transaction) {
     var localizations = AppLocalizations.of(context);
-    var concept = transaction.getConcept();
+    var concept = transaction.getConcept()!;
 
     return Text(
-      localizations.translate(concept.isEmpty ? 'NO_CONCEPT' : concept),
+      localizations!.translate(concept.isEmpty ? 'NO_CONCEPT' : concept),
       maxLines: 2,
       overflow: TextOverflow.ellipsis,
       textAlign: TextAlign.start,
@@ -160,10 +159,10 @@ class TransactionDetailsModal {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          InfoColumn(label: 'TX_ID', value: transaction.id),
+          InfoColumn(label: 'TX_ID', value: transaction.id ?? ''),
           InfoColumn(
             label: 'TX_STATUS',
-            value: 'STATUS_${transaction.status.toUpperCase()}',
+            value: 'STATUS_${transaction.status!.toUpperCase()}',
           ),
         ],
       ),

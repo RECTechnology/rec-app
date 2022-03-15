@@ -4,7 +4,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 class RecQrImage extends StatefulWidget {
   final String qrContent;
 
-  const RecQrImage(this.qrContent, {Key key}) : super(key: key);
+  const RecQrImage(this.qrContent, {Key? key}) : super(key: key);
 
   @override
   _RecQrImage createState() => _RecQrImage();

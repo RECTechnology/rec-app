@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Helpers/Checks.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/assets.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class AccountTypeHeader extends StatefulWidget with PreferredSizeWidget {
   final bool isPrivate;
@@ -10,8 +11,8 @@ class AccountTypeHeader extends StatefulWidget with PreferredSizeWidget {
   final bool hideCompany;
 
   AccountTypeHeader({
-    Key key,
-    @required this.onChanged,
+    Key? key,
+    required this.onChanged,
     this.isPrivate = false,
     this.hidePrivate = false,
     this.hideCompany = false,
@@ -29,12 +30,12 @@ class _AccountTypeHeaderState extends State<AccountTypeHeader> {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
 
-    var selectedTheme = theme.textTheme.bodyText1.copyWith(
+    var selectedTheme = theme.textTheme.bodyText1!.copyWith(
       color: Brand.grayDark,
       fontWeight: FontWeight.w500,
     );
 
-    var unselectedTheme = theme.textTheme.bodyText1.copyWith(
+    var unselectedTheme = theme.textTheme.bodyText1!.copyWith(
       color: Brand.grayDark3,
       fontWeight: FontWeight.w400,
     );
@@ -55,8 +56,8 @@ class _AccountTypeHeaderState extends State<AccountTypeHeader> {
                   children: [
                     IconButton(
                       icon: widget.isPrivate
-                          ? Image.asset('assets/avatar.png')
-                          : Image.asset('assets/avatar-bw.png'),
+                          ? Image.asset(Assets.avatar)
+                          : Image.asset(Assets.avatarDisabled),
                       onPressed: () => widget.onChanged(true),
                       iconSize: 50,
                     ),
@@ -75,8 +76,8 @@ class _AccountTypeHeaderState extends State<AccountTypeHeader> {
                   children: [
                     IconButton(
                       icon: widget.isPrivate
-                          ? Image.asset('assets/organization-bw.png')
-                          : Image.asset('assets/organization.png'),
+                          ? Image.asset(Assets.companyAvatarDisabled)
+                          : Image.asset(Assets.companyAvatar),
                       onPressed: () => widget.onChanged(false),
                       iconSize: 50,
                     ),

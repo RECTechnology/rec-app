@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/brand.dart';
 
 class InfoSplash extends StatefulWidget {
   final String title;
-  final String subtitle;
-  final IconData icon;
+  final String? subtitle;
+  final IconData? icon;
   final Color iconColor;
   final EdgeInsets padding;
 
   const InfoSplash({
-    Key key,
-    @required this.title,
-    @required this.icon,
+    Key? key,
+    required this.title,
+    required this.icon,
     this.subtitle,
     this.iconColor = Brand.primaryColor,
     this.padding = const EdgeInsets.symmetric(horizontal: 24.0),
@@ -25,8 +25,6 @@ class InfoSplash extends StatefulWidget {
 class _InfoSplash extends State<InfoSplash> {
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
-
     return Padding(
       padding: widget.padding,
       child: Column(
@@ -37,16 +35,16 @@ class _InfoSplash extends State<InfoSplash> {
             color: widget.iconColor,
           ),
           const SizedBox(height: 32),
-          Text(
-            localizations.translate(widget.title),
+          LocalizedText(
+            widget.title,
             style: Theme.of(context).textTheme.headline6,
             textAlign: TextAlign.center,
           ),
           widget.subtitle != null
               ? Padding(
                   padding: const EdgeInsets.all(16),
-                  child: Text(
-                    localizations.translate(widget.subtitle),
+                  child: LocalizedText(
+                    widget.subtitle!,
                     style: Theme.of(context).textTheme.caption,
                     textAlign: TextAlign.center,
                   ),

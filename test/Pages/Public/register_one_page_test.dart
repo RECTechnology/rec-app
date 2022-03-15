@@ -11,7 +11,7 @@ void main() {
   testWidgets('Register Page One test build correctly', (
     WidgetTester tester,
   ) async {
-    var app = TestUtils.wrapPublicRoute(RegisterOne());
+    var app = await TestUtils.wrapPrivateRoute(RegisterOne());
 
     await tester.pumpWidget(app);
     await tester.pumpAndSettle();

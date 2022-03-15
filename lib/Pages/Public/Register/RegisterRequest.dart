@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:rec/Api/Services/public/PhoneVerificationService.dart';
-import 'package:rec/Api/Services/public/RegisterService.dart';
-import 'package:rec/Api/Services/public/PublicSMSService.dart';
 import 'package:rec/Components/Indicators/LoadingIndicator.dart';
-import 'package:rec/Entities/Forms/RegisterData.dart';
-import 'package:rec/Entities/User.ent.dart';
-import 'package:rec/Helpers/RecToast.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Public/Register/RegisterRequestResult.dart';
 import 'package:rec/Pages/Public/SmsCode/SmsCode.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/routes.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/config/routes.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class RegisterRequest extends StatefulWidget {
-  final RegisterData data;
+  final RegisterData? data;
 
   const RegisterRequest({
-    Key key,
-    @required this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   @override
@@ -26,7 +22,7 @@ class RegisterRequest extends StatefulWidget {
     return _RegisterRequest();
   }
 
-  static Future tryRegister(BuildContext context, RegisterData data) {
+  static Future tryRegister(BuildContext context, RegisterData? data) {
     return showDialog(
       context: context,
       barrierDismissible: false,
@@ -40,17 +36,17 @@ class RegisterRequest extends StatefulWidget {
 }
 
 class _RegisterRequest extends State<RegisterRequest> {
-  RegisterService registerService = RegisterService();
-  final validateSMS = PhoneVerificationService();
-  final smsService = PublicSMSService();
+  final registerService = RegisterService(env: env);
+  final validateSMS = PhoneVerificationService(env: env);
+  final smsService = PublicSMSService(env: env);
 
   @override
   void initState() {
     super.initState();
 
-    registerService.register(widget.data).then(
+    registerService.register(widget.data!).then(
       (value) async {
-        await _sendSmsCode(widget.data.phone, widget.data.dni);
+        await _sendSmsCode(widget.data!.phone, widget.data!.dni);
         await _goToEnterSmsCode();
         Navigator.of(context).popUntil(ModalRoute.withName(Routes.login));
       },
@@ -66,11 +62,11 @@ class _RegisterRequest extends State<RegisterRequest> {
     );
   }
 
-  Future<void> _sendSmsCode(String phone, String dni) {
+  Future<void> _sendSmsCode(String? phone, String? dni) {
     return smsService
         .sendValidatePhoneSms(
-          phone: widget.data.phone,
-          prefix: widget.data.prefix,
+          phone: widget.data!.phone,
+          prefix: widget.data!.prefix,
         )
         .catchError(_onError);
   }
@@ -79,10 +75,10 @@ class _RegisterRequest extends State<RegisterRequest> {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (c) => SmsCode(
-          phone: widget.data.phone,
-          dni: widget.data.dni,
+          phone: widget.data!.phone,
+          dni: widget.data!.dni,
           onCode: _validateSmsCode,
-          prefix: widget.data.prefix,
+          prefix: widget.data!.prefix,
         ),
       ),
     );
@@ -93,9 +89,9 @@ class _RegisterRequest extends State<RegisterRequest> {
     validateSMS
         .validatePhone(
           smscode: smsCode,
-          dni: widget.data.dni,
-          prefix: widget.data.prefix,
-          phone: widget.data.phone,
+          dni: widget.data!.dni,
+          prefix: widget.data!.prefix,
+          phone: widget.data!.phone,
         )
         .then(_validateOk)
         .catchError(_onError);
@@ -103,7 +99,7 @@ class _RegisterRequest extends State<RegisterRequest> {
 
   void _validateOk(value) {
     var userState = UserState.of(context, listen: false);
-    userState.setSavedUser(User(username: widget.data.dni));
+    userState.setSavedUser(User(username: widget.data!.dni));
 
     Navigator.of(context).popUntil(ModalRoute.withName(Routes.login));
     RecToast.showSuccess(context, 'REGISTERED_OK');
@@ -111,12 +107,8 @@ class _RegisterRequest extends State<RegisterRequest> {
   }
 
   void _onError(error) {
-    var localizations = AppLocalizations.of(context);
     EasyLoading.dismiss();
-    RecToast.showError(
-      context,
-      localizations.translate(error.message),
-    );
+    RecToast.showError(context, error.message);
   }
 
   @override

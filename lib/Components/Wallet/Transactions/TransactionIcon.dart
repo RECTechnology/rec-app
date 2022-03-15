@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
-import 'package:rec/Entities/Transactions/Transaction.ent.dart';
-import 'package:rec/Providers/CampaignProvider.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/transactions_utils.dart';
+import 'package:rec/providers/campaign_provider.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class TransactionIcon extends StatefulWidget {
   final Transaction tx;
 
   const TransactionIcon(
     this.tx, {
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -20,31 +22,39 @@ class TransactionIcon extends StatefulWidget {
 }
 
 class _TransactionIcon extends State<TransactionIcon> {
-  String _getImage(Transaction transaction) {
-    return transaction.isOut()
-        ? transaction.payOutInfo.image
-        : transaction.payInInfo.image;
+  String? _getImage(Transaction transaction) {
+    return transaction.isOut() ? transaction.payOutInfo!.image : transaction.payInInfo!.image;
   }
 
-  String _getName(Transaction transaction) {
-    return transaction.isOut()
-        ? transaction.payOutInfo.name
-        : transaction.payInInfo.name;
+  String? _getName(Transaction transaction) {
+    return transaction.isOut() ? transaction.payOutInfo!.name : transaction.payInInfo!.name;
   }
 
   @override
   Widget build(BuildContext context) {
     var account = UserState.of(context).account;
-    var activeCampaign = CampaignProvider.of(context).activeCampaign;
+    var ltabCampaign = CampaignProvider.of(context).getCampaignByCode(
+      env.CMP_LTAB_CODE,
+    );
+    var cultureCampaign = CampaignProvider.of(context).getCampaignByCode(
+      env.CMP_CULT_CODE,
+    );
 
-    if (widget.tx.isIn() && account.isLtabAccount()) {
+    if (widget.tx.isIn() && account!.isLtabAccount()) {
       return CircleAvatarRec(
-        imageUrl: activeCampaign == null ? '' : activeCampaign.imageUrl,
+        imageUrl: ltabCampaign == null ? '' : ltabCampaign.imageUrl,
         color: Brand.defaultAvatarBackground,
       );
     }
 
-    if (widget.tx.isRecharge()) {
+    if (TransactionHelper.isCultureReward(widget.tx)) {
+      return CircleAvatarRec(
+        imageUrl: cultureCampaign == null ? '' : cultureCampaign.imageUrl,
+        color: Brand.defaultAvatarBackground,
+      );
+    }
+
+    if (TransactionHelper.isRecharge(widget.tx)) {
       return CircleAvatarRec.withIcon(
         Icon(
           Icons.credit_card,

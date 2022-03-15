@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Components/Modals/AccountSelectorModal.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/Styles/BoxDecorations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/styles/box_decorations.dart';
 
 class PrivateAppBar extends StatefulWidget with PreferredSizeWidget {
-  final Widget bottom;
+  final Widget? bottom;
   final int size;
   final bool hasBackArrow;
   final bool selectAccountEnabled;
-  final Color backgroundColor;
-  final Color color;
-  final String title;
+  final Color? backgroundColor;
+  final Color? color;
+  final String? title;
   final TextAlign textAlign;
   final Alignment alignment;
 
   const PrivateAppBar({
-    Key key,
+    Key? key,
     this.bottom,
     this.size = 80,
     this.hasBackArrow = false,
@@ -43,14 +43,14 @@ class _PrivateAppBar extends State<PrivateAppBar> {
   @override
   Widget build(BuildContext context) {
     var userState = UserState.of(context);
-    var account = userState.user.selectedAccount;
+    var account = userState.user!.selectedAccount;
     var accountSelector = AccountSelectorModal(context);
 
     var flexibleSpace = Container(
       decoration: widget.backgroundColor != null
-          ? BoxDecorations.solid(widget.backgroundColor)
+          ? BoxDecorations.solid(widget.backgroundColor!)
           : BoxDecorations.gradient(
-              Brand.getGradientForAccount(account),
+              Brand.getGradientForAccount(account!),
             ),
     );
 
@@ -58,7 +58,7 @@ class _PrivateAppBar extends State<PrivateAppBar> {
       backgroundColor: widget.backgroundColor,
       flexibleSpace: widget.bottom == null ? null : flexibleSpace,
       elevation: 0,
-      bottom: widget.bottom,
+      bottom: widget.bottom as PreferredSizeWidget?,
       automaticallyImplyLeading: false,
       title: InkWell(
         onTap: (widget.selectAccountEnabled) ? accountSelector.open : null,
@@ -67,6 +67,8 @@ class _PrivateAppBar extends State<PrivateAppBar> {
           children: [
             widget.hasBackArrow
                 ? IconButton(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.only(right: 8, left: 0),
                     icon: Icon(
                       Icons.arrow_back,
                       color: widget.color ?? Colors.white,
@@ -77,18 +79,19 @@ class _PrivateAppBar extends State<PrivateAppBar> {
                   )
                 : Container(
                     alignment: Alignment.center,
-                    child: CircleAvatarRec.fromAccount(account),
+                    child: CircleAvatarRec.fromAccount(account!),
                   ),
             Padding(
               padding: const EdgeInsets.only(left: 12.0),
               child: LocalizedText(
-                widget.title ?? userState.user.selectedAccount.name,
+                (widget.title ?? userState.user!.selectedAccount!.name) ?? '',
                 textAlign: widget.textAlign,
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w300,
                   color: widget.color ?? Colors.white,
                 ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
             widget.selectAccountEnabled
@@ -101,7 +104,7 @@ class _PrivateAppBar extends State<PrivateAppBar> {
                       color: widget.color ?? Colors.white,
                     ),
                   )
-                : SizedBox(),
+                : SizedBox.shrink()
           ],
         ),
       ),

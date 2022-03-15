@@ -3,15 +3,13 @@ import 'package:rec/Components/Modals/GenericModal.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 
 class YesNoModal extends GenericModal {
-  @override
-  final Widget title;
-  @override
-  final Widget content;
+  final Widget? title;
+  final Widget? content;
   final BuildContext context;
 
   YesNoModal({
     this.title,
-    this.context,
+    required this.context,
     this.content,
   }) : super(
           content: content,

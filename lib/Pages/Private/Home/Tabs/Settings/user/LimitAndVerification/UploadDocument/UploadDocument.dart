@@ -2,23 +2,22 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rec/Api/Services/ImageUploaderService.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Entities/Document.ent.dart';
-import 'package:rec/Helpers/Checks.dart';
-import 'package:rec/Helpers/Loading.dart';
-import 'package:rec/Helpers/RecToast.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Styles/Paddings.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/loading.dart';
+import 'package:rec/helpers/RecToast.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/styles/paddings.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class UploadDocument extends StatefulWidget {
-  final Document document;
-  final String title;
-  final String buttonLabel;
-  final String hint;
+  final Document? document;
+  final String? title;
+  final String? buttonLabel;
+  final String? hint;
 
   UploadDocument({
     this.document,
@@ -33,9 +32,9 @@ class UploadDocument extends StatefulWidget {
 
 class _UploadDocumentState extends State<UploadDocument> {
   final picker = ImagePicker();
-  final ImageUploaderService _imageUploader = ImageUploaderService();
+  final ImageUploaderService _imageUploader = ImageUploaderService(env: env);
 
-  String imageFilePath;
+  String? imageFilePath;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +45,7 @@ class _UploadDocumentState extends State<UploadDocument> {
         backgroundColor: Colors.white,
         appBar: EmptyAppBar(
           context,
-          title: widget.document != null ? widget.document.kind.name : widget.title,
+          title: widget.document != null ? widget.document!.kind!.name : widget.title,
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -83,7 +82,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                     ),
                     child: Checks.isNotEmpty(imageFilePath)
                         ? Image.file(
-                            File(imageFilePath),
+                            File(imageFilePath!),
                             fit: BoxFit.fitHeight,
                           )
                         : Column(
@@ -110,7 +109,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                   ),
                 ),
                 RecActionButton(
-                  label: widget.buttonLabel ?? localizations.translate('SEND_LEGGIBLE_IMAGE'),
+                  label: widget.buttonLabel ?? localizations!.translate('SEND_LEGGIBLE_IMAGE'),
                   backgroundColor: Checks.isNotEmpty(imageFilePath) ? Brand.primaryColor : null,
                   onPressed: Checks.isNotEmpty(imageFilePath) ? () => _uploadImage() : null,
                 )
@@ -129,7 +128,7 @@ class _UploadDocumentState extends State<UploadDocument> {
       maxHeight: 1000,
     );
     setState(() {
-      imageFilePath = picture.path;
+      imageFilePath = picture!.path;
     });
   }
 

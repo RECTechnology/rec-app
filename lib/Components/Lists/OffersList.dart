@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/OffersCard.dart';
-import 'package:rec/Entities/Offer.ent.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class OffersList extends StatefulWidget {
-  final List<Offer> offers;
+  final List<Offer>? offers;
 
-  OffersList({Key key, this.offers}) : super(key: key);
+  OffersList({Key? key, this.offers}) : super(key: key);
 
   @override
   _OffersListState createState() => _OffersListState();
@@ -20,7 +20,7 @@ class _OffersListState extends State<OffersList> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          children: widget.offers
+          children: widget.offers!
               .map(
                 (offer) => Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),

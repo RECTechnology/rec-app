@@ -3,11 +3,10 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
-import 'package:rec/Api/Services/wallet/TransactionsService.dart';
-import 'package:rec/Api/Storage.dart';
-import 'package:rec/Entities/Forms/PaymentData.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/AttemptPayment.page.dart';
-import 'package:rec/Providers/UserState.dart';
+import 'package:rec/providers/user_state.dart';
 import '../../../../mocks/users_mock.dart';
 import '../../../../test_utils.dart';
 
@@ -16,6 +15,7 @@ void main() {
     WidgetTester tester,
   ) async {
     var txService = TransactionsService(
+      env: env,
       client: MockClient(
         (request) {
           final mapJson = {
@@ -26,12 +26,12 @@ void main() {
       ),
     );
 
-    var app = TestUtils.wrapPrivateRoute(
+    var app = await TestUtils.wrapPrivateRoute(
       AttemptPayment(
         data: PaymentData(amount: 1, address: 'test'),
         transactionsService: txService,
       ),
-      state: UserState(
+      userState: UserState(
         RecSecureStorage(),
         null,
         user: UserMocks.userNormal(),

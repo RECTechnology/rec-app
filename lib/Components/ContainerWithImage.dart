@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Helpers/Checks.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class ContainerWithImage extends StatelessWidget {
-  final double height;
-  final String image;
+  final double? height;
+  final String? image;
   final BorderRadius borderRadius;
   final Color color;
 
   const ContainerWithImage({
-    Key key,
+    Key? key,
     this.height,
     this.image,
     this.borderRadius = const BorderRadius.all(Radius.circular(6)),
@@ -27,7 +27,7 @@ class ContainerWithImage extends StatelessWidget {
         image: Checks.isNotEmpty(image)
             ? DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(image),
+                image: NetworkImage(image!),
               )
             : null,
       ),

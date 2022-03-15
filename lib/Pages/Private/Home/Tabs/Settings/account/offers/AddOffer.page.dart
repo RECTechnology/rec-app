@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Services/OffersService.dart';
 import 'package:rec/Components/Forms/add_offer.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Layout/FormPageLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
-import 'package:rec/Entities/Forms/CreateOfferData.dart';
-import 'package:rec/Helpers/Loading.dart';
-import 'package:rec/Helpers/RecToast.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/loading.dart';
+import 'package:rec/helpers/RecToast.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class AddOfferPage extends StatefulWidget {
-  AddOfferPage({Key key}) : super(key: key);
+  AddOfferPage({Key? key}) : super(key: key);
 
   @override
   _AddOfferPageState createState() => _AddOfferPageState();
 }
 
 class _AddOfferPageState extends State<AddOfferPage> {
-  final _offerService = OffersService();
+  final _offerService = OffersService(env: env);
   final _addOfferFormKey = GlobalKey<FormState>();
   var _newOffer = CreateOfferData();
 
@@ -48,14 +48,11 @@ class _AddOfferPageState extends State<AddOfferPage> {
   }
 
   void _publishOffer() async {
-    if (!_addOfferFormKey.currentState.validate()) return;
+    if (!_addOfferFormKey.currentState!.validate()) return;
 
     await Loading.show();
 
-    await _offerService
-        .createOffer(_newOffer)
-        .then(_offerCreated)
-        .catchError(_offerError);
+    await _offerService.createOffer(_newOffer).then(_offerCreated).catchError(_offerError);
 
     await Loading.dismiss();
   }

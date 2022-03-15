@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Entities/AccountPermission.ent.dart';
+import 'package:rec/Components/Inputs/DropDown.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
-import 'DropDown.dart';
+typedef ValueChangedDynamic<T> = dynamic Function(T?);
 
 class RoleSelector extends StatefulWidget {
   final bool isDense;
-  final BoxDecoration decoration;
-  final String role;
-  final ValueChanged<String> onChanged;
-  final EdgeInsets padding;
+  final BoxDecoration? decoration;
+  final String? role;
+  final ValueChangedDynamic<String>? onChanged;
+  final EdgeInsets? padding;
 
   RoleSelector({
-    Key key,
+    Key? key,
     this.isDense = true,
     this.decoration,
     this.role,

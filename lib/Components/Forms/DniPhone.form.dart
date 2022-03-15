@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/DniTextField.dart';
 import 'package:rec/Components/Inputs/text_fields/PrefixPhoneField.dart';
-import 'package:rec/Entities/Forms/DniPhoneData.dart';
-import 'package:rec/Helpers/validators/validators.dart';
+import 'package:rec/helpers/validators/validators.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 /// Form for requesting a prefix, phone and a DNI
 class DniPhoneForm extends StatefulWidget {
-  final DniPhoneData data;
+  final DniPhoneData? data;
   final GlobalKey<FormState> formKey;
-  final ValueChanged<DniPhoneData> onChange;
+  final ValueChanged<DniPhoneData?>? onChange;
 
   const DniPhoneForm({
-    Key key,
+    Key? key,
     this.data,
     this.onChange,
-    @required this.formKey,
+    required this.formKey,
   }) : super(key: key);
 
   @override
@@ -32,19 +32,19 @@ class _DniPhoneForm extends State<DniPhoneForm> {
             DniTextField(
               color: Colors.blueAccent,
               onChange: (dni) {
-                widget.onChange(widget.data..dni = dni);
+                widget.onChange!(widget.data!..dni = dni);
               },
-              initialValue: widget.data.dni,
+              initialValue: widget.data!.dni,
               validator: Validators.verifyIdentityDocument,
             ),
             PrefixPhoneField(
-              prefix: widget.data.prefix,
-              phone: widget.data.phone,
+              prefix: widget.data!.prefix,
+              phone: widget.data!.phone,
               prefixChange: (prefix) {
-                widget.onChange(widget.data..prefix = prefix);
+                widget.onChange!(widget.data!..prefix = prefix);
               },
               phoneChange: (phone) {
-                widget.onChange(widget.data..phone = phone);
+                widget.onChange!(widget.data!..phone = phone);
               },
             ),
           ],

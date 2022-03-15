@@ -7,7 +7,7 @@ void main() {
   testWidgets('ChangePasswordPage test build correctly', (
     WidgetTester tester,
   ) async {
-    var app = TestUtils.wrapPrivateRoute(ChangePasswordPage());
+    var app = await TestUtils.wrapPrivateRoute(ChangePasswordPage());
 
     await tester.pumpWidget(app);
     await tester.pumpAndSettle();

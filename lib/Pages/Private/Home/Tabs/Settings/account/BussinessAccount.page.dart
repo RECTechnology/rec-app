@@ -1,51 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Services/AccountsService.dart';
+import 'package:rec/Components/Inputs/PickImage.dart';
 import 'package:rec/Components/Layout/ScrollableListLayout.dart';
+import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
 import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
 import 'package:rec/Components/Scaffold/BussinessHeader.dart';
-import 'package:rec/Components/Inputs/PickImage.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
-
-import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Helpers/Checks.dart';
-import 'package:rec/Helpers/Loading.dart';
-import 'package:rec/Helpers/RecToast.dart';
-import 'package:rec/Helpers/validators/validators.dart';
 import 'package:rec/Pages/Private/Shared/EditField.page.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/brand.dart';
-import 'package:rec/routes.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec/config/routes.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/RecToast.dart';
+import 'package:rec/helpers/loading.dart';
+import 'package:rec/helpers/validators/validators.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class BussinessAccountPage extends StatefulWidget {
-  BussinessAccountPage({Key key}) : super(key: key);
+  BussinessAccountPage({Key? key}) : super(key: key);
 
   @override
   _BussinessAccountPageState createState() => _BussinessAccountPageState();
 }
 
 class _BussinessAccountPageState extends State<BussinessAccountPage> {
-  final AccountsService _accountsService = AccountsService();
+  final AccountsService _accountsService = AccountsService(env: env);
 
   @override
   Widget build(BuildContext context) {
     var userState = UserState.of(context);
-    var hasDescription = Checks.isNotEmpty(userState.account.description);
+    var hasDescription = Checks.isNotEmpty(userState.account!.description);
     var tiles = [
       SectionTitleTile('YOUR_BUSSINESS'),
       GeneralSettingsTile(
-        title: userState.account.name ?? 'BUSSINESS_NAME',
+        title: userState.account!.name ?? 'BUSSINESS_NAME',
         subtitle: 'BUSSINESS_NAME_DESC',
         onTap: _editName,
       ),
       Divider(height: 1),
       GeneralSettingsTile(
-        title: hasDescription
-            ? userState.account.description
-            : 'BUSSINESS_DESCRIPTION',
-        subtitle: hasDescription
-            ? 'BUSSINESS_DESCRIPTION'
-            : 'BUSSINESS_DESCRIPTION_DESC',
+        title: hasDescription ? userState.account!.description : 'BUSSINESS_DESCRIPTION',
+        subtitle: hasDescription ? 'BUSSINESS_DESCRIPTION' : 'BUSSINESS_DESCRIPTION_DESC',
         onTap: _editDescription,
       ),
       Container(height: 16),
@@ -146,8 +141,8 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
   void _editField({
     String fieldName = 'FIELD',
     FormFieldValidator<String> validator = Validators.isRequired,
-    String initialValue,
-    IconData icon,
+    String? initialValue,
+    IconData? icon,
   }) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
@@ -172,7 +167,7 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
     return _editField(
       fieldName: 'NAME',
       icon: Icons.person,
-      initialValue: userState.account.name,
+      initialValue: userState.account!.name,
     );
   }
 
@@ -181,7 +176,7 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
     return _editField(
       fieldName: 'DESCRIPTION',
       icon: Icons.text_fields,
-      initialValue: userState.account.description,
+      initialValue: userState.account!.description,
     );
   }
 
@@ -190,7 +185,7 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
 
     var userState = UserState.of(context, listen: false);
     _accountsService
-        .updateAccount(userState.account.id, data)
+        .updateAccount(userState.account!.id, data)
         .then(_updateOk)
         .catchError(_onError);
   }

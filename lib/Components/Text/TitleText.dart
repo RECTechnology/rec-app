@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/InfoTooltip.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/config/brand.dart';
 
 class TitleText extends StatefulWidget {
   final String title;
@@ -16,7 +17,7 @@ class TitleText extends StatefulWidget {
 
   const TitleText(
     this.title, {
-    Key key,
+    Key? key,
     this.style = const TextStyle(),
     this.showTooltip = false,
     this.tooltipText = '',
@@ -38,13 +39,13 @@ class _TitleText extends State<TitleText> {
     return Row(
       mainAxisAlignment: widget.alignment,
       children: [
-        Text(
-          localizations.translate(widget.title),
-          style: Theme.of(context).textTheme.headline6.merge(widget.style),
+        LocalizedText(
+          widget.title,
+          style: Theme.of(context).textTheme.headline6!.merge(widget.style),
           textAlign: widget.textAlign,
         ),
         InfoTooltip.accent(
-          message: localizations.translate(widget.tooltipText),
+          message: localizations!.translate(widget.tooltipText),
           child: Container(
             height: 40,
             alignment: Alignment.centerLeft,

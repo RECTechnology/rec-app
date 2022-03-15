@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Indicators/Badge.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
 
 class GeneralSettingsTile extends StatefulWidget {
-  final String title;
-  final CircleAvatarRec circleAvatar;
-  final String subtitle;
-  final Function onTap;
-  final TextStyle titleStyle;
-  final TextStyle subtitleStyle;
-  final Icon icon;
+  final String? title;
+  final CircleAvatarRec? circleAvatar;
+  final String? subtitle;
+  final Function? onTap;
+  final TextStyle? titleStyle;
+  final TextStyle? subtitleStyle;
+  final Icon? icon;
   final bool requiresActions;
   final bool disabled;
 
   GeneralSettingsTile({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
     this.circleAvatar,
     this.subtitle,
     this.titleStyle,
@@ -36,19 +36,19 @@ class _GeneralSettingsTileState extends State<GeneralSettingsTile> {
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
-    var titleStyle = (widget.titleStyle ?? textTheme.subtitle1).copyWith(
+    var titleStyle = (widget.titleStyle ?? textTheme.subtitle1)!.copyWith(
       fontSize: 16,
       fontWeight: FontWeight.w500,
       color: widget.disabled ? Brand.grayDisabled : null,
     );
-    var subtitleStyle = (widget.subtitleStyle ?? textTheme.caption).copyWith(
+    var subtitleStyle = (widget.subtitleStyle ?? textTheme.caption)!.copyWith(
       fontSize: 14,
       fontWeight: FontWeight.w400,
       color: widget.disabled ? Brand.grayDisabled : null,
     );
 
     return InkWell(
-      onTap: widget.onTap,
+      onTap: widget.onTap as void Function()?,
       child: Container(
         color: Colors.white,
         child: Row(
@@ -70,7 +70,7 @@ class _GeneralSettingsTileState extends State<GeneralSettingsTile> {
                     ? Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: LocalizedText(
-                          widget.subtitle,
+                          widget.subtitle ?? '',
                           style: subtitleStyle,
                           overflow: TextOverflow.ellipsis,
                         ),

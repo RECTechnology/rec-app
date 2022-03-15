@@ -8,6 +8,10 @@
 .buildlog/
 .history
 .svn/
+line-count*
+
+# env
+env/*.env
 
 # IntelliJ related
 *.iml

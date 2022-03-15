@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rec/Components/ListTiles/ScheduleDayInput.dart';
-import 'package:rec/Entities/Schedule/ScheduleDay.ent.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 import '../test_utils.dart';
 

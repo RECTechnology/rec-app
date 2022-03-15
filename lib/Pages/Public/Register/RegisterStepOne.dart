@@ -4,16 +4,16 @@ import 'package:rec/Components/Forms/RegisterStepOne.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/AccountTypeHeader.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
-import 'package:rec/Entities/Account.ent.dart';
-import 'package:rec/Entities/Forms/RegisterData.dart';
 import 'package:rec/Pages/Private/Shared/InAppBrowser.dart';
 import 'package:rec/Pages/Public/Register/RegisterRequest.dart';
 import 'package:rec/Pages/Public/Register/RegisterStepTwo.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Styles/Paddings.dart';
-import 'package:rec/brand.dart';
-import 'package:rec/Helpers/RecToast.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec/helpers/RecToast.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/styles/paddings.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class RegisterOne extends StatefulWidget {
   @override
@@ -32,7 +32,7 @@ class RegisterOneState extends State<RegisterOne> with SingleTickerProviderState
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: _header(),
+        appBar: _header() as PreferredSizeWidget?,
         body: _body(),
         resizeToAvoidBottomInset: true,
       ),
@@ -40,7 +40,8 @@ class RegisterOneState extends State<RegisterOne> with SingleTickerProviderState
   }
 
   Widget _header() {
-    var bg = registerData.isAccountPrivate ? Brand.backgroundPrivateColor : Brand.backgroundCompanyColor;
+    var bg =
+        registerData.isAccountPrivate ? Brand.backgroundPrivateColor : Brand.backgroundCompanyColor;
 
     return AppBar(
       backgroundColor: bg,
@@ -52,9 +53,9 @@ class RegisterOneState extends State<RegisterOne> with SingleTickerProviderState
         isPrivate: registerData.isAccountPrivate,
         onChanged: (isPrivate) {
           if (isPrivate) {
-            _registerFormKey.currentState.setToPrivate();
+            _registerFormKey.currentState!.setToPrivate();
           } else {
-            _registerFormKey.currentState.setToCompany();
+            _registerFormKey.currentState!.setToCompany();
           }
         },
       ),
@@ -96,8 +97,7 @@ class RegisterOneState extends State<RegisterOne> with SingleTickerProviderState
   }
 
   Widget _registerButton() {
-    var localizations = AppLocalizations.of(context);
-    var label = registerData.isAccountPrivate ? localizations.translate('REGISTER') : localizations.translate('NEXT');
+    var label = registerData.isAccountPrivate ? 'REGISTER' : 'NEXT';
     var background = registerData.isAccountPrivate ? Brand.primaryColor : Brand.accentColor;
 
     return RecActionButton(
@@ -122,12 +122,12 @@ class RegisterOneState extends State<RegisterOne> with SingleTickerProviderState
           text: TextSpan(
             children: [
               TextSpan(
-                text: localizations.translate('I_ACCEPT'),
+                text: localizations!.translate('I_ACCEPT'),
                 style: Theme.of(context).textTheme.caption,
               ),
               TextSpan(
                 text: localizations.translate('TERMS'),
-                style: Theme.of(context).textTheme.caption.copyWith(
+                style: Theme.of(context).textTheme.caption!.copyWith(
                       decoration: TextDecoration.underline,
                     ),
                 recognizer: TapGestureRecognizer()
@@ -144,7 +144,7 @@ class RegisterOneState extends State<RegisterOne> with SingleTickerProviderState
               ),
               TextSpan(
                 text: localizations.translate('PRIVACY'),
-                style: Theme.of(context).textTheme.caption.copyWith(
+                style: Theme.of(context).textTheme.caption!.copyWith(
                       decoration: TextDecoration.underline,
                     ),
                 recognizer: TapGestureRecognizer()
@@ -167,20 +167,18 @@ class RegisterOneState extends State<RegisterOne> with SingleTickerProviderState
   }
 
   Widget _pressNextToAdd() {
-    var localizations = AppLocalizations.of(context);
     return Container(
       alignment: Alignment.centerLeft,
-      // margin: EdgeInsets.fromLTRB(0, 24, 0, 16),
-      child: Text(
-        registerData.isAccountPrivate ? '' : localizations.translate('PRESS_NEXT_TO_ADD'),
-        style: Theme.of(context).textTheme.bodyText2.copyWith(color: Brand.accentColor),
+      child: LocalizedText(
+        registerData.isAccountPrivate ? '' : 'PRESS_NEXT_TO_ADD',
+        style: Theme.of(context).textTheme.bodyText2!.copyWith(color: Brand.accentColor),
       ),
     );
   }
 
   void next() {
-    if (!_formKey.currentState.validate()) return;
-    if (!registerData.termsAccepted) return _showError('NO_ACORD_TERMS');
+    if (!_formKey.currentState!.validate()) return;
+    if (!registerData.termsAccepted!) return _showError('NO_ACORD_TERMS');
     if (registerData.isAccountCompany) return _goToRegisterCompanyPage();
 
     _attemptPrivateRegister();
@@ -196,7 +194,7 @@ class RegisterOneState extends State<RegisterOne> with SingleTickerProviderState
     if (newData == null) return;
 
     registerData = newData;
-    _formKey.currentState.validate();
+    _formKey.currentState!.validate();
   }
 
   void _attemptPrivateRegister() {
@@ -209,25 +207,24 @@ class RegisterOneState extends State<RegisterOne> with SingleTickerProviderState
         return _showError('UNEXPECTED_SERVER_ERROR');
       }
 
-      var translatedMessage = localizations.translate(result.message);
+      var translatedMessage = localizations!.translate(result.message);
       if (translatedMessage != result.message) {
-        String fieldName = result.message.split(' ').first;
+        String? fieldName = result.message.split(' ').first;
         registerData.addError(
           fieldName,
           localizations.translate(result.message),
         );
-        _formKey.currentState.validate();
+        _formKey.currentState!.validate();
       } else {
         _showError(translatedMessage);
       }
     });
   }
 
-  void _showError(String message) {
-    var localizations = AppLocalizations.of(context);
+  void _showError(String? message) {
     RecToast.showError(
       context,
-      localizations.translate(message ?? 'UNEXPECTED_SERVER_ERROR'),
+      message ?? 'UNEXPECTED_SERVER_ERROR',
     );
   }
 }

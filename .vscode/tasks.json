@@ -63,6 +63,12 @@
             "type": "shell"
         },
         {
+            "label": "open-prod-apk-path",
+            "command": "open",
+            "args": ["build/app/outputs/flutter-apk/"],
+            "type": "shell"
+        },
+        {
             "label": "open-prod-aab-path",
             "command": "open",
             "args": ["build/app/outputs/bundle/prodRelease"],
@@ -83,7 +89,7 @@
             "dependsOn": [
                 "prepare-env-prod",
                 "build-prod-apk",
-                "open-pre-apk-path"
+                "open-prod-apk-path"
             ]
         },
         {

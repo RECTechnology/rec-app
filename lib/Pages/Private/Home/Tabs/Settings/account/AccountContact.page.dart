@@ -1,49 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Services/AccountsService.dart';
 import 'package:rec/Components/Inputs/text_fields/PrefixPhoneField.dart';
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
-import 'package:rec/Entities/Forms/DniPhoneData.dart';
-import 'package:rec/Helpers/Checks.dart';
-import 'package:rec/Helpers/Loading.dart';
-import 'package:rec/Helpers/RecToast.dart';
-import 'package:rec/Helpers/validators/validators.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/loading.dart';
+import 'package:rec/helpers/RecToast.dart';
+import 'package:rec/helpers/validators/validators.dart';
 import 'package:rec/Pages/Private/Shared/EditField.page.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class AccountContactPage extends StatefulWidget {
-  AccountContactPage({Key key}) : super(key: key);
+  AccountContactPage({Key? key}) : super(key: key);
 
   @override
   _AccountContactPageState createState() => _AccountContactPageState();
 }
 
 class _AccountContactPageState extends State<AccountContactPage> {
-  final AccountsService _accountsService = AccountsService();
+  final AccountsService _accountsService = AccountsService(env: env);
   final DniPhoneData data = DniPhoneData();
 
   @override
   Widget build(BuildContext context) {
     var userState = UserState.of(context);
-    var hasEmail = Checks.isNotEmpty(userState.account.email);
-    var hasWebsite = Checks.isNotEmpty(userState.account.webUrl);
-    var hasPhone = Checks.isNotEmpty(userState.account.fullPhone);
+    var hasEmail = Checks.isNotEmpty(userState.account!.email);
+    var hasWebsite = Checks.isNotEmpty(userState.account!.webUrl);
+    var hasPhone = Checks.isNotEmpty(userState.account!.fullPhone);
 
     var tiles = [
       GeneralSettingsTile(
-        title: hasPhone ? userState.account.fullPhone : 'PHONE',
+        title: hasPhone ? userState.account!.fullPhone : 'PHONE',
         subtitle: hasPhone ? 'PHONE' : 'PHONE_DESC',
         onTap: _editPhone,
       ),
       Divider(height: 1),
       GeneralSettingsTile(
-        title: hasEmail ? userState.account.email : 'EMAIL_ONLY',
+        title: hasEmail ? userState.account!.email : 'EMAIL_ONLY',
         subtitle: hasEmail ? 'EMAIL_ONLY' : 'CHANGE_EMAIL',
         onTap: _editEmail,
       ),
       GeneralSettingsTile(
-        title: hasWebsite ? userState.account.webUrl : 'WEBSITE',
+        title: hasWebsite ? userState.account!.webUrl : 'WEBSITE',
         subtitle: hasWebsite ? 'WEBSITE' : 'WEBSITE_DESC',
         onTap: _editWeb,
       ),
@@ -67,10 +66,10 @@ class _AccountContactPageState extends State<AccountContactPage> {
   void _editField({
     String fieldName = 'FIELD',
     FormFieldValidator<String> validator = Validators.isRequired,
-    String initialValue,
-    String apiFieldName,
-    IconData icon,
-    List<Widget> fields,
+    String? initialValue,
+    String? apiFieldName,
+    IconData? icon,
+    List<Widget>? fields,
   }) async {
     var userState = UserState.of(context, listen: false);
 
@@ -83,7 +82,7 @@ class _AccountContactPageState extends State<AccountContactPage> {
           validator: validator,
           fields: fields,
           onSave: (value) {
-            _updateAccount(userState.account.id, {
+            _updateAccount(userState.account!.id, {
               (apiFieldName ?? fieldName.toLowerCase()): value,
             });
           },
@@ -94,20 +93,20 @@ class _AccountContactPageState extends State<AccountContactPage> {
 
   void _editPhone() async {
     var userState = UserState.of(context, listen: false);
-    data.phone = userState.account.phone;
-    data.prefix = userState.account.prefix;
+    data.phone = userState.account!.phone;
+    data.prefix = userState.account!.prefix;
 
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => EditFieldPage(
-          initialValue: userState.account.fullPhone,
+          initialValue: userState.account!.fullPhone,
           fieldName: 'PHONE',
           icon: Icons.phone,
           validator: null,
           fields: [
             PrefixPhoneField(
-              prefix: userState.account.prefix,
-              phone: userState.account.phone,
+              prefix: userState.account!.prefix,
+              phone: userState.account!.phone,
               phoneChange: (phone) {
                 data.phone = phone;
               },
@@ -118,16 +117,15 @@ class _AccountContactPageState extends State<AccountContactPage> {
           ],
           onSave: (value) {
             var dataUnchanged = (data.phone == null && data.prefix == null) ||
-                data.phone == userState.account.phone &&
-                    data.prefix == userState.account.prefix;
+                data.phone == userState.account!.phone && data.prefix == userState.account!.prefix;
 
             if (dataUnchanged) {
               return Navigator.pop(context);
             }
 
-            _updateAccount(userState.account.id, {
-              'phone': data.phone ?? userState.account.phone,
-              'prefix': data.prefix ?? userState.account.prefix,
+            _updateAccount(userState.account!.id, {
+              'phone': data.phone ?? userState.account!.phone,
+              'prefix': data.prefix ?? userState.account!.prefix,
             });
           },
         ),
@@ -140,7 +138,7 @@ class _AccountContactPageState extends State<AccountContactPage> {
     return _editField(
       fieldName: 'EMAIL_ONLY',
       icon: Icons.mail_outline,
-      initialValue: userState.account.email,
+      initialValue: userState.account!.email,
       validator: Validators.isEmail,
       apiFieldName: 'email',
     );
@@ -151,20 +149,17 @@ class _AccountContactPageState extends State<AccountContactPage> {
     return _editField(
       fieldName: 'WEBSITE',
       icon: Icons.link,
-      initialValue: userState.account.webUrl,
+      initialValue: userState.account!.webUrl,
       apiFieldName: 'web',
     );
   }
 
   void _updateAccount(
-    String accountId,
+    String? accountId,
     Map<String, dynamic> data,
   ) {
     Loading.show();
-    _accountsService
-        .updateAccount(accountId, data)
-        .then(_updateOk)
-        .catchError(_onError);
+    _accountsService.updateAccount(accountId, data).then(_updateOk).catchError(_onError);
   }
 
   Future<void> _updateOk(c) async {

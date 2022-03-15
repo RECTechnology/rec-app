@@ -1,4 +1,4 @@
-import 'package:rec/Entities/Campaign.ent.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 import '../test_faker.dart';
 

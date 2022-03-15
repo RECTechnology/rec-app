@@ -1,30 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Services/AccountsService.dart';
 import 'package:rec/Components/ListTiles/AccountPermissionTile.dart';
 import 'package:rec/Components/Modals/YesNoModal.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Entities/AccountPermission.ent.dart';
-import 'package:rec/Helpers/Loading.dart';
-import 'package:rec/Helpers/RecToast.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/loading.dart';
+import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/account/Permissions/CreatePermission.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/Styles/Paddings.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/styles/paddings.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class AccountPermissionsPage extends StatefulWidget {
-  AccountPermissionsPage({Key key}) : super(key: key);
+  final AccountsService accountsService;
+
+  AccountPermissionsPage({
+    Key? key,
+    AccountsService? accountsService,
+  })  : accountsService = accountsService ?? AccountsService(env: env),
+        super(key: key);
 
   @override
   _AccountPermissionsPageState createState() => _AccountPermissionsPageState();
 }
 
 class _AccountPermissionsPageState extends State<AccountPermissionsPage> {
-  final _accountService = AccountsService();
+  AccountsService get _accountService => widget.accountsService;
 
-  List<AccountPermission> _users = [];
-  UserState userState;
+  List<AccountPermission>? _users = [];
+  UserState? userState;
 
   @override
   void didChangeDependencies() {
@@ -37,8 +42,6 @@ class _AccountPermissionsPageState extends State<AccountPermissionsPage> {
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: EmptyAppBar(
@@ -61,8 +64,8 @@ class _AccountPermissionsPageState extends State<AccountPermissionsPage> {
             const SizedBox(height: 24),
             Padding(
               padding: const EdgeInsets.only(left: 24.0),
-              child: Text(
-                localizations.translate('USERS'),
+              child: LocalizedText(
+                'USERS',
                 style: Theme.of(context).textTheme.subtitle1,
               ),
             ),
@@ -77,19 +80,20 @@ class _AccountPermissionsPageState extends State<AccountPermissionsPage> {
   }
 
   Widget _permissionsList() {
-    return _users.isNotEmpty
+    return _users!.isNotEmpty
         ? RefreshIndicator(
             color: Brand.primaryColor,
             onRefresh: _loadPermissions,
             child: ListView.separated(
               itemBuilder: (BuildContext context, int index) {
                 return AccountPermissionTile(
-                  _users[index],
-                  onDelete: () => _deletePermission(_users[index]),
-                  onChangeRole: (role) => _changeRole(_users[index], role),
+                  _users![index],
+                  key: Key(_users![index].id.toString()),
+                  onDelete: () => _deletePermission(_users![index]),
+                  onChangeRole: (role) => _changeRole(_users![index], role!),
                 );
               },
-              itemCount: _users.length,
+              itemCount: _users!.length,
               separatorBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -101,14 +105,17 @@ class _AccountPermissionsPageState extends State<AccountPermissionsPage> {
         : Center(child: CircularProgressIndicator());
   }
 
-  void _permissionCreated() {
-    _loadPermissions();
+  void _permissionCreated() async {
+    await _loadPermissions();
   }
 
   Future<void> _loadPermissions() {
-    return _accountService
-        .listAccountPermissions(userState.account.id)
-        .then((value) => setState(() => _users = value.items));
+    return _accountService.listAccountPermissions(userState!.account!.id).then((value) {
+      setState(() => _users = value.items);
+      for (var p in _users!) {
+        print('User ${p.username} > ${p.roles!.join(', ')}');
+      }
+    });
   }
 
   void _deletePermission(AccountPermission permission) async {
@@ -126,7 +133,7 @@ class _AccountPermissionsPageState extends State<AccountPermissionsPage> {
 
       await Loading.show();
       await _accountService
-          .deleteUserFromAccount(userState.account.id, permission.id)
+          .deleteUserFromAccount(userState.account!.id, permission.id)
           .then(_removedOk)
           .catchError(_onError);
     }
@@ -138,7 +145,7 @@ class _AccountPermissionsPageState extends State<AccountPermissionsPage> {
     var userState = UserState.of(context, listen: false);
     await _accountService
         .updateUserInAccount(
-          userState.account.id,
+          userState.account!.id,
           permission.id,
           role,
         )

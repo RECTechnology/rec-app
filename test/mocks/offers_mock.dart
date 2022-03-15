@@ -1,4 +1,5 @@
-import 'package:rec/Entities/Offer.ent.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
+
 
 class OffersMock {
   static Offer priceOffer = Offer.fromJson({

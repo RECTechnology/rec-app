@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
-import 'package:rec/Entities/Account.ent.dart';
-import 'package:rec/Helpers/Checks.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class BussinessHeader extends StatefulWidget with PreferredSizeWidget {
-  final Account account;
+  final Account? account;
   final double size = 120;
-  final Widget avatarBadge;
-  final Widget subtitle;
+  final Widget? avatarBadge;
+  final Widget? subtitle;
 
   BussinessHeader(
     this.account, {
-    Key key,
+    Key? key,
     this.avatarBadge,
     this.subtitle,
   }) : super(key: key);
@@ -28,8 +27,6 @@ class BussinessHeader extends StatefulWidget with PreferredSizeWidget {
 class _BussinessHeaderState extends State<BussinessHeader> {
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
-
     return PreferredSize(
       preferredSize: widget.preferredSize,
       child: Stack(
@@ -37,11 +34,11 @@ class _BussinessHeaderState extends State<BussinessHeader> {
           Container(
             height: widget.preferredSize.height,
             decoration: BoxDecoration(
-              image: Checks.isNotEmpty(widget.account.publicImage)
+              image: Checks.isNotEmpty(widget.account!.publicImage)
                   ? DecorationImage(
                       fit: BoxFit.cover,
                       image: NetworkImage(
-                        widget.account.publicImage,
+                        widget.account!.publicImage!,
                       ),
                     )
                   : null,
@@ -53,7 +50,10 @@ class _BussinessHeaderState extends State<BussinessHeader> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Colors.white.withAlpha(0), Colors.white.withAlpha(255)],
+                colors: [
+                  Colors.white.withAlpha(0),
+                  Colors.white.withAlpha(255)
+                ],
               ),
             ),
           ),
@@ -68,8 +68,8 @@ class _BussinessHeaderState extends State<BussinessHeader> {
                       Padding(
                         padding: const EdgeInsets.only(right: 16.0),
                         child: CircleAvatarRec(
-                          imageUrl: widget.account.companyImage,
-                          name: widget.account.name,
+                          imageUrl: widget.account!.companyImage,
+                          name: widget.account!.name,
                           radius: 32,
                         ),
                       ),
@@ -88,7 +88,7 @@ class _BussinessHeaderState extends State<BussinessHeader> {
                           padding: EdgeInsets.only(bottom: 8),
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            widget.account.name ?? 'Text not found',
+                            widget.account!.name ?? 'Text not found',
                             style: TextStyle(
                               fontSize: 18,
                               color: Brand.grayDark,
@@ -98,8 +98,8 @@ class _BussinessHeaderState extends State<BussinessHeader> {
                           ),
                         ),
                         widget.subtitle ??
-                            Text(
-                              localizations.translate(widget.account.addressString),
+                            LocalizedText(
+                              widget.account!.addressString!,
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Brand.grayDark,

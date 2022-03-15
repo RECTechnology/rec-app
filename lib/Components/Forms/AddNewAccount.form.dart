@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/CifTextField.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
-import 'package:rec/Entities/Forms/NewAccountData.dart';
-import 'package:rec/Helpers/validators/validators.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/helpers/validators/validators.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 /// Form for requesting a prefix, phone and a DNI
 class AddNewAccountForm extends StatefulWidget {
-  final NewAccountData data;
+  final NewAccountData? data;
   final GlobalKey<FormState> formKey;
-  final ValueChanged<NewAccountData> onChange;
+  final ValueChanged<NewAccountData?>? onChange;
 
   const AddNewAccountForm({
-    Key key,
+    Key? key,
     this.data,
     this.onChange,
-    @required this.formKey,
+    required this.formKey,
   }) : super(key: key);
 
   @override
@@ -27,7 +27,7 @@ class AddNewAccountFormState extends State<AddNewAccountForm> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
-    var isPrivate = widget.data.isAccountPrivate;
+    var isPrivate = widget.data!.isAccountPrivate;
 
     return Form(
       key: widget.formKey,
@@ -37,9 +37,9 @@ class AddNewAccountFormState extends State<AddNewAccountForm> {
           children: [
             RecTextField(
               capitalizeMode: TextCapitalization.sentences,
-              initialValue: widget.data.name,
+              initialValue: widget.data!.name,
               needObscureText: false,
-              placeholder: localizations.translate('NAME'),
+              placeholder: localizations!.translate('NAME'),
               keyboardType: TextInputType.text,
               label: localizations.translate('NAME'),
               icon: Icon(
@@ -51,11 +51,11 @@ class AddNewAccountFormState extends State<AddNewAccountForm> {
             ),
             if (!isPrivate)
               CifTextField(
-                initialValue: widget.data.cif,
+                initialValue: widget.data!.cif,
                 onChange: _setCif,
                 validator: (cif) {
-                  if (widget.data.hasError('cif')) {
-                    return widget.data.getError('cif');
+                  if (widget.data!.hasError('cif')) {
+                    return widget.data!.getError('cif');
                   }
                   return Validators.validateCif(cif);
                 },
@@ -68,13 +68,13 @@ class AddNewAccountFormState extends State<AddNewAccountForm> {
 
   void _onChange() {
     if (widget.onChange != null) {
-      widget.onChange(widget.data);
+      widget.onChange!(widget.data);
     }
   }
 
   void _setName(name) {
     setState(() {
-      widget.data.name = name;
+      widget.data!.name = name;
     });
 
     _onChange();
@@ -82,7 +82,7 @@ class AddNewAccountFormState extends State<AddNewAccountForm> {
 
   void _setCif(cif) {
     setState(() {
-      widget.data.cif = cif;
+      widget.data!.cif = cif;
     });
 
     _onChange();

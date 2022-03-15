@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Entities/Offer.ent.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class OfferTypeSelector extends StatelessWidget {
   final OfferType type;
@@ -9,9 +9,9 @@ class OfferTypeSelector extends StatelessWidget {
   final TextStyle selectedStyle;
 
   const OfferTypeSelector({
-    Key key,
-    @required this.type,
-    @required this.onChange,
+    Key? key,
+    required this.type,
+    required this.onChange,
     this.selectedStyle = const TextStyle(
       color: Brand.primaryColor,
       fontWeight: FontWeight.bold,

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/ListTiles/AccountListTile.dart';
 import 'package:rec/Components/Layout/InfoSplash.dart';
 import 'package:rec/Components/Lists/SearchableList.dart';
-import 'package:rec/Entities/Account.ent.dart';
-import 'package:rec/Providers/UserState.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class AccountList extends StatefulWidget {
-  final Function(Account account) onPick;
+  final Function(Account account)? onPick;
 
-  const AccountList({Key key, this.onPick}) : super(key: key);
+  const AccountList({Key? key, this.onPick}) : super(key: key);
 
   @override
   _AccountList createState() => _AccountList();
@@ -33,12 +33,12 @@ class _AccountList extends State<AccountList> {
 
     setState(
       () => searchedAccountsWidgets = accounts
-          .where((element) => element.id != userState.account.id)
+          .where((element) => element.id != userState.account!.id)
           .where(_accountMatchesSearchQuery)
           .map(
             (account) => AccountListTile.fromAccount(
               account,
-              onTap: () => widget.onPick(account),
+              onTap: () => widget.onPick!(account),
             ),
           )
           .toList(),
@@ -46,13 +46,13 @@ class _AccountList extends State<AccountList> {
   }
 
   bool _accountMatchesSearchQuery(Account account) {
-    return account.name.toLowerCase().contains(searchQuery.toLowerCase());
+    return account.name!.toLowerCase().contains(searchQuery.toLowerCase());
   }
 
   @override
   Widget build(BuildContext context) {
     var userState = UserState.of(context, listen: false);
-    var accounts = userState.user.accounts;
+    var accounts = userState.user!.accounts;
 
     _updateAccounts(accounts);
 

@@ -1,21 +1,23 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:rec/Components/Layout/horizontal_list_layout.dart';
 import 'package:rec/Components/Text/ReadMoreText.dart';
 import 'package:rec/Components/Inputs/RecFilterButton.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Entities/Account.ent.dart';
-import 'package:rec/Entities/Forms/PaymentData.dart';
-import 'package:rec/Entities/Transactions/VendorData.ent.dart';
-import 'package:rec/Helpers/BrowserHelper.dart';
+import 'package:rec/config/roles_definitions.dart';
+import 'package:rec/helpers/BrowserHelper.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayAddress.page.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Styles/TextStyles.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/styles/text_styles.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class ResumeTab extends StatefulWidget {
-  final Account account;
+  final Account? account;
+  final ScrollController? scrollController;
 
-  ResumeTab(this.account, {Key key}) : super(key: key);
+  ResumeTab(this.account, {Key? key, this.scrollController}) : super(key: key);
 
   @override
   _ResumeTabState createState() => _ResumeTabState();
@@ -25,16 +27,21 @@ class _ResumeTabState extends State<ResumeTab> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
+    var userState = UserState.of(context);
+    var user = userState.user;
+    var hasPermissionToPay = user!.hasRoles(RoleDefinitions.payButtonMap);
+
     var filterButtons = <RecFilterButton>[
-      RecFilterButton(
-        icon: Icons.call_made,
-        label: 'PAY',
-        margin: EdgeInsets.only(right: 8),
-        onPressed: _payTo,
-        backgroundColor: Brand.primaryColor,
-        textColor: Colors.white,
-        iconColor: Colors.white,
-      ),
+      if (hasPermissionToPay)
+        RecFilterButton(
+          icon: Icons.call_made,
+          label: 'PAY',
+          margin: EdgeInsets.only(right: 8),
+          onPressed: _payTo,
+          backgroundColor: Brand.primaryColor,
+          textColor: Colors.white,
+          iconColor: Colors.white,
+        ),
       RecFilterButton(
         icon: Icons.assistant_direction,
         label: 'HOW_TO_GO',
@@ -52,63 +59,57 @@ class _ResumeTabState extends State<ResumeTab> {
     ];
 
     return SingleChildScrollView(
+      controller: widget.scrollController,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Container(
+            height: 30 + 32.0,
+            child: HorizontalList(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              children: filterButtons,
+            ),
+          ),
           Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
+            padding: const EdgeInsets.only(left: 16, right: 16),
             child: Column(
               children: [
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.max,
-                      children: filterButtons,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 16),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Row(
                     children: [
                       LocalizedText(
-                        widget.account.schedule
-                            .getStateNameForDate(DateTime.now()),
+                        widget.account!.schedule!.getStateNameForDate(DateTime.now()),
                         style: TextStyle(fontSize: 14),
                       ),
                     ],
                   ),
                 ),
                 SizedBox(height: 16),
-                if (widget.account.description.isNotEmpty)
+                if (widget.account!.description!.isNotEmpty)
                   Align(
                     alignment: Alignment.centerLeft,
                     child: ReadMoreText(
-                      data: ('"${widget.account.description.trim()}"'),
-                      trimCollapsedText: localizations.translate('SHOW_MORE'),
+                      data: ('"${widget.account!.description!.trim()}"'),
+                      trimCollapsedText: localizations!.translate('SHOW_MORE'),
                       trimExpandedText: localizations.translate('SHOW_LESS'),
                     ),
                   ),
-                if (widget.account.hasWeb()) SizedBox(height: 16),
-                if (widget.account.hasWeb())
+                if (widget.account!.hasWeb()) SizedBox(height: 16),
+                if (widget.account!.hasWeb())
                   Align(
                     alignment: Alignment.centerLeft,
                     child: RichText(
                       text: TextSpan(
                         style: TextStyles.link,
-                        text: widget.account.webUrl ?? '',
+                        text: widget.account!.webUrl ?? '',
                         recognizer: TapGestureRecognizer()..onTap = _launchWeb,
                       ),
                     ),
                   ),
                 SizedBox(height: 16),
-                if (widget.account.hasPublicImage())
+                if (widget.account!.hasPublicImage())
                   AspectRatio(
                     aspectRatio: 16 / 9,
                     child: Container(
@@ -118,8 +119,7 @@ class _ResumeTabState extends State<ResumeTab> {
                         image: DecorationImage(
                           fit: BoxFit.cover,
                           image: NetworkImage(
-                            widget.account.publicImage ??
-                                'https://picsum.photos/250?image=9',
+                            widget.account!.publicImage ?? 'https://picsum.photos/250?image=9',
                           ),
                         ),
                       ),
@@ -135,31 +135,31 @@ class _ResumeTabState extends State<ResumeTab> {
   }
 
   void _launchWeb() async {
-    await BrowserHelper.openBrowser(widget.account.webUrl);
+    await BrowserHelper.openBrowser(widget.account!.webUrl);
   }
 
   void _launchMapsUrl() async {
     final url =
-        'https://www.google.com/maps/search/?api=1&query=${widget.account.latitude},${widget.account.longitude}';
+        'https://www.google.com/maps/search/?api=1&query=${widget.account!.latitude},${widget.account!.longitude}';
     await BrowserHelper.openBrowser(url);
   }
 
   void _call() async {
-    await BrowserHelper.openCallPhone(widget.account.fullPhone);
+    await BrowserHelper.openCallPhone(widget.account!.fullPhone);
   }
 
   void _payTo() {
     var localizations = AppLocalizations.of(context);
     var paymentData = PaymentData(
-      address: widget.account.recAddress,
+      address: widget.account!.recAddress,
       amount: null,
-      concept: localizations.translate(
+      concept: localizations!.translate(
         'PAY_TO_NAME',
         params: {
-          'name': widget.account.name,
+          'name': widget.account!.name,
         },
       ),
-      vendor: VendorData(name: widget.account.name),
+      vendor: VendorData(name: widget.account!.name),
     );
 
     Navigator.push(

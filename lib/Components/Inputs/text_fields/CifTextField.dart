@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/config/brand.dart';
 
 /// [CifTextField] renders a TextField, with some options for handling DNIs
 /// Used when we need the user to enter a DNI
 class CifTextField extends StatefulWidget {
   /// The initial value the field will initilize itself with
-  final String initialValue;
+  final String? initialValue;
 
   /// The color of the widget
   final Color color;
 
   /// Called when [RecTextField] changes value (ie: each time character is typed)
-  final ValueChanged<String> onChange;
+  final ValueChanged<String?>? onChange;
 
   /// An optional method that validates an input. Returns an error string to
   /// display if the input is invalid, or null otherwise.
-  final FormFieldValidator<String> validator;
+  final FormFieldValidator<String>? validator;
 
-  final String labelText;
+  final String? labelText;
 
-  final String placeholderText;
+  final String? placeholderText;
 
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
 
   final bool showIcon;
 
   const CifTextField({
-    Key key,
+    Key? key,
     this.initialValue,
     this.onChange,
     this.validator,
@@ -49,11 +49,11 @@ class CifTextFieldState extends State<CifTextField> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
-    var localizedLabel = localizations.translate(
-      widget.labelText ?? widget.placeholderText,
+    var localizedLabel = localizations!.translate(
+      widget.labelText ?? widget.placeholderText ?? 'CIF',
     );
     var localizedPlaceholder = localizations.translate(
-      widget.placeholderText ?? widget.labelText,
+      widget.placeholderText ?? widget.labelText ?? 'CIF',
     );
 
     return RecTextField(
@@ -81,7 +81,7 @@ class CifTextFieldState extends State<CifTextField> {
     // Trim whitespaces at the end and start of the [value]
     // prevents incorrect validation in case a user adds a space at the end
     if (widget.onChange != null) {
-      widget.onChange(value.trim());
+      widget.onChange!(value.trim());
     }
   }
 }

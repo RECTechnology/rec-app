@@ -7,10 +7,9 @@ import 'package:rec/Components/Inputs/form_fields/date_form_field.dart';
 import 'package:rec/Components/Inputs/text_fields/AmountTextField.dart';
 import 'package:rec/Components/Inputs/text_fields/SimpleTextField.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Entities/Forms/CreateOfferData.dart';
-import 'package:rec/Entities/Offer.ent.dart';
-import 'package:rec/Helpers/validators/validators.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/helpers/validators/validators.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 /// Form for creating a new offer
 class AddOfferForm extends StatelessWidget {
@@ -19,10 +18,10 @@ class AddOfferForm extends StatelessWidget {
   final ValueChanged<CreateOfferData> onChange;
 
   const AddOfferForm({
-    Key key,
-    @required this.data,
-    @required this.onChange,
-    @required this.formKey,
+    Key? key,
+    required this.data,
+    required this.onChange,
+    required this.formKey,
   }) : super(key: key);
 
   @override
@@ -58,7 +57,7 @@ class AddOfferForm extends StatelessWidget {
               label: 'END_DATE',
               initialValue: data.end,
               validator: Validators.isRequired,
-              onChange: (String value) {
+              onChange: (String? value) {
                 onChange(data..end = value);
               },
             ),
@@ -82,8 +81,7 @@ class AddOfferForm extends StatelessWidget {
             padding: const EdgeInsets.only(right: 8.0),
             child: AmountTextField(
               label: 'REGULAR_PRICE',
-              initialValue:
-                  data.initialPrice == null ? '' : data.initialPrice.toString(),
+              initialValue: data.initialPrice == null ? '' : data.initialPrice.toString(),
               onChange: (val) {
                 onChange(data..initialPrice = double.tryParse(val));
               },
@@ -97,8 +95,7 @@ class AddOfferForm extends StatelessWidget {
             child: AmountTextField(
               label: 'DISCOUNT_PRICE',
               icon: RecCurrencyIcon(color: Brand.grayLight),
-              initialValue:
-                  data.offerPrice == null ? '' : data.offerPrice.toString(),
+              initialValue: data.offerPrice == null ? '' : data.offerPrice.toString(),
               onChange: (val) {
                 onChange(data..offerPrice = double.tryParse(val));
               },
@@ -119,8 +116,7 @@ class AddOfferForm extends StatelessWidget {
             child: AmountTextField(
               label: 'PERCENTAGE',
               icon: PercentageIcon(color: Brand.grayLight),
-              initialValue:
-                  data.discount == null ? '' : data.discount.toString(),
+              initialValue: data.discount == null ? '' : data.discount.toString(),
               onChange: (val) {
                 onChange(data..discount = double.tryParse(val));
               },

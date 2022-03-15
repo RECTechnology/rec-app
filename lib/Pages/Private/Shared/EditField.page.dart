@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
+import 'package:rec/Components/Layout/FormPageLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Styles/Paddings.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
 
 class EditFieldPage extends StatefulWidget {
-  final String fieldName;
-  final String initialValue;
+  final String? fieldName;
+  final String? initialValue;
   final String updateButtonText;
-  final ValueChanged<String> onSave;
-  final IconData icon;
-  final FormFieldValidator<String> validator;
+  final ValueChanged<String>? onSave;
+  final IconData? icon;
+  final FormFieldValidator<String>? validator;
 
   /// Override default fields
-  final List<Widget> fields;
+  final List<Widget>? fields;
 
   const EditFieldPage({
-    Key key,
+    Key? key,
     this.fieldName,
     this.initialValue,
     this.updateButtonText = 'UPDATE',
@@ -39,64 +38,50 @@ class _EditFieldPageState extends State<EditFieldPage> {
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
+    return FormPageLayout(
+      appBar: EmptyAppBar(
+        context,
+        title: widget.fieldName,
+      ),
+      form: _form(),
+      submitButton: RecActionButton(
+        label: widget.updateButtonText,
+        backgroundColor: Brand.primaryColor,
+        onPressed: _onUpdate,
+      ),
+    );
+  }
 
-    // TODO: Replace with FormPageLayout
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: EmptyAppBar(
-          context,
-          title: widget.fieldName,
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: Paddings.pageNoTop,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 43.0),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: widget.fields ??
-                          [
-                            RecTextField(
-                              initialValue: widget.initialValue,
-                              icon: Icon(widget.icon),
-                              label: localizations.translate(widget.fieldName),
-                              colorLabel: Brand.grayDark4,
-                              validator: widget.validator,
-                              maxLines: 1,
-                              onChange: (v) {
-                                setState(() {
-                                  fieldValue = v;
-                                });
-                              },
-                            ),
-                          ],
-                    ),
-                  ),
-                ),
-                RecActionButton(
-                  label: localizations.translate(widget.updateButtonText),
-                  backgroundColor: Brand.primaryColor,
-                  onPressed: _onUpdate,
-                )
-              ],
-            ),
-          ),
-        ),
+  Widget _form() {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: widget.fields ??
+            [
+              RecTextField(
+                initialValue: widget.initialValue,
+                icon: Icon(widget.icon),
+                label: widget.fieldName,
+                colorLabel: Brand.grayDark4,
+                validator: widget.validator,
+                autofocus: true,
+                maxLines: 1,
+                onChange: (v) {
+                  setState(() {
+                    fieldValue = v;
+                  });
+                },
+              ),
+            ],
       ),
     );
   }
 
   void _onUpdate() {
-    if (!_formKey.currentState.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
 
     FocusScope.of(context).requestFocus(FocusNode());
 
-    if (widget.onSave != null) widget.onSave(fieldValue);
+    if (widget.onSave != null) widget.onSave!(fieldValue);
   }
 }

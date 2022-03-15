@@ -1,7 +1,7 @@
 // DateHelper
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rec/Helpers/DateHelper.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 void main() {
   test('Schedule works without data', () async {

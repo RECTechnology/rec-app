@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rec/Entities/Forms/PaymentData.dart';
-import 'package:rec/Environments/env.dart';
-import 'package:rec/Helpers/Deeplinking.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/Deeplinking.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 void main() {
   test('DeepLinking.constructPayUrl works', () async {
@@ -26,8 +26,7 @@ void main() {
     );
   });
 
-  test('Deeplinking.matchesPaymentUri works for correct Deeplinking Pay link',
-      () async {
+  test('Deeplinking.matchesPaymentUri works for correct Deeplinking Pay link', () async {
     var env = Env();
     var payUrl = DeepLinking.matchesPaymentUri(
       env,
@@ -36,8 +35,7 @@ void main() {
     expect(payUrl, true);
   });
 
-  test('Deeplinking.matchesPaymentUri works for incorrect Deeplinking Pay link',
-      () async {
+  test('Deeplinking.matchesPaymentUri works for incorrect Deeplinking Pay link', () async {
     var env = Env();
 
     expect(

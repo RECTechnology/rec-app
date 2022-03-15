@@ -10,19 +10,18 @@ class DateHelper {
     if (weekday == 4) return 'THURSDAY';
     if (weekday == 5) return 'FRIDAY';
     if (weekday == 6) return 'SATURDAY';
-    if (weekday == 7) return 'SUNDAY';
-    return null;
+    return 'SUNDAY';
   }
 
   static String formatDate(BuildContext context, DateTime date) {
     var localizations = AppLocalizations.of(context);
 
     return DateFormat.Hm(
-      localizations.locale.languageCode,
+      localizations!.locale.languageCode,
     ).format(date);
   }
 
-  static DateTime timeStringToDateTime(String time, DateTime now) {
+  static DateTime timeStringToDateTime(String? time, DateTime now) {
     if (time == null || time.isEmpty) {
       return now.add(Duration(days: 1000));
     }

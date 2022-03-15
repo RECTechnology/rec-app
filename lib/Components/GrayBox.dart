@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
 
 /// Renders a gray box with optional padding
 class GrayBox extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
   final EdgeInsets padding;
-  final double height;
+  final double? height;
 
   const GrayBox({
-    Key key,
+    Key? key,
     this.child,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 8.0,

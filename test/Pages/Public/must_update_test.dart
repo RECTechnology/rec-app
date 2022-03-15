@@ -5,7 +5,7 @@ import '../../test_utils.dart';
 
 void main() {
   testWidgets('MustUpdate test build correctly', (WidgetTester tester) async {
-    var app = TestUtils.wrapPrivateRoute(MustUpdate());
+    var app = await TestUtils.wrapPrivateRoute(MustUpdate());
 
     await tester.pumpWidget(app);
 

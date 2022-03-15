@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/ContainerWithImage.dart';
 import 'package:rec/Components/Inputs/PickImage.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
 
 class OfferImagePicker extends StatelessWidget {
-  final String imageUrl;
-  final ValueChanged<String> onPicked;
+  final String? imageUrl;
+  final ValueChanged<String>? onPicked;
 
   const OfferImagePicker({
-    Key key,
+    Key? key,
     this.imageUrl,
     this.onPicked,
   }) : super(key: key);

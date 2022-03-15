@@ -2,11 +2,21 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec/helpers/RecToast.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class InAppBrowser extends StatefulWidget {
-  static Future openLink(BuildContext context, String url, {String title}) {
+  static Future openLink(
+    BuildContext context,
+    String? url, {
+    String title = 'Browser',
+  }) {
+    if (url == null || url.isEmpty) {
+      RecToast.showInfo(context, "NO LINK");
+      return Future.value();
+    }
+
     return Navigator.of(context).push(
       MaterialPageRoute(
         builder: (BuildContext context) {
@@ -19,18 +29,18 @@ class InAppBrowser extends StatefulWidget {
     );
   }
 
-  final String url;
-  final String title;
-  final void Function(String) onPageStarted;
-  final void Function(String) onPageFinished;
-  final void Function(int) onProgress;
-  final void Function(WebViewController) onWebViewCreated;
+  final String? url;
+  final String? title;
+  final void Function(String)? onPageStarted;
+  final void Function(String)? onPageFinished;
+  final void Function(int)? onProgress;
+  final void Function(WebViewController)? onWebViewCreated;
 
   final bool debug;
 
   const InAppBrowser({
-    Key key,
-    @required this.url,
+    Key? key,
+    required this.url,
     this.onPageStarted,
     this.onPageFinished,
     this.onProgress,
@@ -44,7 +54,7 @@ class InAppBrowser extends StatefulWidget {
 }
 
 class _InAppBrowser extends State<InAppBrowser> {
-  WebViewController controller;
+  WebViewController? controller;
   int position = 1;
   bool isLoading = true;
 
@@ -56,7 +66,7 @@ class _InAppBrowser extends State<InAppBrowser> {
 
   void startLoading(String path) {
     if (widget.debug) print('Started loading: $path');
-    if (widget.onPageStarted != null) widget.onPageStarted(path);
+    if (widget.onPageStarted != null) widget.onPageStarted!(path);
 
     setState(() {
       position = 1;
@@ -66,7 +76,7 @@ class _InAppBrowser extends State<InAppBrowser> {
 
   void doneLoading(String path) {
     if (widget.debug) print('End loading: $path');
-    if (widget.onPageFinished != null) widget.onPageFinished(path);
+    if (widget.onPageFinished != null) widget.onPageFinished!(path);
 
     setState(() {
       position = 0;

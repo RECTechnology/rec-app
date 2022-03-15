@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Lists/AccountList.dart';
 import 'package:rec/Components/Lists/ContactsList.dart';
-import 'package:rec/Entities/Account.ent.dart';
-import 'package:rec/Entities/ContactInfo.dart';
-import 'package:rec/Entities/Forms/PaymentData.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayAddress.page.dart';
 import 'package:rec/Components/IfPermissionGranted.dart';
-import 'package:rec/Permissions/permission_data_provider.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/permissions/permission_data_provider.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class PayContactOrAccount extends StatefulWidget {
   @override
@@ -17,7 +16,7 @@ class PayContactOrAccount extends StatefulWidget {
 
 class _PayContactOrAccountState extends State<PayContactOrAccount>
     with TickerProviderStateMixin {
-  TabController _tabController;
+  TabController? _tabController;
   final int items = 2;
   final PaymentData _paymentData = PaymentData.empty();
   int initialIndex = 0;
@@ -29,9 +28,9 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
       vsync: this,
       initialIndex: initialIndex,
     );
-    _tabController.addListener(() {
+    _tabController!.addListener(() {
       setState(() {
-        initialIndex = _tabController.index;
+        initialIndex = _tabController!.index;
       });
     });
 
@@ -41,7 +40,7 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
   @override
   void dispose() {
     super.dispose();
-    _tabController.dispose();
+    _tabController!.dispose();
   }
 
   @override
@@ -79,26 +78,26 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
   }
 
   void _pickedAccount(Account account) {
-    _paymentData.vendor.name = account.name;
-    _paymentData.vendor.image = account.publicImage;
-    _paymentData.vendor.type = account.type;
+    _paymentData.vendor!.name = account.name;
+    _paymentData.vendor!.image = account.publicImage;
+    _paymentData.vendor!.type = account.type;
     _paymentData.address = account.recAddress;
     _navigateToPayAddress(_paymentData);
   }
 
   void _pickedContact(ContactInfo contact) {
-    _paymentData.vendor.name = contact.account;
-    _paymentData.vendor.image = contact.image;
+    _paymentData.vendor!.name = contact.account;
+    _paymentData.vendor!.image = contact.image;
     _paymentData.address = contact.address;
     _navigateToPayAddress(_paymentData);
   }
 
   void _navigateToPayAddress(PaymentData data) {
     var localizations = AppLocalizations.of(context);
-    _paymentData.concept = localizations.translate(
+    _paymentData.concept = localizations!.translate(
       'PAY_TO_NAME',
       params: {
-        'name': data.vendor.name,
+        'name': data.vendor!.name,
       },
     );
 
@@ -111,37 +110,37 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
   }
 
   AppBar _constructAppBar() {
-    var localizations = AppLocalizations.of(context);
     var contactsButton = _constructButton(
       title: 'CONTACTS',
       action: () {
-        if (!_tabController.indexIsChanging) {
-          setState(() => _tabController.index = 0);
+        if (!_tabController!.indexIsChanging) {
+          setState(() => _tabController!.index = 0);
         }
       },
       icon: Icons.import_contacts_outlined,
-      active: _tabController != null && _tabController.index == 0,
+      active: _tabController != null && _tabController!.index == 0,
     );
     var accountsButton = _constructButton(
       title: 'ACCOUNTS',
       action: () {
-        if (!_tabController.indexIsChanging) {
-          setState(() => _tabController.index = 1);
+        if (!_tabController!.indexIsChanging) {
+          setState(() => _tabController!.index = 1);
         }
       },
       icon: Icons.send,
-      active: _tabController != null && _tabController.index == 1,
+      active: _tabController != null && _tabController!.index == 1,
     );
 
     return AppBar(
       backgroundColor: Colors.white,
-      title: Text(
-        localizations.translate('PAY_TO'),
+      title: LocalizedText(
+        'PAY_TO',
         style: TextStyle(
           fontSize: 22,
           fontWeight: FontWeight.w300,
           color: Colors.black,
         ),
+        overflow: TextOverflow.ellipsis,
       ),
       leading: IconButton(
         icon: Icon(Icons.arrow_back, color: Colors.black),
@@ -163,12 +162,11 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
   }
 
   Widget _constructButton({
-    Function action,
-    bool active,
-    String title,
-    IconData icon,
+    Function? action,
+    required bool active,
+    required String title,
+    IconData? icon,
   }) {
-    var localizations = AppLocalizations.of(context);
     var color = active ? Brand.primaryColor : Brand.grayDark;
 
     return SizedBox(
@@ -181,7 +179,7 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
             primary: Brand.grayDark,
             side: BorderSide(color: color),
           ),
-          onPressed: action,
+          onPressed: action as void Function()?,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
             child: Column(
@@ -189,9 +187,9 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
               children: [
                 Icon(icon, color: color, size: 24),
                 SizedBox(height: 8),
-                Text(
-                  localizations.translate(title),
-                  style: Theme.of(context).textTheme.caption.copyWith(
+                LocalizedText(
+                  title,
+                  style: Theme.of(context).textTheme.caption!.copyWith(
                         color: color,
                         fontWeight: active ? FontWeight.w500 : FontWeight.w400,
                       ),

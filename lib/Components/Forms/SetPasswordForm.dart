@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/PasswordField.dart';
-import 'package:rec/Entities/Account.ent.dart';
-import 'package:rec/Entities/Forms/RegisterData.dart';
-import 'package:rec/Helpers/validators/validators.dart';
+import 'package:rec/helpers/validators/validators.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class SetPasswordForm extends StatefulWidget {
-  final GlobalKey<FormState> formKey;
-  final ValueChanged<String> onChangeRePassword;
-  final ValueChanged<String> onChangePassword;
+  final GlobalKey<FormState>? formKey;
+  final ValueChanged<String>? onChangeRePassword;
+  final ValueChanged<String>? onChangePassword;
 
   const SetPasswordForm({
-    Key key,
+    Key? key,
     this.formKey,
     this.onChangeRePassword,
     this.onChangePassword,

@@ -43,7 +43,7 @@
   "CALL": "Llamar",
   "CLOSED_SINCE": "Cerrado . Abre a las ",
   "OPEN_SINCE": "Abierto . Cierra a las",
-  "SHOW_MORE": "Mostrar mas",
+  "SHOW_MORE": "Mostrar más",
   "SHOW_LESS": "Mostrar menos",
   "MONDAY": "Lunes",
   "TUESDAY": "Martes",
@@ -141,6 +141,13 @@
   "SETTINGS_HELP_TOS": "Condiciones de uso",
   "SETTINGS_LOGOUT": "Cerrar sesión",
   "SETTINGS_OTHER": "Otro",
+  "SETTINGS_DAILY_BALANCE": "Balance diario",
+  "DAILY_SALES_DESC": "Selecciona un día para ver las ventas de ese día",
+  "SELECT_DAY": "Selecciona un día",
+  "TX_IN": "ENTRADA",
+  "TX_OUT": "SALIDA",
+  "TX_TOTAL": "TOTAL",
+
   "VERSION": "Versión",
   "ACCOUNT_NAME": "Nombre de la cuenta",
   "YOUR_ACCOUNT": "Tu cuenta",
@@ -195,7 +202,7 @@
 
   "MANAGE_ACCOUNT": "Gestiona tu cuenta del REC",
 
-  "LOAD_MORE": "Cargar mas",
+  "LOAD_MORE": "Cargar más",
 
   "STATUS_SUCCESS": "Completado",
   "NO_TRANSACTIONS": "No hay transacciones",
@@ -319,7 +326,7 @@
   "USERS": "Usuarios",
 
   "NO_LIMIT": "Sin límite",
-  "NO_MORE_ACCOUNTS": "No tienes acceso a mas cuentas, puedes crear una pulsando 'Añadir otra cuenta'",
+  "NO_MORE_ACCOUNTS": "No tienes acceso a más cuentas, puedes crear una pulsando 'Añadir otra cuenta'",
 
   "LTAB_INITIAL_BANNER_TITLE": "PARTICIPA EN LA CAMPAÑA",
   "DONT_SHOW_AGAIN": "No volver a mostrar",
@@ -331,6 +338,12 @@
   "TERMS_OF_SERVICE": "condiciones de uso",
   "CAMPAIGN_NOT_REACH_MIN": "No llega al mínimo ({{min}}R) para entrar en la campaña",
   "CAMPAIGN_WELCOME_TITLE": "Has entrado en la campaña {{campaign}}",
+  "ALREADY_A_PART_OF": "Ya formas parte de \n ¡{{campaign}}!",
+  "CAMPAIGN_CULT21_DESC": "Recibirás un {{percent}}% de bonificación  únicamente realizando cambios de €uros a RECs desde tu cuenta REC Cultural",
+  "CAMPAIGN_SITE": "Visitar página web de la campaña",
+  "CULT21_DESC": "+{{percent}}% en cada cambio € a REC",
+  "LTAB20_DESC": "+{{percent}}% en cada compra",
+
   "CAMPAIGN_WELCOME_DESC": "Recibirás un {{percent}}% de bonificación en tus compras a comercios adheridos a la campaña",
   "CONGRATULATIONS": "¡ENHORABUENA!",
   "PURCHASE_DONE": "Compra realizada",
@@ -402,7 +415,7 @@
 
   "LTAB_REWARD": "Bonificación compra en campaña Li Toca Al Barri",
   "LTAB": "LTAB",
-  "OPEN_ALL_DAY": "Abierto todo el dia",
+  "OPEN_ALL_DAY": "Abierto todo el día",
 
   "SETTINGS_NOT_AVAILABLE": "Configuración no disponible para esta cuenta",
   "CHANGE_PIN": "Cambiar PIN",
@@ -415,6 +428,7 @@
   "TERMS": " condiciones de uso ",
   "TYPE": "Tipo",
   "CIF not valid": "El CIF no es valido",
+  "ACCEPT": "",
 
   "KYC max_out limit has been reached": "Has alcanzado el límite máximo de envío",
 
@@ -425,8 +439,9 @@
   "link_contact": "https://rec.barcelona/es/contacto/",
   "link_tos": "https://rec.barcelona/es/condiciones-de-uso/",
   "link_privacy": "https://rec.barcelona/es/politicaprivacidadweb_cast/",
+  "link_culture": "https://rec.barcelona/es/rec-cultural",
 
-  "title.link_ltab": "Le Toca Al Barrio",
+  "title.link_ltab": "Le toca al barrio",
   "title.link_ltab_tos": "Condiciones de uso",
   "title.link_about": "Sobre el REC",
   "title.link_faqs": "Preguntas frequentes",
@@ -462,18 +477,81 @@
   "END_DATE": "¿Cuando acaba?",
   "REGULAR_PRICE": "Precio habitual",
   "DISCOUNT_PRICE": "Precio oferta",
-  "NO_OFFERS": "No hay offertas activas",
+
+  "REC_CULTURAL": "REC Cultural",
+  "CULT21_WITH_NEIGHBORHOODS": "REC Cultural (Sants y Poble Sec)",
+  "LTAB20_WITH_NEIGHBORHOODS": "Le toca al barrio (Eje Bessos)",
+
+  "MORE": "Más...",
+  "MORE_FILTERS": "Más... {{selected}}",
+  "CATEGORIES": "Categorias",
+  "MORE_CATEGORIES": "Más categorias",
+  "NO_OFFERS": "No hay ofertas activas",
   "DELETE_OFFER": "Eliminar oferta",
   "DELETE_OFFER_DESC": "¿Seguro que quieres eliminar esta oferta? No hay vuelta atrás",
   "OFFER_IMAGE": "Imagen de oferta",
-  "OFFER_IMAGE_DESC": "Esta imagen se mostrará junto al resto de información de la oferta",
+  "OFFER_IMAGE_DESC": "Esta imagen se mostrara junto al resto de información de la oferta",
   "SETTINGS_HOW_CAN_WE_HELP": "¿Cómo podemos ayudarte?",
+  "CAMPAIGNS": "Campañas",
   "WHAT_TO_DO_WITH_OFFER": "¿Qué quieres hacer con la oferta?",
   "OFFER_REMOVED_OK": "Oferta eliminada",
+  "CULTURE": "Cultura",
+  "CAMPAIGN_BANNER_TITLE": "PARTICIPA EN LA CAMPAÑA",
+  "CLOSE": "Cerrar",
+  "ZIP_CODE": "Código Postal",
+  "ERROR_LENGTH_ZIP": "El código postal debe contener 5 caracteres",
+  "INVALID_FORM": "El formulario contiene errores",
+
+  "REC_CULTURE": "REC Cultural",
+  "REC_CULTURE_DATA_INFO": "Para ingresar en la campaña REC Cultural necesitamos saber algunos datos con fines estadísticos.",
+  "CULTURE_RECHARGE_MODAL_TITLE": "RECIBIRÁS UN {{percent}}% MÁS EN RECS CULTURALES EN ESTA RECARGA",
+  "CULTURE_RECHARGE_MODAL_DESC": "Has cambiado {{spent}}R culturales. Recuerda que el límite con derecho a bonificación es de {{max}}R.",
+  "CULTURE_RECHARGE_MODAL_MAX_TITLE": "YA HAS LLEGADO AL LÍMITE DE BONIFICACIÓN DE LA CAMPAÑA",
+  "CULTURE_RECHARGE_MODAL_MAX_DESC": "Puedes continuar usando la cuenta pero no recibirás una bonificación al realizar el cambio de euros a RECs.",
+
+  "ADD_CARD_IN_NEXT_SCREEN": "Introducirás la tarjeta en la siguiente pantalla",
+  "SELECT_RECHARGE_HAS_CULTURE_DESC": "Selecciona REC Cultural si quieres recargar la cuenta REC Cultural y obtener el {{percent}}% de la bonificación",
+  "SELECT_RECHARGE_HAS_NO_CULTURE_DESC": "Selecciona REC Cultural si quieres recargar la cuenta REC Cultural y obtener el {{percent}}% de la bonificación",
+  "SELECT_RECHARGE_HAS_NO_CULTURE_OMIT_DESC": "Si no te interesa el REC Cultural, pulsa omitir para continuar con la recarga normal",
+  "CULTURE_PARTICIPATE_INFO_TITLE": "¡RECIBE UN {{percent}}% DE BONIFICACIÓN EN CADA CAMBIO!",
+  "CULTURE_PARTICIPATE_INFO_DESCRIPTION": "By participating, your REC Cultural account will automatically be created. From this account every time you change euros to RECS Culturales, you will receive a {{percent}}% more in RECS Culturales.",
+
+  "LTAB_PARTICIPATE_INFO_TITLE": "¡RECIBE UN {{percent}}% DE BONIFICACIÓN EN RECS EN TUS COMPRAS!",
+  "LTAB_PARTICIPATE_INFO_DESCRIPTION": "Entra en la campaña LI TOCA AL BARRI haciendo una recarga de mínimo {{min}}R (max {{max}}R) y aceptando las condiciones de uso.",
+
+
+  "CAMPAIGN": "Campaña",
+  
+  "I_DONT_WANT_TO": "No quiero",
+  "OMIT": "Omitir",
+  "GENDER": "Género",
+  "BIRTH_YEAR": "Año de nacimiento",
+  "male": "Hombre",
+  "female": "Mujer",
+  "non-binary": "No binario",
+  "not-defined": "No definido",
+  "M": "Hombre",
+  "F": "Mujer",
+  "NB": "No binario",
+
+
   "ERROR_PHONE_MUST_START_WITH": "El número debe comenzar por 6 o 7",
   "ERROR_PHONE_BAD_CHARACTERS": "Número incorrecto o contiene caracteres no permitidos",
   "WALLET_SHOW_BALANCE_TOOLTIP": "Pulsa este boton para ocultar/mostrar tu balance",
   "ACCOUNT_NOT_ACTIVE": "Tu cuenta no está activa",
+
+  "NO_PERMISSIONS_TO_PAY": "No puedes pagar desde esta cuenta, insuficientes permisos",
+  "RETURN": "Volver",
+  "LOADING": "Cargando...",
+  "CULT_REWARDED": "Bonificación Cultural +{{percent}}%",
+  "Español": "Español",
+  "Ingles": "Inglés",
+  "Catalan": "Catalán",
+
+  "Incorrect Pin": "Pin incorrecto",
+  "Receiver account not in Campaign": "La cuenta de destino no está en campaña",
+  "Not funds enough": "No tienes suficientes RECs",
+
   "LTAB_STOP_BONIFICATION_TITLE": "Hemos agotado los RECs bonificables",
   "LTAB_STOP_BONIFICATION_DESC_1": "A partir de ahora, al recargar RECs, no recibirás RECs bonificables.",
   "LTAB_STOP_BONIFICATION_DESC_2": "Si dispones de RECs bonificados en tu cuenta LI TOCA AL BARRI haz uso de ellos antes del final de campaña"

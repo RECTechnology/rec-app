@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/providers/AppLocalizations.dart';
 
 class LocalizedText extends StatefulWidget {
   final String text;
-  final Map<String, dynamic> params;
-  final TextStyle style;
-  final TextAlign textAlign;
-  final TextOverflow overflow;
+  final Map<String, dynamic>? params;
+  final TextStyle? style;
+  final TextAlign? textAlign;
+  final TextOverflow? overflow;
+  final int? maxLines;
   final bool uppercase;
 
   LocalizedText(
@@ -14,8 +15,9 @@ class LocalizedText extends StatefulWidget {
     this.params,
     this.style,
     this.textAlign,
-    Key key,
+    Key? key,
     this.overflow,
+    this.maxLines,
     this.uppercase = false,
   }) : super(key: key);
 
@@ -27,7 +29,10 @@ class _LocalizedTextState extends State<LocalizedText> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
-    var text = localizations.translate(widget.text, params: widget.params);
+    var text = localizations!.translate(
+      widget.text,
+      params: widget.params,
+    );
 
     if (widget.uppercase) {
       text = text.toUpperCase();
@@ -38,6 +43,7 @@ class _LocalizedTextState extends State<LocalizedText> {
       style: widget.style,
       textAlign: widget.textAlign,
       overflow: widget.overflow,
+      maxLines: widget.maxLines,
     );
   }
 }

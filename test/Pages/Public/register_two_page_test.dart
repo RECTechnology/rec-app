@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rec/Entities/Forms/RegisterData.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 import 'package:rec/Pages/Public/Register/RegisterStepTwo.dart';
 
 import '../../test_utils.dart';
@@ -10,7 +10,7 @@ void main() {
   ) async {
     var app = TestUtils.wrapPublicRoute(
       RegisterTwo(
-        registerData: RegisterData(),
+        registerData: RegisterData(accountType: Account.TYPE_PRIVATE),
       ),
     );
 

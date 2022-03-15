@@ -1,44 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Services/AccountsService.dart';
+import 'package:rec/Components/Inputs/PickImage.dart';
 import 'package:rec/Components/Layout/ScrollableListLayout.dart';
+import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
 import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
 import 'package:rec/Components/Scaffold/BussinessHeader.dart';
-import 'package:rec/Components/Inputs/PickImage.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
-import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
-import 'package:rec/Helpers/Checks.dart';
-import 'package:rec/Helpers/Loading.dart';
-import 'package:rec/Helpers/RecToast.dart';
-import 'package:rec/Helpers/validators/validators.dart';
 import 'package:rec/Pages/Private/Shared/EditField.page.dart';
-import 'package:rec/Providers/UserState.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/RecToast.dart';
+import 'package:rec/helpers/loading.dart';
+import 'package:rec/helpers/validators/validators.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class MyAccountPage extends StatefulWidget {
-  MyAccountPage({Key key}) : super(key: key);
+  MyAccountPage({Key? key}) : super(key: key);
 
   @override
   _MyAccountPageState createState() => _MyAccountPageState();
 }
 
 class _MyAccountPageState extends State<MyAccountPage> {
-  final AccountsService _accountsService = AccountsService();
+  final AccountsService _accountsService = AccountsService(env: env);
 
   bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     var userState = UserState.of(context);
-    var hasEmail = Checks.isNotEmpty(userState.account.email);
+    var hasEmail = Checks.isNotEmpty(userState.account!.email);
     var tiles = [
       GeneralSettingsTile(
-        title: Checks.isEmpty(userState.account.name)
-            ? 'NAME'
-            : userState.account.name,
+        title: Checks.isEmpty(userState.account!.name) ? 'NAME' : userState.account!.name,
         subtitle: 'ACCOUNT_NAME',
         onTap: _editName,
       ),
       GeneralSettingsTile(
-        title: hasEmail ? userState.account.email : 'EMAIL_ONLY',
+        title: hasEmail ? userState.account!.email : 'EMAIL_ONLY',
         subtitle: hasEmail ? 'EMAIL_ONLY' : 'CHANGE_EMAIL',
         onTap: _editEmail,
       ),
@@ -74,9 +72,9 @@ class _MyAccountPageState extends State<MyAccountPage> {
   void _editField({
     String fieldName = 'FIELD',
     FormFieldValidator<String> validator = Validators.isRequired,
-    String initialValue,
-    IconData icon,
-    String apiFieldName,
+    String? initialValue,
+    IconData? icon,
+    String? apiFieldName,
   }) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
@@ -107,17 +105,18 @@ class _MyAccountPageState extends State<MyAccountPage> {
     return _editField(
       fieldName: 'NAME',
       icon: Icons.person,
-      initialValue: userState.account.name,
+      initialValue: userState.account!.name,
       validator: Validators.isRequired,
     );
   }
 
   void _editEmail() async {
     var userState = UserState.of(context, listen: false);
+
     return _editField(
       fieldName: 'EMAIL_ONLY',
       icon: Icons.mail_outline,
-      initialValue: userState.account.email,
+      initialValue: userState.account!.email,
       validator: Validators.isEmail,
       apiFieldName: 'email',
     );
@@ -132,7 +131,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
 
     var userState = UserState.of(context, listen: false);
     _accountsService
-        .updateAccount(userState.account.id, data)
+        .updateAccount(userState.account!.id, data)
         .then(_updateOk)
         .catchError(_onError);
   }

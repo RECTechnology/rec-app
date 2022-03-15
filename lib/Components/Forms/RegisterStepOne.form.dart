@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/DniTextField.dart';
 import 'package:rec/Components/Inputs/text_fields/PasswordField.dart';
 import 'package:rec/Components/Inputs/text_fields/PrefixPhoneField.dart';
-import 'package:rec/Entities/Account.ent.dart';
-import 'package:rec/Entities/Forms/RegisterData.dart';
-import 'package:rec/Helpers/validators/validators.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/helpers/validators/validators.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class RegisterStepOneForm extends StatefulWidget {
-  final GlobalKey<FormState> formKey;
-  final ValueChanged<RegisterData> onChange;
+  final GlobalKey<FormState>? formKey;
+  final ValueChanged<RegisterData>? onChange;
 
   const RegisterStepOneForm({
-    Key key,
+    Key? key,
     this.formKey,
     this.onChange,
   }) : super(key: key);
@@ -36,7 +35,7 @@ class RegisterStepOneFormState extends State<RegisterStepOneForm> {
       key: widget.formKey,
       autovalidateMode: AutovalidateMode.disabled,
       onChanged: () {
-        widget.onChange(registerData);
+        widget.onChange!(registerData);
       },
       child: Column(
         children: [
@@ -46,25 +45,31 @@ class RegisterStepOneFormState extends State<RegisterStepOneForm> {
             phone: registerData.phone,
             prefixChange: setPrefix,
             phoneChange: setPhone,
-            phoneValidator: (phone) => registerData.hasError('phone')
-                ? registerData.getError('phone')
-                : null,
+            phoneValidator: (phone) =>
+                registerData.hasError('phone') ? registerData.getError('phone') : null,
           ),
           DniTextField(
             onChange: setDni,
-            validator: (dni) => registerData.hasError('dni')
-                ? registerData.getError('dni')
-                : localizations.translate(
-                    Validators.verifyIdentityDocument(dni),
-                  ),
+            validator: (v) {
+              if (registerData.hasError('dni')) return registerData.getError('dni');
+
+              var validateRes = Validators.verifyIdentityDocument(v);
+              return validateRes != null ? localizations!.translate(validateRes) : null;
+            },
           ),
           PasswordField(
             onChange: setPassword,
-            validator: (password) => registerData.hasError('password')
-                ? registerData.getError('password')
-                : localizations.translate(
-                    Validators.verifyPassword(password),
-                  ),
+            validator: (v) {
+              if (registerData.hasError('password')) return registerData.getError('password');
+
+              var validateRes = Validators.verifyPassword(v);
+              return validateRes != null ? localizations!.translate(validateRes) : null;
+            },
+            // validator: (password) => registerData.hasError('password')
+            //     ? registerData.getError('password')
+            //     : localizations!.translate(
+            //         Validators.verifyPassword(password),
+            //       ),
           ),
         ],
       ),
@@ -75,7 +80,7 @@ class RegisterStepOneFormState extends State<RegisterStepOneForm> {
     setState(() {
       registerData.accountType = type;
     });
-    widget.onChange(registerData);
+    widget.onChange!(registerData);
   }
 
   void setToPrivate() {
@@ -91,20 +96,20 @@ class RegisterStepOneFormState extends State<RegisterStepOneForm> {
       registerData.phone = telephone;
       registerData.clearError('phone');
     });
-    widget.onChange(registerData);
+    widget.onChange!(registerData);
   }
 
   void setPrefix(String prefix) {
     setState(() => registerData.prefix = prefix.toString());
-    widget.onChange(registerData);
+    widget.onChange!(registerData);
   }
 
-  void setDni(String dni) {
+  void setDni(String? dni) {
     setState(() {
       registerData.dni = dni;
       registerData.clearError('dni');
     });
-    widget.onChange(registerData);
+    widget.onChange!(registerData);
   }
 
   void setPassword(String password) {
@@ -112,6 +117,6 @@ class RegisterStepOneFormState extends State<RegisterStepOneForm> {
       registerData.password = password;
       registerData.clearError('password');
     });
-    widget.onChange(registerData);
+    widget.onChange!(registerData);
   }
 }

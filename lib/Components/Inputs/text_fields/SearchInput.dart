@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/config/brand.dart';
 
 class SearchInput extends StatefulWidget {
-  final TextEditingController searchController;
+  final TextEditingController? searchController;
 
-  final ValueChanged<String> fieldChanged;
-  final ValueChanged<String> fieldSubmited;
-  final Function() onFocused;
-  final Function() onUnfocused;
+  final ValueChanged<String>? fieldChanged;
+  final ValueChanged<String>? fieldSubmited;
+  final Function()? onFocused;
+  final Function()? onUnfocused;
 
   final String hintText;
   final bool isLoading;
@@ -16,8 +16,8 @@ class SearchInput extends StatefulWidget {
   final double borderRadius;
 
   const SearchInput({
-    Key key,
-    TextEditingController searchController,
+    Key? key,
+    this.searchController,
     this.fieldSubmited,
     this.fieldChanged,
     this.hintText = 'SEARCH',
@@ -26,8 +26,7 @@ class SearchInput extends StatefulWidget {
     this.isLoading = false,
     this.shaded = false,
     this.borderRadius = 6,
-  })  : searchController = searchController,
-        super(key: key);
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -41,7 +40,8 @@ class _SearchInput extends State<SearchInput> {
 
   String _searchInputText = '';
 
-  TextEditingController get controller => widget.searchController ?? _selfController;
+  TextEditingController get controller =>
+      widget.searchController ?? _selfController;
 
   @override
   void initState() {
@@ -51,10 +51,10 @@ class _SearchInput extends State<SearchInput> {
 
   void _onFocusChange() {
     if (_focus.hasFocus && widget.onFocused != null) {
-      widget.onFocused();
+      widget.onFocused!();
       return;
     } else if (widget.onUnfocused != null) {
-      widget.onUnfocused();
+      widget.onUnfocused!();
       return;
     }
   }
@@ -80,13 +80,13 @@ class _SearchInput extends State<SearchInput> {
         controller: controller,
         onChanged: (s) {
           setState(() => _searchInputText = s);
-          if (widget.fieldChanged != null) widget.fieldChanged(s);
+          if (widget.fieldChanged != null) widget.fieldChanged!(s);
         },
         keyboardType: TextInputType.name,
         textInputAction: TextInputAction.search,
         onFieldSubmitted: (s) {
           setState(() => _searchInputText = s);
-          if (widget.fieldSubmited != null) widget.fieldSubmited(s);
+          if (widget.fieldSubmited != null) widget.fieldSubmited!(s);
         },
         decoration: _getDecoration(),
       ),
@@ -96,18 +96,21 @@ class _SearchInput extends State<SearchInput> {
   void _clearSearch() {
     setState(() => _searchInputText = '');
     controller.text = '';
-    if (widget.fieldChanged != null) widget.fieldChanged('');
-    if (widget.fieldSubmited != null) widget.fieldSubmited('');
+    if (widget.fieldChanged != null) widget.fieldChanged!('');
+    if (widget.fieldSubmited != null) widget.fieldSubmited!('');
     _focus.unfocus();
   }
 
   InputDecoration _getDecoration() {
     var localizations = AppLocalizations.of(context);
     var suffixIcon = widget.isLoading
-        ? Container(
-            height: 20,
-            width: 20,
-            child: Center(child: CircularProgressIndicator()),
+        ? SizedBox(
+            height: 10,
+            width: 10,
+            child: Transform.scale(
+              scale: 0.5,
+              child: CircularProgressIndicator(),
+            ),
           )
         : _searchInputText.isNotEmpty
             ? InkWell(
@@ -129,7 +132,7 @@ class _SearchInput extends State<SearchInput> {
       fillColor: Colors.white,
       focusColor: Colors.white,
       hoverColor: Colors.white,
-      hintText: localizations.translate(widget.hintText),
+      hintText: localizations!.translate(widget.hintText),
       prefixIcon: Icon(Icons.search, color: Brand.grayDark),
       suffixIcon: suffixIcon,
       contentPadding: EdgeInsets.only(

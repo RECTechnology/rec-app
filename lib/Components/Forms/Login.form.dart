@@ -2,22 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/DniTextField.dart';
 import 'package:rec/Components/Inputs/text_fields/PasswordField.dart';
 import 'package:rec/Components/Info/LoggedInBeforeCard.dart';
-import 'package:rec/Entities/Forms/LoginData.dart';
-import 'package:rec/Helpers/validators/validators.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Providers/PreferenceProvider.dart';
-import 'package:rec/Providers/Preferences/PreferenceDefinitions.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/Styles/Paddings.dart';
+import 'package:rec/helpers/validators/validators.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/PreferenceProvider.dart';
+import 'package:rec/providers/preferences/PreferenceDefinitions.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/styles/paddings.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 /// Form for asking for loggin credentials, username & password
 class LoginForm extends StatefulWidget {
-  final GlobalKey<FormState> formKey;
-  final ValueChanged<LoginData> onChange;
-  final ValueChanged<LoginData> onSubmitted;
-  final String initialDNI;
+  final GlobalKey<FormState>? formKey;
+  final ValueChanged<LoginData>? onChange;
+  final ValueChanged<LoginData>? onSubmitted;
+  final String? initialDNI;
+
   const LoginForm({
-    Key key,
+    Key? key,
     this.formKey,
     this.onChange,
     this.onSubmitted,
@@ -40,13 +41,13 @@ class LoginFormState extends State<LoginForm> {
     var hasSavedUser = userState.hasSavedUser();
 
     if (hasSavedUser) {
-      setUsername(savedUser.username);
+      setUsername(savedUser!.username);
     }
 
     return Form(
       key: widget.formKey,
       autovalidateMode: AutovalidateMode.disabled,
-      onChanged: () => widget.onChange(loginData),
+      onChanged: () => widget.onChange!(loginData),
       child: Column(
         children: [
           hasSavedUser
@@ -69,9 +70,10 @@ class LoginFormState extends State<LoginForm> {
     return DniTextField(
       initialValue: widget.initialDNI ?? loginData.username,
       onChange: setUsername,
-      validator: (s) => localizations.translate(
-        Validators.verifyIdentityDocument(s),
-      ),
+      validator: (v) {
+        var validateRes = Validators.verifyIdentityDocument(v);
+        return validateRes != null ? localizations!.translate(validateRes) : null;
+      },
     );
   }
 
@@ -82,18 +84,19 @@ class LoginFormState extends State<LoginForm> {
       child: PasswordField(
         initialValue: loginData.password,
         onChange: setPassword,
-        validator: (s) => localizations.translate(
-          Validators.verifyPassword(s),
-        ),
+        validator: (v) {
+          var validateRes = Validators.verifyPassword(v);
+          return validateRes != null ? localizations!.translate(validateRes) : null;
+        },
         onSubmitted: (s) {
           setPassword(s);
-          widget.onSubmitted(loginData);
+          widget.onSubmitted!(loginData);
         },
       ),
     );
   }
 
-  void setUsername(String username) {
+  void setUsername(String? username) {
     setState(() => loginData.username = username);
   }
 
@@ -105,10 +108,15 @@ class LoginFormState extends State<LoginForm> {
     var userState = UserState.of(context, listen: false);
     var preferences = PreferenceProvider.deaf(context);
 
-    preferences.set(
+    await preferences.set(
       PreferenceKeys.showLtabCampaign,
       PreferenceDefinitions.showLtabCampaign.defaultValue,
     );
+    await preferences.set(
+      PreferenceKeys.showCultureCampaign,
+      PreferenceDefinitions.showCultureCampaign.defaultValue,
+    );
+
     await userState.unstoreUser();
     setUsername('');
   }

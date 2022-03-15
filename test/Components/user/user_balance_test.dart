@@ -1,14 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rec/Components/Wallet/UserBalance.dart';
-import 'package:rec/Entities/Transactions/Currency.ent.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 import '../../test_utils.dart';
 
 void main() {
-  testWidgets('CircleAvatar with network image', (WidgetTester tester) async {
+  testWidgets('UserBalance build correctly', (WidgetTester tester) async {
     var userBalance = UserBalance(balance: 10);
 
-    await tester.pumpWidget(TestUtils.wrapPrivateRoute(userBalance));
+    await tester.pumpWidget(await TestUtils.wrapPrivateRoute(userBalance));
     await tester.pumpAndSettle();
 
     TestUtils.widgetExists(userBalance);

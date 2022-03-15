@@ -2,20 +2,17 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:rec/Api/ApiError.dart';
-import 'package:rec/Api/Services/wallet/TransactionsService.dart';
-import 'package:rec/Helpers/Deeplinking.dart';
 import 'package:rec/Components/IfPermissionGranted.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
-import 'package:rec/Entities/Forms/PaymentData.dart';
-import 'package:rec/Entities/Transactions/VendorData.ent.dart';
-import 'package:rec/Environments/env.dart';
-import 'package:rec/Helpers/RecToast.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/AttemptPayment.page.dart';
-import 'package:rec/Permissions/permission_data_provider.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Styles/TextStyles.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/Deeplinking.dart';
+import 'package:rec/helpers/RecToast.dart';
+import 'package:rec/permissions/permission_data_provider.dart';
+import 'package:rec/styles/text_styles.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class PayWithQR extends StatefulWidget {
   @override
@@ -23,11 +20,11 @@ class PayWithQR extends StatefulWidget {
 }
 
 class _PayWithQRState extends State<PayWithQR> {
-  final TransactionsService transactionsService = TransactionsService();
+  final TransactionsService transactionsService = TransactionsService(env: env);
 
-  Barcode result;
-  QRViewController controller;
-  PaymentData paymentData;
+  Barcode? result;
+  QRViewController? controller;
+  PaymentData? paymentData;
 
   @override
   @override
@@ -97,15 +94,12 @@ class _PayWithQRState extends State<PayWithQR> {
   }
 
   Widget _statusText() {
-    var localizations = AppLocalizations.of(context);
     var hasFoundCode = result != null;
-    var statusText = hasFoundCode
-        ? localizations.translate('FOUND_QR')
-        : localizations.translate('SCANNING');
+    var statusText = hasFoundCode ? 'FOUND_QR' : 'SCANNING';
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Text(
+      child: LocalizedText(
         statusText,
         textAlign: TextAlign.center,
         style: TextStyles.outlineTileText.copyWith(
@@ -117,12 +111,10 @@ class _PayWithQRState extends State<PayWithQR> {
   }
 
   Widget _hintText() {
-    var localizations = AppLocalizations.of(context);
-
     return Padding(
       padding: const EdgeInsets.only(bottom: 24),
-      child: Text(
-        localizations.translate('QR_HINT'),
+      child: LocalizedText(
+        'QR_HINT',
         textAlign: TextAlign.center,
         style: TextStyles.outlineTileText,
       ),
@@ -135,7 +127,7 @@ class _PayWithQRState extends State<PayWithQR> {
   }
 
   void _onQrRead(Barcode data) async {
-    var uri = data.code;
+    var uri = data.code!;
     var isPayLink = DeepLinking.matchesPaymentUri(env, uri);
 
     if (!isPayLink) return result = null;
@@ -144,11 +136,11 @@ class _PayWithQRState extends State<PayWithQR> {
     setState(() => result = data);
 
     paymentData = PaymentData.fromUriString(uri);
-    paymentData.vendor = await _getVendorDataFromAddress(
-      paymentData.address,
+    paymentData!.vendor = await _getVendorDataFromAddress(
+      paymentData!.address,
     );
 
-    if (paymentData.vendor == null) {
+    if (paymentData!.vendor == null) {
       _showErrorToast(
         ApiError(message: 'NOT_FOUND'),
       );
@@ -157,10 +149,8 @@ class _PayWithQRState extends State<PayWithQR> {
     return _openPinPage();
   }
 
-  Future<VendorData> _getVendorDataFromAddress(String address) async {
-    return transactionsService
-        .getVendorInfoFromAddress(address)
-        .catchError(_showErrorToast);
+  Future<VendorData> _getVendorDataFromAddress(String? address) async {
+    return transactionsService.getVendorInfoFromAddress(address).catchError(_showErrorToast);
   }
 
   void _openPinPage() {
@@ -179,7 +169,7 @@ class _PayWithQRState extends State<PayWithQR> {
     });
   }
 
-  void _showErrorToast(error) => RecToast.showError(context, error.message);
+  _showErrorToast(error) => RecToast.showError(context, error.message);
 
   @override
   void dispose() {

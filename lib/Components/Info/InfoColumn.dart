@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 
 class InfoColumn extends StatefulWidget {
   final String label;
   final String value;
 
-  const InfoColumn({Key key, this.label, this.value}) : super(key: key);
+  const InfoColumn({
+    Key? key,
+    required this.label,
+    required this.value,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -16,16 +20,15 @@ class InfoColumn extends StatefulWidget {
 class _InfoColumn extends State<InfoColumn> {
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(localizations.translate(widget.label)),
+          LocalizedText(widget.label),
           SizedBox(height: 8),
-          Text(
-            localizations.translate(widget.value),
+          LocalizedText(
+            widget.value,
             style: TextStyle(fontWeight: FontWeight.w500),
           ),
         ],

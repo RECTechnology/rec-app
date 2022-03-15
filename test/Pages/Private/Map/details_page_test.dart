@@ -1,8 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rec/Entities/Account.ent.dart';
-import 'package:rec/Entities/Schedule/Schedule.ent.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/Details.page.dart';
 
 import '../../../mocks/schedule_mock.dart';
@@ -27,7 +26,7 @@ void main() {
       schedule: Schedule.fromJsonString(ScheduleMock.mockJson1),
     );
 
-    var app = TestUtils.wrapPrivateRoute(DetailsPage(account));
+    var app = await TestUtils.wrapPrivateRoute(DetailsPage(account));
 
     await tester.pumpWidget(app);
     await tester.pumpAndSettle();

@@ -1,34 +1,36 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Indicators/LoadingIndicator.dart';
 import 'package:rec/Components/ListTiles/TransactionListTile.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Providers/TransactionsProvider.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/providers/transactions_provider.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/config/brand.dart';
 import 'package:rec/preferences.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class TransactionsList extends StatefulWidget {
   final bool autoReloadEnabled;
 
-  TransactionsList({Key key, this.autoReloadEnabled = true}) : super(key: key);
+  TransactionsList({Key? key, this.autoReloadEnabled = true}) : super(key: key);
 
   @override
   _TransactionsListState createState() => _TransactionsListState();
 }
 
 class _TransactionsListState extends State<TransactionsList> {
-  TransactionProvider _transactionsProvider;
-  Timer _refreshTransactionsTimer;
+  TransactionProvider? _transactionsProvider;
+  Timer? _refreshTransactionsTimer;
   bool showFilters = true;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    _transactionsProvider ??= TransactionProvider.of(context);
+    if (_transactionsProvider == null) {
+      _transactionsProvider = TransactionProvider.of(context);
+      _transactionsProvider!.refresh();
+    }
 
     if (widget.autoReloadEnabled) {
       _refreshTransactionsTimer ??= getRefreshTimer();
@@ -48,7 +50,7 @@ class _TransactionsListState extends State<TransactionsList> {
 
     var color = userState.getColor(defaultColor: Brand.primaryColor);
     var hasTransactions = transactionsProvider.hasTransactions;
-    var hasMoreTx = transactionsProvider.total > transactionsProvider.length;
+    var hasMoreTx = transactionsProvider.total! > transactionsProvider.length;
     var isLoading = transactionsProvider.loading;
     var itemCount = transactionsProvider.length + (hasMoreTx ? 1 : 0);
 
@@ -90,17 +92,16 @@ class _TransactionsListState extends State<TransactionsList> {
   Widget _loadMore() {
     var transactionsProvider = TransactionProvider.of(context);
     var userState = UserState.of(context);
-    var localizations = AppLocalizations.of(context);
 
     return ListTile(
       tileColor: Brand.defaultAvatarBackground,
       onTap: transactionsProvider.loadMore,
       title: transactionsProvider.loading
           ? LoadingIndicator()
-          : Text(
-              localizations.translate('LOAD_MORE'),
+          : LocalizedText(
+              'LOAD_MORE',
               style: TextStyle(
-                color: Brand.getColorForAccount(userState.account),
+                color: Brand.getColorForAccount(userState.account as Account),
               ),
               textAlign: TextAlign.center,
             ),

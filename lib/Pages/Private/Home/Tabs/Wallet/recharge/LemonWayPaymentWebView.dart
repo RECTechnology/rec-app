@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Entities/Forms/RechargeData.dart';
-import 'package:rec/Entities/Transactions/RechargeResult.dart';
-import 'package:rec/Environments/env.dart';
-import 'package:rec/Helpers/Deeplinking.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/Deeplinking.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/RechargeResult.page.dart';
 import 'package:rec/Pages/Private/Shared/InAppBrowser.dart';
-import 'package:rec/Providers/All.dart';
+import 'package:rec/providers/All.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class LemonWayPaymentWebView extends StatefulWidget {
-  final String url;
+  final String? url;
   final RechargeResult rechargeResult;
   final RechargeData rechargeData;
 
   const LemonWayPaymentWebView({
-    Key key,
-    @required this.url,
-    @required this.rechargeResult,
-    @required this.rechargeData,
+    Key? key,
+    required this.url,
+    required this.rechargeResult,
+    required this.rechargeData,
   }) : super(key: key);
 
   @override
@@ -29,7 +28,7 @@ class _LemonWayPaymentWebView extends State<LemonWayPaymentWebView> {
     var localizations = AppLocalizations.of(context);
 
     return InAppBrowser(
-      title: localizations.translate('RECHARGE'),
+      title: localizations!.translate('RECHARGE'),
       url: widget.url,
       debug: false,
       onPageFinished: (url) {
@@ -45,7 +44,7 @@ class _LemonWayPaymentWebView extends State<LemonWayPaymentWebView> {
     print('_pageChanged $state: $url');
 
     // Quick and dirty way of checking if the url redirected to a deeplink
-    // That matches recharge-result path
+    // that matches recharge-result path
     var isRechargeResultUrl = DeepLinking.matchesRechargeResultUri(
       env,
       url,

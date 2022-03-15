@@ -3,20 +3,21 @@ import 'package:rec/Components/Scaffold/BussinessHeader.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/Offers.tab.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/Schedule.tab.dart';
-import 'package:rec/Entities/Account.ent.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/Resume.tab.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class DetailsPage extends StatefulWidget {
-  final Account account;
+  final Account? account;
+  final ScrollController? scrollController;
 
-  DetailsPage(this.account);
+  DetailsPage(this.account, {this.scrollController});
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
 }
 
 class _DetailsPageState extends State<DetailsPage> with SingleTickerProviderStateMixin {
-  TabController _tabController;
+  TabController? _tabController;
 
   @override
   void initState() {
@@ -37,11 +38,11 @@ class _DetailsPageState extends State<DetailsPage> with SingleTickerProviderStat
             tabs: [
               Tab(child: LocalizedText('RESUME')),
               IgnorePointer(
-                ignoring: widget.account.offers == null || widget.account.offers.isEmpty,
+                ignoring: widget.account!.offers == null || widget.account!.offers!.isEmpty,
                 child: Tab(child: LocalizedText('OFFERS')),
               ),
               IgnorePointer(
-                ignoring: widget.account.schedule.isNotAvailable,
+                ignoring: widget.account!.schedule!.isNotAvailable,
                 child: Tab(child: LocalizedText('SCHEDULE')),
               ),
             ],
@@ -51,13 +52,16 @@ class _DetailsPageState extends State<DetailsPage> with SingleTickerProviderStat
               controller: _tabController,
               children: [
                 ResumeTab(widget.account),
-                OffersTab(account: widget.account),
+                OffersTab(
+                  account: widget.account,
+                  scrollController: widget.scrollController,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 16.0,
                     horizontal: 24,
                   ),
-                  child: ScheduleTab(schedule: widget.account.schedule),
+                  child: ScheduleTab(schedule: widget.account!.schedule),
                 )
               ],
             ),

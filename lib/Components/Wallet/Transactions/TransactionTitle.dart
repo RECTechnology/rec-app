@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Entities/Transactions/Transaction.ent.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/helpers/transactions_utils.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class TransactionTitle extends StatefulWidget {
   final Transaction tx;
   final double fontSize;
+  final int? maxLines;
 
   const TransactionTitle(
     this.tx, {
-    Key key,
+    Key? key,
     this.fontSize = 14,
+    this.maxLines,
   }) : super(key: key);
   @override
   State<StatefulWidget> createState() {
@@ -26,28 +29,34 @@ class _TransactionTitle extends State<TransactionTitle> {
     var account = UserState.of(context).account;
 
     var prefix = 'FROM';
-    var owner = '';
+    String? owner = '';
 
     // HACK: LTAB
-    if (widget.tx.isIn() && account.isLtabAccount()) {
-      prefix = localizations.translate('FROM');
+    if (widget.tx.isIn() && account!.isLtabAccount()) {
+      prefix = localizations!.translate('FROM');
       owner = 'LTAB';
-    } else if (widget.tx.isRecharge()) {
-      prefix = localizations.translate('FROM_CREDIT_CARD');
+    }
+    if (TransactionHelper.isCultureReward(widget.tx)) {
+      prefix = localizations!.translate('FROM');
+      owner = localizations.translate('REC_CULTURAL');
+    } else if (TransactionHelper.isRecharge(widget.tx)) {
+      prefix = localizations!.translate('FROM_CREDIT_CARD');
       owner = localizations.translate('CREDIT_CARD_TX');
     } else if (widget.tx.isOut()) {
-      prefix = localizations.translate('TO');
-      owner = widget.tx.payOutInfo.name;
+      prefix = localizations!.translate('TO');
+      owner = widget.tx.payOutInfo!.name;
     } else if (widget.tx.isIn()) {
-      prefix = localizations.translate('FROM');
-      owner = widget.tx.payInInfo.name;
+      prefix = localizations!.translate('FROM');
+      owner = widget.tx.payInInfo!.name;
     }
 
     if (owner == null || owner.isEmpty) {
-      owner = localizations.translate('PARTICULAR');
+      owner = localizations!.translate('PARTICULAR');
     }
 
     return RichText(
+      maxLines: widget.maxLines,
+      overflow: TextOverflow.ellipsis,
       text: TextSpan(
         text: prefix,
         style: DefaultTextStyle.of(context).style.copyWith(

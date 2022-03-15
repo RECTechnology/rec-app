@@ -3,10 +3,10 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:rec/Components/Layout/InfoSplash.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/ListTiles/OutlinedListTile.dart';
-import 'package:rec/Permissions/permission_data.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Styles/Paddings.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/permissions/permission_data.dart';
+import 'package:rec/styles/paddings.dart';
+import 'package:rec/config/brand.dart';
 
 /// Widget that manages permission requesting
 /// * if the permission is [allowed] it ca
@@ -29,15 +29,12 @@ class RequestPermission extends StatefulWidget {
   final bool canBeDeclined;
 
   const RequestPermission({
-    Key key,
-    @required this.permission,
-    @required this.onAccept,
-    @required this.onDecline,
+    Key? key,
+    required this.permission,
+    required this.onAccept,
+    required this.onDecline,
     this.canBeDeclined = true,
-  })  : assert(permission != null),
-        assert(onAccept != null),
-        assert(onDecline != null),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   _RequestPermission createState() => _RequestPermission();
@@ -72,8 +69,6 @@ class _RequestPermission extends State<RequestPermission> {
   }
 
   Widget _askForPermission() {
-    var localizations = AppLocalizations.of(context);
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,11 +87,11 @@ class _RequestPermission extends State<RequestPermission> {
                 onPressed: _onDecline,
                 children: [
                   SizedBox(),
-                  Text(
-                    localizations.translate('DECLINE_PERMISSION'),
+                  LocalizedText(
+                    'DECLINE_PERMISSION',
                     style: Theme.of(context)
                         .textTheme
-                        .button
+                        .button!
                         .copyWith(color: Brand.grayDark),
                   ),
                   SizedBox(),
@@ -113,8 +108,6 @@ class _RequestPermission extends State<RequestPermission> {
   }
 
   Widget _permanentlyDeniedInfo() {
-    var localizations = AppLocalizations.of(context);
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -134,11 +127,11 @@ class _RequestPermission extends State<RequestPermission> {
                 onPressed: _onDecline,
                 children: [
                   SizedBox(),
-                  Text(
-                    localizations.translate('RETURN'),
+                  LocalizedText(
+                    'RETURN',
                     style: Theme.of(context)
                         .textTheme
-                        .button
+                        .button!
                         .copyWith(color: Brand.grayDark),
                   ),
                   SizedBox(),
@@ -156,8 +149,8 @@ class _RequestPermission extends State<RequestPermission> {
 
   void _checkPermission(PermissionStatus status) {
     setState(() => loaded = true);
-    if (status.isGranted) return widget.onAccept();
-    if (status.isDenied) return widget.onDecline();
+    if (status.isGranted) widget.onAccept();
+    if (status.isDenied) widget.onDecline();
     if (status.isPermanentlyDenied) {
       setState(() => permanentlyDenied = true);
     }

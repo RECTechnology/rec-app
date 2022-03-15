@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Layout/InfoSplash.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
-import 'package:rec/Helpers/BrowserHelper.dart';
-import 'package:rec/Helpers/RecPlatformHelper.dart';
-import 'package:rec/Providers/AppState.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/helpers/BrowserHelper.dart';
+import 'package:rec/helpers/RecPlatformHelper.dart';
+import 'package:rec/providers/AppState.dart';
+import 'package:rec/config/brand.dart';
 
 class MustUpdate extends StatefulWidget {
-  MustUpdate({Key key}) : super(key: key);
+  MustUpdate({Key? key}) : super(key: key);
 
   @override
   _MustUpdateState createState() => _MustUpdateState();

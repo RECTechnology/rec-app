@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class RecBadge extends StatelessWidget {
   final Color color;
-  final Widget child;
+  final Widget? child;
 
   const RecBadge({
-    Key key,
+    Key? key,
     this.color = Colors.red,
     this.child,
   }) : super(key: key);

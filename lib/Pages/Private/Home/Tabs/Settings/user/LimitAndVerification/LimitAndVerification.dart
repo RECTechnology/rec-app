@@ -1,26 +1,24 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Services/DocumentsService.dart';
 import 'package:rec/Components/ListTiles/DocumentListTile.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
-import 'package:rec/Entities/Document.ent.dart';
-import 'package:rec/Entities/Forms/CreateDocumentData.dart';
-import 'package:rec/Entities/Level.ent.dart';
-import 'package:rec/Helpers/Loading.dart';
-import 'package:rec/Helpers/RecToast.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Providers/DocumentsProvider.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/loading.dart';
+import 'package:rec/helpers/RecToast.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/documents_provider.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/config/brand.dart';
 import 'package:rec/preferences.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class LimitAndVerificationPage extends StatefulWidget {
   final bool pollDocuments;
 
   LimitAndVerificationPage({
-    Key key,
+    Key? key,
     this.pollDocuments = true,
   }) : super(key: key);
 
@@ -29,9 +27,9 @@ class LimitAndVerificationPage extends StatefulWidget {
 }
 
 class _LimitAndVerificationState extends State<LimitAndVerificationPage> {
-  final DocumentsService _documentService = DocumentsService();
-  DocumentsProvider _documentsProvider;
-  Timer _documentsPollTimer;
+  final DocumentsService _documentService = DocumentsService(env: env);
+  DocumentsProvider? _documentsProvider;
+  Timer? _documentsPollTimer;
 
   @override
   void initState() {
@@ -58,8 +56,8 @@ class _LimitAndVerificationState extends State<LimitAndVerificationPage> {
     var userState = UserState.of(context);
     var localizations = AppLocalizations.of(context);
     var documentsProvider = DocumentsProvider.of(context);
-    var unlimitedLimitText = localizations.translate('NO_LIMIT');
-    var isKyc2 = userState.user.anyAccountAtLevel(Level.CODE_KYC2);
+    var unlimitedLimitText = localizations!.translate('NO_LIMIT');
+    var isKyc2 = userState.user!.anyAccountAtLevel(Level.CODE_KYC2);
 
     // This simulates that documents are validated
     // If user is KYC2 it means it has been validated previously
@@ -95,12 +93,12 @@ class _LimitAndVerificationState extends State<LimitAndVerificationPage> {
                   localizations.translate(
                     'SEND_REC_LIMIT',
                     params: {
-                      'amount': userState.account.level.maxOut != null
-                          ? '${userState.account.level.maxOut}R'
+                      'amount': userState.account!.level!.maxOut != null
+                          ? '${userState.account!.level!.maxOut}R'
                           : unlimitedLimitText,
                     },
                   ),
-                  style: theme.textTheme.subtitle1.copyWith(
+                  style: theme.textTheme.subtitle1!.copyWith(
                     fontWeight: FontWeight.w500,
                     fontSize: 14,
                     color: Brand.detailsTextColor,
@@ -117,8 +115,7 @@ class _LimitAndVerificationState extends State<LimitAndVerificationPage> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              localizations.translate('REQUIRED_DOCUMENTS') +
-                  ' (${requiredDocs.length})',
+              localizations.translate('REQUIRED_DOCUMENTS') + ' (${requiredDocs.length})',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
@@ -144,8 +141,7 @@ class _LimitAndVerificationState extends State<LimitAndVerificationPage> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-              localizations.translate('PENDING_DOCUMENTS') +
-                  ' (${pendingDocs.length})',
+              localizations.translate('PENDING_DOCUMENTS') + ' (${pendingDocs.length})',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
@@ -212,10 +208,10 @@ class _LimitAndVerificationState extends State<LimitAndVerificationPage> {
         .createDocument(
           CreateDocumentData(
             content: docContentUrl,
-            kind_id: document.kind.id,
+            kindId: document.kind!.id,
             name: Document.createDocName(
               document,
-              userState.user,
+              userState.user as User,
             ),
           ),
         )

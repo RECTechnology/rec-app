@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/PasswordField.dart';
-import 'package:rec/Helpers/validators/validators.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/helpers/validators/validators.dart';
+import 'package:rec/providers/AppLocalizations.dart';
 
 /// Form for changing user's password, used by [ChangedPasswordPage]
 class ChangePasswordForm extends StatefulWidget {
   /// Controls how one widget replaces another widget in the tree.
-  final GlobalKey<FormState> formKey;
+  final GlobalKey<FormState>? formKey;
 
   /// Called when old password changed
-  final ValueChanged<String> onChangeOldPassword;
+  final ValueChanged<String>? onChangeOldPassword;
 
   /// Called when new password changed
-  final ValueChanged<String> onChangePassword;
+  final ValueChanged<String>? onChangePassword;
 
   /// Called when new repassword changed
-  final ValueChanged<String> onChangeRePassword;
+  final ValueChanged<String>? onChangeRePassword;
 
   const ChangePasswordForm({
-    Key key,
+    Key? key,
     this.formKey,
     this.onChangeOldPassword,
     this.onChangePassword,
@@ -42,7 +42,7 @@ class ChangePasswordFormState extends State<ChangePasswordForm> {
         child: Column(
           children: [
             PasswordField(
-              title: localizations.translate('CURRENT_PASSWORD'),
+              title: localizations!.translate('CURRENT_PASSWORD'),
               validator: Validators.verifyPassword,
               onChange: widget.onChangeOldPassword,
             ),

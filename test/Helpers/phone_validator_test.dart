@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rec/Helpers/validators/phone_validator.dart';
+import 'package:rec/helpers/validators/phone_validator.dart';
 
 void main() {
   test('PhoneValidator works with valid ES phones', () {

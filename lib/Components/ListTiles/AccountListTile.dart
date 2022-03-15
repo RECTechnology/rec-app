@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
-import 'package:rec/Entities/Account.ent.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class AccountListTile extends StatefulWidget {
-  final CircleAvatarRec avatar;
-  final String name;
+  final CircleAvatarRec? avatar;
+  final String? name;
   final EdgeInsets padding;
-  final Function onTap;
-  final Widget trailing;
+  final Function? onTap;
+  final Widget? trailing;
 
   AccountListTile({
-    Key key,
+    Key? key,
     this.avatar,
     this.name,
     this.padding = const EdgeInsets.symmetric(
@@ -23,7 +23,7 @@ class AccountListTile extends StatefulWidget {
 
   AccountListTile.fromAccount(
     Account account, {
-    Key key,
+    Key? key,
     this.onTap,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 16,
@@ -46,10 +46,10 @@ class _AccountListTile extends State<AccountListTile> {
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(6)),
         child: ListTile(
-          onTap: widget.onTap,
+          onTap: widget.onTap as void Function()?,
           tileColor: Colors.white,
           leading: widget.avatar,
-          title: Text(widget.name),
+          title: Text(widget.name!),
           trailing: widget.trailing,
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rec/config/assets.dart';
 
 /// This widgets renders the REC Login header image
 class RecHeader extends StatelessWidget {
@@ -7,7 +8,7 @@ class RecHeader extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Image(
-        image: AssetImage('assets/login-header.jpg'),
+        image: AssetImage(Assets.loginHeader),
         fit: BoxFit.cover,
       ),
     );

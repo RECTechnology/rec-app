@@ -4,18 +4,20 @@ import 'package:rec/Components/ContainerWithImage.dart';
 import 'package:rec/Components/Info/OfferPriceBadge.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Text/OfferDiscount.dart';
-import 'package:rec/Entities/Offer.ent.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class OfferPreviewTile extends StatelessWidget {
-  final Offer offer;
-  final VoidCallback onDelete;
+  final Offer? offer;
+  final VoidCallback? onDelete;
+  final bool hasActions;
 
   const OfferPreviewTile({
-    Key key,
+    Key? key,
     this.offer,
     this.onDelete,
+    this.hasActions = true,
   }) : super(key: key);
 
   @override
@@ -23,25 +25,27 @@ class OfferPreviewTile extends StatelessWidget {
     var textTheme = Theme.of(context).textTheme;
     var localizations = AppLocalizations.of(context);
 
-    var date = DateFormat.yMMMd(localizations.locale.languageCode)
-        .format(DateTime.tryParse(offer.endDate));
+    var date = DateFormat.yMMMd(localizations!.locale.languageCode)
+        .format(DateTime.tryParse(offer!.endDate!)!);
 
     return InkWell(
-      onTap: () {
-        showModalBottomSheet(
-          context: context,
-          builder: (c) {
-            return OfferActionsModal(
-              onAction: (action) {
-                switch (action) {
-                  case OfferAction.delete:
-                    if (onDelete != null) onDelete();
-                }
-              },
-            );
-          },
-        );
-      },
+      onTap: hasActions
+          ? () {
+              showModalBottomSheet(
+                context: context,
+                builder: (c) {
+                  return OfferActionsModal(
+                    onAction: (action) {
+                      switch (action) {
+                        case OfferAction.delete:
+                          if (onDelete != null) onDelete!();
+                      }
+                    },
+                  );
+                },
+              );
+            }
+          : null,
       borderRadius: BorderRadius.all(Radius.circular(6)),
       child: Container(
         decoration: BoxDecoration(
@@ -54,7 +58,7 @@ class OfferPreviewTile extends StatelessWidget {
                 AspectRatio(
                   aspectRatio: 2.6 / 1,
                   child: ContainerWithImage(
-                    image: offer.image,
+                    image: offer!.image,
                   ),
                 ),
                 Positioned(
@@ -79,8 +83,8 @@ class OfferPreviewTile extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            offer.description,
-                            style: textTheme.subtitle1.copyWith(
+                            offer!.description ?? 'NO_DESCRIPTION',
+                            style: textTheme.subtitle1!.copyWith(
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -89,7 +93,7 @@ class OfferPreviewTile extends StatelessWidget {
                             children: [
                               Text(
                                 date,
-                                style: textTheme.bodyText2.copyWith(
+                                style: textTheme.bodyText2!.copyWith(
                                   color: Brand.grayDark3,
                                 ),
                               ),
@@ -104,7 +108,7 @@ class OfferPreviewTile extends StatelessWidget {
                       ),
                     ),
                   ),
-                  if (offer.hasDiscount) OfferDiscount(offer: offer),
+                  if (offer!.hasDiscount) OfferDiscount(offer: offer),
                 ],
               ),
             ),
@@ -120,8 +124,8 @@ enum OfferAction {
 }
 
 class OfferActionsModal extends StatefulWidget {
-  final ValueChanged<OfferAction> onAction;
-  OfferActionsModal({Key key, this.onAction}) : super(key: key);
+  final ValueChanged<OfferAction>? onAction;
+  OfferActionsModal({Key? key, this.onAction}) : super(key: key);
 
   @override
   _OfferActionsModalState createState() => _OfferActionsModalState();
@@ -130,7 +134,7 @@ class OfferActionsModal extends StatefulWidget {
 class _OfferActionsModalState extends State<OfferActionsModal> {
   void _deleteOffer() {
     Navigator.of(context).pop();
-    if (widget.onAction != null) widget.onAction(OfferAction.delete);
+    if (widget.onAction != null) widget.onAction!(OfferAction.delete);
   }
 
   @override

@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/brand.dart';
 
 class DropDown extends StatefulWidget {
   final List data;
-  final Function(String) onSelect;
+  final Function(String?)? onSelect;
   final String title;
-  final String current;
+  final String? current;
   final bool isDense;
   final BoxDecoration decoration;
   final EdgeInsets padding;
 
   DropDown({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
     this.onSelect,
     this.current = '',
     this.isDense = true,
-    List data = const [],
-    BoxDecoration decoration,
-    EdgeInsets padding,
-  })  : data = data ?? [],
+    this.data = const [],
+    BoxDecoration? decoration,
+    EdgeInsets? padding,
+  })  : 
         decoration = decoration ??
             const BoxDecoration(
               color: Brand.defaultAvatarBackground,
@@ -35,32 +35,32 @@ class DropDown extends StatefulWidget {
 }
 
 class _DropDownState extends State<DropDown> {
-  List<DropdownMenuItem<String>> _dropDownMenuItems;
-  String currentValue;
+  List<DropdownMenuItem<String>>? _dropDownMenuItems;
+  String? currentValue;
 
   _DropDownState({
     this.currentValue,
   });
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
-    var localizations = AppLocalizations.of(context);
-
     var items = <DropdownMenuItem<String>>[];
-    for (String item in widget.data) {
+
+    for (String item in widget.data as Iterable<String>) {
       items.add(
         DropdownMenuItem(
           value: item,
-          child: Text(localizations.translate(item)),
+          child: LocalizedText(item),
         ),
       );
     }
+    
     return items;
   }
 
   @override
   Widget build(BuildContext context) {
     _dropDownMenuItems = getDropDownMenuItems();
-    currentValue ??= _dropDownMenuItems[0].value;
+    currentValue ??= _dropDownMenuItems![0].value;
 
     return Container(
       padding: widget.padding,
@@ -73,13 +73,13 @@ class _DropDownState extends State<DropDown> {
             ? null
             : (value) {
                 currentValue = value;
-                if (widget.onSelect != null) widget.onSelect(value);
+                if (widget.onSelect != null) widget.onSelect!(value);
               },
         underline: Container(),
         isExpanded: true,
         style: Theme.of(context)
             .textTheme
-            .bodyText2
+            .bodyText2!
             .copyWith(color: Brand.grayDark4),
       ),
     );

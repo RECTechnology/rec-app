@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Services/SecurityService.dart';
-import 'package:rec/Api/Services/UserSmsService.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Inputs/text_fields/RecPinInput.dart';
-import 'package:rec/Helpers/Loading.dart';
-import 'package:rec/Helpers/RecToast.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/loading.dart';
+import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Public/SmsCode/SmsCode.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/Styles/Paddings.dart';
-import 'package:rec/Styles/TextStyles.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/styles/paddings.dart';
+import 'package:rec/styles/text_styles.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class CreatePinWidget extends StatefulWidget {
   final Function(String pin) ifPin;
-  final String label;
-  final String buttonContent;
+  final String? label;
+  final String? buttonContent;
   final bool buttonWithArrow;
 
   const CreatePinWidget({
-    Key key,
-    @required this.ifPin,
+    Key? key,
+    required this.ifPin,
     this.buttonContent,
     this.buttonWithArrow = true,
     this.label,
@@ -32,8 +33,8 @@ class CreatePinWidget extends StatefulWidget {
 
 class _CreatePinWidgetState extends State<CreatePinWidget> {
   final _formKey = GlobalKey<FormState>();
-  final _securityService = SecurityService();
-  final _smsService = UserSmsService();
+  final _securityService = SecurityService(env: env);
+  final _smsService = UserSmsService(env: env);
 
   String pin = '';
 
@@ -44,8 +45,8 @@ class _CreatePinWidgetState extends State<CreatePinWidget> {
 
   Widget _body() {
     var localizations = AppLocalizations.of(context);
-    var btnLabel = widget.buttonContent ?? localizations.translate('NEXT');
-    var label = widget.label ?? localizations.translate('CREATE_AND') + ' ' + btnLabel;
+    var btnLabel = widget.buttonContent ?? localizations!.translate('NEXT');
+    var label = widget.label ?? localizations!.translate('CREATE_AND') + ' ' + btnLabel;
 
     return Padding(
       padding: Paddings.page,
@@ -53,16 +54,16 @@ class _CreatePinWidgetState extends State<CreatePinWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
-            child: Text(
-              localizations.translate('CREATE_PIN'),
+            child: LocalizedText(
+              'CREATE_PIN',
               style: TextStyles.pageTitle,
               textAlign: TextAlign.center,
             ),
           ),
           SizedBox(height: 32),
           Center(
-            child: Text(
-              localizations.translate('CREATE_PIN_DESC'),
+            child: LocalizedText(
+              'CREATE_PIN_DESC',
               style: TextStyles.pageSubtitle1,
               textAlign: TextAlign.center,
             ),
@@ -100,7 +101,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget> {
   }
 
   void _next() async {
-    if (!_formKey.currentState.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
 
     // Send sms code
     await Loading.show();
@@ -114,9 +115,9 @@ class _CreatePinWidgetState extends State<CreatePinWidget> {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (c) => SmsCode(
-          prefix: userState.user.prefix,
-          phone: userState.user.phone,
-          dni: userState.user.username,
+          prefix: userState.user!.prefix,
+          phone: userState.user!.phone,
+          dni: userState.user!.username,
           onCode: (code) {
             Navigator.of(context).pop();
             _createPinWidget(code);
@@ -136,7 +137,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget> {
 
   void _pinCreated(String pin) {
     Loading.dismiss();
-    return widget.ifPin(pin);
+    widget.ifPin(pin);
   }
 
   Future _sendSmsCode() {
@@ -144,11 +145,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget> {
   }
 
   void _onError(error) {
-    var localizations = AppLocalizations.of(context);
     Loading.dismiss();
-    RecToast.showError(
-      context,
-      localizations.translate(error.message),
-    );
+    RecToast.showError(context, error.message);
   }
 }

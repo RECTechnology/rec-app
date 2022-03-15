@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Indicators/Badge.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/brand.dart';
 
 class SettingsListTile extends StatefulWidget {
-  final String title;
-  final IconData icon;
-  final String subtitle;
-  final Function onTap;
-  final Widget leading;
+  final String? title;
+  final IconData? icon;
+  final String? subtitle;
+  final Function? onTap;
+  final Widget? leading;
 
   final bool requiresActions;
 
   SettingsListTile({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
     this.icon,
     this.subtitle,
     this.onTap,
@@ -29,27 +29,26 @@ class SettingsListTile extends StatefulWidget {
 class _SettingsListTileState extends State<SettingsListTile> {
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
     var theme = Theme.of(context);
 
     return Container(
       child: Material(
         color: Colors.white,
         child: InkWell(
-          onTap: widget.onTap,
+          onTap: widget.onTap as void Function()?,
           child: ListTile(
             leading: widget.leading ?? Icon(widget.icon),
             enableFeedback: true,
-            title: Text(
-              localizations.translate(widget.title),
-              style: theme.textTheme.subtitle1.copyWith(
+            title: LocalizedText(
+              widget.title!,
+              style: theme.textTheme.subtitle1!.copyWith(
                 fontWeight: FontWeight.w500,
                 color: Brand.grayDark,
               ),
             ),
             subtitle: widget.subtitle != null
-                ? Text(
-                    localizations.translate(widget.subtitle),
+                ? LocalizedText(
+                    widget.subtitle!,
                     style: theme.textTheme.caption,
                   )
                 : null,

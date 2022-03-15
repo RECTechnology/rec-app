@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
-import 'package:rec/Entities/User.ent.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Styles/BoxDecorations.dart';
-import 'package:rec/Styles/Paddings.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/styles/box_decorations.dart';
+import 'package:rec/styles/paddings.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class LoggedInBeforeCard extends StatefulWidget {
-  final User savedUser;
-  final Function() onNotYou;
+  final User? savedUser;
+  final Function()? onNotYou;
 
-  const LoggedInBeforeCard({Key key, this.savedUser, this.onNotYou})
+  const LoggedInBeforeCard({Key? key, this.savedUser, this.onNotYou})
       : super(key: key);
 
   @override
@@ -33,8 +34,8 @@ class _LoggedInBeforeCard extends State<LoggedInBeforeCard> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: CircleAvatarRec(
-                imageUrl: widget.savedUser.image,
-                name: widget.savedUser.username,
+                imageUrl: widget.savedUser!.image,
+                name: widget.savedUser!.username,
               ),
             ),
             Column(
@@ -43,15 +44,15 @@ class _LoggedInBeforeCard extends State<LoggedInBeforeCard> {
               children: [
                 Padding(
                   padding: Paddings.label,
-                  child: Text(
-                    localizations.translate('DNI_NIE'),
+                  child: LocalizedText(
+                    'DNI_NIE',
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ),
                 Padding(
                   padding: Paddings.headline,
                   child: Text(
-                    widget.savedUser.username,
+                    widget.savedUser!.username!,
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 ),
@@ -60,7 +61,7 @@ class _LoggedInBeforeCard extends State<LoggedInBeforeCard> {
                   child: RichText(
                     text: TextSpan(
                       style: TextStyle(color: Brand.primaryColor),
-                      text: localizations.translate('NOT_U'),
+                      text: localizations!.translate('NOT_U'),
                     ),
                   ),
                 )

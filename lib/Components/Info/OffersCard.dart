@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Entities/Offer.ent.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class OffersCard extends StatefulWidget {
   final Offer offerData;
@@ -34,8 +34,9 @@ class _OffersCard extends State<OffersCard> {
               borderRadius: BorderRadius.circular(6),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(
-                    widget.offerData.image != '' ? widget.offerData.image : 'https://picsum.photos/250?image=9'),
+                image: NetworkImage(widget.offerData.image != ''
+                    ? widget.offerData.image!
+                    : 'https://picsum.photos/250?image=9'),
               ),
             ),
             child: Center(
@@ -48,7 +49,7 @@ class _OffersCard extends State<OffersCard> {
           Column(
             children: [
               Text(
-                widget.offerData.description,
+                widget.offerData.description!,
                 style: TextStyle(
                   color: Brand.grayDark,
                   fontWeight: FontWeight.w500,

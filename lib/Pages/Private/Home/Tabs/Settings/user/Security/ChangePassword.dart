@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Services/SecurityService.dart';
-import 'package:rec/Api/Services/UserSmsService.dart';
 import 'package:rec/Components/Forms/ChangePassword.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Entities/Forms/ChangePasswordData.dart';
-import 'package:rec/Helpers/Loading.dart';
-import 'package:rec/Helpers/RecToast.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/loading.dart';
+import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Public/SmsCode/SmsCode.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/Styles/Paddings.dart';
-import 'package:rec/brand.dart';
-import 'package:rec/routes.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/styles/paddings.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec/config/routes.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   @override
@@ -21,22 +19,20 @@ class ChangePasswordPage extends StatefulWidget {
 }
 
 class _ChangePasswordState extends State<ChangePasswordPage> {
-  final _securityService = SecurityService();
-  final _smsService = UserSmsService();
+  final _securityService = SecurityService(env: env);
+  final _smsService = UserSmsService(env: env);
   final _formKey = GlobalKey<FormState>();
 
   ChangePasswordData data = ChangePasswordData();
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: EmptyAppBar(
           context,
-          title: localizations.translate('CHANGE_PASSWORD'),
+          title: 'CHANGE_PASSWORD',
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -53,13 +49,10 @@ class _ChangePasswordState extends State<ChangePasswordPage> {
                 if (data.password != data.repassword)
                   LocalizedText(
                     'PASSWORDS_DO_NOT_MATCH',
-                    style: Theme.of(context)
-                        .textTheme
-                        .caption
-                        .copyWith(color: Colors.red),
+                    style: Theme.of(context).textTheme.caption!.copyWith(color: Colors.red),
                   ),
                 RecActionButton(
-                  label: localizations.translate('UPDATE'),
+                  label: 'UPDATE',
                   backgroundColor: Brand.primaryColor,
                   onPressed: data.isValid ? () => update() : null,
                 )
@@ -84,7 +77,7 @@ class _ChangePasswordState extends State<ChangePasswordPage> {
   }
 
   void update() {
-    if (!_formKey.currentState.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
 
     Loading.show();
 
@@ -102,9 +95,9 @@ class _ChangePasswordState extends State<ChangePasswordPage> {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (c) => SmsCode(
-          prefix: userState.user.prefix,
-          phone: userState.user.phone,
-          dni: userState.user.username,
+          prefix: userState.user!.prefix,
+          phone: userState.user!.phone,
+          dni: userState.user!.username,
           onCode: (code) {
             Navigator.pop(context);
 
@@ -119,10 +112,7 @@ class _ChangePasswordState extends State<ChangePasswordPage> {
 
   Future _tryChangePassword() {
     Loading.show();
-    return _securityService
-        .changePassword(data)
-        .then(_changePasswordOK)
-        .catchError(_onError);
+    return _securityService.changePassword(data).then(_changePasswordOK).catchError(_onError);
   }
 
   void _changePasswordOK(result) {
@@ -132,11 +122,7 @@ class _ChangePasswordState extends State<ChangePasswordPage> {
   }
 
   void _onError(error) {
-    var localizations = AppLocalizations.of(context);
     Loading.dismiss();
-    RecToast.showError(
-      context,
-      localizations.translate(error.message),
-    );
+    RecToast.showError(context, error.message);
   }
 }

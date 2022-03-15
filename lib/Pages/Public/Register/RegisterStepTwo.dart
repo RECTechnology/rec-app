@@ -5,17 +5,17 @@ import 'package:rec/Components/Scaffold/AccountTypeHeader.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
-import 'package:rec/Entities/Forms/RegisterData.dart';
-import 'package:rec/Helpers/RecToast.dart';
+import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Public/Register/RegisterRequest.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Styles/Paddings.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/styles/paddings.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class RegisterTwo extends StatefulWidget {
   final RegisterData registerData;
 
-  const RegisterTwo({Key key, @required this.registerData}) : super(key: key);
+  const RegisterTwo({Key? key, required this.registerData}) : super(key: key);
 
   @override
   RegisterTwoState createState() => RegisterTwoState();
@@ -23,7 +23,7 @@ class RegisterTwo extends StatefulWidget {
 
 class RegisterTwoState extends State<RegisterTwo> {
   final _formKey = GlobalKey<FormState>();
-  RegisterData registerData;
+  RegisterData? registerData;
 
   @override
   void initState() {
@@ -34,14 +34,16 @@ class RegisterTwoState extends State<RegisterTwo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _header(),
+      appBar: _header() as PreferredSizeWidget?,
       body: _body(),
       resizeToAvoidBottomInset: true,
     );
   }
 
   Widget _header() {
-    var background = registerData.isAccountPrivate ? Brand.backgroundPrivateColor : Brand.backgroundCompanyColor;
+    var background = registerData!.isAccountPrivate
+        ? Brand.backgroundPrivateColor
+        : Brand.backgroundCompanyColor;
 
     return AppBar(
       backgroundColor: background,
@@ -78,7 +80,7 @@ class RegisterTwoState extends State<RegisterTwo> {
               ),
               LocalizedText(
                 'WHEN_INIT_SESION',
-                style: Theme.of(context).textTheme.caption.copyWith(color: Brand.accentColor),
+                style: Theme.of(context).textTheme.caption!.copyWith(color: Brand.accentColor),
               ),
               Align(
                 alignment: Alignment.bottomCenter,
@@ -97,7 +99,7 @@ class RegisterTwoState extends State<RegisterTwo> {
   }
 
   void register() {
-    if (!_formKey.currentState.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
     _attemptRegister();
   }
 
@@ -110,14 +112,14 @@ class RegisterTwoState extends State<RegisterTwo> {
         return _showError('UNEXPECTED_SERVER_ERROR');
       }
 
-      var translatedMessage = localizations.translate(result.message);
+      var translatedMessage = localizations!.translate(result.message);
       if (translatedMessage != result.message) {
-        String fieldName = result.message.split(' ').first.toLowerCase();
-        registerData.addError(
+        String? fieldName = result.message.split(' ').first.toLowerCase();
+        registerData!.addError(
           fieldName,
           localizations.translate(result.message),
         );
-        _formKey.currentState.validate();
+        _formKey.currentState!.validate();
         setState(() {});
 
         // If error is not a field from this page, go back
@@ -131,10 +133,6 @@ class RegisterTwoState extends State<RegisterTwo> {
   }
 
   void _showError(String message) {
-    var localizations = AppLocalizations.of(context);
-    RecToast.showError(
-      context,
-      localizations.translate('UNEXPECTED_SERVER_ERROR'),
-    );
+    RecToast.showError(context, 'UNEXPECTED_SERVER_ERROR');
   }
 }

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/GrayBox.dart';
 import 'package:rec/Components/Inputs/TimeInput.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Entities/Schedule/ScheduleDay.ent.dart';
-import 'package:rec/Helpers/DateHelper.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 enum CopyPasteAction {
   copy,
@@ -12,21 +11,21 @@ enum CopyPasteAction {
 
 /// Renders a tile containing the configuration, inputs for a specific [ScheduleDay]
 class ScheduleDayInput extends StatelessWidget {
-  final int weekday;
+  final int? weekday;
   final bool closed;
   final bool opens24Hours;
   final bool isNotAvailable;
   final ScheduleDay day;
   final ValueChanged<ScheduleDay> onChange;
   final ValueChanged<CopyPasteAction> onAction;
-  final Function() onCompleteDay;
+  final Function()? onCompleteDay;
 
   ScheduleDayInput({
-    Key key,
-    @required this.weekday,
-    @required this.onChange,
-    @required this.day,
-    @required this.onAction,
+    Key? key,
+    required this.weekday,
+    required this.onChange,
+    required this.day,
+    required this.onAction,
     this.onCompleteDay,
     this.closed = false,
     this.opens24Hours = false,
@@ -35,7 +34,7 @@ class ScheduleDayInput extends StatelessWidget {
 
   void _fillDay() {
     if (onCompleteDay != null) {
-      onCompleteDay();
+      onCompleteDay!();
     }
   }
 
@@ -51,7 +50,7 @@ class ScheduleDayInput extends StatelessWidget {
               onChange: (String value) {
                 onChange(day..firstOpen = value);
               },
-              closed: closed || !day.opens,
+              closed: closed || !day.opens!,
             ),
           ),
           Padding(
@@ -65,7 +64,7 @@ class ScheduleDayInput extends StatelessWidget {
               onChange: (String value) {
                 onChange(day..firstClose = value);
               },
-              closed: closed || !day.opens,
+              closed: closed || !day.opens!,
             ),
           ),
         ],
@@ -80,7 +79,7 @@ class ScheduleDayInput extends StatelessWidget {
               onChange: (String value) {
                 onChange(day..secondOpen = value);
               },
-              closed: closed || !day.opens,
+              closed: closed || !day.opens!,
             ),
           ),
           Padding(
@@ -94,7 +93,7 @@ class ScheduleDayInput extends StatelessWidget {
               onChange: (String value) {
                 onChange(day..secondClose = value);
               },
-              closed: closed || !day.opens,
+              closed: closed || !day.opens!,
             ),
           ),
         ],
@@ -130,8 +129,8 @@ class ScheduleDayInput extends StatelessWidget {
                   value: (closed || isNotAvailable) ? false : day.opens,
                   onChanged: closed
                       ? null
-                      : (bool value) {
-                          if (!day.opens) {
+                      : (bool? value) {
+                          if (!day.opens!) {
                             // Was closed now is open, so we try to fill in the data
                             // this is delegated to the parent widget to do
                             _fillDay();
@@ -141,7 +140,7 @@ class ScheduleDayInput extends StatelessWidget {
                         },
                 ),
                 LocalizedText(
-                  DateHelper.getWeekdayName(weekday),
+                  DateHelper.getWeekdayName(weekday!),
                 )
               ],
             ),

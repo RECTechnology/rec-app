@@ -5,17 +5,17 @@ import 'package:rec/Components/ListTiles/AccountListTile.dart';
 import 'package:rec/Components/Info/CircleAvatar.dart';
 import 'package:rec/Components/Layout/InfoSplash.dart';
 import 'package:rec/Components/Lists/SearchableList.dart';
-import 'package:rec/Entities/ContactInfo.dart';
-import 'package:rec/Helpers/RecToast.dart';
-import 'package:rec/brand.dart';
-import 'package:rec/Api/Services/RecContactsService.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/RecToast.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class ContactsList extends StatefulWidget {
-  final RecContactsService service;
-  final Function(ContactInfo contact) onPick;
+  final RecContactsService? service;
+  final Function(ContactInfo contact)? onPick;
 
   const ContactsList({
-    Key key,
+    Key? key,
     this.service,
     this.onPick,
   }) : super(key: key);
@@ -31,11 +31,11 @@ class _ContactsList extends State<ContactsList> {
   List<Widget> searchedWidgets = [];
 
   String searchQuery = '';
-  RecContactsService service;
+  late RecContactsService service;
 
   @override
   void initState() {
-    service = widget.service ?? RecContactsService();
+    service = widget.service ?? RecContactsService(env: env);
     _loadContacts();
     super.initState();
   }
@@ -48,7 +48,7 @@ class _ContactsList extends State<ContactsList> {
     Contacts.getAllContacts('')
         .then((c) => c.toList())
         .then((c) => _searchInApi(c))
-        .then((c) => _mapContacts(c))
+        .then((c) => _mapContacts(c as List<ContactInfo>))
         .then((c) => setState(() => isLoading = false))
         .catchError(_onError);
   }
@@ -68,18 +68,18 @@ class _ContactsList extends State<ContactsList> {
   }
 
   Future<List<dynamic>> _searchInApi(List<Contact> contacts) async {
-    var phoneList = contacts
-        .where((e) => e.phones.isNotEmpty)
-        .map((e) => e.phones.first.value)
-        .toList();
+    var phoneList =
+        contacts.where((e) => e.phones!.isNotEmpty).map((e) => e.phones!.first.value).toList();
 
     var apiContacts = await service.getContacts(phoneList).catchError(_onError);
+
+    // ignore: unnecessary_null_comparison
     return recContacts = apiContacts != null
-        ? apiContacts.items.where((element) => !element.isMyAccount).toList()
+        ? apiContacts.items!.where((element) => !element.isMyAccount!).toList()
         : [];
   }
 
-  void _onError(err) {
+  _onError(err) {
     RecToast.showError(context, err.message);
   }
 
@@ -90,7 +90,7 @@ class _ContactsList extends State<ContactsList> {
           .map(
             (contact) => AccountListTile(
               onTap: () {
-                widget.onPick(contact);
+                widget.onPick!(contact);
               },
               avatar: CircleAvatarRec(
                 name: contact.account,
@@ -109,7 +109,7 @@ class _ContactsList extends State<ContactsList> {
   }
 
   bool _matchesQuery(ContactInfo contact) {
-    return contact.account.toLowerCase().contains(searchQuery.toLowerCase());
+    return contact.account!.toLowerCase().contains(searchQuery.toLowerCase());
   }
 
   Widget _noContacts() {

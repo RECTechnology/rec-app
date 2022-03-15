@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/providers/AppLocalizations.dart';
 
 class SimpleTextField extends StatefulWidget {
-  final String initialValue;
+  final String? initialValue;
   final Color color;
-  final String label;
+  final String? label;
   final bool readOnly;
 
-  final ValueChanged<String> onChange;
-  final FormFieldValidator<String> validator;
+  final ValueChanged<String>? onChange;
+  final FormFieldValidator<String>? validator;
 
   const SimpleTextField({
-    Key key,
+    Key? key,
     this.initialValue,
     this.onChange,
     this.validator,
@@ -33,11 +33,11 @@ class SimpleTextFieldState extends State<SimpleTextField> {
     var localizations = AppLocalizations.of(context);
 
     return RecTextField(
-      label: localizations.translate(widget.label),
+      label: localizations!.translate(widget.label!),
       initialValue: widget.initialValue,
       keyboardType: TextInputType.text,
       needObscureText: false,
-      placeholder: localizations.translate(widget.label),
+      placeholder: localizations.translate(widget.label!),
       onChange: widget.onChange,
       colorLine: widget.color,
       validator: widget.validator,

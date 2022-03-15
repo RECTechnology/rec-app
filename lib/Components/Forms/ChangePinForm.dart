@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/PasswordField.dart';
 import 'package:rec/Components/Inputs/text_fields/RecPinInput.dart';
-import 'package:rec/Helpers/validators/validators.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec/helpers/validators/validators.dart';
 
 /// Form for changing pin, used by [ChangedPinPage]
 class ChangePinForm extends StatefulWidget {
   /// Controls how one widget replaces another widget in the tree.
-  final GlobalKey<FormState> formKey;
+  final GlobalKey<FormState>? formKey;
 
   /// Called when pin changed
-  final ValueChanged<String> onChangePin;
+  final ValueChanged<String>? onChangePin;
 
   /// Called when repin changed
-  final ValueChanged<String> onChangeRePin;
+  final ValueChanged<String>? onChangeRePin;
 
   /// Called when password changed
-  final ValueChanged<String> onChangePassword;
+  final ValueChanged<String>? onChangePassword;
 
   const ChangePinForm({
-    Key key,
+    Key? key,
     this.formKey,
     this.onChangePin,
     this.onChangeRePin,
@@ -39,9 +39,8 @@ class ChangePinFormState extends State<ChangePinForm> {
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
     var theme = Theme.of(context);
-    var labelStyle = theme.textTheme.subtitle1.copyWith(
+    var labelStyle = theme.textTheme.subtitle1!.copyWith(
       fontWeight: FontWeight.w500,
       color: Brand.grayDark,
     );
@@ -54,8 +53,8 @@ class ChangePinFormState extends State<ChangePinForm> {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 16.0),
-              child: Text(
-                localizations.translate('NEW_PIN'),
+              child: LocalizedText(
+                'NEW_PIN',
                 style: labelStyle,
               ),
             ),
@@ -69,8 +68,8 @@ class ChangePinFormState extends State<ChangePinForm> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 24, bottom: 16.0),
-              child: Text(
-                localizations.translate('NEW_REPIN'),
+              child: LocalizedText(
+                'NEW_REPIN',
                 style: labelStyle,
               ),
             ),
@@ -86,7 +85,7 @@ class ChangePinFormState extends State<ChangePinForm> {
               padding: const EdgeInsets.only(top: 60, bottom: 16.0),
               child: PasswordField(
                 focusNode: passwordFocus,
-                title: localizations.translate('PASSWORD'),
+                title: 'PASSWORD',
                 validator: Validators.verifyPassword,
                 onChange: widget.onChangePassword,
               ),

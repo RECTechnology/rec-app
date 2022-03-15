@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Entities/Schedule/Schedule.ent.dart';
-import 'package:rec/Helpers/DateHelper.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class ScheduleTab extends StatefulWidget {
-  final Schedule schedule;
+  final Schedule? schedule;
+  final ScrollController? scrollController;
 
   ScheduleTab({
-    Key key,
-    @required this.schedule,
+    Key? key,
+    required this.schedule,
+    this.scrollController,
   }) : super(key: key);
 
   @override
@@ -56,61 +57,76 @@ class _ScheduleTabState extends State<ScheduleTab> {
             child: ListView(
               physics: NeverScrollableScrollPhysics(),
               children: daysList.map((weekday) {
-                var scheduleDay =
-                    widget.schedule.days.isNotEmpty ? widget.schedule.getScheduleForDay(weekday - 1) : null;
+                var scheduleDay = widget.schedule!.days.isNotEmpty
+                    ? widget.schedule!.getScheduleForDay(weekday - 1)
+                    : null;
 
-                var dayScheduleLabel;
+                String? dayScheduleLabel;
 
-                if (widget.schedule.isClosed) {
-                  dayScheduleLabel = localizations.translate('CLOSED');
+                if (widget.schedule!.isClosed) {
+                  dayScheduleLabel = 'CLOSED';
                 }
 
-                if (widget.schedule.isOpen24h) {
-                  dayScheduleLabel = localizations.translate('OPEN');
+                if (widget.schedule!.isOpen24h) {
+                  dayScheduleLabel = 'OPEN';
                 }
 
-                if (widget.schedule.isNotAvailable) {
-                  dayScheduleLabel = localizations.translate('N/A');
+                if (widget.schedule!.isNotAvailable) {
+                  dayScheduleLabel = 'N/A';
                 }
 
-                var daySchedule = scheduleDay == null || !scheduleDay.isDefined() || !scheduleDay.opens
-                    ? <Widget>[
-                        Text(
-                          dayScheduleLabel ?? localizations.translate('CLOSED'),
-                          style: weekday % 2 == 0
-                              ? Theme.of(context).textTheme.subtitle1.copyWith(fontWeight: FontWeight.w500)
-                              : Theme.of(context).textTheme.subtitle1,
-                        )
-                      ]
-                    : <Widget>[
-                        Text(
-                          dayScheduleLabel ?? '${scheduleDay.firstOpen} - ${scheduleDay.firstClose}',
-                          style: weekday % 2 == 0
-                              ? Theme.of(context).textTheme.subtitle1.copyWith(fontWeight: FontWeight.w500)
-                              : Theme.of(context).textTheme.subtitle1,
-                        ),
-                        ...(scheduleDay.isSecondDefined() && dayScheduleLabel == null
-                            ? [
-                                SizedBox(
-                                  height: 4,
-                                ),
-                                Text(
-                                  '${scheduleDay.secondOpen} - ${scheduleDay.secondClose}',
-                                  style: weekday % 2 == 0
-                                      ? Theme.of(context).textTheme.subtitle1.copyWith(fontWeight: FontWeight.w500)
-                                      : Theme.of(context).textTheme.subtitle1,
-                                ),
-                              ]
-                            : [])
-                      ];
+                var daySchedule =
+                    scheduleDay == null || !scheduleDay.isDefined() || !scheduleDay.opens!
+                        ? <Widget>[
+                            Text(
+                              localizations!.translate(dayScheduleLabel ?? 'CLOSED'),
+                              style: weekday % 2 == 0
+                                  ? Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .copyWith(fontWeight: FontWeight.w500)
+                                  : Theme.of(context).textTheme.subtitle1,
+                            )
+                          ]
+                        : <Widget>[
+                            Text(
+                              dayScheduleLabel ??
+                                  '${scheduleDay.firstOpen} - ${scheduleDay.firstClose}',
+                              style: weekday % 2 == 0
+                                  ? Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .copyWith(fontWeight: FontWeight.w500)
+                                  : Theme.of(context).textTheme.subtitle1,
+                            ),
+                            ...(scheduleDay.isSecondDefined() && dayScheduleLabel == null
+                                ? [
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      '${scheduleDay.secondOpen} - ${scheduleDay.secondClose}',
+                                      style: weekday % 2 == 0
+                                          ? Theme.of(context)
+                                              .textTheme
+                                              .subtitle1!
+                                              .copyWith(fontWeight: FontWeight.w500)
+                                          : Theme.of(context).textTheme.subtitle1,
+                                    ),
+                                  ]
+                                : [])
+                          ];
 
                 return ListTile(
                   title: Text(
-                    localizations.translate(
+                    localizations!.translate(
                       DateHelper.getWeekdayName(weekday),
                     ),
                     style: weekday % 2 == 0
-                        ? Theme.of(context).textTheme.subtitle1.copyWith(fontWeight: FontWeight.w500)
+                        ? Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .copyWith(fontWeight: FontWeight.w500)
                         : Theme.of(context).textTheme.subtitle1,
                   ),
                   trailing: Column(

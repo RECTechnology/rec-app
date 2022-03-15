@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class GenericModal {
-  final Widget title;
-  final Widget content;
-  final Widget widget;
+  final Widget? title;
+  final Widget? content;
+  final Widget? widget;
   GenericModal({
     this.title,
     this.content,
@@ -16,7 +16,7 @@ class GenericModal {
       builder: (_) => AlertDialog(
         title: title,
         content: content,
-        actions: <Widget>[widget],
+        actions: <Widget>[widget!],
       ),
     );
   }

@@ -1,16 +1,20 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Auth.dart';
-import 'package:rec/Api/Services/wallet/TransactionsService.dart';
 import 'package:rec/Components/PrivateRoute.dart';
-import 'package:rec/Entities/Forms/PaymentData.dart';
-import 'package:rec/Entities/Transactions/VendorData.ent.dart';
-import 'package:rec/Environments/env.dart';
-import 'package:rec/Helpers/RecPlatformHelper.dart';
-import 'package:rec/Helpers/RecToast.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/AttemptPayment.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/PayAddress.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/no_permissions_to_pay.dart';
 import 'package:rec/Pages/Public/Login/Login.page.dart';
-import 'package:rec/routes.dart';
+import 'package:rec/config/roles_definitions.dart';
+import 'package:rec/config/routes.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/RecPlatformHelper.dart';
+import 'package:rec/helpers/RecToast.dart';
+import 'package:rec/mixins/Loadable.mixin.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class PayLink extends StatefulWidget {
   /// Handles onGenerateRoute,
@@ -28,41 +32,71 @@ class PayLink extends StatefulWidget {
   final PaymentData paymentData;
 
   PayLink({
-    Key key,
-    @required this.paymentData,
+    Key? key,
+    required this.paymentData,
   }) : super(key: key);
 
   @override
   _PayLinkState createState() => _PayLinkState();
 }
 
-class _PayLinkState extends State<PayLink> {
-  final TransactionsService transactionsService = TransactionsService();
-  String error;
+class _PayLinkState extends State<PayLink> with Loadable {
+  final TransactionsService transactionsService = TransactionsService(env: env);
+  String? error;
+  bool hasPermissions = true;
 
   @override
   void initState() {
     super.initState();
+
     if (widget.paymentData.address == null) {
-      error = 'Invalid link';
-      return;
+      error = 'INVALID_LINK';
     }
-    _setup();
+
+    if (error == null) _setup();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (!hasPermissions) {
+      return NoPermissionsToPay();
+    }
+
     return Scaffold(
-      body: error != null ? Text(error) : SizedBox(),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: error != null
+            ? Center(
+                child: LocalizedText(
+                  error!,
+                  textAlign: TextAlign.center,
+                ),
+              )
+            : Center(
+                child: LocalizedText('LOADING'),
+              ),
+      ),
     );
   }
 
   void _setup() async {
     await _ensureLoggedIn();
+    var userState = UserState.deaf(context);
+    await userState.getUser();
 
-    var vendorData = await _getVendorDataFromAddress(widget.paymentData.address)
-        .catchError(_showErrorToast);
+    var hasPermissionToPay = userState.user!.hasRoles(RoleDefinitions.payFromLink);
 
+    if (!hasPermissionToPay) {
+      setState(() {
+        hasPermissions = false;
+      });
+      return;
+    }
+
+    var vendorData =
+        await _getVendorDataFromAddress(widget.paymentData.address).catchError(_showErrorToast);
+
+    // ignore: unnecessary_null_comparison
     if (vendorData != null) {
       widget.paymentData.vendor = vendorData;
       var isPaymentDataComplete = widget.paymentData.isComplete();
@@ -75,6 +109,8 @@ class _PayLinkState extends State<PayLink> {
               disabledFields: _getDisabledPayFormField(),
             );
 
+      // TODO: check if private route is required here, and if not replace it
+      // ignore: deprecated_member_use_from_same_package
       var route = MaterialPageRoute(builder: (_) => PrivateRoute(page));
       await Navigator.of(context).push(route).then(_onFinished);
     }
@@ -82,15 +118,17 @@ class _PayLinkState extends State<PayLink> {
 
   Future<dynamic> _ensureLoggedIn() async {
     var isLoggedIn = await Auth.isLoggedIn();
+
     if (!isLoggedIn) {
-      var loggedIn = await _login();
-      if (!loggedIn) {
+      var loggedIn = await (_login());
+
+      if (loggedIn == false) {
         return RecPlatform.closeApp(context);
       }
     }
   }
 
-  Future<dynamic> _onFinished(result) {
+  Future<dynamic>? _onFinished(result) {
     var navigator = Navigator.of(context);
     if (navigator.canPop()) {
       navigator.pop();
@@ -100,7 +138,7 @@ class _PayLinkState extends State<PayLink> {
     return navigator.pushReplacementNamed(Routes.home);
   }
 
-  Future<bool> _login() {
+  Future<bool?> _login() {
     return Navigator.of(context).push(
       MaterialPageRoute(
         builder: (c) => LoginPage(
@@ -112,23 +150,23 @@ class _PayLinkState extends State<PayLink> {
     );
   }
 
-  List<String> _getDisabledPayFormField() {
+  List<String?> _getDisabledPayFormField() {
     return [
-      widget.paymentData.concept != null &&
-              widget.paymentData.concept.isNotEmpty
-          ? 'concept'
-          : null,
-      widget.paymentData.amount != null && widget.paymentData.amount >= 0
-          ? 'amount'
-          : null,
+      widget.paymentData.concept.isNotEmpty ? 'concept' : null,
+      widget.paymentData.amount != null && widget.paymentData.amount! >= 0 ? 'amount' : null,
     ];
   }
 
-  Future<VendorData> _getVendorDataFromAddress(String address) async {
-    return transactionsService
-        .getVendorInfoFromAddress(address)
-        .catchError(_showErrorToast);
+  Future<VendorData> _getVendorDataFromAddress(String? address) async {
+    return transactionsService.getVendorInfoFromAddress(address).catchError(_showErrorToast);
   }
 
-  void _showErrorToast(error) => RecToast.showError(context, error.message);
+  _showErrorToast(error) => RecToast.showError(context, error.message);
+
+  @override
+  void setIsLoading(bool isLoading) {
+    setState(() {
+      this.isLoading = isLoading;
+    });
+  }
 }

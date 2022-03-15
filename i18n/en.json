@@ -142,7 +142,9 @@
   "YOUR_ACCOUNT": "Your account",
   "ACCOUNT_NAME": "Account name",
   "SETTINGS_LOGOUT": "Sign off",
-  "SETTINGS_OTHER": "Other",
+  "SETTINGS_OTHER": "Other settings",
+  "VERSION": "Version",
+  "ALREADY_A_PART_OF": "Already a part of \n ¡{{campaign}}!",
 
   "EMAIL": "Email",
   "CHANGE_EMAIL": "Touch to change email",
@@ -189,7 +191,7 @@
   "RECHARGE_EUR_REC": "Recharge from euros to RECs",
   "NO_CONCEPT": "No concept",
   "FROM": "From",
-  "FROM_CREDIT_CARD": "Since",
+  "FROM_CREDIT_CARD": "From",
 
   "MANAGE_ACCOUNT": "Manage your REC account",
 
@@ -334,6 +336,8 @@
   "PURCHASE_DONE": "Purchase made",
   "REWARD_OBTAINED": "Bonus earned!",
   "YOU_HAVE_RECS_REDEMABLE": "You have {{amount}}R bonus",
+  "SETTINGS_DAILY_BALANCE": "Daily balance",
+
 
   "REWARD_OBTAINED_DESC": "{{amount}} R are on their way to your account LI TOCA AL BARRI",
   "CREATE_ACCOUNT": "Creat your account!",
@@ -424,6 +428,7 @@
   "link_contact": "https://rec.barcelona/es/contacto/",
   "link_tos": "https://rec.barcelona/es/condiciones-de-uso/",
   "link_privacy": "https://rec.barcelona/es/politicaprivacidadweb_cast/",
+  "link_culture": "https://rec.barcelona/rec-cultural",
 
   "title.link_ltab": "Li Toca Al Barri",
   "title.link_ltab_tos": "LTAB Terms of service",
@@ -447,6 +452,15 @@
   "COPY": "Copy",
   "PASTE": "Paste",
 
+  "REC_CULTURAL": "REC Cultural",
+  "CULT21_WITH_NEIGHBORHOODS": "REC Cultural (Sants & Poble Sec)",
+  "LTAB20_WITH_NEIGHBORHOODS": "Li toca al barri (Eje Bessos)",
+
+  "MORE": "More...",
+  "MORE_FILTERS": "More... {{selected}}",
+  "MORE_CATEGORIES": "More categories",
+  "CATEGORIES": "Categories",
+  "CAMPAIGNS": "Campaigns",
   "PUBLISH": "Publish",
   "PUBLISH_OFFER": "Publish new offer",
   "PUBLISH_OFFER_DESC": "Add an offer to your Map card",
@@ -467,10 +481,63 @@
   "SETTINGS_HOW_CAN_WE_HELP": "How can we help you?",
   "WHAT_TO_DO_WITH_OFFER": "What do you want to do with the offer?",
   "OFFER_REMOVED_OK": "Offer deleted",
+  "CULTURE": "Culture",
+  "CLOSE": "Close",
   "ERROR_PHONE_MUST_START_WITH": "The phone number must start with 6 or 7",
   "ERROR_PHONE_BAD_CHARACTERS": "Incorrect number or contains illegal characters",
   "WALLET_SHOW_BALANCE_TOOLTIP": "Press this button to hide / show your balance",
   "ACCOUNT_NOT_ACTIVE": "Your account is not active",
+
+  "CAMPAIGN_BANNER_TITLE": "PRATICIPATE IN THE CAMPAIGN",
+  "ZIP_CODE": "Zip Code",
+  "ERROR_LENGTH_ZIP": "The zip code must contain 5 characters",
+  "INVALID_FORM": "Form has errors",
+
+  "REC_CULTURE": "REC Cultural",
+
+  "REC_CULTURE_DATA_INFO": "To enter the REC Cultural campaign we need to know some data for statistical purposes.",
+  "CULTURE_RECHARGE_MODAL_TITLE": "YOU WILL RECEIVE {{percent}}% MORE IN CULTURAL RECS IN THIS RECHARGE",
+  "CULTURE_RECHARGE_MODAL_DESC": "You have changed {{spent}} cultural Rs. Remember that the limit with the right to a bonus is {{max}} R.",
+  "CULTURE_RECHARGE_MODAL_MAX_TITLE": "YOU HAVE ALREADY REACHED THE CAMPAIGN BONUS LIMIT",
+  "CULTURE_RECHARGE_MODAL_MAX_DESC": "You can continue using the account but you will not receive a bonus when you change euros to RECs.",
+
+  "ADD_CARD_IN_NEXT_SCREEN": "You will introduce the card on the next screen",
+  "SELECT_RECHARGE_HAS_CULTURE_DESC": "Select REC Cultural if you want to recharge the REC Cultural account and get {{percent}}% of the bonus",
+  "SELECT_RECHARGE_HAS_NO_CULTURE_DESC": "Select REC Cultural if you want to recharge the REC Cultural account and get {{percent}}% of the bonus",
+  "SELECT_RECHARGE_HAS_NO_CULTURE_OMIT_DESC": "If you are not interested in REC Cultural, press skip to continue with the normal recharge",
+  "CAMPAIGN_CULT21_DESC": "You will receive a {{percent}}% discount only by making changes from € uros to RECs from your REC Cultural account",
+  "CAMPAIGN_SITE": "Visit campaign site",
+  "CAMPAIGN": "Campaign",
+  "CULT21_DESC": "+{{percent}}% in each recharge € to REC",
+  "LTAB20_DESC": "+{{percent}}% in each purchase",
+
+  "LTAB_PARTICIPATE_INFO_TITLE": "RECEIVE A {{percent}}% BONUS ON RECS ON YOUR PURCHASES!",
+  "LTAB_PARTICIPATE_INFO_DESCRIPTION": "Enter the LI TOCA AL BARRI campaign by recharging at least {{min}}R (max {{min}}R) and accepting the conditions of use.",
+
+  "I_DONT_WANT_TO": "I don't want to",
+  "OMIT": "Omit",
+  "GENDER": "Gender",
+  "BIRTH_YEAR": "Birth year",
+  "male": "Male",
+  "female": "Female",
+  "non-binary": "Non binary",
+  "not-defined": "Not defined",
+  "M": "Male",
+  "F": "Female",
+  "NB": "Non binary",
+
+
+  "NO_PERMISSIONS_TO_PAY": "You cannot pay from this account, insufficient permissions",
+  "RETURN": "Return",
+  "CULTURE_PARTICIPATE_INFO_TITLE": "GET A {{percent}}% BONUS ON EVERY EXCHANGE!",
+  "CULTURE_PARTICIPATE_INFO_DESCRIPTION": "Participating in the campaign REC Cultural account will automatically be created. From this account every time you change euros to RECS Cultural, you will receive {{percent}}% more in RECS Cultural.",
+  "LOADING": "Loading...",
+  "CULT_REWARDED": "Cultural Bonus +{{percent}}%",
+  "Español": "Spanish",
+  "Ingles": "English",
+  "Catalan": "Catalan",
+
+  "Incorrect Pin": "Incorrect pin",
   "LTAB_STOP_BONIFICATION_TITLE": "We have exhausted the rewardable RECs",
   "LTAB_STOP_BONIFICATION_DESC_1": "From now on, when recharging RECs, you will not receive rewarded RECs.",
   "LTAB_STOP_BONIFICATION_DESC_2": "If you have rewarded RECs in your account LI TOCA AL BARRI make use of them before the end of the campaign"

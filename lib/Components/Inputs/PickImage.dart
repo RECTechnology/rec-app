@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/user/LimitAndVerification/UploadDocument/UploadDocument.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
 
 class PickImage extends StatefulWidget {
-  final Function(String url) onPick;
-  final Color color;
+  final Function(String url)? onPick;
+  final Color? color;
 
-  final String title;
-  final String buttonLabel;
-  final String hint;
+  final String? title;
+  final String? buttonLabel;
+  final String? hint;
 
-  final Widget child;
+  final Widget? child;
   final EdgeInsets padding;
 
   PickImage({
-    Key key,
+    Key? key,
     this.onPick,
     this.color,
     this.title,
@@ -43,7 +43,7 @@ class _PickImageState extends State<PickImage> {
     );
 
     if (link != null && widget.onPick != null) {
-      widget.onPick(link);
+      widget.onPick!(link);
     }
   }
 

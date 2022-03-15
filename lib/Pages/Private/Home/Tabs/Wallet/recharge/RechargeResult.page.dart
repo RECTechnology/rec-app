@@ -1,12 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:rec/Entities/Forms/RechargeData.dart';
-import 'package:rec/Entities/Transactions/RechargeResult.dart';
-import 'package:rec/Helpers/RecToast.dart';
-import 'package:rec/Pages/LtabCampaign/WelcomeToCampaign.dart';
+import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/RechargeKO.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/RechargeOK.page.dart';
+import 'package:rec/Pages/Private/Shared/campaigns/ltab/welcome-ltab.page.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class RechargeResultPage extends StatefulWidget {
   final String status;
@@ -17,6 +16,7 @@ class RechargeResultPage extends StatefulWidget {
     this.result,
     this.data,
     Uri uri,
+  // ignore: unnecessary_null_comparison
   )   : assert(uri != null),
         status = uri.queryParameters['status'] ?? RechargeResult.STATUS_KO;
 
@@ -41,14 +41,14 @@ class _RechargeResultPageState extends State<RechargeResultPage> {
   Widget build(BuildContext context) {
     var isOk = widget.status == RechargeResult.STATUS_OK;
     var hasEnteredCampaign =
-        widget.data != null && widget.data.willEnterCampaign;
+        widget.data.willEnterCampaign;
 
     if (isOk && hasEnteredCampaign) {
-      return WelcomeToCampaign(amount: widget.result.amount ?? 0.0);
+      return LtabWelcomePage();
     }
 
     if (isOk) {
-      return RechargeOK(amount: widget.result.amount ?? 0.0);
+      return RechargeOK(amount: widget.data.amount);
     }
 
     return RechargeKO();

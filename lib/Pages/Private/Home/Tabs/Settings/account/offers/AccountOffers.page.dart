@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Services/OffersService.dart';
 import 'package:rec/Components/Layout/ScrollableListLayout.dart';
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
 import 'package:rec/Components/ListTiles/OfferPreviewTile.dart';
@@ -7,29 +6,28 @@ import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
 import 'package:rec/Components/Modals/YesNoModal.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Entities/Offer.ent.dart';
-import 'package:rec/Entities/User.ent.dart';
-import 'package:rec/Helpers/Checks.dart';
-import 'package:rec/Helpers/Loading.dart';
-import 'package:rec/Helpers/RecToast.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/loading.dart';
+import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/account/offers/AddOffer.page.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class AccountOffersPage extends StatefulWidget {
-  AccountOffersPage({Key key}) : super(key: key);
+  AccountOffersPage({Key? key}) : super(key: key);
 
   @override
   _AccountOffersPageState createState() => _AccountOffersPageState();
 }
 
 class _AccountOffersPageState extends State<AccountOffersPage> {
-  final _offerService = OffersService();
+  final _offerService = OffersService(env: env);
 
   @override
   Widget build(BuildContext context) {
     var userState = UserState.of(context);
-    var offers = userState.account.offers;
+    var offers = userState.account!.offers;
 
     return ScrollableListLayout(
       appBar: EmptyAppBar(
@@ -54,7 +52,7 @@ class _AccountOffersPageState extends State<AccountOffersPage> {
             child: LocalizedText('NO_OFFERS'),
           ),
         if (Checks.isNotEmpty(offers))
-          ...offers.map(
+          ...offers!.map(
             (offer) => Padding(
               padding: const EdgeInsets.all(8.0),
               child: OfferPreviewTile(

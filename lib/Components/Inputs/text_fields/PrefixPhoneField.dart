@@ -1,22 +1,22 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
-import 'package:rec/Helpers/validators/phone_validator.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/helpers/validators/phone_validator.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/config/brand.dart';
 
 class PrefixPhoneField extends StatefulWidget {
-  final String prefix;
-  final String phone;
+  final String? prefix;
+  final String? phone;
 
-  final ValueChanged<String> phoneChange;
-  final ValueChanged<String> prefixChange;
-  final FormFieldValidator<String> phoneValidator;
+  final ValueChanged<String>? phoneChange;
+  final ValueChanged<String>? prefixChange;
+  final FormFieldValidator<String>? phoneValidator;
 
   final Color color;
 
   const PrefixPhoneField({
-    Key key,
+    Key? key,
     this.prefix,
     this.phone,
     this.phoneChange,
@@ -36,7 +36,7 @@ class PrefixPhoneFieldState extends State<PrefixPhoneField> {
 
   @override
   void initState() {
-    phoneValidator.setPrefix(widget.prefix);
+    phoneValidator.setPrefix(widget.prefix!);
     super.initState();
   }
 
@@ -51,7 +51,7 @@ class PrefixPhoneFieldState extends State<PrefixPhoneField> {
         Container(
           alignment: Alignment.centerLeft,
           child: Text(
-            localizations.translate('TELEFONO'),
+            localizations!.translate('TELEFONO'),
             style: TextStyle(color: Colors.black, fontSize: 12),
           ),
         ),
@@ -68,7 +68,7 @@ class PrefixPhoneFieldState extends State<PrefixPhoneField> {
                   // NOTE: This is temporal  so  we only allow spanish numbers,
                   // and it might change in the future.
                   enabled: false,
-                  initialSelection: widget.prefix != null ? '${widget.prefix}' : '+34',
+                  initialSelection: widget.prefix ?? '+34',
                   favorite: ['+34', 'ES'],
                   textStyle: TextStyle(fontSize: 16, color: Brand.grayDark),
                 ),
@@ -92,7 +92,7 @@ class PrefixPhoneFieldState extends State<PrefixPhoneField> {
                     var validationResult = phoneValidator.validate(value);
                     if (validationResult != null) return validationResult;
 
-                    return widget.phoneValidator != null ? widget.phoneValidator(value) : null;
+                    return widget.phoneValidator != null ? widget.phoneValidator!(value) : null;
                   },
                   initialValue: widget.phone,
                   maxLines: 1,
@@ -108,14 +108,14 @@ class PrefixPhoneFieldState extends State<PrefixPhoneField> {
 
   void setPhone(String phone) {
     if (widget.phoneChange != null) {
-      widget.phoneChange(phone.trim());
+      widget.phoneChange!(phone.trim());
     }
   }
 
   void setPrefix(CountryCode prefix) {
     phoneValidator.setPrefix(prefix.toString());
     if (widget.prefixChange != null) {
-      widget.prefixChange(prefix.toString().trim());
+      widget.prefixChange!(prefix.toString().trim());
     }
   }
 }

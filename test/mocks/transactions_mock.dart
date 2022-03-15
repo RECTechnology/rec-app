@@ -1,4 +1,4 @@
-import 'package:rec/Entities/Transactions/Transaction.ent.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class TransactionMock {
   static Transaction transactionIn = Transaction.fromJson({
@@ -10,6 +10,8 @@ class TransactionMock {
     'pay_in_info': {
       'concept': 'test',
       'name_sender': 'test',
+      'amount': 1000,
+      'received': 1000,
     },
   });
   static Transaction transactionOut = Transaction.fromJson({
@@ -21,6 +23,7 @@ class TransactionMock {
     'pay_out_info': {
       'concept': 'test',
       'name_receiver': 'test',
+      'amount': 1000,
     },
   });
   static Transaction transactionRecharge = Transaction.fromJson({
@@ -33,6 +36,8 @@ class TransactionMock {
       // this concept is what identifies a transaction as a recharge
       'concept': 'Internal exchange',
       'name_sender': 'test',
+      'amount': 1000,
+      'received': 1000,
     },
   });
 }

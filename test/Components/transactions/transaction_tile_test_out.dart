@@ -23,7 +23,7 @@ void main() {
 
     TestUtils.widgetExists(txListTile);
     TestUtils.isTextPresent(
-      TransactionMock.transactionOut.payOutInfo.name,
+      TransactionMock.transactionOut.payOutInfo!.name!,
     );
   });
 }

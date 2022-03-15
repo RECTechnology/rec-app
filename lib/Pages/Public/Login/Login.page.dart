@@ -1,28 +1,28 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:rec/Api/HandledErrors.dart';
-import 'package:rec/Api/Services/public/LoginService.dart';
 import 'package:rec/Components/Forms/Login.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/RecHeader.dart';
-
-import 'package:rec/Entities/Forms/LoginData.dart';
-import 'package:rec/Helpers/Loading.dart';
-import 'package:rec/Helpers/RecToast.dart';
-import 'package:rec/Pages/Public/ForgotPassword.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/Pages/Public/forgot_password.dart';
 import 'package:rec/Pages/Public/MustUpdate.dart';
-import 'package:rec/Pages/Public/ValidatePhone.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Providers/AppState.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/Styles/Paddings.dart';
-import 'package:rec/routes.dart';
+import 'package:rec/Pages/Public/validate_phone.dart';
+import 'package:rec/config/routes.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/RecToast.dart';
+import 'package:rec/helpers/loading.dart';
+import 'package:rec/providers/AppState.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/styles/paddings.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class LoginPage extends StatefulWidget {
-  final Function onLogin;
-  final String dni;
+  final Function? onLogin;
+  final String? dni;
 
   const LoginPage({
-    Key key,
+    Key? key,
     this.onLogin,
     this.dni,
   }) : super(key: key);
@@ -33,7 +33,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   LoginData loginData = LoginData();
-  LoginService loginService = LoginService();
+  LoginService loginService = LoginService(env: env);
 
   final _formKey = GlobalKey<FormState>();
   final _loginFormKey = GlobalKey<LoginFormState>();
@@ -41,12 +41,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     var userState = UserState.of(context);
-    var localizations = AppLocalizations.of(context);
     var savedUser = userState.savedUser;
     var hasSavedUser = userState.hasSavedUser();
 
     if (hasSavedUser) {
-      _loginFormKey.currentState?.setUsername(savedUser.username);
+      _loginFormKey.currentState?.setUsername(savedUser!.username);
     }
     if (widget.dni != null) {
       loginData.username = widget.dni;
@@ -87,8 +86,8 @@ class _LoginPageState extends State<LoginPage> {
                         (!hasSavedUser)
                             ? Padding(
                                 padding: EdgeInsets.fromLTRB(0, 60, 0, 16),
-                                child: Text(
-                                  localizations.translate('NOT_REGISTRED'),
+                                child: LocalizedText(
+                                  'NOT_REGISTRED',
                                   style: Theme.of(context).textTheme.bodyText2,
                                 ),
                               )
@@ -107,15 +106,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _forgotPassLink() {
-    var localizations = AppLocalizations.of(context);
     return InkWell(
       onTap: _goToForgotPassword,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Container(
           alignment: Alignment.topRight,
-          child: Text(
-            localizations.translate('FORGOT_PASSWORD'),
+          child: LocalizedText(
+            'FORGOT_PASSWORD',
             style: Theme.of(context).textTheme.subtitle2,
           ),
         ),
@@ -145,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _loginButtonPressed() async {
-    if (!_formKey.currentState.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
 
     FocusScope.of(context).requestFocus(FocusNode());
 
@@ -153,15 +151,18 @@ class _LoginPageState extends State<LoginPage> {
     loginData.version = appState.versionInt;
 
     await Loading.show();
-    await loginService.login(loginData).then(_onLoginSuccess).catchError(_onLoginError);
+    await loginService
+        .login(loginData, platform: Platform.operatingSystem)
+        .then(_onLoginSuccess)
+        .catchError(_onLoginError);
   }
 
   dynamic _onLoginSuccess(response) {
     Loading.dismiss();
 
-    if (widget.onLogin != null) return widget.onLogin();
+    if (widget.onLogin != null) return widget.onLogin!();
 
-    Navigator.of(context).pushReplacementNamed(Routes.home);
+    Navigator.of(context).pushReplacementNamed(Routes.init);
   }
 
   dynamic _onLoginError(error) {
@@ -186,10 +187,11 @@ class _LoginPageState extends State<LoginPage> {
     if (error.message == HandledErrors.maxAttempstExceeded) {
       RecToast.showError(context, 'MAX_ATTEMPTS_EXCEEDED');
     }
+
     if (error.message == HandledErrors.accountNotActive) {
       RecToast.showError(context, 'ACCOUNT_NOT_ACTIVE');
-    } else {
-      RecToast.showError(context, error.message);
     }
+
+    RecToast.showError(context, error.message);
   }
 }

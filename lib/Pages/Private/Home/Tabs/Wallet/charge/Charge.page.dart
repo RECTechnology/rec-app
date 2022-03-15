@@ -6,18 +6,18 @@ import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/LinkText.dart';
 import 'package:rec/Components/Wallet/UserBalance.dart';
-import 'package:rec/Entities/Forms/PaymentData.dart';
-import 'package:rec/Environments/env.dart';
-import 'package:rec/Helpers/Deeplinking.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/Deeplinking.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/charge/ChargeQr.page.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 import 'package:share/share.dart';
 
 class ChargePage extends StatefulWidget {
   const ChargePage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -36,11 +36,11 @@ class _ChargePageState extends State<ChargePage> {
       var localizations = AppLocalizations.of(context);
       var userState = UserState.of(context);
 
-      paymentData.address = userState.account.recAddress;
-      paymentData.concept = localizations.translate(
+      paymentData.address = userState.account!.recAddress;
+      paymentData.concept = localizations!.translate(
         'PAY_TO_NAME',
         params: {
-          'name': userState.account.name,
+          'name': userState.account!.name,
         },
       );
     }
@@ -50,7 +50,7 @@ class _ChargePageState extends State<ChargePage> {
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
     var userState = UserState.of(context);
-    var color = Brand.getColorForAccount(userState.account);
+    var color = Brand.getColorForAccount(userState.account as Account);
 
     var appBar = PrivateAppBar(
       hasBackArrow: true,
@@ -78,7 +78,7 @@ class _ChargePageState extends State<ChargePage> {
               Icon(Icons.share, size: 16, color: color),
               const SizedBox(width: 8),
               LinkText(
-                localizations.translate('SHARE_PAY_LINK'),
+                localizations!.translate('SHARE_PAY_LINK'),
                 color: color,
                 onTap: () {
                   var payUrl = DeepLinking.constructPayUrl(
@@ -88,7 +88,7 @@ class _ChargePageState extends State<ChargePage> {
                   var payText = localizations.translate(
                     'PAYMENT_SHARE_MESSAGE',
                     params: {
-                      'account': userState.account.name,
+                      'account': userState.account!.name,
                       'concept': paymentData.concept,
                       'amount': paymentData.amount,
                       'link': payUrl,
@@ -137,19 +137,16 @@ class _ChargePageState extends State<ChargePage> {
   }
 
   bool _isFormValid() {
-    return paymentData.concept != null &&
-        paymentData.concept.isNotEmpty &&
-        paymentData.amount != null &&
-        paymentData.amount > 0;
+    return paymentData.concept.isNotEmpty && paymentData.amount != null && paymentData.amount! > 0;
   }
 
   void _proceedWithPayment() {
-    if (!_formKey.currentState.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
 
     FocusScope.of(context).requestFocus(FocusNode());
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (c) => ChargeQr(paymentData),
+        builder: (c) => ChargeQrPage(paymentData),
       ),
     );
   }

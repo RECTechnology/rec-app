@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Entities/Transactions/Transaction.ent.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class TransactionAmount extends StatefulWidget {
   final Transaction tx;
@@ -8,7 +8,7 @@ class TransactionAmount extends StatefulWidget {
 
   const TransactionAmount(
     this.tx, {
-    Key key,
+    Key? key,
     this.fontSize = 14,
   }) : super(key: key);
 

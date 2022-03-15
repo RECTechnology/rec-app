@@ -1,18 +1,17 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
-import 'package:rec/Entities/Transactions/Currency.ent.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Styles/TextStyles.dart';
-import 'package:rec/routes.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/assets.dart';
+import 'package:rec/styles/text_styles.dart';
+import 'package:rec/config/routes.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class RechargeOK extends StatefulWidget {
   final double amount;
 
   const RechargeOK({
-    Key key,
-    @required this.amount,
+    Key? key,
+    required this.amount,
   }) : super(key: key);
 
   @override
@@ -37,8 +36,6 @@ class _RechargeOKState extends State<RechargeOK> {
   }
 
   Widget _body() {
-    var localizations = AppLocalizations.of(context);
-
     return Padding(
       padding: EdgeInsets.fromLTRB(32, 84, 32, 32),
       child: Column(
@@ -48,20 +45,21 @@ class _RechargeOKState extends State<RechargeOK> {
           Column(
             children: [
               Center(
-                child: Text(
-                  localizations.translate('RECHARGE_OK', params: {
+                child: LocalizedText(
+                  'RECHARGE_OK',
+                  params: {
                     'amount': Currency.format(
-                      widget.amount / pow(10, Currency.eur.scale),
+                      widget.amount,
                     ),
-                  }),
+                  },
                   style: TextStyles.pageTitle,
                   textAlign: TextAlign.center,
                 ),
               ),
               SizedBox(height: 32),
               Center(
-                child: Text(
-                  localizations.translate('RECHARGE_OK_DESC'),
+                child: LocalizedText(
+                  'RECHARGE_OK_DESC',
                   style: TextStyles.pageSubtitle1,
                   textAlign: TextAlign.center,
                 ),
@@ -69,10 +67,10 @@ class _RechargeOKState extends State<RechargeOK> {
             ],
           ),
           Center(
-            child: Image.asset('assets/recharge-ok.png'),
+            child: Image.asset(Assets.rechargeOk),
           ),
           RecActionButton(
-            label: localizations.translate('ALRIGHT'),
+            label: 'ALRIGHT',
             onPressed: _popBackHome,
           )
         ],

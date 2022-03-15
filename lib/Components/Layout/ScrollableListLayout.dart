@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Lists/ScrollableList.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
 
 class ScrollableListLayout extends StatelessWidget {
-  final List<Widget> children;
-  final Widget appBar;
-  final Widget header;
+  final List<Widget>? children;
+  final Widget? appBar;
+  final Widget? header;
   final bool separated;
-  final ScrollPhysics physics;
+  final ScrollPhysics? physics;
   final Color backgroundColor;
 
   final defaultAppBar = PrivateAppBar(
@@ -18,7 +18,7 @@ class ScrollableListLayout extends StatelessWidget {
   );
 
   ScrollableListLayout({
-    Key key,
+    Key? key,
     this.children = const <Widget>[],
     this.separated = false,
     this.appBar,
@@ -39,7 +39,7 @@ class ScrollableListLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
-      appBar: appBar ?? defaultAppBar,
+      appBar: appBar as PreferredSizeWidget? ?? defaultAppBar,
       body: ScrollableList(
         header: header,
         separated: separated,

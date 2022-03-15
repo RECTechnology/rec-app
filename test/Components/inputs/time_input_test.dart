@@ -6,7 +6,7 @@ import '../../test_utils.dart';
 
 void main() {
   testWidgets('TimeInput initiates', (WidgetTester tester) async {
-    String onChangedResult;
+    String? onChangedResult;
     var timeOfDay = TimeOfDay(
       hour: 10,
       minute: 0,

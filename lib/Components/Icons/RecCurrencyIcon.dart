@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:rec/config/assets.dart';
 
 class RecCurrencyIcon extends StatelessWidget {
-  final String iconAssetName = 'assets/custom-icons/rec-currency-symbol.svg';
-  final Color color;
+  final String iconAssetName = Assets.recCurrency;
+  final Color? color;
   final double size;
 
   const RecCurrencyIcon({
-    Key key,
+    Key? key,
     this.color = Colors.white,
     this.size = 24,
   }) : super(key: key);

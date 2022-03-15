@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/CifTextField.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
-import 'package:rec/Entities/Forms/RegisterData.dart';
-import 'package:rec/Helpers/validators/validators.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/helpers/validators/validators.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class RegisterStepTwoForm extends StatefulWidget {
-  final GlobalKey<FormState> formKey;
-  final ValueChanged<RegisterData> onChange;
-  final RegisterData registerData;
+  final GlobalKey<FormState>? formKey;
+  final ValueChanged<RegisterData>? onChange;
+  final RegisterData? registerData;
 
   const RegisterStepTwoForm({
-    Key key,
+    Key? key,
     this.formKey,
     this.onChange,
     this.registerData,
@@ -36,9 +36,9 @@ class RegisterStepOneFoTwotate extends State<RegisterStepTwoForm> {
             margin: EdgeInsets.only(top: 40, bottom: 8),
             child: RecTextField(
               capitalizeMode: TextCapitalization.sentences,
-              initialValue: widget.registerData.companyName,
+              initialValue: widget.registerData!.companyName,
               needObscureText: false,
-              placeholder: localizations.translate('NAME'),
+              placeholder: localizations!.translate('NAME'),
               keyboardType: TextInputType.text,
               label: localizations.translate('NAME'),
               icon: Icon(
@@ -52,11 +52,11 @@ class RegisterStepOneFoTwotate extends State<RegisterStepTwoForm> {
           Container(
             margin: EdgeInsets.only(bottom: 16),
             child: CifTextField(
-              initialValue: widget.registerData.companyCif,
+              initialValue: widget.registerData!.companyCif,
               onChange: setCIF,
               validator: (cif) {
-                if (widget.registerData.hasError('cif')) {
-                  return widget.registerData.getError('cif');
+                if (widget.registerData!.hasError('cif')) {
+                  return widget.registerData!.getError('cif');
                 }
                 return Validators.validateCif(cif);
               },
@@ -69,15 +69,15 @@ class RegisterStepOneFoTwotate extends State<RegisterStepTwoForm> {
 
   void setCompanyName(String companyName) {
     setState(() {
-      widget.registerData.companyName = companyName;
-      widget.registerData.clearError('companyName');
+      widget.registerData!.companyName = companyName;
+      widget.registerData!.clearError('companyName');
     });
   }
 
-  void setCIF(String cif) {
+  void setCIF(String? cif) {
     setState(() {
-      widget.registerData.companyCif = cif;
-      widget.registerData.clearError('companyName');
+      widget.registerData!.companyCif = cif;
+      widget.registerData!.clearError('companyName');
     });
   }
 }

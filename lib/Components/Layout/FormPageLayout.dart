@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Styles/Paddings.dart';
+import 'package:rec/styles/paddings.dart';
 
 class FormPageLayout extends StatefulWidget {
-  final PreferredSizeWidget appBar;
+  final PreferredSizeWidget? appBar;
   final Widget form;
-  final Widget header;
+  final Widget? header;
   final Widget submitButton;
-  final Widget actionButton;
+  final Widget? actionButton;
 
   FormPageLayout({
-    Key key,
-    @required this.form,
-    @required this.submitButton,
+    Key? key,
+    required this.form,
+    required this.submitButton,
     this.appBar,
     this.actionButton,
     this.header,

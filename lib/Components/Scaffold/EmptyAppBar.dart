@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/brand.dart';
 
-Widget EmptyAppBar(
+AppBar EmptyAppBar(
   BuildContext context, {
   bool backArrow = true,
   bool crossX = false,
-  String title,
-  Text titleText,
-  List<Widget> actions,
+  String? title,
+  Text? titleText,
+  List<Widget>? actions,
   Color backgroundColor = Colors.white,
-  VoidCallback backAction,
-  VoidCallback closeAction,
+  VoidCallback? backAction,
+  VoidCallback? closeAction,
 }) {
-  var localizations = AppLocalizations.of(context);
   var titleWidget = titleText ??
       (title != null
-          ? Text(
-              localizations.translate(title),
+          ? LocalizedText(
+              title,
               style: TextStyle(color: Brand.grayDark),
             )
           : null);

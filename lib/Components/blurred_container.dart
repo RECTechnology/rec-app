@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class Blurred extends StatelessWidget {
   const Blurred({
-    Key key,
+    Key? key,
     this.child,
     this.sigmaX = 10,
     this.sigmaY = 2,
@@ -15,17 +15,17 @@ class Blurred extends StatelessWidget {
     this.child,
     this.sigmaX = 10,
     this.sigmaY = 2,
-    @required this.blur,
+    required this.blur,
   });
 
   final double sigmaX;
   final double sigmaY;
-  final Widget child;
+  final Widget? child;
   final bool blur;
 
   @override
   Widget build(BuildContext context) {
-    if (!blur) return child;
+    if (!blur) return child!;
 
     return ImageFiltered(
       imageFilter: ImageFilter.blur(sigmaX: sigmaX, sigmaY: sigmaY),

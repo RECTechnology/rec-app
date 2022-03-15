@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Styles/Paddings.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/styles/paddings.dart';
+import 'package:rec/config/brand.dart';
 
 class RecFilterButton extends StatefulWidget {
   final bool disabled;
   final String label;
-  final IconData icon;
+  final IconData? icon;
   final EdgeInsets padding;
   final EdgeInsets margin;
-  final Function() onPressed;
+  final Function()? onPressed;
   final Color backgroundColor;
   final Color textColor;
-  final Color iconColor;
+  final Color? iconColor;
   final double borderRadius;
 
   const RecFilterButton({
-    Key key,
+    Key? key,
     this.onPressed,
-    this.label,
+    required this.label,
     this.icon,
     this.padding = Paddings.filterButton,
     this.margin = EdgeInsets.zero,

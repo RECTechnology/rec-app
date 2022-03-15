@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Api/HandledErrors.dart';
-import 'package:rec/Api/Services/public/UnlockUserService.dart';
 import 'package:rec/Components/Forms/UnlockUserForm.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Layout/FormPageLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
-import 'package:rec/Entities/Forms/UnlockUserData.dart';
-import 'package:rec/Environments/env.dart';
-import 'package:rec/Helpers/Loading.dart';
-import 'package:rec/Helpers/RecToast.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/loading.dart';
+import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Public/Login/Login.page.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class UnlockUserPage extends StatefulWidget {
   /// Handles onGenerateRoute,
@@ -27,7 +25,7 @@ class UnlockUserPage extends StatefulWidget {
     );
   }
 
-  final String sms;
+  final String? sms;
 
   UnlockUserPage({this.sms = ''});
 
@@ -37,8 +35,8 @@ class UnlockUserPage extends StatefulWidget {
 
 class _UnlockUserPageState extends State<UnlockUserPage> {
   final _formKey = GlobalKey<FormState>();
-  final _userService = UnlockUserService();
-  UnlockUserData data;
+  final _userService = UnlockUserService(env: env);
+  late UnlockUserData data;
 
   @override
   void initState() {
@@ -79,19 +77,16 @@ class _UnlockUserPageState extends State<UnlockUserPage> {
       formKey: _formKey,
       data: data,
       onChange: (data) {
-        this.data = data;
+        if (data != null) this.data = data;
       },
     );
   }
 
   void _next() async {
-    if (!_formKey.currentState.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
 
     await Loading.show();
-    await _userService
-        .unlockUser(data)
-        .then(_unlockUserOk)
-        .onError(_unlockUserError);
+    await _userService.unlockUser(data).then(_unlockUserOk).onError(_unlockUserError);
   }
 
   void _unlockUserOk(value) {

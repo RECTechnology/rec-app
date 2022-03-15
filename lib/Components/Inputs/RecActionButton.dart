@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Styles/Paddings.dart';
+import 'package:rec/styles/paddings.dart';
 
 class RecActionButton extends StatefulWidget {
   final bool disabled;
-  final String label;
-  final IconData icon;
+  final String? label;
+  final IconData? icon;
   final EdgeInsets padding;
-  final Function() onPressed;
-  final Color backgroundColor;
+  final Function()? onPressed;
+  final Color? backgroundColor;
 
   const RecActionButton({
-    Key key,
+    Key? key,
     this.onPressed,
     this.label,
     this.icon,
@@ -46,7 +46,7 @@ class _RecActionButton extends State<RecActionButton> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(),
-              LocalizedText(widget.label),
+              LocalizedText(widget.label ?? ''),
               widget.icon != null
                   ? Padding(
                       padding: const EdgeInsets.only(right: 16.0, top: 2),

@@ -2,33 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rec/Components/GrayBox.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Helpers/Checks.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 /// Shows an input to select a [TimeOfDay]
 class TimeInput extends StatelessWidget {
   final format = DateFormat('H:mm');
 
-  final String helpText;
-  final String value;
+  final String? helpText;
+  final String? value;
   final ValueChanged<String> onChange;
   final bool closed;
-  final TimeOfDay intialTime;
+  final TimeOfDay? intialTime;
 
   /// Function to override default [showTimePicker], mostly for testing purposes
-  final Future<TimeOfDay> Function(BuildContext context) getTime;
+  final Future<TimeOfDay> Function(BuildContext context)? getTime;
 
   TimeInput({
-    Key key,
-    @required this.value,
-    @required this.onChange,
+    Key? key,
+    required this.value,
+    required this.onChange,
     this.helpText,
     this.closed = false,
     this.getTime,
     this.intialTime,
   }) : super(key: key);
 
-  Future<TimeOfDay> _openDatePicker(BuildContext context) {
-    if (getTime != null) return getTime(context);
+  Future<TimeOfDay?> _openDatePicker(BuildContext context) {
+    if (getTime != null) return getTime!(context);
 
     return showTimePicker(
       initialTime: _getTimeOfDay(),
@@ -40,7 +40,7 @@ class TimeInput extends StatelessWidget {
   TimeOfDay _getTimeOfDay() {
     var timeOfDay = TimeOfDay.now();
     if (Checks.isNotEmpty(value)) {
-      timeOfDay = TimeOfDay.fromDateTime(format.parse(value));
+      timeOfDay = TimeOfDay.fromDateTime(format.parse(value!));
     }
 
     return intialTime ?? timeOfDay;
@@ -63,7 +63,7 @@ class TimeInput extends StatelessWidget {
           child: FittedBox(
             fit: BoxFit.scaleDown,
             child: LocalizedText(
-              (closed || value == null) ? 'CLOSED' : value,
+              ((closed || value == null) ? 'CLOSED' : value) ?? '',
               textAlign: TextAlign.center,
             ),
           ),

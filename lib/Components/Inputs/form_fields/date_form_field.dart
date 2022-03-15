@@ -4,10 +4,10 @@ import 'package:rec/Components/Text/LocalizedText.dart';
 
 class DateFormField extends FormField<String> {
   DateFormField({
-    FormFieldSetter<String> onChange,
-    FormFieldSetter<String> onSaved,
-    FormFieldValidator<String> validator,
-    String initialValue,
+    FormFieldSetter<String>? onChange,
+    FormFieldSetter<String>? onSaved,
+    FormFieldValidator<String>? validator,
+    String? initialValue,
     String label = '',
     AutovalidateMode autovalidateMode = AutovalidateMode.disabled,
   }) : super(
@@ -31,7 +31,7 @@ class DateFormField extends FormField<String> {
                     ? Padding(
                         padding: const EdgeInsets.only(bottom: 16.0),
                         child: LocalizedText(
-                          state.errorText,
+                          state.errorText ?? '',
                           style: TextStyle(color: Colors.red),
                         ),
                       )

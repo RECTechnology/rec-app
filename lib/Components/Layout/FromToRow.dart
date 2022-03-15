@@ -5,9 +5,9 @@ class FromToRow extends StatefulWidget {
   final Widget to;
 
   const FromToRow({
-    Key key,
-    @required this.from,
-    @required this.to,
+    Key? key,
+    required this.from,
+    required this.to,
   }) : super(key: key);
 
   @override

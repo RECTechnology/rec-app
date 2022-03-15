@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Services/wallet/ExchangersService.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Entities/Transactions/RechargeResult.dart';
-import 'package:rec/Helpers/RecToast.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/LemonWayPaymentWebView.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/RechargeKO.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/RechargeOK.page.dart';
-import 'package:rec/Api/Services/wallet/RechargeService.dart';
 import 'package:rec/Components/Indicators/LoadingIndicator.dart';
-import 'package:rec/Entities/Forms/RechargeData.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/routes.dart';
+import 'package:rec/config/routes.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class AttemptRecharge extends StatefulWidget {
   final RechargeData data;
 
   const AttemptRecharge({
-    Key key,
-    @required this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   @override
@@ -39,8 +36,7 @@ class AttemptRecharge extends StatefulWidget {
 }
 
 class _AttemptRecharge extends State<AttemptRecharge> {
-  RechargeService rechargeService = RechargeService();
-  ExchangersService exchangersService = ExchangersService();
+  RechargeService rechargeService = RechargeService(env: env);
 
   bool finishedOk = false;
   bool isLoading = true;
@@ -48,20 +44,21 @@ class _AttemptRecharge extends State<AttemptRecharge> {
   @override
   void initState() {
     super.initState();
-    exchangersService
-        .getRandom()
-        .then(
-          (commerce) => widget.data.commerceId = commerce.id,
-        )
-        .then((c) => attemptRecharge());
+    attemptRecharge();
   }
 
-  Future<Null> attemptRecharge() {
-    var localizations = AppLocalizations.of(context);
-
+  Future<void> attemptRecharge() {
     return rechargeService.recharge(widget.data).then(
       (value) {
-        if (value.payInInfo != null && value.payInInfo.paymentUrl != null) {
+        if (value.status == 'failed') {
+          setState(() {
+            isLoading = false;
+            finishedOk = false;
+          });
+          return;
+        }
+
+        if (value.payInInfo != null && value.payInInfo!.paymentUrl != null) {
           launchPaymentUrl(value);
           return;
         }
@@ -73,12 +70,11 @@ class _AttemptRecharge extends State<AttemptRecharge> {
       },
     ).catchError(
       (error) {
-        // Hacky check, if error with pin, go back a page
-        var errorMessage = localizations.translate(error.message);
-        RecToast.showError(context, errorMessage);
+        RecToast.showError(context, error.message);
 
         if (error.message == 'Incorrect Pin') {
-          return Navigator.of(context).pop(errorMessage);
+          Navigator.of(context).pop(error.message);
+          return;
         }
 
         // Otherwise, show error
@@ -94,7 +90,7 @@ class _AttemptRecharge extends State<AttemptRecharge> {
     await Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
         builder: (ctx) => LemonWayPaymentWebView(
-          url: rechargeResult.payInInfo.paymentUrl,
+          url: rechargeResult.payInInfo!.paymentUrl,
           rechargeResult: rechargeResult,
           rechargeData: widget.data,
         ),

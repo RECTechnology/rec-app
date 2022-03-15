@@ -3,9 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:rec/Components/Layout/ScrollableListLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
-import 'package:rec/Helpers/RecNavigation.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/routes.dart';
+import 'package:rec/helpers/RecNavigation.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/config/routes.dart';
 
 class GeneralSettingsPage extends StatelessWidget {
   @override
@@ -16,7 +16,7 @@ class GeneralSettingsPage extends StatelessWidget {
       appBar: EmptyAppBar(context, title: 'GENERAL_SETTINGS'),
       children: [
         GeneralSettingsTile(
-          title: localization.getLocaleNameByLocaleId(
+          title: localization!.getLocaleNameByLocaleId(
             localization.locale.languageCode,
           ),
           subtitle: localization.translate('MAIN_LANGUAGE'),

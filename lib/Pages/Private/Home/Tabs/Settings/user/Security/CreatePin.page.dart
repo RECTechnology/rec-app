@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
-import 'package:rec/Entities/Forms/ChangePinData.dart';
-import 'package:rec/Helpers/RecToast.dart';
+import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Shared/CreatePin.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/routes.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/config/routes.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class CreatePinPage extends StatefulWidget {
   @override
@@ -26,7 +26,7 @@ class _CreatePinPageState extends State<CreatePinPage> {
             buttonWithArrow: false,
             ifPin: (String pin) {
               var userState = UserState.of(context, listen: false);
-              userState.setUser(userState.user..hasPin = true);
+              userState.setUser(userState.user!..hasPin = true);
 
               RecToast.showSuccess(context, 'CREATED_PIN_OK');
               Navigator.of(context).pushReplacementNamed(Routes.home);

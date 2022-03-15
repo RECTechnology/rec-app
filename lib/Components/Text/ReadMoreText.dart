@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
 
 enum TrimMode {
   Length,
@@ -9,27 +9,27 @@ enum TrimMode {
 
 class ReadMoreText extends StatefulWidget {
   final String delimiter;
-  final String data;
+  final String? data;
   final String trimExpandedText;
   final String trimCollapsedText;
-  final Color colorClickableText;
+  final Color? colorClickableText;
   final int trimLength;
   final int trimLines;
   final TrimMode trimMode;
   final TextStyle style;
-  final TextAlign textAlign;
-  final TextDirection textDirection;
-  final Locale locale;
-  final double textScaleFactor;
-  final String semanticsLabel;
-  final TextStyle moreStyle;
-  final TextStyle lessStyle;
-  final TextStyle delimiterStyle;
-  final Function(bool val) callback;
+  final TextAlign? textAlign;
+  final TextDirection? textDirection;
+  final Locale? locale;
+  final double? textScaleFactor;
+  final String? semanticsLabel;
+  final TextStyle? moreStyle;
+  final TextStyle? lessStyle;
+  final TextStyle? delimiterStyle;
+  final Function(bool val)? callback;
 
   const ReadMoreText({
     this.data,
-    Key key,
+    Key? key,
     this.trimExpandedText = 'show less',
     this.trimCollapsedText = 'read more',
     this.colorClickableText = Brand.grayDark,
@@ -86,7 +86,7 @@ class ReadMoreTextState extends State<ReadMoreText> {
   Widget build(BuildContext context) {
     final defaultTextStyle = DefaultTextStyle.of(context);
     var effectiveTextStyle = widget.style;
-    if (widget.style?.inherit ?? false) {
+    if (widget.style.inherit) {
       effectiveTextStyle = defaultTextStyle.style.merge(widget.style);
     }
 
@@ -102,9 +102,9 @@ class ReadMoreTextState extends State<ReadMoreText> {
         // ignore: deprecated_member_use
         widget.colorClickableText ?? Theme.of(context).accentColor;
     final _defaultLessStyle = widget.lessStyle ??
-        effectiveTextStyle?.copyWith(color: colorClickableText);
+        effectiveTextStyle.copyWith(color: colorClickableText);
     final _defaultMoreStyle = widget.moreStyle ??
-        effectiveTextStyle?.copyWith(color: colorClickableText);
+        effectiveTextStyle.copyWith(color: colorClickableText);
     final _defaultDelimiterStyle = widget.delimiterStyle ?? effectiveTextStyle;
 
     var link = TextSpan(
@@ -172,14 +172,14 @@ class ReadMoreTextState extends State<ReadMoreText> {
           linkLongerThanLine = true;
         }
 
-        var textSpan;
+        TextSpan textSpan;
         switch (widget.trimMode) {
           case TrimMode.Length:
-            if (widget.trimLength < widget.data.length) {
+            if (widget.trimLength < widget.data!.length) {
               textSpan = TextSpan(
                 style: effectiveTextStyle,
                 text: _readMore
-                    ? widget.data.substring(0, widget.trimLength)
+                    ? widget.data!.substring(0, widget.trimLength)
                     : widget.data,
                 children: <TextSpan>[_delimiter, link],
               );
@@ -195,7 +195,7 @@ class ReadMoreTextState extends State<ReadMoreText> {
               textSpan = TextSpan(
                 style: effectiveTextStyle,
                 text: _readMore
-                    ? widget.data.substring(0, endIndex) +
+                    ? widget.data!.substring(0, endIndex) +
                         (linkLongerThanLine ? _kLineSeparator : '')
                     : widget.data,
                 children: <TextSpan>[_delimiter, link],

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/RequestPermission.dart';
-import 'package:rec/Permissions/permission_data.dart';
+import 'package:rec/permissions/permission_data.dart';
 
 class AskForPermission extends StatefulWidget {
-  final Function() onAccept;
-  final Function() onDecline;
+  final Function()? onAccept;
+  final Function()? onDecline;
   final PermissionData permission;
 
   const AskForPermission({
-    Key key,
-    @required this.permission,
+    Key? key,
+    required this.permission,
     this.onAccept,
     this.onDecline,
   }) : super(key: key);
@@ -24,8 +24,8 @@ class _AskForPermission extends State<AskForPermission> {
     return Scaffold(
       body: RequestPermission(
         permission: widget.permission,
-        onAccept: widget.onAccept,
-        onDecline: widget.onDecline,
+        onAccept: widget.onAccept!,
+        onDecline: widget.onDecline!,
       ),
     );
   }

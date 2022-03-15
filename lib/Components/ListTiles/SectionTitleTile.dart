@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
 
 class SectionTitleTile extends StatelessWidget {
   final Color textColor;
@@ -9,14 +9,14 @@ class SectionTitleTile extends StatelessWidget {
 
   const SectionTitleTile(
     this.title, {
-    Key key,
+    Key? key,
     this.textColor = Brand.primaryColor,
     this.fontWeight = FontWeight.normal,
   }) : super(key: key);
 
   const SectionTitleTile.gray(
     this.title, {
-    Key key,
+    Key? key,
     this.fontWeight = FontWeight.normal,
   }) : textColor = Brand.grayDark;
 
@@ -28,7 +28,7 @@ class SectionTitleTile extends StatelessWidget {
       tileColor: Colors.white,
       title: LocalizedText(
         title,
-        style: textTheme.subtitle1.copyWith(
+        style: textTheme.subtitle1!.copyWith(
           color: textColor,
           fontWeight: fontWeight,
         ),

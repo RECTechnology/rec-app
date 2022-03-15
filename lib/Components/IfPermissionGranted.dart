@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:rec/Components/RequestPermission.dart';
-import 'package:rec/Permissions/permission_data.dart';
+import 'package:rec/permissions/permission_data.dart';
 
 typedef PermissionChildBuilder = Function(BuildContext context);
 
@@ -11,15 +11,15 @@ typedef PermissionChildBuilder = Function(BuildContext context);
 ///
 /// You can check the docs at the [Permissions Wiki](https://github.com/QbitArtifacts/rec_app_v2/wiki/Permissions-Documentation)
 class IfPermissionGranted extends StatefulWidget {
-  final PermissionChildBuilder builder;
+  final PermissionChildBuilder? builder;
   final PermissionData permission;
   final bool canBeDeclined;
 
-  final Function onDecline;
+  final Function? onDecline;
 
   const IfPermissionGranted({
-    Key key,
-    this.permission,
+    Key? key,
+    required this.permission,
     this.builder,
     this.canBeDeclined = true,
     this.onDecline,
@@ -30,7 +30,7 @@ class IfPermissionGranted extends StatefulWidget {
 }
 
 class _IfPermissionGranted extends State<IfPermissionGranted> {
-  bool granted;
+  bool? granted;
 
   void _checkPermission() {
     // This is here to allow tests to always allow permissions
@@ -57,12 +57,12 @@ class _IfPermissionGranted extends State<IfPermissionGranted> {
     if (granted == null) return Center(child: CircularProgressIndicator());
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: granted
-          ? widget.builder(context)
+      body: granted!
+          ? widget.builder!(context)
           : RequestPermission(
               permission: widget.permission,
               onAccept: _checkPermission,
-              onDecline: widget.onDecline ?? () => Navigator.pop(context),
+              onDecline: widget.onDecline as dynamic Function()? ?? () => Navigator.pop(context),
               canBeDeclined: widget.canBeDeclined,
             ),
     );

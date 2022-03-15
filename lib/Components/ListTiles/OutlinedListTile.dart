@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Styles/BoxDecorations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec/styles/box_decorations.dart';
 
 class OutlinedListTile extends StatefulWidget {
   final List<Widget> children;
   final double height;
   final EdgeInsets padding;
-  final Function() onPressed;
+  final Function()? onPressed;
   final Color color;
   final CrossAxisAlignment alignment;
 
   const OutlinedListTile({
-    Key key,
-    @required this.children,
+    Key? key,
+    required this.children,
     this.height = 48,
     this.onPressed,
     this.padding = const EdgeInsets.symmetric(vertical: 8, horizontal: 0),

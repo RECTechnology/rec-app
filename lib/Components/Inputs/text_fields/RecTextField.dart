@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/brand.dart';
+import 'package:rec/config/brand.dart';
+import 'package:rec/providers/AppLocalizations.dart';
 
 /// [RecTextField] is the main TextField widget used in the app,
 /// independently or used in other widgets to add an extra layer, like [DniTextField]
 class RecTextField extends StatefulWidget {
   /// Text that appears below the [InputDecorator.child] and the border.
-  final String placeholder;
+  final String? placeholder;
 
   /// What keyboard type to use
   final TextInputType keyboardType;
@@ -22,23 +22,26 @@ class RecTextField extends StatefulWidget {
   /// Defines the keyboard focus for this widget.
   /// To give the keyboard focus to this widget, provide a [focusNode] and then
   /// use the current [FocusScope] to request the focus:
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
 
   final bool needObscureText;
+
+  final bool required;
 
   /// Whether the [RecInputPin] should be focused by default
   final bool autofocus;
 
   /// Initial value of the TextField
-  final String initialValue;
+  final String? initialValue;
 
   /// Text that describes the input field.
-  final String label;
+  final String? label;
 
   final Color colorLine;
   final Color colorLabel;
+  final Color colorHint;
 
-  final Widget icon;
+  final Widget? icon;
 
   final TextAlign textAlign;
 
@@ -48,16 +51,16 @@ class RecTextField extends StatefulWidget {
 
   /// An optional method that validates an input. Returns an error string to
   /// display if the input is invalid, or null otherwise.
-  final FormFieldValidator<String> validator;
+  final FormFieldValidator<String>? validator;
 
   /// Called when [RecTextField] changes value (ie: each time character is typed)
-  final ValueChanged<String> onChange;
+  final ValueChanged<String>? onChange;
 
   /// Called when [RecTextField] is submitted
-  final ValueChanged<String> onSubmitted;
+  final ValueChanged<String>? onSubmitted;
 
   // Max amount of characters the field can contain
-  final int maxLength;
+  final int? maxLength;
 
   final int maxLines;
   final int minLines;
@@ -67,13 +70,14 @@ class RecTextField extends StatefulWidget {
 
   final EdgeInsets padding;
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
 
   RecTextField({
     this.keyboardType = TextInputType.text,
     this.needObscureText = false,
     this.colorLine = Colors.black87,
     this.colorLabel = Colors.black87,
+    this.colorHint = Colors.black38,
     this.placeholder,
     this.onChange,
     this.icon,
@@ -82,7 +86,6 @@ class RecTextField extends StatefulWidget {
     this.textSize = 16,
     this.textAlign = TextAlign.left,
     this.letterSpicing = 0.0,
-    this.maxLength,
     this.label,
     this.autofocus = false,
     this.capitalizeMode = TextCapitalization.none,
@@ -90,10 +93,12 @@ class RecTextField extends StatefulWidget {
     this.onSubmitted,
     this.inputFormatters = const [],
     this.focusNode,
-    EdgeInsets padding,
+    EdgeInsets? padding,
     this.minLines = 1,
     this.maxLines = 10,
+    this.maxLength,
     this.controller,
+    this.required = false,
   }) : padding = padding ?? const EdgeInsets.only(bottom: 24.0);
 
   @override
@@ -107,15 +112,9 @@ class _InputField extends State<RecTextField> {
   bool isNotIcon = false;
 
   @override
-  void initState() {
-    super.initState();
-    obscureText = widget.needObscureText;
-  }
-
-  @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
-    var translatedError = localizations.translate(error);
+    var translatedError = localizations!.translate(error);
 
     return Padding(
       padding: widget.padding,
@@ -131,6 +130,7 @@ class _InputField extends State<RecTextField> {
         maxLength: widget.maxLength,
         readOnly: widget.readOnly,
         inputFormatters: widget.inputFormatters,
+        // autovalidateMode: AutovalidateMode.onUserInteraction,
         textAlignVertical: TextAlignVertical.bottom,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(bottom: 10),
@@ -148,10 +148,10 @@ class _InputField extends State<RecTextField> {
                 )
               : widget.icon,
           errorText: hasError ? translatedError : null,
-          hintText: localizations.translate(widget.placeholder),
-          labelText: localizations.translate(widget.label),
+          hintText: localizations.translate(widget.placeholder ?? ''),
+          labelText: localizations.translate(widget.label ?? '') + (widget.required ? '*' : ''),
           labelStyle: TextStyle(height: 1.5, color: widget.colorLabel),
-          hintStyle: TextStyle(height: 1.5, color: widget.colorLabel),
+          hintStyle: TextStyle(height: 1.5, color: widget.colorHint),
         ),
         style: TextStyle(
           color: Colors.black,
@@ -165,7 +165,7 @@ class _InputField extends State<RecTextField> {
         validator: (v) {
           if (widget.validator == null) return null;
 
-          var error = widget.validator(v);
+          var error = widget.validator!(v);
           if (error == null) return null;
 
           return localizations.translate(error);
@@ -174,11 +174,17 @@ class _InputField extends State<RecTextField> {
     );
   }
 
-  void onChanged(String string) {
-    if (widget.onChange != null) widget.onChange(string);
-  }
-
   void changeObscureText() {
     obscureText = !obscureText;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    obscureText = widget.needObscureText;
+  }
+
+  void onChanged(String string) {
+    if (widget.onChange != null) widget.onChange!(string);
   }
 }

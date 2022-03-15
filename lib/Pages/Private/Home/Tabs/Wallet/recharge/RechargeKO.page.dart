@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Styles/TextStyles.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/assets.dart';
+import 'package:rec/styles/text_styles.dart';
 
 class RechargeKO extends StatefulWidget {
-  const RechargeKO({Key key}) : super(key: key);
+  const RechargeKO({Key? key}) : super(key: key);
 
   @override
   _RechargeKOState createState() => _RechargeKOState();
@@ -20,8 +21,6 @@ class _RechargeKOState extends State<RechargeKO> {
   }
 
   Widget _body() {
-    var localizations = AppLocalizations.of(context);
-
     return Padding(
       padding: EdgeInsets.fromLTRB(32, 84, 32, 32),
       child: Column(
@@ -31,16 +30,16 @@ class _RechargeKOState extends State<RechargeKO> {
           Column(
             children: [
               Center(
-                child: Text(
-                  localizations.translate('RECHARGE_KO'),
+                child: LocalizedText(
+                  'RECHARGE_KO',
                   style: TextStyles.pageTitle,
                   textAlign: TextAlign.center,
                 ),
               ),
               SizedBox(height: 32),
               Center(
-                child: Text(
-                  localizations.translate('RECHARGE_KO_DESC'),
+                child: LocalizedText(
+                  'RECHARGE_KO_DESC',
                   style: TextStyles.pageSubtitle1,
                   textAlign: TextAlign.center,
                 ),
@@ -48,10 +47,10 @@ class _RechargeKOState extends State<RechargeKO> {
             ],
           ),
           Center(
-            child: Image.asset('assets/recharge-ko.png'),
+            child: Image.asset(Assets.rechargeKo),
           ),
           RecActionButton(
-            label: localizations.translate('ALRIGHT'),
+            label: 'ALRIGHT',
             onPressed: () => Navigator.of(context).pop(),
           )
         ],

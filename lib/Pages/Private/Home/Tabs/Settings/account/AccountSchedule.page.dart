@@ -1,37 +1,35 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:rec/Api/Services/AccountsService.dart';
 import 'package:rec/Components/Inputs/DropDown.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/ListTiles/ScheduleDayInput.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Entities/Schedule/Schedule.ent.dart';
-import 'package:rec/Entities/Schedule/ScheduleDay.ent.dart';
-import 'package:rec/Entities/Schedule/ScheduleType.dart';
-import 'package:rec/Helpers/Loading.dart';
-import 'package:rec/Helpers/RecToast.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
-import 'package:rec/Providers/UserState.dart';
-import 'package:rec/Styles/Paddings.dart';
+import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/loading.dart';
+import 'package:rec/helpers/RecToast.dart';
+import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/user_state.dart';
+import 'package:rec/styles/paddings.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class AccountSchedulePage extends StatefulWidget {
-  AccountSchedulePage({Key key}) : super(key: key);
+  AccountSchedulePage({Key? key}) : super(key: key);
 
   @override
   _AccountSchedulePageState createState() => _AccountSchedulePageState();
 }
 
 class _AccountSchedulePageState extends State<AccountSchedulePage> {
-  final AccountsService _accountsService = AccountsService();
+  final AccountsService _accountsService = AccountsService(env: env);
 
-  Schedule schedule;
-  ScheduleDay copiedDay;
+  Schedule? schedule;
+  ScheduleDay? copiedDay;
 
   @override
   void didChangeDependencies() {
-    schedule ??= UserState.of(context).account.schedule.clone() ?? Schedule();
+    schedule ??= (UserState.of(context).account!.schedule ?? Schedule()).clone();
     super.didChangeDependencies();
   }
 
@@ -52,9 +50,9 @@ class _AccountSchedulePageState extends State<AccountSchedulePage> {
             LocalizedText('TYPE'),
             const SizedBox(height: 8),
             DropDown(
-              title: localizations.translate('TYPE'),
+              title: localizations!.translate('TYPE'),
               data: ScheduleType.values.map((e) => e.type).toList(),
-              current: schedule.type.type,
+              current: schedule!.type!.type,
               onSelect: _scheduleTypeSelected,
             ),
             const SizedBox(height: 16),
@@ -78,47 +76,48 @@ class _AccountSchedulePageState extends State<AccountSchedulePage> {
 
   void _scheduleTypeSelected(type) {
     setState(() {
-      schedule.type = ScheduleType.fromName(type);
+      schedule!.type = ScheduleType.fromName(type);
 
       // Make all days closed when a type changes to some types
       // So user can start editing schedule from 0
-      if (schedule.isDefined || schedule.isOpen24h || schedule.isClosed) {
-        schedule.updateEachDay((e) => e..opens = false);
+      if (schedule!.isDefined || schedule!.isOpen24h || schedule!.isClosed) {
+        schedule!.updateEachDay((e) => e..opens = false);
       }
     });
   }
 
   Widget _scheduleDayBuilder(ctx, index) {
-    var day = schedule.days[index];
+    var day = schedule!.days[index];
 
     return ScheduleDayInput(
       day: day,
-      closed: schedule.isClosed,
-      opens24Hours: schedule.isOpen24h,
-      isNotAvailable: schedule.isNotAvailable,
+      closed: schedule!.isClosed,
+      opens24Hours: schedule!.isOpen24h,
+      isNotAvailable: schedule!.isNotAvailable,
       weekday: index + 1,
       onChange: (ScheduleDay day) {
         setState(() {
-          schedule.days[index] = day;
+          schedule!.days[index] = day;
         });
       },
       onCompleteDay: () {
         setState(() {
-          if (index > 0 && schedule.days[index - 1] != null) {
-            schedule.days[index].copyFrom(schedule.days[index - 1]);
+          // ignore: unnecessary_null_comparison
+          if (index > 0 && schedule!.days[index - 1] != null) {
+            schedule!.days[index].copyFrom(schedule!.days[index - 1]);
           } else {
-            schedule.days[index].resetToDefaultTime();
+            schedule!.days[index].resetToDefaultTime();
           }
         });
       },
       onAction: (action) {
         switch (action) {
           case CopyPasteAction.copy:
-            copiedDay = schedule.days[index];
+            copiedDay = schedule!.days[index];
             break;
           case CopyPasteAction.paste:
             if (copiedDay != null) {
-              schedule.days[index].copyFrom(copiedDay);
+              schedule!.days[index].copyFrom(copiedDay!);
             }
             break;
         }
@@ -130,11 +129,11 @@ class _AccountSchedulePageState extends State<AccountSchedulePage> {
   void _saveSchedule() {
     Loading.show();
 
-    var accountId = UserState.of(context, listen: false).account.id;
+    var accountId = UserState.of(context, listen: false).account!.id;
 
     _accountsService
         .updateAccount(accountId, {
-          'schedule': json.encode(schedule.toJson()),
+          'schedule': json.encode(schedule!.toJson()),
         })
         .then(_updatedSchedule)
         .catchError(_onError);
