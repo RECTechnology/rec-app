@@ -12,6 +12,9 @@ line-count*
 
 # env
 env/*.env
+env/pre.env
+env/prod.env
+env/sandbox.env
 
 # IntelliJ related
 *.iml
