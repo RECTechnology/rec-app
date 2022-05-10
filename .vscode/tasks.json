@@ -32,6 +32,12 @@
             "type": "shell"
         },
         {
+            "label": "build-sandbox-apk",
+            "command": "flutter",
+            "args": ["build", "apk", "--flavor=sandbox", "--release"],
+            "type": "shell"
+        },
+        {
             "label": "build-prod-aab",
             "command": "flutter",
             "args": ["build", "appbundle", "--flavor=prod", "--release"],
@@ -89,6 +95,15 @@
             "dependsOn": [
                 "prepare-env-prod",
                 "build-prod-apk",
+                "open-prod-apk-path"
+            ]
+        },
+        {
+            "label": "Build APK sandbox",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "prepare-env-sandbox",
+                "build-sandbox-apk",
                 "open-prod-apk-path"
             ]
         },

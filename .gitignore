@@ -11,6 +11,7 @@
 line-count*
 
 # env
+env/.env
 env/*.env
 env/pre.env
 env/prod.env
