@@ -28,7 +28,7 @@ class _MainAccountPageState extends State<MainAccountPage> {
       appBar: EmptyAppBar(context, title: 'PRINCIPAL_ACCOUNT'),
       body: Scrollbar(
         thickness: 8,
-        showTrackOnHover: true,
+        trackVisibility: true,
         radius: Radius.circular(3),
         child: ListView(
           children: [

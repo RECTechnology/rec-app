@@ -53,7 +53,7 @@ class _AccountContactPageState extends State<AccountContactPage> {
       appBar: EmptyAppBar(context, title: 'BUSSINESS_CONTACT'),
       body: Scrollbar(
         thickness: 8,
-        showTrackOnHover: true,
+        trackVisibility: true,
         radius: Radius.circular(3),
         child: ListView.builder(
           itemBuilder: (ctx, index) => tiles[index],

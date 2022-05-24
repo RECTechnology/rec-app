@@ -26,7 +26,7 @@ class ScrollableList extends StatelessWidget {
           child: Scrollbar(
             controller: scrollController,
             thickness: 8,
-            showTrackOnHover: true,
+            trackVisibility: true,
             radius: Radius.circular(3),
             child: _getListView(),
           ),

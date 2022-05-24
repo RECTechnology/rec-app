@@ -62,7 +62,7 @@ class _TransactionsListState extends State<TransactionsList> {
           Expanded(
             child: Scrollbar(
               thickness: 8,
-              showTrackOnHover: true,
+              trackVisibility: true,
               radius: Radius.circular(3),
               child: hasTransactions
                   ? ListView.separated(

@@ -50,7 +50,7 @@ class _AccountPermissionsPageState extends State<AccountPermissionsPage> {
       ),
       body: Scrollbar(
         thickness: 8,
-        showTrackOnHover: true,
+        trackVisibility: true,
         radius: const Radius.circular(3),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

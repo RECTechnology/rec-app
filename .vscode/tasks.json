@@ -21,14 +21,14 @@
         },
         {
             "label": "build-pre-apk",
-            "command": "flutter",
-            "args": ["build", "apk", "--flavor=pre"],
+            "command": "fvm",
+            "args": ["flutter", "build", "apk", "--flavor=pre"],
             "type": "shell"
         },
         {
             "label": "build-prod-apk",
-            "command": "flutter",
-            "args": ["build", "apk", "--flavor=prod", "--release"],
+            "command": "fvm",
+            "args": ["flutter", "build", "apk", "--flavor=prod", "--release"],
             "type": "shell"
         },
         {
@@ -39,21 +39,21 @@
         },
         {
             "label": "build-prod-aab",
-            "command": "flutter",
-            "args": ["build", "appbundle", "--flavor=prod", "--release"],
+            "command": "fvm",
+            "args": ["flutter", "build", "appbundle", "--flavor=prod", "--release"],
             "type": "shell"
         },
         {
             "label": "build-pre-ios",
-            "command": "flutter",
-            "args": ["build", "ipa", "--release"],
+            "command": "fvm",
+            "args": ["flutter", "build", "ipa", "--release"],
             "type": "shell"
         },
         // arch -x86_64 flutter build ipa --release
         {
             "label": "build-prod-ios",
-            "command": "flutter",
-            "args": ["build", "ipa", "--release"],
+            "command": "fvm",
+            "args": ["flutter", "build", "ipa", "--release"],
             "type": "shell"
         },
         {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pinput/pin_put/pin_put.dart';
+import 'package:pinput/pinput.dart';
 import 'package:rec/config/brand.dart';
 
 /// Renders a custom Pin Input
@@ -31,6 +31,8 @@ class RecPinInput extends StatefulWidget {
   /// If the value is [true] the inputs will be obscured (replaced with *)
   final bool obscureText;
 
+  final double size;
+
   RecPinInput({
     Key? key,
     required this.fieldsCount,
@@ -40,6 +42,7 @@ class RecPinInput extends StatefulWidget {
     this.autofocus = false,
     this.focusNode,
     this.obscureText = true,
+    this.size = 40,
     Pattern? validator,
   })  : validator = validator ?? RegExp(r'[0-9]'),
         super(key: key);
@@ -50,6 +53,8 @@ class RecPinInput extends StatefulWidget {
 
 class _RecPinInputState extends State<RecPinInput> {
   final TextEditingController _pinPutController = TextEditingController();
+
+  TextStyle get _textStyle => TextStyle(fontSize: 18);
 
   BoxDecoration get _pinPutDecoration {
     return BoxDecoration(
@@ -71,27 +76,43 @@ class _RecPinInputState extends State<RecPinInput> {
 
         _pinPutController.text = (await Clipboard.getData('text/plain'))!.text!;
       },
-      child: PinPut(
+      child: Pinput(
         focusNode: widget.focusNode,
         autofocus: widget.autofocus,
-        fieldsCount: widget.fieldsCount,
+        length: widget.fieldsCount,
         controller: _pinPutController,
-        obscureText: widget.obscureText ? '*' : null,
-        selectedFieldDecoration: _pinPutDecoration.copyWith(
-          border: Border.all(
-            color: Brand.primaryColor.withOpacity(.5),
-            width: 2,
+        obscureText: widget.obscureText,
+        obscuringCharacter: '*',
+        focusedPinTheme: PinTheme(
+          width: widget.size,
+          height: widget.size,
+          textStyle: _textStyle,
+          decoration: _pinPutDecoration.copyWith(
+            border: Border.all(
+              color: Brand.primaryColor.withOpacity(.5),
+              width: 2,
+            ),
           ),
         ),
-        followingFieldDecoration: _pinPutDecoration.copyWith(
-          border: Border.all(
-            color: Colors.black.withOpacity(.5),
+        followingPinTheme: PinTheme(
+          width: widget.size,
+          height: widget.size,
+          textStyle: _textStyle,
+          decoration: _pinPutDecoration.copyWith(
+            border: Border.all(
+              color: Colors.black.withOpacity(.5),
+            ),
           ),
         ),
-        submittedFieldDecoration: _pinPutDecoration,
-        onSaved: widget.onSaved,
+        submittedPinTheme: PinTheme(
+          width: widget.size,
+          height: widget.size,
+          textStyle: _textStyle,
+          decoration: _pinPutDecoration,
+        ),
+        onCompleted: widget.onSaved,
         onChanged: widget.onChanged,
-        onSubmit: widget.onSubmit,
+        onSubmitted: widget.onSubmit,
         keyboardType: TextInputType.number,
         useNativeKeyboard: true,
         inputFormatters: [

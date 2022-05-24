@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:rec/Providers/AppLocalizations.dart';
+import 'package:rec/providers/AppLocalizations.dart';
 
 class DateHelper {
   static String getWeekdayName(int weekday) {

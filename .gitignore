@@ -9,6 +9,7 @@
 .history
 .svn/
 line-count*
+.fvm/flutter_sdk
 
 # env
 env/.env

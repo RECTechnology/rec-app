@@ -1,4 +1,4 @@
 #!/bin/bash
 
-flutter analyze
-flutter test
+fvm flutter analyze
+fvm flutter test

@@ -56,7 +56,7 @@ class _RechargePageState extends State<RechargePage> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance!.addPostFrameCallback((_) => _checkLtabBonificatonStop());
+    SchedulerBinding.instance?.addPostFrameCallback((_) => _checkLtabBonificatonStop());
   }
 
   void _checkLtabBonificatonStop() {

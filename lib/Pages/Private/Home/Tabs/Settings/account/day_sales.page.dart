@@ -59,7 +59,7 @@ class _AccountDaySalesPageState extends State<AccountDaySalesPage> with Loadable
       ),
       body: Scrollbar(
         thickness: 8,
-        showTrackOnHover: true,
+        trackVisibility: true,
         radius: Radius.circular(3),
         child: Padding(
           padding: Paddings.page,
