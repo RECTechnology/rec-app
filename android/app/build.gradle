@@ -74,8 +74,8 @@ android {
     flavorDimensions "version"
     productFlavors {
         sandbox {
-            applicationId "com.barcelona.sbox"
-            versionNameSuffix "-sbox"
+            applicationId "com.barcelona.sandbox"
+            versionNameSuffix "-sandbox"
         }
 
         pre {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Info/CircleAvatar.dart';
+import 'package:rec/Components/Info/rec_circle_avatar.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/transactions_utils.dart';
 import 'package:rec/providers/campaign_provider.dart';
@@ -32,11 +32,11 @@ class _TransactionIcon extends State<TransactionIcon> {
 
   @override
   Widget build(BuildContext context) {
-    var account = UserState.of(context).account;
-    var ltabCampaign = CampaignProvider.of(context).getCampaignByCode(
+    final account = UserState.of(context).account;
+    final ltabCampaign = CampaignProvider.of(context).getCampaignByCode(
       env.CMP_LTAB_CODE,
     );
-    var cultureCampaign = CampaignProvider.of(context).getCampaignByCode(
+    final cultureCampaign = CampaignProvider.of(context).getCampaignByCode(
       env.CMP_CULT_CODE,
     );
 

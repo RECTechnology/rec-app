@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/config/brand.dart';
 
+
+// TODO: Refactor this, it's not good
 AppBar EmptyAppBar(
   BuildContext context, {
   bool backArrow = true,

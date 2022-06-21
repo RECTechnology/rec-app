@@ -9,7 +9,7 @@ import 'package:rec/Pages/Private/Shared/campaigns/ltab/participate-ltab.page.da
 import 'package:rec/Pages/Private/Shared/campaigns/ltab/welcome-ltab.page.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/providers/user_state.dart';
-import 'package:rec/providers/campaign-manager.dart';
+import 'package:rec/providers/campaign_manager.dart';
 
 List<CampaignDefinition> getCampaignDefinitions() {
   return [

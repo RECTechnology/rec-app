@@ -1,6 +1,6 @@
 import 'package:rec_api_dart/rec_api_dart.dart';
 
-class RecEnvBase extends EnvBase {
+abstract class RecEnvBase extends EnvBase {
   String? SENTRY_DSN;
   bool? SENTRY_ACTIVE;
   String? DEEPLINK_SCHEME;

@@ -10,7 +10,7 @@ import 'package:rec/config/brand.dart';
 import 'package:rec/config/routes.dart';
 
 class EnterPin extends StatefulWidget {
-  final Function(String? pin) ifPin;
+  final Function(String pin) ifPin;
   final String? buttonContent;
   final bool buttonWithArrow;
 
@@ -105,7 +105,7 @@ class _EnterPinState extends State<EnterPin> {
 
   void _next() {
     if (!_formKey.currentState!.validate() || !formValid) return;
-    widget.ifPin(pin);
+    widget.ifPin(pin!);
   }
 
   void _forgotPin() {

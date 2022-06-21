@@ -11,7 +11,9 @@ import 'package:rec/config/routes.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/providers/All.dart';
 import 'package:rec/providers/activity_provider.dart';
-import 'package:rec/providers/campaign-manager.dart';
+import 'package:rec/providers/badges_provider.dart';
+import 'package:rec/providers/campaign_manager.dart';
+import 'package:rec/providers/qualifications_provider.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
@@ -46,6 +48,9 @@ class RecApp extends StatefulWidget {
 class _RecAppState extends State<RecApp> {
   final txService = TransactionsService(env: env);
   final activitiesService = ActivitiesService(env: env);
+  final qualificationsService = QualificationsService(env: env);
+  final appService = AppService(env: env);
+  final badgesService = BadgesService(env: env);
 
   late RecSecureStorage storage;
   Locale? locale;
@@ -61,9 +66,9 @@ class _RecAppState extends State<RecApp> {
   }
 
   Future<List<SingleChildWidget>> getProviders() async {
-    var savedUser = await UserState.getSavedUser(storage);
-    var packageInfo = await PackageInfo.fromPlatform();
-    var prefProvider = PreferenceProvider.getProvider(
+    final savedUser = await UserState.getSavedUser(storage);
+    final packageInfo = await PackageInfo.fromPlatform();
+    final prefProvider = PreferenceProvider.getProvider(
       preferences: PreferenceDefinitions.all,
       groups: [
         PreferenceDefinitions.general,
@@ -71,10 +76,12 @@ class _RecAppState extends State<RecApp> {
     );
 
     return [
-      AppState.getProvider(packageInfo),
+      AppProvider.getProvider(packageInfo, appService),
+      ActivityProvider.getProvider(activitiesService),
+      BadgesProvider.getProvider(badgesService),
       UserState.getProvider(storage, savedUser),
       TransactionProvider.getProvider(txService),
-      ActivityProvider.getProvider(activitiesService),
+      QualificationsProvider.getProvider(qualificationsService),
       CampaignManager.getProvider(
         definitions: getCampaignDefinitions(),
         activeCampaignCode: env.CMP_CULT_CODE,

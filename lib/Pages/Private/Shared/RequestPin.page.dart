@@ -6,7 +6,7 @@ import 'package:rec/providers/user_state.dart';
 
 /// This widget renders either [EnterPin] or [CreatePin], if user has pin or not.
 class RequestPin extends StatefulWidget {
-  final Function(String? pin) ifPin;
+  final Function(String pin) ifPin;
   final String? buttonContent;
   final bool buttonWithArrow;
 

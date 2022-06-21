@@ -29,27 +29,28 @@ class WalletFloatingActionsState extends State<WalletFloatingActions> {
   }
 
   Widget buildSpeedDial() {
-    var userState = UserState.of(context);
-    var campaignProvider = CampaignProvider.of(context);
-    var account = userState.account;
-    var user = userState.user;
-    var cultureCampaign = campaignProvider.getCampaignByCode(env.CMP_CULT_CODE);
+    final userState = UserState.of(context);
+    final campaignProvider = CampaignProvider.of(context);
+    final account = userState.account;
+    final user = userState.user;
+    final cultureCampaign = campaignProvider.getCampaignByCode(env.CMP_CULT_CODE);
 
-    var isPrivate = account!.isPrivate();
-    var accountTypeColor = Brand.getColorForAccount(account);
-    var isLtabAccount = account.isLtabAccount();
-    var isCultureAccount = account.isCampaignAccount(env.CMP_CULT_CODE);
+    final isPrivate = account!.isPrivate();
+    final accountTypeColor = Brand.getColorForAccount(account);
+    final isLtabAccount = account.isLtabAccount();
+    final isCultureAccount = account.isCampaignAccount(env.CMP_CULT_CODE);
 
-    var hasPermissionToRecharge = user!.hasRoles(RoleDefinitions.rechargeRoles);
-    var hasPermissionToPay = user.hasRoles(RoleDefinitions.payButton);
-    var hasPermissionToPayQr = user.hasRoles(RoleDefinitions.payQrButton);
-    var hasPermissionToCharge = user.hasRoles(RoleDefinitions.chargeButton);
+    final hasPermissionToRecharge = user!.hasRoles(RoleDefinitions.rechargeRoles);
+    final hasPermissionToPay = user.hasRoles(RoleDefinitions.payButton);
+    final hasPermissionToPayQr = user.hasRoles(RoleDefinitions.payQrButton);
+    final hasPermissionToCharge = user.hasRoles(RoleDefinitions.chargeButton);
 
-    var isCultureCampaignActive = cultureCampaign!.isStarted() && !cultureCampaign.isFinished();
-    var rechargeRoute =
+    final isCultureCampaignActive =
+        cultureCampaign != null && cultureCampaign.isStarted() && !cultureCampaign.isFinished();
+    final rechargeRoute =
         (isCultureAccount || !isCultureCampaignActive) ? Routes.recharge : Routes.selectRecharge;
 
-    var privateChildren = [
+    final privateChildren = [
       if (hasPermissionToPay)
         buildSpeedDialChild(
           'PAY_QR',
@@ -85,7 +86,7 @@ class WalletFloatingActionsState extends State<WalletFloatingActions> {
         ),
     ];
 
-    var companyChildren = [
+    final companyChildren = [
       if (hasPermissionToCharge)
         buildSpeedDialChild(
           'CHARGE',
@@ -121,14 +122,11 @@ class WalletFloatingActionsState extends State<WalletFloatingActions> {
         ),
     ];
 
-    List<SpeedDialChild?> items = (isPrivate ? privateChildren : companyChildren);
+    final List<SpeedDialChild?> items = (isPrivate ? privateChildren : companyChildren);
 
     if (items.isEmpty) return SizedBox.shrink();
 
     return SpeedDial(
-      // marginEnd: 20,
-      // marginBottom: 20,
-      // childMarginBottom: 24,
       openCloseDial: widget.isDialOpen,
       animationSpeed: 150,
       buttonSize: 60,

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
@@ -14,6 +15,7 @@ import '../../../mocks/users_mock.dart';
 import '../../../test_utils.dart';
 
 void main() {
+  setUpAll(() => HttpOverrides.global = null);
   testWidgets('WalletPage test build correctly', (
     WidgetTester tester,
   ) async {

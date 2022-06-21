@@ -1,6 +1,5 @@
 {
     "editor.defaultFormatter": "Dart-Code.dart-code",
-    "editor.lineNumbers": "relative",
     "dart.flutterSdkPath": ".fvm/flutter_sdk",
     // Remove .fvm files from search
     "search.exclude": {

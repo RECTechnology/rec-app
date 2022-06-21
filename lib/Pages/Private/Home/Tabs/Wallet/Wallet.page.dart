@@ -26,22 +26,22 @@ class _WalletPageRecState extends State<WalletPageRec> {
 
   @override
   Widget build(BuildContext context) {
-    var userState = UserState.of(context);
-    var localizations = AppLocalizations.of(context);
-    var campaignProvider = CampaignProvider.of(context);
+    final userState = UserState.of(context);
+    final localizations = AppLocalizations.of(context);
+    final campaignProvider = CampaignProvider.of(context);
 
-    var user = userState.user;
-    var account = userState.account;
-    var ltabCampaign = campaignProvider.getCampaignByCode(env.CMP_LTAB_CODE);
+    final user = userState.user;
+    final account = userState.account;
+    final ltabCampaign = campaignProvider.getCampaignByCode(env.CMP_LTAB_CODE);
 
-    var isCultureAccount = account!.isCampaignAccount(env.CMP_CULT_CODE);
-    var isInLtabCampaign = user!.getCampaignAccount(env.LTAB_CAMPAIGN_ID as String) != null;
-    var ltabCampaignAccount = user.getCampaignAccount(env.LTAB_CAMPAIGN_ID as String);
+    final isCultureAccount = account!.isCampaignAccount(env.CMP_CULT_CODE);
+    final isInLtabCampaign = user!.getCampaignAccount(env.LTAB_CAMPAIGN_ID as String) != null;
+    final ltabCampaignAccount = user.getCampaignAccount(env.LTAB_CAMPAIGN_ID as String);
 
-    var campaignActive = ltabCampaign != null && !ltabCampaign.isFinished();
-    var showReedemable = campaignActive && isInLtabCampaign && !isCultureAccount;
+    final campaignActive = ltabCampaign != null && !ltabCampaign.isFinished();
+    final showReedemable = campaignActive && isInLtabCampaign && !isCultureAccount;
 
-    var redemableAmountText = showReedemable
+    final redemableAmountText = showReedemable
         ? localizations!.translate(
             'YOU_HAVE_RECS_REDEMABLE',
             params: {

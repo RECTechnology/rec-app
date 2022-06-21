@@ -152,7 +152,6 @@
   "ACCOUNT_NAME": "Nombre de la cuenta",
   "YOUR_ACCOUNT": "Tu cuenta",
 
-
   "EMAIL": "Email",
   "CHANGE_EMAIL": "Toca para cambiar el email",
   "UPDATE_APP": "Actualizar",
@@ -222,6 +221,7 @@
   "PHONE_VERIFY_OK": "Teléfono verificado correctamente, puedes proceder a realizar el login",
   "TOUCH_HOOD": "Le toca al barrio",
   "FILTERS": "Filtros",
+  "QUALIFICATIONS_EXPIRED":"El tiempo para calificar ha expirado, lo sentimos",
 
   "VALIDATE_PHOME": "Validar número de teléfono",
   "INTRODUCE_DOCUMENT_AND_PHONE": "Introduce tu documento de identidad y el teléfono vinculado a tu usuario para proceder a validar tu número de teléfono",
@@ -283,8 +283,8 @@
   "RECHARGE_IN_PROGRESS": "Procesando recarga, por favor espere hasta ser redireccionado",
   "SELECT_CARD": "Selecciona una tarjeta",
   "PAY_WITH_NEW_CARD": "Pagar con nueva tarjeta",
-  "SAVE_CREDIT_CARD": "¿Guardar tarjeta bancaria?",
-  "SAVE_CREDIT_CARD_DESC": "A continuación vas a ser redirigido y te pediremos los datos de tu tarjeta para finalizar la recarga de RECs. ¿Deseas guardar tu tarjeta para futuras recargas?",
+  "SAVE_CREDIT_CARD": "¿Guardar tarjeta?",
+  "SAVE_CREDIT_CARD_DESC": " Introducirás tu tarjeta en la siguiente pantalla. ¿Deseas guardarla para futuras recargas?",
   "YES": "Si",
   "NO": "No",
   "ENTER_PIN": "Introduce tu PIN del REC",
@@ -482,9 +482,12 @@
   "CULT21_WITH_NEIGHBORHOODS": "REC Cultural (Sants y Poble Sec)",
   "LTAB20_WITH_NEIGHBORHOODS": "Le toca al barrio (Eje Bessos)",
 
-  "MORE": "Más...",
-  "MORE_FILTERS": "Más... {{selected}}",
+  "CATEGORIES_FILTERS": "Categorias ({{selected}})",
+  "BADGES_FILTERS": "Sellos ({{selected}})",
+  "NO_FILTERS": "No se han encontrado filtros",
+
   "CATEGORIES": "Categorias",
+  "BADGES": "Sellos",
   "MORE_CATEGORIES": "Más categorias",
   "NO_OFFERS": "No hay ofertas activas",
   "DELETE_OFFER": "Eliminar oferta",
@@ -519,9 +522,8 @@
   "LTAB_PARTICIPATE_INFO_TITLE": "¡RECIBE UN {{percent}}% DE BONIFICACIÓN EN RECS EN TUS COMPRAS!",
   "LTAB_PARTICIPATE_INFO_DESCRIPTION": "Entra en la campaña LI TOCA AL BARRI haciendo una recarga de mínimo {{min}}R (max {{max}}R) y aceptando las condiciones de uso.",
 
-
   "CAMPAIGN": "Campaña",
-  
+
   "I_DONT_WANT_TO": "No quiero",
   "OMIT": "Omitir",
   "GENDER": "Género",
@@ -533,7 +535,6 @@
   "M": "Hombre",
   "F": "Mujer",
   "NB": "No binario",
-
 
   "ERROR_PHONE_MUST_START_WITH": "El número debe comenzar por 6 o 7",
   "ERROR_PHONE_BAD_CHARACTERS": "Número incorrecto o contiene caracteres no permitidos",
@@ -554,5 +555,16 @@
 
   "LTAB_STOP_BONIFICATION_TITLE": "Hemos agotado los RECs bonificables",
   "LTAB_STOP_BONIFICATION_DESC_1": "A partir de ahora, al recargar RECs, no recibirás RECs bonificables.",
-  "LTAB_STOP_BONIFICATION_DESC_2": "Si dispones de RECs bonificados en tu cuenta LI TOCA AL BARRI haz uso de ellos antes del final de campaña"
+  "LTAB_STOP_BONIFICATION_DESC_2": "Si dispones de RECs bonificados en tu cuenta LI TOCA AL BARRI haz uso de ellos antes del final de campaña",
+
+  "DOES_IT_HAVE_CHARACTERISTICS": "¿Tiene alguna de estas características?",
+  "QUALIFY_COMERCE": "Califica este sitio",
+  "QUALIFY_INFO_LINE_1": "Toca <bold>una vez</bold> para indicar que <green>si</green>",
+  "QUALIFY_INFO_LINE_2": "Toca <bold>dos veces</bold> para indicar que <red>no</red>",
+  "QUALIFY_WILL_BE_USEFUL": "¡Tu valoración es útil para otras personas!",
+  "VOTED_OK": "¡Gracias por tu valoración!",
+  "BADGES_RATED_BY_COMUNITY": "Valorado por la comunidad",
+  "SUBMIT": "ENVIAR",
+  "NEW_CARD": "Nueva tarjeta",
+  "QUALIFY_CTA": "Calificar"
 }

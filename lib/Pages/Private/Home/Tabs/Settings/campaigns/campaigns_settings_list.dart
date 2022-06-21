@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Info/CircleAvatar.dart';
+import 'package:rec/Components/Info/rec_circle_avatar.dart';
 import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
 import 'package:rec/Components/ListTiles/campaign_list_tile.dart';
 import 'package:rec/environments/env.dart';
@@ -7,7 +7,7 @@ import 'package:rec/helpers/RecNavigation.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec/providers/user_state.dart';
-import 'package:rec/providers/campaign-manager.dart';
+import 'package:rec/providers/campaign_manager.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class CampaignsSettingsList extends StatelessWidget {

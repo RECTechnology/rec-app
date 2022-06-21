@@ -7,7 +7,7 @@ import 'package:rec/Pages/Private/Home/Tabs/Settings/all.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/account/offers/AccountOffers.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/help.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/All.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/select-recharge-type.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/select_recharge_type.page.dart';
 
 import 'package:rec/Pages/Public/Register/RegisterStepOne.dart';
 import 'package:rec/Pages/Public/UnlockUser/UnlockUserPage.dart';
@@ -56,14 +56,11 @@ class Routes {
   static const String settingsUserDocuments = 'settings-user-documents';
   static const String settingsUserGeneral = 'settings-user-general';
   static const String settingsUserMainAccount = 'settings-user-main-account';
-  static const String settingsUserGeneralLanguage =
-      'settings-user-general-language';
+  static const String settingsUserGeneralLanguage = 'settings-user-general-language';
 
   static const String settingsYourAccount = 'settings-your-account';
-  static const String settingsBussinessAccount =
-      'settings-bussiness-account-map';
-  static const String settingsAccountPermissions =
-      'settings-account-permissions';
+  static const String settingsBussinessAccount = 'settings-bussiness-account-map';
+  static const String settingsAccountPermissions = 'settings-account-permissions';
   static const String settingsAccountLocation = 'settings-account-location';
   static const String settingsAccountContact = 'settings-account-contact';
   static const String settingsAccountSchedule = 'settings-account-schedule';
@@ -75,6 +72,12 @@ class Routes {
 
   static String getInitialRoute({bool hasToken = true}) {
     return hasToken ? Routes.home : Routes.login;
+  }
+
+  static void popToHome(BuildContext context) {
+    return Navigator.of(context).popUntil(
+      ModalRoute.withName(Routes.home),
+    );
   }
 
   /// The route generator callback used when the app is navigated to a named route.

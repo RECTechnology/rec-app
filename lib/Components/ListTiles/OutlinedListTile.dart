@@ -8,7 +8,8 @@ class OutlinedListTile extends StatefulWidget {
   final EdgeInsets padding;
   final Function()? onPressed;
   final Color color;
-  final CrossAxisAlignment alignment;
+  final CrossAxisAlignment crossAxisAlignment;
+  final MainAxisAlignment mainAxisAlignment;
 
   const OutlinedListTile({
     Key? key,
@@ -17,7 +18,8 @@ class OutlinedListTile extends StatefulWidget {
     this.onPressed,
     this.padding = const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
     this.color = Brand.grayDark,
-    this.alignment = CrossAxisAlignment.start,
+    this.crossAxisAlignment = CrossAxisAlignment.start,
+    this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
   }) : super(key: key);
 
   @override
@@ -37,24 +39,16 @@ class _OutlinedListTile extends State<OutlinedListTile> {
       onTap: widget.onPressed,
       child: Padding(
         padding: widget.padding,
-        child: Row(
-          crossAxisAlignment: widget.alignment,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              flex: 4,
-              child: Container(
-                height: height,
-                padding: EdgeInsets.only(left: 16, right: 16),
-                decoration: BoxDecorations.outline(color: widget.color),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: widget.children,
-                ),
-              ),
-            ),
-          ],
+        child: Container(
+          height: height,
+          padding: EdgeInsets.only(left: 16, right: 16),
+          decoration: BoxDecorations.outline(color: widget.color),
+          alignment: Alignment.centerLeft,
+          child: Row(
+            crossAxisAlignment: widget.crossAxisAlignment,
+            mainAxisAlignment: widget.mainAxisAlignment,
+            children: widget.children,
+          ),
         ),
       ),
     );

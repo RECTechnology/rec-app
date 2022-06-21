@@ -21,6 +21,7 @@ class Brand {
   static const Color defectText = Color(0xff343434);
   static const Color detailsTextColor = Color(0xff3B3B3B);
   static const Color green = Color(0xff21EB00);
+  static const Color badgeGreen = Color(0xff699635);
 
   static const Color defaultAvatarBackground = Color(0xffF2F2F2);
   static const Color separatorColor = Color(0xffE0E0E0);
@@ -44,6 +45,7 @@ class Brand {
   static const Color graySubtitle = Color(0xff828282);
   static const Color grayDisabled = Color(0xffBBBBBB);
   static const Color amountNegative = Color(0xffD91636);
+  static const Color red = Color(0xffD91636);
 
   static const Brightness brightness = Brightness.light;
 

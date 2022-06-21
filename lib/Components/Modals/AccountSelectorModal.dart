@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Info/CircleAvatar.dart';
+import 'package:rec/Components/Info/rec_circle_avatar.dart';
 import 'package:rec/Components/ListTiles/AccountListTile.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/conditionals/show_if_roles.dart';
@@ -17,6 +17,7 @@ import 'package:rec/styles/box_decorations.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 // TODO: clean up this page, extract any widgets that could be reused
+// TODO: Convert to Widget...
 class AccountSelectorModal {
   final BuildContext context;
   final UsersService userService;
@@ -193,7 +194,7 @@ class AccountSelectorModal {
   }
 
   /// Method called once the account has changed
-  /// I'm leaving this here, as account change will only happen here
+  /// I'm leaving this here, as account change will only happen here for now
   /// But if a better way is found this might be changed
   void onAccountChange(Account account) async {
     var userState = UserState.of(context, listen: false);

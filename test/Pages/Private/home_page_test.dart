@@ -27,7 +27,11 @@ void main() {
     );
 
     await tester.pumpWidget(app);
-    await tester.pumpAndSettle();
+    // Esto es necesario hacerlo, para que se cargue el Localizations y tengamos acceso a los widgets
+    for (int i = 0; i < 5; i++) {
+      await tester.pump(Duration(seconds: 1));
+    }
+
 
     TestUtils.widgetExistsByType(HomePage);
     TestUtils.isTextPresent('Mapa');

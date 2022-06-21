@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rec/Components/Info/CircleAvatar.dart';
+import 'package:rec/Components/Info/rec_circle_avatar.dart';
 
 import '../test_utils.dart';
 

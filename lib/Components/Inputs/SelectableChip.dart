@@ -34,7 +34,7 @@ class _SelectableChipState extends State<SelectableChip> {
           widget.label,
           style: TextStyle(
             color: widget.isSelected ? Brand.accentColor : Brand.grayDark2,
-            fontSize: 14,
+            fontSize: 12,
           ),
         ),
         selected: widget.isSelected,

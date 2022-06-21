@@ -25,6 +25,16 @@ class BoxDecorations {
     );
   }
 
+  static BoxDecoration radius({
+    color = Colors.white,
+    double radius = 5,
+  }) {
+    return BoxDecoration(
+      color: color,
+      borderRadius: BorderRadius.circular(radius),
+    );
+  }
+
   static BoxDecoration infoTooltip({Color? color}) {
     return create(
       color: color,

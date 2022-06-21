@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rec/Components/Info/CircleAvatar.dart';
+import 'package:rec/Components/Info/rec_circle_avatar.dart';
 import 'package:rec/Components/Info/InfoColumn.dart';
 import 'package:rec/Components/Wallet/Transactions/TransactionAmount.dart';
 import 'package:rec/Components/Wallet/Transactions/TransactionIcon.dart';

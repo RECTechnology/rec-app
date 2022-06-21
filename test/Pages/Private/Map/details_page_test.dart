@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Map/DetailsPage/Details.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/map/details_page/details.page.dart';
 
 import '../../../mocks/schedule_mock.dart';
 import '../../../test_utils.dart';

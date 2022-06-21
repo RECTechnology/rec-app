@@ -3,7 +3,7 @@ import 'package:rec/Components/Layout/InfoSplash.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/helpers/BrowserHelper.dart';
 import 'package:rec/helpers/RecPlatformHelper.dart';
-import 'package:rec/providers/AppState.dart';
+import 'package:rec/providers/app_provider.dart';
 import 'package:rec/config/brand.dart';
 
 class MustUpdate extends StatefulWidget {
@@ -59,7 +59,7 @@ class _MustUpdateState extends State<MustUpdate> {
   }
 
   void _goToStore() {
-    var appState = AppState.of(context, listen: false);
+    var appState = AppProvider.of(context, listen: false);
     BrowserHelper.openMarketOrPlayStore(appState.packageName);
   }
 

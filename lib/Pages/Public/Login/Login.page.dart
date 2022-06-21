@@ -12,7 +12,7 @@ import 'package:rec/config/routes.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/loading.dart';
-import 'package:rec/providers/AppState.dart';
+import 'package:rec/providers/app_provider.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec/styles/paddings.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
@@ -147,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
 
     FocusScope.of(context).requestFocus(FocusNode());
 
-    var appState = AppState.of(context, listen: false);
+    var appState = AppProvider.of(context, listen: false);
     loginData.version = appState.versionInt;
 
     await Loading.show();

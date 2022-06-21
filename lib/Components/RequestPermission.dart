@@ -9,8 +9,7 @@ import 'package:rec/styles/paddings.dart';
 import 'package:rec/config/brand.dart';
 
 /// Widget that manages permission requesting
-/// * if the permission is [allowed] it ca
-/// lls [onAccept]
+/// * if the permission is [allowed] it calls [onAccept] automatically
 /// * if it's [denied] it will show a screen explaining why it's used and actions to either accept it or decline it (if `canBeDeclined == true`)
 /// * if it's [permanentlyDenied] it says it, and allows user to go to OS app settings
 class RequestPermission extends StatefulWidget {
@@ -149,8 +148,8 @@ class _RequestPermission extends State<RequestPermission> {
 
   void _checkPermission(PermissionStatus status) {
     setState(() => loaded = true);
+    /// If the permission is granted, we can notify the parent widget automatically
     if (status.isGranted) widget.onAccept();
-    if (status.isDenied) widget.onDecline();
     if (status.isPermanentlyDenied) {
       setState(() => permanentlyDenied = true);
     }

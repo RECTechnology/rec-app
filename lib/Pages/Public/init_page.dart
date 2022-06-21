@@ -1,9 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/config/assets.dart';
 import 'package:rec/environments/env.dart';
-import 'package:rec/providers/AppState.dart';
+import 'package:rec/providers/app_provider.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec/config/brand.dart';
 import 'package:rec/config/routes.dart';
@@ -36,19 +36,20 @@ class _InitPageState extends State<InitPage> {
   }
 
   Future<void> checkAuth() async {
-    var hasAccessToken = (await Auth.getAccessToken()) != null;
+    final hasAccessToken = (await Auth.getAccessToken()) != null;
     return hasAccessToken ? _attemptRefresh() : _onNotLoggedIn();
   }
 
   Future<void> _attemptRefresh() async {
     try {
-      var refreshToken = await Auth.getRefreshToken();
+      final refreshToken = await Auth.getRefreshToken();
 
       await _loginService.refreshToken(refreshToken ?? '');
       await _fetchInitialData();
 
       return _onLoggedIn();
     } catch (e) {
+      RecToast.showError(context, e.toString());
       return _onNotLoggedIn();
     }
   }
@@ -69,14 +70,17 @@ class _InitPageState extends State<InitPage> {
     }
   }
 
-  Future<User> _fetchInitialData() {
-    var userProvider = UserState.of(context, listen: false);
-    return userProvider.getUser();
+  Future _fetchInitialData() async {
+    final userProvider = UserState.of(context, listen: false);
+    final appProvider = AppProvider.of(context, listen: false);
+
+    await userProvider.getUser();
+    await appProvider.loadConfigurationSettings();
   }
 
   @override
   Widget build(BuildContext context) {
-    var app = AppState.of(context);
+    final appProvider = AppProvider.of(context);
 
     return Scaffold(
       body: SafeArea(
@@ -102,7 +106,7 @@ class _InitPageState extends State<InitPage> {
         height: 60,
         child: Center(
           child: Text(
-            'v${app.version}',
+            'v${appProvider.version}',
             style: Theme.of(context)
                 .textTheme
                 .bodyText1!

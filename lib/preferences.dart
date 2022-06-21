@@ -1,6 +1,5 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-// TODO: refactor this into using PreferenceProvider
 class Preferences {
   static Duration userRefreshInterval = Duration(seconds: 60);
   static Duration transactionListRefreshInterval = Duration(seconds: 60);

@@ -55,9 +55,10 @@ class _IfPermissionGranted extends State<IfPermissionGranted> {
   @override
   Widget build(BuildContext context) {
     if (granted == null) return Center(child: CircularProgressIndicator());
+
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: granted!
+      body: granted == true
           ? widget.builder!(context)
           : RequestPermission(
               permission: widget.permission,

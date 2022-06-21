@@ -5,7 +5,7 @@ import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/config/brand.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/loading.dart';
-import 'package:rec/mixins/Loadable.mixin.dart';
+import 'package:rec/mixins/loadable_mixin.dart';
 import 'package:rec/providers/transactions_provider.dart';
 import 'package:rec/styles/paddings.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';

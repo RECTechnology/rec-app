@@ -24,6 +24,15 @@
             ]
         },
         {
+            "preLaunchTask": "prepare-env-sandbox",
+            "name": "RecBarcelona - Dev (SANDBOX)",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor=sandbox"
+            ]
+        },
+        {
             "preLaunchTask": "prepare-env-pre",
             "name": "RecBarcelona - Dev ios",
             "request": "launch",

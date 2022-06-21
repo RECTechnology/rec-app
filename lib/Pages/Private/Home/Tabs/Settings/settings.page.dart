@@ -8,7 +8,7 @@ import 'package:rec/Pages/Private/Home/Tabs/Settings/campaigns/campaigns_setting
 import 'package:rec/Pages/Private/Home/Tabs/Settings/other/other_settings_list.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/user/user_settings_list.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/providers/AppState.dart';
+import 'package:rec/providers/app_provider.dart';
 import 'package:rec/providers/documents_provider.dart';
 import 'package:rec/config/brand.dart';
 import 'package:rec/config/routes.dart';
@@ -71,7 +71,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Widget _version() {
-    var appState = AppState.of(context);
+    var appState = AppProvider.of(context);
     var localizations = AppLocalizations.of(context);
 
     return ListTile(

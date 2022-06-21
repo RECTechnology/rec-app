@@ -15,13 +15,15 @@ class MapMarkers {
   static BitmapDescriptor? markerLtabOffers;
   static BitmapDescriptor? markerCulture;
   static BitmapDescriptor? markerCultureOffers;
+  static BitmapDescriptor? markerComercVerd;
+  static BitmapDescriptor? markerComercVerdOffers;
   static bool hasLoaded = false;
 
   static Future<BitmapDescriptor> getMarkerFromAsset(
     String assetPath, {
     int width = 80,
   }) async {
-    var markerBytes = await ImageHelpers.getBytesFromAsset(assetPath, width);
+    final markerBytes = await ImageHelpers.getBytesFromAsset(assetPath, width);
     return markers[assetPath] = BitmapDescriptor.fromBytes(markerBytes);
   }
 
@@ -35,6 +37,9 @@ class MapMarkers {
     markerCulture = await getMarkerFromAsset(Assets.markerCulture);
     markerCultureOffers = await getMarkerFromAsset(Assets.markerCultureOffers);
 
+    markerComercVerd = await getMarkerFromAsset(Assets.markerComercVerd);
+    markerComercVerdOffers = await getMarkerFromAsset(Assets.markerComercVerdOffers);
+
     hasLoaded = true;
   }
 
@@ -47,38 +52,35 @@ class MapMarkers {
       );
     }
 
-    var ltabCampaign = CampaignProvider.deaf(context).getCampaignByCode(env.CMP_LTAB_CODE);
-    var cultureCampaign = CampaignProvider.deaf(context).getCampaignByCode(env.CMP_CULT_CODE);
-    var isAccountInLtab = AccountHelper.mapAccountIsInLtabCampaign(account);
-    var isAccountInCult = AccountHelper.mapAccountIsInCultureCampaign(account);
+    final ltabCampaign = CampaignProvider.deaf(context).getCampaignByCode(env.CMP_LTAB_CODE);
+    final cultureCampaign = CampaignProvider.deaf(context).getCampaignByCode(env.CMP_CULT_CODE);
+    final isAccountInLtab = AccountHelper.mapAccountIsInLtabCampaign(account);
+    final isAccountInCult = AccountHelper.mapAccountIsInCultureCampaign(account);
+    final isComerceVerd = account.isCommerceVerd == true;
 
     // Only show LTAB marker if the account is part of the campaign,
     // and the campaign is not finished
-    var isLTabMarker = isAccountInLtab && ltabCampaign!.isStarted() && !ltabCampaign.isFinished();
+    final isLTabMarker = isAccountInLtab && ltabCampaign!.isStarted() && !ltabCampaign.isFinished();
 
     // Only show CULTURE marker if the account is part of the campaign,
     // and the campaign is not finished
-    var isCultureMarker =
+    final isCultureMarker =
         isAccountInCult && cultureCampaign!.isStarted() && !cultureCampaign.isFinished();
 
-    // Check offers
-    if (isLTabMarker && account.hasOffers!) {
-      return MapMarkers.markerLtabOffers;
+
+    // Handle offer markers
+    if (account.hasOffers == true) {
+      if (isComerceVerd) return MapMarkers.markerComercVerdOffers;
+      if (isLTabMarker) return MapMarkers.markerLtabOffers;
+      if (isCultureMarker) return MapMarkers.markerCultureOffers;
+
+      return MapMarkers.markerOffers;
     }
 
-    if (isCultureMarker && account.hasOffers!) {
-      return MapMarkers.markerCultureOffers;
-    }
-    if (account.hasOffers!) return MapMarkers.markerOffers;
-
-    // No offers
-    if (isLTabMarker && !account.hasOffers!) {
-      return MapMarkers.markerLtab;
-    }
-
-    if (isCultureMarker && !account.hasOffers!) {
-      return MapMarkers.markerCulture;
-    }
+    // Handle normal (non-offer) markers
+    if (isComerceVerd) return MapMarkers.markerComercVerd;
+    if (isLTabMarker) return MapMarkers.markerLtab;
+    if (isCultureMarker) return MapMarkers.markerCulture;
 
     return MapMarkers.markerNormal;
   }

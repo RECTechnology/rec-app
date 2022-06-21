@@ -45,14 +45,14 @@ class _TransactionsListTile extends State<TransactionsListTile> {
 
   @override
   Widget build(BuildContext context) {
-    var title = TransactionTitle(widget.tx, maxLines: 1);
-    var icon = TransactionIcon(widget.tx);
+    final title = TransactionTitle(widget.tx, maxLines: 1);
+    final icon = TransactionIcon(widget.tx);
 
-    var concept = getConcept();
-    var amount = getAmount();
-    var date = getDate();
+    final concept = getConcept();
+    final amount = getAmount();
+    final date = getDate();
 
-    var detailsModal = TransactionDetailsModal(context);
+    final detailsModal = TransactionDetailsModal(context);
 
     return InkWell(
       onTap: () => detailsModal.open(widget.tx),
@@ -111,7 +111,7 @@ class _TransactionsListTile extends State<TransactionsListTile> {
     var cultureCampaign = CampaignProvider.of(context).getCampaignByCode(env.CMP_CULT_CODE);
 
     // HACK
-    if (tx.isIn() && account!.isLtabAccount()) {
+    if (tx.isIn() && account != null && account.isLtabAccount()) {
       concept = 'LTAB_REWARD';
     }
 

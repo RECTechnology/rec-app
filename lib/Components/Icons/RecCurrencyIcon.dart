@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:rec/Components/Icons/svg_icon.dart';
 import 'package:rec/config/assets.dart';
 
 class RecCurrencyIcon extends StatelessWidget {
@@ -15,15 +15,10 @@ class RecCurrencyIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: SvgPicture.asset(
-        iconAssetName,
-        color: color,
-        width: size,
-        height: size,
-        fit: BoxFit.scaleDown,
-      ),
+    return AssetSVGIcon(
+      iconAssetName: iconAssetName,
+      color: color,
+      size: size,
     );
   }
 }

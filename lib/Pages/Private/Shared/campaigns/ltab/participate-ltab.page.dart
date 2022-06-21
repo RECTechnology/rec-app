@@ -9,7 +9,7 @@ import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/campaign_helper.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec/providers/PreferenceProvider.dart';
-import 'package:rec/providers/campaign-manager.dart';
+import 'package:rec/providers/campaign_manager.dart';
 import 'package:rec/providers/preferences/PreferenceDefinitions.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';

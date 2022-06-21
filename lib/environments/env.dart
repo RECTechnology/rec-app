@@ -9,7 +9,7 @@ class Env extends RecEnvBase {
   String? CLIENT_SECRET = dotenv.isInitialized ? dotenv.get('CLIENT_SECRET') : '';
 
   @override
-  String? API_URL = dotenv.isInitialized ? dotenv.get('API_URL') : '';
+  String API_URL = dotenv.isInitialized ? dotenv.get('API_URL') : '';
 
   @override
   String? SENTRY_DSN = dotenv.isInitialized ? dotenv.get('SENTRY_DSN') : '';
@@ -33,7 +33,7 @@ class Env extends RecEnvBase {
   String? DEEPLINK_URL = 'rec.barcelona';
 
   @override
-  String ENV_NAME = 'pre';
+  String ENV_NAME = dotenv.isInitialized ? dotenv.get('ENV_NAME') : 'prod';
 }
 
 Env env = Env();

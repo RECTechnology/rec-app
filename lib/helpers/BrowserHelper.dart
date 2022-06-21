@@ -23,4 +23,9 @@ class BrowserHelper {
       return await openBrowser('market://details?id=' + appPackageName);
     }
   }
+
+  static Future openGoogleMaps([double? latitude = 0, double? longitude = 0]) {
+    final url = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
+    return openBrowser(url);
+  }
 }

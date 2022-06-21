@@ -11,6 +11,9 @@ class Assets {
   static const String markerCulture = 'assets/markers/cultura_normal.png';
   static const String markerCultureOffers = 'assets/markers/cultura_oferta.png';
 
+  static const String markerComercVerd = 'assets/markers/comercverd.png';
+  static const String markerComercVerdOffers = 'assets/markers/comercverd_oferta.png';
+
   // Account private avatar
   static const String avatar = 'assets/avatar.png';
   static const String avatarDisabled = 'assets/avatar-bw.png';
@@ -20,10 +23,8 @@ class Assets {
   static const String companyAvatarDisabled = 'assets/organization-bw.png';
 
   // icons
-  static const String percentDiscount =
-      'assets/custom-icons/percentage-discount.svg';
-  static const String recCurrency =
-      'assets/custom-icons/rec-currency-symbol.svg';
+  static const String percentDiscount = 'assets/custom-icons/percentage-discount.svg';
+  static const String recCurrency = 'assets/custom-icons/rec-currency-symbol.svg';
 
   // Other
   static const String loginHeader = 'assets/login-header.jpg';
@@ -33,8 +34,7 @@ class Assets {
 
   // campaigns
   static const String ltabCampaignBanner = 'assets/banners/banner_ltab.jpg';
-  static const String cultureCampaignBanner =
-      'assets/banners/banner_cultural.png';
+  static const String cultureCampaignBanner = 'assets/banners/banner_cultural.png';
 
   // languages
   static const String languageEs = 'assets/flag-es.png';

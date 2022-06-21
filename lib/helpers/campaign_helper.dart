@@ -7,10 +7,11 @@ class CampaignHelper {
   }
 
   static bool isActive(Campaign campaign, User? user, Account? account) {
-    var campaignStarted = campaign.isStarted();
-    var isInCampaign = user!.hasCampaignAccount(campaign.code);
-    var isCompany = account!.isCompany();
+    final campaignStarted = campaign.isStarted();
+    final campaignEnded = campaign.isFinished();
+    final isInCampaign = user!.hasCampaignAccount(campaign.code);
+    final isCompany = account!.isCompany();
 
-    return campaignStarted && !isInCampaign && !isCompany;
+    return (campaignStarted && !campaignEnded) && !isInCampaign && !isCompany;
   }
 }

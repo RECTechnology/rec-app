@@ -25,6 +25,7 @@
 
   "ITRODUCE_DNI_TELF": "Introdueix el teu document d'identitat i el telèfon vinculat al teu usuari per a poder canviar la teva contrasenya",
   "NEXT": "Següent",
+  "QUALIFICATIONS_EXPIRED": "El temps per qualificar ha expirat, ho sentim",
 
   "HELP_US_VALIDATE_PHONE": "Ajuda'ns a validar aquesta acció introduint el codi enviat ",
   "SEND_SMS_U": "T'hem enviat un SMS",
@@ -461,8 +462,12 @@
   "ALREADY_A_PART_OF": "Ja formes part de \n ¡{{campaign}}!",
   "CAMPAIGN_CULT21_DESC": "Rebràs un {{percent}}% de bonificació únicament fent canvis d'euros a RECs des del teu compte REC Cultural",
   "CAMPAIGN_SITE": "Visitar pàgina web de la campanya",
-  "MORE": "Més...",
-  "MORE_FILTERS": "Més... {{selected}}",
+  "CATEGORIES_FILTERS": "Categories ({{selected}})",
+  "BADGES_FILTERS": "Sellos ({{selected}})",
+  "NO_FILTERS": "No s'han trobar filtres",
+
+  "BADGES": "Sellos",
+
   "MORE_CATEGORIES": "Més categories",
   "CATEGORIES": "Categories",
   "CAMPAIGNS": "Campanyes",
@@ -544,5 +549,16 @@
   "Not funds enough": "No tens suficients RECs",
   "LTAB_STOP_BONIFICATION_TITLE": "Hem esgotat els RECs bonificables",
   "LTAB_STOP_BONIFICATION_DESC_1": "A partir d'ara, en recarregar RECs, no rebràs RECs bonificables.",
-  "LTAB_STOP_BONIFICATION_DESC_2": "Si disposes de RECs bonificats al teu compte LI TOCA AL BARRI fes-ne ús abans del final de campanya"
+  "LTAB_STOP_BONIFICATION_DESC_2": "Si disposes de RECs bonificats al teu compte LI TOCA AL BARRI fes-ne ús abans del final de campanya",
+
+  "DOES_IT_HAVE_CHARACTERISTICS": "Té alguna d’aquestes característiques?",
+  "QUALIFY_COMERCE": "Qualifica aquest lloc",
+  "QUALIFY_INFO_LINE_1": "Toca <bold>una vegada</bold> per a indicar que <green>sí</green>",
+  "QUALIFY_INFO_LINE_2": "Toca <bold>dues vegades</bold> per a indicar que <red>no</red>",
+  "QUALIFY_WILL_BE_USEFUL": "La teva valoració és útil per altres persones",
+  "VOTED_OK": "Gracies per la teva valoració!",
+  "BADGES_RATED_BY_COMUNITY": "Valorat per la comunitat",
+  "SUBMIT": "ENVIAR",
+  "QUALIFY_CTA": "Qualificar",
+  "NEW_CARD": "Nova tarjeta"
 }

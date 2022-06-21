@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
@@ -6,9 +8,11 @@ import 'package:rec/Pages/Public/SmsCode/SmsCode.dart';
 import '../../test_utils.dart';
 
 void main() {
+  setUpAll(() => HttpOverrides.global = null);
+
   testWidgets('SmsCode test build correctly', (WidgetTester tester) async {
     await tester.runAsync(() async {
-      var app = await TestUtils.wrapPrivateRoute(
+      final app = await TestUtils.wrapPrivateRoute(
         SmsCode(
           dni: '80008000q',
           prefix: '34',
@@ -20,7 +24,9 @@ void main() {
       await tester.pumpWidget(app);
 
       // Esto es necesario hacerlo, para que se cargue el Localizations y tengamos acceso a los widgets
-      await tester.pumpAndSettle();
+      for (int i = 0; i < 5; i++) {
+        await tester.pump(Duration(seconds: 1));
+      }
 
       // comprueba que haya una instanncia de SmsCode visible
       TestUtils.widgetExistsByType(SmsCode);
@@ -32,9 +38,9 @@ void main() {
 
   testWidgets('SmsCode validates and submits correctly', (WidgetTester tester) async {
     await tester.runAsync(() async {
-      var key = GlobalKey<SmsCodeState>();
       String? onCodeResult;
-      var app = await TestUtils.wrapPrivateRoute(
+      final key = GlobalKey<SmsCodeState>();
+      final app = await TestUtils.wrapPrivateRoute(
         SmsCode(
           key: key,
           dni: '80008000q',
@@ -49,9 +55,12 @@ void main() {
       await tester.pumpWidget(app);
 
       // Esto es necesario hacerlo, para que se cargue el Localizations y tengamos acceso a los widgets
-      await tester.pumpAndSettle();
+      for (int i = 0; i < 5; i++) {
+        await tester.pump(Duration(seconds: 1));
+      }
 
-      var smsCodeState = key.currentState!;
+
+      final smsCodeState = key.currentState!;
 
       // By default form should be invalid
       expect(smsCodeState.isFormValid, false);
@@ -62,7 +71,11 @@ void main() {
 
       // should be valid
       expect(key.currentState!.isFormValid, true);
-      await tester.pumpAndSettle();
+      // Esto es necesario hacerlo, para que se cargue el Localizations y tengamos acceso a los widgets
+      for (int i = 0; i < 5; i++) {
+        await tester.pump(Duration(seconds: 1));
+      }
+
 
       // Check that the submit button is rendered
       TestUtils.widgetExistsByType(RecActionButton);

@@ -6,13 +6,13 @@ import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/providers/AppState.dart';
+import 'package:rec/providers/app_provider.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec/providers/documents_provider.dart';
 import 'package:rec/providers/PreferenceProvider.dart';
 import 'package:rec/providers/transactions_provider.dart';
 import 'package:rec/providers/user_state.dart';
-import 'package:rec/providers/campaign-manager.dart';
+import 'package:rec/providers/campaign_manager.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 import 'mocks/services_mock.dart';
@@ -35,7 +35,7 @@ class TestUtils {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => AppState(
+          create: (context) => AppProvider(
             packageInfo: PackageInfo(
               appName: 'rec',
               packageName: 'com.barcelona.rec',
@@ -87,7 +87,7 @@ class TestUtils {
     List<NavigatorObserver> navigatorObservers = const <NavigatorObserver>[],
   }) {
     return ChangeNotifierProvider(
-      create: (context) => AppState(
+      create: (context) => AppProvider(
         packageInfo: PackageInfo(
           appName: 'rec',
           packageName: 'com.barcelona.rec',

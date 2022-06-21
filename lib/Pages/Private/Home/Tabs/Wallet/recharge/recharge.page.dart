@@ -10,17 +10,20 @@ import 'package:rec/Pages/Private/Shared/campaigns/ltab/ltab-stop-bonification.d
 import 'package:rec/helpers/campaign_helper.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/helpers/RecNavigation.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/AttemptRecharge.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/attempt_recharge.page.dart';
 import 'package:rec/Pages/Private/Shared/campaigns/ltab/description-card-ltab.page.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec/providers/user_state.dart';
-import 'package:rec/providers/campaign-manager.dart';
+import 'package:rec/providers/campaign_manager.dart';
 import 'package:rec/styles/paddings.dart';
 import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
+import 'select_card.page.dart';
+
+/// This page asks the user for recharge data and handles flow for a recharge
 class RechargePage extends StatefulWidget {
   @override
   _RechargePageState createState() => _RechargePageState();
@@ -60,25 +63,25 @@ class _RechargePageState extends State<RechargePage> {
   }
 
   void _checkLtabBonificatonStop() {
-    var ltabCampaign = CampaignProvider.deaf(context).getCampaignByCode(env.CMP_LTAB_CODE);
-    var isInCampaign = UserState.deaf(context).user!.hasCampaignAccount(env.CMP_LTAB_CODE);
+    final ltabCampaign = CampaignProvider.deaf(context).getCampaignByCode(env.CMP_LTAB_CODE);
+    final isInCampaign = UserState.deaf(context).user!.hasCampaignAccount(env.CMP_LTAB_CODE);
 
-    if (ltabCampaign != null &&
-        !ltabCampaign.bonusEnabled &&
-        !ltabCampaign.isFinished() &&
-        isInCampaign) {
-      showDialog(
-        context: context,
-        builder: (_) => Dialog(
-          insetPadding: EdgeInsets.zero,
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: LtabBonificacionStop(),
-          ),
+    if (ltabCampaign == null) return;
+    if (ltabCampaign.bonusEnabled) return;
+    if (ltabCampaign.isFinished()) return;
+    if (!isInCampaign) return;
+
+    showDialog(
+      context: context,
+      builder: (_) => Dialog(
+        insetPadding: EdgeInsets.zero,
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: LtabBonificacionStop(),
         ),
-      ).then((value) => print('done ' + value));
-    }
+      ),
+    ).then((value) => print('done ' + value));
   }
 
   @override
@@ -101,8 +104,8 @@ class _RechargePageState extends State<RechargePage> {
   }
 
   Widget _body() {
-    var account = userState!.account;
-    var isCultureAccount = account!.isCampaignAccount(env.CMP_CULT_CODE);
+    final account = userState!.account;
+    final isCultureAccount = account!.isCampaignAccount(env.CMP_CULT_CODE);
 
     return SingleChildScrollView(
       child: Container(
@@ -153,7 +156,7 @@ class _RechargePageState extends State<RechargePage> {
   }
 
   void _amountChanged(value) {
-    var newAmount = double.parse(
+    final newAmount = double.parse(
       value.isEmpty ? '0' : value.replaceAll(',', '.'),
     );
 
@@ -163,13 +166,13 @@ class _RechargePageState extends State<RechargePage> {
   }
 
   String? _customAmountValidator(String? value) {
-    var isCultureAccount = userState!.account!.isCampaignAccount(env.CMP_CULT_CODE);
+    final isCultureAccount = userState!.account!.isCampaignAccount(env.CMP_CULT_CODE);
     if (isCultureAccount) return null;
 
-    var localizations = AppLocalizations.of(context);
-    var campaignActive = CampaignHelper.isActiveForState(userState, ltabCampaign!);
-    var valueDouble = double.parse(value!.isEmpty ? '0' : value);
-    var reachesMin = valueDouble >= ltabCampaign!.min;
+    final localizations = AppLocalizations.of(context);
+    final campaignActive = CampaignHelper.isActiveForState(userState, ltabCampaign!);
+    final valueDouble = double.parse(value!.isEmpty ? '0' : value);
+    final reachesMin = valueDouble >= ltabCampaign!.min;
 
     if (valueDouble < 0.5) {
       return localizations!.translate('MIN_RECHARGE');
@@ -192,15 +195,19 @@ class _RechargePageState extends State<RechargePage> {
 
     Loading.show();
 
-    var ltabCampaign = CampaignProvider.deaf(context).getCampaignByCode(env.CMP_LTAB_CODE);
-    var alreadyHasLtabAccount = userState!.user!.hasCampaignAccount(env.CMP_LTAB_CODE);
-    var isCultureAccount = userState!.account!.isCampaignAccount(env.CMP_CULT_CODE);
+    final ltabCampaign = CampaignProvider.deaf(context).getCampaignByCode(env.CMP_LTAB_CODE);
+    final alreadyHasLtabAccount = userState!.user!.hasCampaignAccount(env.CMP_LTAB_CODE);
+    final isCultureAccount = userState!.account!.isCampaignAccount(env.CMP_CULT_CODE);
+    final ltabCampaignActive = CampaignHelper.isActiveForState(userState, ltabCampaign!);
 
     // Only update if not already set
-    await _updateTos();
+    if (userState?.user?.privateTosLtab != rechargeData.campaignTermsAccepted) {
+      await _updateTos();
+    }
 
-    rechargeData.willEnterCampaign = rechargeData.campaignTermsAccepted &&
-        rechargeData.amount >= ltabCampaign!.min &&
+    rechargeData.willEnterCampaign = ltabCampaignActive &&
+        rechargeData.campaignTermsAccepted &&
+        rechargeData.amount >= ltabCampaign.min &&
         !alreadyHasLtabAccount &&
         !isCultureAccount &&
         !ltabCampaign.bonusEnabled;
@@ -209,19 +216,19 @@ class _RechargePageState extends State<RechargePage> {
     _requestPin();
   }
 
-  void _requestPin() {
-    var userState = UserState.of(context, listen: false);
+  _requestPin() {
+    final userState = UserState.of(context, listen: false);
 
     // If user already has pin, we can proceed to attempt the recharge
     // this is done so user does not need to enter the pin if he already has it
     if (userState.user!.hasPin!) {
-      return _attemptRecharge();
+      return _goToSelectCard();
     }
 
     // If user has no pin, we need him to create a pin before attempting the recharge
     RecNavigation.of(context).navigate(
       (_) => RequestPin(
-        ifPin: (__) => _attemptRecharge(),
+        ifPin: (__) => _goToSelectCard(),
       ),
     );
   }
@@ -232,6 +239,29 @@ class _RechargePageState extends State<RechargePage> {
         data: rechargeData,
       ),
     );
+  }
+
+  _goToSelectCard() async {
+    final result = await RecNavigation.of(context).navigate(
+      (_) => SelectCardPage(rechargeData: rechargeData),
+    );
+
+    // If value is null, it means that [SelectCardPage] has popped without selecting an action
+    // so we just ignore it, they can press "Recharge" button again
+    if (result == null) return;
+
+    // If result is a [BankCard], it means that the user has selected a saved card
+    if (result is BankCard) {
+      rechargeData.cardId = result.id;
+    }
+
+    // Otherwise if it's a bool (true for save card, false for not save card)
+    // set [saveCard] to the result, as to tell the recharge if the user wants to save the card or not
+    if (result is bool) {
+      rechargeData.saveCard = result;
+    }
+
+    return _attemptRecharge();
   }
 
   _updateTos() async {

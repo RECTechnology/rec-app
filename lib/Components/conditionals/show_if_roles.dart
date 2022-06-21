@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
-// TODO: if needed create a ShowIfNotRoles or pass in a flag, that will do the oposite check.
 // this could make for a better developer experience
 class ShowIfRoles extends StatelessWidget {
   /// List of roles that can view the child widget

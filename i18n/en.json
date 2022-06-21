@@ -28,6 +28,7 @@
   "HELP_US_VALIDATE_PHONE": "Help us validate this action by entering the code sent to ",
   "SEND_SMS_U": "We have sent you an SMS",
   "VALIDATE": "Validate",
+  "QUALIFICATIONS_EXPIRED":"The time to qualify has expired, we are sorry",
 
   "CHANGE_PASSWORD": "Change Password",
   "INTRODUCE_NEW_PASSWORD": "Enter your new password and repeat it to make sure there are no errors",
@@ -456,10 +457,14 @@
   "CULT21_WITH_NEIGHBORHOODS": "REC Cultural (Sants & Poble Sec)",
   "LTAB20_WITH_NEIGHBORHOODS": "Li toca al barri (Eje Bessos)",
 
-  "MORE": "More...",
-  "MORE_FILTERS": "More... {{selected}}",
-  "MORE_CATEGORIES": "More categories",
+  "CATEGORIES_FILTERS": "Categories ({{selected}})",
+  "BADGES_FILTERS": "Badges ({{selected}})",
+  "NO_FILTERS": "No filters found",
+
   "CATEGORIES": "Categories",
+  "BADGES": "Badges",
+
+  "MORE_CATEGORIES": "More categories",
   "CAMPAIGNS": "Campaigns",
   "PUBLISH": "Publish",
   "PUBLISH_OFFER": "Publish new offer",
@@ -540,5 +545,16 @@
   "Incorrect Pin": "Incorrect pin",
   "LTAB_STOP_BONIFICATION_TITLE": "We have exhausted the rewardable RECs",
   "LTAB_STOP_BONIFICATION_DESC_1": "From now on, when recharging RECs, you will not receive rewarded RECs.",
-  "LTAB_STOP_BONIFICATION_DESC_2": "If you have rewarded RECs in your account LI TOCA AL BARRI make use of them before the end of the campaign"
+  "LTAB_STOP_BONIFICATION_DESC_2": "If you have rewarded RECs in your account LI TOCA AL BARRI make use of them before the end of the campaign",
+
+  "DOES_IT_HAVE_CHARACTERISTICS": "Does it have any of the following characteristics?",
+  "QUALIFY_COMERCE": "Rate this shop",
+  "QUALIFY_INFO_LINE_1": "Click <bold>one time</bold> to indicate <green>yes</green>",
+  "QUALIFY_INFO_LINE_2": "Click <bold>twice</bold> to indicate <red>no</red>",
+  "QUALIFY_WILL_BE_USEFUL": "Your review is useful to other people",
+  "VOTED_OK": "Thank you for your review!",
+  "BADGES_RATED_BY_COMUNITY": "Valued by the community",
+  "QUALIFY_CTA": "Qualify",
+  "SUBMIT": "SEND",
+  "NEW_CARD": "New card"
 }
