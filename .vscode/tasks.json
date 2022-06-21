@@ -44,6 +44,18 @@
             "type": "shell"
         },
         {
+            "label": "build-sandbox-aab",
+            "command": "fvm",
+            "args": ["flutter", "build", "appbundle", "--flavor=sandbox", "--release"],
+            "type": "shell"
+        },
+        {
+            "label": "build-pre-aab",
+            "command": "fvm",
+            "args": ["flutter", "build", "appbundle", "--flavor=pre", "--release"],
+            "type": "shell"
+        },
+        {
             "label": "build-pre-ios",
             "command": "fvm",
             "args": ["flutter", "build", "ipa", "--release"],
@@ -121,6 +133,15 @@
             "dependsOrder": "sequence",
             "dependsOn": [
                 "prepare-env-pre",
+                "build-prod-aab",
+                "open-prod-aab-path"
+            ]
+        },
+        {
+            "label": "Build AAB sandbox",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "prepare-env-sandbox",
                 "build-prod-aab",
                 "open-prod-aab-path"
             ]
