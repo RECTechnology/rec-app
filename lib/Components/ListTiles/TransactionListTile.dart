@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rec/Components/Modals/TransactionDetailsModal.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Wallet/transactions/transaction_details_sheet.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Wallet/Transactions/TransactionIcon.dart';
 import 'package:rec/Components/Wallet/Transactions/TransactionTitle.dart';
+import 'package:rec/config/features.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/providers/campaign_provider.dart';
@@ -35,12 +37,24 @@ class TransactionsListTile extends StatefulWidget {
 }
 
 class _TransactionsListTile extends State<TransactionsListTile> {
+  final detailsModal = TransactionDetailsModal();
+
   Transaction get tx {
     return widget.tx;
   }
 
   double get height {
     return widget.height;
+  }
+
+  // TODO: Should this be done here? Or maybe let the parent widget handle this?
+  void _openTxDetails() {
+    // return detailsModal.open(context, widget.tx);
+    if (Features.newTxModal) {
+      TransactionBottomSheet.openBottomSheet(context, widget.tx);
+    } else {
+      detailsModal.open(context, widget.tx);
+    }
   }
 
   @override
@@ -52,10 +66,8 @@ class _TransactionsListTile extends State<TransactionsListTile> {
     final amount = getAmount();
     final date = getDate();
 
-    final detailsModal = TransactionDetailsModal(context);
-
     return InkWell(
-      onTap: () => detailsModal.open(widget.tx),
+      onTap: _openTxDetails,
       child: Padding(
         padding: widget.padding,
         child: Row(

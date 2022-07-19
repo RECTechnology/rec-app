@@ -7,8 +7,8 @@ import 'package:rec_api_dart/rec_api_dart.dart';
 
 class TransactionTitle extends StatefulWidget {
   final Transaction tx;
-  final double fontSize;
   final int? maxLines;
+  final double fontSize;
 
   const TransactionTitle(
     this.tx, {
@@ -25,34 +25,14 @@ class TransactionTitle extends StatefulWidget {
 class _TransactionTitle extends State<TransactionTitle> {
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
-    var account = UserState.of(context).account;
+    final localizations = AppLocalizations.of(context);
+    final account = UserState.of(context).account;
 
-    var prefix = 'FROM';
-    String? owner = '';
+    String prefix = TransactionHelper.getPrefix(widget.tx, account as Account);
+    String owner = TransactionHelper.getOwner(widget.tx, account);
 
-    // HACK: LTAB
-    if (widget.tx.isIn() && account!.isLtabAccount()) {
-      prefix = localizations!.translate('FROM');
-      owner = 'LTAB';
-    }
-    if (TransactionHelper.isCultureReward(widget.tx)) {
-      prefix = localizations!.translate('FROM');
-      owner = localizations.translate('REC_CULTURAL');
-    } else if (TransactionHelper.isRecharge(widget.tx)) {
-      prefix = localizations!.translate('FROM_CREDIT_CARD');
-      owner = localizations.translate('CREDIT_CARD_TX');
-    } else if (widget.tx.isOut()) {
-      prefix = localizations!.translate('TO');
-      owner = widget.tx.payOutInfo!.name;
-    } else if (widget.tx.isIn()) {
-      prefix = localizations!.translate('FROM');
-      owner = widget.tx.payInInfo!.name;
-    }
-
-    if (owner == null || owner.isEmpty) {
-      owner = localizations!.translate('PARTICULAR');
-    }
+    prefix = localizations!.translate(prefix);
+    owner = localizations.translate(owner);
 
     return RichText(
       maxLines: widget.maxLines,

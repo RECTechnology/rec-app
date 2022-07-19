@@ -3,6 +3,38 @@ import 'package:rec_api_dart/rec_api_dart.dart';
 import '../test_faker.dart';
 
 class CampaignsMocks {
+  static Map<String, dynamic> campaignLtab = {
+    'id': TestFaker.faker.guid.guid(),
+    'code': 'LTAB20',
+    'created_at': TestFaker.isoDate(),
+    'updated_at': TestFaker.isoDate(),
+    'init_date': TestFaker.isoDate(),
+    'end_date': TestFaker.isoDate(),
+    'min': 1,
+    'max': 100,
+    'balance': 1000,
+    'name': 'test_campaign',
+    'video_promo_url': '',
+    'image_url': 'https://ltab.image.com',
+    'bonus_enabled': true,
+  };
+
+  static Map<String, dynamic> campaignCulture = {
+    'id': TestFaker.faker.guid.guid(),
+    'code': 'CULT21',
+    'created_at': TestFaker.isoDate(),
+    'updated_at': TestFaker.isoDate(),
+    'init_date': TestFaker.isoDate(),
+    'end_date': TestFaker.isoDate(),
+    'min': 1,
+    'max': 100,
+    'balance': 1000,
+    'name': 'test_campaign',
+    'video_promo_url': '',
+    'image_url': 'https://cult.image.com',
+    'bonus_enabled': true,
+  };
+
   static Map<String, dynamic> campaign1Json = {
     'id': TestFaker.faker.guid.guid(),
     'created_at': TestFaker.isoDate(),

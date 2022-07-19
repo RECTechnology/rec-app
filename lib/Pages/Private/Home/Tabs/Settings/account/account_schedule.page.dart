@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/DropDown.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
-import 'package:rec/Components/ListTiles/ScheduleDayInput.dart';
+import 'package:rec/Components/ListTiles/schedule_day_input.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/loading.dart';
@@ -87,10 +87,11 @@ class _AccountSchedulePageState extends State<AccountSchedulePage> {
   }
 
   Widget _scheduleDayBuilder(ctx, index) {
-    var day = schedule!.days[index];
+    final day = schedule!.days[index];
 
     return ScheduleDayInput(
       day: day,
+      schedule: schedule as Schedule,
       closed: schedule!.isClosed,
       opens24Hours: schedule!.isOpen24h,
       isNotAvailable: schedule!.isNotAvailable,
@@ -112,13 +113,23 @@ class _AccountSchedulePageState extends State<AccountSchedulePage> {
       },
       onAction: (action) {
         switch (action) {
-          case CopyPasteAction.copy:
+          case ScheduleDayAction.copy:
             copiedDay = schedule!.days[index];
             break;
-          case CopyPasteAction.paste:
+          case ScheduleDayAction.paste:
             if (copiedDay != null) {
               schedule!.days[index].copyFrom(copiedDay!);
             }
+            break;
+          case ScheduleDayAction.intensive:
+            schedule!.days[index].intensive = true;
+            schedule!.days[index].resetToDefaultTime();
+            schedule!.days[index].secondOpen = null;
+            schedule!.days[index].secondClose = null;
+            break;
+          case ScheduleDayAction.split:
+            schedule!.days[index].intensive = false;
+            schedule!.days[index].resetToDefaultTime();
             break;
         }
         setState(() {});

@@ -19,7 +19,7 @@ class ActivityProvider extends ChangeNotifier {
 
     var activitiesListResponse = await _service.list();
     _activities = activitiesListResponse.items;
-    _activities!.sort((a, b) => a.name!.compareTo(b.name!));
+    _activities!.sort((a, b) => a.name.compareTo(b.name));
 
     isLoading = false;
     notifyListeners();

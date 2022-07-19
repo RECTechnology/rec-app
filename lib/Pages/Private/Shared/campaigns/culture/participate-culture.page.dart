@@ -8,7 +8,7 @@ import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/campaign_helper.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/providers/campaign_provider.dart';
-import 'package:rec/providers/PreferenceProvider.dart';
+import 'package:rec/providers/preference_provider.dart';
 import 'package:rec/providers/campaign_manager.dart';
 import 'package:rec/providers/preferences/PreferenceDefinitions.dart';
 import 'package:rec/providers/user_state.dart';

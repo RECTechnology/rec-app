@@ -55,6 +55,15 @@ class _UserSettingsListState extends State<UserSettingsList> {
           ),
         ),
         SettingsListTile(
+          title: 'SETTINGS_USER_CARDS',
+          icon: Icons.credit_card,
+          requiresActions: false,
+          onTap: RecNavigation.getNavigateToRouteCallback(
+            context,
+            Routes.settingsUserCards,
+          ),
+        ),
+        SettingsListTile(
           title: 'SETTINGS_USER_SECURITY',
           icon: Icons.lock,
           subtitle: hasPin! ? null : 'PIN_REQUIRED',

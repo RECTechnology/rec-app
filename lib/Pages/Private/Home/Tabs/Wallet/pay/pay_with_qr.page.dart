@@ -136,7 +136,7 @@ class _PayWithQRState extends State<PayWithQR> {
   void _openPinPage() {
     final route = MaterialPageRoute(
       builder: (ctx) => AttemptPayment(
-        data: paymentData,
+        data: paymentData as PaymentData,
       ),
     );
 

@@ -70,7 +70,7 @@ class DocumentsProvider extends ChangeNotifier {
 
   Future<List<DocumentKind>> _getKinds() {
     return _documentService.listKinds().then(
-          (value) => value.items!
+          (value) => value.items
               .where(
                 (element) => element.isUserDocument,
               )
@@ -79,7 +79,7 @@ class DocumentsProvider extends ChangeNotifier {
   }
 
   Future<List<Document>> _getDocuments() {
-    return _documentService.list().then((value) => value.items!);
+    return _documentService.list().then((value) => value.items);
   }
 
   static DocumentsProvider of(context, {bool listen = true}) {

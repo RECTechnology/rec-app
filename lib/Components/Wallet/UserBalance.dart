@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Icons/RecCurrencyIcon.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/providers/PreferenceProvider.dart';
+import 'package:rec/providers/preference_provider.dart';
 import 'package:rec/providers/preferences/PreferenceDefinitions.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
@@ -43,8 +43,11 @@ class _UserBalance extends State<UserBalance> {
   @override
   Widget build(BuildContext context) {
     var localizations = AppLocalizations.of(context);
-    var amount = (showBalance || !widget.hidable) ? Currency.format(widget.balance) : '* * *';
-    var subtitle = (showBalance || !widget.hidable) ? localizations!.translate(widget.label) : '';
+    final locale = AppLocalizations.of(context)?.locale;
+    final amount = (showBalance || !widget.hidable)
+        ? Currency.format(widget.balance, locale: locale.toString())
+        : '* * *';
+    final subtitle = (showBalance || !widget.hidable) ? localizations!.translate(widget.label) : '';
 
     return Container(
       margin: EdgeInsets.only(bottom: 40),

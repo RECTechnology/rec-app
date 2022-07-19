@@ -102,7 +102,7 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
     );
 
     var route = MaterialPageRoute(
-      builder: (ctx) => PayAddress(paymentData: data),
+      builder: (ctx) => PayAddressPage(paymentData: data),
     );
     Navigator.of(context).push(route).then((value) {
       if (value == true) Navigator.of(context).pop(value);

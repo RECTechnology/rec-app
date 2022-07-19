@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Components/info-box.dart';
+import 'package:rec/Components/info_box.dart';
 import 'package:rec/config/brand.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/providers/campaign_provider.dart';

@@ -75,7 +75,7 @@ class _ContactsList extends State<ContactsList> {
 
     // ignore: unnecessary_null_comparison
     return recContacts = apiContacts != null
-        ? apiContacts.items!.where((element) => !element.isMyAccount!).toList()
+        ? apiContacts.items.where((element) => !element.isMyAccount!).toList()
         : [];
   }
 

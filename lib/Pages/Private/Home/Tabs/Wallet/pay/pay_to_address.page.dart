@@ -11,21 +11,43 @@ import 'package:rec/providers/user_state.dart';
 import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
-class PayAddress extends StatefulWidget {
+class PayAddressPage extends StatefulWidget {
   final PaymentData paymentData;
   final List<String?> disabledFields;
 
-  const PayAddress({
+  /// Override the appbar title
+  final String? title;
+
+  /// optionally override the button text
+  final String? buttonTitle;
+
+  /// optionally override the caption text
+  final String? captionText;
+
+  /// optional color for the button
+  final Color? buttonColor;
+
+  /// Maximum amount that can be paid
+  ///
+  /// This is used for refunds for now, this way we can limit the amount
+  final double? maxAmount;
+
+  const PayAddressPage({
     Key? key,
     required this.paymentData,
     this.disabledFields = const [],
+    this.title,
+    this.buttonTitle,
+    this.maxAmount,
+    this.captionText,
+    this.buttonColor,
   }) : super(key: key);
 
   @override
-  _PayAddressState createState() => _PayAddressState();
+  _PayAddressPageState createState() => _PayAddressPageState();
 }
 
-class _PayAddressState extends State<PayAddress> {
+class _PayAddressPageState extends State<PayAddressPage> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -34,24 +56,25 @@ class _PayAddressState extends State<PayAddress> {
   }
 
   Widget _content() {
-    var localizations = AppLocalizations.of(context);
-    var userState = UserState.of(context);
-    var appBar = PrivateAppBar(
+    final localizations = AppLocalizations.of(context);
+    final userState = UserState.of(context);
+    final appBar = PrivateAppBar(
       hasBackArrow: true,
       selectAccountEnabled: false,
       size: 160,
       backgroundColor: Brand.defaultAvatarBackground,
       color: Brand.grayDark,
-      title: localizations!.translate('PAY_TO_NAME', params: {
-        'name': widget.paymentData.vendor!.name,
-      }),
+      title: widget.title ??
+          localizations!.translate('PAY_TO_NAME', params: {
+            'name': widget.paymentData.vendor!.name,
+          }),
       textAlign: TextAlign.left,
       alignment: Alignment.centerLeft,
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: UserBalance(
           balance: widget.paymentData.amount,
-          label: localizations.translate(
+          label: localizations!.translate(
             'FROM_NAME',
             params: {
               'name': userState.account!.name,
@@ -66,12 +89,12 @@ class _PayAddressState extends State<PayAddress> {
       appBar: appBar,
       header: Padding(
         padding: const EdgeInsets.symmetric(vertical: 24),
-        child: CaptionText('FILL_PAY_FORM'),
+        child: CaptionText(widget.captionText ?? 'FILL_PAY_FORM'),
       ),
       form: _payForm(),
       submitButton: RecActionButton(
-        label: 'CONFIRM_PAYMENT',
-        backgroundColor: Brand.primaryColor,
+        label: widget.buttonTitle ?? 'CONFIRM_PAYMENT',
+        backgroundColor: widget.buttonColor ?? Brand.primaryColor,
         onPressed: _isFormValid() ? _proceedWithPayment : null,
       ),
     );
@@ -81,18 +104,19 @@ class _PayAddressState extends State<PayAddress> {
     return PayAddressForm(
       data: widget.paymentData,
       disabledFields: widget.disabledFields,
+      maxAmount: widget.maxAmount,
       formKey: _formKey,
       onChange: (data) {
         setState(() => widget.paymentData.update(data!));
       },
+      onValidate: () => _formKey.currentState!.validate(),
     );
   }
 
   bool _isFormValid() {
-    var hasConcept = Checks.isNotEmpty(widget.paymentData.concept);
-    return hasConcept &&
-        widget.paymentData.amount != null &&
-        widget.paymentData.amount! > 0;
+    final hasConcept = Checks.isNotEmpty(widget.paymentData.concept);
+
+    return hasConcept && widget.paymentData.amount != null && widget.paymentData.amount! > 0;
   }
 
   void _proceedWithPayment() {

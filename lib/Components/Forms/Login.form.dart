@@ -4,7 +4,7 @@ import 'package:rec/Components/Inputs/text_fields/PasswordField.dart';
 import 'package:rec/Components/Info/LoggedInBeforeCard.dart';
 import 'package:rec/helpers/validators/validators.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/providers/PreferenceProvider.dart';
+import 'package:rec/providers/preference_provider.dart';
 import 'package:rec/providers/preferences/PreferenceDefinitions.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec/styles/paddings.dart';

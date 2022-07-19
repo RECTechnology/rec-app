@@ -21,7 +21,7 @@ import 'package:rec/providers/user_state.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class AttemptPayment extends StatefulWidget {
-  final PaymentData? data;
+  final PaymentData data;
   final TransactionsService? transactionsService;
 
   const AttemptPayment({
@@ -54,7 +54,7 @@ class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
         title: localizations!.translate(
           'PAY_TO_NAME',
           params: {
-            'name': widget.data!.vendor!.name,
+            'name': widget.data.vendor!.name,
           },
         ),
         textAlign: TextAlign.left,
@@ -62,7 +62,7 @@ class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
           child: UserBalance(
-            balance: widget.data!.amount,
+            balance: widget.data.amount,
             label: localizations.translate(
               'FROM_NAME',
               params: {
@@ -118,17 +118,25 @@ class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
     }
   }
 
+  void _makePayment() async {
+    if (widget.data.isRefund()) {
+      await service.makeRefund(widget.data).then(_onPaymentOk).catchError(_onPaymentError);
+    } else {
+      await service.makePayment(widget.data).then(_onPaymentOk).catchError(_onPaymentError);
+    }
+  }
+
   void _gotPin(String? pin) async {
     if (isLoading) return;
 
     setIsLoading(true);
 
-    widget.data!.pin = pin;
+    widget.data.pin = pin;
 
     FocusScope.of(context).requestFocus(FocusNode());
 
     _showCustomLoading();
-    await service.makePayment(widget.data!).then(_onPaymentOk).catchError(_onPaymentError);
+    _makePayment();
   }
 
   void _handleReward(PaymentResult paymentResult) {
@@ -160,6 +168,14 @@ class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
 
     setIsLoading(false);
 
+    /// If payment is a refund, we can pop here
+    if (widget.data.isRefund()) {
+      Loading.dismiss();
+      Navigator.pop(context);
+      RecToast.showSuccess(context, 'PAYMENT_OK');
+      return;
+    }
+
     if (paymentResult.hasBeenRewarded()) {
       _handleReward(paymentResult);
     } else {
@@ -177,7 +193,7 @@ class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
       status: localizations!.translate('MAKING_PAYMENT'),
       content: FromToRow(
         from: CircleAvatarRec.fromAccount(userState.account as Account),
-        to: CircleAvatarRec(imageUrl: widget.data!.vendor!.image),
+        to: CircleAvatarRec(imageUrl: widget.data.vendor!.image),
       ),
     );
   }

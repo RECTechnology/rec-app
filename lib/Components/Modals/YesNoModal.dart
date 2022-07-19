@@ -8,8 +8,8 @@ class YesNoModal extends GenericModal {
   final BuildContext context;
 
   YesNoModal({
-    this.title,
     required this.context,
+    this.title,
     this.content,
   }) : super(
           content: content,

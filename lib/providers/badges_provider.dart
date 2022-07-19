@@ -47,7 +47,7 @@ class BadgesProvider extends ChangeNotifier {
   Future<void> loadByGroup() async {
     isLoading = true;
 
-    _badges = (await _service.list({})).items as List<Badge>;
+    _badges = (await _service.list({})).items;
     _badgesByGroup = [];
 
     final Map<String, BadgeGroup> badgesByGroup = {};

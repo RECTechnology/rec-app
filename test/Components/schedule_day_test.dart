@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rec/Components/ListTiles/ScheduleDayInput.dart';
+import 'package:rec/Components/ListTiles/schedule_day_input.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 import '../test_utils.dart';
@@ -9,11 +9,12 @@ void main() {
   testWidgets('ScheduleDayInput initiates', (WidgetTester tester) async {
     var widget = ScheduleDayInput(
       day: ScheduleDay.defaultSchedule,
+      schedule: Schedule(),
       weekday: 1,
       closed: false,
       opens24Hours: false,
       onChange: (ScheduleDay value) {},
-      onAction: (CopyPasteAction value) {},
+      onAction: (ScheduleDayAction value) {},
     );
 
     await tester.pumpWidget(

@@ -3,9 +3,13 @@ import 'dart:io';
 import 'package:url_launcher/url_launcher.dart';
 
 class BrowserHelper {
-  static Future openBrowser(url) async {
-    if (await canLaunchUrl(url)) {
-      return await launchUrl(url);
+  static Future openBrowser(String? url) async {
+    if (url == null) return null;
+
+    final uri = Uri.parse(url);
+
+    if (await canLaunchUrl(uri)) {
+      return await launchUrl(uri);
     }
   }
 

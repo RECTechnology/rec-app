@@ -1,3 +1,4 @@
+import 'package:rec/config/tx_concepts.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class TransactionMock {
@@ -35,6 +36,34 @@ class TransactionMock {
     'pay_in_info': {
       // this concept is what identifies a transaction as a recharge
       'concept': 'Internal exchange',
+      'name_sender': 'test',
+      'amount': 1000,
+      'received': 1000,
+    },
+  });
+
+  static Transaction cultureRewards = Transaction.fromJson({
+    'type': 'in',
+    'amount': 1000,
+    'total': 1000,
+    'scale': 8,
+    'method': TransactionMethod.EUR,
+    'pay_in_info': {
+      'concept': cultureTxConcept,
+      'name_sender': 'test',
+      'amount': 1000,
+      'received': 1000,
+    },
+  });
+
+  static Transaction ltabInReward = Transaction.fromJson({
+    'type': 'in',
+    'amount': 1000,
+    'total': 1000,
+    'scale': 8,
+    'method': TransactionMethod.REC,
+    'pay_in_info': {
+      'concept': 'test',
       'name_sender': 'test',
       'amount': 1000,
       'received': 1000,

@@ -34,6 +34,5 @@ void main() {
 
 
     TestUtils.widgetExistsByType(HomePage);
-    TestUtils.isTextPresent('Mapa');
   });
 }

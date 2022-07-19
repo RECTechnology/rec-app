@@ -16,6 +16,17 @@ class Validators {
     return null;
   }
 
+  static String? Function(String? str) maxAmount(double value) {
+    return (str) {
+      final val = double.tryParse(str ?? '');
+      if (val != null && val > value) {
+        return 'MAX_AMOUNT_EXCEEDED';
+      }
+
+      return null;
+    };
+  }
+
   static String? isEmail(String? string) {
     // Null or empty string is invalid
     if (string == null || string.isEmpty) {
@@ -90,5 +101,16 @@ class Validators {
       return null;
     }
     return 'ERROR_CIF';
+  }
+
+  static String? Function(String? str) combine(List<String? Function(String? str)> validators) {
+    return (String? str) {
+      for (final validator in validators) {
+        final result = validator(str);
+        if (result != null) return result;
+      }
+
+      return null;
+    };
   }
 }

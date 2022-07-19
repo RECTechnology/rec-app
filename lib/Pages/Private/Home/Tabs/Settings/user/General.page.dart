@@ -22,7 +22,7 @@ class GeneralSettingsPage extends StatelessWidget {
           subtitle: localization.translate('MAIN_LANGUAGE'),
           onTap: RecNavigation.getNavigateToRouteCallback(
             context,
-            Routes.settingsUserGeneralLanguage,
+            Routes.settingsUserLanguage,
           ),
         ),
         const SizedBox(height: 16),

@@ -31,6 +31,7 @@ class Brand {
 
   static const Color gradientSecondaryLight = Color(0xffED9707);
   static const Color gradientSecondaryDark = Color(0xffF73807);
+  static const Color redLight = Color(0xffFBF3F4);
   static const Color filterColor = Color(0xffFCEDE6);
 
   // Text Colors
@@ -41,6 +42,8 @@ class Brand {
 
   static const Color grayLight = Color(0xff666666);
   static const Color grayLight2 = Color(0xffBDBDBD);
+  static const Color grayLight5 = Color(0xffE0E0E0);
+  static const Color grayLight6 = Color(0xfff2f2f2);
   static const Color grayIcon = Color(0xffBFBFBF);
   static const Color graySubtitle = Color(0xff828282);
   static const Color grayDisabled = Color(0xffBBBBBB);
@@ -60,6 +63,13 @@ class Brand {
     end: Alignment(-.3, -0.8),
     colors: <Color>[Brand.gradientSecondaryLight, Brand.gradientSecondaryDark],
   );
+
+  static LinearGradient grayBgGradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: <Color>[Color(0xffF2F2F2), Color.fromARGB(23, 242, 242, 242)],
+  );
+
 
   static LinearGradient appBarGradient = LinearGradient(
     begin: Alignment.bottomRight,

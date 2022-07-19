@@ -61,6 +61,20 @@ android {
         }
     }
 
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def appName = "RecBarcelona"
+            def buildType = variant.buildType.name
+            def newName
+            if (buildType == 'debug'){
+                newName = "${appName}-${defaultConfig.versionName}+${defaultConfig.versionCode}-${variant.getFlavorName()}-debug.apk"
+            } else {
+                newName = "${appName}-${defaultConfig.versionName}+${defaultConfig.versionCode}-${variant.getFlavorName()}.apk"
+            }
+            output.outputFileName = newName
+        }
+    }
+
     buildTypes {
         release {
            signingConfig signingConfigs.release
@@ -87,6 +101,7 @@ android {
             applicationId "com.barcelona.rec"
         }
     }
+
 }
 
 flutter {

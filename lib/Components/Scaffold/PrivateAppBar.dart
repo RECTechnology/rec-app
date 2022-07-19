@@ -42,11 +42,10 @@ class PrivateAppBar extends StatefulWidget with PreferredSizeWidget {
 class _PrivateAppBar extends State<PrivateAppBar> {
   @override
   Widget build(BuildContext context) {
-    var userState = UserState.of(context);
-    var account = userState.user!.selectedAccount;
-    var accountSelector = AccountSelectorModal(context);
-
-    var flexibleSpace = Container(
+    final userState = UserState.of(context);
+    final account = userState.user!.selectedAccount;
+    final accountSelector = AccountSelectorModal(context);
+    final flexibleSpace = Container(
       decoration: widget.backgroundColor != null
           ? BoxDecorations.solid(widget.backgroundColor!)
           : BoxDecorations.gradient(
@@ -81,8 +80,7 @@ class _PrivateAppBar extends State<PrivateAppBar> {
                     alignment: Alignment.center,
                     child: CircleAvatarRec.fromAccount(account!),
                   ),
-            Padding(
-              padding: const EdgeInsets.only(left: 12.0),
+            Flexible(
               child: LocalizedText(
                 (widget.title ?? userState.user!.selectedAccount!.name) ?? '',
                 textAlign: widget.textAlign,

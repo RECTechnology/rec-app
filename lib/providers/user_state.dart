@@ -14,7 +14,7 @@ class UserState with ChangeNotifier {
   static String PREV_USER_DNI = 'previous_user_dni';
   static String PREV_USER_IMAGE = 'previous_user_image';
 
-  final RecSecureStorage _storage;
+  final IStorage _storage;
   final UsersService userService;
 
   User? _user;
@@ -39,7 +39,7 @@ class UserState with ChangeNotifier {
   }
 
   static ChangeNotifierProvider<UserState> getProvider(
-    RecSecureStorage _storage,
+    IStorage _storage,
     User savedUser,
   ) {
     return ChangeNotifierProvider(
@@ -115,14 +115,14 @@ class UserState with ChangeNotifier {
     return account == null ? defaultColor : Brand.getColorForAccount(account!);
   }
 
-  static Future<User> getSavedUser(RecSecureStorage _storage) async {
+  static Future<User> getSavedUser(IStorage _storage) async {
     var savedUsername = await _storage.read(
       key: UserState.PREV_USER_DNI,
     );
     return User(username: savedUsername);
   }
 
-  static Future<void> removeSavedUser(RecSecureStorage _storage) async {
+  static Future<void> removeSavedUser(IStorage _storage) async {
     await _storage.delete(
       key: UserState.PREV_USER_DNI,
     );

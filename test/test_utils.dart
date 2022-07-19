@@ -9,19 +9,20 @@ import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/providers/app_provider.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec/providers/documents_provider.dart';
-import 'package:rec/providers/PreferenceProvider.dart';
+import 'package:rec/providers/preference_provider.dart';
 import 'package:rec/providers/transactions_provider.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec/providers/campaign_manager.dart';
-import 'package:rec_api_dart/rec_api_dart.dart';
 
 import 'mocks/services_mock.dart';
+import 'mocks/storage_mock.dart';
 import 'mocks/users_mock.dart';
 
 class TestUtils {
   static Future<Widget> wrapPrivateRoute(
     Widget page, {
     UserState? userState,
+    Locale? locale,
     TransactionProvider? transactionProvider,
     DocumentsProvider? documentsProvider,
     CampaignProvider? campaignsProvider,
@@ -48,7 +49,7 @@ class TestUtils {
           create: (context) =>
               userState ??
               UserState(
-                RecSecureStorage(),
+                StorageMock(),
                 null,
                 user: UserMocks.userNormal(),
               ),
@@ -77,13 +78,14 @@ class TestUtils {
         ),
         ...providers
       ],
-      child: wrapInMaterialApp(page, navigatorObservers: navigatorObservers),
+      child: wrapInMaterialApp(page, navigatorObservers: navigatorObservers, locale: locale),
     );
   }
 
   static Widget wrapPublicRoute(
     Widget page, {
     Key? key,
+    Locale? locale,
     List<NavigatorObserver> navigatorObservers = const <NavigatorObserver>[],
   }) {
     return ChangeNotifierProvider(
@@ -98,6 +100,7 @@ class TestUtils {
       child: wrapInMaterialApp(
         page,
         key: key,
+        locale: locale,
         navigatorObservers: navigatorObservers,
       ),
     );
@@ -111,6 +114,7 @@ class TestUtils {
     Widget widget, {
     Key? key,
     List<NavigatorObserver> navigatorObservers = const <NavigatorObserver>[],
+    Locale? locale,
   }) {
     return MaterialApp(
       home: Scaffold(
@@ -121,7 +125,7 @@ class TestUtils {
             GlobalMaterialLocalizations.delegate,
             AppLocalizations.delegate
           ],
-          locale: Locale('es'),
+          locale: locale ?? Locale('es'),
           child: widget,
         ),
       ),

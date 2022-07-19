@@ -22,7 +22,7 @@
         {
             "label": "build-pre-apk",
             "command": "fvm",
-            "args": ["flutter", "build", "apk", "--flavor=pre"],
+            "args": ["flutter", "build", "apk", "--flavor=pre", "--release"],
             "type": "shell"
         },
         {
@@ -69,6 +69,12 @@
             "type": "shell"
         },
         {
+            "label": "build-sandbox-ios",
+            "command": "fvm",
+            "args": ["flutter", "build", "ipa", "--release"],
+            "type": "shell"
+        },
+        {
             "label": "m1-build-prod-ios",
             "command": "arch",
             "args": ["-x86_64","flutter","build", "ipa", "--release"],
@@ -77,13 +83,19 @@
         {
             "label": "open-pre-apk-path",
             "command": "open",
-            "args": ["build/app/outputs/flutter-apk/"],
+            "args": ["build/app/outputs/apk/pre/release"],
+            "type": "shell"
+        },
+        {
+            "label": "open-sandbox-apk-path",
+            "command": "open",
+            "args": ["build/app/outputs/apk/sandbox/release"],
             "type": "shell"
         },
         {
             "label": "open-prod-apk-path",
             "command": "open",
-            "args": ["build/app/outputs/flutter-apk/"],
+            "args": ["build/app/outputs/apk/prod/release"],
             "type": "shell"
         },
         {
@@ -116,7 +128,7 @@
             "dependsOn": [
                 "prepare-env-sandbox",
                 "build-sandbox-apk",
-                "open-prod-apk-path"
+                "open-sandbox-apk-path"
             ]
         },
         {
@@ -160,6 +172,14 @@
             "dependsOn": [
                 "prepare-env-prod",
                 "build-prod-ios"
+            ]
+        },
+        {
+            "label": "Build iOS sandbox",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "prepare-env-sandbox",
+                "build-sandbox-ios"
             ]
         },
         {

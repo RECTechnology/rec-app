@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rec/Components/Icons/credit_card_type_icon.dart';
 import 'package:rec/Components/ListTiles/OutlinedListTile.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
@@ -61,14 +62,14 @@ class SelectCardPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             _newCardButton(context),
-            ...bankCards.map(
-              (card) => CardTile(
-                onPressed: () {
-                  Navigator.of(context).pop(card);
-                },
-                card: card,
-              ),
-            ),
+            ...bankCards.where((card) => !card.deleted).map(
+                  (card) => CardTile(
+                    onPressed: () {
+                      Navigator.of(context).pop(card);
+                    },
+                    card: card,
+                  ),
+                ),
           ],
         ),
       ),
@@ -86,7 +87,7 @@ class SelectCardPage extends StatelessWidget {
       },
       children: [
         Padding(
-          padding: const EdgeInsets.only(right: 8.0),
+          padding: const EdgeInsets.only(right: 12.0),
           child: Icon(Icons.add),
         ),
         LocalizedText(
@@ -113,7 +114,15 @@ class CardTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedListTile(
       onPressed: onPressed,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        CreditCardTypeIcon(
+          alias: card.alias,
+          size: 24,
+          color: Brand.primaryColor,
+        ),
+        const SizedBox(width: 12),
         Text(
           card.alias,
           style: Theme.of(context).textTheme.button!.copyWith(

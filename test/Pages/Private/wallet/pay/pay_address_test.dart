@@ -10,7 +10,7 @@ void main() {
     WidgetTester tester,
   ) async {
     var app = await TestUtils.wrapPrivateRoute(
-      PayAddress(
+      PayAddressPage(
         paymentData: PaymentData.empty(),
       ),
       userState: UserState(
@@ -23,6 +23,6 @@ void main() {
     await tester.pumpWidget(app);
     await tester.pumpAndSettle();
 
-    TestUtils.widgetExistsByType(PayAddress);
+    TestUtils.widgetExistsByType(PayAddressPage);
   });
 }

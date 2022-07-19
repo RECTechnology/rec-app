@@ -67,6 +67,7 @@ class RecTextField extends StatefulWidget {
 
   /// Whether the field can be written, or just read
   final bool readOnly;
+  final bool enabled;
 
   final EdgeInsets padding;
 
@@ -90,6 +91,7 @@ class RecTextField extends StatefulWidget {
     this.autofocus = false,
     this.capitalizeMode = TextCapitalization.none,
     this.readOnly = false,
+    this.enabled = true,
     this.onSubmitted,
     this.inputFormatters = const [],
     this.focusNode,
@@ -113,8 +115,8 @@ class _InputField extends State<RecTextField> {
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
-    var translatedError = localizations!.translate(error);
+    final localizations = AppLocalizations.of(context);
+    final translatedError = localizations!.translate(error);
 
     return Padding(
       padding: widget.padding,
@@ -130,6 +132,7 @@ class _InputField extends State<RecTextField> {
         maxLength: widget.maxLength,
         readOnly: widget.readOnly,
         inputFormatters: widget.inputFormatters,
+        enabled: widget.enabled,
         // autovalidateMode: AutovalidateMode.onUserInteraction,
         textAlignVertical: TextAlignVertical.bottom,
         decoration: InputDecoration(
@@ -158,8 +161,8 @@ class _InputField extends State<RecTextField> {
           fontSize: widget.textSize,
           letterSpacing: widget.letterSpicing,
         ),
-        onChanged: onChanged,
-        onFieldSubmitted: widget.onSubmitted,
+        onChanged: widget.enabled ? onChanged : null,
+        onFieldSubmitted: widget.enabled ? widget.onSubmitted : null,
         obscureText: obscureText ? true : false,
         keyboardType: widget.keyboardType,
         validator: (v) {

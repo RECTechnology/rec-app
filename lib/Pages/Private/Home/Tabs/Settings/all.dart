@@ -1,8 +1,8 @@
 // Exports all pages related to settings
 export './add_new_account.page.dart';
-export './account/AccountContact.page.dart';
-export './account/AccountLocation.page.dart';
-export './account/AccountSchedule.page.dart';
+export 'account/account_contact.page.dart';
+export 'account/account_location.page.dart';
+export 'account/account_schedule.page.dart';
 export './account/MyAccount.page.dart';
 export './user/LimitAndVerification/LimitAndVerification.dart';
 export './account/Permissions/Permissions.page.dart';

@@ -6,6 +6,7 @@ import 'package:rec/Pages/Private/Home/Tabs/Settings/account/day_sales.page.dart
 import 'package:rec/Pages/Private/Home/Tabs/Settings/all.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/account/offers/AccountOffers.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/help.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Settings/user/saved_cards.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/All.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/select_recharge_type.page.dart';
 
@@ -14,7 +15,7 @@ import 'package:rec/Pages/Public/UnlockUser/UnlockUserPage.dart';
 import 'package:rec/Pages/Public/Login/Login.page.dart';
 
 import 'package:rec/Pages/Private/Home/home.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/account/BussinessAccount.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Settings/account/bussiness_account.page.dart';
 
 import 'package:rec/Pages/Public/init_page.dart';
 import 'package:rec/environments/env.dart';
@@ -56,6 +57,8 @@ class Routes {
   static const String settingsUserDocuments = 'settings-user-documents';
   static const String settingsUserGeneral = 'settings-user-general';
   static const String settingsUserMainAccount = 'settings-user-main-account';
+  static const String settingsUserLanguage = 'settings-user-general-language';
+  static const String settingsUserCards = 'settings-user-cards';
   static const String settingsUserGeneralLanguage = 'settings-user-general-language';
 
   static const String settingsYourAccount = 'settings-your-account';
@@ -117,7 +120,8 @@ final Map<String, Widget Function(BuildContext)> ROUTES = {
   Routes.settingsUserProfile: (context) => UserProfile(),
   Routes.settingsUserMainAccount: (context) => MainAccountPage(),
   Routes.settingsUserGeneral: (context) => GeneralSettingsPage(),
-  Routes.settingsUserGeneralLanguage: (context) => ChangeLanguagePage(),
+  Routes.settingsUserCards: (context) => SavedCardsPage(),
+  Routes.settingsUserLanguage: (context) => ChangeLanguagePage(),
   Routes.settingsUserPassword: (context) => ChangePasswordPage(),
   Routes.settingsUserChangePin: (context) => ChangePinPage(),
   Routes.settingsUserCreatePin: (context) => CreatePinPage(),

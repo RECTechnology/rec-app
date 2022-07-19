@@ -4,9 +4,15 @@ import 'package:rec/Components/Inputs/TimeInput.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
-enum CopyPasteAction {
+enum ScheduleDayAction {
   copy,
   paste,
+
+  /// Intensive schedule (1 timeframes per day)
+  intensive,
+
+  /// Split schedule (2 timeframes per day)
+  split,
 }
 
 /// Renders a tile containing the configuration, inputs for a specific [ScheduleDay]
@@ -15,9 +21,10 @@ class ScheduleDayInput extends StatelessWidget {
   final bool closed;
   final bool opens24Hours;
   final bool isNotAvailable;
+  final Schedule schedule;
   final ScheduleDay day;
   final ValueChanged<ScheduleDay> onChange;
-  final ValueChanged<CopyPasteAction> onAction;
+  final ValueChanged<ScheduleDayAction> onAction;
   final Function()? onCompleteDay;
 
   ScheduleDayInput({
@@ -25,6 +32,7 @@ class ScheduleDayInput extends StatelessWidget {
     required this.weekday,
     required this.onChange,
     required this.day,
+    required this.schedule,
     required this.onAction,
     this.onCompleteDay,
     this.closed = false,
@@ -38,9 +46,12 @@ class ScheduleDayInput extends StatelessWidget {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    var content = <Widget>[
+  List<Widget> _getContent() {
+    if (closed) return [GrayBox(child: Center(child: LocalizedText('closed')))];
+    if (opens24Hours) return [GrayBox(child: Center(child: LocalizedText('full')))];
+    if (isNotAvailable) return [GrayBox(child: Center(child: LocalizedText('not_available')))];
+
+    return [
       Row(
         children: [
           Expanded(
@@ -69,56 +80,48 @@ class ScheduleDayInput extends StatelessWidget {
           ),
         ],
       ),
-      const SizedBox(height: 4),
-      Row(
-        children: [
-          Expanded(
-            child: TimeInput(
-              value: day.secondOpen,
-              helpText: '',
-              onChange: (String value) {
-                onChange(day..secondOpen = value);
-              },
-              closed: closed || !day.opens!,
+      if (!day.intensive) const SizedBox(height: 4),
+      if (!day.intensive)
+        Row(
+          children: [
+            Expanded(
+              child: TimeInput(
+                value: day.secondOpen,
+                helpText: '',
+                onChange: (String value) {
+                  onChange(day..secondOpen = value);
+                },
+                closed: closed || !day.opens!,
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: Icon(Icons.remove),
-          ),
-          Expanded(
-            child: TimeInput(
-              value: day.secondClose,
-              helpText: '',
-              onChange: (String value) {
-                onChange(day..secondClose = value);
-              },
-              closed: closed || !day.opens!,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              child: Icon(Icons.remove),
             ),
-          ),
-        ],
-      )
+            Expanded(
+              child: TimeInput(
+                value: day.secondClose,
+                helpText: '',
+                onChange: (String value) {
+                  onChange(day..secondClose = value);
+                },
+                closed: closed || !day.opens!,
+              ),
+            ),
+          ],
+        )
     ];
+  }
 
-    if (closed) {
-      content = [GrayBox(child: Center(child: LocalizedText('closed')))];
-    }
-
-    if (opens24Hours) {
-      content = [GrayBox(child: Center(child: LocalizedText('full')))];
-    }
-
-    if (isNotAvailable) {
-      content = [GrayBox(child: Center(child: LocalizedText('not_available')))];
-    }
-
-    var center = opens24Hours || closed || isNotAvailable;
+  @override
+  Widget build(BuildContext context) {
+    final content = _getContent();
+    final center = opens24Hours || closed || isNotAvailable;
 
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
       child: Row(
-        crossAxisAlignment:
-            center ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+        crossAxisAlignment: center ? CrossAxisAlignment.center : CrossAxisAlignment.start,
         children: [
           Expanded(
             flex: 3,
@@ -148,23 +151,32 @@ class ScheduleDayInput extends StatelessWidget {
           Expanded(
             flex: 4,
             child: Column(
-              crossAxisAlignment:
-                  center ? CrossAxisAlignment.end : CrossAxisAlignment.center,
+              crossAxisAlignment: center ? CrossAxisAlignment.end : CrossAxisAlignment.center,
               children: content,
             ),
           ),
           Expanded(
             flex: 1,
-            child: PopupMenuButton<CopyPasteAction>(
+            child: PopupMenuButton<ScheduleDayAction>(
               iconSize: 20,
               onSelected: onAction,
               itemBuilder: (BuildContext context) => [
-                PopupMenuItem<CopyPasteAction>(
-                  value: CopyPasteAction.copy,
+                if (!day.intensive && schedule.type == ScheduleType.TIMETABLE)
+                  PopupMenuItem<ScheduleDayAction>(
+                    value: ScheduleDayAction.intensive,
+                    child: LocalizedText('INTENSIVE_SCHEDULE'),
+                  ),
+                if (day.intensive && schedule.type == ScheduleType.TIMETABLE)
+                  PopupMenuItem<ScheduleDayAction>(
+                    value: ScheduleDayAction.split,
+                    child: LocalizedText('SPLIT_SCHEDULE'),
+                  ),
+                PopupMenuItem<ScheduleDayAction>(
+                  value: ScheduleDayAction.copy,
                   child: LocalizedText('COPY'),
                 ),
-                PopupMenuItem<CopyPasteAction>(
-                  value: CopyPasteAction.paste,
+                PopupMenuItem<ScheduleDayAction>(
+                  value: ScheduleDayAction.paste,
                   child: LocalizedText('PASTE'),
                 ),
               ],

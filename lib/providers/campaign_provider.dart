@@ -12,7 +12,9 @@ class CampaignProvider extends ChangeNotifier {
 
   CampaignProvider({
     CampaignsService? service,
-  }) : _service = service ?? CampaignsService(env: env);
+    List<Campaign?>? campaigns,
+  })  : _service = service ?? CampaignsService(env: env),
+        _campaigns = campaigns ?? [];
 
   Future<void> load() async {
     loading = true;

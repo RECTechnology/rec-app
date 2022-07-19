@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/config/brand.dart';
 
-
 // TODO: Refactor this, it's not good
 AppBar EmptyAppBar(
   BuildContext context, {
@@ -14,6 +13,7 @@ AppBar EmptyAppBar(
   Color backgroundColor = Colors.white,
   VoidCallback? backAction,
   VoidCallback? closeAction,
+  bool centerTitle = false,
 }) {
   var titleWidget = titleText ??
       (title != null
@@ -52,6 +52,7 @@ AppBar EmptyAppBar(
     title: titleWidget,
     leading: leadingIcon,
     actions: actions,
+    centerTitle: centerTitle,
     automaticallyImplyLeading: backArrow,
   );
 }

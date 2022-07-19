@@ -131,7 +131,7 @@ class _MapPageState extends State<MapPage> with StateLoading {
 
   void _search() async {
     ScaffoldMessenger.of(context).clearSnackBars();
-    
+
     if (!MapMarkers.hasLoaded) {
       await MapMarkers.loadMarkers();
     }
@@ -142,12 +142,12 @@ class _MapPageState extends State<MapPage> with StateLoading {
   }
 
   void _onSearchResults(ApiListResponse<MapAccountData> value) {
-    if (value.items == null || value.items!.isEmpty) return _noSearchFound();
+    if (value.items.isEmpty) return _noSearchFound();
 
     stopLoading();
     _createMarkersForAccounts(value.items).then((_) {
-      if (value.items?.length == 1) {
-        _centerOnAccount(value.items!.first);
+      if (value.items.length == 1) {
+        _centerOnAccount(value.items.first);
       }
     });
   }

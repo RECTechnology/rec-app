@@ -83,7 +83,7 @@ class SummaryFilterButtons extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (c) => PayAddress(paymentData: paymentData),
+        builder: (c) => PayAddressPage(paymentData: paymentData),
       ),
     );
   }

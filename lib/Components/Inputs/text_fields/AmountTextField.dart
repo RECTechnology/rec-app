@@ -21,9 +21,12 @@ class AmountTextField extends StatefulWidget {
   /// display if the input is invalid, or null otherwise.
   final FormFieldValidator<String?>? validator;
 
+  final TextEditingController? controller;
+
   final Color color;
   final bool readOnly;
   final bool autofocus;
+  final bool enabled;
   final String label;
   final Widget icon;
 
@@ -35,9 +38,11 @@ class AmountTextField extends StatefulWidget {
     this.color = Colors.black87,
     this.readOnly = false,
     this.autofocus = false,
+    this.enabled = true,
     this.onSubmitted,
     this.label = 'AMOUNT',
     this.icon = const RecCurrencyIcon(color: Brand.grayLight),
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -53,13 +58,13 @@ class AmountTextFieldState extends State<AmountTextField> {
 
     return RecTextField(
       label: localizations!.translate(widget.label),
-      initialValue: widget.initialValue ?? '',
+      initialValue: widget.initialValue,
+      controller: widget.controller,
       keyboardType: TextInputType.numberWithOptions(
         decimal: true,
       ), //Used this type of keyboard to avoid error in  IOS with decimals
       needObscureText: false,
       placeholder: localizations.translate('WRITE_AMOUNT'),
-      // onChange: widget.onChange,
       onChange: (value) {
         if (widget.onChange != null) {
           widget.onChange!(value.isEmpty ? '0' : value.replaceAll(',', '.'));
@@ -73,6 +78,7 @@ class AmountTextFieldState extends State<AmountTextField> {
       colorLine: widget.color,
       validator: widget.validator,
       readOnly: widget.readOnly,
+      enabled: widget.enabled,
       autofocus: widget.autofocus,
       maxLines: 1,
       minLines: 1,

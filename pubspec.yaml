@@ -1,7 +1,7 @@
 name: rec
 description: Rec Barcelona app.
 publish_to: 'none'
-version: 2.2.0-sandbox+70
+version: 2.3.0+76
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
@@ -16,7 +16,7 @@ dependencies:
   flutter_easyloading: ^3.0.5
   flutter_speed_dial: ^4.6.6
   flutter_svg: ^0.23.0+1
-  rec_api_dart: ^1.2.9
+  rec_api_dart: ^1.4.0-alpha.4
   contacts_service: ^0.6.3
   country_code_picker: ^2.0.2
   cupertino_icons: ^1.0.4
@@ -24,7 +24,7 @@ dependencies:
   geocoding: ^2.0.1
   google_maps_flutter: ^2.1.6
   qr_flutter: ^4.0.0
-  mobile_scanner: ^1.1.1
+  mobile_scanner: ^2.0.0
   http: ^0.13.4
   http_interceptor: ^1.0.2
   intl: ^0.17.0
@@ -64,6 +64,7 @@ flutter:
     - assets/custom-icons/
     - assets/markers/
     - assets/banners/
+    - assets/cards/
     - i18n/ca.json
     - i18n/en.json
     - i18n/es.json

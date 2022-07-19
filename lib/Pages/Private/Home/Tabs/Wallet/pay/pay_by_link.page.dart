@@ -104,7 +104,7 @@ class _PayLinkState extends State<PayLink> with Loadable {
           ? AttemptPayment(
               data: widget.paymentData,
             )
-          : PayAddress(
+          : PayAddressPage(
               paymentData: widget.paymentData,
               disabledFields: _getDisabledPayFormField(),
             );

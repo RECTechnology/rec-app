@@ -14,6 +14,7 @@ class RecFilterButton extends StatefulWidget {
   final Color textColor;
   final Color? iconColor;
   final double borderRadius;
+  final double elevation;
 
   const RecFilterButton({
     Key? key,
@@ -27,6 +28,7 @@ class RecFilterButton extends StatefulWidget {
     this.iconColor = Brand.grayDark,
     this.backgroundColor = Colors.white,
     this.borderRadius = 6,
+    this.elevation = 1,
   }) : super(key: key);
 
   @override
@@ -51,6 +53,7 @@ class _RecActionButton extends State<RecFilterButton> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(widget.borderRadius),
           ),
+          elevation: widget.elevation,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -68,10 +71,8 @@ class _RecActionButton extends State<RecFilterButton> {
               padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
               child: LocalizedText(
                 widget.label,
-                style: TextStyle(
-                    color: widget.textColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 12),
+                style:
+                    TextStyle(color: widget.textColor, fontWeight: FontWeight.w500, fontSize: 12),
               ),
             ),
           ],

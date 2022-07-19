@@ -1,6 +1,12 @@
 // coverage:ignore-file
 
 class Assets {
+  // cards
+  static const String visa = 'assets/cards/visa.png';
+  static const String mastercard = 'assets/cards/mastercard.png';
+  static const String americanExpress = 'assets/cards/americanExpress.png';
+
+
   // Map markers
   static const String markerNormal = 'assets/markers/normal.png';
   static const String markerNormalOffers = 'assets/markers/normal_oferta.png';

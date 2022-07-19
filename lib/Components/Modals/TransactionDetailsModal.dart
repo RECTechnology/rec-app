@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rec/Components/Info/rec_circle_avatar.dart';
 import 'package:rec/Components/Info/InfoColumn.dart';
-import 'package:rec/Components/Wallet/Transactions/TransactionAmount.dart';
 import 'package:rec/Components/Wallet/Transactions/TransactionIcon.dart';
 import 'package:rec/Components/Wallet/Transactions/TransactionTitle.dart';
+import 'package:rec/Components/Wallet/amount_widget.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec/styles/box_decorations.dart';
@@ -12,23 +12,20 @@ import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class TransactionDetailsModal {
-  final BuildContext context;
-  TransactionDetailsModal(this.context);
-
-  void open(Transaction transaction) {
+  void open(BuildContext context, Transaction transaction) {
     showDialog(
       context: context,
       builder: (_) => Dialog(
         child: Container(
           decoration: BoxDecorations.transparentBorder(),
           height: MediaQuery.of(context).size.height * 0.55,
-          child: _dialogContent(transaction),
+          child: _dialogContent(context, transaction),
         ),
       ),
     );
   }
 
-  Widget _dialogContent(Transaction transaction) {
+  Widget _dialogContent(BuildContext context, Transaction transaction) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -39,19 +36,19 @@ class TransactionDetailsModal {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: _txDetailsBody(transaction),
+      body: _txDetailsBody(context, transaction),
     );
   }
 
-  Widget _txDetailsBody(Transaction transaction) {
+  Widget _txDetailsBody(BuildContext context, Transaction transaction) {
     return Column(
       children: [
-        _txHeader(transaction),
-        _txDate(transaction),
+        _txHeader(context, transaction),
+        _txDate(context, transaction),
         Flexible(
           child: ListView(
             children: [
-              _txCard(transaction),
+              _txCard(context, transaction),
               _txDetails(transaction),
             ],
           ),
@@ -60,7 +57,7 @@ class TransactionDetailsModal {
     );
   }
 
-  Widget _txHeader(Transaction transaction) {
+  Widget _txHeader(BuildContext context, Transaction transaction) {
     var userState = UserState.of(context);
     var selfAccount = userState.account;
     var otherAccount = TransactionIcon(transaction);
@@ -92,7 +89,7 @@ class TransactionDetailsModal {
     );
   }
 
-  Widget _txDate(Transaction transaction) {
+  Widget _txDate(BuildContext context, Transaction transaction) {
     var localizations = AppLocalizations.of(context);
     var dateString = DateFormat('d MMMM yyyy  HH:mm', localizations!.locale.languageCode)
         .format(transaction.createdAt.toLocal());
@@ -112,7 +109,7 @@ class TransactionDetailsModal {
     );
   }
 
-  Widget _txConcept(Transaction transaction) {
+  Widget _txConcept(BuildContext context, Transaction transaction) {
     var localizations = AppLocalizations.of(context);
     var concept = transaction.getConcept()!;
 
@@ -129,7 +126,7 @@ class TransactionDetailsModal {
     );
   }
 
-  Widget _txCard(Transaction transaction) {
+  Widget _txCard(BuildContext context, Transaction transaction) {
     return Container(
       decoration: BoxDecorations.solid(Brand.defaultAvatarBackground),
       child: Padding(
@@ -141,12 +138,12 @@ class TransactionDetailsModal {
             TransactionTitle(transaction, fontSize: 18),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
-              child: TransactionAmount(
-                transaction,
-                fontSize: 18,
+              child: AmountWidget(
+                amount: transaction.scaledAmount.floorToDouble(),
+                style: TextStyle(fontSize: 18),
               ),
             ),
-            _txConcept(transaction),
+            _txConcept(context, transaction),
           ],
         ),
       ),
