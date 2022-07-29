@@ -24,12 +24,12 @@ class _AccountContactPageState extends State<AccountContactPage> {
 
   @override
   Widget build(BuildContext context) {
-    var userState = UserState.of(context);
-    var hasEmail = Checks.isNotEmpty(userState.account!.email);
-    var hasWebsite = Checks.isNotEmpty(userState.account!.webUrl);
-    var hasPhone = Checks.isNotEmpty(userState.account!.fullPhone);
+    final userState = UserState.of(context);
+    final hasEmail = Checks.isNotEmpty(userState.account!.email);
+    final hasWebsite = Checks.isNotEmpty(userState.account!.webUrl);
+    final hasPhone = userState.account!.phone != null && userState.account!.phone!.isNotEmpty;
 
-    var tiles = [
+    final tiles = [
       GeneralSettingsTile(
         title: hasPhone ? userState.account!.fullPhone : 'PHONE',
         subtitle: hasPhone ? 'PHONE' : 'PHONE_DESC',
@@ -92,7 +92,7 @@ class _AccountContactPageState extends State<AccountContactPage> {
   }
 
   void _editPhone() async {
-    var userState = UserState.of(context, listen: false);
+    final userState = UserState.of(context, listen: false);
     data.phone = userState.account!.phone;
     data.prefix = userState.account!.prefix;
 
@@ -116,16 +116,17 @@ class _AccountContactPageState extends State<AccountContactPage> {
             ),
           ],
           onSave: (value) {
-            var dataUnchanged = (data.phone == null && data.prefix == null) ||
+            final dataUnchanged = (data.phone == null && data.prefix == null) ||
                 data.phone == userState.account!.phone && data.prefix == userState.account!.prefix;
 
             if (dataUnchanged) {
-              return Navigator.pop(context);
+              RecToast.showInfo(context, "NOTHING_TO_UPDATE");
+              return;
             }
 
             _updateAccount(userState.account!.id, {
               'phone': data.phone ?? userState.account!.phone,
-              'prefix': data.prefix ?? userState.account!.prefix,
+              'prefix': data.prefix?.isEmpty == true ? '34' : data.prefix,
             });
           },
         ),

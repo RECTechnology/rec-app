@@ -65,10 +65,10 @@ class PrefixPhoneFieldState extends State<PrefixPhoneField> {
                 alignment: Alignment.topCenter,
                 child: CountryCodePicker(
                   onChanged: setPrefix,
-                  // NOTE: This is temporal  so  we only allow spanish numbers,
-                  // and it might change in the future.
                   enabled: false,
-                  initialSelection: widget.prefix ?? '+34',
+                  // NOTE: having `+34` hardcoded is temporal so  we only allow spanish numbers,
+                  // it might change in the future.
+                  initialSelection: '+34',
                   favorite: ['+34', 'ES'],
                   textStyle: TextStyle(fontSize: 16, color: Brand.grayDark),
                 ),

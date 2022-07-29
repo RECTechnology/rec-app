@@ -120,21 +120,29 @@ class _PayAddressPageState extends State<PayAddressPage> {
   }
 
   void _proceedWithPayment() {
-    if (!_formKey.currentState!.validate()) return;
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
 
     FocusScope.of(context).requestFocus(FocusNode());
     _attemptPayment();
   }
 
   void _attemptPayment() {
-    Navigator.of(context)
-        .push(
-          MaterialPageRoute(
-            builder: (ctx) => AttemptPayment(
-              data: widget.paymentData,
-            ),
-          ),
-        )
-        .then((c) => Navigator.of(context).pop(c));
+    final future = Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => AttemptPayment(
+          data: widget.paymentData,
+          title: widget.title,
+          buttonTitle: widget.buttonTitle,
+        ),
+      ),
+    );
+    
+    future.then((value) {
+      if (value == true) {
+        Navigator.of(context).pop(value);
+      }
+    });
   }
 }

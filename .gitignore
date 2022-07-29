@@ -53,5 +53,6 @@ app.*.map.json
 /coverage
 /package-lock.json
 /pubspec.lock
+/logs
 
 TODO.md

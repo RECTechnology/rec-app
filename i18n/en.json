@@ -579,5 +579,7 @@
   "SAVED_CARDS": "Saved cards",
   "DELETE_CARD": "Delete saved card",
   "DELETE_CARD_DESC": "Are you sure you want to delete this card '{{card}}'? You can add it again later",
-  "DELETED_CARD": "Card deleted successfully"
+  "DELETED_CARD": "Card deleted successfully",
+  "NOTHING_TO_UPDATE": "Nothing to update",
+  "CHEQUE_CULTURE": "Culture check"
 }

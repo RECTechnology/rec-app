@@ -24,10 +24,18 @@ class AttemptPayment extends StatefulWidget {
   final PaymentData data;
   final TransactionsService? transactionsService;
 
+  /// Override the appbar title
+  final String? title;
+
+  /// optionally override the button text
+  final String? buttonTitle;
+
   const AttemptPayment({
     Key? key,
     required this.data,
     this.transactionsService,
+    this.title,
+    this.buttonTitle,
   }) : super(key: key);
 
   @override
@@ -51,19 +59,20 @@ class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
         size: 160,
         backgroundColor: Brand.defaultAvatarBackground,
         color: Brand.grayDark,
-        title: localizations!.translate(
-          'PAY_TO_NAME',
-          params: {
-            'name': widget.data.vendor!.name,
-          },
-        ),
+        title: widget.title ??
+            localizations!.translate(
+              'PAY_TO_NAME',
+              params: {
+                'name': widget.data.vendor!.name,
+              },
+            ),
         textAlign: TextAlign.left,
         alignment: Alignment.centerLeft,
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
           child: UserBalance(
             balance: widget.data.amount,
-            label: localizations.translate(
+            label: localizations!.translate(
               'FROM_NAME',
               params: {
                 'name': userState.account!.name,
@@ -87,7 +96,7 @@ class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
     final content = localizations!.translate('PAY_BTN');
 
     return RequestPin(
-      buttonContent: content,
+      buttonContent: widget.buttonTitle ?? content,
       buttonWithArrow: false,
       ifPin: _gotPin,
     );
@@ -171,7 +180,7 @@ class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
     /// If payment is a refund, we can pop here
     if (widget.data.isRefund()) {
       Loading.dismiss();
-      Navigator.pop(context);
+      Navigator.pop(context, true);
       RecToast.showSuccess(context, 'PAYMENT_OK');
       return;
     }

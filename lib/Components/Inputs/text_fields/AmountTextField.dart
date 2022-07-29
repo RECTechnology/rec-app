@@ -82,7 +82,9 @@ class AmountTextFieldState extends State<AmountTextField> {
       autofocus: widget.autofocus,
       maxLines: 1,
       minLines: 1,
-      inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]'))],
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]')),
+      ],
       icon: widget.icon,
     );
   }

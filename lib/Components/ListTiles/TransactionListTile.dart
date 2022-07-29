@@ -7,6 +7,7 @@ import 'package:rec/Components/Wallet/Transactions/TransactionIcon.dart';
 import 'package:rec/Components/Wallet/Transactions/TransactionTitle.dart';
 import 'package:rec/config/features.dart';
 import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/transactions_utils.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec/providers/user_state.dart';
@@ -119,7 +120,7 @@ class _TransactionsListTile extends State<TransactionsListTile> {
 
   LocalizedText getConcept() {
     var account = UserState.of(context).account;
-    var concept = tx.getConcept();
+    var concept = TransactionHelper.getConcept(tx);
     var cultureCampaign = CampaignProvider.of(context).getCampaignByCode(env.CMP_CULT_CODE);
 
     // HACK

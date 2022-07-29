@@ -92,7 +92,10 @@ class _PayAddressForm extends State<PayAddressForm> {
               autofocus: true,
               validator: Validators.combine([
                 Validators.isRequired,
-                if (widget.maxAmount != null) Validators.maxAmount(widget.maxAmount!),
+                if (widget.maxAmount != null)
+                  Validators.maxAmount(double.parse(
+                    widget.maxAmount!.toStringAsFixed(2),
+                  )),
               ]),
               readOnly: _isFieldDisabled('amount'),
             ),
@@ -104,15 +107,25 @@ class _PayAddressForm extends State<PayAddressForm> {
                     onChanged: (newValue) {
                       setState(() {
                         _forceMaxAmount = newValue;
-                        _data.amount = _forceMaxAmount ? widget.maxAmount : 0;
-                        _amountController.text = _data.amount.toString();
+
+                        if (_forceMaxAmount) {
+                          _data.amount = double.parse(
+                            (widget.maxAmount ?? 0).toStringAsFixed(2),
+                          );
+                          _amountController.text = _data.amount.toString();
+                        } else {
+                          _data.amount = null;
+                          _amountController.text = '';
+                        }
+
                         if (widget.onValidate != null) widget.onChange!(_data);
                         if (widget.onValidate != null) widget.onValidate!();
                       });
                     },
                   ),
                   const SizedBox(width: 8),
-                  LocalizedText('MAX_AMOUNT', params: {'max': widget.maxAmount}),
+                  LocalizedText('MAX_AMOUNT',
+                      params: {'max': widget.maxAmount!.toStringAsFixed(2)}),
                 ],
               ),
           ],

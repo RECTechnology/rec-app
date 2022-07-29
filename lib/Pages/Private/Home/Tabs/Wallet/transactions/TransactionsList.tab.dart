@@ -59,14 +59,6 @@ class _TransactionsListState extends State<TransactionsList> {
       onRefresh: transactionsProvider.refresh,
       child: Column(
         children: [
-          // TextButton(
-          //   onPressed: () {
-          //     Navigator.of(context).push(
-          //       QualifyComercePage.getRoute(userState.account!),
-          //     );
-          //   },
-          //   child: Text('open qualig'),
-          // ),
           Expanded(
             child: Scrollbar(
               thickness: 8,

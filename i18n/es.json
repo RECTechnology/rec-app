@@ -198,7 +198,7 @@
 
   "TOTAL_BALANCE": "Saldo total",
   "CREDIT_CARD_TX": "Tarjeta bancaria",
-  "RECHARGE_EUR_REC": "Recarga realiza de euros a RECs",
+  "RECHARGE_EUR_REC": "Recarga realizada de euros a RECs",
   "NO_CONCEPT": "Sin concepto",
   "FROM": "De",
   "FROM_ACCOUNT": "De {{account}}",
@@ -593,5 +593,7 @@
   "MAX_AMOUNT_EXCEEDED": "Importe máximo excedido",
   "Amount is greater than available for refund": "La cantidad es mayor a la cantidad a devolver",
   "LOADING_REFUNDS": "Cargando devoluciones",
-  "Sender account not in campaing": "La cuenta de envío no está en campaña"
+  "Sender account not in campaing": "La cuenta de envío no está en campaña",
+  "NOTHING_TO_UPDATE": "Nada que actualizar",
+  "CHEQUE_CULTURE": "Cheque Cultural"
 }

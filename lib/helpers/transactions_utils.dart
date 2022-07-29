@@ -21,32 +21,24 @@ class TransactionHelper {
     return tx.isIn() && tx.hasPayInInfo() && tx.payInInfo!.concept!.startsWith(internalExchange);
   }
 
+  static bool isChequeCulture(Transaction tx) {
+    return tx.isIn() && tx.hasPayInInfo() && tx.payInInfo!.concept!.startsWith(chequeCultural);
+  }
+
   static String? getConcept(Transaction tx) {
-    if (isLtabReward(tx)) {
-      return 'LTAB_REWARD';
-    }
-
-    if (isCultureReward(tx)) {
-      return tx.payInInfo!.concept;
-    }
-
-    if (isRecharge(tx)) {
-      return 'RECHARGE_EUR_REC';
-    }
-
-    if (tx.isOut()) {
-      return tx.payOutInfo!.concept;
-    }
-
-    if (tx.isIn()) {
-      return tx.payInInfo!.concept;
-    }
+    if (isLtabReward(tx)) return 'LTAB_REWARD';
+    if (isCultureReward(tx)) return tx.payInInfo!.concept;
+    if (isChequeCulture(tx)) return tx.payInInfo!.concept;
+    if (isRecharge(tx)) return 'RECHARGE_EUR_REC';
+    if (tx.isOut()) return tx.payOutInfo!.concept;
+    if (tx.isIn()) return tx.payInInfo!.concept;
 
     return 'NO_CONCEPT';
   }
 
   static getPrefix(Transaction tx, Account account) {
     if (TransactionHelper.isRecharge(tx)) return 'FROM_CREDIT_CARD';
+    if (TransactionHelper.isChequeCulture(tx)) return 'FROM';
     if (tx.isOut()) return 'TO';
 
     return 'FROM';
@@ -55,6 +47,7 @@ class TransactionHelper {
   static getOwner(Transaction tx, Account account) {
     if (tx.isIn() && account.isLtabAccount()) return 'LTAB';
     if (TransactionHelper.isCultureReward(tx)) return 'REC_CULTURAL';
+    if (TransactionHelper.isChequeCulture(tx)) return 'REC_CULTURAL';
     if (TransactionHelper.isRecharge(tx)) return 'CREDIT_CARD_TX';
     if (tx.isOut()) return tx.payOutInfo!.name;
     if (tx.isIn()) return tx.payInInfo!.name;

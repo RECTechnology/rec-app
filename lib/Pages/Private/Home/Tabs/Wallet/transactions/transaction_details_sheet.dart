@@ -14,6 +14,7 @@ import 'package:rec/Components/timeline_widget.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/pay_to_address.page.dart';
 import 'package:rec/config/brand.dart';
 import 'package:rec/config/features.dart';
+import 'package:rec/config/routes.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/RecNavigation.dart';
 import 'package:rec/helpers/transactions_utils.dart';
@@ -314,13 +315,16 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet> {
   _goToRefundPage() {
     final localizations = AppLocalizations.of(context);
 
-    RecNavigation.replace(context, (context) {
+    RecNavigation.navigate(context, (context) {
       return PayAddressPage(
         paymentData: PaymentData(
           txId: tx.payInInfo!.txId,
-          concept: localizations!.translate('REFUND_CONCEPT', params: {
-            'previousConcept': tx.payInInfo!.concept,
-          }),
+          concept: localizations!.translate(
+            'REFUND_CONCEPT',
+            params: {
+              'previousConcept': tx.payInInfo!.concept,
+            },
+          ),
         ),
         buttonColor: Brand.red,
         buttonTitle: 'REFUND_ACTION',
@@ -330,6 +334,8 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet> {
           'account': tx.payInInfo!.name,
         }),
       );
+    }).then((value) {
+      Navigator.popUntil(context, ModalRoute.withName(Routes.home));
     });
   }
 }

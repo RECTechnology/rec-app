@@ -257,7 +257,7 @@ packages:
       name: flutter_launcher_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.2"
+    version: "0.9.3"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -790,7 +790,7 @@ packages:
       name: rec_api_dart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.0-alpha.4"
+    version: "1.4.0-alpha.5"
   sentry:
     dependency: transitive
     description:

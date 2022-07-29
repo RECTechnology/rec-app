@@ -85,20 +85,26 @@ android {
         }
     }
 
-    flavorDimensions "version"
+    flavorDimensions "default"
     productFlavors {
         sandbox {
+            dimension "default"
             applicationId "com.barcelona.sandbox"
             versionNameSuffix "-sandbox"
+            manifestPlaceholders = [appName: "[SANDBOX] RecBarcelona"]
         }
 
         pre {
+            dimension "default"
             applicationId "com.barcelona.prec"
             versionNameSuffix "-pre"
+            manifestPlaceholders = [appName: "[INT] RecBarcelona"]
         }
 
         prod {
+            dimension "default"
             applicationId "com.barcelona.rec"
+            manifestPlaceholders = [appName: "[INT] RecBarcelona"]
         }
     }
 

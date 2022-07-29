@@ -33,12 +33,9 @@ class _TransactionIcon extends State<TransactionIcon> {
   @override
   Widget build(BuildContext context) {
     final account = UserState.of(context).account;
-    final ltabCampaign = CampaignProvider.of(context).getCampaignByCode(
-      env.CMP_LTAB_CODE,
-    );
-    final cultureCampaign = CampaignProvider.of(context).getCampaignByCode(
-      env.CMP_CULT_CODE,
-    );
+    final campaignProvider = CampaignProvider.of(context);
+    final ltabCampaign = campaignProvider.getCampaignByCode(env.CMP_LTAB_CODE);
+    final cultureCampaign = campaignProvider.getCampaignByCode(env.CMP_CULT_CODE);
 
     if (widget.tx.isIn() && account!.isLtabAccount()) {
       return CircleAvatarRec(
@@ -47,7 +44,8 @@ class _TransactionIcon extends State<TransactionIcon> {
       );
     }
 
-    if (TransactionHelper.isCultureReward(widget.tx)) {
+    if (TransactionHelper.isCultureReward(widget.tx) ||
+        TransactionHelper.isChequeCulture(widget.tx)) {
       return CircleAvatarRec(
         imageUrl: cultureCampaign == null ? '' : cultureCampaign.imageUrl,
         color: Brand.defaultAvatarBackground,

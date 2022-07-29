@@ -265,7 +265,7 @@
   "BUSSINESS_OFFERS": "Ofertes",
   "YOUR_OFFERS": "Les teves Ofertes",
   "BUSSINESS_OFFERS_DESC": "Crea noves ofertes i apareixeran en el Mapa",
-  "WEBSITE": "Página web",
+  "WEBSITE": "Pàgina web",
   "WEBSITE_DESC": "Afegeix-la si disposes de web",
   "UPDATED_OK": "Actualitzat correctament",
 
@@ -343,7 +343,7 @@
   "DAILY_SALES_DESC": "Selecciona un dia per veure les vendes d'aquest dia",
   "SELECT_DAY": "Selecciona un dia",
   "TX_IN": "ENTRADA",
-  "TX_OUT": "EIXIDA",
+  "TX_OUT": "SORTIDA",
   "TX_TOTAL": "TOTAL",
 
   "REWARD_OBTAINED_DESC": "{{amount}}R estan de camí al teu compte LI TOCA Al BARRI",
@@ -387,7 +387,7 @@
   "full": "Obert 24h",
 
   "MAIN_LANGUAGE": "Idioma principal",
-  "CHANGE_IMAGE": "Cambiar imatge",
+  "CHANGE_IMAGE": "Canviar imatge",
   "AVAILABLE": "Disponible",
   "LANGUAGE": "Idioma",
 
@@ -470,7 +470,7 @@
 
   "BADGES": "Sellos",
 
-  "MORE_CATEGORIES": "Mès categories",
+  "MORE_CATEGORIES": "Més categories",
   "CATEGORIES": "Categories",
   "CAMPAIGNS": "Campanyes",
   "PUBLISH": "Publicar",
@@ -542,9 +542,9 @@
   "LOADING": "Carregant...",
   "CULT_REWARDED": "Bonificació Cultural +{{percent}}%",
 
-  "Español": "Castellá",
+  "Español": "Castellà",
   "Ingles": "Anglès",
-  "Catalan": "Catalá",
+  "Catalan": "Català",
   "Incorrect Pin": "PIN incorrecte",
 
   "Receiver account not in Campaign": "El compte de destí no está en campanya",
@@ -568,9 +568,11 @@
   "REFERENCE_ID": "ID de referéncia",
   "REFUND": "Devolució",
 
-  "SAVED_CARD_DESC": "Per afegir una targeta, realiza una recárrega i selecciona \"guardar targeta\", això evitarás introduir-la en un altre canvi.",
+  "SAVED_CARD_DESC": "Per afegir una targeta, realitza una recàrrega i selecciona \"guardar targeta\". D'aquesta manera no caldrà tornar-la introduir de nou.",
+  
   "AVAILABLE_CARDS": "Disponible",
   "SAVED_CARDS": "Targetes guardades",
+  "SETTINGS_USER_CARDS": "Targetes guardades",
   "DELETE_CARD": "Eliminar targeta guardada",
   "DELETE_CARD_DESC": "Segur que vols eliminar la targeta '{{card}}'? Pots tornar-la a afegir de nou",
   "DELETED_CARD": "Targeta eliminada correctament",
@@ -584,5 +586,7 @@
   "MAX_AMOUNT_EXCEEDED": "Import máxim superat",
   "Amount is greater than available for refund": "La quantitat ès major a la quantitat a tornar",
   "LOADING_REFUNDS": "Carregant devolucions",
-  "Sender account not in campaing": "El compte d'enviament no està en campanya"
+  "Sender account not in campaing": "El compte d'enviament no està en campanya",
+  "NOTHING_TO_UPDATE": "Res que actualitzar",
+  "CHEQUE_CULTURE": "Xec Cultural"
 }
