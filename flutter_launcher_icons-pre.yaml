@@ -1,12 +1,7 @@
-# flutter_icons:    
-#   android: "launcher_icon"
-#   ios: true    
-#   image_path: "assets/adaptive_app_icon/pre.png"
-#   # adaptive_icon_background: "assets/adaptive_app_icon/background_pre.png"
-#   # adaptive_icon_foreground: "assets/adaptive_app_icon/Logo.png"
-#   remove_alpha_ios: true
 flutter_icons:    
-  android: true # should be bool or path to icon
+  android: true
   ios: true    
-  image_path: "assets/adaptive_app_icon/pre.png" # path icon
+  image_path: "assets/adaptive_app_icon/pre.png"
+  adaptive_icon_background: "assets/adaptive_app_icon/background_pre.png"
+  adaptive_icon_foreground: "assets/adaptive_app_icon/Logo.png"
   remove_alpha_ios: true
