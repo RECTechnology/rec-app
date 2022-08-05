@@ -32,7 +32,6 @@ void main() {
       await tester.pump(Duration(seconds: 1));
     }
 
-
     TestUtils.widgetExistsByType(HomePage);
   });
 }

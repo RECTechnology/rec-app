@@ -443,7 +443,7 @@
   "title.link_tos": "Termes i condicions",
   "title.link_privacy": "Privacitad",
 
-  "PAYMENT_SHARE_MESSAGE": "Hola! 👋 Sóc {{account}}, tenim pendent el pagament “{{concept}}” amb import de {{amount}}R. Fes clic en l'enllaç i obre'l amb l'app. del REC. 📲 Grácies! {{link}}",
+  "PAYMENT_SHARE_MESSAGE": "Hola! 👋 Soc {{account}}, tenim pendent el pagament “{{concept}}” amb import de {{amount}}R. Fes clic en l'enllaç i obre'l amb l'app. del REC. 📲 Gràcies! {{link}}",
   "UNLOCK_PASSWORD": "Desbloqueja el teu usuari",
   "INTRODUCE_TO_UNLOCK": "Introdueix el teu document d'identitat i el telèfon vinculat al teu usuari perquè puguem identificar-lo i desbloquejar-lo",
   "SMS_CODE": "Codi SMS",

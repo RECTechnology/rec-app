@@ -201,7 +201,8 @@ class _RechargePageState extends State<RechargePage> {
     final ltabCampaignActive = CampaignHelper.isActiveForState(userState, ltabCampaign!);
 
     // Only update if not already set
-    if (userState?.user?.privateTosLtab != rechargeData.campaignTermsAccepted) {
+    if (ltabCampaignActive &&
+        userState?.user?.privateTosLtab != rechargeData.campaignTermsAccepted) {
       await _updateTos();
     }
 
