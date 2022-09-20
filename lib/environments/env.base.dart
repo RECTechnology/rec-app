@@ -31,4 +31,7 @@ abstract class RecEnvBase extends EnvBase {
 
   /// The name of this whitelabel instance project
   abstract String PROJECT_NAME;
+
+  abstract String CDN_URL;
+  abstract String TRANSLATIONS_PROJECT_ID;
 }

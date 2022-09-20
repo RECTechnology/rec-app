@@ -119,8 +119,8 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
   }
 
   void _checkCampaign() {
-    var campaignManager = CampaignManager.deaf(context);
-    var definition = campaignManager.getDefinition(
+    final campaignManager = CampaignManager.deaf(context);
+    final definition = campaignManager.getDefinition(
       campaignManager.activeCampaignCode,
     );
 

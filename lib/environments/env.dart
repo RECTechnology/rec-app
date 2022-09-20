@@ -57,6 +57,10 @@ class Env extends RecEnvBase {
 
   @override
   String PROJECT_NAME = dotenv.isInitialized ? dotenv.get('PROJECT_NAME') : 'rec';
+
+  String CDN_URL = dotenv.isInitialized ? dotenv.get('CDN_API_URL') : '';
+  String TRANSLATIONS_PROJECT_ID =
+      dotenv.isInitialized ? dotenv.get('TRANSLATIONS_PROJECT_ID') : '';
 }
 
 /// The current loaded environment used across the app

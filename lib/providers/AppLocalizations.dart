@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:http/http.dart';
+import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/Strings.dart';
 
 /// Handles localizations/translations within the app
@@ -51,9 +53,11 @@ class AppLocalizations {
 
   /// Defines the current locale that is being used in the App
   Locale locale;
-  Map<String, String> _localizedStrings = <String, String>{};
+  Map<String, dynamic> _localizedStrings = <String, dynamic>{};
 
-  AppLocalizations(this.locale);
+  Client httpClient;
+
+  AppLocalizations(this.locale, {Client? client}) : httpClient = client ?? Client();
 
   /// Set the locale
   /// If locale is not supported it will fallback to [supportedLocales.first]
@@ -74,8 +78,16 @@ class AppLocalizations {
 
   /// Loads translations for current locale
   Future<bool> load() async {
-    var jsonMap = await (_loadMapForLocale());
-    _localizedStrings = jsonMap!.map(_mapEntry);
+    try {
+      final cdnFile = await _loadStringForCurrentLocaleFromCdn();
+      _localizedStrings = cdnFile;
+      print('Loaded from cdn');
+    } catch (e) {
+      // Try loading from cdn, otherwise fallback to local asset file
+      final jsonMap = await (_loadMapForLocale());
+      _localizedStrings = jsonMap!.map(_mapEntry);
+      print('Loaded from local assets');
+    }
 
     return true;
   }
@@ -90,6 +102,19 @@ class AppLocalizations {
   }
 
   MapEntry<String, String> _mapEntry(String key, value) => MapEntry(key, value.toString());
+
+  Future<Map<String, dynamic>> _loadStringForCurrentLocaleFromCdn() async {
+    final uri = Uri(
+      scheme: 'https',
+      host: env.CDN_URL,
+      path: 'file/${env.TRANSLATIONS_PROJECT_ID}/${locale.languageCode}.json',
+    );
+    final result = await httpClient.get(uri);
+    final data = utf8.decode(result.bodyBytes);
+    final dataJson = json.decode(data);
+
+    return dataJson;
+  }
 
   Future<String> _loadStringForCurrentLocale() {
     return rootBundle.loadString('assets/current/i18n/${locale.languageCode}.json');
