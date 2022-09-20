@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/ContainerWithImage.dart';
 import 'package:rec/Components/Inputs/PickImage.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 
 class OfferImagePicker extends StatelessWidget {
   final String? imageUrl;
@@ -16,6 +16,8 @@ class OfferImagePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+   
     return PickImage(
       onPick: onPicked,
       title: 'OFFER_IMAGE',
@@ -37,14 +39,14 @@ class OfferImagePicker extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.add_a_photo,
-                      color: Brand.grayDark,
+                      color: recTheme!.grayDark,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 16.0),
                       child: LocalizedText(
                         'PICK_IMAGE',
                         style: TextStyle(
-                          color: Brand.grayDark,
+                          color: recTheme.grayDark,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

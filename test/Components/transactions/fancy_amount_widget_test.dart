@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rec/Components/Wallet/amount_widget.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/themes/rec.dart';
 
 import '../../test_utils.dart';
 
@@ -23,7 +23,7 @@ void main() {
 
         final amountTextWidget = tester.firstWidget(find.byType(RichText)) as RichText;
         final color = (amountTextWidget.text as TextSpan).style?.color;
-        expect(color, Brand.primaryColor);
+        expect(color, recTheme.primaryColor);
       });
     });
 
@@ -46,7 +46,7 @@ void main() {
 
         final amountTextWidget = tester.firstWidget(find.byType(RichText)) as RichText;
         final color = (amountTextWidget.text as TextSpan).style?.color;
-        expect(color, Brand.amountNegative);
+        expect(color, recTheme.red);
       });
     });
   });

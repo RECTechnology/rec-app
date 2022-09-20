@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/rec_circle_avatar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/styles/box_decorations.dart';
 import 'package:rec/styles/paddings.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class LoggedInBeforeCard extends StatefulWidget {
@@ -23,7 +23,8 @@ class LoggedInBeforeCard extends StatefulWidget {
 class _LoggedInBeforeCard extends State<LoggedInBeforeCard> {
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context);
+    final recTheme = RecTheme.of(context);
 
     return Container(
       decoration: BoxDecorations.whiteShadowBox(),
@@ -60,7 +61,7 @@ class _LoggedInBeforeCard extends State<LoggedInBeforeCard> {
                   onTap: widget.onNotYou,
                   child: RichText(
                     text: TextSpan(
-                      style: TextStyle(color: Brand.primaryColor),
+                      style: TextStyle(color: recTheme!.primaryColor),
                       text: localizations!.translate('NOT_U'),
                     ),
                   ),

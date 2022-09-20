@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 
 class DropDown extends StatefulWidget {
   final List data;
@@ -8,7 +8,7 @@ class DropDown extends StatefulWidget {
   final String title;
   final String? current;
   final bool isDense;
-  final BoxDecoration decoration;
+  final BoxDecoration? decoration;
   final EdgeInsets padding;
 
   DropDown({
@@ -18,16 +18,9 @@ class DropDown extends StatefulWidget {
     this.current = '',
     this.isDense = true,
     this.data = const [],
-    BoxDecoration? decoration,
+    this.decoration,
     EdgeInsets? padding,
-  })  : 
-        decoration = decoration ??
-            const BoxDecoration(
-              color: Brand.defaultAvatarBackground,
-              borderRadius: BorderRadius.all(Radius.circular(6)),
-            ),
-        padding = padding ??
-            const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 8),
+  })  : padding = padding ?? const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 8),
         super(key: key);
 
   @override
@@ -43,7 +36,7 @@ class _DropDownState extends State<DropDown> {
   });
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
-    var items = <DropdownMenuItem<String>>[];
+    final items = <DropdownMenuItem<String>>[];
 
     for (String item in widget.data as Iterable<String>) {
       items.add(
@@ -53,18 +46,26 @@ class _DropDownState extends State<DropDown> {
         ),
       );
     }
-    
+
     return items;
   }
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+    final effectiveDecoration = widget.decoration ??
+        BoxDecoration(
+          color: recTheme!.defaultAvatarBackground,
+          borderRadius: BorderRadius.all(Radius.circular(6)),
+        );
+
+
     _dropDownMenuItems = getDropDownMenuItems();
     currentValue ??= _dropDownMenuItems![0].value;
 
     return Container(
       padding: widget.padding,
-      decoration: widget.decoration,
+      decoration: effectiveDecoration,
       child: DropdownButton<String>(
         isDense: widget.isDense,
         value: currentValue,
@@ -77,10 +78,7 @@ class _DropDownState extends State<DropDown> {
               },
         underline: Container(),
         isExpanded: true,
-        style: Theme.of(context)
-            .textTheme
-            .bodyText2!
-            .copyWith(color: Brand.grayDark4),
+        style: Theme.of(context).textTheme.bodyText2!.copyWith(color: recTheme!.grayDark3),
       ),
     );
   }

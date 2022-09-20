@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Icons/PercentageIcon.dart';
-import 'package:rec/Components/Icons/RecCurrencyIcon.dart';
+import 'package:rec/Components/Icons/currency_icon.dart';
 import 'package:rec/Components/Inputs/OfferImage.dart';
 import 'package:rec/Components/Inputs/OfferTypeSelector.dart';
 import 'package:rec/Components/Inputs/form_fields/date_form_field.dart';
 import 'package:rec/Components/Inputs/text_fields/AmountTextField.dart';
 import 'package:rec/Components/Inputs/text_fields/SimpleTextField.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/validators/validators.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 /// Form for creating a new offer
@@ -26,6 +25,8 @@ class AddOfferForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+
     return Form(
       key: formKey,
       child: Container(
@@ -42,8 +43,8 @@ class AddOfferForm extends StatelessWidget {
             ),
             const SizedBox(height: 32),
 
-            if (data.type == OfferType.classic) _recTypeRow(),
-            if (data.type == OfferType.percentage) _percentTypeRow(),
+            if (data.type == OfferType.classic) _recTypeRow(recTheme!),
+            if (data.type == OfferType.percentage) _percentTypeRow(recTheme!),
 
             // Fields for all types
             SimpleTextField(
@@ -73,7 +74,7 @@ class AddOfferForm extends StatelessWidget {
     );
   }
 
-  Widget _recTypeRow() {
+  Widget _recTypeRow(RecThemeData theme) {
     return Row(
       children: [
         Expanded(
@@ -94,7 +95,7 @@ class AddOfferForm extends StatelessWidget {
             padding: const EdgeInsets.only(left: 8.0),
             child: AmountTextField(
               label: 'DISCOUNT_PRICE',
-              icon: RecCurrencyIcon(color: Brand.grayLight),
+              icon: CurrencyIcon(color: theme.grayLight),
               initialValue: data.offerPrice == null ? '' : data.offerPrice.toString(),
               onChange: (val) {
                 onChange(data..offerPrice = double.tryParse(val));
@@ -107,7 +108,7 @@ class AddOfferForm extends StatelessWidget {
     );
   }
 
-  Widget _percentTypeRow() {
+  Widget _percentTypeRow(RecThemeData theme) {
     return Row(
       children: [
         Expanded(
@@ -115,7 +116,7 @@ class AddOfferForm extends StatelessWidget {
             padding: const EdgeInsets.only(right: 8.0),
             child: AmountTextField(
               label: 'PERCENTAGE',
-              icon: PercentageIcon(color: Brand.grayLight),
+              icon: Icon(Icons.percent),
               initialValue: data.discount == null ? '' : data.discount.toString(),
               onChange: (val) {
                 onChange(data..discount = double.tryParse(val));

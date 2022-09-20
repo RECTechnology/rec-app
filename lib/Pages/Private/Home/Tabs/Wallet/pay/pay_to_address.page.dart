@@ -4,11 +4,11 @@ import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Layout/FormPageLayout.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
-import 'package:rec/Components/Wallet/UserBalance.dart';
+import 'package:rec/Components/Wallet/user_balance.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/attempt_payment.page.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/providers/user_state.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class PayAddressPage extends StatefulWidget {
@@ -56,14 +56,15 @@ class _PayAddressPageState extends State<PayAddressPage> {
   }
 
   Widget _content() {
+    final recTheme = RecTheme.of(context);
     final localizations = AppLocalizations.of(context);
     final userState = UserState.of(context);
     final appBar = PrivateAppBar(
       hasBackArrow: true,
       selectAccountEnabled: false,
       size: 160,
-      backgroundColor: Brand.defaultAvatarBackground,
-      color: Brand.grayDark,
+      backgroundColor: recTheme!.defaultAvatarBackground,
+      color: recTheme.grayDark,
       title: widget.title ??
           localizations!.translate('PAY_TO_NAME', params: {
             'name': widget.paymentData.vendor!.name,
@@ -80,7 +81,7 @@ class _PayAddressPageState extends State<PayAddressPage> {
               'name': userState.account!.name,
             },
           ),
-          color: Brand.grayDark,
+          color: recTheme.grayDark,
         ),
       ),
     );
@@ -94,7 +95,7 @@ class _PayAddressPageState extends State<PayAddressPage> {
       form: _payForm(),
       submitButton: RecActionButton(
         label: widget.buttonTitle ?? 'CONFIRM_PAYMENT',
-        backgroundColor: widget.buttonColor ?? Brand.primaryColor,
+        backgroundColor: widget.buttonColor ?? recTheme.primaryColor,
         onPressed: _isFormValid() ? _proceedWithPayment : null,
       ),
     );
@@ -138,7 +139,7 @@ class _PayAddressPageState extends State<PayAddressPage> {
         ),
       ),
     );
-    
+
     future.then((value) {
       if (value == true) {
         Navigator.of(context).pop(value);

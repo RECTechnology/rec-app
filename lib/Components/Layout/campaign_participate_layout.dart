@@ -3,7 +3,7 @@ import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/blured_image_container.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec/styles/paddings.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -36,8 +36,9 @@ class CampaignParticipateLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var campaignProvider = CampaignProvider.of(context);
-    var campaign = campaignProvider.getCampaignByCode(campaignCode);
+    final recTheme = RecTheme.of(context);
+    final campaignProvider = CampaignProvider.of(context);
+    final campaign = campaignProvider.getCampaignByCode(campaignCode);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -47,7 +48,7 @@ class CampaignParticipateLayout extends StatelessWidget {
         backgroundColor: Colors.transparent,
         actions: [
           IconButton(
-            icon: Icon(Icons.close, color: Brand.grayDark),
+            icon: Icon(Icons.close, color: recTheme!.grayDark),
             onPressed: onClose,
           ),
         ],
@@ -61,7 +62,7 @@ class CampaignParticipateLayout extends StatelessWidget {
               'CAMPAIGN_BANNER_TITLE',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline4!.copyWith(
-                    color: Brand.grayDark,
+                    color: recTheme.grayDark,
                     fontWeight: FontWeight.w400,
                     fontSize: 26,
                   ),
@@ -71,7 +72,7 @@ class CampaignParticipateLayout extends StatelessWidget {
               campaign!.name!.toUpperCase(),
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline4!.copyWith(
-                    color: Brand.grayDark,
+                    color: recTheme.grayDark,
                     fontWeight: FontWeight.w500,
                     fontSize: 30,
                   ),

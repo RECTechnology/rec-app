@@ -3,8 +3,8 @@ import 'package:rec/Components/Icons/credit_card_type_icon.dart';
 import 'package:rec/Components/ListTiles/OutlinedListTile.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Components/Wallet/UserBalance.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/Components/Wallet/user_balance.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/RecNavigation.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
@@ -44,6 +44,7 @@ class SelectCardPage extends StatelessWidget {
   Widget _body(BuildContext context) {
     final user = UserState.of(context).user;
     final bankCards = user?.bankCards ?? [];
+    final recTheme = RecTheme.of(context);
 
     return SingleChildScrollView(
       child: Padding(
@@ -56,7 +57,7 @@ class SelectCardPage extends StatelessWidget {
               'SELECT_CARD',
               style: TextStyle(
                 fontSize: 20,
-                color: Brand.grayDark,
+                color: recTheme!.grayDark,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -77,6 +78,8 @@ class SelectCardPage extends StatelessWidget {
   }
 
   Widget _newCardButton(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+
     return OutlinedListTile(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -92,7 +95,8 @@ class SelectCardPage extends StatelessWidget {
         ),
         LocalizedText(
           'NEW_CARD',
-          style: Theme.of(context).textTheme.button!.copyWith(color: Brand.grayDark, fontSize: 16),
+          style:
+              Theme.of(context).textTheme.button!.copyWith(color: recTheme!.grayDark, fontSize: 16),
         ),
         const SizedBox(),
       ],
@@ -112,6 +116,8 @@ class CardTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+    
     return OutlinedListTile(
       onPressed: onPressed,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -120,18 +126,18 @@ class CardTile extends StatelessWidget {
         CreditCardTypeIcon(
           alias: card.alias,
           size: 24,
-          color: Brand.primaryColor,
+          color: recTheme!.primaryColor,
         ),
         const SizedBox(width: 12),
         Text(
           card.alias,
           style: Theme.of(context).textTheme.button!.copyWith(
-                color: Brand.primaryColor,
+                color: recTheme.primaryColor,
                 fontSize: 16,
               ),
         ),
       ],
-      color: Brand.primaryColor,
+      color: recTheme.primaryColor,
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/config/brand.dart';
 
 class SearchInput extends StatefulWidget {
   final TextEditingController? searchController;
@@ -102,8 +102,9 @@ class _SearchInput extends State<SearchInput> {
   }
 
   InputDecoration _getDecoration() {
-    var localizations = AppLocalizations.of(context);
-    var suffixIcon = widget.isLoading
+    final recTheme = RecTheme.of(context);
+    final localizations = AppLocalizations.of(context);
+    final suffixIcon = widget.isLoading
         ? SizedBox(
             height: 10,
             width: 10,
@@ -117,7 +118,7 @@ class _SearchInput extends State<SearchInput> {
                 onTap: _clearSearch,
                 child: Icon(
                   Icons.close,
-                  color: Brand.grayDark,
+                  color: recTheme!.grayDark,
                   size: 14,
                 ),
               )
@@ -133,7 +134,7 @@ class _SearchInput extends State<SearchInput> {
       focusColor: Colors.white,
       hoverColor: Colors.white,
       hintText: localizations!.translate(widget.hintText),
-      prefixIcon: Icon(Icons.search, color: Brand.grayDark),
+      prefixIcon: Icon(Icons.search, color: recTheme!.grayDark),
       suffixIcon: suffixIcon,
       contentPadding: EdgeInsets.only(
         left: 15,

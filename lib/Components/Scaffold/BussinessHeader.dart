@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/rec_circle_avatar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class BussinessHeader extends StatefulWidget with PreferredSizeWidget {
@@ -27,6 +27,8 @@ class BussinessHeader extends StatefulWidget with PreferredSizeWidget {
 class _BussinessHeaderState extends State<BussinessHeader> {
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+   
     return PreferredSize(
       preferredSize: widget.preferredSize,
       child: Stack(
@@ -91,7 +93,7 @@ class _BussinessHeaderState extends State<BussinessHeader> {
                             widget.account!.name ?? 'Text not found',
                             style: TextStyle(
                               fontSize: 18,
-                              color: Brand.grayDark,
+                              color: recTheme!.grayDark,
                               fontWeight: FontWeight.w500,
                             ),
                             overflow: TextOverflow.ellipsis,
@@ -102,7 +104,7 @@ class _BussinessHeaderState extends State<BussinessHeader> {
                               widget.account!.addressString!,
                               style: TextStyle(
                                 fontSize: 14,
-                                color: Brand.grayDark,
+                                color: recTheme.grayDark,
                                 fontWeight: FontWeight.w300,
                               ),
                               overflow: TextOverflow.ellipsis,

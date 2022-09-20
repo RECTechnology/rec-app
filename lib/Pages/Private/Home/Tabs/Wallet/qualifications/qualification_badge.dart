@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Icons/svg_icon.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 /// Holds all states for a Qualification
@@ -29,7 +29,6 @@ class QualificationVote {
     this.state = QualificationState.unset,
   });
 }
-
 
 /// Maps [QualificationState]s to the next [QualificationState] in the cycle
 const Map<QualificationState, QualificationState> stateCycleMap = {
@@ -120,36 +119,38 @@ class ActionlessQualificationBadge extends StatefulWidget {
 }
 
 class _ActionlessQualificationBadgeState extends State<ActionlessQualificationBadge> {
-  final _unsetDecoration = BoxDecoration(
-    border: Border.all(color: Brand.grayLight2),
-    borderRadius: BorderRadius.circular(6),
-  );
-  final _yesDecoration = BoxDecoration(
-    border: Border.all(color: Brand.green),
-    color: Brand.green.withOpacity(0.05),
-    borderRadius: BorderRadius.circular(6),
-  );
-  final _noDecoration = BoxDecoration(
-    border: Border.all(color: Brand.red),
-    color: Brand.red.withOpacity(0.05),
-    borderRadius: BorderRadius.circular(6),
-  );
+  _unsetDecoration(RecThemeData theme) => BoxDecoration(
+        border: Border.all(color: theme.grayLight2),
+        borderRadius: BorderRadius.circular(6),
+      );
+  _yesDecoration(RecThemeData theme) => BoxDecoration(
+        border: Border.all(color: theme.green),
+        color: theme.green.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(6),
+      );
+  _noDecoration(RecThemeData theme) => BoxDecoration(
+        border: Border.all(color: theme.red),
+        color: theme.red.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(6),
+      );
 
-  BoxDecoration _getDecorationForState() {
+  BoxDecoration _getDecorationForState(RecThemeData theme) {
     switch (widget.state) {
       case QualificationState.yes:
-        return _yesDecoration;
+        return _yesDecoration(theme);
       case QualificationState.no:
-        return _noDecoration;
+        return _noDecoration(theme);
       default:
-        return _unsetDecoration;
+        return _unsetDecoration(theme);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+
     return Container(
-      decoration: _getDecorationForState(),
+      decoration: _getDecorationForState(recTheme!),
       width: widget.width,
       height: widget.height,
       child: Padding(

@@ -6,12 +6,12 @@ import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
 import 'package:rec/Components/Modals/YesNoModal.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/account/offers/AddOffer.page.dart';
 import 'package:rec/providers/user_state.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class AccountOffersPage extends StatefulWidget {
@@ -26,8 +26,9 @@ class _AccountOffersPageState extends State<AccountOffersPage> {
 
   @override
   Widget build(BuildContext context) {
-    var userState = UserState.of(context);
-    var offers = userState.account!.offers;
+    final userState = UserState.of(context);
+    final offers = userState.account!.offers;
+    final recTheme = RecTheme.of(context);
 
     return ScrollableListLayout(
       appBar: EmptyAppBar(
@@ -36,7 +37,7 @@ class _AccountOffersPageState extends State<AccountOffersPage> {
       ),
       backgroundColor: Colors.white,
       header: Container(
-        color: Brand.defaultAvatarBackground,
+        color: recTheme!.defaultAvatarBackground,
         padding: EdgeInsets.symmetric(vertical: 16),
         child: GeneralSettingsTile(
           title: 'PUBLISH_OFFER',
@@ -45,7 +46,7 @@ class _AccountOffersPageState extends State<AccountOffersPage> {
         ),
       ),
       children: [
-        SectionTitleTile.gray('ACTIVE_OFFERS'),
+        SectionTitleTile('ACTIVE_OFFERS', textColor: recTheme.grayDark),
         if (Checks.isEmpty(offers))
           Padding(
             padding: EdgeInsets.all(16),

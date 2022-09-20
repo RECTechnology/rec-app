@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/accept-terms.dart';
 import 'package:rec/Pages/Private/Shared/InAppBrowser.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/campaign_helper.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec/providers/user_state.dart';
-import 'package:rec/config/brand.dart';
 
 class LtabDescriptionCard extends StatefulWidget {
   final bool termsAccepted;
@@ -27,10 +27,11 @@ class LtabDescriptionCard extends StatefulWidget {
 class _LtabDescriptionCardState extends State<LtabDescriptionCard> {
   @override
   Widget build(BuildContext context) {
-    var userState = UserState.of(context);
-    var theme = Theme.of(context);
-    var localizations = AppLocalizations.of(context);
-    var activeCampaign = CampaignProvider.of(context).getCampaignByCode(
+    final userState = UserState.of(context);
+    final theme = Theme.of(context);
+    final recTheme = RecTheme.of(context);
+    final localizations = AppLocalizations.of(context);
+    final activeCampaign = CampaignProvider.of(context).getCampaignByCode(
       env.CMP_LTAB_CODE,
     );
 
@@ -44,7 +45,7 @@ class _LtabDescriptionCardState extends State<LtabDescriptionCard> {
       children: [
         Container(
           decoration: BoxDecoration(
-            color: Brand.backgroundBanner,
+            color: recTheme!.backgroundBanner,
             borderRadius: BorderRadius.all(
               Radius.circular(6),
             ),
@@ -59,7 +60,7 @@ class _LtabDescriptionCardState extends State<LtabDescriptionCard> {
                   'ENTER_CAMPAIGN_TITLE',
                   style: theme.textTheme.subtitle1!.copyWith(
                     fontWeight: FontWeight.w500,
-                    color: Brand.accentColor,
+                    color: recTheme.accentColor,
                   ),
                   params: {
                     'percent': activeCampaign.percent,
@@ -70,7 +71,7 @@ class _LtabDescriptionCardState extends State<LtabDescriptionCard> {
               RichText(
                 text: TextSpan(
                   style: theme.textTheme.bodyText1!.copyWith(
-                    color: Brand.accentColor,
+                    color: recTheme.accentColor,
                     height: 1.22,
                     fontWeight: FontWeight.w400,
                   ),

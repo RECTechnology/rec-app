@@ -6,7 +6,7 @@ import 'package:rec/Components/Inputs/text_fields/SearchInput.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/business_draggable_sheet.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/google_map_instance.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/map_filters.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/map_markers.dart';
@@ -114,13 +114,15 @@ class _MapPageState extends State<MapPage> with StateLoading {
   }
 
   Widget? _myLocationButton() {
+    final recTheme = RecTheme.of(context);
+
     return _bottomSheetEnabled
         ? null
         : FloatingActionButton(
             backgroundColor: Colors.white,
             onPressed: () => _mapKey.currentState!.centerOnCurrentLocation(),
             elevation: 1,
-            child: Icon(Icons.my_location, color: Brand.grayDark),
+            child: Icon(Icons.my_location, color: recTheme!.grayDark),
           );
   }
 
@@ -133,7 +135,7 @@ class _MapPageState extends State<MapPage> with StateLoading {
     ScaffoldMessenger.of(context).clearSnackBars();
 
     if (!MapMarkers.hasLoaded) {
-      await MapMarkers.loadMarkers();
+      await MapMarkers.loadMarkers(RecTheme.of(context)!.assets);
     }
 
     startLoading();

@@ -1,6 +1,7 @@
 {
     "version": "2.0.0",
     "tasks": [
+        // Prepare envs (prefer using "prepare-rec-<env>")
         {
             "label": "prepare-env-pre",
             "command": "./scripts/prepare-env.sh",
@@ -19,10 +20,66 @@
             "args": ["sandbox"],
             "type": "shell"
         },
+
+        // Whitelabel tasks
+        {
+            "label": "prepare-assets-rec",
+            "command": "./scripts/prepare-assets.sh",
+            "args": ["rec"],
+            "type": "shell"
+        },
+        {
+            "label": "prepare-assets-larosa",
+            "command": "./scripts/prepare-assets.sh",
+            "args": ["larosa"],
+            "type": "shell"
+        },
+
+        // Prepare REC
+        {
+            "label": "prepare-rec-pre",
+            "command": "./scripts/prepare-whitelabel.sh",
+            "args": ["pre", "rec"],
+            "type": "shell"
+        },
+        {
+            "label": "prepare-rec-prod",
+            "command": "./scripts/prepare-whitelabel.sh",
+            "args": ["prod", "rec"],
+            "type": "shell"
+        },
+        {
+            "label": "prepare-rec-sandbox",
+            "command": "./scripts/prepare-whitelabel.sh",
+            "args": ["sandbox", "rec"],
+            "type": "shell"
+        },
+
+        // Prepare larosa
+        {
+            "label": "prepare-larosa-pre",
+            "command": "./scripts/prepare-whitelabel.sh",
+            "args": ["pre", "larosa"],
+            "type": "shell"
+        },
+        {
+            "label": "prepare-larosa-prod",
+            "command": "./scripts/prepare-whitelabel.sh",
+            "args": ["prod", "larosa"],
+            "type": "shell"
+        },
+        {
+            "label": "prepare-larosa-sandbox",
+            "command": "./scripts/prepare-whitelabel.sh",
+            "args": ["sandbox", "larosa"],
+            "type": "shell"
+        },
+
+        // Build tasks
         {
             "label": "build-pre-apk",
-            "command": "flutter",
-            "args": ["build", "apk", "--flavor",  "pre", "--release"],
+            "command": "./scripts/build.sh pre rec",
+            "args": ["pre", "rec"],
             "type": "shell"
         },
         {
@@ -61,6 +118,7 @@
             "args": ["build", "ipa", "--release"],
             "type": "shell"
         },
+        
         // arch -x86_64 flutter build ipa --release
         {
             "label": "build-prod-ios",
@@ -108,7 +166,7 @@
             "label": "Build APK pre",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "prepare-env-pre",
+                "prepare-rec-pre",
                 "build-pre-apk",
                 "open-pre-apk-path"
             ]
@@ -117,7 +175,7 @@
             "label": "Build APK prod",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "prepare-env-prod",
+                "prepare-rec-prod",
                 "build-prod-apk",
                 "open-prod-apk-path"
             ]
@@ -126,7 +184,7 @@
             "label": "Build APK sandbox",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "prepare-env-sandbox",
+                "prepare-rec-sandbox",
                 "build-sandbox-apk",
                 "open-sandbox-apk-path"
             ]
@@ -135,7 +193,7 @@
             "label": "Build AAB prod",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "prepare-env-prod",
+                "prepare-rec-prod",
                 "build-prod-aab",
                 "open-prod-aab-path"
             ]
@@ -144,7 +202,7 @@
             "label": "Build AAB pre",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "prepare-env-pre",
+                "prepare-rec-pre",
                 "build-prod-aab",
                 "open-prod-aab-path"
             ]
@@ -153,7 +211,7 @@
             "label": "Build AAB sandbox",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "prepare-env-sandbox",
+                "prepare-rec-sandbox",
                 "build-prod-aab",
                 "open-prod-aab-path"
             ]
@@ -162,7 +220,7 @@
             "label": "Build iOS pre",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "prepare-env-pre",
+                "prepare-rec-pre",
                 "build-pre-ios"
             ]
         },
@@ -170,7 +228,7 @@
             "label": "Build iOS prod",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "prepare-env-prod",
+                "prepare-rec-prod",
                 "build-prod-ios"
             ]
         },
@@ -178,7 +236,7 @@
             "label": "Build iOS sandbox",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "prepare-env-sandbox",
+                "prepare-rec-sandbox",
                 "build-sandbox-ios"
             ]
         },
@@ -186,7 +244,7 @@
             "label": "Build iOS prod (m1)",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "prepare-env-prod",
+                "prepare-rec-prod",
                 "m1-build-prod-ios"
             ]
         }

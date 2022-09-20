@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:rec/Components/Icons/RecCurrencyIcon.dart';
+import 'package:rec/Components/Icons/currency_icon.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/config/brand.dart';
 
 /// [AmountTextField] renders a TextField, with some options for handling amounts.
 /// Used when we need the user to enter an amount
@@ -28,7 +28,7 @@ class AmountTextField extends StatefulWidget {
   final bool autofocus;
   final bool enabled;
   final String label;
-  final Widget icon;
+  final Widget? icon;
 
   const AmountTextField({
     Key? key,
@@ -41,7 +41,7 @@ class AmountTextField extends StatefulWidget {
     this.enabled = true,
     this.onSubmitted,
     this.label = 'AMOUNT',
-    this.icon = const RecCurrencyIcon(color: Brand.grayLight),
+    this.icon,
     this.controller,
   }) : super(key: key);
 
@@ -54,7 +54,8 @@ class AmountTextField extends StatefulWidget {
 class AmountTextFieldState extends State<AmountTextField> {
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context);
+    final recTheme = RecTheme.of(context);
 
     return RecTextField(
       label: localizations!.translate(widget.label),
@@ -85,7 +86,10 @@ class AmountTextFieldState extends State<AmountTextField> {
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]')),
       ],
-      icon: widget.icon,
+      icon: FittedBox(
+        child: widget.icon ?? CurrencyIcon(color: recTheme!.grayLight, size: 24),
+        fit: BoxFit.scaleDown,
+      ),
     );
   }
 }

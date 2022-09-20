@@ -3,10 +3,10 @@ import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Layout/FormPageLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Shared/campaigns/culture/culture-campaign-extra.data.dart';
 import 'package:rec/Pages/Private/Shared/campaigns/culture/culture-extra-data.form.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/providers/user_state.dart';
 
@@ -32,6 +32,8 @@ class _CultureExtraDataStatePage extends State<CultureExtraDataPage> {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+   
     return FormPageLayout(
       appBar: EmptyAppBar(context, title: 'REC_CULTURE'),
       header: LocalizedText('REC_CULTURE_DATA_INFO'),
@@ -42,7 +44,7 @@ class _CultureExtraDataStatePage extends State<CultureExtraDataPage> {
       ),
       submitButton: RecActionButton(
         label: 'PARTICIPATE',
-        backgroundColor: Brand.primaryColor,
+        backgroundColor: recTheme!.primaryColor,
         onPressed: data.isValid() ? _proceed : null,
       ),
     );

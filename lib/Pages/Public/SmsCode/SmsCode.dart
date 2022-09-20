@@ -6,8 +6,7 @@ import 'package:rec/Components/Layout/FormPageLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
-
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 
 class SmsCode extends StatefulWidget {
   final String? prefix;
@@ -34,13 +33,15 @@ class SmsCodeState extends State<SmsCode> {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+   
     return FormPageLayout(
       appBar: EmptyAppBar(context),
       form: _pinForm(),
       header: _topTexts(),
       submitButton: RecActionButton(
         label: 'VALIDATE',
-        backgroundColor: Brand.primaryColor,
+        backgroundColor: recTheme!.primaryColor,
         onPressed: isFormValid ? _tryValidateSMS : null,
       ),
     );
@@ -61,6 +62,8 @@ class SmsCodeState extends State<SmsCode> {
   }
 
   Widget _topTexts() {
+    final recTheme = RecTheme.of(context);
+
     return Column(children: [
       TitleText(
         'SEND_SMS_U',
@@ -76,7 +79,7 @@ class SmsCodeState extends State<SmsCode> {
       ),
       Text(
         widget.phone!,
-        style: Theme.of(context).textTheme.headline4!.copyWith(color: Brand.primaryColor),
+        style: Theme.of(context).textTheme.headline4!.copyWith(color: recTheme!.primaryColor),
         textAlign: TextAlign.center,
       ),
     ]);

@@ -5,12 +5,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/styles/paddings.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class UploadDocument extends StatefulWidget {
@@ -38,7 +38,8 @@ class _UploadDocumentState extends State<UploadDocument> {
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context);
+    final recTheme = RecTheme.of(context);
 
     return SafeArea(
       child: Scaffold(
@@ -61,7 +62,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                   style: TextStyle(
                     fontWeight: FontWeight.w300,
                     fontSize: 14,
-                    color: Brand.detailsTextColor,
+                    color: recTheme!.grayDark,
                   ),
                 ),
                 SizedBox(
@@ -73,10 +74,10 @@ class _UploadDocumentState extends State<UploadDocument> {
                     height: 180,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Brand.defaultAvatarBackground,
+                      color: recTheme.defaultAvatarBackground,
                       borderRadius: BorderRadius.all(Radius.circular(6)),
                       border: Border.all(
-                        color: Brand.defaultAvatarBackground,
+                        color: recTheme.defaultAvatarBackground,
                         width: 3,
                       ),
                     ),
@@ -92,7 +93,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                               Center(
                                 child: Icon(
                                   Icons.photo_library,
-                                  color: Brand.grayDark4,
+                                  color: recTheme.grayDark3,
                                 ),
                               ),
                               const SizedBox(height: 24),
@@ -101,7 +102,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 14,
-                                  color: Brand.grayDark4,
+                                  color: recTheme.grayDark3,
                                 ),
                               )
                             ],
@@ -110,7 +111,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                 ),
                 RecActionButton(
                   label: widget.buttonLabel ?? localizations!.translate('SEND_LEGGIBLE_IMAGE'),
-                  backgroundColor: Checks.isNotEmpty(imageFilePath) ? Brand.primaryColor : null,
+                  backgroundColor: Checks.isNotEmpty(imageFilePath) ? recTheme.primaryColor : null,
                   onPressed: Checks.isNotEmpty(imageFilePath) ? () => _uploadImage() : null,
                 )
               ],

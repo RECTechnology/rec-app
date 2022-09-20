@@ -7,7 +7,7 @@ import 'package:http/testing.dart';
 import 'package:provider/provider.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Wallet/Wallet.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Wallet/wallet.page.dart';
 import 'package:rec/providers/transactions_provider.dart';
 import 'package:rec/providers/user_state.dart';
 

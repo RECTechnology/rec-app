@@ -4,9 +4,9 @@ import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LinkText.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Shared/InAppBrowser.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/providers/campaign_provider.dart';
-import 'package:rec/styles/text_styles.dart';
 import 'package:rec/config/routes.dart';
 
 class LtabWelcomePage extends StatefulWidget {
@@ -37,9 +37,8 @@ class _LtabWelcomePageState extends State<LtabWelcomePage> {
   }
 
   Widget _body() {
-    var activeCampaign = CampaignProvider.of(context).getCampaignByCode(
-      env.CMP_LTAB_CODE,
-    );
+    final activeCampaign = CampaignProvider.of(context).getCampaignByCode(env.CMP_LTAB_CODE);
+    final recTheme = RecTheme.of(context);
 
     return Padding(
       padding: EdgeInsets.fromLTRB(32, 24, 32, 32),
@@ -55,7 +54,7 @@ class _LtabWelcomePageState extends State<LtabWelcomePage> {
                   params: {
                     'campaign': activeCampaign!.name!.toUpperCase(),
                   },
-                  style: TextStyles.pageTitle,
+                  style: recTheme!.textTheme.pageTitle,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -63,7 +62,7 @@ class _LtabWelcomePageState extends State<LtabWelcomePage> {
               Center(
                 child: LocalizedText(
                   'CAMPAIGN_WELCOME_DESC',
-                  style: TextStyles.pageSubtitle1,
+                  style: recTheme.textTheme.pageSubtitle1,
                   textAlign: TextAlign.center,
                   params: {
                     'percent': activeCampaign.percent,

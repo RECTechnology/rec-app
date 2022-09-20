@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/providers/campaign_provider.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/providers/user_state.dart';
 
 class CultureDescriptionCard extends StatelessWidget {
@@ -12,19 +12,20 @@ class CultureDescriptionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    var campaignProvider = CampaignProvider.of(context);
-    var userState = UserState.of(context);
+    final theme = Theme.of(context);
+    final recTheme = RecTheme.of(context);
+    final campaignProvider = CampaignProvider.of(context);
+    final userState = UserState.of(context);
 
-    var cultureCampaign = campaignProvider.getCampaignByCode(env.CMP_CULT_CODE);
-    var cultureAccount = userState.user!.getAccountForCampaign(env.CMP_CULT_CODE)!;
+    final cultureCampaign = campaignProvider.getCampaignByCode(env.CMP_CULT_CODE);
+    final cultureAccount = userState.user!.getAccountForCampaign(env.CMP_CULT_CODE)!;
 
-    var maxReached = cultureAccount.rewardedAmount! >= cultureCampaign!.max;
+    final maxReached = cultureAccount.rewardedAmount! >= cultureCampaign!.max;
 
-    var title = maxReached ? 'CULTURE_RECHARGE_MODAL_MAX_TITLE' : 'CULTURE_RECHARGE_MODAL_TITLE';
-    var descr = maxReached ? 'CULTURE_RECHARGE_MODAL_MAX_DESC' : 'CULTURE_RECHARGE_MODAL_DESC';
-    var color = maxReached ? Brand.amountNegative : Brand.grayDark2;
-    var bgColor = maxReached ? Brand.amountNegative.withAlpha(10) : Brand.backgroundBannerCulture;
+    final title = maxReached ? 'CULTURE_RECHARGE_MODAL_MAX_TITLE' : 'CULTURE_RECHARGE_MODAL_TITLE';
+    final descr = maxReached ? 'CULTURE_RECHARGE_MODAL_MAX_DESC' : 'CULTURE_RECHARGE_MODAL_DESC';
+    final color = maxReached ? recTheme!.red : recTheme!.grayDark2;
+    final bgColor = maxReached ? recTheme.red.withAlpha(10) : recTheme.backgroundBannerCulture;
 
     // If max is reached show warning otherwise show the info box
 

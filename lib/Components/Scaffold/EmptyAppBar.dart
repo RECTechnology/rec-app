@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 
-// TODO: Refactor this, it's not good
+// TODO(Agut14): Refactor this, it's not good, make a widget instead...
 AppBar EmptyAppBar(
   BuildContext context, {
   bool backArrow = true,
@@ -15,14 +15,15 @@ AppBar EmptyAppBar(
   VoidCallback? closeAction,
   bool centerTitle = false,
 }) {
-  var titleWidget = titleText ??
+  final recTheme = RecTheme.of(context);
+  final titleWidget = titleText ??
       (title != null
           ? LocalizedText(
               title,
-              style: TextStyle(color: Brand.grayDark),
+              style: TextStyle(color: recTheme!.grayDark),
             )
           : null);
-  var leadingIcon = backArrow
+  final leadingIcon = backArrow
       ? IconButton(
           icon: Icon(
             Icons.arrow_back,

@@ -1,0 +1,7 @@
+flutter_icons:    
+  android: true
+  ios: true    
+  image_path: "config/launcher_icons/larosa/pre.png"
+  adaptive_icon_background: "config/launcher_icons/larosa/background_pre.png"
+  adaptive_icon_foreground: "config/launcher_icons/larosa/logo.png"
+  remove_alpha_ios: true

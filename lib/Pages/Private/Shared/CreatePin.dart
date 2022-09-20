@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Inputs/text_fields/RecPinInput.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/helpers/RecToast.dart';
@@ -9,8 +10,6 @@ import 'package:rec/Pages/Public/SmsCode/SmsCode.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec/styles/paddings.dart';
-import 'package:rec/styles/text_styles.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class CreatePinWidget extends StatefulWidget {
@@ -44,9 +43,10 @@ class _CreatePinWidgetState extends State<CreatePinWidget> {
   }
 
   Widget _body() {
-    var localizations = AppLocalizations.of(context);
-    var btnLabel = widget.buttonContent ?? localizations!.translate('NEXT');
-    var label = widget.label ?? localizations!.translate('CREATE_AND') + ' ' + btnLabel;
+    final recTheme = RecTheme.of(context);
+    final localizations = AppLocalizations.of(context);
+    final btnLabel = widget.buttonContent ?? localizations!.translate('NEXT');
+    final label = widget.label ?? localizations!.translate('CREATE_AND') + ' ' + btnLabel;
 
     return Padding(
       padding: Paddings.page,
@@ -56,7 +56,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget> {
           Center(
             child: LocalizedText(
               'CREATE_PIN',
-              style: TextStyles.pageTitle,
+              style: recTheme!.textTheme.pageTitle,
               textAlign: TextAlign.center,
             ),
           ),
@@ -64,7 +64,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget> {
           Center(
             child: LocalizedText(
               'CREATE_PIN_DESC',
-              style: TextStyles.pageSubtitle1,
+              style: recTheme.textTheme.pageSubtitle1,
               textAlign: TextAlign.center,
             ),
           ),
@@ -85,7 +85,7 @@ class _CreatePinWidgetState extends State<CreatePinWidget> {
                 RecActionButton(
                   label: label,
                   icon: widget.buttonWithArrow ? Icons.arrow_forward_ios_outlined : null,
-                  backgroundColor: Brand.primaryColor,
+                  backgroundColor: recTheme.primaryColor,
                   onPressed: pin.length == 4 ? _next : null,
                 ),
               ],

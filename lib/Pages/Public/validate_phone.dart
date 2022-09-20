@@ -6,11 +6,11 @@ import 'package:rec/Components/Layout/FormPageLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Public/SmsCode/SmsCode.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/config/routes.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
@@ -46,13 +46,15 @@ class _ValidatePhoneState extends State<ValidatePhone> {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+   
     return FormPageLayout(
       appBar: EmptyAppBar(context),
       form: _phoneForm(),
       header: _topTexts(),
       submitButton: RecActionButton(
         label: 'NEXT',
-        backgroundColor: Brand.primaryColor,
+        backgroundColor: recTheme!.primaryColor,
         icon: Icons.arrow_forward_ios_sharp,
         onPressed: isFormValid ? _next : null,
       ),

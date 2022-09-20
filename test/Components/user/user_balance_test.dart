@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rec/Components/Wallet/UserBalance.dart';
+import 'package:rec/Components/Wallet/user_balance.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 import '../../test_utils.dart';

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rec/Components/Info/rec_circle_avatar.dart';
 import 'package:rec/Components/Info/InfoColumn.dart';
-import 'package:rec/Components/Wallet/Transactions/TransactionIcon.dart';
-import 'package:rec/Components/Wallet/Transactions/TransactionTitle.dart';
+import 'package:rec/Components/Wallet/transaction_icon.dart';
+import 'package:rec/Components/Wallet/transaction_title.dart';
 import 'package:rec/Components/Wallet/amount_widget.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec/styles/box_decorations.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class TransactionDetailsModal {
@@ -58,16 +58,17 @@ class TransactionDetailsModal {
   }
 
   Widget _txHeader(BuildContext context, Transaction transaction) {
-    var userState = UserState.of(context);
-    var selfAccount = userState.account;
-    var otherAccount = TransactionIcon(transaction);
+    final recTheme = RecTheme.of(context);
+    final userState = UserState.of(context);
+    final selfAccount = userState.account;
+    final otherAccount = TransactionIcon(transaction);
 
-    var selfImage = Container(
+    final selfImage = Container(
       width: 64,
       height: 64,
       child: CircleAvatarRec.fromAccount(selfAccount!),
     );
-    var otherImage = Container(
+    final otherImage = Container(
       width: 64,
       height: 64,
       child: otherAccount,
@@ -81,7 +82,7 @@ class TransactionDetailsModal {
           transaction.isOut() ? selfImage : otherImage,
           Icon(
             Icons.east,
-            color: Brand.grayLight2,
+            color: recTheme!.grayLight2,
           ),
           transaction.isOut() ? otherImage : selfImage,
         ],
@@ -90,8 +91,9 @@ class TransactionDetailsModal {
   }
 
   Widget _txDate(BuildContext context, Transaction transaction) {
-    var localizations = AppLocalizations.of(context);
-    var dateString = DateFormat('d MMMM yyyy  HH:mm', localizations!.locale.languageCode)
+    final recTheme = RecTheme.of(context);
+    final localizations = AppLocalizations.of(context);
+    final dateString = DateFormat('d MMMM yyyy  HH:mm', localizations!.locale.languageCode)
         .format(transaction.createdAt.toLocal());
 
     return Center(
@@ -100,7 +102,7 @@ class TransactionDetailsModal {
         child: Text(
           dateString,
           style: TextStyle(
-            color: Brand.primaryColor,
+            color: recTheme!.primaryColor,
             fontSize: 16,
             fontWeight: FontWeight.w300,
           ),
@@ -110,8 +112,9 @@ class TransactionDetailsModal {
   }
 
   Widget _txConcept(BuildContext context, Transaction transaction) {
-    var localizations = AppLocalizations.of(context);
-    var concept = transaction.getConcept()!;
+    final recTheme = RecTheme.of(context);
+    final localizations = AppLocalizations.of(context);
+    final concept = transaction.getConcept()!;
 
     return Text(
       localizations!.translate(concept.isEmpty ? 'NO_CONCEPT' : concept),
@@ -120,15 +123,17 @@ class TransactionDetailsModal {
       textAlign: TextAlign.start,
       style: TextStyle(
         fontSize: 18,
-        color: Brand.grayDark2,
+        color: recTheme!.grayDark2,
         fontWeight: FontWeight.w300,
       ),
     );
   }
 
   Widget _txCard(BuildContext context, Transaction transaction) {
+    final recTheme = RecTheme.of(context);
+
     return Container(
-      decoration: BoxDecorations.solid(Brand.defaultAvatarBackground),
+      decoration: BoxDecorations.solid(recTheme!.defaultAvatarBackground),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24),
         child: Column(

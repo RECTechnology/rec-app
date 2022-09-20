@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Api/Auth.dart';
 import 'package:rec/Components/Layout/ScrollableListLayout.dart';
 import 'package:rec/Components/ListTiles/SettingsListTile.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/account/account_settings_list.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/campaigns/campaigns_settings_list.dart';
@@ -10,7 +11,6 @@ import 'package:rec/Pages/Private/Home/Tabs/Settings/user/user_settings_list.dar
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/providers/app_provider.dart';
 import 'package:rec/providers/documents_provider.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/config/routes.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -71,15 +71,16 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Widget _version() {
-    var appState = AppProvider.of(context);
-    var localizations = AppLocalizations.of(context);
+    final appState = AppProvider.of(context);
+    final localizations = AppLocalizations.of(context);
+    final recTheme = RecTheme.of(context);
 
     return ListTile(
       title: Text(
         localizations!.translate('VERSION') + ' ' + appState.version + '-' + appState.buildNumber,
         textAlign: TextAlign.center,
         style: TextStyle(
-          color: Brand.primaryColor,
+          color: recTheme!.primaryColor,
         ),
       ),
     );

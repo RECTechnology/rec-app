@@ -5,9 +5,9 @@ import 'package:rec/Components/Layout/FormPageLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/validators/validators.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/config/routes.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/loading.dart';
@@ -36,13 +36,15 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+   
     return FormPageLayout(
       appBar: EmptyAppBar(context),
       header: _topTexts(),
       form: _changePassForm(),
       submitButton: RecActionButton(
         label: 'CHANGE',
-        backgroundColor: Brand.primaryColor,
+        backgroundColor: recTheme!.primaryColor,
         icon: Icons.arrow_forward_ios_sharp,
         // TODO: only allow to click next if form is valid, otherwise disable
         // something like: `onPressed: isValid ? _onPressed: null,`

@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/initial_text_widget.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/helpers/color_helper.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class CircleAvatarRec extends StatefulWidget {
@@ -102,7 +102,7 @@ class _CircleAvatarRecState extends State<CircleAvatarRec> {
   }
 
   CircleAvatar buildRandom() {
-    final randomColor = Brand.getRandomColor(getSeed());
+    final randomColor = ColorHelper.getRandomColor(getSeed());
 
     return CircleAvatar(
       radius: widget.radius,

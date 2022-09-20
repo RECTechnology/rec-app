@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/config/brand.dart';
 
 class PasswordField extends StatefulWidget {
   final String? initialValue;
@@ -42,7 +42,8 @@ class PasswordField extends StatefulWidget {
 class PasswordFieldState extends State<PasswordField> {
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context);
+    final recTheme = RecTheme.of(context);
 
     return RecTextField(
       label: localizations!.translate(widget.title),
@@ -50,7 +51,7 @@ class PasswordFieldState extends State<PasswordField> {
       initialValue: widget.initialValue,
       needObscureText: true,
       keyboardType: TextInputType.visiblePassword,
-      icon: Icon(Icons.lock, color: Brand.grayIcon),
+      icon: Icon(Icons.lock, color: recTheme!.grayLight3),
       colorLine: widget.color,
       onChange: widget.onChange,
       validator: widget.validator,

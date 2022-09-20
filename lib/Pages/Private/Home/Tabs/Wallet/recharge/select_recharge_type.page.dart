@@ -3,9 +3,9 @@ import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/ListTiles/OutlinedListTile.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Components/Wallet/UserBalance.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/Components/Wallet/user_balance.dart';
 import 'package:rec/config/routes.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/loading.dart';
@@ -42,15 +42,16 @@ class _SelectRechargePageState extends State<SelectRechargePage> {
   }
 
   Widget _body() {
-    var user = UserState.of(context).user;
-    var cultureAccount = user!.getAccountForCampaign(env.CMP_CULT_CODE);
-    var hasCultureAccount = cultureAccount != null;
+    final user = UserState.of(context).user;
+    final cultureAccount = user!.getAccountForCampaign(env.CMP_CULT_CODE);
+    final hasCultureAccount = cultureAccount != null;
 
     return hasCultureAccount ? _hasCultureAccountLayout() : _hasNoCultureAccountLayout();
   }
 
   Widget _hasCultureAccountLayout() {
-    var cultureCampaign = CampaignProvider.of(context).getCampaignByCode(env.CMP_CULT_CODE);
+    final cultureCampaign = CampaignProvider.of(context).getCampaignByCode(env.CMP_CULT_CODE);
+    final recTheme = RecTheme.of(context);
 
     return Padding(
       padding: const EdgeInsets.all(32.0),
@@ -62,7 +63,7 @@ class _SelectRechargePageState extends State<SelectRechargePage> {
             'SELECT_RECHARGE_HAS_CULTURE_DESC',
             style: TextStyle(
               fontSize: 13,
-              color: Brand.grayDark2,
+              color: recTheme!.grayDark2,
             ),
             params: {
               'percent': cultureCampaign!.percent,
@@ -78,7 +79,7 @@ class _SelectRechargePageState extends State<SelectRechargePage> {
                 style: Theme.of(context)
                     .textTheme
                     .button!
-                    .copyWith(color: Brand.grayDark, fontSize: 16),
+                    .copyWith(color: recTheme.grayDark, fontSize: 16),
               ),
               const SizedBox(),
             ],
@@ -95,7 +96,8 @@ class _SelectRechargePageState extends State<SelectRechargePage> {
   }
 
   Widget _hasNoCultureAccountLayout() {
-    var cultureCampaign = CampaignProvider.of(context).getCampaignByCode(env.CMP_CULT_CODE);
+    final cultureCampaign = CampaignProvider.of(context).getCampaignByCode(env.CMP_CULT_CODE);
+    final recTheme = RecTheme.of(context);
 
     return Padding(
       padding: const EdgeInsets.all(32.0),
@@ -110,7 +112,7 @@ class _SelectRechargePageState extends State<SelectRechargePage> {
                 'SELECT_RECHARGE_HAS_NO_CULTURE_DESC',
                 style: TextStyle(
                   fontSize: 13,
-                  color: Brand.grayDark2,
+                  color: recTheme!.grayDark2,
                 ),
                 params: {
                   'percent': cultureCampaign!.percent,
@@ -132,7 +134,7 @@ class _SelectRechargePageState extends State<SelectRechargePage> {
                 'SELECT_RECHARGE_HAS_NO_CULTURE_OMIT_DESC',
                 style: TextStyle(
                   fontSize: 13,
-                  color: Brand.grayDark2,
+                  color: recTheme.grayDark2,
                 ),
                 params: {
                   'percent': cultureCampaign.percent,

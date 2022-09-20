@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/styles/box_shadows.dart';
 
 class BoxDecorations {
@@ -45,7 +44,7 @@ class BoxDecorations {
   }
 
   static BoxDecoration outline({
-    Color color = Brand.grayDark,
+    required Color color,
     double width = 1,
     double radius = 6,
   }) {

@@ -6,7 +6,11 @@
          FlutterApplication and put your custom class here. -->
 
    <!-- `allowBackup` is ther to fix: https://github.com/mogol/flutter_secure_storage/issues/13#issuecomment-421083742 -->
-  <application android:name="${applicationName}" android:label="Rec Barcelona" android:icon="@mipmap/ic_launcher" android:allowBackup="false">
+  <application 
+      android:name="${applicationName}" 
+      android:label="@string/app_name" 
+      android:icon="@mipmap/ic_launcher" 
+      android:allowBackup="false">
     <meta-data android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyDp840qjl2g-W52xOvJBqr293SDhQU_NgA"/>
 

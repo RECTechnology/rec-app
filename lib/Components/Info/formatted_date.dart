@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/Strings.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 
@@ -18,6 +18,7 @@ class FormattedDate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
     final localizations = AppLocalizations.of(context);
     final dateString =
         (formatter ?? DateFormat('EEEE,', localizations!.locale.languageCode).add_yMMMd().add_Hm())
@@ -29,7 +30,7 @@ class FormattedDate extends StatelessWidget {
         child: Text(
           Strings.capitalizeWords(dateString),
           style: TextStyle(
-            color: Brand.grayDark3,
+            color: recTheme!.grayDark3,
             fontSize: 16,
             fontWeight: FontWeight.w400,
           ).merge(style),

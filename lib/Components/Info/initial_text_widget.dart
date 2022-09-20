@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/helpers/color_helper.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 /// It displays the initial letter of a name, with a pseudorandom text color
@@ -28,11 +28,11 @@ class InitialTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final randomColor = Brand.getRandomColor(seed);
+    final randomColor = ColorHelper.getRandomColor(seed);
 
     Widget child = Text(
       'P',
-      style: TextStyle(color: Brand.getContrastColor(randomColor)),
+      style: TextStyle(color: ColorHelper.getContrastColor(randomColor)),
     );
 
     if (icon != null) {
@@ -45,7 +45,7 @@ class InitialTextWidget extends StatelessWidget {
 
       child = Text(
         effectiveName[0].toUpperCase(),
-        style: TextStyle(color: Brand.getContrastColor(randomColor)),
+        style: TextStyle(color: ColorHelper.getContrastColor(randomColor)),
       );
     }
 

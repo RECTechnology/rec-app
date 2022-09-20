@@ -7,7 +7,7 @@ import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/loading.dart';
@@ -54,8 +54,9 @@ class _AccountLocationPageState extends State<AccountLocationPage> {
 
   @override
   Widget build(BuildContext context) {
-    var account = UserState.of(context).account;
-    var localizations = AppLocalizations.of(context);
+    final account = UserState.of(context).account;
+    final localizations = AppLocalizations.of(context);
+    final recTheme = RecTheme.of(context);
 
     return Scaffold(
       appBar: EmptyAppBar(
@@ -86,7 +87,7 @@ class _AccountLocationPageState extends State<AccountLocationPage> {
                 RecTextField(
                   initialValue: account.address!.streetName,
                   label: localizations.translate('STREET_NAME'),
-                  colorLabel: Brand.grayDark4,
+                  colorLabel: recTheme!.grayDark3,
                   validator: Validators.isRequired,
                   onChange: (streetName) {
                     setState(() => {_address.streetName = streetName});
@@ -100,7 +101,7 @@ class _AccountLocationPageState extends State<AccountLocationPage> {
                       child: RecTextField(
                         initialValue: account.address!.streetNumber,
                         label: localizations.translate('STREET_NUMBER'),
-                        colorLabel: Brand.grayDark4,
+                        colorLabel: recTheme.grayDark3,
                         validator: Validators.isRequired,
                         onChange: (streetNumber) {
                           setState(
@@ -115,7 +116,7 @@ class _AccountLocationPageState extends State<AccountLocationPage> {
                       child: RecTextField(
                         initialValue: account.address!.zip,
                         label: localizations.translate('ZIP'),
-                        colorLabel: Brand.grayDark4,
+                        colorLabel: recTheme.grayDark3,
                         validator: Validators.isRequired,
                         onChange: (zip) {
                           setState(() => {_address.zip = zip});
@@ -129,7 +130,7 @@ class _AccountLocationPageState extends State<AccountLocationPage> {
                 RecActionButton(
                   label: 'UPDATE_APP',
                   onPressed: _update,
-                  backgroundColor: Brand.primaryColor,
+                  backgroundColor: recTheme.primaryColor,
                   padding: EdgeInsets.zero,
                 ),
               ],

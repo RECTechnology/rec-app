@@ -5,13 +5,13 @@ import 'package:rec/Components/Layout/FormPageLayout.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/LinkText.dart';
-import 'package:rec/Components/Wallet/UserBalance.dart';
+import 'package:rec/Components/Wallet/user_balance.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/Deeplinking.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/charge/ChargeQr.page.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/providers/user_state.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 import 'package:share/share.dart';
 
@@ -48,11 +48,12 @@ class _ChargePageState extends State<ChargePage> {
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
-    var userState = UserState.of(context);
-    var color = Brand.getColorForAccount(userState.account as Account);
+    final localizations = AppLocalizations.of(context);
+    final userState = UserState.of(context);
+    final recTheme = RecTheme.of(context);
+    final color = recTheme!.accountTypeColor(userState.account?.type ?? Account.TYPE_PRIVATE);
 
-    var appBar = PrivateAppBar(
+    final appBar = PrivateAppBar(
       hasBackArrow: true,
       selectAccountEnabled: false,
       size: 160,

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Layout/campaign_participate_layout.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/RecNavigation.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Shared/campaigns/culture/info-box-culture.dart';
-import 'package:rec/config/assets.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/campaign_helper.dart';
 import 'package:rec/helpers/loading.dart';
@@ -32,14 +32,14 @@ class CultureParticipatePage extends StatefulWidget {
   }
 
   static bool shouldBeOpenned(BuildContext context) {
-    var preferences = PreferenceProvider.deaf(context);
-    var showBanner = preferences.get(PreferenceKeys.showCultureCampaign);
-    var userState = UserState.deaf(context);
-    var activeCampaign = CampaignProvider.deaf(context).getCampaignByCode(code);
+    final preferences = PreferenceProvider.deaf(context);
+    final showBanner = preferences.get(PreferenceKeys.showCultureCampaign);
+    final userState = UserState.deaf(context);
+    final activeCampaign = CampaignProvider.deaf(context).getCampaignByCode(code);
 
-    var active = isActive(context);
-    var isActiveForState = CampaignHelper.isActiveForState(userState, activeCampaign!);
-    var shouldBeOpened = active && showBanner && isActiveForState;
+    final active = isActive(context);
+    final isActiveForState = CampaignHelper.isActiveForState(userState, activeCampaign!);
+    final shouldBeOpened = active && showBanner && isActiveForState;
 
     return shouldBeOpened;
   }
@@ -62,8 +62,9 @@ class _CultureParticipatePageState extends State<CultureParticipatePage> {
 
   @override
   Widget build(BuildContext context) {
-    var preferences = PreferenceProvider.of(context);
-    var dontShowAgain = preferences.get(PreferenceKeys.showCultureCampaign);
+    final preferences = PreferenceProvider.of(context);
+    final dontShowAgain = preferences.get(PreferenceKeys.showCultureCampaign);
+    final assets = RecTheme.of(context)!.assets;
 
     return CampaignParticipateLayout(
       campaignCode: CultureParticipatePage.code,
@@ -72,7 +73,7 @@ class _CultureParticipatePageState extends State<CultureParticipatePage> {
       hideDontShowAgain: termsAccepted || widget.hideDontShowAgain,
       onClose: _close,
       onParticipate: termsAccepted ? _participate : null,
-      image: AssetImage(Assets.cultureCampaignBanner),
+      image: AssetImage(assets.cultureCampaignBanner),
       infoChild: CultureInfoBox(
         termsAccepted: termsAccepted,
         termsAcceptedChanged: (value) {

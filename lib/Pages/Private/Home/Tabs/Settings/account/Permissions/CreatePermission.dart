@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Forms/CreatePermission.form.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/providers/user_state.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class CreatePermission extends StatefulWidget {
@@ -29,6 +29,8 @@ class _CreatePermissionState extends State<CreatePermission> {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -46,16 +48,16 @@ class _CreatePermissionState extends State<CreatePermission> {
           child: OutlinedButton(
             onPressed: _addUser,
             style: OutlinedButton.styleFrom(
-              primary: Brand.grayDark,
+              backgroundColor: recTheme!.grayDark,
               side: BorderSide(
-                color: _data.isValid ? Brand.primaryColor : Brand.grayLight2,
+                color: _data.isValid ? recTheme.primaryColor : recTheme.grayLight2,
               ),
               padding: const EdgeInsets.all(8.0),
             ),
             child: LocalizedText(
               'NEW_PERMISSION',
               style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                    color: _data.isValid ? Brand.primaryColor : Brand.grayLight2,
+                    color: _data.isValid ? recTheme.primaryColor : recTheme.grayLight2,
                     fontWeight: FontWeight.w400,
                   ),
             ),

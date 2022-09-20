@@ -29,15 +29,13 @@ class RecActionButton extends StatefulWidget {
 class _RecActionButton extends State<RecActionButton> {
   @override
   Widget build(BuildContext context) {
-    var color = widget.backgroundColor;
-
     return Padding(
       padding: widget.padding,
       child: ElevatedButton(
         onPressed: widget.disabled ? null : widget.onPressed,
         style: ElevatedButton.styleFrom(
-          primary: widget.backgroundColor ?? color,
-          onPrimary: Colors.white,
+          backgroundColor: widget.backgroundColor,
+          foregroundColor: Colors.white,
         ),
         child: Container(
           height: 48,

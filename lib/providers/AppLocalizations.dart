@@ -7,6 +7,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:rec/helpers/Strings.dart';
 
 /// Handles localizations/translations within the app
+/// TODO: Change this implementation with KLocalizations, this way we can
+/// easily handle loading the translations from poeditor cdn or locally
 class AppLocalizations {
   static const delegate = _AppLocalizationsDelegate();
   static Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates = [
@@ -16,11 +18,11 @@ class AppLocalizations {
     GlobalWidgetsLocalizations.delegate
   ];
   static const supportedLocales = [
+    Locale('ca', 'CA'),
     Locale('es', 'ES'),
     Locale('en', 'UK'),
-    Locale('ca', 'CA'),
   ];
-  static const supportedLocaleNames = ['es', 'en', 'ca'];
+  static const supportedLocaleNames = ['ca', 'es', 'en'];
 
   static Locale getLocaleByLanguageCode(String languageCode) {
     return supportedLocales.firstWhere(
@@ -90,7 +92,7 @@ class AppLocalizations {
   MapEntry<String, String> _mapEntry(String key, value) => MapEntry(key, value.toString());
 
   Future<String> _loadStringForCurrentLocale() {
-    return rootBundle.loadString('i18n/${locale.languageCode}.json');
+    return rootBundle.loadString('assets/current/i18n/${locale.languageCode}.json');
   }
 
   Future<Map<String, dynamic>?> _loadMapForLocale() async {

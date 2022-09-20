@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/styles/paddings.dart';
-import 'package:rec/config/brand.dart';
 
 class RecFilterButton extends StatefulWidget {
   final bool disabled;
@@ -11,7 +11,7 @@ class RecFilterButton extends StatefulWidget {
   final EdgeInsets margin;
   final Function()? onPressed;
   final Color backgroundColor;
-  final Color textColor;
+  final Color? textColor;
   final Color? iconColor;
   final double borderRadius;
   final double elevation;
@@ -24,8 +24,8 @@ class RecFilterButton extends StatefulWidget {
     this.padding = Paddings.filterButton,
     this.margin = EdgeInsets.zero,
     this.disabled = false,
-    this.textColor = Brand.grayDark,
-    this.iconColor = Brand.grayDark,
+    this.textColor,
+    this.iconColor,
     this.backgroundColor = Colors.white,
     this.borderRadius = 6,
     this.elevation = 1,
@@ -38,17 +38,17 @@ class RecFilterButton extends StatefulWidget {
 }
 
 class _RecActionButton extends State<RecFilterButton> {
-  var color = Colors.white;
-
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+
     return Container(
       height: 27,
       margin: widget.margin,
       child: ElevatedButton(
         onPressed: widget.disabled ? null : widget.onPressed,
         style: ElevatedButton.styleFrom(
-          primary: widget.backgroundColor,
+          backgroundColor: widget.backgroundColor,
           padding: widget.padding,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(widget.borderRadius),
@@ -64,15 +64,17 @@ class _RecActionButton extends State<RecFilterButton> {
                 ? Icon(
                     widget.icon,
                     size: 16,
-                    color: widget.iconColor ?? Colors.black,
+                    color: widget.iconColor ?? recTheme!.grayDark,
                   )
                 : SizedBox(),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
               child: LocalizedText(
                 widget.label,
-                style:
-                    TextStyle(color: widget.textColor, fontWeight: FontWeight.w500, fontSize: 12),
+                style: TextStyle(
+                    color: widget.textColor ?? recTheme!.grayDark,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12),
               ),
             ),
           ],

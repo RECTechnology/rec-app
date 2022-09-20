@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rec/Components/Wallet/Transactions/TransactionTitle.dart';
+import 'package:rec/Components/Wallet/transaction_title.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 

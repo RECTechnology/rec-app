@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 
 class SelectableChip extends StatefulWidget {
   final bool isSelected;
@@ -23,17 +23,19 @@ class SelectableChip extends StatefulWidget {
 class _SelectableChipState extends State<SelectableChip> {
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+    
     return Padding(
       padding: widget.padding,
       child: FilterChip(
         backgroundColor: Colors.white,
         selectedColor: Colors.white,
-        checkmarkColor: Brand.accentColor,
+        checkmarkColor: recTheme!.accentColor,
         elevation: 1,
         label: LocalizedText(
           widget.label,
           style: TextStyle(
-            color: widget.isSelected ? Brand.accentColor : Brand.grayDark2,
+            color: widget.isSelected ? recTheme.accentColor : recTheme.grayDark2,
             fontSize: 12,
           ),
         ),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Layout/InfoSplash.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/BrowserHelper.dart';
 import 'package:rec/helpers/RecPlatformHelper.dart';
 import 'package:rec/providers/app_provider.dart';
-import 'package:rec/config/brand.dart';
 
 class MustUpdate extends StatefulWidget {
   MustUpdate({Key? key}) : super(key: key);
@@ -16,12 +16,14 @@ class MustUpdate extends StatefulWidget {
 class _MustUpdateState extends State<MustUpdate> {
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+  
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         actions: [
           IconButton(
-            icon: Icon(Icons.close, color: Brand.grayDark),
+            icon: Icon(Icons.close, color: recTheme!.grayDark),
             onPressed: _rejectUpdate,
           )
         ],

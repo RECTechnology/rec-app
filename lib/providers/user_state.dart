@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
@@ -108,11 +107,6 @@ class UserState with ChangeNotifier {
 
   User? get savedUser {
     return _savedUser;
-  }
-
-  /// Returns the color for the current account
-  Color getColor({Color defaultColor = Brand.grayDark}) {
-    return account == null ? defaultColor : Brand.getColorForAccount(account!);
   }
 
   static Future<User> getSavedUser(IStorage _storage) async {

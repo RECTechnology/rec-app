@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/PasswordField.dart';
 import 'package:rec/Components/Inputs/text_fields/RecPinInput.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/validators/validators.dart';
 
 /// Form for changing pin, used by [ChangedPinPage]
@@ -39,10 +39,11 @@ class ChangePinFormState extends State<ChangePinForm> {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    var labelStyle = theme.textTheme.subtitle1!.copyWith(
+    final recTheme = RecTheme.of(context);
+    final theme = Theme.of(context);
+    final labelStyle = theme.textTheme.subtitle1!.copyWith(
       fontWeight: FontWeight.w500,
-      color: Brand.grayDark,
+      color: recTheme!.grayDark,
     );
 
     return Form(

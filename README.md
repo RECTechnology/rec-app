@@ -13,7 +13,7 @@ Desde la aplicación del rec se puede realizar cualquier operación y poner en c
 
 ## Getting Started
 
-To get started, plaese refer to the [wiki](https://github.com/QbitArtifacts/rec_app_v2/wiki)
+To get started, please refer to the [wiki](https://github.com/QbitArtifacts/rec_app_v2/wiki).
 
 ## Flutter help
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/styles/box_decorations.dart';
 
 class OutlinedListTile extends StatefulWidget {
@@ -7,7 +7,7 @@ class OutlinedListTile extends StatefulWidget {
   final double height;
   final EdgeInsets padding;
   final Function()? onPressed;
-  final Color color;
+  final Color? color;
   final CrossAxisAlignment crossAxisAlignment;
   final MainAxisAlignment mainAxisAlignment;
 
@@ -17,7 +17,7 @@ class OutlinedListTile extends StatefulWidget {
     this.height = 48,
     this.onPressed,
     this.padding = const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
-    this.color = Brand.grayDark,
+    this.color,
     this.crossAxisAlignment = CrossAxisAlignment.start,
     this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
   }) : super(key: key);
@@ -35,6 +35,8 @@ class _OutlinedListTile extends State<OutlinedListTile> {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+
     return InkWell(
       onTap: widget.onPressed,
       child: Padding(
@@ -42,7 +44,7 @@ class _OutlinedListTile extends State<OutlinedListTile> {
         child: Container(
           height: height,
           padding: EdgeInsets.only(left: 16, right: 16),
-          decoration: BoxDecorations.outline(color: widget.color),
+          decoration: BoxDecorations.outline(color: widget.color ?? recTheme!.grayDark),
           alignment: Alignment.centerLeft,
           child: Row(
             crossAxisAlignment: widget.crossAxisAlignment,

@@ -5,6 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:rec/config/theme.dart';
+import 'package:rec/config/themes/rec.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/providers/app_provider.dart';
 import 'package:rec/providers/campaign_provider.dart';
@@ -31,7 +33,7 @@ class TestUtils {
     List<SingleChildWidget> providers = const [],
     List<NavigatorObserver> navigatorObservers = const <NavigatorObserver>[],
   }) async {
-    await dotenv.load(fileName: "env/.env");
+    await dotenv.load(fileName: "env/.env-test");
 
     return MultiProvider(
       providers: [
@@ -110,26 +112,29 @@ class TestUtils {
     return wrapPublicRoute(page);
   }
 
-  static MaterialApp wrapInMaterialApp(
+  static Widget wrapInMaterialApp(
     Widget widget, {
     Key? key,
     List<NavigatorObserver> navigatorObservers = const <NavigatorObserver>[],
     Locale? locale,
   }) {
-    return MaterialApp(
-      home: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Localizations(
-          delegates: [
-            GlobalWidgetsLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            AppLocalizations.delegate
-          ],
-          locale: locale ?? Locale('es'),
-          child: widget,
+    return RecTheme(
+      child: MaterialApp(
+        home: Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: Localizations(
+            delegates: [
+              GlobalWidgetsLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              AppLocalizations.delegate
+            ],
+            locale: locale ?? Locale('es'),
+            child: widget,
+          ),
         ),
+        navigatorObservers: navigatorObservers,
       ),
-      navigatorObservers: navigatorObservers,
+      data: recTheme,
     );
   }
 

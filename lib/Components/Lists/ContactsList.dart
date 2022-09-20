@@ -5,9 +5,9 @@ import 'package:rec/Components/ListTiles/AccountListTile.dart';
 import 'package:rec/Components/Info/rec_circle_avatar.dart';
 import 'package:rec/Components/Layout/InfoSplash.dart';
 import 'package:rec/Components/Lists/SearchableList.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/RecToast.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class ContactsList extends StatefulWidget {
@@ -84,6 +84,7 @@ class _ContactsList extends State<ContactsList> {
   }
 
   void _mapContacts(List<ContactInfo> recContacts) {
+    final recTheme = RecTheme.of(context);
     setState(
       () => searchedWidgets = recContacts
           .where(_matchesQuery)
@@ -99,7 +100,7 @@ class _ContactsList extends State<ContactsList> {
               name: contact.account,
               trailing: Icon(
                 Icons.person,
-                color: Brand.grayLight2,
+                color: recTheme!.grayLight2,
                 size: 16,
               ),
             ),

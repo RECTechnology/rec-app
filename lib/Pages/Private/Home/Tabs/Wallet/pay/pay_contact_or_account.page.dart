@@ -4,9 +4,9 @@ import 'package:rec/Components/Lists/ContactsList.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/pay_to_address.page.dart';
 import 'package:rec/Components/IfPermissionGranted.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/permissions/permission_data_provider.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class PayContactOrAccount extends StatefulWidget {
@@ -14,8 +14,7 @@ class PayContactOrAccount extends StatefulWidget {
   _PayContactOrAccountState createState() => _PayContactOrAccountState();
 }
 
-class _PayContactOrAccountState extends State<PayContactOrAccount>
-    with TickerProviderStateMixin {
+class _PayContactOrAccountState extends State<PayContactOrAccount> with TickerProviderStateMixin {
   TabController? _tabController;
   final int items = 2;
   final PaymentData _paymentData = PaymentData.empty();
@@ -49,7 +48,8 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
   }
 
   Widget _content() {
-    var body = _tabController == null
+    final recTheme = RecTheme.of(context);
+    final body = _tabController == null
         ? SizedBox()
         : TabBarView(
             controller: _tabController,
@@ -72,7 +72,7 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
 
     return Scaffold(
       appBar: _constructAppBar(),
-      backgroundColor: Brand.defaultAvatarBackground,
+      backgroundColor: recTheme!.defaultAvatarBackground,
       body: body,
     );
   }
@@ -167,7 +167,8 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
     required String title,
     IconData? icon,
   }) {
-    var color = active ? Brand.primaryColor : Brand.grayDark;
+    final recTheme = RecTheme.of(context);
+    final color = (active ? recTheme?.primaryColor : recTheme!.grayDark) ?? Colors.black;
 
     return SizedBox(
       height: 80,
@@ -176,7 +177,7 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: OutlinedButton(
           style: OutlinedButton.styleFrom(
-            primary: Brand.grayDark,
+            // backgroundColor: recTheme!.grayDark,
             side: BorderSide(color: color),
           ),
           onPressed: action as void Function()?,

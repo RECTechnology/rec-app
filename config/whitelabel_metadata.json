@@ -1,0 +1,4 @@
+{
+  "envs": ["pre", "prod", "sandbox"],
+  "projects": ["rec", "larosa"]
+}

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Text/RecAmountText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/BadgeClipper.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class OfferBadge extends StatelessWidget {
@@ -25,8 +25,9 @@ class OfferBadge extends StatelessWidget {
     }
 
     Widget? content;
-    var primaryStyle = TextStyle(
-      color: Brand.primaryColor,
+    final recTheme = RecTheme.of(context);
+    final primaryStyle = TextStyle(
+      color: recTheme!.primaryColor,
     );
 
     if (!offer!.isFree && offer!.initialPrice != null) {

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/config/assets.dart';
-import 'package:rec/styles/text_styles.dart';
 import 'package:rec/config/routes.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 /// This pages shows a message for a successful recharge
@@ -37,6 +36,9 @@ class _RechargeOKState extends State<RechargeOK> {
   }
 
   Widget _body() {
+    final recTheme = RecTheme.of(context);
+    final assets = recTheme!.assets;
+
     return Padding(
       padding: EdgeInsets.fromLTRB(32, 84, 32, 32),
       child: Column(
@@ -53,7 +55,7 @@ class _RechargeOKState extends State<RechargeOK> {
                       widget.amount,
                     ),
                   },
-                  style: TextStyles.pageTitle,
+                  style: recTheme.textTheme.pageTitle,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -61,14 +63,14 @@ class _RechargeOKState extends State<RechargeOK> {
               Center(
                 child: LocalizedText(
                   'RECHARGE_OK_DESC',
-                  style: TextStyles.pageSubtitle1,
+                  style: recTheme.textTheme.pageSubtitle1,
                   textAlign: TextAlign.center,
                 ),
               ),
             ],
           ),
           Center(
-            child: Image.asset(Assets.rechargeOk),
+            child: Image.asset(assets.rechargeOk),
           ),
           RecActionButton(
             label: 'ALRIGHT',

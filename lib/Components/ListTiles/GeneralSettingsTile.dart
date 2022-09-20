@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Indicators/Badge.dart';
 import 'package:rec/Components/Info/rec_circle_avatar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 
 class GeneralSettingsTile extends StatefulWidget {
   final String? title;
@@ -35,16 +35,17 @@ class GeneralSettingsTile extends StatefulWidget {
 class _GeneralSettingsTileState extends State<GeneralSettingsTile> {
   @override
   Widget build(BuildContext context) {
-    var textTheme = Theme.of(context).textTheme;
-    var titleStyle = (widget.titleStyle ?? textTheme.subtitle1)!.copyWith(
+    final recTheme = RecTheme.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    final titleStyle = (widget.titleStyle ?? textTheme.subtitle1)!.copyWith(
       fontSize: 16,
       fontWeight: FontWeight.w500,
-      color: widget.disabled ? Brand.grayDisabled : null,
+      color: widget.disabled ? recTheme!.grayLight3 : null,
     );
-    var subtitleStyle = (widget.subtitleStyle ?? textTheme.caption)!.copyWith(
+    final subtitleStyle = (widget.subtitleStyle ?? textTheme.caption)!.copyWith(
       fontSize: 14,
       fontWeight: FontWeight.w400,
-      color: widget.disabled ? Brand.grayDisabled : null,
+      color: widget.disabled ? recTheme!.grayLight3 : null,
     );
 
     return InkWell(

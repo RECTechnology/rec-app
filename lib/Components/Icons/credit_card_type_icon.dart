@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rec/config/assets.dart';
+import 'package:rec/config/asset_theme.dart';
+import 'package:rec/config/theme.dart';
 
 enum CreditCardType {
   VISA,
@@ -9,12 +10,12 @@ enum CreditCardType {
 }
 
 extension CreditCardTypeName on CreditCardType {
-  String? get asset {
+  String? getAssetFromTheme(RecAssetTheme assets) {
     switch (this) {
       case CreditCardType.VISA:
-        return Assets.visa;
+        return assets.cardVisa;
       case CreditCardType.MASTERCARD:
-        return Assets.visa;
+        return assets.cardMastercard;
       case CreditCardType.AMERICAN_EXPRESS:
         break;
       case CreditCardType.UKNOWN:
@@ -45,8 +46,8 @@ class CreditCardTypeIcon extends StatelessWidget {
     return CreditCardType.UKNOWN;
   }
 
-  Widget get cardTypeAsset {
-    final asset = cardType.asset;
+  Widget getCardTypeAsset(RecAssetTheme assets) {
+    final asset = cardType.getAssetFromTheme(assets);
 
     if (asset != null) {
       return Image.asset(
@@ -64,6 +65,7 @@ class CreditCardTypeIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return cardTypeAsset;
+    final assets = RecTheme.of(context)!.assets;
+    return getCardTypeAsset(assets);
   }
 }

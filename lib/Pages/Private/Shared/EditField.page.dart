@@ -3,7 +3,7 @@ import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
 import 'package:rec/Components/Layout/FormPageLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 
 class EditFieldPage extends StatefulWidget {
   final String? fieldName;
@@ -38,6 +38,8 @@ class _EditFieldPageState extends State<EditFieldPage> {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+
     return FormPageLayout(
       appBar: EmptyAppBar(
         context,
@@ -46,13 +48,15 @@ class _EditFieldPageState extends State<EditFieldPage> {
       form: _form(),
       submitButton: RecActionButton(
         label: widget.updateButtonText,
-        backgroundColor: Brand.primaryColor,
+        backgroundColor: recTheme!.primaryColor,
         onPressed: _onUpdate,
       ),
     );
   }
 
   Widget _form() {
+    final recTheme = RecTheme.of(context);
+
     return Form(
       key: _formKey,
       child: Column(
@@ -62,7 +66,7 @@ class _EditFieldPageState extends State<EditFieldPage> {
                 initialValue: widget.initialValue,
                 icon: Icon(widget.icon),
                 label: widget.fieldName,
-                colorLabel: Brand.grayDark4,
+                colorLabel: recTheme!.grayLight3,
                 validator: widget.validator,
                 autofocus: true,
                 maxLines: 1,

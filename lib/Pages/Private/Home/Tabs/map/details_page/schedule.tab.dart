@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class ScheduleTab extends StatefulWidget {
@@ -20,10 +20,12 @@ class ScheduleTab extends StatefulWidget {
 class _ScheduleTabState extends State<ScheduleTab> {
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+    final localizations = AppLocalizations.of(context);
+    final now = DateTime.now();
+    final currentWeekday = now.weekday - 1;
+
     var daysList = List.generate(7, (index) => index + 1);
-    var localizations = AppLocalizations.of(context);
-    var now = DateTime.now();
-    var currentWeekday = now.weekday - 1;
 
     daysList = [
       ...daysList.getRange(currentWeekday, daysList.length),
@@ -44,7 +46,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
               child: Center(
                 child: Icon(
                   Icons.schedule_outlined,
-                  color: Brand.primaryColor,
+                  color: recTheme!.primaryColor,
                   size: 24,
                 ),
               ),

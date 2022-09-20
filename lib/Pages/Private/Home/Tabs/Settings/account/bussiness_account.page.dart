@@ -7,8 +7,8 @@ import 'package:rec/Components/Scaffold/BussinessHeader.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Shared/EditField.page.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/config/routes.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/loading.dart';
@@ -28,9 +28,10 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
 
   @override
   Widget build(BuildContext context) {
-    var userState = UserState.of(context);
-    var hasDescription = Checks.isNotEmpty(userState.account!.description);
-    var tiles = [
+    final recTheme = RecTheme.of(context);
+    final userState = UserState.of(context);
+    final hasDescription = Checks.isNotEmpty(userState.account!.description);
+    final tiles = [
       SectionTitleTile('YOUR_BUSSINESS'),
       GeneralSettingsTile(
         title: userState.account!.name ?? 'BUSSINESS_NAME',
@@ -72,7 +73,7 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
     ];
 
     return ScrollableListLayout(
-      backgroundColor: Brand.defaultAvatarBackground,
+      backgroundColor: recTheme!.defaultAvatarBackground,
       appBar: EmptyAppBar(context, title: 'SETTINGS_BUSSINESS_ON_MAP'),
       header: Container(
         color: Colors.white,
@@ -87,7 +88,7 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
             child: LocalizedText(
               'CHANGE_IMAGE',
               style: TextStyle(
-                color: Brand.accentColor,
+                color: recTheme.accentColor,
               ),
             ),
           ),

@@ -4,16 +4,16 @@ import 'package:rec/Components/Layout/InfoSplash.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/ListTiles/OutlinedListTile.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/permissions/permission_data.dart';
 import 'package:rec/styles/paddings.dart';
-import 'package:rec/config/brand.dart';
 
 /// Widget that manages permission requesting
 /// * if the permission is [allowed] it calls [onAccept] automatically
 /// * if it's [denied] it will show a screen explaining why it's used and actions to either accept it or decline it (if `canBeDeclined == true`)
 /// * if it's [permanentlyDenied] it says it, and allows user to go to OS app settings
 class RequestPermission extends StatefulWidget {
-  /// PermissionProvider instance, this tells [RequestPermission] which permission
+  /// PermissionData instance, this tells [RequestPermission] which permission
   /// it's requesting.
   final PermissionData permission;
 
@@ -51,6 +51,8 @@ class _RequestPermission extends State<RequestPermission> {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+
     return Container(
       color: Colors.white,
       constraints: BoxConstraints.expand(
@@ -60,14 +62,14 @@ class _RequestPermission extends State<RequestPermission> {
         padding: Paddings.page,
         child: loaded
             ? permanentlyDenied
-                ? _permanentlyDeniedInfo()
-                : _askForPermission()
+                ? _permanentlyDeniedInfo(recTheme!)
+                : _askForPermission(recTheme!)
             : SizedBox(),
       ),
     );
   }
 
-  Widget _askForPermission() {
+  Widget _askForPermission(RecThemeData theme) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -88,10 +90,7 @@ class _RequestPermission extends State<RequestPermission> {
                   SizedBox(),
                   LocalizedText(
                     'DECLINE_PERMISSION',
-                    style: Theme.of(context)
-                        .textTheme
-                        .button!
-                        .copyWith(color: Brand.grayDark),
+                    style: Theme.of(context).textTheme.button!.copyWith(color: theme.grayDark),
                   ),
                   SizedBox(),
                 ],
@@ -106,7 +105,7 @@ class _RequestPermission extends State<RequestPermission> {
     );
   }
 
-  Widget _permanentlyDeniedInfo() {
+  Widget _permanentlyDeniedInfo(RecThemeData theme) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -114,7 +113,7 @@ class _RequestPermission extends State<RequestPermission> {
         SizedBox(),
         InfoSplash(
           icon: Icons.cancel,
-          iconColor: Colors.red,
+          iconColor: theme.red,
           title: 'PERMISSION_PERMANENTLY_DENIED',
           subtitle: widget.permission.permanentlyDeniedMessage,
           padding: EdgeInsets.zero,
@@ -128,10 +127,7 @@ class _RequestPermission extends State<RequestPermission> {
                   SizedBox(),
                   LocalizedText(
                     'RETURN',
-                    style: Theme.of(context)
-                        .textTheme
-                        .button!
-                        .copyWith(color: Brand.grayDark),
+                    style: Theme.of(context).textTheme.button!.copyWith(color: theme.grayDark),
                   ),
                   SizedBox(),
                 ],
@@ -148,6 +144,7 @@ class _RequestPermission extends State<RequestPermission> {
 
   void _checkPermission(PermissionStatus status) {
     setState(() => loaded = true);
+
     /// If the permission is granted, we can notify the parent widget automatically
     if (status.isGranted) widget.onAccept();
     if (status.isPermanentlyDenied) {
@@ -160,7 +157,7 @@ class _RequestPermission extends State<RequestPermission> {
     await openAppSettings();
 
     // This is here to check permission after user interacts with settings
-    // For example, in case permission is denied and he accepts it inside settings
+    // For example, in case permission is denied and they accept it inside settings
     // It's kind of a bug, fix found [here](https://github.com/Baseflow/flutter-permission-handler/issues/429)
     await widget.permission.request().then(_checkPermission);
   }

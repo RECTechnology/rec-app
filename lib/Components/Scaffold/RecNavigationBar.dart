@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/config/brand.dart';
 
 class RecNavigationBar extends StatelessWidget {
   final int? currentTabIndex;
@@ -14,7 +14,8 @@ class RecNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context);
+    final recTheme = RecTheme.of(context);
 
     return BottomNavigationBar(
       items: [
@@ -32,7 +33,7 @@ class RecNavigationBar extends StatelessWidget {
         ),
       ],
       currentIndex: currentTabIndex!,
-      selectedItemColor: Brand.primaryColor,
+      selectedItemColor: recTheme!.primaryColor,
       onTap: onTabTap,
     );
   }

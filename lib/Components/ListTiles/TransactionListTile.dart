@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rec/Components/Modals/TransactionDetailsModal.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/transactions/transaction_details_sheet.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Components/Wallet/Transactions/TransactionIcon.dart';
-import 'package:rec/Components/Wallet/Transactions/TransactionTitle.dart';
-import 'package:rec/config/features.dart';
+import 'package:rec/Components/Wallet/transaction_icon.dart';
+import 'package:rec/Components/Wallet/transaction_title.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/transactions_utils.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec/providers/user_state.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-// TODO: Improve how we handle diferent transaction types
-//       I would suggest creating a diferent ListTile per transaction type,
-//       Transaction type would be set on instantiation, from (rules)
-//       then on build we render a diferent tile per type of transaction
 class TransactionsListTile extends StatefulWidget {
   final Transaction tx;
   final double height;
@@ -38,8 +32,6 @@ class TransactionsListTile extends StatefulWidget {
 }
 
 class _TransactionsListTile extends State<TransactionsListTile> {
-  final detailsModal = TransactionDetailsModal();
-
   Transaction get tx {
     return widget.tx;
   }
@@ -48,24 +40,19 @@ class _TransactionsListTile extends State<TransactionsListTile> {
     return widget.height;
   }
 
-  // TODO: Should this be done here? Or maybe let the parent widget handle this?
   void _openTxDetails() {
-    // return detailsModal.open(context, widget.tx);
-    if (Features.newTxModal) {
-      TransactionBottomSheet.openBottomSheet(context, widget.tx);
-    } else {
-      detailsModal.open(context, widget.tx);
-    }
+    TransactionBottomSheet.openBottomSheet(context, widget.tx);
   }
 
   @override
   Widget build(BuildContext context) {
     final title = TransactionTitle(widget.tx, maxLines: 1);
     final icon = TransactionIcon(widget.tx);
+    final recTheme = RecTheme.of(context);
 
-    final concept = getConcept();
-    final amount = getAmount();
-    final date = getDate();
+    final concept = getConcept(recTheme!);
+    final amount = getAmount(recTheme);
+    final date = getDate(recTheme);
 
     return InkWell(
       onTap: _openTxDetails,
@@ -118,10 +105,10 @@ class _TransactionsListTile extends State<TransactionsListTile> {
     );
   }
 
-  LocalizedText getConcept() {
-    var account = UserState.of(context).account;
+  LocalizedText getConcept(RecThemeData theme) {
+    final account = UserState.of(context).account;
+    final cultureCampaign = CampaignProvider.of(context).getCampaignByCode(env.CMP_CULT_CODE);
     var concept = TransactionHelper.getConcept(tx);
-    var cultureCampaign = CampaignProvider.of(context).getCampaignByCode(env.CMP_CULT_CODE);
 
     // HACK
     if (tx.isIn() && account != null && account.isLtabAccount()) {
@@ -137,22 +124,22 @@ class _TransactionsListTile extends State<TransactionsListTile> {
       },
       style: TextStyle(
         fontSize: 16,
-        color: Brand.grayDark2,
+        color: theme.grayDark2,
         fontWeight: FontWeight.w300,
       ),
     );
   }
 
-  Text getAmount() {
+  Text getAmount(RecThemeData theme) {
     var amount = '0.00 R';
-    var color = Brand.primaryColor;
+    var color = theme.primaryColor;
 
     if (tx.isOut()) {
       amount = '-${tx.scaledAmount.toStringAsFixed(2)} R';
-      color = Brand.amountNegative;
+      color = theme.red;
     } else {
       amount = '+${tx.scaledAmount.toStringAsFixed(2)} R';
-      color = Brand.primaryColor;
+      color = theme.primaryColor;
     }
 
     return Text(
@@ -165,9 +152,9 @@ class _TransactionsListTile extends State<TransactionsListTile> {
     );
   }
 
-  Text getDate() {
-    var localizations = AppLocalizations.of(context);
-    var daysSinceCreated = Duration(
+  Text getDate(RecThemeData theme) {
+    final localizations = AppLocalizations.of(context);
+    final daysSinceCreated = Duration(
       milliseconds: DateTime.now().millisecondsSinceEpoch - tx.createdAt.millisecondsSinceEpoch,
     ).inDays;
 
@@ -184,7 +171,7 @@ class _TransactionsListTile extends State<TransactionsListTile> {
       dateString,
       style: TextStyle(
         fontSize: 12,
-        color: Brand.grayLight,
+        color: theme.grayLight,
       ),
     );
   }

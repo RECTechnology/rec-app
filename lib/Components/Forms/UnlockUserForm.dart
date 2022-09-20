@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/DniTextField.dart';
 import 'package:rec/Components/Inputs/text_fields/PrefixPhoneField.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/validators/validators.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 /// Form for requesting a prefix, phone and a DNI
@@ -27,7 +27,8 @@ class UnlockUserForm extends StatefulWidget {
 class _UnlockUserForm extends State<UnlockUserForm> {
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context);
+    final recTheme = RecTheme.of(context);
 
     return Form(
       key: widget.formKey,
@@ -63,7 +64,7 @@ class _UnlockUserForm extends State<UnlockUserForm> {
               validator: Validators.smsCode,
               icon: Icon(
                 Icons.mail_outline,
-                color: Brand.grayLight2,
+                color: recTheme!.grayLight2,
               ),
             )
           ],

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/providers/campaign_provider.dart';
-import 'package:rec/styles/text_styles.dart';
 import 'package:rec/config/routes.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
@@ -37,9 +37,8 @@ class _LtabRewardedPageState extends State<LtabRewardedPage> {
   }
 
   Widget _body() {
-    var activeCampaign = CampaignProvider.of(context).getCampaignByCode(
-      env.CMP_LTAB_CODE,
-    );
+    final activeCampaign = CampaignProvider.of(context).getCampaignByCode(env.CMP_LTAB_CODE);
+    final recTheme = RecTheme.of(context);
 
     return Padding(
       padding: EdgeInsets.fromLTRB(32, 84, 32, 32),
@@ -52,14 +51,14 @@ class _LtabRewardedPageState extends State<LtabRewardedPage> {
               Center(
                 child: LocalizedText(
                   'PURCHASE_DONE',
-                  style: TextStyles.pageTitle,
+                  style: recTheme!.textTheme.pageTitle,
                   textAlign: TextAlign.center,
                 ),
               ),
               Center(
                 child: LocalizedText(
                   'REWARD_OBTAINED',
-                  style: TextStyles.pageTitle,
+                  style: recTheme.textTheme.pageTitle,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -72,7 +71,7 @@ class _LtabRewardedPageState extends State<LtabRewardedPage> {
                       widget.amount,
                     ),
                   },
-                  style: TextStyles.pageSubtitle1,
+                  style: recTheme.textTheme.pageSubtitle1,
                   textAlign: TextAlign.center,
                 ),
               ),

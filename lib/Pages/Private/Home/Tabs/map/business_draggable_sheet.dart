@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/details_page/details.page.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class BusinessDraggableSheet extends StatelessWidget {
@@ -78,21 +78,26 @@ class BusinessDraggableSheet extends StatelessWidget {
   }
 
   Widget _greyBar() {
-    return IgnorePointer(
-      child: Container(
-        height: 25,
-        alignment: Alignment.center,
-        color: Colors.white,
-        child: Container(
-          margin: const EdgeInsets.all(8.0),
-          width: 60,
-          height: 5,
-          decoration: BoxDecoration(
-            color: Brand.grayLight2,
-            borderRadius: BorderRadius.all(Radius.circular(8)),
+    return Builder(
+      builder: (context) {
+        final recTheme = RecTheme.of(context);
+        return IgnorePointer(
+          child: Container(
+            height: 25,
+            alignment: Alignment.center,
+            color: Colors.white,
+            child: Container(
+              margin: const EdgeInsets.all(8.0),
+              width: 60,
+              height: 5,
+              decoration: BoxDecoration(
+                color: recTheme!.grayLight2,
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

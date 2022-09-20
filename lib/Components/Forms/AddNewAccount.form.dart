@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/CifTextField.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/validators/validators.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 /// Form for requesting a prefix, phone and a DNI
@@ -26,8 +26,9 @@ class AddNewAccountForm extends StatefulWidget {
 class AddNewAccountFormState extends State<AddNewAccountForm> {
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
-    var isPrivate = widget.data!.isAccountPrivate;
+    final localizations = AppLocalizations.of(context);
+    final recTheme = RecTheme.of(context);
+    final isPrivate = widget.data!.isAccountPrivate;
 
     return Form(
       key: widget.formKey,
@@ -44,7 +45,7 @@ class AddNewAccountFormState extends State<AddNewAccountForm> {
               label: localizations.translate('NAME'),
               icon: Icon(
                 isPrivate ? Icons.person : Icons.storefront_outlined,
-                color: Brand.grayIcon,
+                color: recTheme!.grayLight3,
               ),
               onChange: _setName,
               validator: Validators.isRequired,

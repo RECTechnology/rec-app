@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/user/LimitAndVerification/UploadDocument/UploadDocument.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class DocumentListTile extends StatefulWidget {
@@ -28,17 +28,19 @@ class _DocumentListTileState extends State<DocumentListTile> {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    var localizations = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final recTheme = RecTheme.of(context);
+    final localizations = AppLocalizations.of(context);
 
-    var status = localizations!.translate(document.status);
-    var title = localizations.translate(document.kind!.name!);
-    var statusTextPart = ': ${document.statusText}';
-    var subtitle = document.isUnsubmitted
+    final status = localizations!.translate(document.status);
+    final title = localizations.translate(document.kind!.name!);
+    final statusTextPart = ': ${document.statusText}';
+    final subtitle =
+        document.isUnsubmitted
         ? null
         : '$status${document.hasStatusText ? statusTextPart : ''}';
 
-    var ganGoForwards = !(document.isSubmitted || document.isApproved);
+    final ganGoForwards = !(document.isSubmitted || document.isApproved);
     var icon = ganGoForwards
         ? Icon(
             Icons.arrow_forward_ios,
@@ -59,11 +61,11 @@ class _DocumentListTileState extends State<DocumentListTile> {
       icon: icon,
       subtitleStyle: theme.textTheme.caption!.copyWith(
         fontWeight: FontWeight.w400,
-        color: Brand.getColorForDocumentStatus(document.status),
+        color: recTheme!.documentColorStatus(document.status),
       ),
       titleStyle: theme.textTheme.subtitle1!.copyWith(
         fontWeight: FontWeight.w500,
-        color: Brand.grayDark,
+        color: recTheme.grayDark,
       ),
       onTap: ganGoForwards ? _goForwards : null,
     );

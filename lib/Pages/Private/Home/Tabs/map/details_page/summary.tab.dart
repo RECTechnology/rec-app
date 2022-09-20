@@ -5,9 +5,9 @@ import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Text/ReadMoreText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/details_page/widgets/badge_section.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/details_page/widgets/sumary_filter_buttons.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/BrowserHelper.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/styles/text_styles.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class SummaryTab extends StatelessWidget {
@@ -64,15 +64,21 @@ class SummaryTab extends StatelessWidget {
   }
 
   Widget _buildWebLink() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16.0, bottom: 16),
-      child: RichText(
-        text: TextSpan(
-          style: TextStyles.link,
-          text: account.webUrl ?? '',
-          recognizer: TapGestureRecognizer()..onTap = _launchWeb,
-        ),
-      ),
+    return Builder(
+      builder: (context) {
+        final recTheme = RecTheme.of(context);
+
+        return Padding(
+          padding: const EdgeInsets.only(top: 16.0, bottom: 16),
+          child: RichText(
+            text: TextSpan(
+              style: recTheme!.textTheme.link,
+              text: account.webUrl ?? '',
+              recognizer: TapGestureRecognizer()..onTap = _launchWeb,
+            ),
+          ),
+        );
+      },
     );
   }
 

@@ -87,27 +87,41 @@ android {
 
     flavorDimensions "default"
     productFlavors {
-        sandbox {
+        rec_sandbox {
             dimension "default"
             applicationId "com.barcelona.sandbox"
             versionNameSuffix "-sandbox"
-            manifestPlaceholders = [appName: "[SANDBOX] RecBarcelona"]
         }
 
-        pre {
+        rec_pre {
             dimension "default"
             applicationId "com.barcelona.prec"
             versionNameSuffix "-pre"
-            manifestPlaceholders = [appName: "[INT] RecBarcelona"]
         }
 
-        prod {
+        rec_prod {
             dimension "default"
             applicationId "com.barcelona.rec"
-            manifestPlaceholders = [appName: "[INT] RecBarcelona"]
+        }
+
+        larosa_pre {
+            dimension "default"
+            applicationId "com.barcelona.rosa"
+            versionNameSuffix "-rosa-pre"
+        }
+        
+        larosa_sandbox {
+            dimension "default"
+            applicationId "com.barcelona.larosa"
+            versionNameSuffix "-larosa-sandbox"
+        }
+
+        larosa_prod {
+            dimension "default"
+            applicationId "com.barcelona.larosa"
+            versionNameSuffix "-larosa"
         }
     }
-
 }
 
 flutter {

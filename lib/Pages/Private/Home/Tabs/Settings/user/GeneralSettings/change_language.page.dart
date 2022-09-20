@@ -3,14 +3,12 @@ import 'package:rec/Components/Info/rec_circle_avatar.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/helpers/RecToast.dart';
-import 'package:rec/config/assets.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/styles/text_styles.dart';
 import 'package:rec/app.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class ChangeLanguagePage extends StatefulWidget {
@@ -22,26 +20,27 @@ class ChangeLanguagePage extends StatefulWidget {
 
 class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
   final _userService = UsersService(env: env);
-  final _languageCards = [
-    LanguageCardData(
-      id: 'es',
-      image: AssetImage(Assets.languageEs),
-    ),
-    LanguageCardData(
-      id: 'en',
-      image: AssetImage(Assets.languageEn),
-    ),
-    LanguageCardData(
-      id: 'ca',
-      image: AssetImage(Assets.languageCat),
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
-    var currentLocale = localizations!.locale;
-    var mainLanguage = _getMainLanguage();
+    final recTheme = RecTheme.of(context);
+    final localizations = AppLocalizations.of(context);
+    final currentLocale = localizations!.locale;
+    final languageCards = [
+      LanguageCardData(
+        id: 'es',
+        image: AssetImage(recTheme!.assets.languageEs),
+      ),
+      LanguageCardData(
+        id: 'en',
+        image: AssetImage(recTheme.assets.languageEn),
+      ),
+      LanguageCardData(
+        id: 'ca',
+        image: AssetImage(recTheme.assets.languageCat),
+      ),
+    ];
+    final mainLanguage = _getMainLanguage(languageCards, currentLocale);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -55,8 +54,8 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
               radius: 27,
               image: mainLanguage.image,
             ),
-            subtitleStyle: TextStyles.outlineTileText.copyWith(
-              color: Brand.graySubtitle,
+            subtitleStyle: recTheme.textTheme.outlineTileText.copyWith(
+              color: recTheme.grayDark3,
             ),
           ),
           Padding(
@@ -65,9 +64,9 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: _languageCards.length,
+              itemCount: languageCards.length,
               itemBuilder: (context, index) {
-                var languageCard = _languageCards[index];
+                var languageCard = languageCards[index];
                 var isSelectedLocale = languageCard.id == currentLocale.languageCode;
 
                 if (!isSelectedLocale) {
@@ -78,9 +77,9 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
                         languageCard.id!,
                       ),
                       onTap: () => _changeLanguage(languageCard.id),
-                      titleStyle: TextStyles.outlineTileText.copyWith(
+                      titleStyle: recTheme.textTheme.outlineTileText.copyWith(
                         fontWeight: FontWeight.w300,
-                        color: Brand.grayDark,
+                        color: recTheme.grayDark,
                       ),
                       circleAvatar: CircleAvatarRec(
                         radius: 27,
@@ -99,14 +98,12 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
     );
   }
 
-  LanguageCardData _getMainLanguage() {
-    var localizations = AppLocalizations.of(context);
-
-    for (var lang in _languageCards) {
-      if (lang.id == localizations!.locale.languageCode) return lang;
+  LanguageCardData _getMainLanguage(List<LanguageCardData> languageCards, Locale locale) {
+    for (final lang in languageCards) {
+      if (lang.id == locale.languageCode) return lang;
     }
 
-    return _languageCards[0];
+    return languageCards[0];
   }
 
   void _changeLanguage(String? locale) {

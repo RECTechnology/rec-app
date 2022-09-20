@@ -7,7 +7,7 @@ import 'package:rec/providers/campaign_manager.dart';
 import 'package:rec/helpers/RecNavigation.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/map.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/settings.page.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Wallet/Wallet.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Wallet/wallet.page.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec/providers/transactions_provider.dart';
 import 'package:rec/providers/user_state.dart';

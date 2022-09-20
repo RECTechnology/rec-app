@@ -4,9 +4,9 @@ import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
 import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/providers/user_state.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/config/routes.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
@@ -20,8 +20,9 @@ class MainAccountPage extends StatefulWidget {
 class _MainAccountPageState extends State<MainAccountPage> {
   @override
   Widget build(BuildContext context) {
-    var userState = UserState.of(context);
-    var theme = Theme.of(context);
+    final userState = UserState.of(context);
+    final theme = Theme.of(context);
+    final recTheme = RecTheme.of(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -49,7 +50,7 @@ class _MainAccountPageState extends State<MainAccountPage> {
               ),
               titleStyle: theme.textTheme.subtitle1!.copyWith(
                 fontWeight: FontWeight.w500,
-                color: Brand.grayDark,
+                color: recTheme!.grayDark,
               ),
             ),
             Padding(

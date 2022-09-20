@@ -2,14 +2,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Forms/RegisterStepOne.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
-import 'package:rec/Components/Scaffold/AccountTypeHeader.dart';
+import 'package:rec/Components/Scaffold/account_type_header.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
 import 'package:rec/Pages/Private/Shared/InAppBrowser.dart';
 import 'package:rec/Pages/Public/Register/RegisterRequest.dart';
 import 'package:rec/Pages/Public/Register/RegisterStepTwo.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/styles/paddings.dart';
@@ -40,8 +40,10 @@ class RegisterOneState extends State<RegisterOne> with SingleTickerProviderState
   }
 
   Widget _header() {
-    var bg =
-        registerData.isAccountPrivate ? Brand.backgroundPrivateColor : Brand.backgroundCompanyColor;
+    final recTheme = RecTheme.of(context);
+    final bg = registerData.isAccountPrivate
+        ? recTheme!.backgroundPrivateColor
+        : recTheme!.backgroundCompanyColor;
 
     return AppBar(
       backgroundColor: bg,
@@ -63,6 +65,8 @@ class RegisterOneState extends State<RegisterOne> with SingleTickerProviderState
   }
 
   Widget _body() {
+    final recTheme = RecTheme.of(context);
+
     return SingleChildScrollView(
       child: Container(
         child: Padding(
@@ -76,7 +80,7 @@ class RegisterOneState extends State<RegisterOne> with SingleTickerProviderState
                 'CREATE_USER',
                 showTooltip: registerData.isAccountCompany,
                 tooltipText: 'INTRODUCE_INFO',
-                tooltipColor: Brand.accentColor,
+                tooltipColor: recTheme!.accentColor,
               ),
               RegisterStepOneForm(
                 key: _registerFormKey,
@@ -97,8 +101,10 @@ class RegisterOneState extends State<RegisterOne> with SingleTickerProviderState
   }
 
   Widget _registerButton() {
-    var label = registerData.isAccountPrivate ? 'REGISTER' : 'NEXT';
-    var background = registerData.isAccountPrivate ? Brand.primaryColor : Brand.accentColor;
+    final recTheme = RecTheme.of(context);
+    final label = registerData.isAccountPrivate ? 'REGISTER' : 'NEXT';
+    final background =
+        registerData.isAccountPrivate ? recTheme!.primaryColor : recTheme!.accentColor;
 
     return RecActionButton(
       label: label,
@@ -110,11 +116,13 @@ class RegisterOneState extends State<RegisterOne> with SingleTickerProviderState
   }
 
   Widget _termsAndServices() {
-    var localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context);
+    final recTheme = RecTheme.of(context);
+    
     return CheckboxListTile(
       contentPadding: EdgeInsets.zero,
       controlAffinity: ListTileControlAffinity.leading,
-      activeColor: registerData.isAccountPrivate ? Brand.primaryColor : Brand.accentColor,
+      activeColor: registerData.isAccountPrivate ? recTheme!.primaryColor : recTheme!.accentColor,
       // ExcludeSemantics is here, because it made tests fail, could not find any other solution
       // Got solution from https://github.com/flutter/flutter/issues/31437
       title: ExcludeSemantics(
@@ -167,11 +175,13 @@ class RegisterOneState extends State<RegisterOne> with SingleTickerProviderState
   }
 
   Widget _pressNextToAdd() {
+    final recTheme = RecTheme.of(context);
+
     return Container(
       alignment: Alignment.centerLeft,
       child: LocalizedText(
         registerData.isAccountPrivate ? '' : 'PRESS_NEXT_TO_ADD',
-        style: Theme.of(context).textTheme.bodyText2!.copyWith(color: Brand.accentColor),
+        style: Theme.of(context).textTheme.bodyText2!.copyWith(color: recTheme!.accentColor),
       ),
     );
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Layout/campaign_participate_layout.dart';
 import 'package:rec/Pages/Private/Shared/campaigns/ltab/info-box-ltab.dart';
-import 'package:rec/config/assets.dart';
 import 'package:rec/config/routes.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/RecNavigation.dart';
 import 'package:rec/helpers/RecToast.dart';
@@ -62,8 +62,9 @@ class _LtabParticipatePageState extends State<LtabParticipatePage> {
 
   @override
   Widget build(BuildContext context) {
-    var preferences = PreferenceProvider.of(context);
-    var dontShowAgain = preferences.get(PreferenceKeys.showLtabCampaign);
+    final preferences = PreferenceProvider.of(context);
+    final dontShowAgain = preferences.get(PreferenceKeys.showLtabCampaign);
+    final assets = RecTheme.of(context)!.assets;
 
     return CampaignParticipateLayout(
       campaignCode: LtabParticipatePage.code,
@@ -72,7 +73,7 @@ class _LtabParticipatePageState extends State<LtabParticipatePage> {
       hideDontShowAgain: widget.hideDontShowAgain,
       onClose: _close,
       onParticipate: _participate,
-      image: AssetImage(Assets.ltabCampaignBanner),
+      image: AssetImage(assets.ltabCampaignBanner),
       infoChild: LtabInfoBox(
         termsAccepted: termsAccepted,
         termsAcceptedChanged: (value) {
@@ -95,8 +96,8 @@ class _LtabParticipatePageState extends State<LtabParticipatePage> {
   }
 
   void _participate() async {
-    var definition = campaignManager!.getDefinition(LtabParticipatePage.code);
-    var hasExtraDataBuilder = Checks.isNotNull(definition!.extraDataBuilder);
+    final definition = campaignManager!.getDefinition(LtabParticipatePage.code);
+    final hasExtraDataBuilder = Checks.isNotNull(definition!.extraDataBuilder);
 
     if (!user!.hasExtraData && hasExtraDataBuilder) {
       var result = await RecNavigation.navigate(

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecFilterButton.dart';
 import 'package:rec/Components/Layout/horizontal_list_layout.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/pay_to_address.page.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/config/roles_definitions.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/BrowserHelper.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/providers/user_state.dart';
@@ -19,6 +19,7 @@ class SummaryFilterButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
     final userState = UserState.of(context);
     final user = userState.user;
     final hasPermissionToPay = user!.hasRoles(RoleDefinitions.payButtonMap);
@@ -29,7 +30,7 @@ class SummaryFilterButtons extends StatelessWidget {
           label: 'PAY',
           margin: EdgeInsets.only(right: 8),
           onPressed: () => _payTo(context),
-          backgroundColor: Brand.primaryColor,
+          backgroundColor: recTheme!.primaryColor,
           textColor: Colors.white,
           iconColor: Colors.white,
         ),

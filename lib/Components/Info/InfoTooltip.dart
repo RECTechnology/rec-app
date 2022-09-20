@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rec/styles/box_decorations.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/preferences.dart';
 
 /// A Widget that wraps a Widget with an info tooltip. With branded styles.
@@ -17,24 +16,6 @@ class InfoTooltip extends StatefulWidget {
     this.backgroundColor = Colors.black87,
     this.messageColor = Colors.white,
   }) : super(key: key);
-
-  /// Construct a new InfoTooltip with accent color
-  const InfoTooltip.accent({
-    Key? key,
-    required this.child,
-    required this.message,
-  })  : backgroundColor = Brand.accentColor,
-        messageColor = Colors.white,
-        super(key: key);
-
-  /// Construct a new InfoTooltip with primary color
-  const InfoTooltip.primary({
-    Key? key,
-    required this.child,
-    required this.message,
-  })  : backgroundColor = Brand.primaryColor,
-        messageColor = Colors.white,
-        super(key: key);
 
   @override
   State<StatefulWidget> createState() {

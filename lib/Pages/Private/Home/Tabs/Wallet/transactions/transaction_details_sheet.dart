@@ -7,14 +7,14 @@ import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Text/copy_to_clipboard.dart';
-import 'package:rec/Components/Wallet/Transactions/TransactionIcon.dart';
-import 'package:rec/Components/Wallet/Transactions/TransactionTitle.dart';
+import 'package:rec/Components/Wallet/transaction_icon.dart';
+import 'package:rec/Components/Wallet/transaction_title.dart';
 import 'package:rec/Components/Wallet/amount_widget.dart';
 import 'package:rec/Components/timeline_widget.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/pay_to_address.page.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/config/features.dart';
 import 'package:rec/config/routes.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/RecNavigation.dart';
 import 'package:rec/helpers/transactions_utils.dart';
@@ -103,6 +103,8 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+
     return Container(
       height: MediaQuery.of(context).size.height * 0.9,
       decoration: BoxDecoration(
@@ -127,13 +129,13 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet> {
             children: [
               FormattedDate(date: tx.createdAt),
               const SizedBox(height: 16),
-              _header(),
+              _header(recTheme!),
               if (Features.refunds) _refunds(),
-              Divider(indent: 24, endIndent: 24, thickness: 2, color: Brand.grayLight6),
+              Divider(indent: 24, endIndent: 24, thickness: 2, color: recTheme.separatorColor),
               const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 24),
-                child: _txInfo(),
+                child: _txInfo(recTheme),
               ),
             ],
           ),
@@ -142,7 +144,7 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet> {
     );
   }
 
-  Widget _header() {
+  Widget _header(RecThemeData theme) {
     final account = UserState.of(context).account;
     final canRefund = tx.isIn() &&
         !tx.isRefund() &&
@@ -154,7 +156,7 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet> {
     final icon = TransactionIcon(widget.tx);
 
     return Container(
-      decoration: BoxDecoration(gradient: Brand.grayBgGradient),
+      decoration: BoxDecoration(gradient: theme.gradientGray),
       padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
       child: Stack(
         children: [
@@ -197,10 +199,10 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet> {
                       icon: Icons.outbound,
                       label: 'REFUND',
                       margin: EdgeInsets.only(right: 8),
-                      onPressed: _goToRefundPage,
-                      backgroundColor: Brand.redLight,
-                      textColor: Brand.red,
-                      iconColor: Brand.red,
+                      onPressed: () => _goToRefundPage(theme),
+                      backgroundColor: theme.redLight,
+                      textColor: theme.red,
+                      iconColor: theme.red,
                       elevation: 0,
                     ),
                 ],
@@ -243,7 +245,7 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet> {
     );
   }
 
-  Widget _txInfo() {
+  Widget _txInfo(RecThemeData theme) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -256,7 +258,7 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet> {
           ),
         ),
         const SizedBox(height: 8),
-        _txConcept(),
+        _txConcept(theme),
         const SizedBox(height: 24),
         LocalizedText(
           'REFERENCE_ID',
@@ -271,7 +273,7 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              _referenceID(),
+              _referenceID(theme),
               CopyToClipboard(
                 textToCopy: tx.id.toString(),
               ),
@@ -282,7 +284,7 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet> {
     );
   }
 
-  Widget _txConcept() {
+  Widget _txConcept(RecThemeData theme) {
     final concept = tx.getConcept()!;
 
     return Text(
@@ -292,13 +294,13 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet> {
       textAlign: TextAlign.start,
       style: TextStyle(
         fontSize: 14,
-        color: Brand.grayDark,
+        color: theme.grayDark,
         fontWeight: FontWeight.w500,
       ),
     );
   }
 
-  Widget _referenceID() {
+  Widget _referenceID(RecThemeData theme) {
     return Text(
       tx.id.toString(),
       maxLines: 2,
@@ -306,13 +308,13 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet> {
       textAlign: TextAlign.start,
       style: TextStyle(
         fontSize: 14,
-        color: Brand.grayDark,
+        color: theme.grayDark,
         fontWeight: FontWeight.w500,
       ),
     );
   }
 
-  _goToRefundPage() {
+  _goToRefundPage(RecThemeData theme) {
     final localizations = AppLocalizations.of(context);
 
     RecNavigation.navigate(context, (context) {
@@ -326,7 +328,7 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet> {
             },
           ),
         ),
-        buttonColor: Brand.red,
+        buttonColor: theme.red,
         buttonTitle: 'REFUND_ACTION',
         captionText: 'REFUND_CAPTION',
         maxAmount: refundableAmount,

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -86,6 +86,8 @@ class _InAppBrowser extends State<InAppBrowser> {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+  
     return SafeArea(
       child: Scaffold(
         appBar: EmptyAppBar(
@@ -108,7 +110,7 @@ class _InAppBrowser extends State<InAppBrowser> {
               opacity: isLoading ? 1 : 0,
               duration: Duration(milliseconds: 500),
               child: LinearProgressIndicator(
-                color: Brand.primaryColor,
+                color: recTheme!.primaryColor,
               ),
             ),
           ],

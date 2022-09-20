@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rec/Components/Info/rec_circle_avatar.dart';
-import 'package:rec/Components/Wallet/Transactions/TransactionIcon.dart';
+import 'package:rec/Components/Wallet/transaction_icon.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';

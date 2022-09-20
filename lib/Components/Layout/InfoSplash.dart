@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 
 class InfoSplash extends StatefulWidget {
   final String title;
   final String? subtitle;
   final IconData? icon;
-  final Color iconColor;
+  final Color? iconColor;
   final EdgeInsets padding;
 
   const InfoSplash({
@@ -14,7 +14,7 @@ class InfoSplash extends StatefulWidget {
     required this.title,
     required this.icon,
     this.subtitle,
-    this.iconColor = Brand.primaryColor,
+    this.iconColor,
     this.padding = const EdgeInsets.symmetric(horizontal: 24.0),
   }) : super(key: key);
 
@@ -25,6 +25,8 @@ class InfoSplash extends StatefulWidget {
 class _InfoSplash extends State<InfoSplash> {
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+    
     return Padding(
       padding: widget.padding,
       child: Column(
@@ -32,7 +34,7 @@ class _InfoSplash extends State<InfoSplash> {
           Icon(
             widget.icon,
             size: 65,
-            color: widget.iconColor,
+            color: widget.iconColor ?? recTheme!.primaryColor,
           ),
           const SizedBox(height: 32),
           LocalizedText(

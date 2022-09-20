@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/rec_circle_avatar.dart';
 import 'package:rec/Components/Modals/AccountSelectorModal.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec/styles/box_decorations.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class PrivateAppBar extends StatefulWidget with PreferredSizeWidget {
   final Widget? bottom;
@@ -43,17 +44,16 @@ class _PrivateAppBar extends State<PrivateAppBar> {
   @override
   Widget build(BuildContext context) {
     final userState = UserState.of(context);
+    final recTheme = RecTheme.of(context);
     final account = userState.user!.selectedAccount;
     final accountSelector = AccountSelectorModal(context);
     final flexibleSpace = Container(
       decoration: widget.backgroundColor != null
           ? BoxDecorations.solid(widget.backgroundColor!)
           : BoxDecorations.gradient(
-              Brand.getGradientForAccount(account!),
-            ),
+              recTheme!.accountTypeGradient(account!.type ?? Account.TYPE_PRIVATE)),
     );
-
-    var appBar = AppBar(
+    final appBar = AppBar(
       backgroundColor: widget.backgroundColor,
       flexibleSpace: widget.bottom == null ? null : flexibleSpace,
       elevation: 0,

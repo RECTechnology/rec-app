@@ -4,8 +4,8 @@ import 'package:rec/Components/ContainerWithImage.dart';
 import 'package:rec/Components/Info/OfferPriceBadge.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Text/OfferDiscount.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class OfferPreviewTile extends StatelessWidget {
@@ -22,10 +22,11 @@ class OfferPreviewTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var textTheme = Theme.of(context).textTheme;
-    var localizations = AppLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    final recTheme = RecTheme.of(context);
+    final localizations = AppLocalizations.of(context);
 
-    var date = DateFormat.yMMMd(localizations!.locale.languageCode)
+    final date = DateFormat.yMMMd(localizations!.locale.languageCode)
         .format(DateTime.tryParse(offer!.endDate!)!);
 
     return InkWell(
@@ -94,13 +95,13 @@ class OfferPreviewTile extends StatelessWidget {
                               Text(
                                 date,
                                 style: textTheme.bodyText2!.copyWith(
-                                  color: Brand.grayDark3,
+                                  color: recTheme!.grayDark3,
                                 ),
                               ),
                               Icon(
                                 Icons.hourglass_top,
                                 size: 16,
-                                color: Brand.grayDark3,
+                                color: recTheme.grayDark3,
                               )
                             ],
                           ),

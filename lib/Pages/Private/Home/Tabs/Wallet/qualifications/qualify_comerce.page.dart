@@ -7,8 +7,8 @@ import 'package:rec/Pages/Private/Home/Tabs/Wallet/qualifications/counter_box_wi
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/qualifications/qualification_badge.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/qualifications/qualification_badge_list.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/qualifications/qualification_comerce_header.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/config/rec_handled_error.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/providers/qualifications_provider.dart';
@@ -49,10 +49,12 @@ class _QualifyComercePageState extends State<QualifyComercePage> {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        titleTextStyle: TextStyle(color: Brand.grayDark),
+        titleTextStyle: TextStyle(color: recTheme!.grayDark),
         title: LocalizedText('QUALIFY_COMERCE', style: TextStyle(fontSize: 16)),
         automaticallyImplyLeading: false,
         actions: [

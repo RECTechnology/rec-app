@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Indicators/Badge.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 
 class SettingsListTile extends StatefulWidget {
   final String? title;
@@ -29,7 +29,8 @@ class SettingsListTile extends StatefulWidget {
 class _SettingsListTileState extends State<SettingsListTile> {
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
+    final theme = Theme.of(context);
+    final recTheme = RecTheme.of(context);
 
     return Container(
       child: Material(
@@ -43,7 +44,7 @@ class _SettingsListTileState extends State<SettingsListTile> {
               widget.title!,
               style: theme.textTheme.subtitle1!.copyWith(
                 fontWeight: FontWeight.w500,
-                color: Brand.grayDark,
+                color: recTheme!.grayDark,
               ),
             ),
             subtitle: widget.subtitle != null

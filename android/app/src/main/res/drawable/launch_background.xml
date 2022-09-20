@@ -3,12 +3,13 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@color/blue" />
 
-    <item>
-       <bitmap
-            android:gravity="bottom|fill_horizontal"
-            android:src="@drawable/logo_ayuntamiento_bcn_bg" />
+    <item 
+        android:drawable="@drawable/logo_ayuntamiento_bcn_bg" 
+        android:gravity="bottom"
+        android:layout_width="match_parent" 
+        android:height="100dp" android:scaleType="centerInside">
     </item>
-
+    
     <item>
         <bitmap
             android:gravity="center"

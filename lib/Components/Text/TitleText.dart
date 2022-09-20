@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/InfoTooltip.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/config/brand.dart';
 
 class TitleText extends StatefulWidget {
   final String title;
@@ -12,7 +12,7 @@ class TitleText extends StatefulWidget {
 
   final String tooltipText;
   final bool showTooltip;
-  final Color tooltipColor;
+  final Color? tooltipColor;
   final IconData tooltipIcon;
 
   const TitleText(
@@ -21,7 +21,7 @@ class TitleText extends StatefulWidget {
     this.style = const TextStyle(),
     this.showTooltip = false,
     this.tooltipText = '',
-    this.tooltipColor = Brand.grayDark2,
+    this.tooltipColor,
     this.tooltipIcon = Icons.help_outline,
     this.alignment = MainAxisAlignment.start,
     this.textAlign = TextAlign.left,
@@ -34,7 +34,8 @@ class TitleText extends StatefulWidget {
 class _TitleText extends State<TitleText> {
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context);
+    final recTheme = RecTheme.of(context);
 
     return Row(
       mainAxisAlignment: widget.alignment,
@@ -44,8 +45,9 @@ class _TitleText extends State<TitleText> {
           style: Theme.of(context).textTheme.headline6!.merge(widget.style),
           textAlign: widget.textAlign,
         ),
-        InfoTooltip.accent(
+        InfoTooltip(
           message: localizations!.translate(widget.tooltipText),
+          backgroundColor: recTheme!.accentColor,
           child: Container(
             height: 40,
             alignment: Alignment.centerLeft,
@@ -55,7 +57,7 @@ class _TitleText extends State<TitleText> {
                     padding: const EdgeInsets.only(left: 12.0),
                     child: Icon(
                       widget.tooltipIcon,
-                      color: widget.tooltipColor,
+                      color: widget.tooltipColor ?? recTheme.grayDark2,
                     ),
                   ),
           ),

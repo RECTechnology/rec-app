@@ -3,11 +3,11 @@ import 'package:rec/Components/Info/RecQrImage.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Components/Wallet/UserBalance.dart';
+import 'package:rec/Components/Wallet/user_balance.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/Deeplinking.dart';
 import 'package:rec/providers/user_state.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/config/routes.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
@@ -26,9 +26,11 @@ class ChargeQrPage extends StatefulWidget {
 class _ChargeQrPageState extends State<ChargeQrPage> {
   @override
   Widget build(BuildContext context) {
-    var userState = UserState.of(context);
-    var color = Brand.getColorForAccount(userState.account as Account);
-    var payUrl = DeepLinking.constructPayUrl(env, widget.paymentData);
+    final userState = UserState.of(context);
+    final recTheme = RecTheme.of(context);
+    final color = recTheme!.accountTypeColor(userState.account?.type ?? Account.TYPE_PRIVATE);
+
+    final payUrl = DeepLinking.constructPayUrl(env, widget.paymentData);
 
     return Scaffold(
       appBar: PrivateAppBar(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 
 /// Renders a custom Pin Input
 class RecPinInput extends StatefulWidget {
@@ -65,6 +65,8 @@ class _RecPinInputState extends State<RecPinInput> {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+    
     return GestureDetector(
       onLongPress: () async {
         var clipboardContent = (await Clipboard.getData('text/plain'))!.text!;
@@ -89,7 +91,7 @@ class _RecPinInputState extends State<RecPinInput> {
           textStyle: _textStyle,
           decoration: _pinPutDecoration.copyWith(
             border: Border.all(
-              color: Brand.primaryColor.withOpacity(.5),
+              color: recTheme!.primaryColor.withOpacity(.5),
               width: 2,
             ),
           ),

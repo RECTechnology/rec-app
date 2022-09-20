@@ -5,12 +5,21 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "preLaunchTask": "prepare-env-pre",
+            "preLaunchTask": "prepare-rec-pre",
             "name": "RecBarcelona - Dev (PRE)",
             "request": "launch",
             "type": "dart",
             "args": [
-                "--flavor=pre",
+                "--flavor=rec_pre",
+                "--ignore-deprecation"
+            ]
+        },
+        {
+            "preLaunchTask": "prepare-rec-pre",
+            "name": "RecBarcelona - Dev (PRE, ios)",
+            "request": "launch",
+            "type": "dart",
+            "args": [
                 "--ignore-deprecation"
             ]
         },
@@ -20,29 +29,39 @@
             "request": "launch",
             "type": "dart",
             "args": [
-                "--flavor=prod"
+                "--flavor=rec_prod"
             ]
         },
         {
-            "preLaunchTask": "prepare-env-sandbox",
+            "preLaunchTask": "prepare-rec-sandbox",
             "name": "RecBarcelona - Dev (SANDBOX)",
             "request": "launch",
             "type": "dart",
             "args": [
-                "--flavor=sandbox"
+                "--flavor=rec_sandbox"
             ]
         },
         {
-            "preLaunchTask": "prepare-env-pre",
-            "name": "RecBarcelona - Dev ios",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "RecBarcelona - Dev profile",
+            "preLaunchTask": "prepare-larosa-pre",
+            "name": "LaRosa - Dev (PRE)",
+            
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
-        }
+            "args": [
+                "--flavor=larosa_pre",
+                "--ignore-deprecation"
+            ]
+        },
+        {
+            "preLaunchTask": "prepare-larosa-sandbox",
+            "name": "LaRosa - Dev (SANDBOX)",
+            
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor=larosa_sandbox",
+                "--ignore-deprecation"
+            ]
+        },
     ]
 }

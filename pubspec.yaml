@@ -48,6 +48,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   modal_bottom_sheet: ^2.0.1
   styled_text: ^5.1.0
+  klocalizations_flutter: ^0.0.8
 
 dev_dependencies:
   flutter_test:
@@ -62,13 +63,15 @@ dev_dependencies:
 flutter:
   assets:
     - assets/
-    - assets/adaptive_app_icon/
-    - assets/custom-icons/
-    - assets/markers/
-    - assets/banners/
-    - assets/cards/
-    - i18n/ca.json
-    - i18n/en.json
-    - i18n/es.json
+    - assets/current/
+    - assets/current/banners/
+    - assets/current/brand/
+    - assets/current/cards/
+    - assets/current/custom-icons/
+    - assets/current/langs/
+    - assets/current/markers/
+    - assets/current/recharge/
+    - assets/current/i18n/
     - env/.env
+    - env/.env-test
   uses-material-design: true

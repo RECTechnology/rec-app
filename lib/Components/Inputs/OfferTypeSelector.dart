@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class OfferTypeSelector extends StatelessWidget {
@@ -13,25 +13,26 @@ class OfferTypeSelector extends StatelessWidget {
     required this.type,
     required this.onChange,
     this.selectedStyle = const TextStyle(
-      color: Brand.primaryColor,
       fontWeight: FontWeight.bold,
     ),
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+    
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Brand.grayLight2),
+        border: Border.all(color: recTheme!.grayLight2),
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildTypeLabel(OfferType.classic, 'RECs'),
-          _buildTypeLabel(OfferType.percentage, 'PERCENTAGE'),
-          _buildTypeLabel(OfferType.free, 'FREE'),
+          _buildTypeLabel(OfferType.classic, 'RECs', recTheme),
+          _buildTypeLabel(OfferType.percentage, 'PERCENTAGE', recTheme),
+          _buildTypeLabel(OfferType.free, 'FREE', recTheme),
         ],
       ),
     );
@@ -40,6 +41,7 @@ class OfferTypeSelector extends StatelessWidget {
   Widget _buildTypeLabel(
     OfferType type,
     String label,
+    RecThemeData theme,
   ) {
     return InkWell(
       onTap: () => onChange(type),
@@ -47,7 +49,7 @@ class OfferTypeSelector extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         child: LocalizedText(
           label,
-          style: type == this.type ? selectedStyle : null,
+          style: type == this.type ? selectedStyle.copyWith(color: theme.primaryColor) : null,
         ),
       ),
     );

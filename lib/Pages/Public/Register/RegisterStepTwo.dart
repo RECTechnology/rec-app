@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Forms/RegisterStepTwo.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
-import 'package:rec/Components/Scaffold/AccountTypeHeader.dart';
+import 'package:rec/Components/Scaffold/account_type_header.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Public/Register/RegisterRequest.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/styles/paddings.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class RegisterTwo extends StatefulWidget {
@@ -41,9 +41,10 @@ class RegisterTwoState extends State<RegisterTwo> {
   }
 
   Widget _header() {
-    var background = registerData!.isAccountPrivate
-        ? Brand.backgroundPrivateColor
-        : Brand.backgroundCompanyColor;
+    final recTheme = RecTheme.of(context);
+    final background = registerData!.isAccountPrivate
+        ? recTheme!.backgroundPrivateColor
+        : recTheme!.backgroundCompanyColor;
 
     return AppBar(
       backgroundColor: background,
@@ -60,6 +61,8 @@ class RegisterTwoState extends State<RegisterTwo> {
   }
 
   Widget _body() {
+    final recTheme = RecTheme.of(context);
+  
     return SingleChildScrollView(
       child: Container(
         child: Padding(
@@ -71,7 +74,7 @@ class RegisterTwoState extends State<RegisterTwo> {
                 'ADD_ORG',
                 showTooltip: false,
                 tooltipText: 'INTRODUCE_INFO',
-                tooltipColor: Brand.accentColor,
+                tooltipColor: recTheme!.accentColor,
               ),
               RegisterStepTwoForm(
                 formKey: _formKey,
@@ -80,13 +83,13 @@ class RegisterTwoState extends State<RegisterTwo> {
               ),
               LocalizedText(
                 'WHEN_INIT_SESION',
-                style: Theme.of(context).textTheme.caption!.copyWith(color: Brand.accentColor),
+                style: Theme.of(context).textTheme.caption!.copyWith(color: recTheme.accentColor),
               ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: RecActionButton(
                   onPressed: register,
-                  backgroundColor: Brand.accentColor,
+                  backgroundColor: recTheme.accentColor,
                   icon: Icons.arrow_forward_ios,
                   label: 'REGISTER',
                 ),

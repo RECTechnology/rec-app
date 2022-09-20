@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Modify this file to customize your launch splash screen -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/rosa_primary" />
+
+    <item 
+        android:drawable="@drawable/larosa_sponsor" 
+        android:gravity="bottom"
+        android:layout_width="match_parent" 
+        android:height="100dp" android:scaleType="centerInside">
+    </item>
+
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/logo_larosa" />
+    </item>
+</layer-list>

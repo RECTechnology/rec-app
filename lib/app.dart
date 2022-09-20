@@ -5,9 +5,9 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/config/campaign_definitions.dart';
 import 'package:rec/config/routes.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/providers/All.dart';
 import 'package:rec/providers/activity_provider.dart';
@@ -17,8 +17,9 @@ import 'package:rec/providers/qualifications_provider.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
+/// Entry point widget for the REC app
 class RecApp extends StatefulWidget {
-  static final RecSecureStorage _storage = RecSecureStorage();
+  static final IStorage _storage = RecSecureStorage();
 
   @override
   _RecAppState createState() => _RecAppState();
@@ -31,6 +32,7 @@ class RecApp extends StatefulWidget {
     return AppLocalizations.getLocaleByLanguageCode(savedLocale);
   }
 
+  /// Set the current locale
   static void setLocale(BuildContext context, Locale locale) {
     var state = context.findAncestorStateOfType<_RecAppState>()!;
 
@@ -52,9 +54,24 @@ class _RecAppState extends State<RecApp> {
   final appService = AppService(env: env);
   final badgesService = BadgesService(env: env);
 
-  late RecSecureStorage storage;
+  late IStorage storage;
   Locale? locale;
   List<SingleChildWidget>? _providers;
+
+  @override
+  void initState() {
+    _setup();
+    super.initState();
+  }
+
+  /// Initial setup, loads providers and locale
+  Future _setup() async {
+    storage = RecSecureStorage();
+    locale = await RecApp.restoreLocale();
+
+    var providers = await getProviders();
+    setState(() => _providers = providers);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +82,7 @@ class _RecAppState extends State<RecApp> {
           );
   }
 
+  /// Returns the list of providers needed in the app
   Future<List<SingleChildWidget>> getProviders() async {
     final savedUser = await UserState.getSavedUser(storage);
     final packageInfo = await PackageInfo.fromPlatform();
@@ -92,18 +110,13 @@ class _RecAppState extends State<RecApp> {
     ];
   }
 
-  @override
-  void initState() {
-    _setup();
-    super.initState();
-  }
+  /// Build the MaterialApp and also adds all the providers to the widget tree
+  Widget _buildAppWithProviders(List<SingleChildWidget> providers) {
+    final recTheme = RecTheme.of(context);
 
-  Widget _buildAppWithProviders(
-    List<SingleChildWidget> providers,
-  ) {
-    var app = MaterialApp(
-      title: Brand.appName,
-      theme: Brand.createTheme(),
+    final app = MaterialApp(
+      title: env.PROJECT_NAME,
+      theme: recTheme!.getThemeData(),
       locale: locale,
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -124,13 +137,5 @@ class _RecAppState extends State<RecApp> {
       providers: providers,
       child: app,
     );
-  }
-
-  Future _setup() async {
-    storage = RecSecureStorage();
-    locale = await RecApp.restoreLocale();
-
-    var providers = await getProviders();
-    setState(() => _providers = providers);
   }
 }

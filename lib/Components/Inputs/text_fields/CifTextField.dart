@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/config/brand.dart';
 
 /// [CifTextField] renders a TextField, with some options for handling DNIs
 /// Used when we need the user to enter a DNI
@@ -48,11 +48,12 @@ class CifTextField extends StatefulWidget {
 class CifTextFieldState extends State<CifTextField> {
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
-    var localizedLabel = localizations!.translate(
+    final recTheme = RecTheme.of(context);
+    final localizations = AppLocalizations.of(context);
+    final localizedLabel = localizations!.translate(
       widget.labelText ?? widget.placeholderText ?? 'CIF',
     );
-    var localizedPlaceholder = localizations.translate(
+    final localizedPlaceholder = localizations.translate(
       widget.placeholderText ?? widget.labelText ?? 'CIF',
     );
 
@@ -71,7 +72,7 @@ class CifTextFieldState extends State<CifTextField> {
       icon: widget.showIcon
           ? Icon(
               Icons.work_outlined,
-              color: Brand.grayIcon,
+              color: recTheme!.grayLight3,
             )
           : null,
     );

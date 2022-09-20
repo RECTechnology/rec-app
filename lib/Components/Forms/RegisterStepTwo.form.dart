@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/CifTextField.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/validators/validators.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class RegisterStepTwoForm extends StatefulWidget {
@@ -27,7 +27,9 @@ class RegisterStepTwoForm extends StatefulWidget {
 class RegisterStepOneFoTwotate extends State<RegisterStepTwoForm> {
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context);
+    final recTheme = RecTheme.of(context);
+
     return Form(
       key: widget.formKey,
       child: Column(
@@ -43,7 +45,7 @@ class RegisterStepOneFoTwotate extends State<RegisterStepTwoForm> {
               label: localizations.translate('NAME'),
               icon: Icon(
                 Icons.storefront_outlined,
-                color: Brand.grayIcon,
+                color: recTheme!.grayLight3,
               ),
               onChange: setCompanyName,
               validator: Validators.isRequired,

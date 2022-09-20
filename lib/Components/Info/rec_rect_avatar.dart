@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/initial_text_widget.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class RectAvatarRec extends StatefulWidget {
@@ -87,13 +87,14 @@ class _RectAvatarRecState extends State<RectAvatarRec> {
     Widget? child,
   }) {
     assert(image != null || child != null, "Either the image or child must be supplied");
+    final recTheme = RecTheme.of(context);
 
     return Container(
       width: widget.width,
       height: widget.height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
-        color: Brand.primaryColor,
+        color: recTheme!.primaryColor,
         image: image,
       ),
       child: child,
@@ -135,12 +136,14 @@ class _RectAvatarRecState extends State<RectAvatarRec> {
   }
 
   Widget buildRandom() {
+    final recTheme = RecTheme.of(context);
+
     return Container(
       height: 64,
       width: 64,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
-        color: Brand.primaryColor,
+        color: recTheme?.primaryColor,
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),

@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 
 class AcceptTerms extends StatelessWidget {
   final bool termsAccepted;
   final ValueChanged<bool?>? termsAcceptedChanged;
   final void Function()? openTermsOfService;
-  final Color accentColor;
+  final Color? accentColor;
 
   const AcceptTerms({
     Key? key,
     this.termsAccepted = false,
     this.termsAcceptedChanged,
     this.openTermsOfService,
-    this.accentColor = Brand.accentColor,
+    this.accentColor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
+    final theme = Theme.of(context);
+    final recTheme = RecTheme.of(context);
 
     return Row(
       children: [
@@ -26,7 +27,7 @@ class AcceptTerms extends StatelessWidget {
           value: termsAccepted,
           onChanged: termsAcceptedChanged,
           checkColor: Colors.white,
-          activeColor: accentColor,
+          activeColor: accentColor ?? recTheme!.accentColor,
         ),
         LocalizedText(
           'I_ACCEPT_THE',
@@ -38,7 +39,7 @@ class AcceptTerms extends StatelessWidget {
             'TERMS_OF_SERVICE',
             style: theme.textTheme.bodyText1!.copyWith(
               decoration: TextDecoration.underline,
-              color: accentColor,
+              color: accentColor ?? recTheme!.accentColor,
             ),
           ),
         )

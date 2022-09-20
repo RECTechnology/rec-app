@@ -4,7 +4,7 @@ import 'package:rec/Components/Layout/horizontal_list_layout.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/badges_filters_page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/categories_filters_page.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/providers/app_provider.dart';
@@ -38,6 +38,7 @@ class _MapFiltersState extends State<MapFilters> {
     final campaignProvider = CampaignProvider.of(context);
     final config = AppProvider.of(context).configurationSettings;
     final user = UserState.of(context).user;
+    final recTheme = RecTheme.of(context);
 
     final isInLtabCampaign = user!.getCampaignAccount(env.CMP_LTAB_CODE) != null;
     final ltabCampaign = campaignProvider.getCampaignByCode(env.CMP_LTAB_CODE);
@@ -94,7 +95,7 @@ class _MapFiltersState extends State<MapFilters> {
                     : searchData.activity!.getNameForLocale(localizations!.locale),
               },
               style: TextStyle(
-                color: searchData.activity != null ? Brand.accentColor : Brand.grayDark2,
+                color: searchData.activity != null ? recTheme!.accentColor : recTheme!.grayDark2,
                 fontSize: 12,
               ),
             ),
@@ -115,7 +116,7 @@ class _MapFiltersState extends State<MapFilters> {
                         : searchData.badge!.getNameForLocale(localizations!.locale),
                   },
                   style: TextStyle(
-                    color: searchData.badge != null ? Brand.accentColor : Brand.grayDark2,
+                    color: searchData.badge != null ? recTheme.accentColor : recTheme.grayDark2,
                     fontSize: 12,
                   ),
                 ),

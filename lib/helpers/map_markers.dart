@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rec/config/asset_theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/ImageHelpers.dart';
-import 'package:rec/config/assets.dart';
 import 'package:rec/helpers/account_helper.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
@@ -27,18 +27,18 @@ class MapMarkers {
     return markers[assetPath] = BitmapDescriptor.fromBytes(markerBytes);
   }
 
-  static Future loadMarkers() async {
-    markerNormal = await getMarkerFromAsset(Assets.markerNormal);
-    markerOffers = await getMarkerFromAsset(Assets.markerNormalOffers);
+  static Future loadMarkers(RecAssetTheme assets) async {
+    markerNormal = await getMarkerFromAsset(assets.markerNormal);
+    markerOffers = await getMarkerFromAsset(assets.markerNormalOffers);
 
-    markerLtab = await getMarkerFromAsset(Assets.markerLtab);
-    markerLtabOffers = await getMarkerFromAsset(Assets.markerLtabOffer);
+    markerLtab = await getMarkerFromAsset(assets.markerLtab);
+    markerLtabOffers = await getMarkerFromAsset(assets.markerLtabOffer);
 
-    markerCulture = await getMarkerFromAsset(Assets.markerCulture);
-    markerCultureOffers = await getMarkerFromAsset(Assets.markerCultureOffers);
+    markerCulture = await getMarkerFromAsset(assets.markerCulture);
+    markerCultureOffers = await getMarkerFromAsset(assets.markerCultureOffers);
 
-    markerComercVerd = await getMarkerFromAsset(Assets.markerComercVerd);
-    markerComercVerdOffers = await getMarkerFromAsset(Assets.markerComercVerdOffers);
+    markerComercVerd = await getMarkerFromAsset(assets.markerComercVerd);
+    markerComercVerdOffers = await getMarkerFromAsset(assets.markerComercVerdOffers);
 
     hasLoaded = true;
   }
@@ -66,7 +66,6 @@ class MapMarkers {
     // and the campaign is not finished
     final isCultureMarker =
         isAccountInCult && cultureCampaign!.isStarted() && !cultureCampaign.isFinished();
-
 
     // Handle offer markers
     if (account.hasOffers == true) {

@@ -5,14 +5,13 @@ import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/conditionals/show_if_roles.dart';
 import 'package:rec/Pages/Private/Home/home.page.dart';
 import 'package:rec/config/roles_definitions.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/providers/transactions_provider.dart';
 import 'package:rec/providers/user_state.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/config/routes.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/loading.dart';
-import 'package:rec/styles/borders.dart';
 import 'package:rec/styles/box_decorations.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
@@ -55,6 +54,8 @@ class AccountSelectorModal {
   }
 
   Widget newAccountButton() {
+    final recTheme = RecTheme.of(context);
+    
     return PreferredSize(
       preferredSize: Size.fromHeight(80),
       child: InkWell(
@@ -63,7 +64,15 @@ class AccountSelectorModal {
           Navigator.pushNamed(context, Routes.settingsAddNewAccount);
         },
         child: Container(
-          decoration: BoxDecoration(border: Borders.borderTop),
+          decoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(
+                color: recTheme!.separatorColor,
+                width: 1,
+                style: BorderStyle.solid,
+              ),
+            ),
+          ),
           padding: EdgeInsets.all(15),
           child: Row(
             children: [
@@ -80,14 +89,23 @@ class AccountSelectorModal {
   }
 
   Widget currentAccount() {
-    var userState = UserState.of(context);
-    var account = userState.user!.selectedAccount!;
-    var isLtabAccount = userState.account!.isLtabAccount();
+    final userState = UserState.of(context);
+    final account = userState.user!.selectedAccount!;
+    final isLtabAccount = userState.account!.isLtabAccount();
+    final recTheme = RecTheme.of(context);
 
     return PreferredSize(
       preferredSize: Size.fromHeight(kToolbarHeight + 70),
       child: Container(
-        decoration: BoxDecoration(border: Borders.borderBottom),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: recTheme!.separatorColor,
+              width: 1,
+              style: BorderStyle.solid,
+            ),
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Column(
@@ -120,6 +138,7 @@ class AccountSelectorModal {
   }
 
   Widget _manageAccountButton() {
+    final recTheme = RecTheme.of(context);
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
       child: OutlinedButton(
@@ -128,8 +147,8 @@ class AccountSelectorModal {
           HomePageState.changeTab(context, 2);
         },
         style: OutlinedButton.styleFrom(
-          primary: Brand.grayDark,
-          side: BorderSide(width: 1, color: Brand.grayDark2),
+          backgroundColor: recTheme!.grayDark,
+          side: BorderSide(width: 1, color: recTheme.grayDark2),
         ),
         child: LocalizedText(
           'MANAGE_ACCOUNT',
@@ -140,15 +159,16 @@ class AccountSelectorModal {
   }
 
   Widget accountList() {
-    var userState = UserState.of(context);
-    var accounts = userState.user!.accounts
+    final recTheme = RecTheme.of(context);
+    final userState = UserState.of(context);
+    final accounts = userState.user!.accounts
         .where(
           (element) => element.id != userState.account!.id && element.active!,
         )
         .toList();
 
     return Container(
-      color: Brand.defaultAvatarBackground,
+      color: recTheme!.defaultAvatarBackground,
       child: accounts.isEmpty
           ? Padding(
               padding: const EdgeInsets.all(16.0),
@@ -197,8 +217,8 @@ class AccountSelectorModal {
   /// I'm leaving this here, as account change will only happen here for now
   /// But if a better way is found this might be changed
   void onAccountChange(Account account) async {
-    var userState = UserState.of(context, listen: false);
-    var transactionsProvider = TransactionProvider.of(context, listen: false);
+    final userState = UserState.of(context, listen: false);
+    final transactionsProvider = TransactionProvider.of(context, listen: false);
 
     userState.setSelectedAccount(account);
     await userState.getUser();

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 
 /// This widget receives an [itemCount] and a [itemBuilder] as well as an optional [currentItemIndex]
 ///
@@ -27,6 +27,8 @@ class TimelineWidget extends StatefulWidget {
 class _TimelineWidgetState extends State<TimelineWidget> {
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+   
     return ListView.separated(
       shrinkWrap: true,
       itemCount: widget.itemCount,
@@ -43,7 +45,7 @@ class _TimelineWidgetState extends State<TimelineWidget> {
           margin: EdgeInsets.only(left: 30),
           alignment: Alignment.centerLeft,
           child: VerticalDivider(
-            color: Brand.grayLight5,
+            color: recTheme!.separatorColor,
             width: 2,
             thickness: 3,
           ),
@@ -75,8 +77,9 @@ class _TimelineIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveBgColor = selected ? Brand.backgroundPrivateColor : Brand.grayLight5;
-    final effectiveFgColor = selected ? Brand.primaryColor : Brand.grayDark3;
+    final recTheme = RecTheme.of(context);
+    final effectiveBgColor = selected ? recTheme!.backgroundPrivateColor : recTheme!.separatorColor;
+    final effectiveFgColor = selected ? recTheme.primaryColor : recTheme.grayDark3;
 
     return Container(
       width: 32,

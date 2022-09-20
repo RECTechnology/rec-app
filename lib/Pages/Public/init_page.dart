@@ -1,11 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/RecToast.dart';
-import 'package:rec/config/assets.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/providers/app_provider.dart';
 import 'package:rec/providers/user_state.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/config/routes.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
@@ -81,6 +80,8 @@ class _InitPageState extends State<InitPage> {
   @override
   Widget build(BuildContext context) {
     final appProvider = AppProvider.of(context);
+    final recTheme = RecTheme.of(context);
+    final assets = recTheme!.assets;
 
     return Scaffold(
       body: SafeArea(
@@ -92,7 +93,7 @@ class _InitPageState extends State<InitPage> {
               SizedBox(
                 width: 80,
                 child: Image.asset(
-                  Assets.logo,
+                  assets.logo,
                   fit: BoxFit.contain,
                 ),
               ),
@@ -107,10 +108,7 @@ class _InitPageState extends State<InitPage> {
         child: Center(
           child: Text(
             'v${appProvider.version}',
-            style: Theme.of(context)
-                .textTheme
-                .bodyText1!
-                .copyWith(color: Brand.grayDark),
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(color: recTheme.grayDark),
           ),
         ),
       ),

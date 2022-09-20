@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/user/LimitAndVerification/UploadDocument/UploadDocument.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 
 class PickImage extends StatefulWidget {
   final Function(String url)? onPick;
@@ -49,6 +49,8 @@ class _PickImageState extends State<PickImage> {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+
     return Padding(
       padding: widget.padding,
       child: InkResponse(
@@ -59,7 +61,7 @@ class _PickImageState extends State<PickImage> {
               width: 32,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: widget.color ?? Brand.primaryColor,
+                color: widget.color ?? recTheme!.primaryColor,
               ),
               child: Icon(Icons.add_a_photo, color: Colors.white, size: 16),
             ),

@@ -3,13 +3,13 @@ import 'package:rec/Components/ListTiles/AccountPermissionTile.dart';
 import 'package:rec/Components/Modals/YesNoModal.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/account/Permissions/CreatePermission.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec/styles/paddings.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class AccountPermissionsPage extends StatefulWidget {
@@ -80,9 +80,11 @@ class _AccountPermissionsPageState extends State<AccountPermissionsPage> {
   }
 
   Widget _permissionsList() {
+    final recTheme = RecTheme.of(context);
+
     return _users!.isNotEmpty
         ? RefreshIndicator(
-            color: Brand.primaryColor,
+            color: recTheme?.primaryColor,
             onRefresh: _loadPermissions,
             child: ListView.separated(
               itemBuilder: (BuildContext context, int index) {

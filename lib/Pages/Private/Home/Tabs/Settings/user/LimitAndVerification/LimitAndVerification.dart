@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/ListTiles/DocumentListTile.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/providers/documents_provider.dart';
 import 'package:rec/providers/user_state.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/preferences.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
@@ -52,12 +52,13 @@ class _LimitAndVerificationState extends State<LimitAndVerificationPage> {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    var userState = UserState.of(context);
-    var localizations = AppLocalizations.of(context);
-    var documentsProvider = DocumentsProvider.of(context);
-    var unlimitedLimitText = localizations!.translate('NO_LIMIT');
-    var isKyc2 = userState.user!.anyAccountAtLevel(Level.CODE_KYC2);
+    final recTheme = RecTheme.of(context);
+    final theme = Theme.of(context);
+    final userState = UserState.of(context);
+    final localizations = AppLocalizations.of(context);
+    final documentsProvider = DocumentsProvider.of(context);
+    final unlimitedLimitText = localizations!.translate('NO_LIMIT');
+    final isKyc2 = userState.user!.anyAccountAtLevel(Level.CODE_KYC2);
 
     // This simulates that documents are validated
     // If user is KYC2 it means it has been validated previously
@@ -79,7 +80,7 @@ class _LimitAndVerificationState extends State<LimitAndVerificationPage> {
     var pendingDocs = documentsProvider.pendingOrValidDocuments;
 
     return Scaffold(
-      backgroundColor: Brand.defaultAvatarBackground,
+      backgroundColor: recTheme!.defaultAvatarBackground,
       appBar: EmptyAppBar(context, title: 'SETTINGS_USER_LIMITS'),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,7 +102,7 @@ class _LimitAndVerificationState extends State<LimitAndVerificationPage> {
                   style: theme.textTheme.subtitle1!.copyWith(
                     fontWeight: FontWeight.w500,
                     fontSize: 14,
-                    color: Brand.detailsTextColor,
+                    color: recTheme.grayDark,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -119,7 +120,7 @@ class _LimitAndVerificationState extends State<LimitAndVerificationPage> {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
-                color: Brand.grayDark4,
+                color: recTheme.grayDark3,
               ),
             ),
           ),
@@ -127,7 +128,7 @@ class _LimitAndVerificationState extends State<LimitAndVerificationPage> {
             child: RefreshIndicator(
               onRefresh: documentsProvider.load,
               child: requiredDocs.isEmpty
-                  ? ListView(children: [_noDocumentTile()])
+                  ? ListView(children: [_noDocumentTile(recTheme)])
                   : Scrollbar(
                       child: ListView.builder(
                         itemCount: requiredDocs.length,
@@ -145,7 +146,7 @@ class _LimitAndVerificationState extends State<LimitAndVerificationPage> {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
-                color: Brand.grayDark4,
+                color: recTheme.grayDark3,
               ),
             ),
           ),
@@ -153,7 +154,7 @@ class _LimitAndVerificationState extends State<LimitAndVerificationPage> {
             child: RefreshIndicator(
               onRefresh: documentsProvider.load,
               child: pendingDocs.isEmpty
-                  ? ListView(children: [_noDocumentTile()])
+                  ? ListView(children: [_noDocumentTile(recTheme)])
                   : Scrollbar(
                       child: ListView.builder(
                         itemCount: pendingDocs.length,
@@ -169,13 +170,13 @@ class _LimitAndVerificationState extends State<LimitAndVerificationPage> {
     );
   }
 
-  Widget _noDocumentTile() {
+  Widget _noDocumentTile(RecThemeData theme) {
     return GeneralSettingsTile(
       title: 'NO_DOCUMENT',
       titleStyle: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w400,
-        color: Brand.grayDark4,
+        color: theme.grayDark3,
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LinkText.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Shared/InAppBrowser.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/loading.dart';
@@ -11,7 +12,6 @@ import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec/providers/transactions_provider.dart';
 import 'package:rec/providers/user_state.dart';
-import 'package:rec/styles/text_styles.dart';
 import 'package:rec/config/routes.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
@@ -80,10 +80,9 @@ class _CultureWelcomePageState extends State<CultureWelcomePage> {
   }
 
   Widget _body() {
-    var activeCampaign = CampaignProvider.of(context).getCampaignByCode(
-      env.CMP_CULT_CODE,
-    );
-    var localizations = AppLocalizations.of(context);
+    final activeCampaign = CampaignProvider.of(context).getCampaignByCode(env.CMP_CULT_CODE);
+    final localizations = AppLocalizations.of(context);
+    final recTheme = RecTheme.of(context);
 
     return Padding(
       padding: EdgeInsets.fromLTRB(32, 24, 32, 32),
@@ -99,7 +98,7 @@ class _CultureWelcomePageState extends State<CultureWelcomePage> {
                   params: {
                     'campaign': activeCampaign!.name!.toUpperCase(),
                   },
-                  style: TextStyles.pageTitle,
+                  style: recTheme!.textTheme.pageTitle,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -107,7 +106,7 @@ class _CultureWelcomePageState extends State<CultureWelcomePage> {
               Center(
                 child: LocalizedText(
                   'CAMPAIGN_CULT21_DESC',
-                  style: TextStyles.pageSubtitle1,
+                  style: recTheme.textTheme.pageSubtitle1,
                   textAlign: TextAlign.center,
                   params: {
                     'percent': activeCampaign.percent,

@@ -1,0 +1,1 @@
+This folder holds assets for generating App Icons and so on. Used by `flutter_launcher_icons`.

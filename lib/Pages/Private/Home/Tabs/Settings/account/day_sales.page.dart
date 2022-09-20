@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/DateInput.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/mixins/loadable_mixin.dart';
@@ -141,11 +141,12 @@ class AmountAggregate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var formatted = Currency.format(
+    final recTheme = RecTheme.of(context);
+    final formatted = Currency.format(
       Currency.rec.scaleAmount(amount.abs()),
     );
-    var prefix = amount.isNegative ? '-' : '+';
-    var color = amount.isNegative ? Brand.amountNegative : Brand.primaryColor;
+    final prefix = amount.isNegative ? '-' : '+';
+    final color = amount.isNegative ? recTheme!.red : recTheme!.primaryColor;
 
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),

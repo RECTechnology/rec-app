@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/styles/styled_text_tags.dart';
 import 'package:styled_text/styled_text.dart';
@@ -21,7 +22,8 @@ class LocalizedStyledText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context);
+    final recTheme = RecTheme.of(context);
 
     return StyledText(
       style: style,
@@ -29,7 +31,7 @@ class LocalizedStyledText extends StatelessWidget {
       textAlign: textAlign,
       tags: {
         ...tags,
-        ...defaultTags,
+        ...getDefaultTags(recTheme!),
       },
     );
   }

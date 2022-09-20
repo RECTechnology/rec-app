@@ -3,10 +3,10 @@ import 'package:rec/Components/Forms/add_offer.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Layout/FormPageLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/helpers/RecToast.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class AddOfferPage extends StatefulWidget {
@@ -23,6 +23,8 @@ class _AddOfferPageState extends State<AddOfferPage> {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+
     return FormPageLayout(
       appBar: EmptyAppBar(context, title: 'ADD_OFFER'),
       form: Padding(
@@ -35,7 +37,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
       ),
       submitButton: RecActionButton(
         label: 'PUBLISH',
-        backgroundColor: Brand.primaryColor,
+        backgroundColor: recTheme!.primaryColor,
         onPressed: _publishOffer,
       ),
     );

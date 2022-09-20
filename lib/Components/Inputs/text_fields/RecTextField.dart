@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 
 /// [RecTextField] is the main TextField widget used in the app,
@@ -117,6 +117,7 @@ class _InputField extends State<RecTextField> {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
     final translatedError = localizations!.translate(error);
+    final recTheme = RecTheme.of(context);
 
     return Padding(
       padding: widget.padding,
@@ -146,7 +147,7 @@ class _InputField extends State<RecTextField> {
                   onPressed: () => setState(() => changeObscureText()),
                   icon: Icon(
                     obscureText ? Icons.visibility_off : Icons.visibility,
-                    color: Brand.grayIcon,
+                    color: recTheme!.grayLight3,
                   ),
                 )
               : widget.icon,

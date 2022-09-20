@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/ListTiles/OutlinedListTile.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 
 /// Asks the user if they want to save the new card or not
 ///
@@ -14,6 +14,8 @@ class SaveCardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+   
     return Scaffold(
       appBar: EmptyAppBar(context),
       body: SingleChildScrollView(
@@ -26,7 +28,7 @@ class SaveCardPage extends StatelessWidget {
                 'SAVE_CREDIT_CARD',
                 style: TextStyle(
                   fontSize: 20,
-                  color: Brand.grayDark,
+                  color: recTheme!.grayDark,
                   fontWeight: FontWeight.w500,
                 ),
                 textAlign: TextAlign.center,
@@ -36,7 +38,7 @@ class SaveCardPage extends StatelessWidget {
                 'SAVE_CREDIT_CARD_DESC',
                 style: TextStyle(
                   fontSize: 20,
-                  color: Brand.grayDark2,
+                  color: recTheme.grayDark2,
                   fontWeight: FontWeight.w400,
                 ),
                 textAlign: TextAlign.center,
@@ -57,7 +59,7 @@ class SaveCardPage extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .button!
-                              .copyWith(color: Brand.grayDark, fontSize: 16),
+                              .copyWith(color: recTheme.grayDark, fontSize: 16),
                         ),
                       ],
                     ),
@@ -75,7 +77,7 @@ class SaveCardPage extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .button!
-                              .copyWith(color: Brand.grayDark, fontSize: 16),
+                              .copyWith(color: recTheme.grayDark, fontSize: 16),
                         ),
                       ],
                     ),

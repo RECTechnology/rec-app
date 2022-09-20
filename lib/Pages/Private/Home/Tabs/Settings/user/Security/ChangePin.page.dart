@@ -3,13 +3,13 @@ import 'package:rec/Components/Forms/ChangePinForm.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Public/SmsCode/SmsCode.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec/styles/paddings.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/config/routes.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
@@ -29,6 +29,8 @@ class _ChangePinPageState extends State<ChangePinPage> {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+  
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -51,11 +53,11 @@ class _ChangePinPageState extends State<ChangePinPage> {
                 if (touched && data.pin != data.repin)
                   LocalizedText(
                     'PINS_DO_NOT_MATCH',
-                    style: Theme.of(context).textTheme.caption!.copyWith(color: Colors.red),
+                    style: Theme.of(context).textTheme.caption!.copyWith(color: recTheme!.red),
                   ),
                 RecActionButton(
                   label: 'UPDATE',
-                  backgroundColor: Brand.primaryColor,
+                  backgroundColor: recTheme!.primaryColor,
                   onPressed: data.isValid ? () => update() : null,
                 )
               ],

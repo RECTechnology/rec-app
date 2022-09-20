@@ -1,9 +1,9 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/validators/phone_validator.dart';
 import 'package:rec/providers/AppLocalizations.dart';
-import 'package:rec/config/brand.dart';
 
 class PrefixPhoneField extends StatefulWidget {
   final String? prefix;
@@ -42,7 +42,8 @@ class PrefixPhoneFieldState extends State<PrefixPhoneField> {
 
   @override
   Widget build(BuildContext context) {
-    var localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context);
+    final recTheme = RecTheme.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -70,7 +71,7 @@ class PrefixPhoneFieldState extends State<PrefixPhoneField> {
                   // it might change in the future.
                   initialSelection: '+34',
                   favorite: ['+34', 'ES'],
-                  textStyle: TextStyle(fontSize: 16, color: Brand.grayDark),
+                  textStyle: TextStyle(fontSize: 16, color: recTheme!.grayDark),
                 ),
               ),
             ),
@@ -83,7 +84,7 @@ class PrefixPhoneFieldState extends State<PrefixPhoneField> {
                   keyboardType: TextInputType.phone,
                   icon: Icon(
                     Icons.phone,
-                    color: Brand.grayIcon,
+                    color: recTheme.grayLight3,
                   ),
                   colorLine: widget.color,
                   colorLabel: widget.color,

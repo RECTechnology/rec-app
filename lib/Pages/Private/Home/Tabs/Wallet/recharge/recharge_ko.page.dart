@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/config/assets.dart';
-import 'package:rec/styles/text_styles.dart';
+import 'package:rec/config/theme.dart';
 
 /// This pages shows a message for a failed recharges
 class RechargeKO extends StatefulWidget {
@@ -22,6 +21,9 @@ class _RechargeKOState extends State<RechargeKO> {
   }
 
   Widget _body() {
+    final recTheme = RecTheme.of(context);
+    final assets = recTheme!.assets;
+
     return Padding(
       padding: EdgeInsets.fromLTRB(32, 84, 32, 32),
       child: Column(
@@ -33,7 +35,7 @@ class _RechargeKOState extends State<RechargeKO> {
               Center(
                 child: LocalizedText(
                   'RECHARGE_KO',
-                  style: TextStyles.pageTitle,
+                  style: recTheme.textTheme.pageTitle,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -41,14 +43,14 @@ class _RechargeKOState extends State<RechargeKO> {
               Center(
                 child: LocalizedText(
                   'RECHARGE_KO_DESC',
-                  style: TextStyles.pageSubtitle1,
+                  style: recTheme.textTheme.pageSubtitle1,
                   textAlign: TextAlign.center,
                 ),
               ),
             ],
           ),
           Center(
-            child: Image.asset(Assets.rechargeKo),
+            child: Image.asset(assets.rechargeKo),
           ),
           RecActionButton(
             label: 'ALRIGHT',

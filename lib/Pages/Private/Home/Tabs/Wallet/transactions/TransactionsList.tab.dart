@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Indicators/LoadingIndicator.dart';
 import 'package:rec/Components/ListTiles/TransactionListTile.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/providers/transactions_provider.dart';
 import 'package:rec/providers/user_state.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/preferences.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
@@ -45,14 +45,15 @@ class _TransactionsListState extends State<TransactionsList> {
 
   @override
   Widget build(BuildContext context) {
-    var transactionsProvider = TransactionProvider.of(context);
-    var userState = UserState.of(context);
+    final transactionsProvider = TransactionProvider.of(context);
+    final userState = UserState.of(context);
+    final recTheme = RecTheme.of(context);
 
-    var color = userState.getColor(defaultColor: Brand.primaryColor);
-    var hasTransactions = transactionsProvider.hasTransactions;
-    var hasMoreTx = transactionsProvider.total! > transactionsProvider.length;
-    var isLoading = transactionsProvider.loading;
-    var itemCount = transactionsProvider.length + (hasMoreTx ? 1 : 0);
+    final color = recTheme!.accountTypeColor(userState.account?.type ?? Account.TYPE_PRIVATE);
+    final hasTransactions = transactionsProvider.hasTransactions;
+    final hasMoreTx = transactionsProvider.total! > transactionsProvider.length;
+    final isLoading = transactionsProvider.loading;
+    final itemCount = transactionsProvider.length + (hasMoreTx ? 1 : 0);
 
     return RefreshIndicator(
       color: color,
@@ -90,19 +91,20 @@ class _TransactionsListState extends State<TransactionsList> {
   }
 
   Widget _loadMore() {
-    var transactionsProvider = TransactionProvider.of(context);
-    var userState = UserState.of(context);
+    final transactionsProvider = TransactionProvider.of(context);
+    final userState = UserState.of(context);
+    final recTheme = RecTheme.of(context);
+
+    final color = recTheme!.accountTypeColor(userState.account?.type ?? Account.TYPE_PRIVATE);
 
     return ListTile(
-      tileColor: Brand.defaultAvatarBackground,
+      tileColor: recTheme.defaultAvatarBackground,
       onTap: transactionsProvider.loadMore,
       title: transactionsProvider.loading
           ? LoadingIndicator()
           : LocalizedText(
               'LOAD_MORE',
-              style: TextStyle(
-                color: Brand.getColorForAccount(userState.account as Account),
-              ),
+              style: TextStyle(color: color),
               textAlign: TextAlign.center,
             ),
     );

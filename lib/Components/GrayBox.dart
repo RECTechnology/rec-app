@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 
 /// Renders a gray box with optional padding
 class GrayBox extends StatelessWidget {
@@ -19,11 +19,13 @@ class GrayBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+
     return Container(
       height: height ?? double.infinity,
       padding: padding,
       decoration: BoxDecoration(
-        color: Brand.defaultAvatarBackground,
+        color: recTheme?.defaultAvatarBackground,
         borderRadius: BorderRadius.all(
           Radius.circular(6),
         ),

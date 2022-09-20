@@ -4,12 +4,11 @@ import 'package:rec/Components/IfPermissionGranted.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/attempt_payment.page.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/Deeplinking.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/permissions/permission_data_provider.dart';
-import 'package:rec/styles/text_styles.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class PayWithQR extends StatefulWidget {
@@ -78,29 +77,32 @@ class _PayWithQRState extends State<PayWithQR> {
   }
 
   Widget _statusText() {
-    var hasFoundCode = result != null;
-    var statusText = hasFoundCode ? 'FOUND_QR' : 'SCANNING';
+    final hasFoundCode = result != null;
+    final statusText = hasFoundCode ? 'FOUND_QR' : 'SCANNING';
+    final recTheme = RecTheme.of(context);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: LocalizedText(
         statusText,
         textAlign: TextAlign.center,
-        style: TextStyles.outlineTileText.copyWith(
+        style: recTheme!.textTheme.outlineTileText.copyWith(
           fontWeight: FontWeight.w400,
-          color: Brand.grayDark3,
+          color: recTheme.grayDark3,
         ),
       ),
     );
   }
 
   Widget _hintText() {
+    final recTheme = RecTheme.of(context);
+  
     return Padding(
       padding: const EdgeInsets.only(bottom: 24),
       child: LocalizedText(
         'QR_HINT',
         textAlign: TextAlign.center,
-        style: TextStyles.outlineTileText,
+        style: recTheme!.textTheme.outlineTileText,
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/preferences.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
@@ -8,15 +8,17 @@ class RecToast {
   static ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showInfo(
     BuildContext context,
     String msg, {
-    Color backgroundColor = Brand.primaryColor,
+    Color? backgroundColor,
     Color color = Colors.white,
     double borderRadius = 10,
   }) {
+    final recTheme = RecTheme.of(context);
+
     return show(
       context,
       msg,
       textColor: Colors.white,
-      backgroundColor: Brand.primaryColor,
+      backgroundColor: backgroundColor ?? recTheme?.primaryColor,
     );
   }
 

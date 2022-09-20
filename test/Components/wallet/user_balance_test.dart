@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rec/Components/Wallet/UserBalance.dart';
+import 'package:rec/Components/Wallet/user_balance.dart';
 
 import '../../test_utils.dart';
 

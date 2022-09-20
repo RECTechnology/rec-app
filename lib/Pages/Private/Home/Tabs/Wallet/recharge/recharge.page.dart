@@ -4,9 +4,10 @@ import 'package:rec/Components/Inputs/text_fields/AmountTextField.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Components/Wallet/UserBalance.dart';
+import 'package:rec/Components/Wallet/user_balance.dart';
 import 'package:rec/Pages/Private/Shared/RequestPin.page.dart';
 import 'package:rec/Pages/Private/Shared/campaigns/ltab/ltab-stop-bonification.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/campaign_helper.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/helpers/RecNavigation.dart';
@@ -18,7 +19,6 @@ import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec/providers/campaign_manager.dart';
 import 'package:rec/styles/paddings.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 import 'select_card.page.dart';
@@ -106,6 +106,7 @@ class _RechargePageState extends State<RechargePage> {
   Widget _body() {
     final account = userState!.account;
     final isCultureAccount = account!.isCampaignAccount(env.CMP_CULT_CODE);
+    final recTheme = RecTheme.of(context);
 
     return SingleChildScrollView(
       child: Container(
@@ -116,7 +117,7 @@ class _RechargePageState extends State<RechargePage> {
               'RECHARGE_DESC',
               style: TextStyle(
                 fontSize: 13,
-                color: Brand.grayDark2,
+                color: recTheme!.grayDark2,
               ),
             ),
             Form(

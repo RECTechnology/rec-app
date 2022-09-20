@@ -3,7 +3,7 @@ import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/config/routes.dart';
-import 'package:rec/styles/text_styles.dart';
+import 'package:rec/config/theme.dart';
 
 class LtabBonificacionStop extends StatefulWidget {
   final bool buttonWithArrow;
@@ -44,6 +44,8 @@ class _LtabBonificacionStopState extends State<LtabBonificacionStop> {
   }
 
   Widget _body() {
+    final recTheme = RecTheme.of(context);
+    
     return Padding(
       padding: EdgeInsets.fromLTRB(32, 32, 32, 32),
       child: Column(
@@ -55,7 +57,7 @@ class _LtabBonificacionStopState extends State<LtabBonificacionStop> {
               Center(
                 child: LocalizedText(
                   'LTAB_STOP_BONIFICATION_TITLE',
-                  style: TextStyles.pageTitle,
+                  style: recTheme!.textTheme.pageTitle,
                   textAlign: TextAlign.center,
                   uppercase: true,
                 ),

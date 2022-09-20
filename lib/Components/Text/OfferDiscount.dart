@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/RecAmountText.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class OfferDiscount extends StatelessWidget {
@@ -10,7 +10,8 @@ class OfferDiscount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var textTheme = Theme.of(context).textTheme;
+    final textTheme = Theme.of(context).textTheme;
+    final recTheme = RecTheme.of(context);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -20,7 +21,7 @@ class OfferDiscount extends StatelessWidget {
           RecAmountText(
             amount: offer!.initialPrice,
             textStyle: TextStyle(
-              color: Brand.accentColor,
+              color: recTheme!.accentColor,
               decoration: TextDecoration.lineThrough,
             ),
           ),
@@ -28,7 +29,7 @@ class OfferDiscount extends StatelessWidget {
           Text(
             '-${offer!.percentage!.toStringAsFixed(2)}%',
             style: textTheme.headline4!.copyWith(
-              color: Brand.accentColor,
+              color: recTheme!.accentColor,
             ),
           ),
       ],

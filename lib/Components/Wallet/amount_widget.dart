@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
@@ -18,8 +18,9 @@ class AmountWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)?.locale;
+    final recTheme = RecTheme.of(context);
 
-    final color = isNegative ? Brand.amountNegative : Brand.primaryColor;
+    final color = isNegative ? recTheme!.red : recTheme!.primaryColor;
     final amountFormatted = Currency.format(amount, locale: locale.toString());
     final amountString = isNegative ? '-$amountFormatted R' : '+$amountFormatted R';
 
@@ -51,7 +52,8 @@ class FancyAmountWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = isNegative ? Brand.amountNegative : Brand.primaryColor;
+    final recTheme = RecTheme.of(context);
+    final color = isNegative ? recTheme!.red : recTheme!.primaryColor;
     final baseStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w300)
         .merge(styleDouble)
         .copyWith(color: color);

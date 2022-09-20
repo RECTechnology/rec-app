@@ -6,11 +6,11 @@ import 'package:rec/Components/Layout/FormPageLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Public/SetPassword/SetPassword.dart';
 import 'package:rec/Pages/Public/SmsCode/SmsCode.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -38,7 +38,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   @override
   Widget build(BuildContext context) {
-    var validData = data!.valid();
+    final validData = data!.valid();
+    final recTheme = RecTheme.of(context);
 
     return FormPageLayout(
       appBar: EmptyAppBar(context),
@@ -46,7 +47,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       form: _forgotPasswordForm(),
       submitButton: RecActionButton(
         label: 'NEXT',
-        backgroundColor: Brand.primaryColor,
+        backgroundColor: recTheme!.primaryColor,
         icon: Icons.arrow_forward_ios_sharp,
         onPressed: validData ? _next : null,
       ),

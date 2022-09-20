@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/PrefixPhoneField.dart';
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/validators/validators.dart';
 import 'package:rec/Pages/Private/Shared/EditField.page.dart';
 import 'package:rec/providers/user_state.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class AccountContactPage extends StatefulWidget {
@@ -24,6 +24,7 @@ class _AccountContactPageState extends State<AccountContactPage> {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
     final userState = UserState.of(context);
     final hasEmail = Checks.isNotEmpty(userState.account!.email);
     final hasWebsite = Checks.isNotEmpty(userState.account!.webUrl);
@@ -49,7 +50,7 @@ class _AccountContactPageState extends State<AccountContactPage> {
     ];
 
     return Scaffold(
-      backgroundColor: Brand.defaultAvatarBackground,
+      backgroundColor: recTheme!.defaultAvatarBackground,
       appBar: EmptyAppBar(context, title: 'BUSSINESS_CONTACT'),
       body: Scrollbar(
         thickness: 8,

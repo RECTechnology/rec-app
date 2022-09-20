@@ -5,11 +5,11 @@ import 'package:rec/Components/Layout/FormPageLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Public/Login/Login.page.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class UnlockUserPage extends StatefulWidget {
@@ -46,13 +46,15 @@ class _UnlockUserPageState extends State<UnlockUserPage> {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+   
     return FormPageLayout(
       appBar: EmptyAppBar(context),
       form: _unlockUserForm(),
       header: _topTexts(),
       submitButton: RecActionButton(
         label: 'UNLOCK',
-        backgroundColor: Brand.primaryColor,
+        backgroundColor: recTheme?.primaryColor,
         onPressed: () => _next(),
       ),
     );

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Forms/AddNewAccount.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
-import 'package:rec/Components/Scaffold/AccountTypeHeader.dart';
+import 'package:rec/Components/Scaffold/account_type_header.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/TitleText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec/styles/paddings.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class AddNewAccountPage extends StatefulWidget {
@@ -36,14 +36,11 @@ class _AddNewAccountPageState extends State<AddNewAccountPage> {
     );
   }
 
-  Color get backgroundColor => _newAccountData.isAccountPrivate
-      ? Brand.backgroundPrivateColor
-      : Brand.backgroundCompanyColor;
-
-  Color get color =>
-      _newAccountData.isAccountPrivate ? Brand.primaryColor : Brand.accentColor;
-
   Widget _header() {
+    final recTheme = RecTheme.of(context);
+    final backgroundColor =
+        recTheme!.accountTypeBackground(_newAccountData.accountType ?? Account.TYPE_PRIVATE);
+
     return AppBar(
       backgroundColor: backgroundColor,
       leading: IconButton(
@@ -66,6 +63,9 @@ class _AddNewAccountPageState extends State<AddNewAccountPage> {
   }
 
   Widget _body() {
+    final recTheme = RecTheme.of(context);
+    final color = recTheme!.accountTypeColor(_newAccountData.accountType ?? Account.TYPE_PRIVATE);
+
     return SingleChildScrollView(
       child: Container(
         child: Padding(

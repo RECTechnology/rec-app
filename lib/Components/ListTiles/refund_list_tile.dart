@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/formatted_date.dart';
-import 'package:rec/Components/Wallet/Transactions/TransactionTitle.dart';
+import 'package:rec/Components/Wallet/transaction_title.dart';
 import 'package:rec/Components/Wallet/amount_widget.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 

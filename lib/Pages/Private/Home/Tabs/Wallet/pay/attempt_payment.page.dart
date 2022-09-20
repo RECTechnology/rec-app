@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/rec_circle_avatar.dart';
 import 'package:rec/Components/Layout/FromToRow.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
-import 'package:rec/Components/Wallet/UserBalance.dart';
+import 'package:rec/Components/Wallet/user_balance.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/qualifications/qualify_comerce.page.dart';
 import 'package:rec/Pages/Private/Shared/RequestPin.page.dart';
 import 'package:rec/Pages/Private/Shared/campaigns/ltab/rewarded-ltab.page.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/config/routes.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/loading.dart';
@@ -51,14 +51,15 @@ class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
     final userState = UserState.of(context);
+    final recTheme = RecTheme.of(context);
 
     return Scaffold(
       appBar: PrivateAppBar(
         hasBackArrow: true,
         selectAccountEnabled: false,
         size: 160,
-        backgroundColor: Brand.defaultAvatarBackground,
-        color: Brand.grayDark,
+        backgroundColor: recTheme!.defaultAvatarBackground,
+        color: recTheme.grayDark,
         title: widget.title ??
             localizations!.translate(
               'PAY_TO_NAME',
@@ -78,7 +79,7 @@ class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
                 'name': userState.account!.name,
               },
             ),
-            color: Brand.grayDark,
+            color: recTheme.grayDark,
           ),
         ),
       ),

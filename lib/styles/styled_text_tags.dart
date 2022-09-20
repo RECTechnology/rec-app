@@ -1,42 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 import 'package:styled_text/styled_text.dart';
 
-final StyledTextTag boldTag = StyledTextTag(
-  style: const TextStyle(
-    fontWeight: FontWeight.bold,
-    color: Brand.defectText,
-  ),
-);
+boldTag(RecThemeData theme) => StyledTextTag(
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: theme.grayDark,
+      ),
+    );
 
-final StyledTextTag semiboldTag = StyledTextTag(
-  style: const TextStyle(
-    fontWeight: FontWeight.w500,
-    color: Brand.defectText,
-  ),
-);
+semiboldTag(RecThemeData theme) => StyledTextTag(
+      style: TextStyle(
+        fontWeight: FontWeight.w500,
+        color: theme.grayDark,
+      ),
+    );
 
-final StyledTextTag primaryTag = StyledTextTag(
-  style: const TextStyle(color: Brand.primaryColor),
-);
+primaryTag(RecThemeData theme) => StyledTextTag(
+      style: TextStyle(color: theme.primaryColor),
+    );
 
-final StyledTextTag secondaryTag = StyledTextTag(
-  style: const TextStyle(color: Brand.accentColor),
-);
+secondaryTag(RecThemeData theme) => StyledTextTag(
+      style: TextStyle(color: theme.accentColor),
+    );
 
-final StyledTextTag greenTag = StyledTextTag(
-  style: const TextStyle(color: Brand.badgeGreen),
-);
+greenTag(RecThemeData theme) => StyledTextTag(
+      style: TextStyle(color: theme.green2),
+    );
 
-final StyledTextTag redTag = StyledTextTag(
-  style: const TextStyle(color: Brand.amountNegative),
-);
+redTag(RecThemeData theme) => StyledTextTag(
+      style: TextStyle(color: theme.red),
+    );
 
-final Map<String, StyledTextTagBase> defaultTags = {
-  'bold': boldTag,
-  'semibold': semiboldTag,
-  'primary': primaryTag,
-  'secondary': secondaryTag,
-  'green': greenTag,
-  'red': redTag,
-};
+getDefaultTags(RecThemeData theme) {
+  return {
+    'bold': boldTag,
+    'semibold': semiboldTag,
+    'primary': primaryTag,
+    'secondary': secondaryTag,
+    'green': greenTag,
+    'red': redTag,
+  };
+}

@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/theme.dart';
 
 class InfoBox extends StatelessWidget {
+  final List<Widget>? children;
+  final Color? backgroundColor;
+
   const InfoBox({
     Key? key,
     this.children = const [],
-    this.backgroundColor = Brand.backgroundBanner,
+    this.backgroundColor,
   }) : super(key: key);
 
-  final List<Widget>? children;
-  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+   
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: backgroundColor,
+        color: backgroundColor ?? recTheme!.backgroundBanner,
         borderRadius: BorderRadius.all(
           Radius.circular(6),
         ),

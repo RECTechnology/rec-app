@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Inputs/text_fields/RecPinInput.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/styles/paddings.dart';
-import 'package:rec/styles/text_styles.dart';
-import 'package:rec/config/brand.dart';
 import 'package:rec/config/routes.dart';
 
 class EnterPin extends StatefulWidget {
@@ -37,8 +36,9 @@ class _EnterPinState extends State<EnterPin> {
   bool get formValid => Checks.isNotEmpty(pin) && pin!.length == 4;
 
   Widget _body() {
-    var localizations = AppLocalizations.of(context);
-    var btnLabel = widget.buttonContent ?? localizations!.translate('NEXT');
+    final localizations = AppLocalizations.of(context);
+    final btnLabel = widget.buttonContent ?? localizations!.translate('NEXT');
+    final recTheme = RecTheme.of(context);
 
     return Padding(
       padding: Paddings.page,
@@ -48,7 +48,7 @@ class _EnterPinState extends State<EnterPin> {
           Center(
             child: LocalizedText(
               'PIN',
-              style: TextStyles.pageTitle,
+              style: recTheme!.textTheme.pageTitle,
               textAlign: TextAlign.center,
             ),
           ),
@@ -56,7 +56,7 @@ class _EnterPinState extends State<EnterPin> {
           Center(
             child: LocalizedText(
               'ENTER_PIN_DESC',
-              style: TextStyles.pageSubtitle1,
+              style: recTheme.textTheme.pageSubtitle1,
               textAlign: TextAlign.center,
             ),
           ),
@@ -80,15 +80,13 @@ class _EnterPinState extends State<EnterPin> {
                   onTap: _forgotPin,
                   child: LocalizedText(
                     'FORGOT_PIN',
-                    style: TextStyles.link,
+                    style: recTheme.textTheme.link,
                   ),
                 ),
                 RecActionButton(
                   label: btnLabel,
-                  icon: widget.buttonWithArrow
-                      ? Icons.arrow_forward_ios_outlined
-                      : null,
-                  backgroundColor: Brand.primaryColor,
+                  icon: widget.buttonWithArrow ? Icons.arrow_forward_ios_outlined : null,
+                  backgroundColor: recTheme.primaryColor,
                   onPressed: formValid ? _next : null,
                 ),
               ],

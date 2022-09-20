@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rec/Components/Wallet/amount_widget.dart';
-import 'package:rec/config/brand.dart';
+import 'package:rec/config/themes/rec.dart';
 
 import '../../test_utils.dart';
 
@@ -21,7 +21,7 @@ void main() {
       TestUtils.isTextPresent('+3,00 R');
 
       final amountTextWidget = tester.firstWidget(find.byType(Text)) as Text;
-      expect(amountTextWidget.style?.color, Brand.primaryColor);
+      expect(amountTextWidget.style?.color, recTheme.primaryColor);
     });
   });
 
@@ -40,7 +40,7 @@ void main() {
       TestUtils.isTextPresent('+3,12 R');
 
       final amountTextWidget = tester.firstWidget(find.byType(Text)) as Text;
-      expect(amountTextWidget.style?.color, Brand.primaryColor);
+      expect(amountTextWidget.style?.color, recTheme.primaryColor);
     });
   });
 
@@ -62,7 +62,7 @@ void main() {
       TestUtils.isTextPresent('-3.00 R');
 
       final amountTextWidget = tester.firstWidget(find.byType(Text)) as Text;
-      expect(amountTextWidget.style?.color, Brand.amountNegative);
+      expect(amountTextWidget.style?.color, recTheme.red);
     });
   });
 }
