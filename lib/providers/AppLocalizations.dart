@@ -9,8 +9,7 @@ import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/Strings.dart';
 
 /// Handles localizations/translations within the app
-/// TODO: Change this implementation with KLocalizations, this way we can
-/// easily handle loading the translations from poeditor cdn or locally
+/// TODO: Refactor and/or replace with KLocalizations
 class AppLocalizations {
   static const delegate = _AppLocalizationsDelegate();
   static Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates = [
