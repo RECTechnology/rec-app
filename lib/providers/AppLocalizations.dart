@@ -77,12 +77,12 @@ class AppLocalizations {
 
   /// Loads translations for current locale
   Future<bool> load() async {
+    // Try loading from cdn, otherwise fallback to local asset file
     try {
       final cdnFile = await _loadStringForCurrentLocaleFromCdn();
       _localizedStrings = cdnFile;
       print('Loaded from cdn');
     } catch (e) {
-      // Try loading from cdn, otherwise fallback to local asset file
       final jsonMap = await (_loadMapForLocale());
       _localizedStrings = jsonMap!.map(_mapEntry);
       print('Loaded from local assets');
