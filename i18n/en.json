@@ -430,7 +430,7 @@
   "link_faqs": "https://rec.barcelona/es/faqs-es/",
   "link_contact": "https://rec.barcelona/es/contacto/",
   "link_tos": "https://rec.barcelona/es/condiciones-de-uso/",
-  "link_privacy": "https://rec.barcelona/es/politicaprivacidadweb_cast/",
+  "link_privacy": "https://rec.barcelona/politica-de-privacitat-app/",
   "link_culture": "https://rec.barcelona/rec-cultural",
 
   "title.link_ltab": "Li Toca Al Barri",
@@ -486,6 +486,7 @@
   "OFFER_IMAGE": "Offer image",
   "OFFER_IMAGE_DESC": "This image will be displayed together with the rest of the offer information",
   "SETTINGS_HOW_CAN_WE_HELP": "How can we help you?",
+  "SETTINGS_PRIVACY": "Privacy policy",
   "WHAT_TO_DO_WITH_OFFER": "What do you want to do with the offer?",
   "OFFER_REMOVED_OK": "Offer deleted",
   "CULTURE": "Culture",

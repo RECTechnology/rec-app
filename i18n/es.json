@@ -445,7 +445,7 @@
   "link_faqs": "https://rec.barcelona/es/faqs-es/",
   "link_contact": "https://rec.barcelona/es/contacto/",
   "link_tos": "https://rec.barcelona/es/condiciones-de-uso/",
-  "link_privacy": "https://rec.barcelona/es/politicaprivacidadweb_cast/",
+  "link_privacy": "https://rec.barcelona/politica-de-privacitat-app/",
   "link_culture": "https://rec.barcelona/es/rec-cultural",
 
   "title.link_ltab": "Le toca al barrio",
@@ -502,6 +502,7 @@
   "OFFER_IMAGE": "Imagen de oferta",
   "OFFER_IMAGE_DESC": "Esta imagen se mostrará junto al resto de información de la oferta",
   "SETTINGS_HOW_CAN_WE_HELP": "¿Cómo podemos ayudarte?",
+  "SETTINGS_PRIVACY": "Politicas de privacidad",
   "CAMPAIGNS": "Campañas",
   "WHAT_TO_DO_WITH_OFFER": "¿Qué quieres hacer con la oferta?",
   "OFFER_REMOVED_OK": "Oferta eliminada",
