@@ -112,7 +112,8 @@
 
   "RECHARGE_RECS": "Recharge RECs",
   "RECEIVE_PAYMENT": "Request RECs",
-  "PAY_ACCOUNT_CONTACT": "Pay on account / contact",
+  "PAY_ACCOUNT_CONTACT": "Pay to account/contact",
+  "PAY_ACCOUNT": "Pay to account",
   "PAY_QR": "Pay with QR",
   "CHARGE": "Charge",
 

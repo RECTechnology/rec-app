@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/features.dart';
 import 'package:rec/config/roles_definitions.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/providers/campaign_provider.dart';
@@ -61,7 +62,7 @@ class WalletFloatingActionsState extends State<WalletFloatingActions> {
         ),
       if (hasPermissionToPayQr)
         buildSpeedDialChild(
-          'PAY_ACCOUNT_CONTACT',
+          Features.contactList ? 'PAY_ACCOUNT_CONTACT' : 'PAY_ACCOUNT',
           Icons.call_made,
           context,
           bgColor: accountTypeColor,

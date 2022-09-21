@@ -4,6 +4,7 @@ import 'package:rec/Components/Lists/ContactsList.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/pay_to_address.page.dart';
 import 'package:rec/Components/IfPermissionGranted.dart';
+import 'package:rec/config/features.dart';
 import 'package:rec/permissions/permission_data_provider.dart';
 import 'package:rec/providers/AppLocalizations.dart';
 import 'package:rec/config/brand.dart';
@@ -14,15 +15,18 @@ class PayContactOrAccount extends StatefulWidget {
   _PayContactOrAccountState createState() => _PayContactOrAccountState();
 }
 
-class _PayContactOrAccountState extends State<PayContactOrAccount>
-    with TickerProviderStateMixin {
+class _PayContactOrAccountState extends State<PayContactOrAccount> with TickerProviderStateMixin {
   TabController? _tabController;
-  final int items = 2;
+  int items = 2;
   final PaymentData _paymentData = PaymentData.empty();
   int initialIndex = 0;
 
   @override
   void initState() {
+    // NOTE: Disable contact list
+    if (!Features.contactList) {
+      items = 1;
+    }
     _tabController = TabController(
       length: items,
       vsync: this,
@@ -54,16 +58,18 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
         : TabBarView(
             controller: _tabController,
             children: <Widget>[
-              IfPermissionGranted(
-                permission: PermissionDataProvider.contacts,
-                canBeDeclined: false,
-                builder: (_) => ContactsList(
-                  onPick: _pickedContact,
+              // Only show contact list tab if feature is enabled
+              if (Features.contactList)
+                IfPermissionGranted(
+                  permission: PermissionDataProvider.contacts,
+                  canBeDeclined: false,
+                  builder: (_) => ContactsList(
+                    onPick: _pickedContact,
+                  ),
+                  onDecline: () {
+                    print('permission declined');
+                  },
                 ),
-                onDecline: () {
-                  print('permission declined');
-                },
-              ),
               AccountList(
                 onPick: _pickedAccount,
               ),
@@ -110,6 +116,7 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
   }
 
   AppBar _constructAppBar() {
+    double height = Features.contactList ? 120 : 0;
     var contactsButton = _constructButton(
       title: 'CONTACTS',
       action: () {
@@ -134,7 +141,7 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
     return AppBar(
       backgroundColor: Colors.white,
       title: LocalizedText(
-        'PAY_TO',
+        Features.contactList ? 'PAY_TO' : 'PAY_ACCOUNT',
         style: TextStyle(
           fontSize: 22,
           fontWeight: FontWeight.w300,
@@ -147,14 +154,19 @@ class _PayContactOrAccountState extends State<PayContactOrAccount>
         onPressed: () => Navigator.of(context).pop(),
       ),
       bottom: PreferredSize(
-        preferredSize: Size.fromHeight(120),
+        preferredSize: Size.fromHeight(height),
         child: Container(
-          height: 120,
+          height: height,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [contactsButton, accountsButton],
+            children: Features.contactList
+                ? [
+                    contactsButton,
+                    accountsButton,
+                  ]
+                : [],
           ),
         ),
       ),
