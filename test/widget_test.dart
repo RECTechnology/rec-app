@@ -4,7 +4,7 @@ import 'package:rec/app.dart';
 
 void main() {
   testWidgets('RecApp builds', (WidgetTester tester) async {
-    await dotenv.load(fileName: "env/.env");
+    await dotenv.load(fileName: "env/test.env");
     var app = RecApp();
     await tester.pumpWidget(app);
 

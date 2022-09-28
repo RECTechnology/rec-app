@@ -33,7 +33,7 @@ class TestUtils {
     List<SingleChildWidget> providers = const [],
     List<NavigatorObserver> navigatorObservers = const <NavigatorObserver>[],
   }) async {
-    await dotenv.load(fileName: "env/.env-test");
+    await dotenv.load(fileName: "env/test.env");
 
     return MultiProvider(
       providers: [
