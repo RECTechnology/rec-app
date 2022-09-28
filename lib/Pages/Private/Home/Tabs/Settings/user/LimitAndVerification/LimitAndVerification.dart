@@ -94,7 +94,7 @@ class _LimitAndVerificationState extends State<LimitAndVerificationPage> {
                   localizations.translate(
                     'SEND_REC_LIMIT',
                     params: {
-                      'amount': userState.account!.level!.maxOut != null
+                      'amount': userState.account?.level?.maxOut != null
                           ? '${userState.account!.level!.maxOut}R'
                           : unlimitedLimitText,
                     },
