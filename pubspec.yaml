@@ -70,6 +70,5 @@ flutter:
     - assets/current/markers/
     - assets/current/recharge/
     - assets/current/i18n/
-    - env/.env
-    - env/.env-test
+    - env/
   uses-material-design: true
