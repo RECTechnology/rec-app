@@ -114,6 +114,7 @@
   "RECHARGE_RECS": "Recarregar RECS",
   "RECEIVE_PAYMENT": "Demanar RECS",
   "PAY_ACCOUNT_CONTACT": "Pagar a compte/contacte",
+  "PAY_ACCOUNT": "Pagar a compte",
   "PAY_QR": "Pagar amb QR",
   "CHARGE": "Cobrar",
 
@@ -432,7 +433,7 @@
   "link_faqs": "https://rec.barcelona/faqs/",
   "link_contact": "https://rec.barcelona/contacte/",
   "link_tos": "https://rec.barcelona/condicions-dus/",
-  "link_privacy": "https://rec.barcelona/politica-de-privacitat-web/",
+  "link_privacy": "https://rec.barcelona/politica-de-privacitat-app/",
   "link_culture": "https://rec.barcelona/rec-cultural",
 
   "title.link_ltab": "Li toca al barri",
@@ -491,6 +492,7 @@
   "OFFER_IMAGE": "Imatge d'oferta",
   "OFFER_IMAGE_DESC": "Aquesta imatge es mostrará al costat de la resta d'informació de l'oferta",
   "SETTINGS_HOW_CAN_WE_HELP": "Com podem ajudar-te?",
+  "SETTINGS_PRIVACY": "Politiques de privacitat",
   "WHAT_TO_DO_WITH_OFFER": "Què vols fer amb l'oferta?",
   "OFFER_REMOVED_OK": "Oferta eliminada",
   "CULTURE": "Cultura",

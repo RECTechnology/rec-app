@@ -6,6 +6,7 @@ import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
 import 'package:rec/Components/Scaffold/BussinessHeader.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Pages/Private/Shared/EditField.page.dart';
+import 'package:rec/config/features.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/loading.dart';
@@ -50,16 +51,18 @@ class _MyAccountPageState extends State<MyAccountPage> {
           color: Colors.white,
           child: BussinessHeader(
             userState.account,
-            avatarBadge: Positioned(
-              bottom: -8,
-              right: -4,
-              child: PickImage(
-                onPick: _changeImage,
-                title: 'IMAGE_DE_CUENTA',
-                buttonLabel: 'UPDATE',
-                hint: 'IMAGE_DE_CUENTA_DESC',
-              ),
-            ),
+            avatarBadge: Features.imageUploads
+                ? Positioned(
+                    bottom: -8,
+                    right: -4,
+                    child: PickImage(
+                      onPick: _changeImage,
+                      title: 'IMAGE_DE_CUENTA',
+                      buttonLabel: 'UPDATE',
+                      hint: 'IMAGE_DE_CUENTA_DESC',
+                    ),
+                  )
+                : null,
             subtitle: const SizedBox.shrink(),
           ),
         ),

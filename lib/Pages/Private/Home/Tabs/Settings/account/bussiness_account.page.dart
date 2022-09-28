@@ -7,6 +7,7 @@ import 'package:rec/Components/Scaffold/BussinessHeader.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Shared/EditField.page.dart';
+import 'package:rec/config/features.dart';
 import 'package:rec/config/routes.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
@@ -79,30 +80,34 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
         color: Colors.white,
         child: BussinessHeader(
           userState.account,
-          subtitle: PickImage(
-            onPick: _changePublicImage,
-            title: 'IMAGE_PUBLIC',
-            buttonLabel: 'UPDATE',
-            hint: 'IMAGE_PUBLIC_DESC',
-            padding: EdgeInsets.zero,
-            child: LocalizedText(
-              'CHANGE_IMAGE',
-              style: TextStyle(
-                color: recTheme.accentColor,
-              ),
-            ),
-          ),
+          subtitle: Features.imageUploads
+              ? PickImage(
+                  onPick: _changePublicImage,
+                  title: 'IMAGE_PUBLIC',
+                  buttonLabel: 'UPDATE',
+                  hint: 'IMAGE_PUBLIC_DESC',
+                  padding: EdgeInsets.zero,
+                  child: LocalizedText(
+                    'CHANGE_IMAGE',
+                    style: TextStyle(
+                      color: recTheme.accentColor,
+                    ),
+                  ),
+                )
+              : null,
           avatarBadge: Positioned(
             bottom: -8,
             right: -4,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: PickImage(
-                onPick: _changeCompanyImage,
-                title: 'IMAGE_DE_CUENTA',
-                buttonLabel: 'UPDATE',
-                hint: 'IMAGE_DE_CUENTA_DESC',
-              ),
+              child: Features.imageUploads
+                  ? PickImage(
+                      onPick: _changeCompanyImage,
+                      title: 'IMAGE_DE_CUENTA',
+                      buttonLabel: 'UPDATE',
+                      hint: 'IMAGE_DE_CUENTA_DESC',
+                    )
+                  : null,
             ),
           ),
         ),
