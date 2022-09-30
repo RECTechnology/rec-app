@@ -83,6 +83,7 @@ class AppLocalizations {
       _localizedStrings = cdnFile;
       print('Loaded from cdn');
     } catch (e) {
+      print('Error loading from CDN: $e');
       final jsonMap = await (_loadMapForLocale());
       _localizedStrings = jsonMap!.map(_mapEntry);
       print('Loaded from local assets');
@@ -109,6 +110,10 @@ class AppLocalizations {
       path: 'file/${env.TRANSLATIONS_PROJECT_ID}/${locale.languageCode}.json',
     );
     final result = await httpClient.get(uri);
+    if (result.statusCode >= 300) {
+      throw Exception(result.body);
+    }
+
     final data = utf8.decode(result.bodyBytes);
     final dataJson = json.decode(data);
 
