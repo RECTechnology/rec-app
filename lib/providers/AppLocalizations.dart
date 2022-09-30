@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -77,6 +78,13 @@ class AppLocalizations {
 
   /// Loads translations for current locale
   Future<bool> load() async {
+    // If we're in testing mode, we cannot load from CDN, load locally
+    if (Platform.environment.containsKey('FLUTTER_TEST')) {
+      final jsonMap = await (_loadMapForLocale());
+      _localizedStrings = jsonMap!.map(_mapEntry);
+      return true;
+    }
+
     // Try loading from cdn, otherwise fallback to local asset file
     try {
       final cdnFile = await _loadStringForCurrentLocaleFromCdn();

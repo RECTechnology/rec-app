@@ -7,7 +7,7 @@ void main() {
   testWidgets('RecAmountText works', (WidgetTester tester) async {
     var widget = RecAmountText(amount: 0.90);
 
-    await tester.pumpWidget(TestUtils.wrapPublicWidget(widget));
+    await tester.pumpWidget(await TestUtils.wrapPublicWidget(widget));
     await tester.pumpAndSettle();
 
     TestUtils.widgetExists(widget);

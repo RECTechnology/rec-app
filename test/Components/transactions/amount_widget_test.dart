@@ -11,7 +11,7 @@ void main() {
       var txAmount = AmountWidget(amount: 3);
 
       await tester.pumpWidget(
-        TestUtils.wrapPublicRoute(txAmount),
+        await TestUtils.wrapPublicRoute(txAmount),
       );
 
       // Esto espera a que este todo cargado
@@ -30,7 +30,7 @@ void main() {
       var txAmount = AmountWidget(amount: 3.12345);
 
       await tester.pumpWidget(
-        TestUtils.wrapPublicRoute(txAmount),
+        await TestUtils.wrapPublicRoute(txAmount),
       );
 
       // Esto espera a que este todo cargado
@@ -52,7 +52,7 @@ void main() {
       );
 
       await tester.pumpWidget(
-        TestUtils.wrapPublicRoute(txAmount, locale: Locale('en')),
+        await TestUtils.wrapPublicRoute(txAmount, locale: Locale('en')),
       );
 
       // Esto espera a que este todo cargado

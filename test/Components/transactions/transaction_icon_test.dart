@@ -10,7 +10,7 @@ import '../../mocks/users_mock.dart';
 import '../../test_utils.dart';
 
 testBuildsForTx(WidgetTester tester, Transaction tx, {User? user}) async {
-  await dotenv.load(fileName: "env/test.env");
+  await dotenv.load(fileName: "env/.env-test");
 
   var txIcon = TransactionIcon(tx);
 

@@ -18,7 +18,7 @@ void main() {
     );
 
     await tester.pumpWidget(
-      TestUtils.wrapPublicRoute(
+      await TestUtils.wrapPublicRoute(
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

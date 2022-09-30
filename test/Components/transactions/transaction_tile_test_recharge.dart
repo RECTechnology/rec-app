@@ -14,7 +14,7 @@ void main() {
       tx: TransactionMock.transactionRecharge,
     );
     await tester.pumpWidget(
-      TestUtils.wrapPublicRoute(
+      await TestUtils.wrapPublicRoute(
         ListView(
           children: [txListTile],
         ),

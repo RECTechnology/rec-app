@@ -9,7 +9,7 @@ void main() {
   testWidgets('OfferDiscount works', (WidgetTester tester) async {
     var widget = OfferDiscount(offer: OffersMock.percentOffer);
 
-    await tester.pumpWidget(TestUtils.wrapPublicWidget(widget));
+    await tester.pumpWidget(await TestUtils.wrapPublicWidget(widget));
     await tester.pumpAndSettle();
 
     TestUtils.widgetExists(widget);

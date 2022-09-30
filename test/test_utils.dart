@@ -33,7 +33,7 @@ class TestUtils {
     List<SingleChildWidget> providers = const [],
     List<NavigatorObserver> navigatorObservers = const <NavigatorObserver>[],
   }) async {
-    await dotenv.load(fileName: "env/test.env");
+    await dotenv.load(fileName: "env/.env-test");
 
     return MultiProvider(
       providers: [
@@ -84,12 +84,14 @@ class TestUtils {
     );
   }
 
-  static Widget wrapPublicRoute(
+  static Future<Widget> wrapPublicRoute(
     Widget page, {
     Key? key,
     Locale? locale,
     List<NavigatorObserver> navigatorObservers = const <NavigatorObserver>[],
-  }) {
+  }) async {
+    await dotenv.load(fileName: "env/.env-test");
+
     return ChangeNotifierProvider(
       create: (context) => AppProvider(
         packageInfo: PackageInfo(
@@ -108,7 +110,7 @@ class TestUtils {
     );
   }
 
-  static Widget wrapPublicWidget(Widget page) {
+  static Future<Widget> wrapPublicWidget(Widget page) {
     return wrapPublicRoute(page);
   }
 

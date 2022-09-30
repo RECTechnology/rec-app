@@ -11,7 +11,7 @@ void main() {
       await tester.runAsync(() async {
         final amountField = AmountTextField();
         await tester.pumpWidget(
-          TestUtils.wrapPublicWidget(amountField),
+          await TestUtils.wrapPublicWidget(amountField),
         );
 
         // Esto espera a que este todo cargado
@@ -25,7 +25,7 @@ void main() {
       await tester.runAsync(() async {
         final amountField = AmountTextField(initialValue: '23', label: 'test');
 
-        await tester.pumpWidget(TestUtils.wrapPublicWidget(amountField));
+        await tester.pumpWidget(await TestUtils.wrapPublicWidget(amountField));
 
         // Esto espera a que este todo cargado
         await tester.pumpAndSettle();
@@ -41,7 +41,7 @@ void main() {
           controller: TextEditingController(text: '23'),
         );
 
-        await tester.pumpWidget(TestUtils.wrapPublicWidget(amountField));
+        await tester.pumpWidget(await TestUtils.wrapPublicWidget(amountField));
 
         // Esto espera a que este todo cargado
         await tester.pumpAndSettle();
@@ -58,7 +58,7 @@ void main() {
           enabled: false,
         );
 
-        await tester.pumpWidget(TestUtils.wrapPublicWidget(amountField));
+        await tester.pumpWidget(await TestUtils.wrapPublicWidget(amountField));
 
         // Esto espera a que este todo cargado
         await tester.pumpAndSettle();
@@ -77,7 +77,7 @@ void main() {
         final formKey = GlobalKey<FormState>();
         final form = Form(child: amountField, key: formKey);
 
-        await tester.pumpWidget(TestUtils.wrapPublicWidget(form));
+        await tester.pumpWidget(await TestUtils.wrapPublicWidget(form));
 
         // Esto espera a que este todo cargado
         await tester.pumpAndSettle();

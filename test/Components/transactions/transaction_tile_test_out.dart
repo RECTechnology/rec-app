@@ -11,7 +11,7 @@ void main() {
   ) async {
     var txListTile = TransactionsListTile(tx: TransactionMock.transactionOut);
     await tester.pumpWidget(
-      TestUtils.wrapPublicRoute(
+      await TestUtils.wrapPublicRoute(
         ListView(
           children: [txListTile],
         ),

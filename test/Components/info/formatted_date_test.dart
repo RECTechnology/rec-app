@@ -12,7 +12,7 @@ void main() {
       );
 
       await tester.pumpWidget(
-        TestUtils.wrapPublicRoute(formattedDate, locale: Locale('es')),
+        await TestUtils.wrapPublicRoute(formattedDate, locale: Locale('es')),
       );
 
       // Esto espera a que este todo cargado
@@ -30,7 +30,7 @@ void main() {
       );
 
       await tester.pumpWidget(
-        TestUtils.wrapPublicRoute(formattedDate, locale: Locale('en')),
+        await TestUtils.wrapPublicRoute(formattedDate, locale: Locale('en')),
       );
 
       // Esto espera a que este todo cargado

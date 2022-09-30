@@ -23,7 +23,7 @@ void main() {
       },
     );
     await tester.pumpWidget(
-      TestUtils.wrapPublicRoute(
+      await TestUtils.wrapPublicRoute(
         widget,
       ),
     );

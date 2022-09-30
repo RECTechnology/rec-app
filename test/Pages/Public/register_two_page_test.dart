@@ -8,7 +8,7 @@ void main() {
   testWidgets('Register Page Two test build correctly', (
     WidgetTester tester,
   ) async {
-    var app = TestUtils.wrapPublicRoute(
+    var app = await TestUtils.wrapPublicRoute(
       RegisterTwo(
         registerData: RegisterData(accountType: Account.TYPE_PRIVATE),
       ),
