@@ -28,7 +28,7 @@ class _BussinessHeaderState extends State<BussinessHeader> {
   @override
   Widget build(BuildContext context) {
     final recTheme = RecTheme.of(context);
-   
+
     return PreferredSize(
       preferredSize: widget.preferredSize,
       child: Stack(
@@ -86,28 +86,42 @@ class _BussinessHeaderState extends State<BussinessHeader> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          padding: EdgeInsets.only(bottom: 8),
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            widget.account!.name ?? 'Text not found',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: recTheme!.grayDark,
-                              fontWeight: FontWeight.w500,
+                        Flexible(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              bottom: 8,
                             ),
-                            overflow: TextOverflow.ellipsis,
+                            child: Text(
+                              widget.account!.name ?? 'Text not found',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: recTheme!.grayDark,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              overflow: TextOverflow.visible,
+                            ),
                           ),
                         ),
                         widget.subtitle ??
-                            LocalizedText(
-                              widget.account!.addressString!,
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: recTheme.grayDark,
-                                fontWeight: FontWeight.w300,
-                              ),
-                              overflow: TextOverflow.ellipsis,
+                            Flexible(
+                              child: Wrap(children: [
+                                Icon(Icons.schedule_outlined,
+                                    color: recTheme.grayDark),
+                                SizedBox(width: 5),
+                                Container(
+                                  margin: EdgeInsets.only(top: 4),
+                                  child: LocalizedText(
+                                    widget.account!.schedule!
+                                        .getStateNameForDate(DateTime.now()),
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: recTheme.grayDark,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                    overflow: TextOverflow.visible,
+                                  ),
+                                ),
+                              ]),
                             ),
                       ],
                     ),

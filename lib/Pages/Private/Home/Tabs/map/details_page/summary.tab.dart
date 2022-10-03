@@ -18,10 +18,12 @@ class SummaryTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
     final hasDescription = account.description!.isNotEmpty;
     final hasWeb = account.hasWeb();
     final hasPublicImage = account.hasPublicImage();
     final hasBadges = account.badges.isNotEmpty == true;
+    print(account.address);
 
     return SingleChildScrollView(
       controller: scrollController,
@@ -36,13 +38,30 @@ class SummaryTab extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                LocalizedText(
-                  account.schedule!.getStateNameForDate(DateTime.now()),
-                  style: TextStyle(fontSize: 14),
-                ),
                 SizedBox(height: 16),
-                if (hasDescription) _buildDescription(context),
+                if (account.address?.streetName != null)
+                  Wrap(children: [
+                    Icon(
+                      Icons.place_rounded,
+                      color: recTheme?.grayLight,
+                    ),
+                    SizedBox(width: 5),
+                    Container(
+                      margin: EdgeInsets.only(top: 4),
+                      child: LocalizedText(
+                        account.addressString!,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w300,
+                          color: recTheme?.grayDark,
+                        ),
+                      ),
+                    ),
+                  ]),
                 if (hasWeb) _buildWebLink(),
+                if (!hasWeb) SizedBox(height: 16),
+                if (hasDescription) _buildDescription(context),
+                SizedBox(height: 16),
                 if (hasPublicImage) _buildPublicImage(),
                 if (hasBadges) BadgeSection(badges: account.badges),
               ],
@@ -69,13 +88,25 @@ class SummaryTab extends StatelessWidget {
         final recTheme = RecTheme.of(context);
 
         return Padding(
-          padding: const EdgeInsets.only(top: 16.0, bottom: 16),
-          child: RichText(
-            text: TextSpan(
-              style: recTheme!.textTheme.link,
-              text: account.webUrl ?? '',
-              recognizer: TapGestureRecognizer()..onTap = _launchWeb,
-            ),
+          padding: const EdgeInsets.only(top: 8.0, bottom: 16),
+          child: Wrap(
+            children: [
+              Icon(
+                Icons.link_outlined,
+                color: recTheme?.grayLight,
+              ),
+              SizedBox(width: 5),
+              Container(
+                margin: EdgeInsets.only(top: 4),
+                child: RichText(
+                  text: TextSpan(
+                    style: recTheme!.textTheme.link,
+                    text: account.webUrl ?? '',
+                    recognizer: TapGestureRecognizer()..onTap = _launchWeb,
+                  ),
+                ),
+              ),
+            ],
           ),
         );
       },
