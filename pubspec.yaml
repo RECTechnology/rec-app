@@ -16,7 +16,7 @@ dependencies:
   flutter_easyloading: ^3.0.5
   flutter_speed_dial: ^4.6.6
   flutter_svg: ^0.23.0+1
-  rec_api_dart: ^1.4.0-alpha.5
+  rec_api_dart: ^1.4.0-alpha.7
   contacts_service: ^0.6.3
   country_code_picker: ^2.0.2
   cupertino_icons: ^1.0.4
