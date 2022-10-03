@@ -41,7 +41,7 @@ class SummaryFilterButtons extends StatelessWidget {
         onPressed: _launchMapsUrl,
         backgroundColor: Colors.white,
       ),
-      if (account.phone?.isNotEmpty == true)
+      if (account.phone?.isNotEmpty == true && account.phone?.length == 9)
         RecFilterButton(
           icon: Icons.phone,
           label: 'CALL',
