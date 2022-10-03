@@ -18,6 +18,10 @@ class RecNavigationBar extends StatelessWidget {
     final recTheme = RecTheme.of(context);
 
     return BottomNavigationBar(
+      iconSize: 22,
+      selectedFontSize: 12.0,
+      unselectedFontSize: 12.0,
+      type: BottomNavigationBarType.fixed,
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.map),
@@ -30,6 +34,10 @@ class RecNavigationBar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),
           label: localizations.translate('SETTINGS'),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.groups),
+          label: localizations.translate('CHALLENGES'),
         ),
       ],
       currentIndex: currentTabIndex!,

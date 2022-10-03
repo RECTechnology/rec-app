@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Auth.dart';
 import 'package:rec/Components/Scaffold/RecNavigationBar.dart';
+import 'package:rec/Pages/Private/Home/Tabs/challenges/challenges.page.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/providers/campaign_manager.dart';
 import 'package:rec/helpers/RecNavigation.dart';
@@ -47,6 +48,7 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
     MapPage(key: GlobalKey()),
     WalletPageRec(key: GlobalKey()),
     SettingsPage(key: GlobalKey()),
+    ChallengesPage(key: GlobalKey()),
   ];
 
   @override

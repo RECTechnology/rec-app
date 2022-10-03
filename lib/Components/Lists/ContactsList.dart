@@ -68,10 +68,9 @@ class _ContactsList extends State<ContactsList> {
   }
 
   Future<List<dynamic>> _searchInApi(List<Contact> contacts) async {
-    var phoneList =
+    final phoneList =
         contacts.where((e) => e.phones!.isNotEmpty).map((e) => e.phones!.first.value).toList();
-
-    var apiContacts = await service.getContacts(phoneList).catchError(_onError);
+    final apiContacts = await service.getContacts(phoneList).catchError(_onError);
 
     // ignore: unnecessary_null_comparison
     return recContacts = apiContacts != null && apiContacts.items != null
