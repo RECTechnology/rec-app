@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/providers/AppLocalizations.dart';
 
 import 'timer_refresh_widget.dart';
 
@@ -28,8 +29,7 @@ class CountdownWidget extends TimerRefreshWidget {
   }
 
   _timeRemaining(BuildContext context) {
-    // Si la fecha fin del reto es menor de 24 horas DEBE mostrarse una cuenta atrás en h:m:s
-    final captionTheme = Theme.of(context).textTheme.caption;
+    final localizations = AppLocalizations.of(context);
     final remainingTime = date.difference(clock ?? DateTime.now());
     final remainingDays = remainingTime.inDays;
     final remainingHours = remainingTime.inHours;
@@ -41,9 +41,11 @@ class CountdownWidget extends TimerRefreshWidget {
     if (remainingHours < 24) {
       label = '${remainingHours}h ${remainingMinutes}m';
     } else if (remainingDays == 1) {
-      label = '$remainingDays dia';
+      label = localizations!.translate('DAY_REMAINING');
+      // label = '$remainingDays dia';
     } else {
-      label = '$remainingDays dias';
+      label = localizations!.translate('DAYS_REMAINING', params: {'remainingDays': remainingDays});
+      // label = '$remainingDays dias';
     }
 
     return label;

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:rec/Components/GrayBox.dart';
 import 'package:rec/Components/Info/countdown_timer.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/Components/rounded_network_image.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
@@ -60,7 +62,9 @@ class _ChallengeListTileState extends State<ChallengeListTile> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [
-          _image(),
+          RoundedNetworkImage(
+            imageUrl: widget.challenge.coverImage,
+          ),
           const SizedBox(
             width: 8,
           ),
@@ -88,30 +92,9 @@ class _ChallengeListTileState extends State<ChallengeListTile> {
     );
   }
 
-  _image() {
-    return ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(6)),
-      child: Container(
-        width: 72,
-        height: 72,
-        child: Center(
-          child: Image.network(
-            widget.challenge.coverImage,
-            errorBuilder: (c, e, s) {
-              return Container(
-                child: Center(
-                  child: LocalizedText('ERROR'),
-                ),
-              );
-            },
-          ),
-        ),
-      ),
-    );
-  }
-
   _countdownBar() {
     final recTheme = RecTheme.of(context);
+
     return Column(
       children: [
         Row(
@@ -121,7 +104,9 @@ class _ChallengeListTileState extends State<ChallengeListTile> {
               'REMAINING_RECS',
               style: recTheme!.textTheme.link.copyWith(fontWeight: FontWeight.w400, fontSize: 12),
             ),
-            _timeRemaining(),
+            ChallengeCountdownWidget(
+              date: widget.challenge.endDate,
+            ),
           ],
         ),
         const SizedBox(height: 8),
@@ -138,22 +123,16 @@ class _ChallengeListTileState extends State<ChallengeListTile> {
   }
 
   _bottomPart() {
-    final recTheme = RecTheme.of(context);
     final captionTheme = Theme.of(context).textTheme.caption;
 
-    return Container(
+    return GrayBox(
       padding: widget.padding,
-      color: recTheme!.defaultAvatarBackground,
+      height: null,
+      radius: 0,
       child: LocalizedText(
         widget.challenge.description,
-        style: captionTheme!.copyWith(fontSize: 10),
+        style: captionTheme!.copyWith(fontSize: 12),
       ),
-    );
-  }
-
-  _timeRemaining() {
-    return ChallengeCountdownWidget(
-      date: widget.challenge.endDate,
     );
   }
 }

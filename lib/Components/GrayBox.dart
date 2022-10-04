@@ -6,6 +6,7 @@ class GrayBox extends StatelessWidget {
   final Widget? child;
   final EdgeInsets padding;
   final double? height;
+  final double radius;
 
   const GrayBox({
     Key? key,
@@ -15,6 +16,7 @@ class GrayBox extends StatelessWidget {
       vertical: 8.0,
     ),
     this.height = 40,
+    this.radius = 8,
   }) : super(key: key);
 
   @override
@@ -22,12 +24,12 @@ class GrayBox extends StatelessWidget {
     final recTheme = RecTheme.of(context);
 
     return Container(
-      height: height ?? double.infinity,
+      height: height,
       padding: padding,
       decoration: BoxDecoration(
         color: recTheme?.defaultAvatarBackground,
         borderRadius: BorderRadius.all(
-          Radius.circular(6),
+          Radius.circular(radius),
         ),
       ),
       child: child,

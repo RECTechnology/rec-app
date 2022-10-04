@@ -46,7 +46,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   modal_bottom_sheet: ^2.0.1
   styled_text: ^5.1.0
-  klocalizations_flutter: ^0.0.8
+  cached_network_image: ^3.2.2
 
 dev_dependencies:
   flutter_test:

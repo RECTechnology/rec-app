@@ -78,8 +78,11 @@ class AppLocalizations {
 
   /// Loads translations for current locale
   Future<bool> load() async {
+    print('Loading language: ${locale.languageCode}');
+
     // If we're in testing mode, we cannot load from CDN, load locally
-    if (Platform.environment.containsKey('FLUTTER_TEST')) {
+    if (Platform.environment.containsKey('FLUTTER_TEST') || env.ENV_NAME != 'prod') {
+      print('DEVELOPMENT: Loaded from local assets');
       final jsonMap = await (_loadMapForLocale());
       _localizedStrings = jsonMap!.map(_mapEntry);
       return true;

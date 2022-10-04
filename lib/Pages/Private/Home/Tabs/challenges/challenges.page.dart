@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:klocalizations_flutter/klocalizations_flutter.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/challenges/challenges_tab.dart';
 import 'package:rec/Pages/Private/Home/Tabs/challenges/rewards_tab.dart';
 import 'package:rec/mixins/loadable_mixin.dart';

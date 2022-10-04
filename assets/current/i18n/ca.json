@@ -517,5 +517,7 @@
     "CHEQUE_CULTURE": "Xec Cultural",
     "SETTINGS_PRIVACY": "Politiques de privacitat",
     "TAKE_PART": "Participa",
-    "CHALLENGES_DESC": "Contribueix a enfortir el comerç local i diverteix-te amb el REC superant aquests reptes!"
+    "CHALLENGES_DESC": "Contribueix a enfortir el comerç local i diverteix-te amb el REC superant aquests reptes!",
+    "DAY_REMAINING": "1 dia",
+    "DAYS_REMAINING": "{{remainingDays}} dies"
 }
