@@ -31,13 +31,14 @@ class RecNavigationBar extends StatelessWidget {
           icon: Icon(Icons.account_balance_wallet),
           label: localizations.translate('WALLET'),
         ),
+        // TODO: Only show item if setting active in API
+        BottomNavigationBarItem(
+          icon: Icon(Icons.groups),
+          label: localizations.translate('TAKE_PART'),
+        ),
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),
           label: localizations.translate('SETTINGS'),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.groups),
-          label: localizations.translate('CHALLENGES'),
         ),
       ],
       currentIndex: currentTabIndex!,

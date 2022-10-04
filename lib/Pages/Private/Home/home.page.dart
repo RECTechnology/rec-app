@@ -47,8 +47,9 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
   final List<Widget> _tabs = <Widget>[
     MapPage(key: GlobalKey()),
     WalletPageRec(key: GlobalKey()),
-    SettingsPage(key: GlobalKey()),
+    // TODO: Only show tab if setting active in API
     ChallengesPage(key: GlobalKey()),
+    SettingsPage(key: GlobalKey()),
   ];
 
   @override

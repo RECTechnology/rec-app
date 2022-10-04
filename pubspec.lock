@@ -797,7 +797,7 @@ packages:
       name: rec_api_dart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.0-alpha.7"
+    version: "1.4.0-alpha.8"
   sentry:
     dependency: transitive
     description:

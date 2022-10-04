@@ -162,7 +162,7 @@ class RecThemeData {
           fontSize: 12,
         ),
         caption: baseTheme.textTheme.caption!.copyWith(
-          color: grayDark,
+          color: grayLight,
           fontSize: 12,
           fontWeight: FontWeight.w400,
         ),
