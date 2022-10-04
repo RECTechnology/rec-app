@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/config/theme.dart';
 
 class ListViewExtra extends StatefulWidget {
   final WidgetBuilder? headerBuilder;
+  final WidgetBuilder? noItemsBuilder;
   final IndexedWidgetBuilder itemBuilder;
   final IndexedWidgetBuilder? separatorBuilder;
   final EdgeInsets? padding;
@@ -20,6 +22,7 @@ class ListViewExtra extends StatefulWidget {
     this.headerBuilder,
     this.padding,
     this.separatorBuilder,
+    this.noItemsBuilder,
   }) : super(key: key);
 
   @override
@@ -28,12 +31,20 @@ class ListViewExtra extends StatefulWidget {
 
 class _ListViewExtraState extends State<ListViewExtra> {
   int itemCount = 0;
+  bool hasItems = false;
 
   @override
   void initState() {
     itemCount = widget.itemCount;
+    hasItems = true;
+
     if (widget.headerBuilder != null) {
       itemCount += 1;
+    }
+
+    if (widget.itemCount <= 0) {
+      itemCount += 1;
+      hasItems = false;
     }
 
     super.initState();
@@ -54,6 +65,11 @@ class _ListViewExtraState extends State<ListViewExtra> {
           if (index == 0 && widget.headerBuilder != null) {
             return widget.headerBuilder!(innerContext);
           }
+          if (index == 1 && !hasItems) {
+            return widget.noItemsBuilder == null
+                ? _noItemsBuilder(context)
+                : widget.noItemsBuilder!(innerContext);
+          }
 
           return widget.itemBuilder(innerContext, index - (widget.headerBuilder != null ? 1 : 0));
         },
@@ -61,6 +77,12 @@ class _ListViewExtraState extends State<ListViewExtra> {
         physics: widget.physics,
         separatorBuilder: widget.separatorBuilder ?? (_, __) => SizedBox.shrink(),
       ),
+    );
+  }
+
+  _noItemsBuilder(BuildContext context) {
+    return ListTile(
+      title: LocalizedText('NO_ITEMS'),
     );
   }
 }
