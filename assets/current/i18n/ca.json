@@ -520,6 +520,6 @@
     "CHALLENGES_DESC": "Contribueix a enfortir el comerç local i diverteix-te amb el REC superant aquests reptes!",
     "DAY_REMAINING": "1 dia",
     "DAYS_REMAINING": "{{remainingDays}} dies",
-    "NO_CHALLENGES": "No hay retos",
-    "NO_CHALLENGES_DESC": "No hay ningún reto disponible todavia"
+    "NO_CHALLENGES": "No hi ha reptes",
+    "NO_CHALLENGES_DESC": "No hi ha cap repte encara"
 }
