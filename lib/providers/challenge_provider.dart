@@ -93,9 +93,9 @@ class ChallengesProvider extends ChangeNotifier {
   }
 
   static ChangeNotifierProvider<ChallengesProvider> getProvider(
-    ChallengesService service,
-    TransitionBuilder builder,
-  ) {
+    ChallengesService service, [
+    TransitionBuilder? builder,
+  ]) {
     return ChangeNotifierProvider(
       create: (context) => ChallengesProvider(
         service: service,

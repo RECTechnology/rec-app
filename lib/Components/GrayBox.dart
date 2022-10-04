@@ -4,18 +4,20 @@ import 'package:rec/config/theme.dart';
 /// Renders a gray box with optional padding
 class GrayBox extends StatelessWidget {
   final Widget? child;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
   final double? height;
+  final double? width;
   final double radius;
 
   const GrayBox({
     Key? key,
     this.child,
+    this.width,
+    this.height = 40,
     this.padding = const EdgeInsets.symmetric(
       horizontal: 8.0,
       vertical: 8.0,
     ),
-    this.height = 40,
     this.radius = 8,
   }) : super(key: key);
 
@@ -23,16 +25,17 @@ class GrayBox extends StatelessWidget {
   Widget build(BuildContext context) {
     final recTheme = RecTheme.of(context);
 
-    return Container(
-      height: height,
-      padding: padding,
-      decoration: BoxDecoration(
-        color: recTheme?.defaultAvatarBackground,
-        borderRadius: BorderRadius.all(
-          Radius.circular(radius),
-        ),
+    return ClipRRect(
+      borderRadius: BorderRadius.all(
+        Radius.circular(radius),
       ),
-      child: child,
+      child: Container(
+        height: height,
+        padding: padding,
+        width: width,
+        color: recTheme?.defaultAvatarBackground,
+        child: child,
+      ),
     );
   }
 }

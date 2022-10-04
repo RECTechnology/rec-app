@@ -521,5 +521,9 @@
     "DAY_REMAINING": "1 dia",
     "DAYS_REMAINING": "{{remainingDays}} dies",
     "NO_CHALLENGES": "No hi ha reptes",
-    "NO_CHALLENGES_DESC": "No hi ha cap repte encara"
+    "NO_CHALLENGES_DESC": "No hi ha cap repte encara",
+    "CHALLENGES": "Reptes",
+    "REWARDS": "Premis",
+    "REWARDS_DESC": "TODO: Waiting for text",
+    "MY_PURCHASES": "Les meues compres"
 }

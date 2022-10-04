@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rec/Components/Info/no_items_message.dart';
 import 'package:rec/Components/ListTiles/challenge_list_tile.dart';
 import 'package:rec/Components/Lists/list_view_extra.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
@@ -36,22 +37,9 @@ class _ChallengesTabState extends State<ChallengesTab> {
           );
         },
         noItemsBuilder: (context) {
-          return SizedBox(
-            height: MediaQuery.of(context).size.height * .6,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                LocalizedText(
-                  'NO_CHALLENGES',
-                  style: textTheme.headline4!.copyWith(
-                    color: recTheme.grayDark,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                LocalizedText('NO_CHALLENGES_DESC', style: textTheme.bodyMedium),
-              ],
-            ),
+          return NoItemsMessage(
+            title: 'NO_CHALLENGES',
+            subtitle: 'NO_CHALLENGES_DESC',
           );
         },
         separatorBuilder: (_, __) => SizedBox(height: 16),
