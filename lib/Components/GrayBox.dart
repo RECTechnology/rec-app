@@ -8,6 +8,7 @@ class GrayBox extends StatelessWidget {
   final double? height;
   final double? width;
   final double radius;
+  final VoidCallback? onTap;
 
   const GrayBox({
     Key? key,
@@ -19,6 +20,7 @@ class GrayBox extends StatelessWidget {
       vertical: 8.0,
     ),
     this.radius = 8,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -29,12 +31,17 @@ class GrayBox extends StatelessWidget {
       borderRadius: BorderRadius.all(
         Radius.circular(radius),
       ),
-      child: Container(
-        height: height,
-        padding: padding,
-        width: width,
+      child: Material(
         color: recTheme?.defaultAvatarBackground,
-        child: child,
+        child: InkWell(
+          onTap: onTap,
+          child: Container(
+            height: height,
+            padding: padding,
+            width: width,
+            child: child,
+          ),
+        ),
       ),
     );
   }

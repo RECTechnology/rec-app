@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/no_items_message.dart';
 import 'package:rec/Components/ListTiles/reward_tile.dart';
-import 'package:rec/Components/Lists/list_view_extra.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/info_badge.dart';
+import 'package:rec/Pages/Private/Home/Tabs/challenges/reward_details.page.dart';
 import 'package:rec/config/theme.dart';
+import 'package:rec/helpers/RecNavigation.dart';
 import 'package:rec/providers/reward_provider.dart';
 
 class RewardsTab extends StatefulWidget {
@@ -55,7 +56,15 @@ class _RewardsTabState extends State<RewardsTab> {
               children: rewardProvider.pendingRewards!.map((reward) {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 16, right: 32),
-                  child: RewardTile(reward: reward),
+                  child: RewardTile(
+                    reward: reward,
+                    onTap: () {
+                      RecNavigation.navigate(
+                        context,
+                        (context) => RewardDetailsPage(reward: reward),
+                      );
+                    },
+                  ),
                 );
               }).toList(),
             ),

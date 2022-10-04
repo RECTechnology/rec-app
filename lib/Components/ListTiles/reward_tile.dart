@@ -8,8 +8,9 @@ import 'package:rec_api_dart/rec_api_dart.dart';
 // TODO: On tap open details page
 class RewardTile extends StatelessWidget {
   final TokenReward reward;
+  final VoidCallback? onTap;
 
-  const RewardTile({Key? key, required this.reward}) : super(key: key);
+  const RewardTile({Key? key, required this.reward, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +19,7 @@ class RewardTile extends StatelessWidget {
       width: 128,
       radius: 6,
       padding: EdgeInsets.zero,
+      onTap: onTap,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,

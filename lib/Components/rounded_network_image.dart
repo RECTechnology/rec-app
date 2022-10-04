@@ -4,8 +4,8 @@ import 'package:rec/Components/Text/LocalizedText.dart';
 
 class RoundedNetworkImage extends StatelessWidget {
   final String imageUrl;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
 
   const RoundedNetworkImage({
     Key? key,
@@ -18,10 +18,9 @@ class RoundedNetworkImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.all(Radius.circular(6)),
-      child: Container(
+      child: CachedNetworkImage(
         width: width,
         height: height,
-        child: CachedNetworkImage(
           imageUrl: imageUrl,
           fit: BoxFit.cover,
           progressIndicatorBuilder: (c, e, s) {
@@ -36,7 +35,6 @@ class RoundedNetworkImage extends StatelessWidget {
               ),
             );
           },
-        ),
       ),
     );
   }
