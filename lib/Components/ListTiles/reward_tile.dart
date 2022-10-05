@@ -5,7 +5,6 @@ import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
-// TODO: On tap open details page
 class RewardTile extends StatelessWidget {
   final TokenReward reward;
   final VoidCallback? onTap;

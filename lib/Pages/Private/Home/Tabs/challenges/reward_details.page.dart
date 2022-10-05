@@ -40,7 +40,7 @@ class _RewardDetailsPageState extends State<RewardDetailsPage> {
                 ),
                 const SizedBox(height: 16),
                 LocalizedText(
-                  widget.reward.image,
+                  widget.reward.authorUrl,
                   style: TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),

@@ -7,10 +7,11 @@ import 'package:rec_api_dart/rec_api_dart.dart';
 class ChallengesProvider extends ChangeNotifier {
   final ChallengesService _service;
 
-  List<Challenge>? _pendingChallenges = [
+  final List<Challenge>? _pendingChallenges = [
     Challenge(
       status: ChallengeStatus.OPEN,
       action: ChallengeAction.BUY,
+      type: ChallengeType.CHALLENGE,
       title: 'Gasta 10R en tiendas que vendan productos ecológicosecológico ',
       description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed nisi tincidunt, tincidunt ex non, sollicitudin turpis. Fusce libero dui, egestas ac vehicula sit amet, viverra at elit. Proin consectetur lectus sed ex rhoncus, in sodales purus sodales. Pellentesque ut tortor euismod',
@@ -19,7 +20,7 @@ class ChallengesProvider extends ChangeNotifier {
       threshold: 0,
       amountRequired: 32,
       startDate: DateTime(2022, 10, 3, 8, 30),
-      endDate: DateTime(2022, 10, 6, 12, 30),
+      finishDate: DateTime(2022, 10, 6, 12, 30),
       activities: [],
       tokenReward: TokenReward(
         description: 'dsaadsdasads',
@@ -28,12 +29,14 @@ class ChallengesProvider extends ChangeNotifier {
         name: 'asddadas',
         status: 'dasdasdas',
         tokenId: 'asdadsads',
+        authorUrl: 'https://external-content.duckduckgo.com',
       ),
       owner: Account(),
     ),
     Challenge(
       status: ChallengeStatus.OPEN,
       action: ChallengeAction.BUY,
+      type: ChallengeType.CHALLENGE,
       title: 'REALIZA 2 COMPRAS EN TIENDAS QUE VENDAN PRODUCTO A GRANEL',
       description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed nisi tincidunt, tincidunt ex non, sollicitudin turpis. Fusce libero dui, egestas ac vehicula sit amet, viverra at elit.',
@@ -42,7 +45,7 @@ class ChallengesProvider extends ChangeNotifier {
       threshold: 4,
       amountRequired: 0,
       startDate: DateTime(2022, 10, 3, 8, 30),
-      endDate: DateTime(2022, 10, 12, 12, 30),
+      finishDate: DateTime(2022, 10, 12, 12, 30),
       activities: [],
       tokenReward: TokenReward(
         description: 'dsaadsdasads',
@@ -51,6 +54,7 @@ class ChallengesProvider extends ChangeNotifier {
         name: 'asddadas',
         status: 'dasdasdas',
         tokenId: 'asdadsads',
+        authorUrl: 'https://external-content.duckduckgo.com',
       ),
       owner: Account(),
     )

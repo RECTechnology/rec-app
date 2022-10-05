@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rec/environments/env.dart';
@@ -7,7 +6,7 @@ import 'package:rec_api_dart/rec_api_dart.dart';
 class RewardsProvider extends ChangeNotifier {
   final TokenRewardsService _service;
 
-  List<TokenReward>? _pendingRewards = [
+  final List<TokenReward>? _pendingRewards = [
     TokenReward(
       description: 'dsaadsdasads',
       image:
@@ -15,6 +14,7 @@ class RewardsProvider extends ChangeNotifier {
       name: 'Gasta 10R en tiendas que vendan productos ecológicos ',
       status: 'dasdasdas',
       tokenId: 'asdadsads',
+      authorUrl: 'https://external-content.duckduckgo.com',
     ),
     TokenReward(
       description: 'dsaadsdasads',
@@ -23,6 +23,7 @@ class RewardsProvider extends ChangeNotifier {
       name: 'Realiza 2 compras en tiendas que vendan producto a granel',
       status: 'dasdasdas',
       tokenId: 'asdadsads',
+      authorUrl: 'https://external-content.duckduckgo.com',
     ),
     TokenReward(
       description: 'dsaadsdasads',
@@ -31,6 +32,7 @@ class RewardsProvider extends ChangeNotifier {
       name: 'Envía 5 RECs a un amigo',
       status: 'dasdasdas',
       tokenId: 'asdadsads',
+      authorUrl: 'https://external-content.duckduckgo.com',
     ),
   ];
   bool isLoading = false;

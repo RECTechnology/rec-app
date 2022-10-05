@@ -105,7 +105,7 @@ class _ChallengeListTileState extends State<ChallengeListTile> {
               style: recTheme!.textTheme.link.copyWith(fontWeight: FontWeight.w400, fontSize: 12),
             ),
             ChallengeCountdownWidget(
-              date: widget.challenge.endDate,
+              date: widget.challenge.finishDate,
             ),
           ],
         ),
