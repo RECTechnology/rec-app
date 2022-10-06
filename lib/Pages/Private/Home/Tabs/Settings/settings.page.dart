@@ -8,7 +8,7 @@ import 'package:rec/Pages/Private/Home/Tabs/Settings/account/account_settings_li
 import 'package:rec/Pages/Private/Home/Tabs/Settings/campaigns/campaigns_settings_list.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/other/other_settings_list.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/user/user_settings_list.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/app_provider.dart';
 import 'package:rec/providers/documents_provider.dart';
 import 'package:rec/config/routes.dart';

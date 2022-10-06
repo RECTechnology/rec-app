@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/config/genders.dart';
 import 'package:rec/helpers/validators/validators.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 
 class GenderPicker extends StatelessWidget {
   final String? value;

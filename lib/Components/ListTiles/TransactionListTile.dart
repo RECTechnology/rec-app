@@ -7,7 +7,7 @@ import 'package:rec/Components/Wallet/transaction_title.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/transactions_utils.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';

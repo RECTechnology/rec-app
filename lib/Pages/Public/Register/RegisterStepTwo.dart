@@ -8,7 +8,7 @@ import 'package:rec/Components/Text/TitleText.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Public/Register/RegisterRequest.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/styles/paddings.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 

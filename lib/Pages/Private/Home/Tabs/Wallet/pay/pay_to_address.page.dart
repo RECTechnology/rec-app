@@ -7,7 +7,7 @@ import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Wallet/user_balance.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/attempt_payment.page.dart';
 import 'package:rec/config/theme.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 

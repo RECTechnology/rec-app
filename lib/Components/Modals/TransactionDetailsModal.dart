@@ -6,7 +6,7 @@ import 'package:rec/Components/Wallet/transaction_icon.dart';
 import 'package:rec/Components/Wallet/transaction_title.dart';
 import 'package:rec/Components/Wallet/amount_widget.dart';
 import 'package:rec/config/theme.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec/styles/box_decorations.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';

@@ -14,7 +14,7 @@ import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/mixins/loadable_mixin.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/qualifications_provider.dart';
 import 'package:rec/providers/transactions_provider.dart';
 import 'package:rec/providers/user_state.dart';

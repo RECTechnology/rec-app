@@ -4,7 +4,7 @@ import 'package:rec/Components/ListTiles/SettingsListTile.dart';
 import 'package:rec/Pages/Private/Shared/InAppBrowser.dart';
 import 'package:rec/helpers/RecNavigation.dart';
 import 'package:rec/config/routes.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 
 class OtherSettingsList extends StatelessWidget {
   const OtherSettingsList({Key? key}) : super(key: key);

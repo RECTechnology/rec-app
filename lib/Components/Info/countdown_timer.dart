@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 
 import 'timer_refresh_widget.dart';
 

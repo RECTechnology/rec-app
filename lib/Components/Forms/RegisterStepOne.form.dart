@@ -3,7 +3,7 @@ import 'package:rec/Components/Inputs/text_fields/DniTextField.dart';
 import 'package:rec/Components/Inputs/text_fields/PasswordField.dart';
 import 'package:rec/Components/Inputs/text_fields/PrefixPhoneField.dart';
 import 'package:rec/helpers/validators/validators.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class RegisterStepOneForm extends StatefulWidget {

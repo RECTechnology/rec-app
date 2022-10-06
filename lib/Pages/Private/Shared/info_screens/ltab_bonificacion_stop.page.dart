@@ -3,7 +3,7 @@ import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/config/theme.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/config/routes.dart';
 
 class LtabBonificacionStop extends StatefulWidget {

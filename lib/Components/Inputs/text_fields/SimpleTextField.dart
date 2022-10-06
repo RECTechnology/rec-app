@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 
 class SimpleTextField extends StatefulWidget {
   final String? initialValue;

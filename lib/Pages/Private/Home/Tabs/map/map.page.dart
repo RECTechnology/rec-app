@@ -12,7 +12,7 @@ import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/map_markers.dart';
 import 'package:rec/mixins/loadable_mixin.dart';
 import 'package:rec/preferences.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 

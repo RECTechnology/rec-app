@@ -5,7 +5,7 @@ import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/pay_to_address.page.dart'
 import 'package:rec/config/roles_definitions.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/BrowserHelper.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
