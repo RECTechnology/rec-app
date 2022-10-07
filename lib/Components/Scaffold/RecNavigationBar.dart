@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/providers/app_localizations.dart';
+import 'package:rec/extensions/config_settings_app_extension.dart';
+import 'package:rec/providers/app_provider.dart';
 
 class RecNavigationBar extends StatelessWidget {
   final int? currentTabIndex;
@@ -16,6 +18,7 @@ class RecNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
     final recTheme = RecTheme.of(context);
+    final config = AppProvider.of(context).configurationSettings;
 
     return BottomNavigationBar(
       iconSize: 22,
@@ -31,11 +34,11 @@ class RecNavigationBar extends StatelessWidget {
           icon: Icon(Icons.account_balance_wallet),
           label: localizations.translate('WALLET'),
         ),
-        // TODO: Only show item if setting active in API
-        BottomNavigationBarItem(
-          icon: Icon(Icons.groups),
-          label: localizations.translate('TAKE_PART'),
-        ),
+        if (config?.c2bEnabled == true)
+          BottomNavigationBarItem(
+            icon: Icon(Icons.groups),
+            label: localizations.translate('TAKE_PART'),
+          ),
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),
           label: localizations.translate('SETTINGS'),
