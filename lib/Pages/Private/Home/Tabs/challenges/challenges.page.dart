@@ -4,6 +4,7 @@ import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/challenges/challenges_tab.dart';
 import 'package:rec/Pages/Private/Home/Tabs/challenges/rewards_tab.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/mixins/loadable_mixin.dart';
 import 'package:rec/providers/challenge_provider.dart';
@@ -29,6 +30,8 @@ class _ChallengesPageState extends State<ChallengesPage>
 
   @override
   Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+   
     return MultiProvider(
       providers: [
         ChallengesProvider.getProvider(ChallengesService(env: env)),
@@ -53,12 +56,17 @@ class _ChallengesPageState extends State<ChallengesPage>
               ],
             ),
           ),
-          body: TabBarView(
-            controller: _tabController,
-            children: [
-              ChallengesTab(),
-              RewardsTab(),
-            ],
+          body: Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: ColorScheme.fromSwatch().copyWith(secondary: recTheme!.primaryColor),
+            ),
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                ChallengesTab(),
+                RewardsTab(),
+              ],
+            ),
           ),
         ),
       ),

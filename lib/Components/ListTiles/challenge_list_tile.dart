@@ -70,6 +70,8 @@ class _ChallengeListTileState extends State<ChallengeListTile> {
           ),
           Expanded(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 LocalizedText(
                   widget.challenge.title,
@@ -128,6 +130,7 @@ class _ChallengeListTileState extends State<ChallengeListTile> {
     return GrayBox(
       padding: widget.padding,
       height: null,
+      width: double.infinity,
       radius: 0,
       child: LocalizedText(
         widget.challenge.description,

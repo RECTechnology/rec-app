@@ -522,6 +522,8 @@
     "DAYS_REMAINING": "{{remainingDays}} dies",
     "NO_CHALLENGES": "No hi ha reptes",
     "NO_CHALLENGES_DESC": "No hi ha cap repte encara",
+    "NO_REWARDS": "No hi ha premis",
+    "NO_REWARDS_DESC": "No hi ha cap premi encara",
     "CHALLENGES": "Reptes",
     "REWARDS": "Premis",
     "REWARD": "Premi",

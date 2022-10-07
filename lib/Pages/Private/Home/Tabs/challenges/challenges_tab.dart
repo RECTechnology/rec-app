@@ -5,7 +5,6 @@ import 'package:rec/Components/Lists/list_view_extra.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/providers/challenge_provider.dart';
-import 'package:rec_api_dart/rec_api_dart.dart';
 
 class ChallengesTab extends StatefulWidget {
   ChallengesTab({Key? key}) : super(key: key);
@@ -15,35 +14,75 @@ class ChallengesTab extends StatefulWidget {
 }
 
 class _ChallengesTabState extends State<ChallengesTab> {
+  ChallengesProvider? challengeProvider;
+
+  @override
+  void didChangeDependencies() {
+    if (challengeProvider == null) {
+      challengeProvider = ChallengesProvider.of(context);
+      challengeProvider!.load();
+    }
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final recTheme = RecTheme.of(context);
     final challengeProvider = ChallengesProvider.of(context);
-    final challenges = challengeProvider.pendingChallenges ?? [];
+    final challenges = challengeProvider.challenges;
 
     return RefreshIndicator(
       color: recTheme!.primaryColor,
-      onRefresh: () => challengeProvider.loadPending(),
-      child: ListViewExtra(
-        itemCount: challenges.length,
-        padding: EdgeInsets.all(16),
-        headerBuilder: (context) {
-          return LocalizedText('CHALLENGES_DESC', style: textTheme.subtitle1);
-        },
-        itemBuilder: (context, index) {
-          return ChallengeListTile(
-            challenge: challenges[index],
-          );
-        },
-        noItemsBuilder: (context) {
-          return NoItemsMessage(
-            title: 'NO_CHALLENGES',
-            subtitle: 'NO_CHALLENGES_DESC',
-          );
-        },
-        separatorBuilder: (_, __) => SizedBox(height: 16),
+      onRefresh: () => challengeProvider.load(),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: LocalizedText('CHALLENGES_DESC', style: textTheme.subtitle1),
+          ),
+          Expanded(
+            child: ListView.separated(
+              padding: EdgeInsets.all(16),
+              itemBuilder: (_, index) {
+                return ChallengeListTile(
+                  challenge: challenges[index],
+                );
+              },
+              separatorBuilder: (_, __) => SizedBox(height: 16),
+              itemCount: challenges.length,
+            ),
+          )
+        ],
       ),
+      // child: ListViewExtra(
+      //   itemCount: challenges.length,
+      //   padding: EdgeInsets.all(16),
+      //   headerBuilder: (context) {
+      //     return LocalizedText('CHALLENGES_DESC', style: textTheme.subtitle1);
+      //   },
+      //   itemBuilder: (context, index) {
+      //     return ChallengeListTile(
+      //       challenge: challenges[index],
+      //     );
+      //   },
+      //   noItemsBuilder: (context) {
+      //     if (challengeProvider.isLoading && challengeProvider.challenges.isNotEmpty) {
+      //       return Column(
+      //         children: [CircularProgressIndicator()],
+      //       );
+      //     }
+
+      //     return SizedBox(
+      //       height: MediaQuery.of(context).size.height * .6,
+      //       child: NoItemsMessage(
+      //         title: 'NO_CHALLENGES',
+      //         subtitle: 'NO_CHALLENGES_DESC',
+      //       ),
+      //     );
+      //   },
+      //   separatorBuilder: (_, __) => SizedBox(height: 16),
+      // ),
     );
   }
 }

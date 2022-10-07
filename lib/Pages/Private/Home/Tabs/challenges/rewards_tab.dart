@@ -6,7 +6,7 @@ import 'package:rec/Components/info_badge.dart';
 import 'package:rec/Pages/Private/Home/Tabs/challenges/reward_details.page.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/RecNavigation.dart';
-import 'package:rec/providers/reward_provider.dart';
+import 'package:rec/providers/challenge_provider.dart';
 
 class RewardsTab extends StatefulWidget {
   RewardsTab({Key? key}) : super(key: key);
@@ -16,60 +16,67 @@ class RewardsTab extends StatefulWidget {
 }
 
 class _RewardsTabState extends State<RewardsTab> {
+  ChallengesProvider? challengeProvider;
+
+  @override
+  void didChangeDependencies() {
+    if (challengeProvider == null) {
+      challengeProvider = ChallengesProvider.of(context);
+      challengeProvider!.loadAccountChallenges();
+    }
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     final recTheme = RecTheme.of(context);
-    final rewardProvider = RewardsProvider.of(context);
-
     return RefreshIndicator(
       color: recTheme!.primaryColor,
-      onRefresh: () => rewardProvider.loadPending(),
+      onRefresh: () => challengeProvider!.loadAccountChallenges(),
       child: _content(),
     );
   }
 
   Widget _content() {
     final textTheme = Theme.of(context).textTheme;
-    final recTheme = RecTheme.of(context);
-    final rewardProvider = RewardsProvider.of(context);
 
-    return Theme(
-      data: Theme.of(context).copyWith(
-        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: recTheme!.primaryColor),
-      ),
-      child: ListView(
-        padding: const EdgeInsets.all(16.0),
-        children: [
-          LocalizedText('MY_PURCHASES', style: textTheme.subtitle1),
-          const SizedBox(height: 16),
-          _stats(),
-          const SizedBox(height: 16),
-          LocalizedText('REWARDS_DESC', style: textTheme.subtitle1),
-          const SizedBox(height: 16),
-          if (rewardProvider.pendingRewards!.isEmpty)
-            NoItemsMessage(
+    return ListView(
+      padding: const EdgeInsets.all(16.0),
+      children: [
+        LocalizedText('MY_PURCHASES', style: textTheme.subtitle1),
+        const SizedBox(height: 16),
+        _stats(),
+        const SizedBox(height: 16),
+        LocalizedText('REWARDS_DESC', style: textTheme.subtitle1),
+        const SizedBox(height: 16),
+        if (challengeProvider!.isLoading && challengeProvider!.accountChallenges.isNotEmpty)
+          CircularProgressIndicator(),
+        if (challengeProvider!.accountChallenges.isEmpty)
+          SizedBox(
+            height: MediaQuery.of(context).size.height * .4,
+            child: NoItemsMessage(
               title: 'NO_REWARDS',
               subtitle: 'NO_REWARDS_DESC',
             ),
-          if (rewardProvider.pendingRewards!.isNotEmpty)
-            Wrap(
-              children: rewardProvider.pendingRewards!.map((reward) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 16, right: 32),
-                  child: RewardTile(
-                    reward: reward,
-                    onTap: () {
-                      RecNavigation.navigate(
-                        context,
-                        (context) => RewardDetailsPage(reward: reward),
-                      );
-                    },
-                  ),
-                );
-              }).toList(),
-            ),
-        ],
-      ),
+          ),
+        if (challengeProvider!.accountChallenges.isNotEmpty)
+          Wrap(
+            children: challengeProvider!.accountChallenges.map((challenge) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 16, right: 32),
+                child: RewardTile(
+                  reward: challenge.tokenReward,
+                  onTap: () {
+                    RecNavigation.navigate(
+                      context,
+                      (context) => RewardDetailsPage(reward: challenge.tokenReward),
+                    );
+                  },
+                ),
+              );
+            }).toList(),
+          ),
+      ],
     );
   }
 

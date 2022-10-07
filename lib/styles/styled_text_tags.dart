@@ -34,11 +34,11 @@ redTag(RecThemeData theme) => StyledTextTag(
 
 getDefaultTags(RecThemeData theme) {
   return {
-    'bold': boldTag,
-    'semibold': semiboldTag,
-    'primary': primaryTag,
-    'secondary': secondaryTag,
-    'green': greenTag,
-    'red': redTag,
+    'bold': boldTag(theme),
+    'semibold': semiboldTag(theme),
+    'primary': primaryTag(theme),
+    'secondary': secondaryTag(theme),
+    'green': greenTag(theme),
+    'red': redTag(theme),
   };
 }

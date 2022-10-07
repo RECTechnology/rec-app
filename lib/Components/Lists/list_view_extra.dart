@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/config/theme.dart';
 
 class ListViewExtra extends StatefulWidget {
   final WidgetBuilder? headerBuilder;
@@ -13,7 +12,7 @@ class ListViewExtra extends StatefulWidget {
   final bool shrinkWrap;
   final ScrollPhysics? physics;
 
-  ListViewExtra({
+  const ListViewExtra({
     Key? key,
     required this.itemBuilder,
     required this.itemCount,
@@ -35,6 +34,18 @@ class _ListViewExtraState extends State<ListViewExtra> {
 
   @override
   void initState() {
+    _setup();
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    _setup();
+    setState(() {});
+    super.didChangeDependencies();
+  }
+
+  void _setup() {
     itemCount = widget.itemCount;
     hasItems = true;
 
@@ -46,37 +57,31 @@ class _ListViewExtraState extends State<ListViewExtra> {
       itemCount += 1;
       hasItems = false;
     }
-
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final recTheme = RecTheme.of(context);
+    return ListView.separated(
+      itemCount: itemCount,
+      padding: widget.padding,
+      itemBuilder: (innerContext, index) {
+        // If there is a headerBuilder and index is 0, use that builder
+        if (index == 0 && widget.headerBuilder != null) {
+          return widget.headerBuilder!(innerContext);
+        }
 
-    return Theme(
-      data: Theme.of(context).copyWith(
-        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: recTheme!.primaryColor),
-      ),
-      child: ListView.separated(
-        itemCount: itemCount,
-        padding: widget.padding,
-        itemBuilder: (innerContext, index) {
-          if (index == 0 && widget.headerBuilder != null) {
-            return widget.headerBuilder!(innerContext);
-          }
-          if (index == 1 && !hasItems) {
-            return widget.noItemsBuilder == null
-                ? _noItemsBuilder(context)
-                : widget.noItemsBuilder!(innerContext);
-          }
+        // If there are no items, show no items widget or supplied builder
+        if (index == 1 || index == 0 && !hasItems) {
+          return widget.noItemsBuilder == null
+              ? _noItemsBuilder(context)
+              : widget.noItemsBuilder!(innerContext);
+        }
 
-          return widget.itemBuilder(innerContext, index - (widget.headerBuilder != null ? 1 : 0));
-        },
-        shrinkWrap: widget.shrinkWrap,
-        physics: widget.physics,
-        separatorBuilder: widget.separatorBuilder ?? (_, __) => SizedBox.shrink(),
-      ),
+        return widget.itemBuilder(innerContext, index - (widget.headerBuilder != null ? 1 : 0));
+      },
+      shrinkWrap: widget.shrinkWrap,
+      physics: widget.physics,
+      separatorBuilder: widget.separatorBuilder ?? (_, __) => SizedBox.shrink(),
     );
   }
 

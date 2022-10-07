@@ -38,12 +38,13 @@ class _RewardDetailsPageState extends State<RewardDetailsPage> {
                   style: TextStyle(color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 16),
-                LocalizedText(
-                  widget.reward.authorUrl,
-                  style: TextStyle(color: Colors.white),
-                  textAlign: TextAlign.center,
-                ),
+                if (widget.reward.authorUrl != null) const SizedBox(height: 16),
+                if (widget.reward.authorUrl != null)
+                  LocalizedText(
+                    widget.reward.authorUrl!,
+                    style: TextStyle(color: Colors.white),
+                    textAlign: TextAlign.center,
+                  ),
                 const SizedBox(height: 16),
                 RoundedNetworkImage(
                   imageUrl: widget.reward.image,
