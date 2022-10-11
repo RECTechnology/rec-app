@@ -136,10 +136,10 @@ class _TransactionsListTile extends State<TransactionsListTile> {
 
     if (tx.isOut()) {
       amount = '-${tx.scaledAmount.toStringAsFixed(2)} R';
-      color = theme.red;
+      color = theme.negativeAmount;
     } else {
       amount = '+${tx.scaledAmount.toStringAsFixed(2)} R';
-      color = theme.primaryColor;
+      color = theme.positiveAmount;
     }
 
     return Text(
