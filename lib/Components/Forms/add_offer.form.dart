@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Icons/currency_icon.dart';
 import 'package:rec/Components/Inputs/OfferImage.dart';
 import 'package:rec/Components/Inputs/OfferTypeSelector.dart';
 import 'package:rec/Components/Inputs/form_fields/date_form_field.dart';
