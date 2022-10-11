@@ -13,8 +13,6 @@ import 'package:rec/providers/user_state.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 import 'package:rec/extensions/config_settings_app_extension.dart';
 
-// TODO: cleanup this widget
-
 class MapFilters extends StatefulWidget {
   final MapSearchData searchData;
   final ValueChanged<MapSearchData>? onChange;
@@ -40,6 +38,7 @@ class _MapFiltersState extends State<MapFilters> {
     final user = UserState.of(context).user;
     final recTheme = RecTheme.of(context);
 
+    final isRec = env.PROJECT_NAME == 'rec';
     final isInLtabCampaign = user!.getCampaignAccount(env.CMP_LTAB_CODE) != null;
     final ltabCampaign = campaignProvider.getCampaignByCode(env.CMP_LTAB_CODE);
     final cultureCampaign = campaignProvider.getCampaignByCode(env.CMP_CULT_CODE);
@@ -66,7 +65,7 @@ class _MapFiltersState extends State<MapFilters> {
               );
             },
           ),
-          if (showLtabFilter)
+          if (isRec && showLtabFilter)
             SelectableChip(
               label: 'title.link_ltab',
               isSelected: searchData.campaignCode == env.CMP_LTAB_CODE,
@@ -76,7 +75,7 @@ class _MapFiltersState extends State<MapFilters> {
                 );
               },
             ),
-          if (showCultureFilter)
+          if (isRec && showCultureFilter)
             SelectableChip(
               label: 'REC_CULTURAL',
               isSelected: searchData.campaignCode == env.CMP_CULT_CODE,
@@ -86,25 +85,26 @@ class _MapFiltersState extends State<MapFilters> {
                 );
               },
             ),
-          ActionChip(
-            label: LocalizedText(
-              searchData.activity == null ? 'CATEGORIES' : 'CATEGORIES_FILTERS',
-              params: {
-                'selected': searchData.activity == null
-                    ? ''
-                    : searchData.activity!.getNameForLocale(localizations!.locale),
-              },
-              style: TextStyle(
-                color: searchData.activity != null ? recTheme!.accentColor : recTheme!.grayDark2,
-                fontSize: 12,
+          if (isRec)
+            ActionChip(
+              label: LocalizedText(
+                searchData.activity == null ? 'CATEGORIES' : 'CATEGORIES_FILTERS',
+                params: {
+                  'selected': searchData.activity == null
+                      ? ''
+                      : searchData.activity!.getNameForLocale(localizations!.locale),
+                },
+                style: TextStyle(
+                  color: searchData.activity != null ? recTheme!.accentColor : recTheme!.grayDark2,
+                  fontSize: 12,
+                ),
               ),
+              backgroundColor: Colors.white,
+              pressElevation: 3,
+              elevation: 1,
+              onPressed: _openCategoriesFilterPage,
             ),
-            backgroundColor: Colors.white,
-            pressElevation: 3,
-            elevation: 1,
-            onPressed: _openCategoriesFilterPage,
-          ),
-          if (config?.badgeFiltersEnabled == true)
+          if (isRec && config?.badgeFiltersEnabled == true)
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: ActionChip(
@@ -116,7 +116,7 @@ class _MapFiltersState extends State<MapFilters> {
                         : searchData.badge!.getNameForLocale(localizations!.locale),
                   },
                   style: TextStyle(
-                    color: searchData.badge != null ? recTheme.accentColor : recTheme.grayDark2,
+                    color: searchData.badge != null ? recTheme!.accentColor : recTheme!.grayDark2,
                     fontSize: 12,
                   ),
                 ),
