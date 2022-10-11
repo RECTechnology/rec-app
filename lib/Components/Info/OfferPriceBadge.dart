@@ -28,7 +28,7 @@ class OfferBadge extends StatelessWidget {
     Widget? content;
     final recTheme = RecTheme.of(context);
     final primaryStyle = TextStyle(
-      color: recTheme!.primaryColor,
+      color: recTheme!.positiveAmount,
     );
 
     if (!offer!.isFree && offer!.initialPrice != null) {
@@ -62,17 +62,6 @@ class OfferBadge extends StatelessWidget {
           child: Center(
             child: content,
           ),
-        ),
-      ),
-    );
-
-    return ClipPath(
-      clipper: BadgeClipper(),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16).copyWith(left: 56),
-        decoration: BoxDecoration(color: Colors.white, boxShadow: [BoxShadows.elevation2()]),
-        child: Center(
-          child: content,
         ),
       ),
     );
