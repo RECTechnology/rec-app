@@ -109,7 +109,7 @@ class OfferPreviewTile extends StatelessWidget {
                       ),
                     ),
                   ),
-                  if (offer!.hasDiscount) OfferDiscount(offer: offer),
+                  if (offer!.hasDiscount && !offer!.isFree) OfferDiscount(offer: offer),
                 ],
               ),
             ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/ListTiles/OfferPreviewTile.dart';
+import 'package:rec/Components/ListTiles/offer_preview_tile.dart';
 import 'package:rec/Components/Lists/ScrollableList.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
