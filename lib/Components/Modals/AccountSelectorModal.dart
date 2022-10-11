@@ -147,8 +147,8 @@ class AccountSelectorModal {
           HomePageState.changeTab(context, 2);
         },
         style: OutlinedButton.styleFrom(
-          backgroundColor: recTheme!.grayDark,
-          side: BorderSide(width: 1, color: recTheme.grayDark2),
+          // backgroundColor: recTheme!.primaryColor,
+          side: BorderSide(width: 1, color: recTheme!.grayDark2),
         ),
         child: LocalizedText(
           'MANAGE_ACCOUNT',
