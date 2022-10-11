@@ -52,10 +52,7 @@ class _BussinessHeaderState extends State<BussinessHeader> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  Colors.white.withAlpha(0),
-                  Colors.white.withAlpha(255)
-                ],
+                colors: [Colors.white.withAlpha(0), Colors.white.withAlpha(255)],
               ),
             ),
           ),
@@ -86,33 +83,27 @@ class _BussinessHeaderState extends State<BussinessHeader> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Flexible(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              bottom: 8,
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 8),
+                          child: Text(
+                            widget.account!.name ?? 'Text not found',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: recTheme!.grayDark,
+                              fontWeight: FontWeight.w500,
                             ),
-                            child: Text(
-                              widget.account!.name ?? 'Text not found',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: recTheme!.grayDark,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              overflow: TextOverflow.visible,
-                            ),
+                            overflow: TextOverflow.visible,
                           ),
                         ),
                         widget.subtitle ??
-                            Flexible(
-                              child: Wrap(children: [
-                                Icon(Icons.schedule_outlined,
-                                    color: recTheme.grayDark),
+                            Wrap(
+                              children: [
+                                Icon(Icons.schedule_outlined, color: recTheme.grayDark, size: 20),
                                 SizedBox(width: 5),
                                 Container(
                                   margin: EdgeInsets.only(top: 4),
                                   child: LocalizedText(
-                                    widget.account!.schedule!
-                                        .getStateNameForDate(DateTime.now()),
+                                    widget.account!.schedule!.getStateNameForDate(DateTime.now()),
                                     style: TextStyle(
                                       fontSize: 14,
                                       color: recTheme.grayDark,
@@ -121,7 +112,7 @@ class _BussinessHeaderState extends State<BussinessHeader> {
                                     overflow: TextOverflow.visible,
                                   ),
                                 ),
-                              ]),
+                              ],
                             ),
                       ],
                     ),
