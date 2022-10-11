@@ -3,6 +3,7 @@ import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Text/RecAmountText.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/BadgeClipper.dart';
+import 'package:rec/styles/box_shadows.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class OfferBadge extends StatelessWidget {
@@ -17,10 +18,10 @@ class OfferBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (offer!.isPercent && offer!.discountedPrice == null) {
+    if (!offer!.isFree && offer!.isPercent && offer!.discountedPrice == null) {
       return SizedBox.shrink();
     }
-    if (offer!.initialPrice == null && offer!.discountedPrice == null) {
+    if (!offer!.isFree && offer!.initialPrice == null && offer!.discountedPrice == null) {
       return SizedBox.shrink();
     }
 
@@ -46,18 +47,53 @@ class OfferBadge extends StatelessWidget {
       );
     }
 
+    final clipper = BadgeClipper();
+
+    return CustomPaint(
+      painter: _ClipShadowShadowPainter(
+        clipper: clipper,
+        shadow: BoxShadows.elevation2(),
+      ),
+      child: ClipPath(
+        clipper: clipper,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16).copyWith(left: 56),
+          decoration: BoxDecoration(color: Colors.white),
+          child: Center(
+            child: content,
+          ),
+        ),
+      ),
+    );
+
     return ClipPath(
       clipper: BadgeClipper(),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16)
-            .copyWith(left: 56),
-        decoration: BoxDecoration(
-          color: Colors.white,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16).copyWith(left: 56),
+        decoration: BoxDecoration(color: Colors.white, boxShadow: [BoxShadows.elevation2()]),
         child: Center(
           child: content,
         ),
       ),
     );
+  }
+}
+
+class _ClipShadowShadowPainter extends CustomPainter {
+  final Shadow shadow;
+  final CustomClipper<Path> clipper;
+
+  _ClipShadowShadowPainter({required this.shadow, required this.clipper});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    var paint = shadow.toPaint();
+    var clipPath = clipper.getClip(size).shift(shadow.offset);
+    canvas.drawPath(clipPath, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
   }
 }

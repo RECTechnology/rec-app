@@ -135,6 +135,9 @@ class RecThemeData {
       tabBarTheme: baseTheme.tabBarTheme.copyWith(
         labelColor: primaryColor,
         unselectedLabelColor: grayDark3,
+        indicator: UnderlineTabIndicator(
+          borderSide: BorderSide(color: primaryColor, width: 2),
+        ),
       ),
       textTheme: baseTheme.textTheme.copyWith(
         bodyText1: baseTheme.textTheme.bodyText1!.copyWith(
