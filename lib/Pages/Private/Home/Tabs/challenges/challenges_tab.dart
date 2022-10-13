@@ -41,18 +41,37 @@ class _ChallengesTabState extends State<ChallengesTab> {
             padding: const EdgeInsets.all(16.0),
             child: LocalizedText('CHALLENGES_DESC', style: textTheme.subtitle1),
           ),
-          Expanded(
-            child: ListView.separated(
-              padding: EdgeInsets.all(16),
-              itemBuilder: (_, index) {
-                return ChallengeListTile(
-                  challenge: challenges[index],
-                );
-              },
-              separatorBuilder: (_, __) => SizedBox(height: 16),
-              itemCount: challenges.length,
+          if (challengeProvider.isLoading && challengeProvider.challenges.isNotEmpty)
+            Column(
+              children: [CircularProgressIndicator()],
             ),
-          )
+          if (!challengeProvider.isLoading && challengeProvider.challenges.isNotEmpty)
+            Expanded(
+              child: ListView.separated(
+                padding: EdgeInsets.all(16),
+                itemBuilder: (_, index) {
+                  return ChallengeListTile(
+                    challenge: challenges[index],
+                  );
+                },
+                separatorBuilder: (_, __) => SizedBox(height: 16),
+                itemCount: challenges.length,
+              ),
+            ),
+          if (challengeProvider.challenges.isEmpty)
+            Expanded(
+              child: ListView(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .6,
+                    child: NoItemsMessage(
+                      title: 'NO_CHALLENGES',
+                      subtitle: 'NO_CHALLENGES_DESC',
+                    ),
+                  )
+                ],
+              ),
+            ),
         ],
       ),
       // child: ListViewExtra(

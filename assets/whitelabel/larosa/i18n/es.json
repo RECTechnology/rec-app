@@ -99,6 +99,7 @@
     "RECHARGE_RECS": "Recargar ROSAS",
     "RECEIVE_PAYMENT": "Pedir ROSAS",
     "PAY_ACCOUNT_CONTACT": "Pagar a cuenta/contacto",
+    "PAY_ACCOUNT": "Pagar a cuenta",
     "PAY_QR": "Pagar con QR",
     "CHARGE": "Cobrar",
     "TX_STATUS": "Estado de transacción",
