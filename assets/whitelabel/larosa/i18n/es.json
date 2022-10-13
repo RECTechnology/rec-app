@@ -515,5 +515,6 @@
     "LOADING_REFUNDS": "Cargando devoluciones",
     "Sender account not in campaing": "La cuenta de envío no está en campaña",
     "NOTHING_TO_UPDATE": "Nada que actualizar",
-    "CHEQUE_CULTURE": "Cheque Cultural"
+    "CHEQUE_CULTURE": "Cheque Cultural",
+    "Bad password": "Contraseña incorrecta"
 }

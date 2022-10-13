@@ -517,5 +517,6 @@
     "Sender account not in campaing": "La cuenta de envío no está en campaña",
     "NOTHING_TO_UPDATE": "Nada que actualizar",
     "CHEQUE_CULTURE": "Cheque Cultural",
-    "SETTINGS_PRIVACY": "Politicas de privacidad"
+    "SETTINGS_PRIVACY": "Politicas de privacidad",
+    "Bad password": "Contraseña incorrecta"
 }
