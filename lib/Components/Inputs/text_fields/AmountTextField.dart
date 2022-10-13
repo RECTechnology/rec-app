@@ -87,7 +87,7 @@ class AmountTextFieldState extends State<AmountTextField> {
         FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]')),
       ],
       icon: FittedBox(
-        child: widget.icon ?? CurrencyIcon(color: recTheme!.grayLight, size: 24),
+        child: widget.icon ?? CurrencyIcon(color: recTheme!.grayLight, size: 20),
         fit: BoxFit.scaleDown,
       ),
     );

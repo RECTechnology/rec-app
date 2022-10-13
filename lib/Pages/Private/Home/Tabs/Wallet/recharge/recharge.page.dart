@@ -96,6 +96,7 @@ class _RechargePageState extends State<RechargePage> {
           child: UserBalance(
             balance: rechargeData.amount,
             label: 'TOTAL_RECHARGE',
+            currencyIcon: Icon(Icons.euro, color: Colors.white),
           ),
         ),
       ),
@@ -129,6 +130,7 @@ class _RechargePageState extends State<RechargePage> {
                     onChange: _amountChanged,
                     onSubmitted: (s) => _forwards(),
                     validator: _customAmountValidator,
+                    icon: Icon(Icons.euro),
                   ),
                   SizedBox(height: 32),
                   if (isCultureAccount) cultureDefinition!.rechargeDescriptionBuilder(context, {}),

@@ -48,9 +48,8 @@ class _CreatePermissionState extends State<CreatePermission> {
           child: OutlinedButton(
             onPressed: _addUser,
             style: OutlinedButton.styleFrom(
-              backgroundColor: recTheme!.grayDark,
               side: BorderSide(
-                color: _data.isValid ? recTheme.primaryColor : recTheme.grayLight2,
+                color: _data.isValid ? recTheme!.primaryColor : recTheme!.grayLight2,
               ),
               padding: const EdgeInsets.all(8.0),
             ),

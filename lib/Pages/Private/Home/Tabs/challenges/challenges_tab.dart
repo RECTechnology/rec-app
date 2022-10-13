@@ -41,11 +41,11 @@ class _ChallengesTabState extends State<ChallengesTab> {
             padding: const EdgeInsets.all(16.0),
             child: LocalizedText('CHALLENGES_DESC', style: textTheme.subtitle1),
           ),
-          if (challengeProvider.isLoading && challengeProvider.challenges.isNotEmpty)
+          if (challengeProvider.isLoading && challengeProvider.challenges.isEmpty)
             Column(
               children: [CircularProgressIndicator()],
             ),
-          if (!challengeProvider.isLoading && challengeProvider.challenges.isNotEmpty)
+          if (challengeProvider.challenges.isNotEmpty)
             Expanded(
               child: ListView.separated(
                 padding: EdgeInsets.all(16),
@@ -58,7 +58,7 @@ class _ChallengesTabState extends State<ChallengesTab> {
                 itemCount: challenges.length,
               ),
             ),
-          if (challengeProvider.challenges.isEmpty)
+          if (!challengeProvider.isLoading && challengeProvider.challenges.isEmpty)
             Expanded(
               child: ListView(
                 children: [

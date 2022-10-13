@@ -5,6 +5,8 @@ import 'asset_theme_shared.dart';
 final recTheme = RecThemeData(
   primaryColor: Color(0xff0098DA),
   accentColor: Color(0xffE05205),
+  negativeAmount: Color(0xffD91636),
+  positiveAmount: Color(0xff0098DA),
 
   red: Color(0xffD91636),
   green: Color(0xff21EB00),

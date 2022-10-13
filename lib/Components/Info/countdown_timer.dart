@@ -38,14 +38,16 @@ class CountdownWidget extends TimerRefreshWidget {
     final remainingMinutes = remainingTime.inMinutes - minutesRest;
 
     String label;
-    if (remainingHours < 24) {
+    if (remainingHours < 0) {
+      label = '0m';
+    } else if (remainingHours > 0 && remainingHours < 24) {
       label = '${remainingHours}h ${remainingMinutes}m';
+    } else if (remainingHours == 0) {
+      label = '${remainingMinutes}m';
     } else if (remainingDays == 1) {
       label = localizations!.translate('DAY_REMAINING');
-      // label = '$remainingDays dia';
     } else {
       label = localizations!.translate('DAYS_REMAINING', params: {'remainingDays': remainingDays});
-      // label = '$remainingDays dias';
     }
 
     return label;
@@ -63,7 +65,7 @@ class ChallengeCountdownWidget extends StatelessWidget {
     final captionTheme = Theme.of(context).textTheme.caption;
 
     return CountdownWidget(
-      builder: (BuildContext context, String value) {
+      builder: (context, value) {
         return Row(
           children: [
             LocalizedText(

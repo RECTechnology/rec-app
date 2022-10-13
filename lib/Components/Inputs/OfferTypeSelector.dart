@@ -30,7 +30,7 @@ class OfferTypeSelector extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildTypeLabel(OfferType.classic, 'RECs', recTheme),
+          _buildTypeLabel(OfferType.classic, 'CLASSIC', recTheme),
           _buildTypeLabel(OfferType.percentage, 'PERCENTAGE', recTheme),
           _buildTypeLabel(OfferType.free, 'FREE', recTheme),
         ],

@@ -59,7 +59,6 @@ class _DropDownState extends State<DropDown> {
           borderRadius: BorderRadius.all(Radius.circular(6)),
         );
 
-
     _dropDownMenuItems = getDropDownMenuItems();
     currentValue ??= _dropDownMenuItems![0].value;
 
