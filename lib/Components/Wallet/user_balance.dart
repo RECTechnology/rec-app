@@ -12,6 +12,7 @@ class UserBalance extends StatefulWidget {
   final Color? color;
   final Currency currency;
   final bool hidable;
+  final Widget? currencyIcon;
 
   UserBalance({
     this.label = 'TOTAL_BALANCE',
@@ -19,6 +20,7 @@ class UserBalance extends StatefulWidget {
     this.hidable = false,
     double? balance = 0,
     Currency? currency,
+    this.currencyIcon,
   })  : balance = balance ?? 0,
         currency = currency ?? Currency.rec;
 
@@ -76,7 +78,7 @@ class _UserBalance extends State<UserBalance> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0, left: 6),
-                  child: CurrencyIcon(color: widget.color ?? Colors.white),
+                  child: widget.currencyIcon ?? CurrencyIcon(color: widget.color ?? Colors.white),
                 ),
               ],
             ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Layout/ScrollableListLayout.dart';
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
-import 'package:rec/Components/ListTiles/OfferPreviewTile.dart';
+import 'package:rec/Components/ListTiles/offer_preview_tile.dart';
 import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
 import 'package:rec/Components/Modals/YesNoModal.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';

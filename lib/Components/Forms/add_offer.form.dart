@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Icons/currency_icon.dart';
 import 'package:rec/Components/Inputs/OfferImage.dart';
 import 'package:rec/Components/Inputs/OfferTypeSelector.dart';
 import 'package:rec/Components/Inputs/form_fields/date_form_field.dart';
@@ -95,7 +94,6 @@ class AddOfferForm extends StatelessWidget {
             padding: const EdgeInsets.only(left: 8.0),
             child: AmountTextField(
               label: 'DISCOUNT_PRICE',
-              icon: CurrencyIcon(color: theme.grayLight),
               initialValue: data.offerPrice == null ? '' : data.offerPrice.toString(),
               onChange: (val) {
                 onChange(data..offerPrice = double.tryParse(val));

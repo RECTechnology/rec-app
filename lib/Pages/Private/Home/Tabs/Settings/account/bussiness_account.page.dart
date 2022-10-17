@@ -76,39 +76,36 @@ class _BussinessAccountPageState extends State<BussinessAccountPage> {
     return ScrollableListLayout(
       backgroundColor: recTheme!.defaultAvatarBackground,
       appBar: EmptyAppBar(context, title: 'SETTINGS_BUSSINESS_ON_MAP'),
-      header: Container(
-        color: Colors.white,
-        child: BussinessHeader(
-          userState.account,
-          subtitle: Features.imageUploads
-              ? PickImage(
-                  onPick: _changePublicImage,
-                  title: 'IMAGE_PUBLIC',
-                  buttonLabel: 'UPDATE',
-                  hint: 'IMAGE_PUBLIC_DESC',
-                  padding: EdgeInsets.zero,
-                  child: LocalizedText(
-                    'CHANGE_IMAGE',
-                    style: TextStyle(
-                      color: recTheme.accentColor,
-                    ),
+      header: BussinessHeader(
+        userState.account,
+        subtitle: Features.imageUploads
+            ? PickImage(
+                onPick: _changePublicImage,
+                title: 'IMAGE_PUBLIC',
+                buttonLabel: 'UPDATE',
+                hint: 'IMAGE_PUBLIC_DESC',
+                padding: EdgeInsets.zero,
+                child: LocalizedText(
+                  'CHANGE_IMAGE',
+                  style: TextStyle(
+                    color: recTheme.accentColor,
                   ),
-                )
-              : null,
-          avatarBadge: Positioned(
-            bottom: -8,
-            right: -4,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Features.imageUploads
-                  ? PickImage(
-                      onPick: _changeCompanyImage,
-                      title: 'IMAGE_DE_CUENTA',
-                      buttonLabel: 'UPDATE',
-                      hint: 'IMAGE_DE_CUENTA_DESC',
-                    )
-                  : null,
-            ),
+                ),
+              )
+            : SizedBox.shrink(),
+        avatarBadge: Positioned(
+          bottom: -8,
+          right: -4,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Features.imageUploads
+                ? PickImage(
+                    onPick: _changeCompanyImage,
+                    title: 'IMAGE_DE_CUENTA',
+                    buttonLabel: 'UPDATE',
+                    hint: 'IMAGE_DE_CUENTA_DESC',
+                  )
+                : SizedBox.shrink(),
           ),
         ),
       ),

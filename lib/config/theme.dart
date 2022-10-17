@@ -17,6 +17,9 @@ class RecThemeData {
   final Color green;
   final Color green2;
 
+  final Color negativeAmount;
+  final Color positiveAmount;
+
   final Color backgroundPrivateColor;
   final Color backgroundCompanyColor;
   final Color backgroundBanner;
@@ -42,7 +45,7 @@ class RecThemeData {
   final LinearGradient gradientPrimary;
   final LinearGradient gradientSecondary;
   final LinearGradient gradientGray;
-  
+
   final RecAssetTheme assets;
   late RecTextTheme textTheme;
 
@@ -52,6 +55,8 @@ class RecThemeData {
     required this.red,
     required this.green,
     required this.green2,
+    required this.negativeAmount,
+    required this.positiveAmount,
     required this.backgroundPrivateColor,
     required this.backgroundCompanyColor,
     required this.backgroundBanner,
@@ -130,6 +135,9 @@ class RecThemeData {
       tabBarTheme: baseTheme.tabBarTheme.copyWith(
         labelColor: primaryColor,
         unselectedLabelColor: grayDark3,
+        indicator: UnderlineTabIndicator(
+          borderSide: BorderSide(color: primaryColor, width: 2),
+        ),
       ),
       textTheme: baseTheme.textTheme.copyWith(
         bodyText1: baseTheme.textTheme.bodyText1!.copyWith(
