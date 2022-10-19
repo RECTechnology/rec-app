@@ -6,7 +6,7 @@ final laRosaTheme = RecThemeData(
   primaryColor: Color(0xffE61872),
   accentColor: Color(0xff6BB900),
   negativeAmount: Color(0xffD91636),
-  positiveAmount: Color(0xff6BB900),
+  positiveAmount: Color(0xff00BD00),
 
   red: Color(0xffD91636),
   green: Color(0xff21EB00),

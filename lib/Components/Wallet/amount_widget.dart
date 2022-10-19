@@ -20,7 +20,7 @@ class AmountWidget extends StatelessWidget {
     final locale = AppLocalizations.of(context)?.locale;
     final recTheme = RecTheme.of(context);
 
-    final color = isNegative ? recTheme!.red : recTheme!.primaryColor;
+    final color = isNegative ? recTheme!.negativeAmount : recTheme!.positiveAmount;
     final amountFormatted = Currency.format(amount, locale: locale.toString());
     final amountString = isNegative ? '-$amountFormatted R' : '+$amountFormatted R';
 
@@ -53,7 +53,7 @@ class FancyAmountWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final recTheme = RecTheme.of(context);
-    final color = isNegative ? recTheme!.red : recTheme!.primaryColor;
+    final color = isNegative ? recTheme!.negativeAmount : recTheme!.positiveAmount;
     final baseStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w300)
         .merge(styleDouble)
         .copyWith(color: color);

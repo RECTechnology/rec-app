@@ -146,7 +146,7 @@ class AmountAggregate extends StatelessWidget {
       Currency.rec.scaleAmount(amount.abs()),
     );
     final prefix = amount.isNegative ? '-' : '+';
-    final color = amount.isNegative ? recTheme!.red : recTheme!.primaryColor;
+    final color = amount.isNegative ? recTheme!.negativeAmount : recTheme!.positiveAmount;
 
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),

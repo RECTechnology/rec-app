@@ -23,7 +23,10 @@ class RefundListTile extends StatelessWidget {
             FormattedDate(date: tx.createdAt, style: TextStyle(fontSize: 14)),
           ],
         ),
-        AmountWidget(amount: tx.scaledAmount, isNegative: tx.isOut())
+        AmountWidget(
+          amount: tx.scaledAmount,
+          isNegative: tx.isOut(),
+        )
       ],
     );
   }
