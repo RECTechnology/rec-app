@@ -836,10 +836,10 @@ packages:
   rec_api_dart:
     dependency: "direct main"
     description:
-      path: "/Users/keff_work/Documents/dev/work/REC/rec_api_dart"
-      relative: false
-    source: path
-    version: "1.4.0-alpha.9"
+      name: rec_api_dart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.0-alpha.10"
   rxdart:
     dependency: transitive
     description:
