@@ -7,6 +7,7 @@ import 'package:rec/Pages/Private/Home/Tabs/challenges/reward_details.page.dart'
 import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/RecNavigation.dart';
 import 'package:rec/providers/challenge_provider.dart';
+import 'package:rec/providers/user_state.dart';
 
 class RewardsTab extends StatefulWidget {
   RewardsTab({Key? key}) : super(key: key);
@@ -17,14 +18,23 @@ class RewardsTab extends StatefulWidget {
 
 class _RewardsTabState extends State<RewardsTab> {
   ChallengesProvider? challengeProvider;
+  UserState? userState;
 
   @override
   void didChangeDependencies() {
-    if (challengeProvider == null) {
-      challengeProvider = ChallengesProvider.of(context);
-      challengeProvider!.loadAccountChallenges();
+    if (challengeProvider == null && userState == null) {
+      challengeProvider ??= ChallengesProvider.of(context);
+      userState ??= UserState.of(context);
+
+      _load();
     }
+
     super.didChangeDependencies();
+  }
+
+  Future _load() async {
+    await challengeProvider!.loadAccountChallenges();
+    await userState!.getUserResume();
   }
 
   @override
@@ -32,7 +42,7 @@ class _RewardsTabState extends State<RewardsTab> {
     final recTheme = RecTheme.of(context);
     return RefreshIndicator(
       color: recTheme!.primaryColor,
-      onRefresh: () => challengeProvider!.loadAccountChallenges(),
+      onRefresh: _load,
       child: _content(),
     );
   }
@@ -89,8 +99,8 @@ class _RewardsTabState extends State<RewardsTab> {
             mainAxisSize: MainAxisSize.min,
             children: [
               LabelValueBadge(
-                label: 'RECs gastados',
-                value: '6.543,14 R',
+                label: 'AMOUNT_SPENT',
+                value: '${userState?.userResume?.totalSpent ?? 0} R',
               ),
             ],
           ),
@@ -101,8 +111,8 @@ class _RewardsTabState extends State<RewardsTab> {
             mainAxisSize: MainAxisSize.min,
             children: [
               LabelValueBadge(
-                label: 'Compras',
-                value: '54',
+                label: 'PURCHASES',
+                value: '${userState?.userResume?.totalPurchases ?? 0}',
               ),
             ],
           ),
@@ -113,8 +123,8 @@ class _RewardsTabState extends State<RewardsTab> {
             mainAxisSize: MainAxisSize.min,
             children: [
               LabelValueBadge(
-                label: 'Retos completados',
-                value: '3',
+                label: 'COMPLETED_CHALLENGES',
+                value: '${userState?.userResume?.completedChallenges ?? 0}',
               ),
             ],
           ),

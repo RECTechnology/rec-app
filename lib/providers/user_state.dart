@@ -16,6 +16,7 @@ class UserState with ChangeNotifier {
   final IStorage _storage;
   final UsersService userService;
 
+  UserResume? userResume;
   User? _user;
   User? _savedUser;
 
@@ -26,6 +27,7 @@ class UserState with ChangeNotifier {
     this._savedUser, {
     User? user,
     UsersService? userService,
+    UsersService? userResume,
   })  : _user = user,
         userService = userService ?? UsersService(env: env);
 
@@ -54,6 +56,15 @@ class UserState with ChangeNotifier {
     });
   }
 
+  Future<UserResume> getUserResume() {
+    return userService.getUserResume().then((resume) {
+      setUserResume(resume);
+      return resume;
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
   void clear() {
     _user = null;
   }
@@ -71,6 +82,11 @@ class UserState with ChangeNotifier {
   void setUser(User user) {
     _user = user;
     setSavedUser(user);
+  }
+
+  void setUserResume(UserResume resume) {
+    userResume = resume;
+    notifyListeners();
   }
 
   void setDocumentKinds(List<DocumentKind> kinds) {
