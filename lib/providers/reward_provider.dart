@@ -4,6 +4,7 @@ import 'package:rec/environments/env.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class RewardsProvider extends ChangeNotifier {
+  // ignore: unused_field
   final TokenRewardsService _service;
 
   final List<TokenReward>? _pendingRewards = [];

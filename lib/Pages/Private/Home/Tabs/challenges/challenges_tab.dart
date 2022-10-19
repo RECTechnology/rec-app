@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/no_items_message.dart';
 import 'package:rec/Components/ListTiles/challenge_list_tile.dart';
-import 'package:rec/Components/Lists/list_view_extra.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/providers/challenge_provider.dart';

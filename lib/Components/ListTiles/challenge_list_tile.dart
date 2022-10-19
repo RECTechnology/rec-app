@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/GrayBox.dart';
 import 'package:rec/Components/Info/countdown_timer.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/Components/Text/styled_text.dart';
 import 'package:rec/Components/rounded_network_image.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
@@ -96,16 +97,39 @@ class _ChallengeListTileState extends State<ChallengeListTile> {
 
   _countdownBar() {
     final recTheme = RecTheme.of(context);
+    final challenge = widget.challenge;
+    final isTxsChallenge = challenge.isThresholdChallenge;
+    final isAmountChallenge = challenge.isAmountChallenge;
+    double percentage = 0;
+
+    if (isTxsChallenge && challenge.stats.totalTxs > 0) {
+      percentage = challenge.threshold / challenge.stats.totalTxs;
+    }
+    if (isAmountChallenge && challenge.stats.totalAmount > 0) {
+      percentage = challenge.amountRequired / challenge.stats.totalAmount;
+    }
 
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            LocalizedText(
-              'REMAINING_RECS',
-              style: recTheme!.textTheme.link.copyWith(fontWeight: FontWeight.w400, fontSize: 12),
-            ),
+            if (isTxsChallenge)
+              LocalizedStyledText(
+                challenge.txsRemaining == 1 ? 'REMAINING_TXS_SINGLE' : 'REMAINING_TXS',
+                style: recTheme!.textTheme.link.copyWith(fontWeight: FontWeight.w400, fontSize: 12),
+                params: {
+                  'remaining': challenge.txsRemaining,
+                },
+              ),
+            if (isAmountChallenge)
+              LocalizedStyledText(
+                challenge.amountRemaining == 1 ? 'REMAINING_AMOUNT_SINGLE' : 'REMAINING_AMOUNT',
+                style: recTheme!.textTheme.link.copyWith(fontWeight: FontWeight.w400, fontSize: 12),
+                params: {
+                  'remaining': challenge.amountRemaining,
+                },
+              ),
             ChallengeCountdownWidget(
               date: widget.challenge.finishDate,
             ),
@@ -115,8 +139,8 @@ class _ChallengeListTileState extends State<ChallengeListTile> {
         ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(6)),
           child: LinearProgressIndicator(
-            value: 0.5,
-            backgroundColor: recTheme.backgroundPrivateColor,
+            value: percentage,
+            backgroundColor: recTheme!.backgroundPrivateColor,
             minHeight: 6,
           ),
         ),
