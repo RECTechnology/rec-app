@@ -60,7 +60,16 @@ class _RewardsTabState extends State<RewardsTab> {
         LocalizedText('REWARDS_DESC', style: textTheme.subtitle1),
         const SizedBox(height: 16),
         if (challengeProvider!.isLoading && challengeProvider!.accountChallenges.isNotEmpty)
-          CircularProgressIndicator(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                child: CircularProgressIndicator(),
+                height: 32,
+                width: 32,
+              ),
+            ],
+          ),
         if (challengeProvider!.accountChallenges.isEmpty)
           SizedBox(
             height: MediaQuery.of(context).size.height * .4,
@@ -69,7 +78,7 @@ class _RewardsTabState extends State<RewardsTab> {
               subtitle: 'NO_REWARDS_DESC',
             ),
           ),
-        if (challengeProvider!.accountChallenges.isNotEmpty)
+        if (challengeProvider!.accountChallenges.isNotEmpty && !challengeProvider!.isLoading)
           Wrap(
             children: challengeProvider!.accountChallenges.map((challenge) {
               return Padding(

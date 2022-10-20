@@ -27,6 +27,13 @@ class RewardTile extends StatelessWidget {
             imageUrl: reward.image,
             width: 128,
             height: 128,
+            errorWidget: (c, e, s) {
+              return GrayBox(
+                child: Center(
+                  child: LocalizedText('ERROR'),
+                ),
+              );
+            },
           ),
           _bottomPart(context),
         ],

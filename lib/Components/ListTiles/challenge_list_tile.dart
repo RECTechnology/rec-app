@@ -103,10 +103,19 @@ class _ChallengeListTileState extends State<ChallengeListTile> {
     double percentage = 0;
 
     if (isTxsChallenge && challenge.stats.totalTxs > 0) {
-      percentage = challenge.threshold / challenge.stats.totalTxs;
+      percentage = 1 - (challenge.threshold - challenge.stats.totalTxs) / challenge.threshold;
+    } else if (isAmountChallenge && challenge.stats.totalAmount > 0) {
+      percentage =
+          1 - (challenge.amountRequired - challenge.stats.totalAmount) / challenge.amountRequired;
+    } else if (challenge.amountRemaining <= 0 && challenge.txsRemaining <= 0) {
+      percentage = 1;
     }
-    if (isAmountChallenge && challenge.stats.totalAmount > 0) {
-      percentage = challenge.amountRequired / challenge.stats.totalAmount;
+
+    int remaining = 0;
+    if (challenge.amountRemaining > 0) {
+      remaining = challenge.amountRemaining;
+    } else if (challenge.txsRemaining > 0) {
+      remaining = challenge.txsRemaining;
     }
 
     return Column(
@@ -116,18 +125,18 @@ class _ChallengeListTileState extends State<ChallengeListTile> {
           children: [
             if (isTxsChallenge)
               LocalizedStyledText(
-                challenge.txsRemaining == 1 ? 'REMAINING_TXS_SINGLE' : 'REMAINING_TXS',
+                remaining == 1 ? 'REMAINING_TXS_SINGLE' : 'REMAINING_TXS',
                 style: recTheme!.textTheme.link.copyWith(fontWeight: FontWeight.w400, fontSize: 12),
                 params: {
-                  'remaining': challenge.txsRemaining,
+                  'remaining': remaining,
                 },
               ),
             if (isAmountChallenge)
               LocalizedStyledText(
-                challenge.amountRemaining == 1 ? 'REMAINING_AMOUNT_SINGLE' : 'REMAINING_AMOUNT',
+                remaining == 1 ? 'REMAINING_AMOUNT_SINGLE' : 'REMAINING_AMOUNT',
                 style: recTheme!.textTheme.link.copyWith(fontWeight: FontWeight.w400, fontSize: 12),
                 params: {
-                  'remaining': challenge.amountRemaining,
+                  'remaining': remaining,
                 },
               ),
             ChallengeCountdownWidget(

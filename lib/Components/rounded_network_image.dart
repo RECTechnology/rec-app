@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:rec/Components/GrayBox.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 
 class RoundedNetworkImage extends StatelessWidget {
@@ -21,20 +22,20 @@ class RoundedNetworkImage extends StatelessWidget {
       child: CachedNetworkImage(
         width: width,
         height: height,
-          imageUrl: imageUrl,
-          fit: BoxFit.cover,
-          progressIndicatorBuilder: (c, e, s) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          },
-          errorWidget: (c, e, s) {
-            return Container(
-              child: Center(
-                child: LocalizedText('ERROR'),
-              ),
-            );
-          },
+        imageUrl: imageUrl,
+        fit: BoxFit.cover,
+        progressIndicatorBuilder: (c, e, s) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+        errorWidget: (c, e, s) {
+          return GrayBox(
+            child: Center(
+              child: LocalizedText('ERROR'),
+            ),
+          );
+        },
       ),
     );
   }

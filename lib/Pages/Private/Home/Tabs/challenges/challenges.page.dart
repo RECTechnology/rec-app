@@ -51,8 +51,8 @@ class _ChallengesPageState extends State<ChallengesPage>
               unselectedLabelColor: Colors.white.withOpacity(0.8),
               indicatorColor: Colors.white,
               tabs: [
-                Tab(child: LocalizedText('CHALLENGES')),
-                Tab(child: LocalizedText('REWARDS')),
+                Tab(child: LocalizedText('CHALLENGES', uppercase: true)),
+                Tab(child: LocalizedText('REWARDS', uppercase: true)),
               ],
             ),
           ),
