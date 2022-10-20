@@ -106,19 +106,19 @@ android {
 
         larosa_pre {
             dimension "default"
-            applicationId "com.barcelona.rosa"
+            applicationId "cat.santfeliu.larosa-pre"
             versionNameSuffix "-rosa-pre"
         }
         
         larosa_sandbox {
             dimension "default"
-            applicationId "com.barcelona.larosa"
+            applicationId "cat.santfeliu.larosa-sandbox"
             versionNameSuffix "-larosa-sandbox"
         }
 
         larosa_prod {
             dimension "default"
-            applicationId "com.barcelona.larosa"
+            applicationId "cat.santfeliu.larosa"
             versionNameSuffix "-larosa"
         }
     }
