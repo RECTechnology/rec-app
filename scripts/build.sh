@@ -1,5 +1,5 @@
 #!/bin/bash
-# This script is a helper for building the app, for a certain whitelabel project and environment
+# This script is a helper for building the app for android, for a certain whitelabel project and environment
 # Usage: build.sh <env> <project>
 
 
@@ -24,6 +24,8 @@ if [ -z "$2" ]; then
 fi
 
 ./scripts/prepare-whitelabel.sh $1 $2
+
+./scripts/prepare-android-build.sh $2
 
 echo "Building app flavor: $2_$1"
 

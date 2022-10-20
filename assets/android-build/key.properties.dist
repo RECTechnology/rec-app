@@ -1,0 +1,8 @@
+# Store password
+storePassword=
+# key password
+keyPassword=
+# key alias
+keyAlias=
+# path to the keystore file
+storeFile=
