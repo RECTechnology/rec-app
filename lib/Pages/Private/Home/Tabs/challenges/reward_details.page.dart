@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/rounded_network_image.dart';
+import 'package:rec/Pages/Private/Shared/InAppBrowser.dart';
 import 'package:rec/config/theme.dart';
+import 'package:rec/helpers/BrowserHelper.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class RewardDetailsPage extends StatefulWidget {
@@ -40,10 +42,15 @@ class _RewardDetailsPageState extends State<RewardDetailsPage> {
                 ),
                 if (widget.reward.authorUrl != null) const SizedBox(height: 16),
                 if (widget.reward.authorUrl != null)
-                  LocalizedText(
-                    widget.reward.authorUrl!,
-                    style: TextStyle(color: Colors.white),
-                    textAlign: TextAlign.center,
+                  InkWell(
+                    child: LocalizedText(
+                      widget.reward.authorUrl!,
+                      style: TextStyle(color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                    onTap: () {
+                      InAppBrowser.openLink(context, widget.reward.authorUrl);
+                    },
                   ),
                 const SizedBox(height: 16),
                 RoundedNetworkImage(

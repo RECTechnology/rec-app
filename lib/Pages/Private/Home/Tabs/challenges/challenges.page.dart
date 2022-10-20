@@ -32,41 +32,35 @@ class _ChallengesPageState extends State<ChallengesPage>
   Widget build(BuildContext context) {
     final recTheme = RecTheme.of(context);
    
-    return MultiProvider(
-      providers: [
-        ChallengesProvider.getProvider(ChallengesService(env: env)),
-        RewardsProvider.getProvider(TokenRewardsService(env: env))
-      ],
-      child: WillPopScope(
-        onWillPop: () async {
-          return true;
-        },
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: PrivateAppBar(
-            size: 60,
-            bottom: TabBar(
-              controller: _tabController,
-              labelColor: Colors.white,
-              unselectedLabelColor: Colors.white.withOpacity(0.8),
-              indicatorColor: Colors.white,
-              tabs: [
-                Tab(child: LocalizedText('CHALLENGES', uppercase: true)),
-                Tab(child: LocalizedText('REWARDS', uppercase: true)),
-              ],
-            ),
+    return WillPopScope(
+      onWillPop: () async {
+        return true;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: PrivateAppBar(
+          size: 60,
+          bottom: TabBar(
+            controller: _tabController,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white.withOpacity(0.8),
+            indicatorColor: Colors.white,
+            tabs: [
+              Tab(child: LocalizedText('CHALLENGES', uppercase: true)),
+              Tab(child: LocalizedText('REWARDS', uppercase: true)),
+            ],
           ),
-          body: Theme(
-            data: Theme.of(context).copyWith(
-              colorScheme: ColorScheme.fromSwatch().copyWith(secondary: recTheme!.primaryColor),
-            ),
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                ChallengesTab(),
-                RewardsTab(),
-              ],
-            ),
+        ),
+        body: Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.fromSwatch().copyWith(secondary: recTheme!.primaryColor),
+          ),
+          child: TabBarView(
+            controller: _tabController,
+            children: [
+              ChallengesTab(),
+              RewardsTab(),
+            ],
           ),
         ),
       ),

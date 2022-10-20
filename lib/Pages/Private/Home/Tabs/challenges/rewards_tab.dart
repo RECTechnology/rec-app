@@ -8,6 +8,7 @@ import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/RecNavigation.dart';
 import 'package:rec/providers/challenge_provider.dart';
 import 'package:rec/providers/user_state.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
 class RewardsTab extends StatefulWidget {
   RewardsTab({Key? key}) : super(key: key);
@@ -109,7 +110,7 @@ class _RewardsTabState extends State<RewardsTab> {
             children: [
               LabelValueBadge(
                 label: 'AMOUNT_SPENT',
-                value: '${userState?.userResume?.totalSpent ?? 0} R',
+                value: '${Currency.rec.scaleAmount(userState?.userResume?.totalSpent ?? 0)} R',
               ),
             ],
           ),

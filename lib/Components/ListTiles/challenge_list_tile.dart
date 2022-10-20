@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:rec/Components/GrayBox.dart';
 import 'package:rec/Components/Info/countdown_timer.dart';
@@ -100,18 +102,21 @@ class _ChallengeListTileState extends State<ChallengeListTile> {
     final challenge = widget.challenge;
     final isTxsChallenge = challenge.isThresholdChallenge;
     final isAmountChallenge = challenge.isAmountChallenge;
+    final stats = challenge.stats;
     double percentage = 0;
 
-    if (isTxsChallenge && challenge.stats.totalTxs > 0) {
-      percentage = 1 - (challenge.threshold - challenge.stats.totalTxs) / challenge.threshold;
-    } else if (isAmountChallenge && challenge.stats.totalAmount > 0) {
-      percentage =
-          1 - (challenge.amountRequired - challenge.stats.totalAmount) / challenge.amountRequired;
+    // Calculate percentage remaining, must be between 0 and 1
+    if (isTxsChallenge && stats.totalTxs > 0) {
+      percentage = 1 - (challenge.threshold - stats.totalTxs) / challenge.threshold;
+    } else if (isAmountChallenge && stats.totalAmount > 0) {
+      percentage = 1 - (challenge.amountRequired - stats.totalAmount) / challenge.amountRequired;
     } else if (challenge.amountRemaining <= 0 && challenge.txsRemaining <= 0) {
       percentage = 1;
     }
 
+    // Calculate remaining, must be > 0
     int remaining = 0;
+
     if (challenge.amountRemaining > 0) {
       remaining = challenge.amountRemaining;
     } else if (challenge.txsRemaining > 0) {
