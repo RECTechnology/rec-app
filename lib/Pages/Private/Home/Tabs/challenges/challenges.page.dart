@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/challenges/challenges_tab.dart';
 import 'package:rec/Pages/Private/Home/Tabs/challenges/rewards_tab.dart';
 import 'package:rec/config/theme.dart';
-import 'package:rec/environments/env.dart';
 import 'package:rec/mixins/loadable_mixin.dart';
-import 'package:rec/providers/challenge_provider.dart';
-import 'package:rec/providers/reward_provider.dart';
-import 'package:rec_api_dart/rec_api_dart.dart';
 
 class ChallengesPage extends StatefulWidget {
   ChallengesPage({Key? key}) : super(key: key);
@@ -31,11 +26,9 @@ class _ChallengesPageState extends State<ChallengesPage>
   @override
   Widget build(BuildContext context) {
     final recTheme = RecTheme.of(context);
-   
+
     return WillPopScope(
-      onWillPop: () async {
-        return true;
-      },
+      onWillPop: () async => true,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: PrivateAppBar(
@@ -51,16 +44,19 @@ class _ChallengesPageState extends State<ChallengesPage>
             ],
           ),
         ),
-        body: Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: ColorScheme.fromSwatch().copyWith(secondary: recTheme!.primaryColor),
-          ),
-          child: TabBarView(
-            controller: _tabController,
-            children: [
-              ChallengesTab(),
-              RewardsTab(),
-            ],
+        body: Container(
+          color: Colors.white,
+          child: Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: ColorScheme.fromSwatch().copyWith(secondary: recTheme!.primaryColor),
+            ),
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                ChallengesTab(),
+                RewardsTab(),
+              ],
+            ),
           ),
         ),
       ),
