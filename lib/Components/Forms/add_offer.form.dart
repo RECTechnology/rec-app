@@ -4,7 +4,6 @@ import 'package:rec/Components/Inputs/OfferTypeSelector.dart';
 import 'package:rec/Components/Inputs/form_fields/date_form_field.dart';
 import 'package:rec/Components/Inputs/text_fields/AmountTextField.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
-import 'package:rec/Components/Inputs/text_fields/SimpleTextField.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/config/features.dart';
 import 'package:rec/config/theme.dart';

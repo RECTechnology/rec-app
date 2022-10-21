@@ -37,7 +37,7 @@ class _AccountOffersPageState extends State<AccountOffersPage> {
       ),
       backgroundColor: recTheme!.defaultAvatarBackground,
       header: Container(
-        color: recTheme!.defaultAvatarBackground,
+        color: recTheme.defaultAvatarBackground,
         padding: EdgeInsets.symmetric(vertical: 16),
         child: GeneralSettingsTile(
           title: 'PUBLISH_OFFER',
