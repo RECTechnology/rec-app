@@ -106,13 +106,13 @@ android {
 
         larosa_pre {
             dimension "default"
-            applicationId "cat.santfeliu.larosa-pre"
+            applicationId "cat.santfeliu.larosa_pre"
             versionNameSuffix "-rosa-pre"
         }
         
         larosa_sandbox {
             dimension "default"
-            applicationId "cat.santfeliu.larosa-sandbox"
+            applicationId "cat.santfeliu.larosa_sandbox"
             versionNameSuffix "-larosa-sandbox"
         }
 
