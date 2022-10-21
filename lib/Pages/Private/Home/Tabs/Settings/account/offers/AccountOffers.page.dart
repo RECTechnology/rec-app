@@ -35,7 +35,7 @@ class _AccountOffersPageState extends State<AccountOffersPage> {
         context,
         title: 'BUSSINESS_OFFERS',
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: recTheme!.defaultAvatarBackground,
       header: Container(
         color: recTheme!.defaultAvatarBackground,
         padding: EdgeInsets.symmetric(vertical: 16),
@@ -46,7 +46,11 @@ class _AccountOffersPageState extends State<AccountOffersPage> {
         ),
       ),
       children: [
-        SectionTitleTile('ACTIVE_OFFERS', textColor: recTheme.grayDark),
+        SectionTitleTile(
+          'ACTIVE_OFFERS',
+          textColor: recTheme.grayDark,
+          fontWeight: FontWeight.bold,
+        ),
         if (Checks.isEmpty(offers))
           Padding(
             padding: EdgeInsets.all(16),
@@ -54,12 +58,16 @@ class _AccountOffersPageState extends State<AccountOffersPage> {
           ),
         if (Checks.isNotEmpty(offers))
           ...offers!.map(
-            (offer) => Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: OfferPreviewTile(
-                key: Key(offer.id.toString()),
-                offer: offer,
-                onDelete: () => _onDelete(offer),
+            (offer) => Container(
+              color: Colors.white,
+              margin: EdgeInsets.only(bottom: 8),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: OfferPreviewTile(
+                  key: Key(offer.id.toString()),
+                  offer: offer,
+                  onDelete: () => _onDelete(offer),
+                ),
               ),
             ),
           ),
@@ -75,9 +83,10 @@ class _AccountOffersPageState extends State<AccountOffersPage> {
     ).then(_addedNewOffer);
   }
 
-  Future<User> _addedNewOffer(dynamic offer) {
+  Future _addedNewOffer(dynamic offer) async {
     var userState = UserState.of(context, listen: false);
-    return userState.getUser();
+    await userState.getUser();
+    setState(() {});
   }
 
   void _onDelete(Offer offer) async {

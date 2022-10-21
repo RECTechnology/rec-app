@@ -7,6 +7,7 @@ class SimpleTextField extends StatefulWidget {
   final Color color;
   final String? label;
   final bool readOnly;
+  final int? maxLength;
 
   final ValueChanged<String>? onChange;
   final FormFieldValidator<String>? validator;
@@ -19,6 +20,7 @@ class SimpleTextField extends StatefulWidget {
     this.label,
     this.color = Colors.black87,
     this.readOnly = false,
+    this.maxLength,
   }) : super(key: key);
 
   @override
@@ -44,6 +46,7 @@ class SimpleTextFieldState extends State<SimpleTextField> {
       readOnly: widget.readOnly,
       maxLines: 1,
       minLines: 1,
+      maxLength: widget.maxLength,
       icon: Icon(
         Icons.person,
         color: Colors.white,

@@ -14,4 +14,8 @@ class Features {
   static bool get newTxModal {
     return true;
   }
+
+  static int get offerDescriptionMaxChars {
+    return 80;
+  }
 }

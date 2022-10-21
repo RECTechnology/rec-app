@@ -30,6 +30,7 @@ class SectionTitleTile extends StatelessWidget {
         style: textTheme.subtitle1!.copyWith(
           color: textColor ?? color,
           fontWeight: fontWeight,
+          fontSize: 16,
         ),
       ),
     );

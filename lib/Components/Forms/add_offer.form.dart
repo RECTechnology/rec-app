@@ -3,8 +3,10 @@ import 'package:rec/Components/Inputs/OfferImage.dart';
 import 'package:rec/Components/Inputs/OfferTypeSelector.dart';
 import 'package:rec/Components/Inputs/form_fields/date_form_field.dart';
 import 'package:rec/Components/Inputs/text_fields/AmountTextField.dart';
+import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
 import 'package:rec/Components/Inputs/text_fields/SimpleTextField.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/config/features.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/validators/validators.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
@@ -46,9 +48,11 @@ class AddOfferForm extends StatelessWidget {
             if (data.type == OfferType.percentage) _percentTypeRow(recTheme!),
 
             // Fields for all types
-            SimpleTextField(
+            RecTextField(
               initialValue: data.description,
               label: 'DESCRIPTION',
+              maxLength: Features.offerDescriptionMaxChars,
+              maxLines: 3,
               onChange: (val) {
                 onChange(data..description = val);
               },

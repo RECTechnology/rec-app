@@ -39,8 +39,8 @@ class _GeneralSettingsTileState extends State<GeneralSettingsTile> {
     final textTheme = Theme.of(context).textTheme;
     final titleStyle = (widget.titleStyle ?? textTheme.subtitle1)!.copyWith(
       fontSize: 16,
-      fontWeight: FontWeight.w500,
-      color: widget.disabled ? recTheme!.grayLight3 : null,
+      fontWeight: FontWeight.bold,
+      color: widget.disabled ? recTheme!.grayDark : null,
     );
     final subtitleStyle = (widget.subtitleStyle ?? textTheme.caption)!.copyWith(
       fontSize: 14,
