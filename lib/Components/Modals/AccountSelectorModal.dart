@@ -55,7 +55,7 @@ class AccountSelectorModal {
 
   Widget newAccountButton() {
     final recTheme = RecTheme.of(context);
-    
+
     return PreferredSize(
       preferredSize: Size.fromHeight(80),
       child: InkWell(
@@ -139,15 +139,23 @@ class AccountSelectorModal {
 
   Widget _manageAccountButton() {
     final recTheme = RecTheme.of(context);
+    final userState = UserState.of(context);
+    final account = userState.user!.selectedAccount!;
+
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
       child: OutlinedButton(
         onPressed: () {
           Navigator.pop(context);
           HomePageState.changeTab(context, 2);
+
+          if (account.isPrivate()) {
+            Navigator.pushNamed(context, Routes.settingsYourAccount);
+          } else {
+            Navigator.pushNamed(context, Routes.settingsBussinessAccount);
+          }
         },
         style: OutlinedButton.styleFrom(
-          // backgroundColor: recTheme!.primaryColor,
           side: BorderSide(width: 1, color: recTheme!.grayDark2),
         ),
         child: LocalizedText(
