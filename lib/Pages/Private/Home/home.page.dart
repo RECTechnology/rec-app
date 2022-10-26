@@ -2,7 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Auth.dart';
 import 'package:rec/Components/Scaffold/RecNavigationBar.dart';
+import 'package:rec/Pages/Private/Home/Tabs/challenges/challenges.page.dart';
 import 'package:rec/environments/env.dart';
+import 'package:rec/providers/app_provider.dart';
 import 'package:rec/providers/campaign_manager.dart';
 import 'package:rec/helpers/RecNavigation.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/map.page.dart';
@@ -14,6 +16,7 @@ import 'package:rec/providers/user_state.dart';
 import 'package:rec/preferences.dart';
 import 'package:rec/config/routes.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
+import 'package:rec/extensions/config_settings_app_extension.dart';
 
 class HomePage extends StatefulWidget {
   final bool pollUser;
@@ -43,11 +46,11 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
   TransactionProvider? _transactionsProvider;
 
   final LoginService _loginService = LoginService(env: env);
-  final List<Widget> _tabs = <Widget>[
-    MapPage(key: GlobalKey()),
-    WalletPageRec(key: GlobalKey()),
-    SettingsPage(key: GlobalKey()),
-  ];
+
+  final Key mapKey = GlobalKey();
+  final Key walletKey = GlobalKey();
+  final Key settingsKey = GlobalKey();
+  final Key challengesKey = GlobalKey();
 
   @override
   void initState() {
@@ -86,10 +89,17 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
       );
     }
 
+    final config = AppProvider.of(context).configurationSettings;
+
     return Scaffold(
       body: IndexedStack(
         index: _currentTabIndex,
-        children: _tabs,
+        children: [
+          MapPage(key: mapKey),
+          WalletPageRec(key: walletKey),
+          if (config?.c2bEnabled == true) ChallengesPage(key: challengesKey),
+          SettingsPage(key: settingsKey),
+        ],
       ),
       bottomNavigationBar: RecNavigationBar(
         currentTabIndex: _currentTabIndex,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Icons/currency_icon.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/preference_provider.dart';
 import 'package:rec/providers/preferences/PreferenceDefinitions.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';

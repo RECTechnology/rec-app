@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rec/config/theme.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 
 /// [RecTextField] is the main TextField widget used in the app,
 /// independently or used in other widgets to add an extra layer, like [DniTextField]

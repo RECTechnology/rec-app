@@ -6,7 +6,7 @@ import 'package:rec/Pages/Private/Home/Tabs/map/badges_filters_page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/categories_filters_page.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/app_provider.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec/providers/user_state.dart';

@@ -4,7 +4,7 @@ import 'package:rec/Components/Layout/ScrollableListLayout.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
 import 'package:rec/helpers/RecNavigation.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/config/routes.dart';
 
 class GeneralSettingsPage extends StatelessWidget {

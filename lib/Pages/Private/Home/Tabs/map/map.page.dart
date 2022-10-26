@@ -12,7 +12,7 @@ import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/map_markers.dart';
 import 'package:rec/mixins/loadable_mixin.dart';
 import 'package:rec/preferences.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
@@ -132,6 +132,8 @@ class _MapPageState extends State<MapPage> with StateLoading {
   }
 
   void _search() async {
+    if (!mounted) return;
+
     ScaffoldMessenger.of(context).clearSnackBars();
 
     if (!MapMarkers.hasLoaded) {
@@ -144,6 +146,8 @@ class _MapPageState extends State<MapPage> with StateLoading {
   }
 
   void _onSearchResults(ApiListResponse<MapAccountData> value) {
+    if (!mounted) return;
+
     if (value.items.isEmpty) return _noSearchFound();
 
     stopLoading();
@@ -185,6 +189,7 @@ class _MapPageState extends State<MapPage> with StateLoading {
   }
 
   _onError(err) {
+    if (!mounted) return;
     RecToast.showError(context, err.toString());
   }
 

@@ -83,6 +83,12 @@
             "type": "shell"
         },
         {
+            "label": "build-larosa-apk",
+            "command": "./scripts/build.sh pre larosa",
+            "args": ["pre", "larosa"],
+            "type": "shell"
+        },
+        {
             "label": "build-prod-apk",
             "command": "flutter",
             "args": ["build", "apk", "--flavor", "prod", "--release"],
@@ -167,6 +173,15 @@
             "dependsOrder": "sequence",
             "dependsOn": [
                 "prepare-rec-pre",
+                "build-pre-apk",
+                "open-pre-apk-path"
+            ]
+        },
+        {
+            "label": "Build APK pre larosa",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "prepare-larosa-pre",
                 "build-pre-apk",
                 "open-pre-apk-path"
             ]

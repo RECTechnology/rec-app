@@ -9,7 +9,7 @@ import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/helpers/RecToast.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/styles/paddings.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 

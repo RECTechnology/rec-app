@@ -14,7 +14,8 @@ import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/mixins/loadable_mixin.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
+import 'package:rec/providers/challenge_provider.dart';
 import 'package:rec/providers/qualifications_provider.dart';
 import 'package:rec/providers/transactions_provider.dart';
 import 'package:rec/providers/user_state.dart';
@@ -172,9 +173,13 @@ class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
   void _onPaymentOk(PaymentResult paymentResult) async {
     final userState = UserState.of(context, listen: false);
     final transactionProvider = TransactionProvider.of(context, listen: false);
-
+    final challengeProvider = ChallengesProvider.of(context, listen: false);
+    
     await userState.getUser();
+    await userState.getUserResume();
     await transactionProvider.refresh();
+    await challengeProvider.load();
+    await challengeProvider.loadAccountChallenges();
 
     setIsLoading(false);
 

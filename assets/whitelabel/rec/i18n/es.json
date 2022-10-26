@@ -99,6 +99,7 @@
     "RECHARGE_RECS": "Recargar RECs",
     "RECEIVE_PAYMENT": "Pedir RECs",
     "PAY_ACCOUNT_CONTACT": "Pagar a cuenta/contacto",
+    "PAY_ACCOUNT": "Pagar a cuenta",
     "PAY_QR": "Pagar con QR",
     "CHARGE": "Cobrar",
     "TX_STATUS": "Estado de transacción",
@@ -538,5 +539,6 @@
     "REMAINING_TXS": "Quedan <bold><primary>{{remaining}} compras</primary></bold>",
     "REMAINING_AMOUNT": "Quedan <bold><primary>{{remaining}}R</primary></bold>",
     "REMAINING_TXS_SINGLE": "Queda <bold><primary>{{remaining}} compra</primary></bold>",
-    "REMAINING_AMOUNT_SINGLE": "Queda <bold><primary>{{remaining}}R</primary></bold>"
+    "REMAINING_AMOUNT_SINGLE": "Queda <bold><primary>{{remaining}}R</primary></bold>",
+    "Bad password": "Contraseña incorrecta"
 }

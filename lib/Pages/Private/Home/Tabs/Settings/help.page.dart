@@ -3,7 +3,7 @@ import 'package:rec/Components/Layout/ScrollableListLayout.dart';
 import 'package:rec/Components/ListTiles/SettingsListTile.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Pages/Private/Shared/InAppBrowser.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 
 class HelpPage extends StatelessWidget {
   @override

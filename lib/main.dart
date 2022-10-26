@@ -62,6 +62,7 @@ Future<void> setup(RecThemeData themeData) async {
   ]);
 
   timeago.setLocaleMessages('es', timeago.EsMessages());
+  timeago.setLocaleMessages('ca', timeago.CaMessages());
 }
 
 /// Configures EasyLoading with the current theme

@@ -5,7 +5,7 @@ import 'package:rec/Components/Info/OfferPriceBadge.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Text/OfferDiscount.dart';
 import 'package:rec/config/theme.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class OfferPreviewTile extends StatelessWidget {

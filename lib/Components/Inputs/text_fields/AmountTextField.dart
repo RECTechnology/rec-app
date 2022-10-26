@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:rec/Components/Icons/currency_icon.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
 import 'package:rec/config/theme.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 
 /// [AmountTextField] renders a TextField, with some options for handling amounts.
 /// Used when we need the user to enter an amount

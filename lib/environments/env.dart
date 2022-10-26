@@ -53,7 +53,7 @@ class Env extends RecEnvBase {
   String? DEEPLINK_URL = 'rec.barcelona';
 
   @override
-  String ENV_NAME = dotenv.isInitialized ? dotenv.get('ENV_NAME') : 'prod';
+  String ENV_NAME = dotenv.isInitialized ? dotenv.get('ENV_NAME') : 'pre';
 
   @override
   String PROJECT_NAME = dotenv.isInitialized ? dotenv.get('PROJECT_NAME') : 'rec';

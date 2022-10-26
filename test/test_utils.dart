@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/config/themes/rec.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/app_provider.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec/providers/documents_provider.dart';

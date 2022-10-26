@@ -3,7 +3,7 @@ import 'package:rec/Components/Inputs/SelectableChip.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/filter_group_list.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/badges_provider.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 

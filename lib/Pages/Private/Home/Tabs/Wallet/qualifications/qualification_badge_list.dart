@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/qualifications/qualification_badge.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 
 class QualificationBadgeList extends StatelessWidget {
   final List<QualificationVote> qualifications;

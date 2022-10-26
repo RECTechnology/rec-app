@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rec/config/theme.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/styles/styled_text_tags.dart';
 import 'package:styled_text/styled_text.dart';
 

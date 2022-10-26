@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/text_fields/RecTextField.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/validators/phone_validator.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 
 class PrefixPhoneField extends StatefulWidget {
   final String? prefix;

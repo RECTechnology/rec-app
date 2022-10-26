@@ -10,7 +10,7 @@ import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/Deeplinking.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/charge/ChargeQr.page.dart';
-import 'package:rec/providers/AppLocalizations.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 import 'package:share/share.dart';
