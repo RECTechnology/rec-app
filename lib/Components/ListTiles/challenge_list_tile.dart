@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:rec/Components/GrayBox.dart';
 import 'package:rec/Components/Info/countdown_timer.dart';
@@ -115,10 +113,10 @@ class _ChallengeListTileState extends State<ChallengeListTile> {
     }
 
     // Calculate remaining, must be > 0
-    int remaining = 0;
+    num remaining = 0;
 
     if (challenge.amountRemaining > 0) {
-      remaining = challenge.amountRemaining;
+      remaining = Currency.rec.scaleAmount(challenge.amountRemaining);
     } else if (challenge.txsRemaining > 0) {
       remaining = challenge.txsRemaining;
     }
