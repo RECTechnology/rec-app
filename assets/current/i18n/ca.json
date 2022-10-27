@@ -421,7 +421,6 @@
     "ADD_OFFER": "Publicar una oferta",
     "OFFER_TYPE": "Tipus d'oferta",
     "PERCENTAGE": "Percentatge",
-    "CLASSIC": "Clásica",
     "FREE": "Gratis",
     "PICK_IMAGE": "Selecciona imatge",
     "END_DATE": "Quan finalitza?",
@@ -518,6 +517,9 @@
     "NOTHING_TO_UPDATE": "Res que actualitzar",
     "CHEQUE_CULTURE": "Xec Cultural",
     "SETTINGS_PRIVACY": "Politiques de privacitat",
+    "CLASSIC": "Clásica",
+    "Bad password": "Contrasenya incorrecta",
+    "PAY_ACCOUNT": "Pagar a compte",
     "TAKE_PART": "Participa",
     "CHALLENGES_DESC": "Contribueix a enfortir el comerç local i diverteix-te amb el REC superant aquests reptes!",
     "DAY_REMAINING": "1 dia",
@@ -530,7 +532,7 @@
     "REWARDS": "Premis",
     "REWARD": "Premi",
     "AMOUNT_SPENT": "RECs gastats",
-    "PURCHASES": "Compras",
+    "PURCHASES": "Compres",
     "COMPLETED_CHALLENGES": "Reptes completats",
     "REWARDS_DESC": "Per cada repte que superis, rebràs una sorpresa que apareixerà en aquest apartat. Fes click a la imatge per descobrir-la!",
     "MY_PURCHASES": "Les meues compres",
@@ -538,7 +540,5 @@
     "REMAINING_AMOUNT": "Queden <bold><primary>{{remaining}}R</primary></bold>",
     "REMAINING_TXS_SINGLE": "Quede <bold><primary>{{remaining}} compra</primary></bold>",
     "REMAINING_AMOUNT_SINGLE": "Queda <bold><primary>{{remaining}}R</primary></bold>",
-
     "Bad password": "Contrasenya incorrecta"
 }
-

@@ -147,8 +147,6 @@ class AccountSelectorModal {
       child: OutlinedButton(
         onPressed: () {
           Navigator.pop(context);
-          HomePageState.changeTab(context, 2);
-
           if (account.isPrivate()) {
             Navigator.pushNamed(context, Routes.settingsYourAccount);
           } else {
