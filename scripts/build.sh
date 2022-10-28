@@ -25,8 +25,6 @@ fi
 
 ./scripts/prepare-whitelabel.sh $1 $2
 
-./scripts/prepare-android-build.sh $2
-
 echo "Building app flavor: $2_$1"
 
 flutter build apk --release --flavor="$2_$1" --ignore-deprecation

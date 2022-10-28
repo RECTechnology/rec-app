@@ -15,3 +15,6 @@ set -e
 
 # Copies assets for project
 ./scripts/prepare-assets.sh $2
+
+# copies the key.properties for the project from `./assets/android-build/<project>/key.properties` to `./android/key.properties`
+./scripts/prepare-android-build.sh $2

@@ -18,6 +18,10 @@ env/*.env
 env/*.env
 env/*/*.env
 
+assets/android-build/larosa/key.properties
+assets/android-build/rec/key.properties
+
+
 # IntelliJ related
 *.iml
 *.ipr
