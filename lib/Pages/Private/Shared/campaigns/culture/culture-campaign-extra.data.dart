@@ -21,7 +21,7 @@ class CultureExtraData extends FormData {
   @override
   Map<String, dynamic> toJson() {
     return {
-      'dateBirth': DateTime(birthYear!.year, 1, 1).toIso8601String(),
+      'dateBirth': DateTime.utc(birthYear!.year, 1, 1).toIso8601String(),
       'zip': zipCode,
       'gender': gender,
     };

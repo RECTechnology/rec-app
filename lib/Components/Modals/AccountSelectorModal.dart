@@ -3,7 +3,6 @@ import 'package:rec/Components/Info/rec_circle_avatar.dart';
 import 'package:rec/Components/ListTiles/AccountListTile.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/conditionals/show_if_roles.dart';
-import 'package:rec/Pages/Private/Home/home.page.dart';
 import 'package:rec/config/roles_definitions.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
@@ -158,7 +157,10 @@ class AccountSelectorModal {
         ),
         child: LocalizedText(
           'MANAGE_ACCOUNT',
-          style: Theme.of(context).textTheme.caption!.copyWith(fontWeight: FontWeight.w500),
+          style: Theme.of(context)
+              .textTheme
+              .caption!
+              .copyWith(fontWeight: FontWeight.w500),
         ),
       ),
     );
