@@ -30,6 +30,7 @@ class _BussinessHeaderState extends State<BussinessHeader> {
   @override
   Widget build(BuildContext context) {
     final recTheme = RecTheme.of(context);
+
     return PreferredSize(
       preferredSize: widget.preferredSize,
       child: Stack(

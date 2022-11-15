@@ -111,6 +111,7 @@ class _InAppBrowser extends State<InAppBrowser> {
               duration: Duration(milliseconds: 500),
               child: LinearProgressIndicator(
                 color: recTheme!.primaryColor,
+                backgroundColor: recTheme.backgroundPrivateColor,
               ),
             ),
           ],
