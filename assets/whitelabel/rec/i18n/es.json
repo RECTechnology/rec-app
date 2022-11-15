@@ -99,7 +99,6 @@
     "RECHARGE_RECS": "Recargar RECs",
     "RECEIVE_PAYMENT": "Pedir RECs",
     "PAY_ACCOUNT_CONTACT": "Pagar a cuenta/contacto",
-    "PAY_ACCOUNT": "Pagar a cuenta",
     "PAY_QR": "Pagar con QR",
     "CHARGE": "Cobrar",
     "TX_STATUS": "Estado de transacción",
@@ -521,7 +520,6 @@
     "Bad password": "Contraseña incorrecta",
     "PAY_ACCOUNT": "Pagar a cuenta",
     "TAKE_PART": "Participa",
-    "CHALLENGES_DESC": "",
     "DAY_REMAINING": "1 dia",
     "DAYS_REMAINING": "{{remainingDays}} dias",
     "NO_CHALLENGES": "No hay retos",
@@ -534,11 +532,10 @@
     "AMOUNT_SPENT": "RECs gastados",
     "PURCHASES": "Compras",
     "COMPLETED_CHALLENGES": "Retos completados",
-    "REWARDS_DESC": "",
     "MY_PURCHASES": "Mis compras",
     "REMAINING_TXS": "Quedan <bold><primary>{{remaining}} compras</primary></bold>",
     "REMAINING_AMOUNT": "Quedan <bold><primary>{{remaining}}R</primary></bold>",
     "REMAINING_TXS_SINGLE": "Queda <bold><primary>{{remaining}} compra</primary></bold>",
     "REMAINING_AMOUNT_SINGLE": "Queda <bold><primary>{{remaining}}R</primary></bold>",
-    "Bad password": "Contraseña incorrecta"
+    "NO_CARDS_SAVED": "No hay tarjetas guardadas"
 }
