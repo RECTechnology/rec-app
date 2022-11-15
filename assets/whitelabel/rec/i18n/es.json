@@ -520,6 +520,7 @@
     "Bad password": "Contraseña incorrecta",
     "PAY_ACCOUNT": "Pagar a cuenta",
     "TAKE_PART": "Participa",
+    "CHALLENGES_DESC": "Contribuye a fortalecer el comercio local y diviértete con la REC superando estos retos!",
     "DAY_REMAINING": "1 dia",
     "DAYS_REMAINING": "{{remainingDays}} dias",
     "NO_CHALLENGES": "No hay retos",
@@ -532,10 +533,16 @@
     "AMOUNT_SPENT": "RECs gastados",
     "PURCHASES": "Compras",
     "COMPLETED_CHALLENGES": "Retos completados",
+    "REWARDS_DESC": "Por cada reto que superes, recibirás una sorpresa que aparecerá en este apartado. Fez click a la imagen para descubrirla!",
     "MY_PURCHASES": "Mis compras",
     "REMAINING_TXS": "Quedan <bold><primary>{{remaining}} compras</primary></bold>",
     "REMAINING_AMOUNT": "Quedan <bold><primary>{{remaining}}R</primary></bold>",
     "REMAINING_TXS_SINGLE": "Queda <bold><primary>{{remaining}} compra</primary></bold>",
     "REMAINING_AMOUNT_SINGLE": "Queda <bold><primary>{{remaining}}R</primary></bold>",
-    "NO_CARDS_SAVED": "No hay tarjetas guardadas"
+    "NO_CARDS_SAVED": "No hay tarjetas guardadas",
+    "closes_at": "cierra a las {{when}}",
+    "closes_at_day": "cierra {{when}}",
+    "opens_at": "abre a las {{when}}",
+    "opens_at_day": "abre {{when}}",
+    "tomorrow": "mañana"
 }
