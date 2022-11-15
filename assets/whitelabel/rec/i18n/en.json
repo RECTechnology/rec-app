@@ -538,5 +538,6 @@
     "REMAINING_TXS": "<bold><primary>{{remaining}} purchases</primary></bold> remaining",
     "REMAINING_AMOUNT": "<bold><primary>{{remaining}}R</primary></bold> remaining",
     "REMAINING_TXS_SINGLE": "<bold><primary>{{remaining}} purchase</primary></bold> remaining",
-    "REMAINING_AMOUNT_SINGLE": "<bold><primary>{{remaining}}R</primary></bold> remaining"
+    "REMAINING_AMOUNT_SINGLE": "<bold><primary>{{remaining}}R</primary></bold> remaining",
+    "NO_CARDS_SAVED": "There aren't any saved cards"
 }
