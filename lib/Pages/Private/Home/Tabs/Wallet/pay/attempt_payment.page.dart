@@ -164,7 +164,7 @@ class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
     ).then((_) => _checkQualifications());
   }
 
-  void _onPaymentError(error) {
+  _onPaymentError(error) async {
     setIsLoading(false);
     Loading.dismiss();
     _showErrorToast(error);
@@ -174,7 +174,7 @@ class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
     final userState = UserState.of(context, listen: false);
     final transactionProvider = TransactionProvider.of(context, listen: false);
     final challengeProvider = ChallengesProvider.of(context, listen: false);
-    
+
     await userState.getUser();
     await userState.getUserResume();
     await transactionProvider.refresh();

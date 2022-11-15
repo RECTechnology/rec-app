@@ -73,34 +73,6 @@ class _ChallengesTabState extends State<ChallengesTab> {
             ),
         ],
       ),
-      // child: ListViewExtra(
-      //   itemCount: challenges.length,
-      //   padding: EdgeInsets.all(16),
-      //   headerBuilder: (context) {
-      //     return LocalizedText('CHALLENGES_DESC', style: textTheme.subtitle1);
-      //   },
-      //   itemBuilder: (context, index) {
-      //     return ChallengeListTile(
-      //       challenge: challenges[index],
-      //     );
-      //   },
-      //   noItemsBuilder: (context) {
-      //     if (challengeProvider.isLoading && challengeProvider.challenges.isNotEmpty) {
-      //       return Column(
-      //         children: [CircularProgressIndicator()],
-      //       );
-      //     }
-
-      //     return SizedBox(
-      //       height: MediaQuery.of(context).size.height * .6,
-      //       child: NoItemsMessage(
-      //         title: 'NO_CHALLENGES',
-      //         subtitle: 'NO_CHALLENGES_DESC',
-      //       ),
-      //     );
-      //   },
-      //   separatorBuilder: (_, __) => SizedBox(height: 16),
-      // ),
     );
   }
 }

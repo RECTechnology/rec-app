@@ -540,5 +540,9 @@
     "REMAINING_AMOUNT": "Queden <bold><primary>{{remaining}}R</primary></bold>",
     "REMAINING_TXS_SINGLE": "Quede <bold><primary>{{remaining}} compra</primary></bold>",
     "REMAINING_AMOUNT_SINGLE": "Queda <bold><primary>{{remaining}}R</primary></bold>",
-    "Bad password": "Contrasenya incorrecta"
+    "closes_at": "tanca a les {{when}}",
+    "closes_at_day": "tanca {{when}}",
+    "opens_at": "obre a les {{when}}",
+    "opens_at_day": "obre {{when}}",
+    "tomorrow": "demà"
 }

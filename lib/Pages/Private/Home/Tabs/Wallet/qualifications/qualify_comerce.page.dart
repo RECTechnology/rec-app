@@ -79,36 +79,38 @@ class _QualifyComercePageState extends State<QualifyComercePage> {
   Widget _body() {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          QualificationComerceHeader(
-            account: widget.accountToQualify,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 24, bottom: 12),
-            child: _questionTitle(),
-          ),
-          _helpMessage(),
-          Padding(
-            padding: const EdgeInsets.only(top: 12, bottom: 24),
-            child: QualificationBadgeList(
-              qualifications: _allQualifications,
-              qualificationChanged: _qualificationChanged,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            QualificationComerceHeader(
+              account: widget.accountToQualify,
             ),
-          ),
-          _counters(),
-          Padding(
-            padding: const EdgeInsets.only(top: 12, bottom: 12),
-            child: _footer(),
-          ),
-          Spacer(),
-          RecActionButton(
-            label: 'QUALIFY_CTA',
-            onPressed: _submitVotes,
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.only(top: 24, bottom: 12),
+              child: _questionTitle(),
+            ),
+            _helpMessage(),
+            Padding(
+              padding: const EdgeInsets.only(top: 12, bottom: 24),
+              child: QualificationBadgeList(
+                qualifications: _allQualifications,
+                qualificationChanged: _qualificationChanged,
+              ),
+            ),
+            _counters(),
+            Padding(
+              padding: const EdgeInsets.only(top: 12, bottom: 12),
+              child: _footer(),
+            ),
+            // Spacer(),
+            RecActionButton(
+              label: 'QUALIFY_CTA',
+              onPressed: _submitVotes,
+            ),
+          ],
+        ),
       ),
     );
   }

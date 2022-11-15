@@ -89,37 +89,43 @@ android {
     productFlavors {
         rec_sandbox {
             dimension "default"
-            applicationId "com.barcelona.sandbox"
+            applicationId "com.barcelona.rec"
             versionNameSuffix "-sandbox"
+            manifestPlaceholders = [uri: "rec.barcelona"]
         }
 
         rec_pre {
             dimension "default"
             applicationId "com.barcelona.prec"
             versionNameSuffix "-pre"
+            manifestPlaceholders = [uri: "rec.barcelona"]
         }
 
         rec_prod {
             dimension "default"
             applicationId "com.barcelona.rec"
+            manifestPlaceholders = [uri: "rec.barcelona"]
         }
 
         larosa_pre {
             dimension "default"
             applicationId "cat.santfeliu.larosa_pre"
             versionNameSuffix "-rosa-pre"
+            manifestPlaceholders = [uri: "larosa.santfeliu.cat"]
         }
         
         larosa_sandbox {
             dimension "default"
             applicationId "cat.santfeliu.larosa_sandbox"
             versionNameSuffix "-larosa-sandbox"
+            manifestPlaceholders = [uri: "larosa.santfeliu.cat"]
         }
 
         larosa_prod {
             dimension "default"
             applicationId "cat.santfeliu.larosa"
             versionNameSuffix "-larosa"
+            manifestPlaceholders = [uri: "larosa.santfeliu.cat"]
         }
     }
 }

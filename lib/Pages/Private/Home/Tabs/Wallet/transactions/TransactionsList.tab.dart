@@ -55,37 +55,45 @@ class _TransactionsListState extends State<TransactionsList> {
     final isLoading = transactionsProvider.loading;
     final itemCount = transactionsProvider.length + (hasMoreTx ? 1 : 0);
 
-    return RefreshIndicator(
-      color: color,
-      onRefresh: transactionsProvider.refresh,
-      child: Column(
-        children: [
-          Expanded(
-            child: Scrollbar(
-              thickness: 8,
-              trackVisibility: true,
-              radius: Radius.circular(3),
-              child: hasTransactions
-                  ? ListView.separated(
-                      separatorBuilder: (context, index) => Divider(height: 1),
-                      itemBuilder: (ctx, idx) {
-                        if (hasMoreTx && idx == transactionsProvider.length) {
-                          return _loadMore();
-                        }
+    return Theme(
+      //Inherit the current Theme and override only the accentColor property
+      data: Theme.of(context).copyWith(
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          secondary: color,
+        ),
+      ),
+      child: RefreshIndicator(
+        color: color,
+        onRefresh: transactionsProvider.refresh,
+        child: Column(
+          children: [
+            Expanded(
+              child: Scrollbar(
+                thickness: 8,
+                trackVisibility: true,
+                radius: Radius.circular(3),
+                child: hasTransactions
+                    ? ListView.separated(
+                        separatorBuilder: (context, index) => Divider(height: 1),
+                        itemBuilder: (ctx, idx) {
+                          if (hasMoreTx && idx == transactionsProvider.length) {
+                            return _loadMore();
+                          }
 
-                        return TransactionsListTile(
-                          tx: transactionsProvider.get(idx),
-                        );
-                      },
-                      itemCount: itemCount,
-                      physics: AlwaysScrollableScrollPhysics(),
-                    )
-                  : isLoading
-                      ? LoadingIndicator()
-                      : ListView(children: [_noItems()]),
-            ),
-          )
-        ],
+                          return TransactionsListTile(
+                            tx: transactionsProvider.get(idx),
+                          );
+                        },
+                        itemCount: itemCount,
+                        physics: AlwaysScrollableScrollPhysics(),
+                      )
+                    : isLoading
+                        ? LoadingIndicator()
+                        : ListView(children: [_noItems()]),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
