@@ -538,5 +538,6 @@
     "REMAINING_TXS": "Queden <bold><primary>{{remaining}} compres</primary></bold>",
     "REMAINING_AMOUNT": "Queden <bold><primary>{{remaining}}R</primary></bold>",
     "REMAINING_TXS_SINGLE": "Quede <bold><primary>{{remaining}} compra</primary></bold>",
-    "REMAINING_AMOUNT_SINGLE": "Queda <bold><primary>{{remaining}}R</primary></bold>"
+    "REMAINING_AMOUNT_SINGLE": "Queda <bold><primary>{{remaining}}R</primary></bold>",
+    "NO_CARDS_SAVED": "No hi ha targetes guardades"
 }
