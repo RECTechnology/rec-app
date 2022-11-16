@@ -520,11 +520,11 @@
     "Bad password": "Contrasenya incorrecta",
     "PAY_ACCOUNT": "Pagar a compte",
     "TAKE_PART": "Participa",
-    "test-term": "term de proba",
     "NO_CARDS_SAVED": "No hi ha targetes guardades",
     "closes_at": "tanca a les {{when}}",
     "closes_at_day": "tanca {{when}}",
     "opens_at": "obre a les {{when}}",
     "opens_at_day": "obre {{when}}",
-    "tomorrow": "demà"
+    "tomorrow": "demà",
+    "test-term": "term de proba"
 }
