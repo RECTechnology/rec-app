@@ -525,5 +525,6 @@
     "closes_at_day": "closes {{when}}",
     "opens_at": "opens at {{when}}",
     "opens_at_day": "opens {{when}}",
-    "tomorrow": "tomorrow"
+    "tomorrow": "tomorrow",
+    "Sender account not in Campaign": "The account with which you are trying to pay is not in campaign"
 }
