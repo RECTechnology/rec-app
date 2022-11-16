@@ -518,5 +518,12 @@
     "SETTINGS_PRIVACY": "Privacy policies",
     "CLASSIC": "Clásica",
     "Bad password": "Bad password",
-    "PAY_ACCOUNT": "Pay account"
+    "PAY_ACCOUNT": "Pay account",
+    "TAKE_PART": "Take part",
+    "NO_CARDS_SAVED": "There aren't any saved cards",
+    "closes_at": "closes at {{when}}",
+    "closes_at_day": "closes {{when}}",
+    "opens_at": "opens at {{when}}",
+    "opens_at_day": "opens {{when}}",
+    "tomorrow": "tomorrow"
 }
