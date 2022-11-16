@@ -544,5 +544,6 @@
     "closes_at_day": "tanca {{when}}",
     "opens_at": "obre a les {{when}}",
     "opens_at_day": "obre {{when}}",
-    "tomorrow": "demà"
+    "tomorrow": "demà",
+    "Sender account not in Campaign": "El compte amb la qual intentes pagar no aquesta en campanya"
 }
