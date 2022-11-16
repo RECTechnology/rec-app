@@ -518,5 +518,12 @@
     "SETTINGS_PRIVACY": "Politicas de privacidad",
     "CLASSIC": "Clásica",
     "Bad password": "Contraseña incorrecta",
-    "PAY_ACCOUNT": "Pagar a cuenta"
+    "PAY_ACCOUNT": "Pagar a cuenta",
+    "TAKE_PART": "Participa",
+    "NO_CARDS_SAVED": "No hay tarjetas guardadas",
+    "closes_at": "cierra a las {{when}}",
+    "closes_at_day": "cierra {{when}}",
+    "opens_at": "abre a las {{when}}",
+    "opens_at_day": "abre {{when}}",
+    "tomorrow": "mañana"
 }
