@@ -99,7 +99,6 @@
     "RECHARGE_RECS": "Recarregar RECS",
     "RECEIVE_PAYMENT": "Demanar RECS",
     "PAY_ACCOUNT_CONTACT": "Pagar a compte/contacte",
-    "PAY_ACCOUNT": "Pagar a compte",
     "PAY_QR": "Pagar amb QR",
     "CHARGE": "Cobrar",
     "TX_STATUS": "Estat de transacció",
@@ -497,7 +496,7 @@
     "TRANSACTION_DETAILS": "Detalls de la transacció",
     "REFERENCE_ID": "ID de referéncia",
     "REFUND": "Devolució",
-    "SAVED_CARD_DESC": "Per afegir una targeta, realitza una recàrrega i selecciona \"guardar targeta\". D'aquesta manera no caldrà tornar-la introduir de nou.",
+    "SAVED_CARD_DESC": "Per afegir una targeta, realitza una recàrrega i selecciona \"guardar targeta\". D'aquesta manera no caldrà tornar-la a introduir de nou.",
     "AVAILABLE_CARDS": "Disponible",
     "SAVED_CARDS": "Targetes guardades",
     "SETTINGS_USER_CARDS": "Targetes guardades",
@@ -540,9 +539,11 @@
     "REMAINING_AMOUNT": "Queden <bold><primary>{{remaining}}R</primary></bold>",
     "REMAINING_TXS_SINGLE": "Quede <bold><primary>{{remaining}} compra</primary></bold>",
     "REMAINING_AMOUNT_SINGLE": "Queda <bold><primary>{{remaining}}R</primary></bold>",
+    "NO_CARDS_SAVED": "No hi ha targetes guardades",
     "closes_at": "tanca a les {{when}}",
     "closes_at_day": "tanca {{when}}",
     "opens_at": "obre a les {{when}}",
     "opens_at_day": "obre {{when}}",
-    "tomorrow": "demà"
+    "tomorrow": "demà",
+    "Sender account not in Campaign": "El compte amb la qual intentes pagar no aquesta en campanya"
 }

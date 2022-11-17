@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rec/Components/Info/rec_circle_avatar.dart';
 import 'package:rec/Components/Wallet/transaction_icon.dart';
@@ -15,6 +16,7 @@ import '../../test_utils.dart';
 void main() {
   group('TransactionIcon', () {
     testWidgets('does build correctly', (tester) async {
+      await dotenv.load(fileName: "env/.env-test");
       await tester.runAsync(() async {
         final title = TransactionIcon(TransactionMock.transactionIn);
         await tester.pumpWidget(
@@ -36,6 +38,7 @@ void main() {
       CampaignProvider? campaignsProvider,
     }) async {
       final title = TransactionIcon(transaction);
+      await dotenv.load(fileName: "env/.env-test");
       await tester.pumpWidget(
         await TestUtils.wrapPrivateRoute(
           title,

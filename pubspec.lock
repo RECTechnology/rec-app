@@ -839,7 +839,7 @@ packages:
       name: rec_api_dart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.0-alpha.13"
+    version: "1.4.0-alpha.14"
   rxdart:
     dependency: transitive
     description:

@@ -54,6 +54,7 @@ class RecToast {
     Color? backgroundColor = Colors.black87,
     double elevation = 1,
   }) {
+    debugPrint('TOAST: ${msg.toString()}');
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: backgroundColor,

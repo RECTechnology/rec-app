@@ -17,7 +17,7 @@ dependencies:
   flutter_speed_dial: ^4.6.6
   flutter_dotenv: ^5.0.2
   flutter_svg: ^1.1.5
-  rec_api_dart: ^1.4.0-alpha.13
+  rec_api_dart: ^1.4.0-alpha.14
   # rec_api_dart: 
   #   path: /Users/keff_work/Documents/dev/work/REC/rec_api_dart
   contacts_service: ^0.6.3

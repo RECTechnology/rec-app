@@ -6,6 +6,7 @@ import 'package:rec/Components/conditionals/show_if_roles.dart';
 import 'package:rec/config/roles_definitions.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
+import 'package:rec/providers/challenge_provider.dart';
 import 'package:rec/providers/transactions_provider.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec/config/routes.dart';
@@ -157,10 +158,7 @@ class AccountSelectorModal {
         ),
         child: LocalizedText(
           'MANAGE_ACCOUNT',
-          style: Theme.of(context)
-              .textTheme
-              .caption!
-              .copyWith(fontWeight: FontWeight.w500),
+          style: Theme.of(context).textTheme.caption!.copyWith(fontWeight: FontWeight.w500),
         ),
       ),
     );
@@ -224,13 +222,18 @@ class AccountSelectorModal {
   /// Method called once the account has changed
   /// I'm leaving this here, as account change will only happen here for now
   /// But if a better way is found this might be changed
+  /// TODO: Look for a better way of updating this data
   void onAccountChange(Account account) async {
     final userState = UserState.of(context, listen: false);
     final transactionsProvider = TransactionProvider.of(context, listen: false);
+    final challengeProvider = ChallengesProvider.of(context, listen: false);
 
     userState.setSelectedAccount(account);
     await userState.getUser();
+    userState.getUserResume();
     transactionsProvider.refresh();
+    challengeProvider.load();
+    challengeProvider.loadAccountChallenges();
 
     Loading.dismiss();
   }

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Inputs/text_fields/RecPinInput.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
-import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/styles/paddings.dart';
 import 'package:rec/config/routes.dart';
 
@@ -36,14 +34,12 @@ class _EnterPinState extends State<EnterPin> {
   bool get formValid => Checks.isNotEmpty(pin) && pin!.length == 4;
 
   Widget _body() {
-    final localizations = AppLocalizations.of(context);
-    final btnLabel = widget.buttonContent ?? localizations!.translate('NEXT');
     final recTheme = RecTheme.of(context);
 
     return Padding(
       padding: Paddings.page,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Center(
             child: LocalizedText(
@@ -64,6 +60,7 @@ class _EnterPinState extends State<EnterPin> {
           Form(
             key: _formKey,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: 16),
                 Padding(
@@ -82,12 +79,6 @@ class _EnterPinState extends State<EnterPin> {
                     'FORGOT_PIN',
                     style: recTheme.textTheme.link,
                   ),
-                ),
-                RecActionButton(
-                  label: btnLabel,
-                  icon: widget.buttonWithArrow ? Icons.arrow_forward_ios_outlined : null,
-                  backgroundColor: recTheme.primaryColor,
-                  onPressed: formValid ? _next : null,
                 ),
               ],
             ),
