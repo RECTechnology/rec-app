@@ -64,6 +64,17 @@
             ]
         },
         {
+            "preLaunchTask": "prepare-larosa-prod",
+            "name": "LaRosa - Dev (ios, PROD)",
+            
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor=LaRosa",
+                "--ignore-deprecation"
+            ]
+        },
+        {
             "preLaunchTask": "prepare-larosa-sandbox",
             "name": "LaRosa - Dev (SANDBOX)",
             

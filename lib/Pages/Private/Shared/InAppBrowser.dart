@@ -62,6 +62,7 @@ class _InAppBrowser extends State<InAppBrowser> {
   void initState() {
     super.initState();
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    print('link ${widget.url}');
   }
 
   void startLoading(String path) {
@@ -87,7 +88,7 @@ class _InAppBrowser extends State<InAppBrowser> {
   @override
   Widget build(BuildContext context) {
     final recTheme = RecTheme.of(context);
-  
+
     return SafeArea(
       child: Scaffold(
         appBar: EmptyAppBar(
@@ -102,6 +103,11 @@ class _InAppBrowser extends State<InAppBrowser> {
               javascriptMode: JavascriptMode.unrestricted,
               onPageFinished: doneLoading,
               onPageStarted: startLoading,
+              onWebResourceError: (e) {
+                print('ERROOR');
+                print(e.errorType);
+                print(e.description);
+              },
               onWebViewCreated: (controller) {
                 this.controller = controller;
               },

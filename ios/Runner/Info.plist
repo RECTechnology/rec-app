@@ -84,5 +84,6 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
 </dict>
 </plist>
