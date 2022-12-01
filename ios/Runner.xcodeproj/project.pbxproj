@@ -976,7 +976,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 97;
+				CURRENT_PROJECT_VERSION = 103;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -994,7 +994,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.4.1;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cat.santfeliu.larosa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1017,7 +1017,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 97;
+				CURRENT_PROJECT_VERSION = 103;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1035,7 +1035,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.4.1;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cat.santfeliu.larosa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1057,7 +1057,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 97;
+				CURRENT_PROJECT_VERSION = 103;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1075,7 +1075,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.4.1;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cat.santfeliu.larosa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1191,7 +1191,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 97;
+				CURRENT_PROJECT_VERSION = 103;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1209,7 +1209,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.4.1;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cat.santfeliu.larosa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1322,7 +1322,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 97;
+				CURRENT_PROJECT_VERSION = 103;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1340,7 +1340,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.4.1;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cat.santfeliu.larosa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1658,7 +1658,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 97;
+				CURRENT_PROJECT_VERSION = 103;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1676,7 +1676,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.4.1;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cat.santfeliu.larosa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1830,7 +1830,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 97;
+				CURRENT_PROJECT_VERSION = 103;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1848,7 +1848,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.4.1;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cat.santfeliu.larosa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
