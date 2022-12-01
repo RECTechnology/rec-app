@@ -39,6 +39,17 @@ class Env extends RecEnvBase {
   String CDN_URL = dotenv.isInitialized ? dotenv.get('CDN_API_URL') : '';
   String TRANSLATIONS_PROJECT_ID =
       dotenv.isInitialized ? dotenv.get('TRANSLATIONS_PROJECT_ID') : '';
+
+  // Map vars
+  double MAP_ZOOM = double.tryParse(dotenv.get('MAP_ZOOM', fallback: '12.0')) ?? 12.0;
+  double MAP_CENTER_LAT = double.tryParse(
+        dotenv.get('MAP_CENTER_LAT', fallback: '41.4414534'),
+      ) ??
+      41.4414534;
+  double MAP_CENTER_LON = double.tryParse(
+        dotenv.get('MAP_CENTER_LON', fallback: '2.2086006'),
+      ) ??
+      2.2086006;
 }
 
 /// The current loaded environment used across the app

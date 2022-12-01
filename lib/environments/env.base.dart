@@ -34,4 +34,8 @@ abstract class RecEnvBase extends EnvBase {
 
   abstract String CDN_URL;
   abstract String TRANSLATIONS_PROJECT_ID;
+
+  abstract double MAP_ZOOM;
+  abstract double MAP_CENTER_LAT;
+  abstract double MAP_CENTER_LON;
 }

@@ -66,17 +66,21 @@ class GoogleMapInstanceState extends State<GoogleMapInstance> {
 
   @override
   Widget build(BuildContext context) {
-    return GoogleMap(
-      padding: EdgeInsets.only(top: 150, left: 4),
-      onMapCreated: _onMapCreated,
-      markers: Set<Marker>.of(widget.markers.values),
-      initialCameraPosition: Preferences.initialCameraPosition,
-      myLocationEnabled: true,
-      myLocationButtonEnabled: false,
-      zoomControlsEnabled: false,
-      buildingsEnabled: true,
-      onTap: widget.onTap as void Function(LatLng)?,
-      onCameraMove: widget.cameraMoved,
+    return Stack(
+      children: [
+        GoogleMap(
+          padding: EdgeInsets.only(top: 150, left: 4),
+          onMapCreated: _onMapCreated,
+          markers: Set<Marker>.of(widget.markers.values),
+          initialCameraPosition: Preferences.initialCameraPosition,
+          myLocationEnabled: true,
+          myLocationButtonEnabled: false,
+          zoomControlsEnabled: true,
+          buildingsEnabled: true,
+          onTap: widget.onTap as void Function(LatLng)?,
+          onCameraMove: widget.cameraMoved,
+        ),
+      ],
     );
   }
 }
