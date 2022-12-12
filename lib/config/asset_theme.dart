@@ -36,6 +36,7 @@ class RecAssetTheme {
   // TODO: Remove from here and load from API
   final String ltabCampaignBanner = 'assets/current/banners/banner_ltab.jpg';
   final String cultureCampaignBanner = 'assets/current/banners/banner_cultural.png';
+  final String showCultureThresholdReached = 'assets/current/brand/threshold-reached.png';
 
   RecAssetTheme({
     required this.logo,

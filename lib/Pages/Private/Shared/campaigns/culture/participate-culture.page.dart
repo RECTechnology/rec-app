@@ -35,11 +35,11 @@ class CultureParticipatePage extends StatefulWidget {
     final preferences = PreferenceProvider.deaf(context);
     final showBanner = preferences.get(PreferenceKeys.showCultureCampaign);
     final userState = UserState.deaf(context);
-    final activeCampaign = CampaignProvider.deaf(context).getCampaignByCode(code);
+    final cultureCampaign = CampaignProvider.deaf(context).getCampaignByCode(code);
 
     final active = isActive(context);
-    final isActiveForState = CampaignHelper.isActiveForState(userState, activeCampaign!);
-    final shouldBeOpened = active && showBanner && isActiveForState;
+    final isActiveForState = CampaignHelper.isActiveForState(userState, cultureCampaign!);
+    final shouldBeOpened = cultureCampaign.bonusEnabled && active && showBanner && isActiveForState;
 
     return shouldBeOpened;
   }

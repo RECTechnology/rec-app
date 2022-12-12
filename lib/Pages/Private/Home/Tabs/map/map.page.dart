@@ -190,6 +190,7 @@ class _MapPageState extends State<MapPage> with StateLoading {
 
   _onError(err) {
     if (!mounted) return;
+    stopLoading();
     RecToast.showError(context, err.toString());
   }
 

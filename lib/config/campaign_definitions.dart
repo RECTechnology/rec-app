@@ -3,6 +3,7 @@
 import 'package:rec/Pages/Private/Shared/campaigns/culture/culture-recharge-description.dart';
 import 'package:rec/Pages/Private/Shared/campaigns/culture/extra-data-culture.page.dart';
 import 'package:rec/Pages/Private/Shared/campaigns/culture/participate-culture.page.dart';
+import 'package:rec/Pages/Private/Shared/campaigns/culture/threshold-reached.page.dart';
 import 'package:rec/Pages/Private/Shared/campaigns/culture/welcome-culture.page.dart';
 import 'package:rec/Pages/Private/Shared/campaigns/ltab/description-card-ltab.page.dart';
 import 'package:rec/Pages/Private/Shared/campaigns/ltab/participate-ltab.page.dart';
@@ -19,13 +20,15 @@ List<CampaignDefinition> getCampaignDefinitions() {
       participateBuilder: (c, params) => LtabParticipatePage(
         hideDontShowAgain: params['hideDontShowAgain'] ?? false,
       ),
-      welcomeBuilder: (c, p) => LtabWelcomePage(),
+      welcomeBuilder: (_, __) => LtabWelcomePage(),
       canBeOpened: (c) => LtabParticipatePage.shouldBeOpenned(c),
       hasAcceptedTOS: (c) {
         return UserState.deaf(c).user!.privateTosLtab! &&
             UserState.deaf(c).user!.getAccountForCampaign(env.CMP_LTAB_CODE) != null;
       },
-      rechargeDescriptionBuilder: (c, p) => LtabDescriptionCard(),
+      rechargeDescriptionBuilder: (_, __) => LtabDescriptionCard(),
+      thresholdReachedBuilder: (_, __) {},
+      thresholdReachedCanBeOpened: (_) => true,
     ),
     // CULT21
     CampaignDefinition(
@@ -33,13 +36,15 @@ List<CampaignDefinition> getCampaignDefinitions() {
       participateBuilder: (c, params) => CultureParticipatePage(
         hideDontShowAgain: params['hideDontShowAgain'] ?? false,
       ),
-      welcomeBuilder: (c, p) => CultureWelcomePage(),
-      extraDataBuilder: (c, p) => CultureExtraDataPage(),
+      welcomeBuilder: (_, __) => CultureWelcomePage(),
+      extraDataBuilder: (_, __) => CultureExtraDataPage(),
       canBeOpened: (c) => CultureParticipatePage.shouldBeOpenned(c),
       hasAcceptedTOS: (c) {
         return UserState.deaf(c).user!.privateTosCulture!;
       },
-      rechargeDescriptionBuilder: (c, p) => CultureDescriptionCard(),
+      rechargeDescriptionBuilder: (_, __) => CultureDescriptionCard(),
+      thresholdReachedBuilder: (_, __) => ThresholdReachedPage(),
+      thresholdReachedCanBeOpened: (c) => ThresholdReachedPage.thresholdReachedShouldBeOpened(c),
     ),
   ];
 }

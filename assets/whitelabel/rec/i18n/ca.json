@@ -545,5 +545,10 @@
     "opens_at": "obre a les {{when}}",
     "opens_at_day": "obre {{when}}",
     "tomorrow": "demà",
-    "Sender account not in Campaign": "El compte amb la qual intentes pagar no aquesta en campanya"
+    "Sender account not in Campaign": "El compte amb la qual intentes pagar no aquesta en campanya",
+    "CAMPAIGN_THRESHOLD_REACHED_DESC": "Falta poc per esgotar els RECS Culturals bonificats. Recordeu gastar els vostres RECS bonificats abans del 28 de febrer",
+    "CAMPAIGN_THRESHOLD_REACHED": "EL FINAL S'ACOSTA!",
+    "UNDERSTOOD": "Entès",
+    "CULTURE_BONUS_ENDED_TITLE": "BONIFICACIONS ESGOTADES PER AL REC CULTURAL",
+    "CULTURE_BONUS_ENDED_DESC": "Pots continuar fent servir el compte però no rebràs una bonificació en fer el canvi d'euros a RECs."
 }

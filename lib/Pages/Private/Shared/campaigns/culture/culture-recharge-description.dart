@@ -21,13 +21,21 @@ class CultureDescriptionCard extends StatelessWidget {
     final cultureAccount = userState.user!.getAccountForCampaign(env.CMP_CULT_CODE)!;
 
     final maxReached = cultureAccount.rewardedAmount! >= cultureCampaign!.max;
+    final bonusEnded = cultureCampaign.isStarted() &&
+        !cultureCampaign.isFinished() &&
+        cultureCampaign.bonusEnabled == false;
 
-    final title = maxReached ? 'CULTURE_RECHARGE_MODAL_MAX_TITLE' : 'CULTURE_RECHARGE_MODAL_TITLE';
-    final descr = maxReached ? 'CULTURE_RECHARGE_MODAL_MAX_DESC' : 'CULTURE_RECHARGE_MODAL_DESC';
-    final color = maxReached ? recTheme!.red : recTheme!.grayDark2;
-    final bgColor = maxReached ? recTheme.red.withAlpha(10) : recTheme.backgroundBannerCulture;
+    var title = maxReached ? 'CULTURE_RECHARGE_MODAL_MAX_TITLE' : 'CULTURE_RECHARGE_MODAL_TITLE';
+    var descr = maxReached ? 'CULTURE_RECHARGE_MODAL_MAX_DESC' : 'CULTURE_RECHARGE_MODAL_DESC';
+    var color = maxReached ? recTheme!.red : recTheme!.grayDark2;
+    var bgColor = maxReached ? recTheme.red.withAlpha(10) : recTheme.backgroundBannerCulture;
 
-    // If max is reached show warning otherwise show the info box
+    if (bonusEnded) {
+      title = 'CULTURE_BONUS_ENDED_TITLE';
+      descr = 'CULTURE_BONUS_ENDED_DESC';
+      color = recTheme.red;
+      bgColor = recTheme.red.withAlpha(10);
+    }
 
     return Stack(
       children: [
@@ -51,7 +59,7 @@ class CultureDescriptionCard extends StatelessWidget {
                     color: color,
                   ),
                   params: {
-                    'percent': cultureCampaign.percent,
+                    'percent': cultureCampaign?.percent,
                   },
                 ),
               ),
@@ -64,8 +72,8 @@ class CultureDescriptionCard extends StatelessWidget {
                 ),
                 params: {
                   'spent': cultureAccount.rewardedAmount,
-                  'max': cultureCampaign.max,
-                  'percent': cultureCampaign.percent,
+                  'max': cultureCampaign?.max,
+                  'percent': cultureCampaign?.percent,
                 },
               ),
               const SizedBox(height: 8),
@@ -78,7 +86,7 @@ class CultureDescriptionCard extends StatelessWidget {
           child: Container(
             width: 48,
             height: 48,
-            child: Image.network(cultureCampaign.imageUrl!),
+            child: Image.network(cultureCampaign!.imageUrl!),
           ),
         ),
       ],

@@ -14,15 +14,33 @@ class ActivityProvider extends ChangeNotifier {
     ActivitiesService? service,
   }) : _service = service ?? ActivitiesService(env: env);
 
-  Future<void> load() async {
+  Future<List<Activity>> load([bool Function(Activity activity)? filter]) async {
     isLoading = true;
 
     var activitiesListResponse = await _service.list();
     _activities = activitiesListResponse.items;
     _activities!.sort((a, b) => a.name.compareTo(b.name));
 
+    if (filter != null) {
+      _activities = _activities?.where(filter).toList();
+    }
+
     isLoading = false;
     notifyListeners();
+
+    return _activities ?? [];
+  }
+
+  Future<List<Activity>> loadOnly([bool Function(Activity activity)? filter]) async {
+    var activitiesListResponse = await _service.list();
+    _activities = activitiesListResponse.items;
+    _activities!.sort((a, b) => a.name.compareTo(b.name));
+
+    if (filter != null) {
+      _activities = _activities?.where(filter).toList();
+    }
+
+    return _activities ?? [];
   }
 
   static ActivityProvider of(context, {bool listen = true}) {

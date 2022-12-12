@@ -1,4 +1,6 @@
 class Features {
+  static String get cultureActivityName => 'Culture';
+
   static bool get contactList {
     return false;
   }

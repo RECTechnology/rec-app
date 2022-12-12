@@ -53,7 +53,9 @@ class WalletFloatingActionsState extends State<WalletFloatingActions> {
     final isCultureCampaignActive =
         cultureCampaign != null && cultureCampaign.isStarted() && !cultureCampaign.isFinished();
     final rechargeRoute =
-        (isCultureAccount || !isCultureCampaignActive) ? Routes.recharge : Routes.selectRecharge;
+        isCultureAccount || !isCultureCampaignActive || !cultureCampaign!.bonusEnabled
+            ? Routes.recharge
+            : Routes.selectRecharge;
 
     final privateChildren = [
       if (hasPermissionToPay)
@@ -158,7 +160,7 @@ class WalletFloatingActionsState extends State<WalletFloatingActions> {
     String? route,
   }) {
     final recTheme = RecTheme.of(context);
-    
+
     return SpeedDialChild(
       child: Icon(
         icon,

@@ -4,8 +4,10 @@ import 'package:rec/Components/Layout/horizontal_list_layout.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/badges_filters_page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/categories_filters_page.dart';
+import 'package:rec/config/features.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
+import 'package:rec/providers/activity_provider.dart';
 import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/app_provider.dart';
 import 'package:rec/providers/campaign_provider.dart';
@@ -29,6 +31,25 @@ class MapFilters extends StatefulWidget {
 
 class _MapFiltersState extends State<MapFilters> {
   MapSearchData get searchData => widget.searchData;
+  ActivityProvider? activityProvider;
+  Activity? cultureActivity;
+
+  @override
+  void didChangeDependencies() {
+    if (activityProvider == null) {
+      activityProvider = ActivityProvider.of(context);
+      _loadActivity();
+    }
+
+    super.didChangeDependencies();
+  }
+
+  _loadActivity() async {
+    await activityProvider?.load();
+    cultureActivity = activityProvider?.activities?.firstWhere(
+      (act) => act.name == Features.cultureActivityName,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +69,9 @@ class _MapFiltersState extends State<MapFilters> {
         !ltabCampaign.isFinished() &&
         isInLtabCampaign;
 
-    final showCultureFilter =
-        cultureCampaign != null && cultureCampaign.isStarted() && !cultureCampaign.isFinished();
+    final showCultureFilter = cultureCampaign != null && cultureCampaign.isStarted();
+    final hasSelectedCategory =
+        searchData.activity != null && searchData.activity?.name != Features.cultureActivityName;
 
     return Container(
       height: 40,
@@ -75,27 +97,34 @@ class _MapFiltersState extends State<MapFilters> {
                 );
               },
             ),
-          if (isRec && showCultureFilter)
+          if (isRec && showCultureFilter && activityProvider?.isLoading == false)
             SelectableChip(
               label: 'REC_CULTURAL',
-              isSelected: searchData.campaignCode == env.CMP_CULT_CODE,
+              isSelected: searchData.activity == cultureActivity ||
+                  searchData.campaignCode == env.CMP_CULT_CODE,
               onSelected: (value) {
-                widget.onChange!(
-                  searchData..campaignCode = value ? env.CMP_CULT_CODE : null,
-                );
+                if (value) {
+                  searchData.activity = cultureActivity;
+                  searchData.campaignCode = env.CMP_CULT_CODE;
+                } else {
+                  searchData.activity = null;
+                  searchData.campaignCode = null;
+                }
+
+                widget.onChange!(searchData);
               },
             ),
           if (isRec)
             ActionChip(
               label: LocalizedText(
-                searchData.activity == null ? 'CATEGORIES' : 'CATEGORIES_FILTERS',
+                hasSelectedCategory ? 'CATEGORIES_FILTERS' : 'CATEGORIES',
                 params: {
-                  'selected': searchData.activity == null
-                      ? ''
-                      : searchData.activity!.getNameForLocale(localizations!.locale),
+                  'selected': hasSelectedCategory
+                      ? searchData.activity!.getNameForLocale(localizations!.locale)
+                      : '',
                 },
                 style: TextStyle(
-                  color: searchData.activity != null ? recTheme!.accentColor : recTheme!.grayDark2,
+                  color: hasSelectedCategory ? recTheme!.accentColor : recTheme!.grayDark2,
                   fontSize: 12,
                 ),
               ),

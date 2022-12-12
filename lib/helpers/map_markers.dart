@@ -57,6 +57,7 @@ class MapMarkers {
     final isAccountInLtab = AccountHelper.mapAccountIsInLtabCampaign(account);
     final isAccountInCult = AccountHelper.mapAccountIsInCultureCampaign(account);
     final isComerceVerd = account.isCommerceVerd == true;
+    final isCulture = account.isCulture == true;
 
     // Only show LTAB marker if the account is part of the campaign,
     // and the campaign is not finished
@@ -64,8 +65,8 @@ class MapMarkers {
 
     // Only show CULTURE marker if the account is part of the campaign,
     // and the campaign is not finished
-    final isCultureMarker =
-        isAccountInCult && cultureCampaign!.isStarted() && !cultureCampaign.isFinished();
+    final isCultureMarker = isCulture ||
+        (isAccountInCult && cultureCampaign!.isStarted() && !cultureCampaign.isFinished());
 
     // Handle offer markers
     if (account.hasOffers == true) {

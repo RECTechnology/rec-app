@@ -138,15 +138,23 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
     // asi que podemos omitir el resto de logica
     if (definition == null) return;
 
-    // Comprobar si se puede abrir la ficha de participar,
-    // el usuario puede haber especificado que no se muestre mas
-    var canBeOpened = definition.canBeOpened(context);
-    if (!canBeOpened) return;
+    final thresholdReachedCanBeOpened = definition.thresholdReachedCanBeOpened(context);
+    if (thresholdReachedCanBeOpened) {
+      RecNavigation.of(context).navigate(
+        (c) => definition.thresholdReachedBuilder(c, {}),
+      );
+      return;
+    }
 
     // If the user is already participating in the campaign,
     // we don't need to show the participate page
-    var isAlreadyParticipating = definition.hasAcceptedTOS(context);
+    final isAlreadyParticipating = definition.hasAcceptedTOS(context);
     if (isAlreadyParticipating) return;
+
+    // Comprobar si se puede abrir la ficha de participar,
+    // el usuario puede haber especificado que no se muestre mas
+    final canBeOpened = definition.canBeOpened(context);
+    if (!canBeOpened) return;
 
     RecNavigation.of(context).navigate(
       (c) => definition.participateBuilder(c, {}),

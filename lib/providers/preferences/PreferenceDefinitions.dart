@@ -4,6 +4,7 @@ import 'package:rec/providers/preferences/PreferenceGroup.dart';
 class PreferenceKeys {
   static const String showLtabCampaign = 'show_LTAB20';
   static const String showCultureCampaign = 'show_CULT21';
+  static const String showCultureThresholdReached = 'show_CULT21_threshold';
   static const String showWalletBalance = 'show_wallet_balance';
 }
 
@@ -22,6 +23,13 @@ class PreferenceDefinitions {
     type: PreferenceType.checkbox,
   );
 
+  static final Preference showCultureThresholdReached = Preference<bool>(
+    defaultValue: true,
+    storageKey: PreferenceKeys.showCultureThresholdReached,
+    prettyName: 'SHOW_CULT_THRESHOLD_REACHED',
+    type: PreferenceType.checkbox,
+  );
+
   static final Preference showWalletBalance = Preference<bool>(
     defaultValue: true,
     storageKey: PreferenceKeys.showWalletBalance,
@@ -35,6 +43,7 @@ class PreferenceDefinitions {
       showLtabCampaign,
       showCultureCampaign,
       showWalletBalance,
+      showCultureThresholdReached,
     ],
   );
 
@@ -42,5 +51,6 @@ class PreferenceDefinitions {
     showLtabCampaign,
     showCultureCampaign,
     showWalletBalance,
+    showCultureThresholdReached,
   ];
 }

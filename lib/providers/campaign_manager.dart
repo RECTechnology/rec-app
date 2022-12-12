@@ -16,6 +16,9 @@ class CampaignDefinition {
   /// [WidgetBuilder] for the welcome page of the given campaign
   WidgetBuilderWithParams welcomeBuilder;
 
+  /// [WidgetBuilder] for the threshold reached page of the given campaign
+  WidgetBuilderWithParams thresholdReachedBuilder;
+
   /// [WidgetBuilder] for the extra data page of the given campaign
   WidgetBuilderWithParams? extraDataBuilder;
 
@@ -26,6 +29,10 @@ class CampaignDefinition {
   /// It should be false, either if the user has marked the "don't show again"
   BoolCallback canBeOpened;
 
+  /// This funciond indicates whether the thresholdReached page should be opened initially
+  /// It should be false if the user has marked the "don't show again"
+  BoolCallback thresholdReachedCanBeOpened;
+
   /// This function should return whether the user is already participating or not
   BoolCallback hasAcceptedTOS;
 
@@ -35,7 +42,9 @@ class CampaignDefinition {
     required this.code,
     required this.participateBuilder,
     required this.welcomeBuilder,
+    required this.thresholdReachedBuilder,
     required this.canBeOpened,
+    required this.thresholdReachedCanBeOpened,
     required this.hasAcceptedTOS,
     required this.rechargeDescriptionBuilder,
     this.extraDataBuilder,

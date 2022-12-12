@@ -3,6 +3,7 @@ import 'package:rec/Components/Inputs/SelectableChip.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/filter_group_list.dart';
+import 'package:rec/config/features.dart';
 import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/activity_provider.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
@@ -21,6 +22,7 @@ class CategoriesFiltersPage extends StatefulWidget {
 
 class _CategoriesFiltersPageState extends State<CategoriesFiltersPage> {
   ActivityProvider? _activityProvider;
+  final _ignoredActivities = [Features.cultureActivityName];
 
   @override
   void didChangeDependencies() {
@@ -28,7 +30,9 @@ class _CategoriesFiltersPageState extends State<CategoriesFiltersPage> {
 
     if (_activityProvider == null) {
       _activityProvider = ActivityProvider.of(context);
-      _activityProvider!.load();
+      _activityProvider!.load((activity) {
+        return _ignoredActivities.contains(activity.name) == false;
+      });
     }
   }
 
