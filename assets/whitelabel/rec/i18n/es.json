@@ -546,8 +546,19 @@
     "opens_at_day": "abre {{when}}",
     "tomorrow": "mañana",
     "Sender account not in Campaign": "La cuenta con la que intentas pagar no está en campaña",
+    "CAMPAIGN_THRESHOLD_REACHED_DESC": "Falta poco para agotar los RECS Culturals bonificados. Recordad gastar vuestros RECS bonificados antes del 28 de febrero",
+    "CAMPAIGN_THRESHOLD_REACHED": "EL FINAL SE ACERCA!",
+    "UNDERSTOOD": "Entendido",
+    "CULTURE_BONUS_ENDED_TITLE": "BONIFICACIONES AGOTADAS PARA EL REC CULTURAL",
+    "CULTURE_BONUS_ENDED_DESC": "Puedes continuar usando la cuenta, pero no recibirás una bonificación al hacer el cambio de euros a RECS.",
     "DELETE_MY_USER": "Eliminiar mi usuario",
     "DELETE_YOUR_USER": "Elimina tu usuario",
     "DELETE_USER": "Eliminar usuario",
-    "REQUEST_SENDED": "Petición enviada"
+    "REQUEST_SENDED": "Petición enviada",
+    "Descripción de la página de borrar usuario": {
+        "DELETE_DESC": "Al pulsar este botón, se enviará una solicitud para que tus datos sean borrados del sistema del REC."
+    },
+    "Descripción de la página donde te lleva cuando eliminas un usuario.": {
+        "DELETE_DESC_POP_UP": "Hemos recibido la petición para eliminar tu cuenta de la base de datos del REC. Este proceso puede tardar hasta 15 días y se te notificará a través de un correo electrónico cuando hayamos eliminado tus datos."
+    }
 }
