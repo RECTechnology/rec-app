@@ -65,11 +65,6 @@ Future<void> setup(RecThemeData themeData) async {
 
   timeago.setLocaleMessages('es', timeago.EsMessages());
   timeago.setLocaleMessages('ca', timeago.CaMessages());
-
-  Preferences.initialCameraPosition = CameraPosition(
-    target: LatLng(env.MAP_CENTER_LAT, env.MAP_CENTER_LON),
-    zoom: env.MAP_ZOOM,
-  );
 }
 
 /// Configures EasyLoading with the current theme

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -8,11 +9,13 @@ import 'package:rec/Pages/Private/Home/Tabs/map/google_map_instance.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/map_filters.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
+import 'package:rec/extensions/config_settings_app_extension.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/map_markers.dart';
 import 'package:rec/mixins/loadable_mixin.dart';
 import 'package:rec/preferences.dart';
 import 'package:rec/providers/app_localizations.dart';
+import 'package:rec/providers/app_provider.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
@@ -48,6 +51,13 @@ class _MapPageState extends State<MapPage> with StateLoading {
       _searchData.campaignCode = env.CMP_CULT_CODE;
     }
 
+    var _configurationSettings = AppProvider.of(context).configurationSettings;
+
+    Preferences.initialCameraPosition = CameraPosition(
+      target: LatLng(_configurationSettings!.mapLat, _configurationSettings.mapLon),
+      zoom: _configurationSettings.mapZoom,
+    );
+    _currentCameraPosition = Preferences.initialCameraPosition;
     super.initState();
   }
 
@@ -68,6 +78,7 @@ class _MapPageState extends State<MapPage> with StateLoading {
               onMapCreated: (controller) => _search(),
               onTap: (c) => setState(() => _bottomSheetEnabled = false),
               cameraMoved: (position) {
+                print('camera moved');
                 _currentCameraPosition = position;
               },
               markers: markers,

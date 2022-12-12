@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -66,6 +67,9 @@ class GoogleMapInstanceState extends State<GoogleMapInstance> {
 
   @override
   Widget build(BuildContext context) {
+    // debugger();
+    print('initialCameraPosition: ${Preferences.initialCameraPosition}');
+
     return Stack(
       children: [
         GoogleMap(
@@ -75,7 +79,7 @@ class GoogleMapInstanceState extends State<GoogleMapInstance> {
           initialCameraPosition: Preferences.initialCameraPosition,
           myLocationEnabled: true,
           myLocationButtonEnabled: false,
-          zoomControlsEnabled: true,
+          zoomControlsEnabled: false,
           buildingsEnabled: true,
           onTap: widget.onTap as void Function(LatLng)?,
           onCameraMove: widget.cameraMoved,
