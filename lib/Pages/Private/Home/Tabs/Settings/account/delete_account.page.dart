@@ -28,7 +28,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
         backgroundColor: Colors.white,
         appBar: EmptyAppBar(context, title: 'DELETE_MY_USER'),
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(36.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +67,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
   void _deleteOk(c) {
     isLoading = false;
     Loading.dismiss();
-    Navigator.of(context).push(
+    Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (_) => DeleteUserPopUp()),
     );
   }

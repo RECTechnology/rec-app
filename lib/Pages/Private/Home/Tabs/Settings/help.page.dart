@@ -34,7 +34,7 @@ class HelpPage extends StatelessWidget {
           onTap: () => _openHelpLink('link_tos', context),
         ),
         SettingsListTile(
-          title: 'SETTINGS_DELETE_ACCOUNT',
+          title: 'DELETE_MY_USER',
           icon: Icons.group_off,
           onTap: RecNavigation.getNavigateToRouteCallback(
             context,

@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Settings/help.page.dart';
 import 'package:rec/config/theme.dart';
 
 class DeleteUserPopUp extends StatelessWidget {
   pushToScreen(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => HelpPage()),
-    );
+    Navigator.of(context).pop();
   }
 
   @override
@@ -27,7 +24,7 @@ class DeleteUserPopUp extends StatelessWidget {
         },
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(36.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +36,7 @@ class DeleteUserPopUp extends StatelessWidget {
             LocalizedText(
               'DELETE_DESC_POP_UP',
               style: TextStyle(
-                color: Color.fromRGBO(59, 59, 59, 1),
+                color: Color.fromRGBO(59, 59, 59, 100),
               ),
             ),
             SizedBox(
