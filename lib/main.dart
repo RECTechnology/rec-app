@@ -4,14 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/config/themes/la_rosa.dart';
 import 'package:rec/helpers/rec_preferences.dart';
 import 'package:rec/helpers/sentry_wrapper.dart';
 import 'package:rec/app.dart';
 import 'package:rec/environments/env.dart';
-import 'package:rec/preferences.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'config/themes/rec.dart';

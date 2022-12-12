@@ -59,7 +59,7 @@ class CultureDescriptionCard extends StatelessWidget {
                     color: color,
                   ),
                   params: {
-                    'percent': cultureCampaign?.percent,
+                    'percent': cultureCampaign.percent,
                   },
                 ),
               ),
@@ -72,8 +72,8 @@ class CultureDescriptionCard extends StatelessWidget {
                 ),
                 params: {
                   'spent': cultureAccount.rewardedAmount,
-                  'max': cultureCampaign?.max,
-                  'percent': cultureCampaign?.percent,
+                  'max': cultureCampaign.max,
+                  'percent': cultureCampaign.percent,
                 },
               ),
               const SizedBox(height: 8),
@@ -86,7 +86,7 @@ class CultureDescriptionCard extends StatelessWidget {
           child: Container(
             width: 48,
             height: 48,
-            child: Image.network(cultureCampaign!.imageUrl!),
+            child: Image.network(cultureCampaign.imageUrl!),
           ),
         ),
       ],

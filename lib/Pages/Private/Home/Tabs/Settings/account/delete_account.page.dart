@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Helpers/RecToast.dart';
+import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/account/delete.pop-up.page.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
