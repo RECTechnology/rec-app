@@ -526,5 +526,9 @@
     "opens_at": "abre a las {{when}}",
     "opens_at_day": "abre {{when}}",
     "tomorrow": "mañana",
-    "Sender account not in Campaign": "La cuenta con la que intentas pagar no está en campaña"
+    "Sender account not in Campaign": "La cuenta con la que intentas pagar no está en campaña",
+    "DELETE_MY_USER": "Eliminiar mi usuario",
+    "DELETE_YOUR_USER": "Elimina tu usuario",
+    "DELETE_USER": "Eliminar usuario",
+    "REQUEST_SENDED": "Petición enviada"
 }
