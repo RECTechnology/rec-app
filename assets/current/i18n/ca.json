@@ -550,5 +550,9 @@
     "CAMPAIGN_THRESHOLD_REACHED": "EL FINAL S'ACOSTA!",
     "UNDERSTOOD": "Entès",
     "CULTURE_BONUS_ENDED_TITLE": "BONIFICACIONS ESGOTADES PER AL REC CULTURAL",
-    "CULTURE_BONUS_ENDED_DESC": "Pots continuar fent servir el compte però no rebràs una bonificació en fer el canvi d'euros a RECs."
+    "CULTURE_BONUS_ENDED_DESC": "Pots continuar fent servir el compte però no rebràs una bonificació en fer el canvi d'euros a RECs.",
+    "DELETE_MY_USER": "Eliminar el meu usuari",
+    "DELETE_YOUR_USER": "Elimina el teu usuari",
+    "DELETE_USER": "Eliminar usuari",
+    "REQUEST_SENDED": "Petició enviada"
 }

@@ -50,6 +50,8 @@ class Env extends RecEnvBase {
         dotenv.get('MAP_CENTER_LON', fallback: '2.2086006'),
       ) ??
       2.2086006;
+
+  bool FORCE_LOAD_FROM_CDN = false;
 }
 
 /// The current loaded environment used across the app

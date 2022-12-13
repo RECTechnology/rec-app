@@ -38,4 +38,6 @@ abstract class RecEnvBase extends EnvBase {
   abstract double MAP_ZOOM;
   abstract double MAP_CENTER_LAT;
   abstract double MAP_CENTER_LON;
+
+  bool FORCE_LOAD_FROM_CDN = false;
 }

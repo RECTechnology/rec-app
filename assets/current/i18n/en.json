@@ -545,5 +545,9 @@
     "opens_at": "opens at {{when}}",
     "opens_at_day": "opens {{when}}",
     "tomorrow": "tomorrow",
-    "Sender account not in Campaign": "The account with which you are trying to pay is not in campaign"
+    "Sender account not in Campaign": "The account with which you are trying to pay is not in campaign",
+    "DELETE_MY_USER": "Delete my user",
+    "DELETE_YOUR_USER": "Delete your user",
+    "DELETE_USER": "Delete user",
+    "REQUEST_SENDED": "Request sended"
 }

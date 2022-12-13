@@ -46,9 +46,11 @@ class _MapFiltersState extends State<MapFilters> {
 
   _loadActivity() async {
     await activityProvider?.load();
-    cultureActivity = activityProvider?.activities?.firstWhere(
-      (act) => act.name == Features.cultureActivityName,
-    );
+    if (activityProvider?.activities != null && activityProvider?.activities?.isNotEmpty == true) {
+      cultureActivity = activityProvider?.activities?.firstWhere(
+        (act) => act.name == Features.cultureActivityName,
+      );
+    }
   }
 
   @override
