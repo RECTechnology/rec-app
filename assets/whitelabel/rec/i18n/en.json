@@ -554,5 +554,11 @@
     "DELETE_MY_USER": "Delete my user",
     "DELETE_YOUR_USER": "Delete your user",
     "DELETE_USER": "Delete user",
-    "REQUEST_SENDED": "Request sended"
+    "REQUEST_SENDED": "Request sended",
+    "DELETE_DESC": "At the press of this button, a request will be sent so that your data can be deleted from the REC system.",
+    "DELETE_DESC_POP_UP": "We have received the request to delete your account from the REC database. This process can take up to 15 days and you will be notified by email once we have deleted your data.",
+    "app_declined": "Declined",
+    "app_submitted": "Pending review",
+    "app_approved": "Successfully validated",
+    "app_expired": "Expired document"
 }
