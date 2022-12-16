@@ -554,5 +554,11 @@
     "DELETE_MY_USER": "Eliminiar mi usuario",
     "DELETE_YOUR_USER": "Elimina tu usuario",
     "DELETE_USER": "Eliminar usuario",
-    "REQUEST_SENDED": "Petición enviada"
+    "REQUEST_SENDED": "Petición enviada",
+    "DELETE_DESC": "Al pulsar este botón, se enviará una solicitud para que tus datos sean borrados del sistema del REC.",
+    "DELETE_DESC_POP_UP": "Hem rebut la petició per a eliminar el teu compte de la base de dades del REC. Aquest procés pot tardar fins a 15 dies i et serà notificat a través d'un correu electrònic quan hàgim eliminat les teves dades.",
+    "app_declined": "Denegado",
+    "app_submitted": "Pendiente de revisión",
+    "app_approved": "Validado correctamente",
+    "app_expired": "Documento expirado"
 }
