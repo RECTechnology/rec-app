@@ -102,15 +102,14 @@ class _MapFiltersState extends State<MapFilters> {
           if (isRec && showCultureFilter && activityProvider?.isLoading == false)
             SelectableChip(
               label: 'REC_CULTURAL',
-              isSelected: searchData.activity == cultureActivity ||
-                  searchData.campaignCode == env.CMP_CULT_CODE,
+              isSelected: searchData.activity == cultureActivity,
               onSelected: (value) {
                 if (value) {
                   searchData.activity = cultureActivity;
-                  searchData.campaignCode = env.CMP_CULT_CODE;
+                  // searchData.campaignCode = env.CMP_CULT_CODE;
                 } else {
                   searchData.activity = null;
-                  searchData.campaignCode = null;
+                  // searchData.campaignCode = null;
                 }
 
                 widget.onChange!(searchData);

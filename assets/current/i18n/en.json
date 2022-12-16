@@ -546,8 +546,19 @@
     "opens_at_day": "opens {{when}}",
     "tomorrow": "tomorrow",
     "Sender account not in Campaign": "The account with which you are trying to pay is not in campaign",
+    "CAMPAIGN_THRESHOLD_REACHED_DESC": "There is not much time left to use up the RECS Culturals bonuses. Remember to spend your bonus RECS before February 28th",
+    "CAMPAIGN_THRESHOLD_REACHED": "THE END IS NEAR!",
+    "UNDERSTOOD": "Understood",
+    "CULTURE_BONUS_ENDED_TITLE": "BONUS ARE EXHAUSTED FOR THE CULTURAL RECS",
+    "CULTURE_BONUS_ENDED_DESC": "You can continue to use the account but you will not receive a bonus when you change from euros to RECS.",
     "DELETE_MY_USER": "Delete my user",
     "DELETE_YOUR_USER": "Delete your user",
     "DELETE_USER": "Delete user",
-    "REQUEST_SENDED": "Request sended"
+    "REQUEST_SENDED": "Request sended",
+    "Descripción de la página de borrar usuario": {
+        "DELETE_DESC": "Clicking this button will send a request for your data to be deleted from the REC system."
+    },
+    "Descripción de la página donde te lleva cuando eliminas un usuario.": {
+        "DELETE_DESC_POP_UP": "We have received a request to remove your account from the REC database. This process may take up to 15 days and you will be notified via email when we have deleted your data."
+    }
 }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rec/Components/Inputs/text_fields/SearchInput.dart';
@@ -43,12 +44,6 @@ class _MapPageState extends State<MapPage> with StateLoading {
 
   @override
   void initState() {
-    // Set culture campaignCode if active
-    final cultureCampaign = CampaignProvider.deaf(context).getCampaignByCode(env.CMP_CULT_CODE);
-    if (cultureCampaign != null && cultureCampaign.isStarted() && !cultureCampaign.isFinished()) {
-      _searchData.campaignCode = env.CMP_CULT_CODE;
-    }
-
     var _configurationSettings = AppProvider.of(context).configurationSettings;
 
     Preferences.initialCameraPosition = CameraPosition(
@@ -151,6 +146,7 @@ class _MapPageState extends State<MapPage> with StateLoading {
 
     startLoading();
 
+    debugPrint('MapSearchData: ' + jsonEncode(_searchData.toJson()));
     await _accountService.search(_searchData).then(_onSearchResults).catchError(_onError);
   }
 
