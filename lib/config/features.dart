@@ -2,11 +2,11 @@ class Features {
   static String get cultureActivityName => 'Culture';
 
   static bool get contactList {
-    return false;
+    return true;
   }
 
   static bool get imageUploads {
-    return false;
+    return true;
   }
 
   static bool get refunds {
