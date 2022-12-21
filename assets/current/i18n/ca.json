@@ -143,6 +143,10 @@
     "rec_submitted": "Pendent de revisió",
     "rec_approved": "Validat correctament",
     "rec_expired": "Document expirat",
+    "app_declined": "Denegat",
+    "app_submitted": "Pendent de revisió",
+    "app_approved": "Validat correctament",
+    "app_expired": "Document expirat",
     "REVERSE_DNI": "DNI revers (darrere)",
     "ANVERSE_DNI": "DNI anvers(davant)",
     "SURE_IMAGE_READ": "Assegura que la teva imatge ès llegible i no apareix borrosa",
@@ -555,10 +559,6 @@
     "DELETE_YOUR_USER": "Elimina el teu usuari",
     "DELETE_USER": "Eliminar usuari",
     "REQUEST_SENDED": "Petició enviada",
-    "Descripción de la página de borrar usuario": {
-        "DELETE_DESC": "En prémer aquest botó, s'enviarà una sol·licitud per tal que les teves dades siguin esborrades del sistema del REC."
-    },
-    "Descripción de la página donde te lleva cuando eliminas un usuario.": {
-        "DELETE_DESC_POP_UP": "Hem rebut la petició per a eliminar el teu compte de la base de dades del REC. Aquest procés pot tardar fins a 15 dies i et serà notificat a través d'un correu electrònic quan hàgim eliminat les teves dades."
-    }
+    "DELETE_DESC": "En prémer aquest botó, s'enviarà una sol·licitud per tal que les teves dades siguin esborrades del sistema del REC.",
+    "DELETE_DESC_POP_UP": "Hem rebut la petició per a eliminar el teu compte de la base de dades del REC. Aquest procés pot tardar fins a 15 dies i et serà notificat a través d'un correu electrònic quan hàgim eliminat les teves dades."
 }

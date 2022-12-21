@@ -554,11 +554,5 @@
     "DELETE_MY_USER": "Delete my user",
     "DELETE_YOUR_USER": "Delete your user",
     "DELETE_USER": "Delete user",
-    "REQUEST_SENDED": "Request sended",
-    "Descripción de la página de borrar usuario": {
-        "DELETE_DESC": "Clicking this button will send a request for your data to be deleted from the REC system."
-    },
-    "Descripción de la página donde te lleva cuando eliminas un usuario.": {
-        "DELETE_DESC_POP_UP": "We have received a request to remove your account from the REC database. This process may take up to 15 days and you will be notified via email when we have deleted your data."
-    }
+    "REQUEST_SENDED": "Request sended"
 }
