@@ -2,7 +2,7 @@ class Features {
   static String get cultureActivityName => 'Culture';
 
   static bool get contactList {
-    return true;
+    return false;
   }
 
   static bool get imageUploads {
