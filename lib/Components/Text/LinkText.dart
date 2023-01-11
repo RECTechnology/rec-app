@@ -43,3 +43,38 @@ class _LinkText extends State<LinkText> {
     );
   }
 }
+
+
+class WidgetLink extends StatefulWidget {
+  final Widget child;
+  final Color? color;
+  final Alignment alignment;
+  final Function? onTap;
+  final EdgeInsets padding;
+
+  const WidgetLink(
+    this.child, {
+    Key? key,
+    this.color,
+    this.alignment = Alignment.centerLeft,
+    this.onTap,
+    this.padding = const EdgeInsets.symmetric(vertical: 8),
+  }) : super(key: key);
+
+  @override
+  _WidgetLink createState() => _WidgetLink();
+}
+
+class _WidgetLink extends State<WidgetLink> {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: widget.onTap as void Function()?,
+      child: Container(
+        alignment: widget.alignment,
+        padding: widget.padding,
+        child: widget.child,
+      ),
+    );
+  }
+}

@@ -4,14 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Forms/Login.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/RecHeader.dart';
+import 'package:rec/Components/Text/LinkText.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/Pages/Private/Shared/InAppBrowser.dart';
 import 'package:rec/Pages/Public/forgot_password.dart';
 import 'package:rec/Pages/Public/MustUpdate.dart';
 import 'package:rec/Pages/Public/validate_phone.dart';
 import 'package:rec/config/routes.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/loading.dart';
+import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/app_provider.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec/styles/paddings.dart';
@@ -93,8 +97,9 @@ class _LoginPageState extends State<LoginPage> {
                               )
                             : SizedBox(),
                         (!hasSavedUser) ? _registerButton() : SizedBox(),
+                        _businessesLink(),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -193,5 +198,36 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     RecToast.showError(context, error.message);
+  }
+
+  _businessesLink() {
+    if (env.PROJECT_NAME != 'larosa') return SizedBox.shrink();
+
+    final localizations = AppLocalizations.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 12.0),
+      child: WidgetLink(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.location_on, color: RecTheme.of(context)?.primaryColor),
+            LocalizedText(
+              'title.link_businesses',
+              style: TextStyle(
+                decoration: TextDecoration.underline,
+              ),
+            )
+          ],
+        ),
+        onTap: () {
+          InAppBrowser.openLink(
+            context,
+            localizations!.translate('link_businesses'),
+            title: localizations.translate('title.link_businesses'),
+          );
+        },
+      ),
+    );
   }
 }
