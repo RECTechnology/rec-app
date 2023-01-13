@@ -36,6 +36,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>app</string>
+				<string>https</string>
 			</array>
 		</dict>
 	</array>
@@ -84,5 +85,9 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:rec.barcelona</string>
+	</array>
 </dict>
 </plist>

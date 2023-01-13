@@ -24,12 +24,22 @@
             ]
         },
         {
+            "preLaunchTask": "prepare-rec-prod",
+            "name": "RecBarcelona - Dev (PROD, ios)",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--ignore-deprecation"
+            ]
+        },
+        {
             "preLaunchTask": "prepare-env-prod",
             "name": "RecBarcelona - Dev (PROD)",
             "request": "launch",
             "type": "dart",
             "args": [
-                "--flavor=rec_prod"
+                "--flavor=rec_prod",
+                "--release"
             ]
         },
         {
