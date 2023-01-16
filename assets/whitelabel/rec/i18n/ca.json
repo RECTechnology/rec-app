@@ -534,7 +534,7 @@
     "PURCHASES": "Compres",
     "COMPLETED_CHALLENGES": "Reptes completats",
     "REWARDS_DESC": "Per cada repte que superis, rebràs una sorpresa que apareixerà en aquest apartat. Fes click a la imatge per descobrir-la!",
-    "MY_PURCHASES": "Les meues compres",
+    "MY_PURCHASES": "Les meves compres",
     "REMAINING_TXS": "Queden <bold><primary>{{remaining}} compres</primary></bold>",
     "REMAINING_AMOUNT": "Queden <bold><primary>{{remaining}}R</primary></bold>",
     "REMAINING_TXS_SINGLE": "Quede <bold><primary>{{remaining}} compra</primary></bold>",
