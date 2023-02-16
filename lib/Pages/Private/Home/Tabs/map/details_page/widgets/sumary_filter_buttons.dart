@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:rec/Components/Inputs/RecFilterButton.dart';
 import 'package:rec/Components/Layout/horizontal_list_layout.dart';
+import 'package:rec/Components/Modals/login_to_pay.modal.dart';
+import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/pay_to_address.page.dart';
 import 'package:rec/config/roles_definitions.dart';
 import 'package:rec/config/theme.dart';
@@ -22,8 +26,18 @@ class SummaryFilterButtons extends StatelessWidget {
     final recTheme = RecTheme.of(context);
     final userState = UserState.of(context);
     final user = userState.user;
-    final hasPermissionToPay = user!.hasRoles(RoleDefinitions.payButtonMap);
+    final hasPermissionToPay = user != null && user.hasRoles(RoleDefinitions.payButtonMap);
     final filterButtons = <RecFilterButton>[
+      if (!hasPermissionToPay)
+        RecFilterButton(
+          icon: Icons.call_made,
+          label: 'PAY',
+          margin: EdgeInsets.only(right: 8),
+          onPressed: () => _loginToPay(context),
+          backgroundColor: recTheme!.primaryColor,
+          textColor: Colors.white,
+          iconColor: Colors.white,
+        ),
       if (hasPermissionToPay)
         RecFilterButton(
           icon: Icons.call_made,
@@ -38,7 +52,7 @@ class SummaryFilterButtons extends StatelessWidget {
         icon: Icons.assistant_direction,
         label: 'HOW_TO_GO',
         margin: EdgeInsets.only(right: 8),
-        onPressed: _launchMapsUrl,
+        onPressed: () => _launchMapsUrl(context),
         backgroundColor: Colors.white,
       ),
       if (account.phone?.isNotEmpty == true && account.phone?.length == 9)
@@ -60,8 +74,9 @@ class SummaryFilterButtons extends StatelessWidget {
     );
   }
 
-  void _launchMapsUrl() {
-    BrowserHelper.openGoogleMaps(account.latitude, account.longitude);
+  void _launchMapsUrl(context) {
+    openMapsSheet(context);
+    // BrowserHelper.openGoogleMaps(account.latitude, account.longitude);
   }
 
   void _call() {
@@ -88,5 +103,59 @@ class SummaryFilterButtons extends StatelessWidget {
         builder: (c) => PayAddressPage(paymentData: paymentData),
       ),
     );
+  }
+
+  _loginToPay(BuildContext context) {
+    LoginToPayModal.open(context);
+  }
+  
+  openMapsSheet(BuildContext context) async {
+    try {
+      final coords = Coords(account.latitude ?? 0, account.longitude ?? 0);
+      final title = account.name ?? 'Map';
+      final availableMaps = await MapLauncher.installedMaps;
+      if (availableMaps.length == 1) {
+        // If only 1 maps app is installed, open directly
+        return availableMaps.first.showMarker(coords: coords, title: title);
+      }
+
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return SafeArea(
+            child: SingleChildScrollView(
+              child: Container(
+                child: Wrap(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: LocalizedText(
+                        'SELECT_MAPS_APP',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    for (var map in availableMaps)
+                      ListTile(
+                        onTap: () => map.showMarker(
+                          coords: coords,
+                          title: title,
+                        ),
+                        title: Text(map.mapName),
+                        leading: SvgPicture.asset(
+                          map.icon,
+                          height: 30.0,
+                          width: 30.0,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
   }
 }

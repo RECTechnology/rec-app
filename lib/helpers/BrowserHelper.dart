@@ -1,15 +1,14 @@
 import 'dart:io';
-
 import 'package:url_launcher/url_launcher.dart';
 
 class BrowserHelper {
-  static Future openBrowser(String? url) async {
+  static Future openBrowser(String? url, {LaunchMode? mode}) async {
     if (url == null) return null;
 
     final uri = Uri.parse(url);
 
     if (await canLaunchUrl(uri)) {
-      return await launchUrl(uri);
+      return launchUrl(uri, mode: mode ?? LaunchMode.platformDefault);
     }
   }
 
@@ -28,8 +27,18 @@ class BrowserHelper {
     }
   }
 
+  @Deprecated('')
   static Future openGoogleMaps([double? latitude = 0, double? longitude = 0]) {
+    if (Platform.isAndroid) {
+      final geoURL = 'geo://$latitude,$longitude';
+      return openBrowser(geoURL);
+    }
+    if (Platform.isIOS) {
+      final iosUrl = 'http://maps.apple.com/?ll=$latitude,$longitude';
+      return openBrowser(iosUrl);
+    }
+
     final url = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
-    return openBrowser(url);
+    return openBrowser(url, mode: LaunchMode.externalApplication);
   }
 }

@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rec/Components/Inputs/text_fields/SearchInput.dart';
+import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/business_draggable_sheet.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/google_map_instance.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/map_filters.dart';
@@ -15,11 +17,15 @@ import 'package:rec/mixins/loadable_mixin.dart';
 import 'package:rec/preferences.dart';
 import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/app_provider.dart';
-import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class MapPage extends StatefulWidget {
-  MapPage({Key? key}) : super(key: key);
+  final bool showAppBar;
+
+  MapPage({
+    Key? key,
+    this.showAppBar = false,
+  }) : super(key: key);
 
   @override
   _MapPageState createState() => _MapPageState();
@@ -57,12 +63,14 @@ class _MapPageState extends State<MapPage> with StateLoading {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
+    final marginTop = widget.showAppBar ? 8 : 24;
 
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         floatingActionButton: _myLocationButton(),
+        appBar: widget.showAppBar ? EmptyAppBar(context, title: 'MAP') : null,
         body: Stack(
           children: [
             GoogleMapInstance(
@@ -77,7 +85,7 @@ class _MapPageState extends State<MapPage> with StateLoading {
               markers: markers,
             ),
             Positioned(
-              top: 42,
+              top: marginTop + 10,
               right: 16,
               left: 16,
               child: SearchInput(
@@ -92,7 +100,7 @@ class _MapPageState extends State<MapPage> with StateLoading {
               ),
             ),
             Positioned(
-              top: 100,
+              top: 68.0 + marginTop,
               right: 0,
               left: 0,
               child: MapFilters(
@@ -147,7 +155,7 @@ class _MapPageState extends State<MapPage> with StateLoading {
     startLoading();
 
     debugPrint('MapSearchData: ' + jsonEncode(_searchData.toJson()));
-    await _accountService.search(_searchData).then(_onSearchResults).catchError(_onError);
+    await _accountService.publicSearch(_searchData).then(_onSearchResults).catchError(_onError);
   }
 
   void _onSearchResults(ApiListResponse<MapAccountData> value) {
@@ -186,10 +194,11 @@ class _MapPageState extends State<MapPage> with StateLoading {
 
   Future<void> _getBussiness(String id) async {
     startLoading();
-    await _accountService
-        .getOne(id)
-        .then((value) => _selectedBusiness = value)
-        .catchError(_onError);
+    await _accountService.getOnePublic(id).then((value) {
+      _selectedBusiness = value;
+      debugger();
+      return value;
+    }).catchError(_onError);
     stopLoading();
   }
 

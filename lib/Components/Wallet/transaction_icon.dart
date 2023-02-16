@@ -38,6 +38,19 @@ class _TransactionIcon extends State<TransactionIcon> {
     final ltabCampaign = campaignProvider.getCampaignByCode(env.CMP_LTAB_CODE);
     final cultureCampaign = campaignProvider.getCampaignByCode(env.CMP_CULT_CODE);
 
+    if (widget.tx.isBonification) {
+      final campaign = campaignProvider.getCampaignById('${widget.tx.bonificationCampaignId!}');
+      final campaignImg =
+          campaign!.imageUrl == null || campaign.imageUrl!.isEmpty ? null : campaign.imageUrl;
+      final assetImage = campaignImg == null ? AssetImage(recTheme!.assets.logo) : null;
+
+      return CircleAvatarRec(
+        imageUrl: campaignImg,
+        image: assetImage,
+        color: recTheme!.defaultAvatarBackground,
+      );
+    }
+
     if (widget.tx.isIn() && account != null && account.isLtabAccount()) {
       return CircleAvatarRec(
         imageUrl: ltabCampaign == null ? '' : ltabCampaign.imageUrl,

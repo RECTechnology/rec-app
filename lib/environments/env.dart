@@ -36,6 +36,7 @@ class Env extends RecEnvBase {
   String? DEEPLINK_URL = dotenv.isInitialized ? dotenv.get('DEEPLINK_URL') : 'rec.barcelona';
   String ENV_NAME = dotenv.isInitialized ? dotenv.get('ENV_NAME') : 'pre';
   String PROJECT_NAME = dotenv.isInitialized ? dotenv.get('PROJECT_NAME') : 'rec';
+  String CURRENCY_NAME = dotenv.isInitialized ? dotenv.get('CURRENCY_NAME') : 'rec';
   String CDN_URL = dotenv.isInitialized ? dotenv.get('CDN_API_URL') : '';
   String TRANSLATIONS_PROJECT_ID =
       dotenv.isInitialized ? dotenv.get('TRANSLATIONS_PROJECT_ID') : '';
@@ -52,6 +53,7 @@ class Env extends RecEnvBase {
       2.2086006;
 
   bool FORCE_LOAD_FROM_CDN = false;
+  bool FORCE_LOAD_FROM_LOCAL = dotenv.get('FORCE_LOAD_FROM_LOCAL', fallback: 'false') == 'true';
 }
 
 /// The current loaded environment used across the app

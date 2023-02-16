@@ -6,6 +6,8 @@ class PreferenceKeys {
   static const String showCultureCampaign = 'show_CULT21';
   static const String showCultureThresholdReached = 'show_CULT21_threshold';
   static const String showWalletBalance = 'show_wallet_balance';
+  static const String showGenericThresholdReached = 'show_threshold';
+  static const String showGenericCampaign = 'show_generic';
 }
 
 class PreferenceDefinitions {
@@ -13,6 +15,20 @@ class PreferenceDefinitions {
     defaultValue: true,
     storageKey: PreferenceKeys.showLtabCampaign,
     prettyName: 'SHOW_LTAB',
+    type: PreferenceType.checkbox,
+  );
+
+  static final Preference showGenericCampaign = Preference<bool>(
+    defaultValue: true,
+    storageKey: PreferenceKeys.showGenericCampaign,
+    prettyName: 'SHOW_GENERIC',
+    type: PreferenceType.checkbox,
+  );
+
+  static final Preference showGenericThresholdReached = Preference<bool>(
+    defaultValue: true,
+    storageKey: PreferenceKeys.showGenericCampaign,
+    prettyName: 'SHOW_GENERIC_THRESHOLD',
     type: PreferenceType.checkbox,
   );
 
@@ -44,6 +60,7 @@ class PreferenceDefinitions {
       showCultureCampaign,
       showWalletBalance,
       showCultureThresholdReached,
+      showGenericCampaign,
     ],
   );
 
@@ -52,5 +69,6 @@ class PreferenceDefinitions {
     showCultureCampaign,
     showWalletBalance,
     showCultureThresholdReached,
+    showGenericCampaign,
   ];
 }

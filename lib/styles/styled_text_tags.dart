@@ -5,7 +5,7 @@ import 'package:styled_text/styled_text.dart';
 boldTag(RecThemeData theme) => StyledTextTag(
       style: TextStyle(
         fontWeight: FontWeight.bold,
-        color: theme.grayDark,
+        // color: theme.grayDark,
       ),
     );
 
@@ -32,7 +32,16 @@ redTag(RecThemeData theme) => StyledTextTag(
       style: TextStyle(color: theme.red),
     );
 
-getDefaultTags(RecThemeData theme) {
+internalLink(RecThemeData theme, BuildContext context) => StyledTextActionTag(
+      (_, attrs) => _openLink(context, attrs),
+      style: TextStyle(decoration: TextDecoration.underline, color: theme.primaryColor),
+    );
+
+_openLink(BuildContext context, attrs) {
+  return Navigator.of(context).pushNamed(attrs['route']);
+}
+
+getDefaultTags(RecThemeData theme, BuildContext context) {
   return {
     'bold': boldTag(theme),
     'semibold': semiboldTag(theme),
@@ -40,5 +49,6 @@ getDefaultTags(RecThemeData theme) {
     'secondary': secondaryTag(theme),
     'green': greenTag(theme),
     'red': redTag(theme),
+    'ilink': internalLink(theme, context),
   };
 }

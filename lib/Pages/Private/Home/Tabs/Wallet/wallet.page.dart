@@ -66,7 +66,8 @@ class _WalletPageRecState extends State<WalletPageRec> {
             preferredSize: Size.fromHeight(kToolbarHeight),
             child: UserBalance(
               label: redemableAmountText ?? 'TOTAL_BALANCE',
-              balance: userState.account?.getWalletByCurrency(Currency.rec).getScaledBalance(),
+              balance:
+                  userState.account?.getWalletByCurrencyName(env.CURRENCY_NAME).getScaledBalance(),
               hidable: true,
             ),
           ),

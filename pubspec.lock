@@ -539,6 +539,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  map_launcher:
+    dependency: "direct main"
+    description:
+      name: map_launcher
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.4.0"
   matcher:
     dependency: transitive
     description:
@@ -836,10 +843,10 @@ packages:
   rec_api_dart:
     dependency: "direct main"
     description:
-      name: rec_api_dart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.4.0-alpha.19"
+      path: "/Users/keff_work/Documents/dev/work/REC/rec_api_dart"
+      relative: false
+    source: path
+    version: "1.4.0-alpha.24"
   rxdart:
     dependency: transitive
     description:

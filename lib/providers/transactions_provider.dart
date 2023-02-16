@@ -19,6 +19,8 @@ class TransactionProvider with ChangeNotifier {
 
   final TransactionsService txService;
 
+  PaymentData? pendingPayment;
+
   List<Transaction>? _transactions = [];
   int? _total = 0;
   int _limit = 10;

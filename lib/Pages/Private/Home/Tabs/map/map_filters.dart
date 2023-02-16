@@ -62,7 +62,7 @@ class _MapFiltersState extends State<MapFilters> {
     final recTheme = RecTheme.of(context);
 
     final isRec = env.PROJECT_NAME == 'rec';
-    final isInLtabCampaign = user!.getCampaignAccount(env.CMP_LTAB_CODE) != null;
+    final isInLtabCampaign = user != null && user.getCampaignAccount(env.CMP_LTAB_CODE) != null;
     final ltabCampaign = campaignProvider.getCampaignByCode(env.CMP_LTAB_CODE);
     final cultureCampaign = campaignProvider.getCampaignByCode(env.CMP_CULT_CODE);
 

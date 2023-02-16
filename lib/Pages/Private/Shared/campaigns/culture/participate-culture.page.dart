@@ -102,13 +102,14 @@ class _CultureParticipatePageState extends State<CultureParticipatePage> {
     var definition = campaignManager!.getDefinition(CultureParticipatePage.code);
     var hasExtraDataBuilder = Checks.isNotNull(definition!.extraDataBuilder);
     var userState = UserState.of(context, listen: false);
+    final campaign = CampaignProvider.deaf(context).getCampaignByCode(CultureParticipatePage.code);
     // var isKyc2 = userState.user!.anyAccountAtLevel(Level.CODE_KYC2);
     // Removed kyc check because diego told me to
 
     if (!user!.hasExtraData && hasExtraDataBuilder) {
       var result = await RecNavigation.navigate(
         context,
-        (c) => definition.extraDataBuilder!(context, {}),
+        (c) => definition.extraDataBuilder!(context, {}, campaign!),
       );
 
       // We should not continue forwards if user does not fill in data
@@ -123,7 +124,7 @@ class _CultureParticipatePageState extends State<CultureParticipatePage> {
 
       await RecNavigation.replace(
         context,
-        (c) => definition.welcomeBuilder(context, {}),
+        (c) => definition.welcomeBuilder(context, {}, campaign!),
       );
     } catch (err) {
       RecToast.showError(

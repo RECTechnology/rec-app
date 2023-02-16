@@ -5,6 +5,7 @@ import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Wallet/user_balance.dart';
+import 'package:rec/Pages/Private/Home/home.page.dart';
 import 'package:rec/Pages/Private/Shared/RequestPin.page.dart';
 import 'package:rec/Pages/Private/Shared/campaigns/ltab/ltab-stop-bonification.dart';
 import 'package:rec/config/theme.dart';
@@ -14,6 +15,7 @@ import 'package:rec/helpers/RecNavigation.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/recharge/attempt_recharge.page.dart';
 import 'package:rec/Pages/Private/Shared/campaigns/ltab/description-card-ltab.page.dart';
 import 'package:rec/environments/env.dart';
+import 'package:rec/providers/account_campaign_provider.dart';
 import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec/providers/user_state.dart';
@@ -39,6 +41,7 @@ class _RechargePageState extends State<RechargePage> {
   RechargeData rechargeData = RechargeData();
   CampaignDefinition? cultureDefinition;
   CampaignDefinition? ltabDefinition;
+  CampaignDefinition? genericDefinition;
   Campaign? ltabCampaign;
   Campaign? cultCampaign;
 
@@ -48,6 +51,7 @@ class _RechargePageState extends State<RechargePage> {
     campaignProvider ??= CampaignProvider.of(context);
     userState ??= UserState.of(context);
     cultureDefinition ??= campaignManager!.getDefinition(env.CMP_CULT_CODE);
+    genericDefinition ??= campaignManager!.getDefinition('generic');
     cultCampaign ??= campaignProvider!.getCampaignByCode(env.CMP_CULT_CODE);
 
     ltabDefinition ??= campaignManager!.getDefinition(env.CMP_LTAB_CODE);
@@ -59,29 +63,15 @@ class _RechargePageState extends State<RechargePage> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) => _checkLtabBonificatonStop());
+    SchedulerBinding.instance.addPostFrameCallback((_) => _loadStuff());
   }
 
-  void _checkLtabBonificatonStop() {
-    final ltabCampaign = CampaignProvider.deaf(context).getCampaignByCode(env.CMP_LTAB_CODE);
-    final isInCampaign = UserState.deaf(context).user!.hasCampaignAccount(env.CMP_LTAB_CODE);
+  void _loadStuff() async {
+    await CampaignProvider.deaf(context).load();
+    await AccountCampaignProvider.deaf(context).load();
 
-    if (ltabCampaign == null) return;
-    if (ltabCampaign.bonusEnabled) return;
-    if (ltabCampaign.isFinished()) return;
-    if (!isInCampaign) return;
-
-    showDialog(
-      context: context,
-      builder: (_) => Dialog(
-        insetPadding: EdgeInsets.zero,
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: LtabBonificacionStop(),
-        ),
-      ),
-    ).then((value) => print('done ' + value));
+    await _checkLtabBonificatonStop();
+    await _checkTreshold();
   }
 
   @override
@@ -107,7 +97,24 @@ class _RechargePageState extends State<RechargePage> {
   Widget _body() {
     final account = userState!.account;
     final isCultureAccount = account!.isCampaignAccount(env.CMP_CULT_CODE);
+    final campaigns = CampaignProvider.deaf(context);
+    final accountCampaigns = AccountCampaignProvider.of(context);
     final recTheme = RecTheme.of(context);
+    final campaign = campaigns.getCampaignByCode(env.CMP_CULT_CODE);
+    final v2Campaign = campaigns.firstActiveV2();
+    final accCampaign = accountCampaigns.getForCampaign(v2Campaign);
+    final inCampaign = accCampaign != null;
+    final reachedMax =
+        v2Campaign != null && (accountCampaigns.list?.totalAccumulatedBonus ?? 0) >= v2Campaign.max;
+
+    final valueDouble = rechargeData.amount;
+    final notReachMin = account.isPrivate() &&
+        valueDouble > 0 &&
+        v2Campaign != null &&
+        v2Campaign.isActive &&
+        v2Campaign.bonusEnabled &&
+        !reachedMax &&
+        valueDouble <= Currency.rec.scaleAmount(v2Campaign.min);
 
     return SingleChildScrollView(
       child: Container(
@@ -132,8 +139,19 @@ class _RechargePageState extends State<RechargePage> {
                     validator: _customAmountValidator,
                     icon: Icon(Icons.euro),
                   ),
-                  SizedBox(height: 32),
-                  if (isCultureAccount) cultureDefinition!.rechargeDescriptionBuilder(context, {}),
+                  if (v2Campaign != null && inCampaign && notReachMin)
+                    LocalizedText(
+                      'GENERIC_CAMPAIGN_NOT_REACH_MIN',
+                      params: {
+                        'min': Currency.rec.scaleAmount(v2Campaign.min),
+                      },
+                      style: TextStyle(color: recTheme.red),
+                    ),
+                  SizedBox(height: 16),
+                  if (v2Campaign != null)
+                    genericDefinition!.rechargeDescriptionBuilder(context, {}, v2Campaign),
+                  if (isCultureAccount)
+                    cultureDefinition!.rechargeDescriptionBuilder(context, {}, campaign!),
                   if (!isCultureAccount)
                     LtabDescriptionCard(
                       termsAccepted: rechargeData.campaignTermsAccepted,
@@ -170,12 +188,22 @@ class _RechargePageState extends State<RechargePage> {
 
   String? _customAmountValidator(String? value) {
     final isCultureAccount = userState!.account!.isCampaignAccount(env.CMP_CULT_CODE);
-    if (isCultureAccount) return null;
+    final activeV2Campaign = campaignProvider!.firstActiveV2();
+    if (isCultureAccount && activeV2Campaign != null) return null;
 
     final localizations = AppLocalizations.of(context);
     final campaignActive = CampaignHelper.isActiveForState(userState, ltabCampaign!);
     final valueDouble = double.parse(value!.isEmpty ? '0' : value);
     final reachesMin = valueDouble >= ltabCampaign!.min;
+
+    // if (activeV2Campaign != null && valueDouble <= Currency.rec.scaleAmount(activeV2Campaign.min)) {
+    //   return localizations!.translate(
+    //     'GENERIC_CAMPAIGN_NOT_REACH_MIN',
+    //     params: {
+    //       'min': Currency.rec.scaleAmount(activeV2Campaign.min),
+    //     },
+    //   );
+    // }
 
     if (valueDouble < 0.5) {
       return localizations!.translate('MIN_RECHARGE');
@@ -185,7 +213,7 @@ class _RechargePageState extends State<RechargePage> {
       return localizations!.translate(
         'CAMPAIGN_NOT_REACH_MIN',
         params: {
-          'min': ltabCampaign!.min,
+          'min': (ltabCampaign?.min ?? activeV2Campaign?.min ?? 0),
         },
       );
     }
@@ -271,5 +299,31 @@ class _RechargePageState extends State<RechargePage> {
   _updateTos() async {
     await userState!.userService.updateLtabTos(rechargeData.campaignTermsAccepted);
     await userState!.getUser();
+  }
+
+  _checkTreshold() {
+    return HomePageState.checkCampaign(context, skipParticipate: true);
+  }
+
+  _checkLtabBonificatonStop() async {
+    final ltabCampaign = CampaignProvider.deaf(context).getCampaignByCode(env.CMP_LTAB_CODE);
+    final isInCampaign = UserState.deaf(context).user!.hasCampaignAccount(env.CMP_LTAB_CODE);
+
+    if (ltabCampaign == null) return;
+    if (ltabCampaign.bonusEnabled) return;
+    if (ltabCampaign.isFinished()) return;
+    if (!isInCampaign) return;
+
+    showDialog(
+      context: context,
+      builder: (_) => Dialog(
+        insetPadding: EdgeInsets.zero,
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: LtabBonificacionStop(),
+        ),
+      ),
+    ).then((value) => print('done ' + value));
   }
 }

@@ -11,6 +11,8 @@ class YesNoModal extends GenericModal {
     required this.context,
     this.title,
     this.content,
+    String? yesText,
+    String? noText,
   }) : super(
           content: content,
           title: title,
@@ -19,17 +21,17 @@ class YesNoModal extends GenericModal {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                onPressed: () => GenericModal.closeDialog(context, true),
+                onPressed: () => GenericModal.closeDialog(context, false),
                 child: LocalizedText(
-                  'DELETE',
+                  noText ?? 'CANCEL',
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
-              TextButton(
-                onPressed: () => GenericModal.closeDialog(context, false),
+              ElevatedButton(
+                onPressed: () => GenericModal.closeDialog(context, true),
                 child: LocalizedText(
-                  'CANCEL',
-                  style: Theme.of(context).textTheme.bodyText2,
+                  yesText ?? 'DELETE',
+                  style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Colors.white),
                 ),
               ),
             ],

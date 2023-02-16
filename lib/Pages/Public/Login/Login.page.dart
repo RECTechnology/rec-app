@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:rec/Components/Forms/Login.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/RecHeader.dart';
 import 'package:rec/Components/Text/LinkText.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Map/map.page.dart';
 import 'package:rec/Pages/Private/Shared/InAppBrowser.dart';
 import 'package:rec/Pages/Public/forgot_password.dart';
 import 'package:rec/Pages/Public/MustUpdate.dart';
@@ -13,10 +15,12 @@ import 'package:rec/Pages/Public/validate_phone.dart';
 import 'package:rec/config/routes.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
+import 'package:rec/helpers/RecNavigation.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/app_provider.dart';
+import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec/styles/paddings.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
@@ -43,6 +47,18 @@ class _LoginPageState extends State<LoginPage> {
   final _loginFormKey = GlobalKey<LoginFormState>();
 
   @override
+  void initState() {
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      final appProvider = AppProvider.of(context, listen: false);
+      final campaignProvider = CampaignProvider.of(context, listen: false);
+
+      appProvider.loadConfigurationSettings();
+      campaignProvider.load();
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var userState = UserState.of(context);
     var savedUser = userState.savedUser;
@@ -56,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -84,27 +100,14 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: _loginButtonPressed,
                       icon: Icons.arrow_forward_ios,
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        (!hasSavedUser)
-                            ? Padding(
-                                padding: EdgeInsets.fromLTRB(0, 60, 0, 16),
-                                child: LocalizedText(
-                                  'NOT_REGISTRED',
-                                  style: Theme.of(context).textTheme.bodyText2,
-                                ),
-                              )
-                            : SizedBox(),
-                        (!hasSavedUser) ? _registerButton() : SizedBox(),
-                        _businessesLink(),
-                      ],
-                    ),
+                    SizedBox(height: 24),
+                    (!hasSavedUser) ? _registerButton() : SizedBox(),
                   ],
                 ),
               ),
             ),
           ),
+          _businessesLink(),
         ],
       ),
     );
@@ -127,12 +130,28 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _registerButton() {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.7,
+    return RecActionButton(
+      label: 'REGISTER',
+      onPressed: _registerButtonPressed,
+      padding: EdgeInsets.all(0),
+    );
+  }
+
+  Widget _businessesLink() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 48.0, vertical: 16),
       child: RecActionButton(
-        label: 'REGISTER',
-        onPressed: _registerButtonPressed,
-        padding: EdgeInsets.all(0),
+        label: 'BUSINESS_NETWORK',
+        leading: Icons.location_on,
+        backgroundColor: RecTheme.of(context)!.accentColor,
+        onPressed: () {
+          RecNavigation.navigate(
+            context,
+            (context) => MapPage(
+              showAppBar: true,
+            ),
+          );
+        },
       ),
     );
   }

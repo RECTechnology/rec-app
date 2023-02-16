@@ -6,6 +6,7 @@ class RecActionButton extends StatefulWidget {
   final bool disabled;
   final String? label;
   final IconData? icon;
+  final IconData? leading;
   final EdgeInsets padding;
   final Function()? onPressed;
   final Color? backgroundColor;
@@ -15,6 +16,7 @@ class RecActionButton extends StatefulWidget {
     this.onPressed,
     this.label,
     this.icon,
+    this.leading,
     this.padding = Paddings.button,
     this.disabled = false,
     this.backgroundColor,
@@ -43,7 +45,15 @@ class _RecActionButton extends State<RecActionButton> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(),
+              widget.leading != null
+                  ? Padding(
+                      padding: const EdgeInsets.only(left: 16.0, top: 2),
+                      child: Icon(
+                        widget.leading,
+                        size: 18,
+                      ),
+                    )
+                  : SizedBox(),
               LocalizedText(widget.label ?? ''),
               widget.icon != null
                   ? Padding(

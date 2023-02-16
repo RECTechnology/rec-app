@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/aspect_ratio_image.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
@@ -22,8 +21,8 @@ class SummaryTab extends StatelessWidget {
     final hasDescription = account.description!.isNotEmpty;
     final hasWeb = account.hasWeb();
     final hasPublicImage = account.hasPublicImage();
+    final hasEmail = account.hasEmail();
     final hasBadges = account.badges.isNotEmpty == true;
-    print(account.address);
 
     return SingleChildScrollView(
       controller: scrollController,
@@ -58,8 +57,10 @@ class SummaryTab extends StatelessWidget {
                       ),
                     ),
                   ]),
+                if (hasEmail) _buildEmailLink(context),
+                if (hasEmail) SizedBox(height: 16),
                 if (hasWeb) _buildWebLink(),
-                if (!hasWeb) SizedBox(height: 16),
+                if (hasWeb) SizedBox(height: 16),
                 if (hasDescription) _buildDescription(context),
                 SizedBox(height: 16),
                 if (hasPublicImage) _buildPublicImage(),
@@ -87,26 +88,26 @@ class SummaryTab extends StatelessWidget {
       builder: (context) {
         final recTheme = RecTheme.of(context);
 
-        return Padding(
-          padding: const EdgeInsets.only(top: 8.0, bottom: 16),
-          child: Wrap(
-            children: [
-              Icon(
-                Icons.link_outlined,
-                color: recTheme?.grayLight,
-              ),
-              SizedBox(width: 5),
-              Container(
-                margin: EdgeInsets.only(top: 4),
-                child: RichText(
-                  text: TextSpan(
+        return InkWell(
+          onTap: _launchWeb,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 8.0, bottom: 16),
+            child: Wrap(
+              children: [
+                Icon(
+                  Icons.link_outlined,
+                  color: recTheme?.grayLight,
+                ),
+                SizedBox(width: 5),
+                Container(
+                  margin: EdgeInsets.only(top: 4),
+                  child: Text(
+                    account.webUrl ?? '',
                     style: recTheme!.textTheme.link,
-                    text: account.webUrl ?? '',
-                    recognizer: TapGestureRecognizer()..onTap = _launchWeb,
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
@@ -127,5 +128,27 @@ class SummaryTab extends StatelessWidget {
 
   void _launchWeb() {
     BrowserHelper.openBrowser(account.webUrl);
+  }
+
+  _buildEmailLink(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+    return Wrap(children: [
+      Icon(
+        Icons.email,
+        color: recTheme?.grayLight,
+      ),
+      SizedBox(width: 5),
+      Container(
+        margin: EdgeInsets.only(top: 4),
+        child: LocalizedText(
+          account.email!,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w300,
+            color: recTheme?.grayDark,
+          ),
+        ),
+      ),
+    ]);
   }
 }

@@ -64,7 +64,11 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet> {
     // we need to load all the refund ids into transactions
     if (tx.hasRefundIds() && !tx.isRefund()) {
       for (final refundId in tx.refundsIds) {
-        final refundTx = await _transactionService.getOne(refundId, tx.isIn() ? 'out' : 'in');
+        final refundTx = await _transactionService.getOne(
+          refundId,
+          tx.isIn() ? 'out' : 'in',
+          env.CURRENCY_NAME,
+        );
         refundTxs.add(refundTx);
         refundedAmount += refundTx.scaledAmount;
       }
@@ -79,7 +83,11 @@ class _TransactionBottomSheetState extends State<TransactionBottomSheet> {
       final type = parentTx.isIn() ? 'out' : 'in';
 
       for (final refundId in parentTx.refundsIds) {
-        final refundTx = await _transactionService.getOne(refundId, type);
+        final refundTx = await _transactionService.getOne(
+          refundId,
+          type,
+          env.CURRENCY_NAME,
+        );
         refundTxs.add(refundTx);
       }
 

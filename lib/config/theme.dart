@@ -79,13 +79,13 @@ class RecThemeData {
     required Color gradientGrayLight,
     required Color gradientGrayDark,
   })  : gradientPrimary = LinearGradient(
-          begin: Alignment(.5, 1.3),
-          end: Alignment(-.3, -0.8),
+          end: Alignment.topLeft,
+          begin: Alignment.bottomRight,
           colors: <Color>[gradientPrimaryLight, gradientPrimaryDark],
         ),
         gradientSecondary = LinearGradient(
-          begin: Alignment(.5, 1.3),
-          end: Alignment(-.3, -0.8),
+          end: Alignment.topLeft,
+          begin: Alignment.bottomRight,
           colors: <Color>[gradientSecondaryLight, gradientSecondaryDark],
         ),
         gradientGray = LinearGradient(

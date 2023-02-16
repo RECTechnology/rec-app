@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/GrayBox.dart';
+import 'package:rec/Components/boxes.dart';
 import 'package:rec/Components/Info/countdown_timer.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Text/styled_text.dart';

@@ -69,6 +69,7 @@ class _AccountContactPageState extends State<AccountContactPage> {
     FormFieldValidator<String> validator = Validators.isRequired,
     String? initialValue,
     String? apiFieldName,
+    String? hintText,
     IconData? icon,
     List<Widget>? fields,
   }) async {
@@ -79,6 +80,7 @@ class _AccountContactPageState extends State<AccountContactPage> {
         builder: (ctx) => EditFieldPage(
           initialValue: initialValue,
           fieldName: fieldName,
+          hintText: hintText,
           icon: icon,
           validator: validator,
           fields: fields,
@@ -150,6 +152,7 @@ class _AccountContactPageState extends State<AccountContactPage> {
     var userState = UserState.of(context, listen: false);
     return _editField(
       fieldName: 'WEBSITE',
+      hintText: 'URL_MUST_START_WITH',
       icon: Icons.link,
       initialValue: userState.account!.webUrl,
       apiFieldName: 'web',

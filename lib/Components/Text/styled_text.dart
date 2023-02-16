@@ -10,6 +10,8 @@ class LocalizedStyledText extends StatelessWidget {
   final Map<String, dynamic> params;
   final TextStyle? style;
   final TextAlign? textAlign;
+  final bool uppercase;
+  final TextOverflow? overflow;
 
   const LocalizedStyledText(
     this.text, {
@@ -18,20 +20,27 @@ class LocalizedStyledText extends StatelessWidget {
     this.style,
     this.textAlign,
     this.params = const {},
+    this.uppercase = false,
+    this.overflow,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
     final recTheme = RecTheme.of(context);
+    var effectiveText = localizations?.translate(text, params: params) ?? text;
+    if (uppercase) {
+      effectiveText = effectiveText.toUpperCase();
+    }
 
     return StyledText(
       style: style,
-      text: localizations?.translate(text, params: params) ?? text,
+      text: effectiveText,
       textAlign: textAlign,
+      overflow: overflow,
       tags: {
         ...tags,
-        ...getDefaultTags(recTheme!),
+        ...getDefaultTags(recTheme!, context),
       },
     );
   }

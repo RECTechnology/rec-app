@@ -98,11 +98,12 @@ class _LtabParticipatePageState extends State<LtabParticipatePage> {
   void _participate() async {
     final definition = campaignManager!.getDefinition(LtabParticipatePage.code);
     final hasExtraDataBuilder = Checks.isNotNull(definition!.extraDataBuilder);
+    final campaign = CampaignProvider.deaf(context).getCampaignByCode(LtabParticipatePage.code);
 
     if (!user!.hasExtraData && hasExtraDataBuilder) {
       var result = await RecNavigation.navigate(
         context,
-        (c) => definition.extraDataBuilder!(context, {}),
+        (c) => definition.extraDataBuilder!(context, {}, campaign!),
       );
 
       // We should not continue forwards if user does not fill in data

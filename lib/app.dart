@@ -10,6 +10,7 @@ import 'package:rec/config/routes.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/providers/All.dart';
+import 'package:rec/providers/account_campaign_provider.dart';
 import 'package:rec/providers/activity_provider.dart';
 import 'package:rec/providers/badges_provider.dart';
 import 'package:rec/providers/campaign_manager.dart';
@@ -108,6 +109,7 @@ class _RecAppState extends State<RecApp> {
       ),
       DocumentsProvider.getProvider(),
       CampaignProvider.getProvider(),
+      AccountCampaignProvider.getProvider(),
       prefProvider,
       ChallengesProvider.getProvider(ChallengesService(env: env)),
       RewardsProvider.getProvider(TokenRewardsService(env: env)),

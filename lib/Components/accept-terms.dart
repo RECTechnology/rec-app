@@ -6,14 +6,14 @@ class AcceptTerms extends StatelessWidget {
   final bool termsAccepted;
   final ValueChanged<bool?>? termsAcceptedChanged;
   final void Function()? openTermsOfService;
-  final Color? accentColor;
+  final Color? color;
 
   const AcceptTerms({
     Key? key,
     this.termsAccepted = false,
     this.termsAcceptedChanged,
     this.openTermsOfService,
-    this.accentColor,
+    this.color,
   }) : super(key: key);
 
   @override
@@ -27,7 +27,7 @@ class AcceptTerms extends StatelessWidget {
           value: termsAccepted,
           onChanged: termsAcceptedChanged,
           checkColor: Colors.white,
-          activeColor: accentColor ?? recTheme!.accentColor,
+          activeColor: color ?? recTheme!.accentColor,
         ),
         LocalizedText(
           'I_ACCEPT_THE',
@@ -39,7 +39,7 @@ class AcceptTerms extends StatelessWidget {
             'TERMS_OF_SERVICE',
             style: theme.textTheme.bodyText1!.copyWith(
               decoration: TextDecoration.underline,
-              color: accentColor ?? recTheme!.accentColor,
+              color: color ?? recTheme!.accentColor,
             ),
           ),
         )

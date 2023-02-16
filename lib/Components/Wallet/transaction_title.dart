@@ -30,7 +30,7 @@ class _TransactionTitle extends State<TransactionTitle> {
     final recTheme = RecTheme.of(context);
 
     String prefix = TransactionHelper.getPrefix(widget.tx, account as Account);
-    String owner = TransactionHelper.getOwner(widget.tx, account);
+    String owner = TransactionHelper.getOwner(widget.tx, account, context);
 
     prefix = localizations!.translate(prefix);
     owner = localizations.translate(owner);

@@ -6,6 +6,7 @@ import 'package:rec/Components/conditionals/show_if_roles.dart';
 import 'package:rec/config/roles_definitions.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
+import 'package:rec/providers/account_campaign_provider.dart';
 import 'package:rec/providers/challenge_provider.dart';
 import 'package:rec/providers/transactions_provider.dart';
 import 'package:rec/providers/user_state.dart';
@@ -227,9 +228,11 @@ class AccountSelectorModal {
     final userState = UserState.of(context, listen: false);
     final transactionsProvider = TransactionProvider.of(context, listen: false);
     final challengeProvider = ChallengesProvider.of(context, listen: false);
+    final accountCampaigns = AccountCampaignProvider.of(context, listen: false);
 
     userState.setSelectedAccount(account);
     await userState.getUser();
+    accountCampaigns.load();
     userState.getUserResume();
     transactionsProvider.refresh();
     challengeProvider.load();

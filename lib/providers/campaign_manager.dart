@@ -1,8 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:rec_api_dart/rec_api_dart.dart';
 
-typedef BoolCallback = bool Function(BuildContext context);
-typedef WidgetBuilderWithParams = Function(BuildContext context, Map<String, dynamic> data);
+typedef BoolCallback = bool Function(BuildContext context, Campaign campaign);
+typedef WidgetBuilderWithParams = Function(
+    BuildContext context, Map<String, dynamic> data, Campaign campaign);
 
 /// Defined certain logic for each campaign, like defining a builder for the
 /// Participate page, or defining how each campaign checks if it's already participating or not.

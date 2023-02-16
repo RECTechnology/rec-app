@@ -7,7 +7,7 @@
         android:drawable="@drawable/larosa_sponsor" 
         android:gravity="bottom"
         android:layout_width="match_parent" 
-        android:height="100dp" android:scaleType="centerInside">
+        android:height="140dp" android:scaleType="centerInside">
     </item>
 
     <item>

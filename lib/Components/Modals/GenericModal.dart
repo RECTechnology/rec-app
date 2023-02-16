@@ -4,6 +4,7 @@ class GenericModal {
   final Widget? title;
   final Widget? content;
   final Widget? widget;
+  
   GenericModal({
     this.title,
     this.content,

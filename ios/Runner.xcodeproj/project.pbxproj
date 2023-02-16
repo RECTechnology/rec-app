@@ -757,7 +757,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 108;
+				CURRENT_PROJECT_VERSION = 110;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -903,7 +903,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 108;
+				CURRENT_PROJECT_VERSION = 110;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -943,7 +943,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 108;
+				CURRENT_PROJECT_VERSION = 110;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1161,7 +1161,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 108;
+				CURRENT_PROJECT_VERSION = 110;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1295,7 +1295,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 108;
+				CURRENT_PROJECT_VERSION = 110;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1632,7 +1632,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 108;
+				CURRENT_PROJECT_VERSION = 110;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1807,7 +1807,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 108;
+				CURRENT_PROJECT_VERSION = 110;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/environments/env.dart';
+import 'package:rec/providers/account_campaign_provider.dart';
 import 'package:rec/providers/app_provider.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec/config/routes.dart';
@@ -72,9 +73,11 @@ class _InitPageState extends State<InitPage> {
   Future _fetchInitialData() async {
     final userProvider = UserState.of(context, listen: false);
     final appProvider = AppProvider.of(context, listen: false);
+    final accountCampaigns = AccountCampaignProvider.of(context, listen: false);
 
     await userProvider.getUser();
     await appProvider.loadConfigurationSettings();
+    await accountCampaigns.load();
   }
 
   @override

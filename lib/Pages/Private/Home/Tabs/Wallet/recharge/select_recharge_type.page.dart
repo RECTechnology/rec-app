@@ -158,14 +158,16 @@ class _SelectRechargePageState extends State<SelectRechargePage> {
   }
 
   _goToParticipate() {
-    var campaignManager = CampaignManager.deaf(context);
-    var cultureDefinition = campaignManager.getDefinition(env.CMP_CULT_CODE);
+    final campaignManager = CampaignManager.deaf(context);
+    final cultureDefinition = campaignManager.getDefinition(env.CMP_CULT_CODE);
+    final campaign = CampaignProvider.deaf(context).getCampaignByCode(env.CMP_CULT_CODE);
 
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (c) => cultureDefinition!.participateBuilder(
           context,
           {'hideDontShowAgain': true},
+          campaign!,
         ),
       ),
     );

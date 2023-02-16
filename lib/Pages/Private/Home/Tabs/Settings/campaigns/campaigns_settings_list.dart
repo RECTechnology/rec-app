@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Info/rec_circle_avatar.dart';
 import 'package:rec/Components/ListTiles/SectionTitleTile.dart';
 import 'package:rec/Components/ListTiles/campaign_list_tile.dart';
+import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/RecNavigation.dart';
+import 'package:rec/providers/account_campaign_provider.dart';
 import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec/providers/user_state.dart';
@@ -15,10 +17,12 @@ class CampaignsSettingsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var campaignProvider = CampaignProvider.of(context);
-    var campaignManager = CampaignManager.of(context);
-    var localizations = AppLocalizations.of(context);
-    var userState = UserState.of(context);
+    final campaignProvider = CampaignProvider.of(context);
+    final campaignManager = CampaignManager.of(context);
+    final localizations = AppLocalizations.of(context);
+    final userState = UserState.of(context);
+    final recTheme = RecTheme.of(context);
+    final accountCampaigns = AccountCampaignProvider.of(context);
 
     var account = userState.account;
     var user = userState.user;
@@ -44,14 +48,22 @@ class CampaignsSettingsList extends StatelessWidget {
       );
     }
 
-    var allCampaigns = campaignProvider.campaigns!
+    final allCampaigns = campaignProvider.campaigns!
         .where((element) =>
             element!.isStarted() &&
             !element.isFinished() &&
             (element.bonusEnabled || !element.bonusEnabled && userInCampaign))
         .toList();
+        
+    final v2Campaigns = campaignProvider.campaignsV2!.where((element) {
+      final inCampaign = accountCampaigns.getForCampaign(element) != null;
 
-    if (allCampaigns.isEmpty) return SizedBox.shrink();
+      return element?.status == Campaign.STATUS_ACTIVE &&
+          account.isPrivate() &&
+          (element!.bonusEnabled || !element.bonusEnabled && inCampaign);
+    }).toList();
+
+    if (allCampaigns.isEmpty && v2Campaigns.isEmpty) return SizedBox.shrink();
 
     return Column(
       children: [
@@ -75,18 +87,50 @@ class CampaignsSettingsList extends StatelessWidget {
               // Aqui tenemos que seleccionar una pantalla u otra dependiendo de
               // si ya participan en la campaña o no, si participan les llevamos a la pantalla de bienvenida
               // si no participan les llevamos a la pantalla de participar en la campaña
-              var builder = definition.hasAcceptedTOS(context)
+              var builder = definition.hasAcceptedTOS(context, campaign)
                   ? definition.welcomeBuilder
                   : definition.participateBuilder;
 
               RecNavigation.of(context).navigate(
-                (c) => builder(context, {'hideDontShowAgain': true}),
+                (c) => builder(context, {'hideDontShowAgain': true}, campaign),
               );
             },
             leading: CircleAvatarRec.withImageUrl(
               campaign.imageUrl,
               name: campaign.name,
             ),
+          );
+        }),
+        ...v2Campaigns.map((campaign) {
+          final inCampaign = accountCampaigns.getForCampaign(campaign) != null;
+          final image = campaign?.imageUrl == null || campaign?.imageUrl == ''
+              ? Image.asset(recTheme!.assets.logo)
+              : CircleAvatarRec.withImageUrl(
+                  campaign!.imageUrl,
+                  name: campaign.name,
+                );
+
+          return CampaignsListTile(
+            campaign: campaign,
+            title: campaign!.name == null || campaign.name!.isEmpty ? 'CAMPAIGN' : campaign.name,
+            description:
+                campaign.description ?? (inCampaign ? 'ALREADY_IN_CAMPAIGN' : 'NOT_IN_CAMPAIGN'),
+            onTap: () {
+              var definition = campaignManager.getDefinition('generic');
+              if (definition == null) return;
+
+              // Aqui tenemos que seleccionar una pantalla u otra dependiendo de
+              // si ya participan en la campaña o no, si participan les llevamos a la pantalla de bienvenida
+              // si no participan les llevamos a la pantalla de participar en la campaña
+              final hasAccepted = definition.hasAcceptedTOS(context, campaign);
+              final builder =
+                  hasAccepted ? definition.welcomeBuilder : definition.participateBuilder;
+
+              RecNavigation.of(context).navigate(
+                (c) => builder(context, {'hideDontShowAgain': true}, campaign),
+              );
+            },
+            leading: image,
           );
         }),
       ],
@@ -111,7 +155,7 @@ class CampaignsSettingsList extends StatelessWidget {
                 if (definition == null) return;
 
                 RecNavigation.of(context).navigate(
-                  (c) => definition.welcomeBuilder(context, {'hideDontShowAgain': true}),
+                  (c) => definition.welcomeBuilder(context, {'hideDontShowAgain': true}, campaign),
                 );
               },
               leading: CircleAvatarRec(

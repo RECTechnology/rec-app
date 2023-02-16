@@ -9,6 +9,7 @@ class EditFieldPage extends StatefulWidget {
   final String? fieldName;
   final String? initialValue;
   final String updateButtonText;
+  final String? hintText;
   final ValueChanged<String>? onSave;
   final IconData? icon;
   final FormFieldValidator<String>? validator;
@@ -25,6 +26,7 @@ class EditFieldPage extends StatefulWidget {
     this.onSave,
     this.validator,
     this.fields,
+    this.hintText,
   }) : super(key: key);
 
   @override
@@ -69,6 +71,7 @@ class _EditFieldPageState extends State<EditFieldPage> {
                 colorLabel: recTheme!.grayLight3,
                 validator: widget.validator,
                 autofocus: true,
+                placeholder: widget.hintText,
                 maxLines: 1,
                 onChange: (v) {
                   setState(() {

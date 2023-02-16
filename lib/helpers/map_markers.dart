@@ -66,7 +66,10 @@ class MapMarkers {
     // Only show CULTURE marker if the account is part of the campaign,
     // and the campaign is not finished
     final isCultureMarker = isCulture ||
-        (isAccountInCult && cultureCampaign!.isStarted() && !cultureCampaign.isFinished());
+        (isAccountInCult &&
+            cultureCampaign != null &&
+            cultureCampaign.isStarted() &&
+            !cultureCampaign.isFinished());
 
     // Handle offer markers
     if (account.hasOffers == true) {

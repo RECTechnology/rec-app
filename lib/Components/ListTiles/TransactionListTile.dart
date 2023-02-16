@@ -108,7 +108,7 @@ class _TransactionsListTile extends State<TransactionsListTile> {
   LocalizedText getConcept(RecThemeData theme) {
     final account = UserState.of(context).account;
     final cultureCampaign = CampaignProvider.of(context).getCampaignByCode(env.CMP_CULT_CODE);
-    var concept = TransactionHelper.getConcept(tx);
+    var concept = TransactionHelper.getConcept(tx, context);
 
     // HACK
     if (tx.isIn() && account != null && account.isLtabAccount()) {
@@ -120,7 +120,7 @@ class _TransactionsListTile extends State<TransactionsListTile> {
       maxLines: 2,
       overflow: TextOverflow.ellipsis,
       params: {
-        'percent': cultureCampaign!.percent,
+        'percent': cultureCampaign?.percent,
       },
       style: TextStyle(
         fontSize: 16,

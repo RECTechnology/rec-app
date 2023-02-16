@@ -1,5 +1,6 @@
 class Features {
   static String get cultureActivityName => 'Culture';
+  static List<String> uneditableAccountNames = ['REC Cultural'];
 
   static bool get contactList {
     return false;

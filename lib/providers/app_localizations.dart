@@ -82,8 +82,9 @@ class AppLocalizations {
     print('Loading language: ${locale.languageCode}');
 
     // If we're in testing mode, we cannot load from CDN, load locally
-    if (!env.FORCE_LOAD_FROM_CDN &&
-        (Platform.environment.containsKey('FLUTTER_TEST') || kDebugMode)) {
+    if (env.FORCE_LOAD_FROM_LOCAL ||
+        (!env.FORCE_LOAD_FROM_CDN &&
+            (Platform.environment.containsKey('FLUTTER_TEST') || kDebugMode))) {
       print('DEVELOPMENT: Loaded from local assets');
       final jsonMap = await (_loadMapForLocale());
       _localizedStrings = jsonMap!.map(_mapEntry);

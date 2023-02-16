@@ -183,7 +183,7 @@ class _NextScheduleStateState extends State<NextScheduleState> {
 
   Widget opensAt(BuildContext context) {
     final now = DateTime.now();
-    final nextOpeningTime = schedule.getNextClosingTime(now);
+    final nextOpeningTime = schedule.getNextOpeningTime(now);
 
     // If we have no next opening time, just return empty box
     if (nextOpeningTime == null) return SizedBox.shrink();

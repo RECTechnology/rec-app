@@ -32,6 +32,9 @@ class PreferenceGroup {
   }
 
   Future<bool?> set(String key, dynamic value) async {
+    if (preferences[key] == null) {
+      preferences[key] = Preference(storageKey: key, value: value);
+    }
     return preferences[key]!.set(value);
   }
 }

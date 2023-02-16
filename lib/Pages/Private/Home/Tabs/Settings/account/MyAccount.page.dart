@@ -104,6 +104,10 @@ class _MyAccountPageState extends State<MyAccountPage> {
 
   void _editName() async {
     var userState = UserState.of(context, listen: false);
+    if (Features.uneditableAccountNames.contains(userState.account?.name)) {
+      RecToast.showInfo(context, 'NOT_EDITABLE');
+      return;
+    }
 
     return _editField(
       fieldName: 'NAME',

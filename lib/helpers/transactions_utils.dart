@@ -1,4 +1,6 @@
+import 'package:flutter/widgets.dart';
 import 'package:rec/config/tx_concepts.dart';
+import 'package:rec/providers/campaign_provider.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class TransactionHelper {
@@ -25,7 +27,8 @@ class TransactionHelper {
     return tx.isIn() && tx.hasPayInInfo() && tx.payInInfo!.concept!.startsWith(chequeCultural);
   }
 
-  static String? getConcept(Transaction tx) {
+  static String? getConcept(Transaction tx, BuildContext context) {
+    if (isCampaignReward(tx, context)) return tx.payInInfo!.concept;
     if (isLtabReward(tx)) return 'LTAB_REWARD';
     if (isCultureReward(tx)) return tx.payInInfo!.concept;
     if (isChequeCulture(tx)) return tx.payInInfo!.concept;
@@ -44,14 +47,28 @@ class TransactionHelper {
     return 'FROM';
   }
 
-  static getOwner(Transaction tx, Account account) {
+  static getOwner(Transaction tx, Account account, BuildContext context) {
     if (tx.isIn() && account.isLtabAccount()) return 'LTAB';
     if (TransactionHelper.isCultureReward(tx)) return 'REC_CULTURAL';
     if (TransactionHelper.isChequeCulture(tx)) return 'REC_CULTURAL';
+    if (isCampaignReward(tx, context)) return _createOwnerForCampaign(tx, context);
     if (TransactionHelper.isRecharge(tx)) return 'CREDIT_CARD_TX';
     if (tx.isOut()) return tx.payOutInfo!.name;
     if (tx.isIn()) return tx.payInInfo!.name;
 
     return 'PARTICULAR';
+  }
+
+  static bool isCampaignReward(Transaction tx, BuildContext context) {
+    if (!tx.isBonification) return false;
+    return true;
+  }
+
+  static _createOwnerForCampaign(Transaction tx, BuildContext context) {
+    final campProv = CampaignProvider.deaf(context);
+    final campaignId = tx.bonificationCampaignId;
+    final campaign = campProv.getCampaignById('${campaignId!}');
+
+    return campaign?.name != null && campaign!.name!.isNotEmpty ? campaign.name : 'CAMPAIGN';
   }
 }

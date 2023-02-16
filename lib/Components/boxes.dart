@@ -9,6 +9,7 @@ class GrayBox extends StatelessWidget {
   final double? width;
   final double radius;
   final VoidCallback? onTap;
+  final Color? background;
 
   const GrayBox({
     Key? key,
@@ -21,6 +22,7 @@ class GrayBox extends StatelessWidget {
     ),
     this.radius = 8,
     this.onTap,
+    this.background,
   }) : super(key: key);
 
   @override
@@ -32,7 +34,7 @@ class GrayBox extends StatelessWidget {
         Radius.circular(radius),
       ),
       child: Material(
-        color: recTheme?.defaultAvatarBackground,
+        color: background ?? recTheme?.defaultAvatarBackground,
         child: InkWell(
           onTap: onTap,
           child: Container(
@@ -42,6 +44,32 @@ class GrayBox extends StatelessWidget {
             child: child,
           ),
         ),
+      ),
+    );
+  }
+}
+
+class GradientBox extends StatelessWidget {
+  final Widget child;
+
+  const GradientBox({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final recTheme = RecTheme.of(context);
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          gradient: recTheme?.gradientPrimary,
+        ),
+        child: child,
       ),
     );
   }

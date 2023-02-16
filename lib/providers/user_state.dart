@@ -60,8 +60,6 @@ class UserState with ChangeNotifier {
     return userService.getUserResume().then((resume) {
       setUserResume(resume);
       return resume;
-    }).catchError((e) {
-      print(e);
     });
   }
 

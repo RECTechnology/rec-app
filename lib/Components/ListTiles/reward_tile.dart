@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:rec/Components/GrayBox.dart';
+import 'package:rec/Components/boxes.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -131,9 +132,21 @@ class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
 
   void _makePayment() async {
     if (widget.data.isRefund()) {
-      await service.makeRefund(widget.data).then(_onPaymentOk).catchError(_onPaymentError);
+      await service
+          .makeRefund(
+            widget.data,
+            env.CURRENCY_NAME,
+          )
+          .then(_onPaymentOk)
+          .catchError(_onPaymentError);
     } else {
-      await service.makePayment(widget.data).then(_onPaymentOk).catchError(_onPaymentError);
+      await service
+          .makePayment(
+            widget.data,
+            env.CURRENCY_NAME,
+          )
+          .then(_onPaymentOk)
+          .catchError(_onPaymentError);
     }
   }
 
@@ -170,7 +183,7 @@ class _AttemptPaymentState extends State<AttemptPayment> with Loadable {
     _showErrorToast(error);
   }
 
-  void _onPaymentOk(PaymentResult paymentResult) async {
+  _onPaymentOk(PaymentResult paymentResult) async {
     final userState = UserState.of(context, listen: false);
     final transactionProvider = TransactionProvider.of(context, listen: false);
     final challengeProvider = ChallengesProvider.of(context, listen: false);

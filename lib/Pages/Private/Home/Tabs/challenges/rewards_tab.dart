@@ -110,7 +110,8 @@ class _RewardsTabState extends State<RewardsTab> {
             children: [
               LabelValueBadge(
                 label: 'AMOUNT_SPENT',
-                value: '${Currency.rec.scaleAmount(userState?.userResume?.totalSpent ?? 0)} R',
+                value:
+                    '${Currency.rec.scaleAmount(userState?.userResume?.totalSpent ?? 0).toStringAsFixed(2)} R',
               ),
             ],
           ),

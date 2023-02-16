@@ -39,6 +39,53 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
     state.setCurrentTab(tab);
   }
 
+  /// if [skipParticipate] is true, it will not show participate modal
+  static checkCampaign(BuildContext context, {bool skipParticipate = false}) {
+    final campaignManager = CampaignManager.deaf(context);
+    final campaignProvider = CampaignProvider.deaf(context);
+
+    var campaignCode = campaignManager.activeCampaignCode;
+    var campaign = campaignProvider.getCampaign((el) {
+      return el?.code == campaignCode;
+    });
+
+    final activeV2Campaign = campaignProvider.firstActiveV2();
+    if (activeV2Campaign != null) {
+      campaignCode = 'generic';
+      campaign = activeV2Campaign;
+    }
+
+    final definition = campaignManager.getDefinition(campaignCode);
+
+    // Si no hay definition significa que no hay una camapaña activa por defecto
+    // asi que podemos omitir el resto de logica
+    if (definition == null) return;
+    // Si no existe la campaña, pasamos del tema
+    if (campaign == null) return;
+
+    final thresholdReachedCanBeOpened = definition.thresholdReachedCanBeOpened(context, campaign);
+    if (thresholdReachedCanBeOpened) {
+      RecNavigation.of(context).navigate(
+        (c) => definition.thresholdReachedBuilder(c, {}, campaign!),
+      );
+      return;
+    }
+
+    // If the user is already participating in the campaign,
+    // we don't need to show the participate page
+    final isAlreadyParticipating = definition.hasAcceptedTOS(context, campaign);
+    if (isAlreadyParticipating || skipParticipate) return;
+
+    // Comprobar si se puede abrir la ficha de participar,
+    // el usuario puede haber especificado que no se muestre mas
+    final canBeOpened = definition.canBeOpened(context, campaign);
+    if (!canBeOpened) return;
+
+    RecNavigation.of(context).navigate(
+      (c) => definition.participateBuilder(c, {}, campaign!),
+    );
+  }
+
   int? _currentTabIndex;
   UserState? _userState;
   Timer? _userPollTimer;
@@ -67,7 +114,7 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
 
     if (_campaignProvider == null) {
       _campaignProvider = CampaignProvider.of(context);
-      _campaignProvider!.load().then((value) => _checkCampaign());
+      _campaignProvider!.load().then((value) => checkCampaign(context));
     }
 
     super.didChangeDependencies();
@@ -126,39 +173,6 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
 
   void setCurrentTab(int index) {
     setState(() => _currentTabIndex = index);
-  }
-
-  void _checkCampaign() {
-    final campaignManager = CampaignManager.deaf(context);
-    final definition = campaignManager.getDefinition(
-      campaignManager.activeCampaignCode,
-    );
-
-    // Si no hay definition significa que no hay una camapaña activa por defecto
-    // asi que podemos omitir el resto de logica
-    if (definition == null) return;
-
-    final thresholdReachedCanBeOpened = definition.thresholdReachedCanBeOpened(context);
-    if (thresholdReachedCanBeOpened) {
-      RecNavigation.of(context).navigate(
-        (c) => definition.thresholdReachedBuilder(c, {}),
-      );
-      return;
-    }
-
-    // If the user is already participating in the campaign,
-    // we don't need to show the participate page
-    final isAlreadyParticipating = definition.hasAcceptedTOS(context);
-    if (isAlreadyParticipating) return;
-
-    // Comprobar si se puede abrir la ficha de participar,
-    // el usuario puede haber especificado que no se muestre mas
-    final canBeOpened = definition.canBeOpened(context);
-    if (!canBeOpened) return;
-
-    RecNavigation.of(context).navigate(
-      (c) => definition.participateBuilder(c, {}),
-    );
   }
 
   void _refreshTokenError(err) async {

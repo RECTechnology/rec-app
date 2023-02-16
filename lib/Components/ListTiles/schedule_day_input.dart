@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rec/Components/GrayBox.dart';
+import 'package:rec/Components/boxes.dart';
 import 'package:rec/Components/Inputs/TimeInput.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
