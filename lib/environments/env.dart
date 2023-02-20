@@ -34,6 +34,10 @@ class Env extends RecEnvBase {
   String? REC_CULTURAL_CAMPAIGN_ID = '5';
   String? DEEPLINK_SCHEME = dotenv.isInitialized ? dotenv.get('DEEPLINK_SCHEME') : 'https';
   String? DEEPLINK_URL = dotenv.isInitialized ? dotenv.get('DEEPLINK_URL') : 'rec.barcelona';
+  String? RECHARGE_DEEPLINK_SCHEME =
+      dotenv.isInitialized ? dotenv.get('RECHARGE_DEEPLINK_SCHEME') : 'https';
+  String? RECHARGE_DEEPLINK_URL =
+      dotenv.isInitialized ? dotenv.get('RECHARGE_DEEPLINK_URL') : 'rec.barcelona';
   String ENV_NAME = dotenv.isInitialized ? dotenv.get('ENV_NAME') : 'pre';
   String PROJECT_NAME = dotenv.isInitialized ? dotenv.get('PROJECT_NAME') : 'rec';
   String CURRENCY_NAME = dotenv.isInitialized ? dotenv.get('CURRENCY_NAME') : 'rec';

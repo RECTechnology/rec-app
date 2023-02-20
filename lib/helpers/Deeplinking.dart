@@ -17,14 +17,16 @@ class DeepLinking {
   static bool matchesPaymentUri(RecEnvBase env, String uri) {
     var parsedUri = Uri.parse(uri);
 
-    return parsedUri.scheme == env.DEEPLINK_SCHEME && parsedUri.host == env.DEEPLINK_URL && parsedUri.path == PATH_PAY;
+    return parsedUri.scheme == env.DEEPLINK_SCHEME &&
+        parsedUri.host == env.DEEPLINK_URL &&
+        parsedUri.path == PATH_PAY;
   }
 
   static bool matchesRechargeResultUri(RecEnvBase env, uri) {
     var parsedUri = Uri.parse(uri);
 
-    return parsedUri.scheme == env.DEEPLINK_SCHEME &&
-        parsedUri.host == env.DEEPLINK_URL &&
+    return parsedUri.scheme == env.RECHARGE_DEEPLINK_SCHEME &&
+        parsedUri.host == env.RECHARGE_DEEPLINK_URL &&
         parsedUri.path == RECHARGE_PAY;
   }
 }

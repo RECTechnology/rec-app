@@ -198,7 +198,7 @@ class _GenericWelcomePageState extends State<GenericWelcomePage> {
         const SizedBox(height: 12),
         LocalizedText(
           'DESC_BONUS_USER',
-          params: {"max": maxScaled},
+          params: {"max": maxScaled.toStringAsFixed(2)},
           textAlign: TextAlign.center,
           style: TextStyle(color: recTheme?.grayDark3, fontSize: 12),
         ),
@@ -234,7 +234,7 @@ class _GenericWelcomePageState extends State<GenericWelcomePage> {
         const SizedBox(height: 12),
         LocalizedText(
           'DESC_BONUS_ACCOUNT',
-          params: {"amount": accountAvailableBonus},
+          params: {"amount": accountAvailableBonus.toStringAsFixed(2)},
           textAlign: TextAlign.center,
           style: TextStyle(color: recTheme?.grayDark3, fontSize: 12),
         ),

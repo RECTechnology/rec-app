@@ -65,7 +65,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app requires photo library, to upload and select profile images</string>
 	<key>UILaunchStoryboardName</key>
-	<string>Launch Screen La Rosa Sand</string>
+	<string>Launch Screen La Rosa</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIStatusBarStyle</key>

@@ -116,7 +116,7 @@ android {
         
         larosa_sandbox {
             dimension "default"
-            applicationId "cat.santfeliu.larosa_sandbox"
+            applicationId "cat.santfeliu.larosa"
             versionNameSuffix "-larosa-sandbox"
             manifestPlaceholders = [uri: "larosa.santfeliu.cat"]
         }

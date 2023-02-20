@@ -10,9 +10,11 @@ abstract class RecEnvBase extends EnvBase {
 
   /// What scheme should deeplinking use
   String? DEEPLINK_SCHEME;
+  String? RECHARGE_DEEPLINK_SCHEME;
 
   /// Deepling url
   String? DEEPLINK_URL;
+  String? RECHARGE_DEEPLINK_URL;
 
   /// LTAB Campaign id
   String? LTAB_CAMPAIGN_ID;

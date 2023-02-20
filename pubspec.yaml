@@ -1,7 +1,8 @@
 name: rec
 description: Rec Barcelona app.
 publish_to: 'none'
-version: 2.4.5+114
+version: 2.5.0+115
+
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
