@@ -56,7 +56,7 @@ class _SavedCardsPageState extends State<SavedCardsPage> {
               child: ListView.builder(
                 itemBuilder: (_, index) {
                   if (cards[index].deleted) return SizedBox.shrink();
-                  
+
                   return ListTile(
                     leading: CreditCardTypeIcon(alias: cards[index].alias),
                     title: LocalizedText(cards[index].alias),
@@ -89,8 +89,10 @@ class _SavedCardsPageState extends State<SavedCardsPage> {
     if (deleteCard == true) {
       Loading.show();
       _accountsService.deleteBankCardAccount(card.id as String).then((value) {
-        RecToast.showSuccess(context, 'DELETED_CARD');
+        UserState.deaf(context).user?.bankCards.removeWhere((element) => element.id == card.id);
         UserState.deaf(context).getUser();
+        RecToast.showSuccess(context, 'DELETED_CARD');
+        setState(() {});
       }).catchError((e) {
         RecToast.showSuccess(context, e.message);
       }).whenComplete(() => Loading.dismiss());

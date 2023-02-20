@@ -79,6 +79,7 @@ class UserState with ChangeNotifier {
 
   void setUser(User user) {
     _user = user;
+    notifyListeners();
     setSavedUser(user);
   }
 

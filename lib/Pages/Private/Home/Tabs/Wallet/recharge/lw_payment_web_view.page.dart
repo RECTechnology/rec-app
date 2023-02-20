@@ -49,6 +49,7 @@ class _LemonWayPaymentWebView extends State<LemonWayPaymentWebView> {
 
     if (isRechargeResultUrl) {
       Navigator.of(context).pop();
+      UserState.deaf(context).getUser();
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (ctx) {
