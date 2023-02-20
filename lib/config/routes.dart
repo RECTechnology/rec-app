@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Settings/accesibility.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/account/day_sales.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/account/delete_account.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/all.dart';
@@ -60,15 +61,13 @@ class Routes {
   static const String settingsUserMainAccount = 'settings-user-main-account';
   static const String settingsUserLanguage = 'settings-user-general-language';
   static const String settingsUserCards = 'settings-user-cards';
-  static const String settingsUserGeneralLanguage =
-      'settings-user-general-language';
+  static const String settingsUserGeneralLanguage = 'settings-user-general-language';
 
   static const String settingsYourAccount = 'settings-your-account';
   static const String settingsDeleteAccount = 'settings-delete-account';
-  static const String settingsBussinessAccount =
-      'settings-bussiness-account-map';
-  static const String settingsAccountPermissions =
-      'settings-account-permissions';
+  static const String settingsAccesibility = 'settings-accesibility';
+  static const String settingsBussinessAccount = 'settings-bussiness-account-map';
+  static const String settingsAccountPermissions = 'settings-account-permissions';
   static const String settingsAccountLocation = 'settings-account-location';
   static const String settingsAccountContact = 'settings-account-contact';
   static const String settingsAccountSchedule = 'settings-account-schedule';
@@ -131,6 +130,7 @@ final Map<String, Widget Function(BuildContext)> ROUTES = {
   Routes.settingsUserChangePin: (context) => ChangePinPage(),
   Routes.settingsUserCreatePin: (context) => CreatePinPage(),
   Routes.settingsUserDocuments: (context) => LimitAndVerificationPage(),
+  Routes.settingsAccesibility: (context) => AccesibilityPage(),
 
   // Account settings
   Routes.settingsAccountPermissions: (context) => AccountPermissionsPage(),

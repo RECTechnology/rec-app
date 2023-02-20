@@ -34,6 +34,14 @@ class HelpPage extends StatelessWidget {
           onTap: () => _openHelpLink('link_tos', context),
         ),
         SettingsListTile(
+          title: 'SETTINGS_ACCESIBILITY',
+          icon: Icons.accessibility,
+          onTap: RecNavigation.getNavigateToRouteCallback(
+            context,
+            Routes.settingsAccesibility,
+          ),
+        ),
+        SettingsListTile(
           title: 'DELETE_MY_USER',
           icon: Icons.group_off,
           onTap: RecNavigation.getNavigateToRouteCallback(

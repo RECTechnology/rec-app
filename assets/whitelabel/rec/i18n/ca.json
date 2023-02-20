@@ -598,5 +598,12 @@
   "DESC_BONUS_USER": "Suma acumulada del total de bonificaiones de todas tus cuentas. El máximo de ROSES bonificadas por usuario es de {{max}}R.",
   "DESC_BONUS_ACCOUNT": "ROSES bonificadas disponibles en su cuenta actual:  {{amount}}R",
   "The url is not a valid url": "La url no es correcta, debe empezar por http o https",
-  "URL_MUST_START_WITH": "Debe empezar con http o https"
+  "URL_MUST_START_WITH": "Debe empezar con http o https",
+  "SETTINGS_ACCESIBILITY": "Accessibilitat",
+  "COMERCE_LIST": "Llistat de comerços",
+  "ACCESIBILITY_DECLARATION": "Declaració de accessibilitat",
+  "link_comerce_list": "https://rec.barcelona/reccultural-llistacomercos/",
+  "link_accesibility_declaration": "https://rec.barcelona/reccultural-llistacomercos/",
+  "title.link_comerce_list": "Llistat de comerços",
+  "title.link_accesibility_declaration": "Declaració de accessibilitat"
 }

@@ -7,7 +7,6 @@ import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/RecHeader.dart';
 import 'package:rec/Components/Text/LinkText.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Map/map.page.dart';
 import 'package:rec/Pages/Private/Shared/InAppBrowser.dart';
 import 'package:rec/Pages/Public/forgot_password.dart';
 import 'package:rec/Pages/Public/MustUpdate.dart';
@@ -15,7 +14,6 @@ import 'package:rec/Pages/Public/validate_phone.dart';
 import 'package:rec/config/routes.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
-import 'package:rec/helpers/RecNavigation.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/loading.dart';
 import 'package:rec/providers/app_localizations.dart';
@@ -134,25 +132,6 @@ class _LoginPageState extends State<LoginPage> {
       label: 'REGISTER',
       onPressed: _registerButtonPressed,
       padding: EdgeInsets.all(0),
-    );
-  }
-
-  Widget _businessesLink() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 48.0, vertical: 16),
-      child: RecActionButton(
-        label: 'BUSINESS_NETWORK',
-        leading: Icons.location_on,
-        backgroundColor: RecTheme.of(context)!.accentColor,
-        onPressed: () {
-          RecNavigation.navigate(
-            context,
-            (context) => MapPage(
-              showAppBar: true,
-            ),
-          );
-        },
-      ),
     );
   }
 
