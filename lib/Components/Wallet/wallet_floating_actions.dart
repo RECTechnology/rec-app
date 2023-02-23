@@ -68,7 +68,7 @@ class WalletFloatingActionsState extends State<WalletFloatingActions> {
         ),
       if (hasPermissionToPayQr)
         buildSpeedDialChild(
-          Features.contactList ? 'PAY_ACCOUNT_CONTACT' : 'PAY_ACCOUNT',
+          'PAY_ACCOUNT',
           Icons.call_made,
           context,
           bgColor: accountTypeColor,
@@ -112,7 +112,7 @@ class WalletFloatingActionsState extends State<WalletFloatingActions> {
         ),
       if (hasPermissionToPay)
         buildSpeedDialChild(
-          'PAY_ACCOUNT_CONTACT',
+          'PAY_ACCOUNT',
           Icons.call_made,
           context,
           bgColor: accountTypeColor,

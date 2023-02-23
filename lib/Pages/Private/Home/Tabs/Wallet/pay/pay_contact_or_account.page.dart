@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rec/Components/Lists/AccountList.dart';
-import 'package:rec/Components/Lists/ContactsList.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Wallet/pay/pay_to_address.page.dart';
-import 'package:rec/Components/IfPermissionGranted.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/config/features.dart';
-import 'package:rec/permissions/permission_data_provider.dart';
 import 'package:rec/providers/app_localizations.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
@@ -17,18 +14,14 @@ class PayContactOrAccount extends StatefulWidget {
 
 class _PayContactOrAccountState extends State<PayContactOrAccount> with TickerProviderStateMixin {
   TabController? _tabController;
-  int items = 2;
+  int items = 1;
   final PaymentData _paymentData = PaymentData.empty();
   int initialIndex = 0;
 
   @override
   void initState() {
-    // NOTE: Disable contact list
-    if (!Features.contactList) {
-      items = 1;
-    }
     _tabController = TabController(
-      length: items,
+      length: 1,
       vsync: this,
       initialIndex: initialIndex,
     );
@@ -59,18 +52,6 @@ class _PayContactOrAccountState extends State<PayContactOrAccount> with TickerPr
         : TabBarView(
             controller: _tabController,
             children: <Widget>[
-              // Only show contact list tab if feature is enabled
-              if (Features.contactList)
-                IfPermissionGranted(
-                  permission: PermissionDataProvider.contacts,
-                  canBeDeclined: false,
-                  builder: (_) => ContactsList(
-                    onPick: _pickedContact,
-                  ),
-                  onDecline: () {
-                    print('permission declined');
-                  },
-                ),
               AccountList(
                 onPick: _pickedAccount,
               ),
@@ -89,13 +70,6 @@ class _PayContactOrAccountState extends State<PayContactOrAccount> with TickerPr
     _paymentData.vendor!.image = account.publicImage;
     _paymentData.vendor!.type = account.type;
     _paymentData.address = account.recAddress;
-    _navigateToPayAddress(_paymentData);
-  }
-
-  void _pickedContact(ContactInfo contact) {
-    _paymentData.vendor!.name = contact.account;
-    _paymentData.vendor!.image = contact.image;
-    _paymentData.address = contact.address;
     _navigateToPayAddress(_paymentData);
   }
 
@@ -118,16 +92,6 @@ class _PayContactOrAccountState extends State<PayContactOrAccount> with TickerPr
 
   AppBar _constructAppBar() {
     double height = Features.contactList ? 120 : 0;
-    var contactsButton = _constructButton(
-      title: 'CONTACTS',
-      action: () {
-        if (!_tabController!.indexIsChanging) {
-          setState(() => _tabController!.index = 0);
-        }
-      },
-      icon: Icons.import_contacts_outlined,
-      active: _tabController != null && _tabController!.index == 0,
-    );
     var accountsButton = _constructButton(
       title: 'ACCOUNTS',
       action: () {
@@ -162,12 +126,9 @@ class _PayContactOrAccountState extends State<PayContactOrAccount> with TickerPr
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: Features.contactList
-                ? [
-                    contactsButton,
-                    accountsButton,
-                  ]
-                : [],
+            children: [
+              accountsButton,
+            ],
           ),
         ),
       ),

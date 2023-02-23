@@ -7,7 +7,7 @@ class Features {
   }
 
   static bool get imageUploads {
-    return true;
+    return false;
   }
 
   static bool get refunds {
