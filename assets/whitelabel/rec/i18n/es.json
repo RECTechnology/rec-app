@@ -560,5 +560,6 @@
     "app_declined": "Denegado",
     "app_submitted": "Pendiente de revisión",
     "app_approved": "Validado correctamente",
-    "app_expired": "Documento expirado"
+    "app_expired": "Documento expirado",
+    "BONIFICATIONS": "BONIFICACIONES"
 }
