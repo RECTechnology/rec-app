@@ -560,5 +560,6 @@
     "app_declined": "Declined",
     "app_submitted": "Pending review",
     "app_approved": "Successfully validated",
-    "app_expired": "Expired document"
+    "app_expired": "Expired document",
+    "BONIFICATIONS": "BONIFICATIONS"
 }

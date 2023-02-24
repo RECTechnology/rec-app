@@ -13,6 +13,7 @@ import 'package:rec/config/theme.dart';
 import 'package:rec/config/routes.dart';
 import 'package:rec/providers/account_campaign_provider.dart';
 import 'package:rec/providers/app_localizations.dart';
+import 'package:rec/providers/user_state.dart';
 import 'package:rec/styles/paddings.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
@@ -146,6 +147,7 @@ class _GenericWelcomePageState extends State<GenericWelcomePage> {
       color: Colors.white,
       fontSize: 20,
     );
+    final account = UserState.of(context).account;
     final accountCampaignProvider = AccountCampaignProvider.of(context);
     final accountCampaign = AccountCampaignProvider.of(context).getForCampaign(
       widget.campaign,
@@ -213,7 +215,7 @@ class _GenericWelcomePageState extends State<GenericWelcomePage> {
                   overflow: TextOverflow.ellipsis,
                   style: defaultTextStyle.copyWith(fontSize: 16, fontWeight: FontWeight.w300),
                   params: {
-                    "account": accountCampaign?.account.name,
+                    "account": account?.name,
                   },
                 ),
               ),
