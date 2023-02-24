@@ -49,7 +49,7 @@ class _GenericWelcomePageState extends State<GenericWelcomePage> {
       child: Scaffold(
         appBar: EmptyAppBar(context, title: 'WELCOME_CAMPAIGN_TITLE'),
         backgroundColor: Colors.white,
-        body: _body(),
+        body: SingleChildScrollView(child: _body()),
       ),
     );
   }

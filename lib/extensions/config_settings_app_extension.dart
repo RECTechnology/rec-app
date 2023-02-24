@@ -4,7 +4,7 @@ import '../environments/env.dart';
 
 extension ConfigurationSettingsAppExtension on ConfigurationSettings {
   static String badgeFiltersKey = 'map_badges_filter_status';
-  static String c2bStatusKey = 'c2b_challenges_status';
+  static String c2bStatusKey = 'c2b_tab_participa';
   static String mapLatKey = 'map_init_lat';
   static String mapLonKey = 'map_init_lon';
   static String mapZoomKey = 'map_init_zoom';

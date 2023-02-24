@@ -193,17 +193,8 @@ class _RechargePageState extends State<RechargePage> {
 
     final localizations = AppLocalizations.of(context);
     final campaignActive = CampaignHelper.isActiveForState(userState, ltabCampaign!);
-    final valueDouble = double.parse(value!.isEmpty ? '0' : value);
+    final valueDouble = double.parse(value!.isEmpty ? '0' : value.replaceAll(',', '.'));
     final reachesMin = valueDouble >= ltabCampaign!.min;
-
-    // if (activeV2Campaign != null && valueDouble <= Currency.rec.scaleAmount(activeV2Campaign.min)) {
-    //   return localizations!.translate(
-    //     'GENERIC_CAMPAIGN_NOT_REACH_MIN',
-    //     params: {
-    //       'min': Currency.rec.scaleAmount(activeV2Campaign.min),
-    //     },
-    //   );
-    // }
 
     if (valueDouble < 0.5) {
       return localizations!.translate('MIN_RECHARGE');
