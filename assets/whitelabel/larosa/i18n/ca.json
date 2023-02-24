@@ -540,7 +540,7 @@
     "NOT_EDITABLE": "No pots editar això",
     "INFO_CAMPAIGN_BOX_TITLE": "REBRÀS UN {{percent}}% MÉS EN RECS EN AQUEST CANVI",
     "INFO_CAMPAIGN_BOX_DESC": "Encara pots optar fins a <bold>{{remaining}}R</bold> bonificades.\nHas rebut {{bonus}}R bonificades.\nEl màxim per usuari es de {{max}}R.",
-    "CAMPAIGN_BONUS_REACHED": "HAS EXHAURIT LES BONIFICACIONS AMB RECS",
+    "CAMPAIGN_BONUS_REACHED": "HAS EXHAURIT LES BONIFICACIONS AMB ROSES",
     "CAMPAIGN_THRESHOLD_REACHED_DESC": "Falta poc per esgotar els RECS Culturals bonificats. Recordeu gastar els vostres RECS bonificats abans del {{finish_date}}",
     "CAMPAIGN_THRESHOLD_REACHED": "EL FINAL S'ACOSTA!",
     "UNDERSTOOD": "Entès",
@@ -584,5 +584,6 @@
     "link_comerce_list": "https://rec.barcelona/reccultural-llistacomercos/",
     "link_accesibility_declaration": "https://rec.barcelona/reccultural-llistacomercos/",
     "title.link_comerce_list": "Llistat de comerços",
-    "title.link_accesibility_declaration": "Declaració de accessibilitat"
+    "title.link_accesibility_declaration": "Declaració de accessibilitat",
+    "BONIFICATIONS": "BONIFICACIONS"
 }
