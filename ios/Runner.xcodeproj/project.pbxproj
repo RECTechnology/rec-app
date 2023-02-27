@@ -984,7 +984,7 @@
 				CODE_SIGN_ENTITLEMENTS = LaRosa.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1026,7 +1026,7 @@
 				CODE_SIGN_ENTITLEMENTS = LaRosa.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1067,7 +1067,7 @@
 				CODE_SIGN_ENTITLEMENTS = LaRosa.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1203,7 +1203,7 @@
 				CODE_SIGN_ENTITLEMENTS = LaRosa.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1336,7 +1336,7 @@
 				CODE_SIGN_ENTITLEMENTS = LaRosa.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1674,7 +1674,7 @@
 				CODE_SIGN_ENTITLEMENTS = LaRosa.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1848,7 +1848,7 @@
 				CODE_SIGN_ENTITLEMENTS = LaRosa.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 115;
+				CURRENT_PROJECT_VERSION = 116;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
