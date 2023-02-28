@@ -58,9 +58,7 @@ List<CampaignDefinition> getCampaignDefinitions() {
         hideDontShowAgain: params['hideDontShowAgain'] ?? false,
         campaign: campaign,
       ),
-      welcomeBuilder: (_, __, campaign) => GenericWelcomePage(
-        campaign: campaign,
-      ),
+      welcomeBuilder: (_, __, campaign) => GenericWelcomePage(campaign: campaign),
       canBeOpened: (c, campaign) => GenericCampaignParticipatePage.shouldBeOpenned(c, campaign),
       hasAcceptedTOS: (c, campaign) {
         final provider = AccountCampaignProvider.deaf(c);
@@ -68,9 +66,7 @@ List<CampaignDefinition> getCampaignDefinitions() {
         return accountCampaign != null;
       },
       rechargeDescriptionBuilder: (_, __, campaign) => GenericDescriptionCard(),
-      thresholdReachedBuilder: (_, __, campaign) => GenericThresholdReachedPage(
-        campaign: campaign,
-      ),
+      thresholdReachedBuilder: (_, __, campaign) => GenericThresholdReachedPage(campaign: campaign),
       thresholdReachedCanBeOpened: (c, campaign) =>
           GenericThresholdReachedPage.thresholdReachedShouldBeOpened(c, campaign),
     ),
