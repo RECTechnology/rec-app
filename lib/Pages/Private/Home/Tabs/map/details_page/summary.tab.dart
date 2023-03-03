@@ -132,23 +132,26 @@ class SummaryTab extends StatelessWidget {
 
   _buildEmailLink(BuildContext context) {
     final recTheme = RecTheme.of(context);
-    return Wrap(children: [
-      Icon(
-        Icons.email,
-        color: recTheme?.grayLight,
-      ),
-      SizedBox(width: 5),
-      Container(
-        margin: EdgeInsets.only(top: 4),
-        child: LocalizedText(
-          account.email!,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w300,
-            color: recTheme?.grayDark,
+    return InkWell(
+      onTap: () {
+        BrowserHelper.openEmail(account.email);
+      },
+      child: Wrap(
+        children: [
+          Icon(
+            Icons.email,
+            color: recTheme?.grayLight,
           ),
-        ),
+          SizedBox(width: 5),
+          Container(
+            margin: EdgeInsets.only(top: 4),
+            child: LocalizedText(
+              account.email!,
+              style: recTheme!.textTheme.link,
+            ),
+          ),
+        ],
       ),
-    ]);
+    );
   }
 }

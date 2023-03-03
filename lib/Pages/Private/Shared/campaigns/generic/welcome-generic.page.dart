@@ -156,7 +156,7 @@ class _GenericWelcomePageState extends State<GenericWelcomePage> {
         Currency.rec.scaleAmount(accountCampaignProvider.list?.totalAccumulatedBonus ?? 0);
     final accountBonus = Currency.rec.scaleAmount(accountCampaign?.acumulatedBonus ?? 0);
     final accountSpent = Currency.rec.scaleAmount(accountCampaign?.spentBonus ?? 0);
-    final maxScaled = Currency.rec.scaleAmount(widget.campaign.max ?? 0);
+    final maxScaled = Currency.rec.scaleAmount(widget.campaign.max);
     final accountAvailableBonus = accountBonus - accountSpent;
 
     return Column(

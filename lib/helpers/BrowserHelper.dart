@@ -6,14 +6,19 @@ class BrowserHelper {
     if (url == null) return null;
 
     final uri = Uri.parse(url);
-
-    if (await canLaunchUrl(uri)) {
+    try {
       return launchUrl(uri, mode: mode ?? LaunchMode.platformDefault);
+    } catch (e) {
+      print(e.toString());
     }
   }
 
   static Future openCallPhone(String number) async {
     return await launchUrl(Uri.parse('tel://$number'));
+  }
+
+  static Future openEmail(String? email) async {
+    return await launchUrl(Uri.parse('mailto://$email'));
   }
 
   static Future openMarketOrPlayStore(appPackageName) async {
@@ -25,20 +30,5 @@ class BrowserHelper {
     if (Platform.isIOS) {
       return await openBrowser('market://details?id=' + appPackageName);
     }
-  }
-
-  @Deprecated('')
-  static Future openGoogleMaps([double? latitude = 0, double? longitude = 0]) {
-    if (Platform.isAndroid) {
-      final geoURL = 'geo://$latitude,$longitude';
-      return openBrowser(geoURL);
-    }
-    if (Platform.isIOS) {
-      final iosUrl = 'http://maps.apple.com/?ll=$latitude,$longitude';
-      return openBrowser(iosUrl);
-    }
-
-    final url = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
-    return openBrowser(url, mode: LaunchMode.externalApplication);
   }
 }

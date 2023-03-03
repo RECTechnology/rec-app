@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rec/Components/Inputs/text_fields/SearchInput.dart';
@@ -196,7 +195,6 @@ class _MapPageState extends State<MapPage> with StateLoading {
     startLoading();
     await _accountService.getOnePublic(id).then((value) {
       _selectedBusiness = value;
-      debugger();
       return value;
     }).catchError(_onError);
     stopLoading();

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
@@ -25,7 +26,6 @@ class ThresholdReachedPage extends StatefulWidget {
     final preferences = PreferenceProvider.deaf(context);
     final cultureCampaign = CampaignProvider.deaf(context).getCampaignByCode(code);
     final userState = UserState.deaf(context);
-
 
     // User has not marked "don't show again"
     final canShow = preferences.get(PreferenceKeys.showCultureThresholdReached);
@@ -69,6 +69,8 @@ class _ThresholdReachedPageState extends State<ThresholdReachedPage> {
     final assets = recTheme!.assets;
     final preferences = PreferenceProvider.of(context);
     final dontShowAgain = preferences.get(PreferenceKeys.showCultureThresholdReached);
+    final cultureCampaign = CampaignProvider.deaf(context).getCampaignByCode(env.CMP_CULT_CODE);
+    final localizations = AppLocalizations.of(context);
 
     return SingleChildScrollView(
       child: Padding(
@@ -92,6 +94,10 @@ class _ThresholdReachedPageState extends State<ThresholdReachedPage> {
                 fontWeight: FontWeight.normal,
                 color: recTheme.grayLight,
               ),
+              params: {
+                'finish_date': DateFormat.yMMMd(localizations!.locale.languageCode)
+                    .format(cultureCampaign?.endDate ?? DateTime.now()),
+              },
             ),
             const SizedBox(height: 48),
             Row(
