@@ -6,6 +6,7 @@ import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/Text/CaptionText.dart';
 import 'package:rec/Components/Text/LinkText.dart';
 import 'package:rec/Components/Wallet/user_balance.dart';
+import 'package:rec/config/features.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/helpers/Deeplinking.dart';
@@ -78,34 +79,35 @@ class _ChargePageState extends State<ChargePage> {
             children: [
               Icon(Icons.share, size: 16, color: color),
               const SizedBox(width: 8),
-              LinkText(
-                localizations!.translate('SHARE_PAY_LINK'),
-                color: color,
-                onTap: () {
-                  var payUrl = DeepLinking.constructPayUrl(
-                    env,
-                    paymentData,
-                  );
-                  var payText = localizations.translate(
-                    'PAYMENT_SHARE_MESSAGE',
-                    params: {
-                      'account': userState.account!.name,
-                      'concept': paymentData.concept,
-                      'amount': paymentData.amount,
-                      'link': payUrl,
-                    },
-                  );
-                  Share.share(payText).then((c) {
-                    Navigator.of(context).pop();
-                  });
-                },
-              ),
+              if (Features.sharePayLink)
+                LinkText(
+                  localizations!.translate('SHARE_PAY_LINK'),
+                  color: color,
+                  onTap: () {
+                    var payUrl = DeepLinking.constructPayUrl(
+                      env,
+                      paymentData,
+                    );
+                    var payText = localizations.translate(
+                      'PAYMENT_SHARE_MESSAGE',
+                      params: {
+                        'account': userState.account!.name,
+                        'concept': paymentData.concept,
+                        'amount': paymentData.amount,
+                        'link': payUrl,
+                      },
+                    );
+                    Share.share(payText).then((c) {
+                      Navigator.of(context).pop();
+                    });
+                  },
+                ),
             ],
           ),
           SizedBox(height: 16),
           RecActionButton(
             padding: EdgeInsets.zero,
-            label: localizations.translate('CHARGE_QR'),
+            label: localizations!.translate('CHARGE_QR'),
             backgroundColor: color,
             onPressed: _isFormValid() ? _proceedWithPayment : null,
           )

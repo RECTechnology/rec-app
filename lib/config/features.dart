@@ -10,6 +10,10 @@ class Features {
     return false;
   }
 
+  static bool get sharePayLink {
+    return false;
+  }
+
   static bool get refunds {
     return true;
   }

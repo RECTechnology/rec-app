@@ -18,7 +18,7 @@ class BrowserHelper {
   }
 
   static Future openEmail(String? email) async {
-    return await launchUrl(Uri.parse('mailto://$email'));
+    return await launchUrl(Uri.parse('mailto:$email'));
   }
 
   static Future openMarketOrPlayStore(appPackageName) async {

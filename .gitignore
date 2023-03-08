@@ -11,12 +11,14 @@
 line-count*
 .fvm/flutter_sdk
 
-# env
+# project files
 env/.env
 env/*.env
 
 env/*.env
 env/*/*.env
+
+assets/current/
 
 assets/android-build/larosa/key.properties
 assets/android-build/rec/key.properties
