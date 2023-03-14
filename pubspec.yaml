@@ -1,7 +1,7 @@
 name: rec
 description: Rec Barcelona app.
 publish_to: 'none'
-version: 2.5.0+119
+version: 2.5.2+122
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
@@ -17,7 +17,7 @@ dependencies:
   flutter_speed_dial: ^4.6.6
   flutter_dotenv: ^5.0.2
   flutter_svg: ^1.1.5
-  # rec_api_dart: ^1.4.0-alpha.24
+  # rec_api_dart: ^1.4.1
   rec_api_dart: 
     path: /Users/keff_work/Documents/dev/work/REC/rec_api_dart
   contacts_service: ^0.6.3
@@ -50,7 +50,6 @@ dependencies:
   styled_text: ^5.1.0
   cached_network_image: ^3.2.2
   map_launcher: ^2.4.0
-
 
 dev_dependencies:
   flutter_test:

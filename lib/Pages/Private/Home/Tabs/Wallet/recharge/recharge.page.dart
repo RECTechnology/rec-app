@@ -114,7 +114,7 @@ class _RechargePageState extends State<RechargePage> {
         v2Campaign.isActive &&
         v2Campaign.bonusEnabled &&
         !reachedMax &&
-        valueDouble <= Currency.rec.scaleAmount(v2Campaign.min);
+        valueDouble < Currency.rec.scaleAmount(v2Campaign.min);
 
     return SingleChildScrollView(
       child: Container(
@@ -192,9 +192,9 @@ class _RechargePageState extends State<RechargePage> {
     if (isCultureAccount && activeV2Campaign != null) return null;
 
     final localizations = AppLocalizations.of(context);
-    final campaignActive = CampaignHelper.isActiveForState(userState, ltabCampaign!);
+    final campaignActive = CampaignHelper.isActiveForState(userState, ltabCampaign);
     final valueDouble = double.parse(value!.isEmpty ? '0' : value.replaceAll(',', '.'));
-    final reachesMin = valueDouble >= ltabCampaign!.min;
+    final reachesMin = valueDouble >= (ltabCampaign?.min ?? 0);
 
     if (valueDouble < 0.5) {
       return localizations!.translate('MIN_RECHARGE');
@@ -220,7 +220,7 @@ class _RechargePageState extends State<RechargePage> {
     final ltabCampaign = CampaignProvider.deaf(context).getCampaignByCode(env.CMP_LTAB_CODE);
     final alreadyHasLtabAccount = userState!.user!.hasCampaignAccount(env.CMP_LTAB_CODE);
     final isCultureAccount = userState!.account!.isCampaignAccount(env.CMP_CULT_CODE);
-    final ltabCampaignActive = CampaignHelper.isActiveForState(userState, ltabCampaign!);
+    final ltabCampaignActive = CampaignHelper.isActiveForState(userState, ltabCampaign);
 
     // Only update if not already set
     if (ltabCampaignActive &&
@@ -230,10 +230,10 @@ class _RechargePageState extends State<RechargePage> {
 
     rechargeData.willEnterCampaign = ltabCampaignActive &&
         rechargeData.campaignTermsAccepted &&
-        rechargeData.amount >= ltabCampaign.min &&
+        rechargeData.amount >= (ltabCampaign?.min ?? 0) &&
         !alreadyHasLtabAccount &&
         !isCultureAccount &&
-        !ltabCampaign.bonusEnabled;
+        !(ltabCampaign?.bonusEnabled ?? false);
 
     Loading.dismiss();
     _requestPin();

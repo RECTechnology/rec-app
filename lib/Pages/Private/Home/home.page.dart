@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:rec/Api/Auth.dart';
 import 'package:rec/Components/Scaffold/RecNavigationBar.dart';
@@ -47,7 +48,7 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
     var campaignCode = campaignManager.activeCampaignCode;
     var campaign = campaignProvider.getCampaign((el) {
       return el?.code == campaignCode;
-    });
+    }, orElse: () => null);
 
     final activeV2Campaign = campaignProvider.firstActiveV2();
     if (activeV2Campaign != null) {
@@ -56,7 +57,7 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
     }
 
     final definition = campaignManager.getDefinition(campaignCode);
-
+    debugger();
     // Si no hay definition significa que no hay una camapaña activa por defecto
     // asi que podemos omitir el resto de logica
     if (definition == null) return;

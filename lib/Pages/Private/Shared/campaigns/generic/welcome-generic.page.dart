@@ -11,6 +11,7 @@ import 'package:rec/Components/boxes.dart';
 import 'package:rec/Pages/Private/Shared/InAppBrowser.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/config/routes.dart';
+import 'package:rec/helpers/number_helper.dart';
 import 'package:rec/providers/account_campaign_provider.dart';
 import 'package:rec/providers/app_localizations.dart';
 import 'package:rec/providers/user_state.dart';
@@ -92,7 +93,7 @@ class _GenericWelcomePageState extends State<GenericWelcomePage> {
               fontSize: 20,
             ),
             params: {
-              'percent': activeCampaign.percent,
+              'percent': prettyPercentage(activeCampaign.percent),
               'finish_date': DateFormat.yMMMd(localizations!.locale.languageCode)
                   .format(activeCampaign.endDate ?? DateTime.now()),
             },

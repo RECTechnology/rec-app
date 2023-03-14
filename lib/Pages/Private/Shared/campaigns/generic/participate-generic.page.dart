@@ -10,6 +10,7 @@ import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/RecNavigation.dart';
 import 'package:rec/helpers/RecToast.dart';
 import 'package:rec/helpers/loading.dart';
+import 'package:rec/helpers/number_helper.dart';
 import 'package:rec/helpers/rec_preferences.dart';
 import 'package:rec/providers/account_campaign_provider.dart';
 import 'package:rec/providers/campaign_manager.dart';
@@ -126,7 +127,7 @@ class _GenericCampaignParticipatePageState extends State<GenericCampaignParticip
                   ),
                   textAlign: TextAlign.start,
                   params: {
-                    'percent': widget.campaign.percent,
+                    'percent': prettyPercentage(widget.campaign.percent),
                   },
                 ),
                 width: double.infinity,

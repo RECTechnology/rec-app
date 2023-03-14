@@ -74,12 +74,12 @@ class _ChargePageState extends State<ChargePage> {
       submitButton: Column(
         children: [
           SizedBox(height: 32),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.share, size: 16, color: color),
-              const SizedBox(width: 8),
-              if (Features.sharePayLink)
+          if (Features.sharePayLink)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.share, size: 16, color: color),
+                const SizedBox(width: 8),
                 LinkText(
                   localizations!.translate('SHARE_PAY_LINK'),
                   color: color,
@@ -102,8 +102,8 @@ class _ChargePageState extends State<ChargePage> {
                     });
                   },
                 ),
-            ],
-          ),
+              ],
+            ),
           SizedBox(height: 16),
           RecActionButton(
             padding: EdgeInsets.zero,

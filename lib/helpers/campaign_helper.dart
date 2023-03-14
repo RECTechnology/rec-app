@@ -2,7 +2,8 @@ import 'package:rec/providers/user_state.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
 class CampaignHelper {
-  static bool isActiveForState(UserState? userState, Campaign campaign) {
+  static bool isActiveForState(UserState? userState, Campaign? campaign) {
+    if (campaign == null) return false;
     return isActive(campaign, userState!.user, userState.account);
   }
 

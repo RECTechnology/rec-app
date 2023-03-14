@@ -5,6 +5,7 @@ import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Text/styled_text.dart';
 import 'package:rec/config/theme.dart';
 import 'package:rec/helpers/RecNavigation.dart';
+import 'package:rec/helpers/number_helper.dart';
 import 'package:rec/providers/account_campaign_provider.dart';
 import 'package:rec/providers/campaign_manager.dart';
 import 'package:rec/providers/campaign_provider.dart';
@@ -72,13 +73,18 @@ class GenericDescriptionCard extends StatelessWidget {
               color: recTheme!.grayDark2,
               fontSize: 18,
             ),
-            params: {"percent": campaign.percent},
+            params: {
+              "percent": prettyPercentage(campaign.percent),
+            },
           ),
           const SizedBox(height: 12),
           LocalizedStyledText(
             'ENTER_CAMPAIGN_BOX_DESC',
             style: theme.textTheme.caption!.copyWith(fontSize: 14),
-            params: {"percent": campaign.percent, "campaign": campaign.name},
+            params: {
+              "percent": prettyPercentage(campaign.percent),
+              "campaign": campaign.name,
+            },
           ),
           LinkText(
             'Participar',
@@ -167,7 +173,7 @@ class GenericDescriptionCard extends StatelessWidget {
                     fontSize: 18,
                   ),
                   params: {
-                    'percent': campaign.percent,
+                    'percent': prettyPercentage(campaign.percent),
                   },
                 ),
               ),
