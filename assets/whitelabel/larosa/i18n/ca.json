@@ -539,7 +539,7 @@
     "app_expired": "Document expirat",
     "NOT_EDITABLE": "No pots editar això",
     "INFO_CAMPAIGN_BOX_TITLE": "REBRÀS UN {{percent}}% MÉS EN ROSES EN AQUEST CANVI",
-    "INFO_CAMPAIGN_BOX_DESC": "Encara pots optar fins a <bold>{{remaining}}R</bold> bonificades.\nHas rebut {{bonus}}R bonificades.\nEl màxim per usuari es de {{max}}R.",
+    "INFO_CAMPAIGN_BOX_DESC": "Encara pots optar fins a <bold>{{remaining}}R</bold> bonificades.\nHas rebut {{bonus}}R bonificades.\nEl màxim per usuari es de {{max}}R.  \nTens fins el 30 de juny per gastar les Roses bonificades.",
     "CAMPAIGN_BONUS_REACHED": "HAS EXHAURIT LES BONIFICACIONS AMB ROSES",
     "CAMPAIGN_THRESHOLD_REACHED_DESC": "Falta poc per esgotar les ROSES bonificades. Recordeu gastar les vostres ROSES bonificades abans del {{finish_date}}",
     "CAMPAIGN_THRESHOLD_REACHED": "EL FINAL S'ACOSTA!",
