@@ -539,7 +539,7 @@
     "app_expired": "Documento expirado",
     "NOT_EDITABLE": "No puedes editar esto",
     "INFO_CAMPAIGN_BOX_TITLE": "Recibirás un {{percent}}% MÁS EN ROSAS EN ESTE CAMBIO",
-    "INFO_CAMPAIGN_BOX_DESC": "Aún puedes optar a <bold>{{remaining}}R</bold> bonificadas.\nHas recibido {{bonus}}R bonificadas.\nEl máximo por usuario es de {{max}}R.",
+    "INFO_CAMPAIGN_BOX_DESC": "Aún puedes optar a <bold>{{remaining}}R</bold> bonificadas.\nHas recibido {{bonus}}R bonificadas.\nEl máximo por usuario es de {{max}}R.\nTienes hasta el 30 de junio para gastar las Rosas bonificadas.",
     "CAMPAIGN_BONUS_REACHED": "HAS AGOTADO LAS BONIFICACIONES CON ROSAS",
     "CAMPAIGN_THRESHOLD_REACHED_DESC": "Falta poco para agotar las ROSAS bonificadas. Recuerda gastar tus ROSAS bonificadas antes del {{finish_date}}",
     "CAMPAIGN_THRESHOLD_REACHED": "EL FINAL SE ACERCA!",
