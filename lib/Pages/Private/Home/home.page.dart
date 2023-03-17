@@ -57,7 +57,6 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
     }
 
     final definition = campaignManager.getDefinition(campaignCode);
-    debugger();
     // Si no hay definition significa que no hay una camapaña activa por defecto
     // asi que podemos omitir el resto de logica
     if (definition == null) return;

@@ -606,5 +606,7 @@
     "link_accesibility_declaration": "https://rec.barcelona/reccultural-llistacomercos/",
     "title.link_comerce_list": "Llistat de comerços",
     "title.link_accesibility_declaration": "Declaració de accessibilitat",
-    "BONIFICATIONS": "BONIFICACIONS"
+    "BONIFICATIONS": "BONIFICACIONS",
+    "WARNING": "ATENCIÓ",
+    "RECHARGE_NOT_100": "Aquesta recàrrega no rebrà una bonificació del 100% ja que sols et queda per optar fins a {{remaining}}R bonificats. ¿Vols recarregar igualment?"
 }

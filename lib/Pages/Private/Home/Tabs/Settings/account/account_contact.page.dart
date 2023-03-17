@@ -66,7 +66,7 @@ class _AccountContactPageState extends State<AccountContactPage> {
 
   void _editField({
     String fieldName = 'FIELD',
-    FormFieldValidator<String> validator = Validators.isRequired,
+    FormFieldValidator<String>? validator = Validators.isRequired,
     String? initialValue,
     String? apiFieldName,
     String? hintText,
@@ -156,6 +156,7 @@ class _AccountContactPageState extends State<AccountContactPage> {
       icon: Icons.link,
       initialValue: userState.account!.webUrl,
       apiFieldName: 'web',
+      validator: null,
     );
   }
 

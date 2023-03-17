@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:rec/Components/Inputs/text_fields/AmountTextField.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
+import 'package:rec/Components/Modals/YesNoModal.dart';
 import 'package:rec/Components/Scaffold/PrivateAppBar.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/Components/Wallet/user_balance.dart';
@@ -212,8 +213,48 @@ class _RechargePageState extends State<RechargePage> {
     return null;
   }
 
+  _checkBonifications() async {
+    final campaigns = CampaignProvider.deaf(context);
+    final accountCampaigns = AccountCampaignProvider.deaf(context);
+    final v2Campaign = campaigns.firstActiveV2();
+    final accCampaign = accountCampaigns.getForCampaign(v2Campaign);
+
+    if (accCampaign == null || v2Campaign == null) return true;
+    if (v2Campaign.status != Campaign.STATUS_ACTIVE) return true;
+    if (v2Campaign.bonusEnabled == false) return true;
+    if (accCampaign.acumulatedBonus >= v2Campaign.max) return true;
+
+    var accumulatedScaled = Currency.rec.scaleAmount(accCampaign.acumulatedBonus);
+    var maxScaled = Currency.rec.scaleAmount(v2Campaign.max);
+    var bonus = rechargeData.amount * (v2Campaign.percent / 100);
+    var sum = accumulatedScaled + bonus;
+    var remaining = maxScaled - accumulatedScaled;
+
+    if (sum > maxScaled) {
+      final yesNoModal = YesNoModal(
+        context: context,
+        title: LocalizedText('WARNING'),
+        content: LocalizedText(
+          'RECHARGE_NOT_100',
+          params: {'remaining': remaining},
+        ),
+        yesText: 'RECHARGE',
+        noText: 'CANCEL',
+      );
+      final res = await yesNoModal.showDialog(context);
+      return res == true;
+    }
+
+    return true;
+  }
+
   void _forwards() async {
     if (!_formKey.currentState!.validate()) return;
+
+    // Check if user will receive 100% bonification
+    // otherwise an alert is shown to the user
+    var proceedToRecharge = await _checkBonifications();
+    if (!proceedToRecharge) return;
 
     Loading.show();
 
