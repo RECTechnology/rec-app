@@ -7,7 +7,7 @@ class Features {
   }
 
   static bool get imageUploads {
-    return false;
+    return true;
   }
 
   static bool get sharePayLink {

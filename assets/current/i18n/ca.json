@@ -608,5 +608,5 @@
     "title.link_accesibility_declaration": "Declaració de accessibilitat",
     "BONIFICATIONS": "BONIFICACIONS",
     "WARNING": "ATENCIÓ",
-    "RECHARGE_NOT_100": "Aquesta recàrrega no rebrà una bonificació del 100% ja que sols et queda per optar fins a {{remaining}} bonificades. ¿Vols recarregar igualment?"
+    "RECHARGE_NOT_100": "Aquesta recàrrega no rebrà una bonificació del 100% ja que sols et queda per optar fins a {{remaining}}R bonificats. ¿Vols recarregar igualment?"
 }
