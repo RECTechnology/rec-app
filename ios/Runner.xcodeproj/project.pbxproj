@@ -757,7 +757,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -775,7 +775,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.4.4;
+				MARKETING_VERSION = 2.5.3;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = rec.barcelona;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -903,7 +903,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -921,7 +921,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.4.4;
+				MARKETING_VERSION = 2.5.3;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = rec.barcelona;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -943,7 +943,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -961,7 +961,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.4.4;
+				MARKETING_VERSION = 2.5.3;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = rec.barcelona;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -984,7 +984,7 @@
 				CODE_SIGN_ENTITLEMENTS = LaRosa.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 119;
+				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1002,7 +1002,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.5.0;
+				MARKETING_VERSION = 2.5.3;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cat.santfeliu.larosa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1026,7 +1026,7 @@
 				CODE_SIGN_ENTITLEMENTS = LaRosa.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 119;
+				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1044,7 +1044,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.5.0;
+				MARKETING_VERSION = 2.5.3;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cat.santfeliu.larosa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1067,7 +1067,7 @@
 				CODE_SIGN_ENTITLEMENTS = LaRosa.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 119;
+				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1085,7 +1085,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.5.0;
+				MARKETING_VERSION = 2.5.3;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cat.santfeliu.larosa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1161,7 +1161,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1179,7 +1179,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.4.4;
+				MARKETING_VERSION = 2.5.3;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = rec.barcelona;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1203,7 +1203,7 @@
 				CODE_SIGN_ENTITLEMENTS = LaRosa.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 119;
+				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1221,7 +1221,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.5.0;
+				MARKETING_VERSION = 2.5.3;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cat.santfeliu.larosa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1295,7 +1295,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1313,7 +1313,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.4.4;
+				MARKETING_VERSION = 2.5.3;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = rec.barcelona;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1336,7 +1336,7 @@
 				CODE_SIGN_ENTITLEMENTS = LaRosa.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 119;
+				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1354,7 +1354,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.5.0;
+				MARKETING_VERSION = 2.5.3;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cat.santfeliu.larosa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1632,7 +1632,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1650,7 +1650,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.4.4;
+				MARKETING_VERSION = 2.5.3;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = rec.barcelona;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1674,7 +1674,7 @@
 				CODE_SIGN_ENTITLEMENTS = LaRosa.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 119;
+				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1692,7 +1692,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.5.0;
+				MARKETING_VERSION = 2.5.3;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cat.santfeliu.larosa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1807,7 +1807,7 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1825,7 +1825,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.4.4;
+				MARKETING_VERSION = 2.5.3;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = rec.barcelona;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1848,7 +1848,7 @@
 				CODE_SIGN_ENTITLEMENTS = LaRosa.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 119;
+				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = RMXZG53FK5;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
@@ -1866,7 +1866,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 2.5.0;
+				MARKETING_VERSION = 2.5.3;
 				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = cat.santfeliu.larosa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
