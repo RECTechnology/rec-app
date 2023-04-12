@@ -575,7 +575,7 @@
     "BONUS_IN_ACCOUNT": "En <bold>{{account}}</bold>",
     "BONUS_IN_USER": "En <bold>tu usuario</bold>",
     "DESC_BONUS_USER": "Suma acumulada del total de bonificaciones de todas tus cuentas. El máximo de ROSAS bonificadas por usuario es de {{max}}R",
-    "DESC_BONUS_ACCOUNT": "ROSAS bonificadas disponibles en su cuenta actual:  {{amount}}R",
+    "DESC_BONUS_ACCOUNT": "ROSAS bonificadas disponibles en su cuenta actual:  {{amount}}R\nTiene hasta el 30 de junio para gastar las Rosas bonificadas.",
     "The url is not a valid url": "La url no es correcta, debe empezar por http o https",
     "URL_MUST_START_WITH": "Debe empezar con http o https",
     "SETTINGS_ACCESIBILITY": "Accesibilidad",
