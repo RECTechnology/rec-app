@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -447,6 +447,7 @@
 		};
 		3B06AD1E1E4923F5004D2608 /* Thin Binary */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -505,6 +506,7 @@
 		};
 		9740EEB61CF901F6004384FC /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -760,7 +762,7 @@
 				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
-				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
+				FLUTTER_ROOT = /Users/hectortorner/Documents/flutter;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -906,7 +908,7 @@
 				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
-				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
+				FLUTTER_ROOT = /Users/hectortorner/Documents/flutter;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -946,7 +948,7 @@
 				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
-				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
+				FLUTTER_ROOT = /Users/hectortorner/Documents/flutter;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -993,7 +995,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				INFOPLIST_FILE = "Runner copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1035,7 +1037,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				INFOPLIST_FILE = "Runner copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1076,7 +1078,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				INFOPLIST_FILE = "Runner copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1164,7 +1166,7 @@
 				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
-				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
+				FLUTTER_ROOT = /Users/hectortorner/Documents/flutter;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -1212,7 +1214,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				INFOPLIST_FILE = "Runner copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1298,7 +1300,7 @@
 				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
-				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
+				FLUTTER_ROOT = /Users/hectortorner/Documents/flutter;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -1345,7 +1347,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				INFOPLIST_FILE = "Runner copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1635,7 +1637,7 @@
 				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
-				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
+				FLUTTER_ROOT = /Users/hectortorner/Documents/flutter;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -1683,7 +1685,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				INFOPLIST_FILE = "Runner copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1810,7 +1812,7 @@
 				CURRENT_PROJECT_VERSION = 123;
 				DEVELOPMENT_TEAM = KDHWQM7JY2;
 				ENABLE_BITCODE = NO;
-				FLUTTER_ROOT = /Users/keff_work/Documents/dev/tools/flutter;
+				FLUTTER_ROOT = /Users/hectortorner/Documents/flutter;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -1857,7 +1859,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				INFOPLIST_FILE = "Runner copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
