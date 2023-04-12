@@ -16,6 +16,7 @@ class RecThemeData {
   final Color red;
   final Color green;
   final Color green2;
+  final Color green3;
 
   final Color negativeAmount;
   final Color positiveAmount;
@@ -41,6 +42,14 @@ class RecThemeData {
 
   final Brightness brightness = Brightness.light;
 
+  // Gradient pieces
+  Color gradientPrimaryLight;
+  Color gradientPrimaryDark;
+  Color gradientSecondaryLight;
+  Color gradientSecondaryDark;
+  Color gradientGrayLight;
+  Color gradientGrayDark;
+
   // Gradients
   final LinearGradient gradientPrimary;
   final LinearGradient gradientSecondary;
@@ -55,6 +64,7 @@ class RecThemeData {
     required this.red,
     required this.green,
     required this.green2,
+    required this.green3,
     required this.negativeAmount,
     required this.positiveAmount,
     required this.backgroundPrivateColor,
@@ -72,12 +82,12 @@ class RecThemeData {
     required this.grayLight2,
     required this.grayLight3,
     required this.assets,
-    required Color gradientPrimaryLight,
-    required Color gradientPrimaryDark,
-    required Color gradientSecondaryLight,
-    required Color gradientSecondaryDark,
-    required Color gradientGrayLight,
-    required Color gradientGrayDark,
+    required this.gradientPrimaryLight,
+    required this.gradientPrimaryDark,
+    required this.gradientSecondaryLight,
+    required this.gradientSecondaryDark,
+    required this.gradientGrayLight,
+    required this.gradientGrayDark,
   })  : gradientPrimary = LinearGradient(
           end: Alignment.topLeft,
           begin: Alignment.bottomRight,

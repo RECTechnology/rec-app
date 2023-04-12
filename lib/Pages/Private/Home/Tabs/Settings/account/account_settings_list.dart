@@ -17,6 +17,7 @@ class AccountSettingsList extends StatelessWidget {
     var isCompany = userState.account!.isCompany();
     var isLtabAccount = userState.account!.isCampaignAccount(env.CMP_LTAB_CODE);
     var isCultureAccount = userState.account!.isCampaignAccount(env.CMP_CULT_CODE);
+    var productsEnabled = userState.account!.productsEnabled == true;
 
     if (isLtabAccount || isCultureAccount) {
       return SizedBox.shrink();
@@ -35,6 +36,15 @@ class AccountSettingsList extends StatelessWidget {
               isCompany ? Routes.settingsBussinessAccount : Routes.settingsYourAccount,
             ),
           ),
+          if (isCompany)
+            SettingsListTile(
+              title: 'SETTINGS_CONNECTA',
+              icon: Icons.swap_calls,
+              onTap: RecNavigation.getNavigateToRouteCallback(
+                context,
+                productsEnabled ? Routes.settingsConnectaActive : Routes.settingsConnectaInactive,
+              ),
+            ),
           SettingsListTile(
             title: 'SETTINGS_ACCOUNT_PERMISSIONS',
             icon: Icons.supervised_user_circle,

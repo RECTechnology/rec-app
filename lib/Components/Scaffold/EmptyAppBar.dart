@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
 import 'package:rec/config/theme.dart';
 
-// TODO(Agut14): Refactor this, it's not good, make a widget instead...
 AppBar EmptyAppBar(
   BuildContext context, {
   bool backArrow = true,

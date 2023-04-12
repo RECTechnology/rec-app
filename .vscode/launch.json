@@ -52,6 +52,15 @@
             ]
         },
         {
+            "preLaunchTask": "prepare-rec-sandbox",
+            "name": "RecBarcelona - Dev (SANDBOX, ios)",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--ignore-deprecation"
+            ]
+        },
+        {
             "preLaunchTask": "prepare-larosa-pre",
             "name": "LaRosa - Dev (PRE)",
             

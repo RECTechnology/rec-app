@@ -21,6 +21,11 @@ class RecAssetTheme {
   final String languageEn;
   final String languageCat;
 
+  final String markerOffersLegend;
+  final String markerCulturaLegend;
+  final String markerComercVerdLegend;
+  final String markerNormalLegend;
+
   final String markerNormal;
   final String markerNormalOffers;
 
@@ -54,6 +59,10 @@ class RecAssetTheme {
     required this.languageEs,
     required this.languageEn,
     required this.languageCat,
+    required this.markerOffersLegend,
+    required this.markerCulturaLegend,
+    required this.markerComercVerdLegend,
+    required this.markerNormalLegend,
     required this.markerNormal,
     required this.markerNormalOffers,
     required this.markerLtab,

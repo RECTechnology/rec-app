@@ -22,7 +22,7 @@ class FilterGroupList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: title,
         ),
         if (isLoading) loadingBuilder(context),
@@ -33,7 +33,7 @@ class FilterGroupList extends StatelessWidget {
 
   Widget _buildFilterWrap(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Wrap(
         children: [
           for (int i = 0; i < itemCount; i++)

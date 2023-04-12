@@ -6,11 +6,13 @@ class YesNoModal extends GenericModal {
   final Widget? title;
   final Widget? content;
   final BuildContext context;
+  final Color? yesTextColor;
 
   YesNoModal({
     required this.context,
     this.title,
     this.content,
+    this.yesTextColor,
     String? yesText,
     String? noText,
   }) : super(
@@ -27,8 +29,13 @@ class YesNoModal extends GenericModal {
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
+              const SizedBox(width: 12),
               ElevatedButton(
                 onPressed: () => GenericModal.closeDialog(context, true),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: yesTextColor,
+                  foregroundColor: Colors.white,
+                ),
                 child: LocalizedText(
                   yesText ?? 'DELETE',
                   style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Colors.white),

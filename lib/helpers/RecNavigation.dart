@@ -53,4 +53,11 @@ class RecNavigation {
       ),
     );
   }
+
+  static Future<Object?> replaceNamed<T>(
+    BuildContext context,
+    String route,
+  ) {
+    return Navigator.of(context).pushReplacementNamed(route);
+  }
 }

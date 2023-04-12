@@ -115,25 +115,24 @@ class _MapFiltersState extends State<MapFilters> {
                 widget.onChange!(searchData);
               },
             ),
-          if (isRec)
-            ActionChip(
-              label: LocalizedText(
-                hasSelectedCategory ? 'CATEGORIES_FILTERS' : 'CATEGORIES',
-                params: {
-                  'selected': hasSelectedCategory
-                      ? searchData.activity!.getNameForLocale(localizations!.locale)
-                      : '',
-                },
-                style: TextStyle(
-                  color: hasSelectedCategory ? recTheme!.accentColor : recTheme!.grayDark2,
-                  fontSize: 12,
-                ),
+          ActionChip(
+            label: LocalizedText(
+              hasSelectedCategory ? 'CATEGORIES_FILTERS' : 'CATEGORIES',
+              params: {
+                'selected': hasSelectedCategory
+                    ? searchData.activity!.getNameForLocale(localizations!.locale)
+                    : '',
+              },
+              style: TextStyle(
+                color: hasSelectedCategory ? recTheme!.accentColor : recTheme!.grayDark2,
+                fontSize: 12,
               ),
-              backgroundColor: Colors.white,
-              pressElevation: 3,
-              elevation: 1,
-              onPressed: _openCategoriesFilterPage,
             ),
+            backgroundColor: Colors.white,
+            pressElevation: 3,
+            elevation: 1,
+            onPressed: _openCategoriesFilterPage,
+          ),
           if (isRec && config?.badgeFiltersEnabled == true)
             Padding(
               padding: const EdgeInsets.only(left: 8.0),

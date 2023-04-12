@@ -3,6 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/accesibility.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Settings/account/connecta/consuming.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Settings/account/connecta/producing.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Settings/account/connecta/service_active.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Settings/account/connecta/service_not_active.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/account/day_sales.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/account/delete_account.page.dart';
 import 'package:rec/Pages/Private/Home/Tabs/Settings/all.dart';
@@ -74,6 +78,10 @@ class Routes {
   static const String settingsAccountOffers = 'settings-account-offers';
   static const String settingsAddNewAccount = 'settings-add-new-account';
   static const String settingsDaySales = 'settings-day-sales';
+  static const String settingsConnectaInactive = 'settings-connecta-inactive';
+  static const String settingsConnectaActive = 'settings-connecta-active';
+  static const String settingsConnectaConsuming = 'settings-connecta-consuming';
+  static const String settingsConnectaProducing = 'settings-connecta-producing';
 
   static const String settingsHelp = 'settings-help';
 
@@ -143,6 +151,13 @@ final Map<String, Widget Function(BuildContext)> ROUTES = {
   Routes.settingsAccountOffers: (context) => AccountOffersPage(),
   Routes.settingsDaySales: (context) => AccountDaySalesPage(),
   Routes.settingsDeleteAccount: (context) => DeleteAccountPage(),
+
+  // Connecta
+  Routes.settingsConnectaActive: (context) => ConnectaServiceActive(),
+  Routes.settingsConnectaInactive: (context) => ConnectaServiceNotActive(),
+  Routes.settingsConnectaConsuming: (context) => ConnectaConsumingPage(),
+  Routes.settingsConnectaProducing: (context) => ConnectaProducingPage(),
+
 
   // Other settings
   Routes.settingsHelp: (context) => HelpPage(),

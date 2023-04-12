@@ -54,6 +54,10 @@ class _TransactionsListState extends State<TransactionsList> {
     final hasMoreTx = transactionsProvider.total! > transactionsProvider.length;
     final isLoading = transactionsProvider.loading;
     final itemCount = transactionsProvider.length + (hasMoreTx ? 1 : 0);
+    final isKyc2 = userState.account?.hasLevelByCode(Level.CODE_KYC2) == true;
+    final isKyc3 = userState.account?.hasLevelByCode(Level.CODE_KYC3) == true;
+    final isNotKycValidated = !isKyc2 && !isKyc3;
+    final isCommerce = userState.account?.isCompany() == true;
 
     return Theme(
       //Inherit the current Theme and override only the accentColor property
@@ -67,6 +71,24 @@ class _TransactionsListState extends State<TransactionsList> {
         onRefresh: transactionsProvider.refresh,
         child: Column(
           children: [
+            if (isNotKycValidated && isCommerce)
+              Container(
+                height: 80,
+                padding: EdgeInsets.all(12).copyWith(left: 16, right: 16),
+                color: recTheme.red,
+                child: Row(
+                  children: [
+                    Icon(Icons.warning, color: Colors.white),
+                    const SizedBox(width: 16),
+                    Flexible(
+                      child: LocalizedText(
+                        'NOT_KYC2_ACCOUNT_DESC',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             Expanded(
               child: Scrollbar(
                 thickness: 8,

@@ -15,6 +15,7 @@ import 'package:rec/providers/activity_provider.dart';
 import 'package:rec/providers/badges_provider.dart';
 import 'package:rec/providers/campaign_manager.dart';
 import 'package:rec/providers/challenge_provider.dart';
+import 'package:rec/providers/product_provider.dart';
 import 'package:rec/providers/qualifications_provider.dart';
 import 'package:rec/providers/reward_provider.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
@@ -113,6 +114,7 @@ class _RecAppState extends State<RecApp> {
       prefProvider,
       ChallengesProvider.getProvider(ChallengesService(env: env)),
       RewardsProvider.getProvider(TokenRewardsService(env: env)),
+      ProductProvider.getProvider(ProductsService(env: env)),
     ];
   }
 

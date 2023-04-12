@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rec/Components/Inputs/text_fields/SearchInput.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
+import 'package:rec/Pages/Private/Home/Tabs/Map/legend.dia.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/business_draggable_sheet.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/google_map_instance.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/map_filters.dart';
 import 'package:rec/config/theme.dart';
+import 'package:rec/config/themes/rec.dart';
 import 'package:rec/environments/env.dart';
 import 'package:rec/extensions/config_settings_app_extension.dart';
 import 'package:rec/helpers/RecToast.dart';
@@ -112,6 +114,26 @@ class _MapPageState extends State<MapPage> with StateLoading {
                 },
               ),
             ),
+            if (env.PROJECT_NAME == 'rec')
+              Positioned(
+                right: 17,
+                bottom: 80,
+                child: Tooltip(
+                  message: localizations.translate('MAP_LEGEND'),
+                  child: CircleAvatar(
+                    backgroundColor: recTheme.primaryColor,
+                    radius: 28,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.list_alt,
+                        size: 24,
+                        color: Colors.white,
+                      ),
+                      onPressed: _showLegend,
+                    ),
+                  ),
+                ),
+              ),
             _bottomSheetEnabled
                 ? BusinessDraggableSheet(
                     business: _selectedBusiness,
@@ -252,5 +274,9 @@ class _MapPageState extends State<MapPage> with StateLoading {
 
   void _openModalBottomSheet() {
     setState(() => _bottomSheetEnabled = true);
+  }
+
+  void _showLegend() {
+    MapLegendDia.open(context);
   }
 }

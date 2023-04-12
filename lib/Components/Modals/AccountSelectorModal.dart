@@ -117,11 +117,13 @@ class AccountSelectorModal {
                     imageUrl: account.companyImage,
                     name: account.name,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0),
-                    child: LocalizedText(
-                      account.name ?? '',
-                      style: Theme.of(context).textTheme.subtitle1,
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15.0),
+                      child: LocalizedText(
+                        account.name ?? '',
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
                     ),
                   )
                 ],
