@@ -575,7 +575,7 @@
     "BONUS_IN_ACCOUNT": "En <bold>{{account}}</bold>",
     "BONUS_IN_USER": "En <bold>el teu usuari</bold>",
     "DESC_BONUS_USER": "Suma acumulada del total de bonificacions de tots els teus comptes. El màxim de ROSES bonificades per usuari és de {{max}}R.",
-    "DESC_BONUS_ACCOUNT": "ROSES bonificades disponibles al teu compte actual:  {{amount}}R",
+    "DESC_BONUS_ACCOUNT": "ROSES bonificades disponibles al teu compte actual:  {{amount}}R\nTens fins el 30 de juny per gastar les Roses bonificades.",
     "The url is not a valid url": "La url no és correcta, ha de comerçar per http o https",
     "URL_MUST_START_WITH": "ha de començar amb http o https",
     "SETTINGS_ACCESIBILITY": "Accessibilitat",
