@@ -31,7 +31,7 @@ class MapLegendDia extends StatelessWidget {
     return [
       MapLegendItem(assetPath: theme!.assets.markerOffersLegend, itemName: 'MARKER_OFFERS'),
       MapLegendItem(assetPath: theme.assets.markerCulturaLegend, itemName: 'MARKER_CULTURE'),
-      MapLegendItem(assetPath: theme.assets.markerNormal, itemName: 'MARKER_NORMAL'),
+      MapLegendItem(assetPath: theme.assets.markerNormalLegend, itemName: 'MARKER_NORMAL'),
       MapLegendItem(assetPath: theme.assets.markerComercVerdLegend, itemName: 'MARKER_COMERC_VERD'),
     ];
   }
@@ -44,14 +44,15 @@ class MapLegendDia extends StatelessWidget {
       itemWidgets.add(
         Container(
           width: MediaQuery.of(context).size.width * 0.4,
-          // height: 48,
+          height: 48,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
                 child: Image.asset(item.assetPath),
                 width: 48,
-                height: 48,
+                height: 32,
+                alignment: Alignment.center,
               ),
               const SizedBox(width: 12),
               Flexible(
@@ -74,6 +75,7 @@ class MapLegendDia extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               LocalizedText(
                 'MAP_LEGEND',
@@ -90,8 +92,10 @@ class MapLegendDia extends StatelessWidget {
             ],
           ),
           SizedBox(height: 8),
-          LocalizedText('MAP_LEGEND_DESC',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300)),
+          LocalizedText(
+            'MAP_LEGEND_DESC',
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
+          ),
           SizedBox(height: 16),
           Wrap(
             runAlignment: WrapAlignment.spaceBetween,
