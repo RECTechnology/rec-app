@@ -30,4 +30,8 @@ final sharedAssets = RecAssetTheme(
   markerCultureOffers: 'assets/current/markers/cultura_oferta.png',
   markerComercVerd: 'assets/current/markers/comercverd.png',
   markerComercVerdOffers: 'assets/current/markers/comercverd_oferta.png',
+  markerOffersLegend: 'assets/current/markers/offers.png',
+  markerCulturaLegend: 'assets/current/markers/cultura_legend.png',
+  markerComercVerdLegend: 'assets/current/markers/comerc_verd_legend.png',
+  markerNormalLegend: 'assets/current/markers/normal_legend.png',
 );

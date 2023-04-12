@@ -204,6 +204,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.3"
+  easy_debounce:
+    dependency: "direct main"
+    description:
+      name: easy_debounce
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.3"
   fake_async:
     dependency: transitive
     description:
@@ -843,10 +850,10 @@ packages:
   rec_api_dart:
     dependency: "direct main"
     description:
-      path: "/Users/keff_work/Documents/dev/work/REC/rec_api_dart"
-      relative: false
-    source: path
-    version: "1.4.1"
+      name: rec_api_dart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.2"
   rxdart:
     dependency: transitive
     description:

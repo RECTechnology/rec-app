@@ -42,9 +42,15 @@ class _CategoriesFiltersPageState extends State<CategoriesFiltersPage> {
 
   @override
   Widget build(BuildContext context) {
-    final activities = _activityProvider!.activities ?? [];
-    final activitiesLoading = activities.isEmpty && _activityProvider!.isLoading;
-    final itemCount = activities.length;
+    final localizations = AppLocalizations.of(context);
+    final locale = localizations!.locale;
+    final groups = _activityProvider?.activityGroups ?? [];
+    groups.sort((a, b) {
+      final aName = a.parent.getNameForLocale(locale) ?? a.parent.name;
+      final bName = b.parent.getNameForLocale(locale) ?? b.parent.name;
+
+      return aName.compareTo(bName);
+    });
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -56,34 +62,39 @@ class _CategoriesFiltersPageState extends State<CategoriesFiltersPage> {
         },
       ),
       body: SingleChildScrollView(
-        child: FilterGroupList(
-          isLoading: activitiesLoading,
-          itemCount: itemCount,
-          title: LocalizedText(
-            'CULTURE',
-            style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18,
-                ),
-          ),
-          itemBuilder: (_, index) => _buildFilterChip(index),
-          loadingBuilder: (_) => Center(
-            child: CircularProgressIndicator(),
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            for (var group in groups) _buildGroup(group),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildFilterChip(int index) {
-    final locale = AppLocalizations.of(context)!.locale;
-    final activity = _activityProvider?.activities?[index];
-    final isSelected = Activity.areEquals(widget.selected, activity);
+  _buildGroup(ActivityGroup group) {
+    final localizations = AppLocalizations.of(context);
+    return FilterGroupList(
+      isLoading: false,
+      itemCount: group.children.length,
+      title: LocalizedText(
+        group.parent.getNameForLocale(localizations!.locale) ?? group.parent.name,
+        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+              fontWeight: FontWeight.w500,
+              fontSize: 18,
+            ),
+      ),
+      itemBuilder: (_, index) => _buildFilterChip(group, index),
+      loadingBuilder: (_) => Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
 
-    // If for some reason, badge is null, just return a shrinked SizedBox
-    if (activity == null) {
-      return SizedBox.shrink();
-    }
+  Widget _buildFilterChip(ActivityGroup group, int index) {
+    final locale = AppLocalizations.of(context)!.locale;
+    final activity = group.children[index];
+    final isSelected = Activity.areEquals(widget.selected, activity);
 
     return SelectableChip(
       isSelected: isSelected,

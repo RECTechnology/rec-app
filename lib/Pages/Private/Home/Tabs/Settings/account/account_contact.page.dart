@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:rec/Components/Inputs/text_fields/PrefixPhoneField.dart';
 import 'package:rec/Components/ListTiles/GeneralSettingsTile.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
@@ -11,8 +12,11 @@ import 'package:rec/Pages/Private/Shared/EditField.page.dart';
 import 'package:rec/providers/user_state.dart';
 import 'package:rec_api_dart/rec_api_dart.dart';
 
+enum ContactOption { email, phone, web }
+
 class AccountContactPage extends StatefulWidget {
-  AccountContactPage({Key? key}) : super(key: key);
+  final ContactOption? fieldToEdit;
+  AccountContactPage({Key? key, this.fieldToEdit}) : super(key: key);
 
   @override
   _AccountContactPageState createState() => _AccountContactPageState();
@@ -21,6 +25,30 @@ class AccountContactPage extends StatefulWidget {
 class _AccountContactPageState extends State<AccountContactPage> {
   final AccountsService _accountsService = AccountsService(env: env);
   final DniPhoneData data = DniPhoneData();
+
+  Map<ContactOption, Future Function()> _fieldToMethodMap = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _fieldToMethodMap = {
+      ContactOption.email: _editEmail,
+      ContactOption.phone: _editPhone,
+      ContactOption.web: _editWeb,
+    };
+
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      if (widget.fieldToEdit != null) {
+        _fieldToMethodMap[widget.fieldToEdit]!().then((value) {
+          // If we open a field directly to edit,
+          // when navigating back from the edit field we must go back to the page
+          // from where it was opened. If we don't do this it will go back to the
+          // contact page instead.
+          Navigator.pop(context);
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +92,7 @@ class _AccountContactPageState extends State<AccountContactPage> {
     );
   }
 
-  void _editField({
+  _editField({
     String fieldName = 'FIELD',
     FormFieldValidator<String>? validator = Validators.isRequired,
     String? initialValue,
@@ -72,10 +100,10 @@ class _AccountContactPageState extends State<AccountContactPage> {
     String? hintText,
     IconData? icon,
     List<Widget>? fields,
-  }) async {
+  }) {
     var userState = UserState.of(context, listen: false);
 
-    await Navigator.of(context).push(
+    return Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => EditFieldPage(
           initialValue: initialValue,
@@ -94,12 +122,12 @@ class _AccountContactPageState extends State<AccountContactPage> {
     );
   }
 
-  void _editPhone() async {
+  Future _editPhone() async {
     final userState = UserState.of(context, listen: false);
     data.phone = userState.account!.phone;
     data.prefix = userState.account!.prefix;
 
-    await Navigator.of(context).push(
+    return Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => EditFieldPage(
           initialValue: userState.account!.fullPhone,
@@ -137,7 +165,7 @@ class _AccountContactPageState extends State<AccountContactPage> {
     );
   }
 
-  void _editEmail() async {
+  Future _editEmail() async {
     var userState = UserState.of(context, listen: false);
     return _editField(
       fieldName: 'EMAIL_ONLY',
@@ -148,7 +176,7 @@ class _AccountContactPageState extends State<AccountContactPage> {
     );
   }
 
-  void _editWeb() async {
+  Future _editWeb() async {
     var userState = UserState.of(context, listen: false);
     return _editField(
       fieldName: 'WEBSITE',
@@ -160,7 +188,7 @@ class _AccountContactPageState extends State<AccountContactPage> {
     );
   }
 
-  void _updateAccount(
+  _updateAccount(
     String? accountId,
     Map<String, dynamic> data,
   ) {

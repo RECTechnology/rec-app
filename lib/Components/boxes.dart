@@ -51,10 +51,14 @@ class GrayBox extends StatelessWidget {
 
 class GradientBox extends StatelessWidget {
   final Widget child;
+  final Gradient? gradient;
+  final VoidCallback? onTap;
 
   const GradientBox({
     Key? key,
     required this.child,
+    this.gradient,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -63,13 +67,16 @@ class GradientBox extends StatelessWidget {
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
-      child: Container(
-        width: double.infinity,
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          gradient: recTheme?.gradientPrimary,
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            gradient: gradient ?? recTheme?.gradientPrimary,
+          ),
+          child: child,
         ),
-        child: child,
       ),
     );
   }

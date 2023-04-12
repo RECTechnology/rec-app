@@ -11,6 +11,7 @@ final recTheme = RecThemeData(
   red: Color(0xffD91636),
   green: Color(0xff21EB00),
   green2: Color(0xff699635),
+  green3: Color(0xff00BD00),
 
   backgroundPrivateColor: Color(0xffe5f5fc),
   backgroundCompanyColor: Color(0xfffcede6),
