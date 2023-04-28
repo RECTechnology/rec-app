@@ -71,7 +71,7 @@ class _TransactionsListState extends State<TransactionsList> {
         onRefresh: transactionsProvider.refresh,
         child: Column(
           children: [
-            if (isNotKycValidated && isCommerce)
+            if (isNotKycValidated && isCommerce && false)
               Container(
                 height: 80,
                 padding: EdgeInsets.all(12).copyWith(left: 16, right: 16),
