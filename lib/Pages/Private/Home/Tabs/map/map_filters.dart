@@ -46,7 +46,8 @@ class _MapFiltersState extends State<MapFilters> {
 
   _loadActivity() async {
     await activityProvider?.load();
-    if (activityProvider?.activities != null && activityProvider?.activities?.isNotEmpty == true) {
+    if (activityProvider?.activities != null &&
+        activityProvider?.activities?.isNotEmpty == true) {
       cultureActivity = activityProvider?.activities?.firstWhere(
         (act) => act.name == Features.cultureActivityName,
       );
@@ -62,18 +63,21 @@ class _MapFiltersState extends State<MapFilters> {
     final recTheme = RecTheme.of(context);
 
     final isRec = env.PROJECT_NAME == 'rec';
-    final isInLtabCampaign = user != null && user.getCampaignAccount(env.CMP_LTAB_CODE) != null;
+    final isInLtabCampaign =
+        user != null && user.getCampaignAccount(env.CMP_LTAB_CODE) != null;
     final ltabCampaign = campaignProvider.getCampaignByCode(env.CMP_LTAB_CODE);
-    final cultureCampaign = campaignProvider.getCampaignByCode(env.CMP_CULT_CODE);
+    final cultureCampaign =
+        campaignProvider.getCampaignByCode(env.CMP_CULT_CODE);
 
     final showLtabFilter = ltabCampaign != null &&
         ltabCampaign.isStarted() &&
         !ltabCampaign.isFinished() &&
         isInLtabCampaign;
 
-    final showCultureFilter = cultureCampaign != null && cultureCampaign.isStarted();
-    final hasSelectedCategory =
-        searchData.activity != null && searchData.activity?.name != Features.cultureActivityName;
+    final showCultureFilter =
+        cultureCampaign != null && cultureCampaign.isStarted();
+    final hasSelectedCategory = searchData.activity != null &&
+        searchData.activity?.name != Features.cultureActivityName;
 
     return Container(
       height: 40,
@@ -99,7 +103,9 @@ class _MapFiltersState extends State<MapFilters> {
                 );
               },
             ),
-          if (isRec && showCultureFilter && activityProvider?.isLoading == false)
+          if (isRec &&
+              showCultureFilter &&
+              activityProvider?.isLoading == false)
             SelectableChip(
               label: 'REC_CULTURAL',
               isSelected: searchData.activity == cultureActivity,
@@ -115,24 +121,28 @@ class _MapFiltersState extends State<MapFilters> {
                 widget.onChange!(searchData);
               },
             ),
-          ActionChip(
-            label: LocalizedText(
-              hasSelectedCategory ? 'CATEGORIES_FILTERS' : 'CATEGORIES',
-              params: {
-                'selected': hasSelectedCategory
-                    ? searchData.activity!.getNameForLocale(localizations!.locale)
-                    : '',
-              },
-              style: TextStyle(
-                color: hasSelectedCategory ? recTheme!.accentColor : recTheme!.grayDark2,
-                fontSize: 12,
+          if (env.PROJECT_NAME == 'rec')
+            ActionChip(
+              label: LocalizedText(
+                hasSelectedCategory ? 'CATEGORIES_FILTERS' : 'CATEGORIES',
+                params: {
+                  'selected': hasSelectedCategory
+                      ? searchData.activity!
+                          .getNameForLocale(localizations!.locale)
+                      : '',
+                },
+                style: TextStyle(
+                  color: hasSelectedCategory
+                      ? recTheme!.accentColor
+                      : recTheme!.grayDark2,
+                  fontSize: 12,
+                ),
               ),
+              backgroundColor: Colors.white,
+              pressElevation: 3,
+              elevation: 1,
+              onPressed: _openCategoriesFilterPage,
             ),
-            backgroundColor: Colors.white,
-            pressElevation: 3,
-            elevation: 1,
-            onPressed: _openCategoriesFilterPage,
-          ),
           if (isRec && config?.badgeFiltersEnabled == true)
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
@@ -142,10 +152,13 @@ class _MapFiltersState extends State<MapFilters> {
                   params: {
                     'selected': searchData.badge == null
                         ? ''
-                        : searchData.badge!.getNameForLocale(localizations!.locale),
+                        : searchData.badge!
+                            .getNameForLocale(localizations!.locale),
                   },
                   style: TextStyle(
-                    color: searchData.badge != null ? recTheme!.accentColor : recTheme!.grayDark2,
+                    color: searchData.badge != null
+                        ? recTheme!.accentColor
+                        : recTheme!.grayDark2,
                     fontSize: 12,
                   ),
                 ),
