@@ -1,10 +1,10 @@
 name: rec
 description: Rec Barcelona app.
 publish_to: 'none'
-version: 2.5.4+125
+version: 2.5.5+127
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.12.0 <3.7.0'
 
 dependencies:
   flutter:

@@ -6,7 +6,7 @@ import 'package:rec/Components/Forms/Login.form.dart';
 import 'package:rec/Components/Inputs/RecActionButton.dart';
 import 'package:rec/Components/Scaffold/RecHeader.dart';
 import 'package:rec/Components/Text/LocalizedText.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Map/map.page.dart';
+import 'package:rec/Pages/Private/Home/Tabs/map/map.page.dart';
 import 'package:rec/Pages/Public/forgot_password.dart';
 import 'package:rec/Pages/Public/MustUpdate.dart';
 import 'package:rec/Pages/Public/validate_phone.dart';

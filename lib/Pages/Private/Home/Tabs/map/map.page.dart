@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rec/Components/Inputs/text_fields/SearchInput.dart';
 import 'package:rec/Components/Scaffold/EmptyAppBar.dart';
-import 'package:rec/Pages/Private/Home/Tabs/Map/legend.dia.dart';
+import 'package:rec/Pages/Private/Home/Tabs/map/legend.dia.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/business_draggable_sheet.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/google_map_instance.dart';
 import 'package:rec/Pages/Private/Home/Tabs/map/map_filters.dart';
