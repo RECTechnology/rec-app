@@ -36,7 +36,7 @@ class AccountSettingsList extends StatelessWidget {
               isCompany ? Routes.settingsBussinessAccount : Routes.settingsYourAccount,
             ),
           ),
-          if (isCompany)
+          if (isCompany && env.PROJECT_NAME == 'larosa') 
             SettingsListTile(
               title: 'SETTINGS_CONNECTA',
               icon: Icons.swap_calls,
